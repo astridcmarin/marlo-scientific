@@ -1,0 +1,2335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Clinical Trials Intelligence Explorer
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <div class="page-header">
+
+        <h1>
+            Clinical Trials Intelligence Explorer
+        </h1>
+
+        <p class="subtitle">
+            Search, filter, and analyze clinical trial
+            and regulatory intelligence from ClinicalTrials.gov
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         SEARCH / FILTER FORM
+    ========================================== -->
+
+    <form
+        method="GET"
+        action="/"
+        class="search-form"
+    >
+
+        <input
+            type="text"
+            name="condition"
+            value="{{ condition or '' }}"
+            placeholder="Condition e.g. Diabetes"
+        >
+
+        <input
+            type="text"
+            name="intervention"
+            value="{{ intervention_filter or '' }}"
+            placeholder="Drug or intervention"
+        >
+
+        <input
+            type="text"
+            name="sponsor"
+            value="{{ sponsor_filter or '' }}"
+            placeholder="Sponsor or collaborator"
+        >
+
+        <input
+            type="text"
+            name="location"
+            value="{{ location_filter or '' }}"
+            placeholder="City, state, country, or facility"
+        >
+
+
+        <!-- STATUS -->
+        <select name="status">
+
+            <option value="">
+                All Statuses
+            </option>
+
+            <option
+                value="RECRUITING"
+                {% if status_filter == "RECRUITING" %}selected{% endif %}
+            >
+                Recruiting
+            </option>
+
+            <option
+                value="NOT_YET_RECRUITING"
+                {% if status_filter == "NOT_YET_RECRUITING" %}selected{% endif %}
+            >
+                Not Yet Recruiting
+            </option>
+
+            <option
+                value="ACTIVE_NOT_RECRUITING"
+                {% if status_filter == "ACTIVE_NOT_RECRUITING" %}selected{% endif %}
+            >
+                Active, Not Recruiting
+            </option>
+
+            <option
+                value="COMPLETED"
+                {% if status_filter == "COMPLETED" %}selected{% endif %}
+            >
+                Completed
+            </option>
+
+            <option
+                value="ENROLLING_BY_INVITATION"
+                {% if status_filter == "ENROLLING_BY_INVITATION" %}selected{% endif %}
+            >
+                Enrolling by Invitation
+            </option>
+
+            <option
+                value="SUSPENDED"
+                {% if status_filter == "SUSPENDED" %}selected{% endif %}
+            >
+                Suspended
+            </option>
+
+            <option
+                value="TERMINATED"
+                {% if status_filter == "TERMINATED" %}selected{% endif %}
+            >
+                Terminated
+            </option>
+
+            <option
+                value="WITHDRAWN"
+                {% if status_filter == "WITHDRAWN" %}selected{% endif %}
+            >
+                Withdrawn
+            </option>
+
+        </select>
+
+
+        <!-- PHASE -->
+        <select name="phase">
+
+            <option value="">
+                All Phases
+            </option>
+
+            <option
+                value="EARLY_PHASE1"
+                {% if phase_filter == "EARLY_PHASE1" %}selected{% endif %}
+            >
+                Early Phase 1
+            </option>
+
+            <option
+                value="PHASE1"
+                {% if phase_filter == "PHASE1" %}selected{% endif %}
+            >
+                Phase 1
+            </option>
+
+            <option
+                value="PHASE2"
+                {% if phase_filter == "PHASE2" %}selected{% endif %}
+            >
+                Phase 2
+            </option>
+
+            <option
+                value="PHASE3"
+                {% if phase_filter == "PHASE3" %}selected{% endif %}
+            >
+                Phase 3
+            </option>
+
+            <option
+                value="PHASE4"
+                {% if phase_filter == "PHASE4" %}selected{% endif %}
+            >
+                Phase 4
+            </option>
+
+            <option
+                value="NA"
+                {% if phase_filter == "NA" %}selected{% endif %}
+            >
+                Not Applicable
+            </option>
+
+        </select>
+
+
+        <!-- STUDY TYPE -->
+        <select name="study_type">
+
+            <option value="">
+                All Study Types
+            </option>
+
+            <option
+                value="INTERVENTIONAL"
+                {% if study_type_filter == "INTERVENTIONAL" %}selected{% endif %}
+            >
+                Interventional
+            </option>
+
+            <option
+                value="OBSERVATIONAL"
+                {% if study_type_filter == "OBSERVATIONAL" %}selected{% endif %}
+            >
+                Observational
+            </option>
+
+            <option
+                value="EXPANDED_ACCESS"
+                {% if study_type_filter == "EXPANDED_ACCESS" %}selected{% endif %}
+            >
+                Expanded Access
+            </option>
+
+        </select>
+
+
+        <!-- SEX -->
+        <select name="sex">
+
+            <option value="">
+                All Sexes
+            </option>
+
+            <option
+                value="ALL"
+                {% if sex_filter == "ALL" %}selected{% endif %}
+            >
+                All
+            </option>
+
+            <option
+                value="FEMALE"
+                {% if sex_filter == "FEMALE" %}selected{% endif %}
+            >
+                Female
+            </option>
+
+            <option
+                value="MALE"
+                {% if sex_filter == "MALE" %}selected{% endif %}
+            >
+                Male
+            </option>
+
+        </select>
+
+
+        <!-- SORT -->
+        <select name="sort">
+
+            <option value="">
+                Default Order
+            </option>
+
+            <option
+                value="newest"
+                {% if sort_filter == "newest" %}selected{% endif %}
+            >
+                Recently Updated
+            </option>
+
+            <option
+                value="oldest"
+                {% if sort_filter == "oldest" %}selected{% endif %}
+            >
+                Oldest Update
+            </option>
+
+            <option
+                value="enrollment_high"
+                {% if sort_filter == "enrollment_high" %}selected{% endif %}
+            >
+                Highest Enrollment
+            </option>
+
+            <option
+                value="enrollment_low"
+                {% if sort_filter == "enrollment_low" %}selected{% endif %}
+            >
+                Lowest Enrollment
+            </option>
+
+        </select>
+
+
+        <!-- RESULTS PER PAGE -->
+        <select name="page_size">
+
+            <option
+                value="5"
+                {% if page_size == 5 %}selected{% endif %}
+            >
+                5 Results
+            </option>
+
+            <option
+                value="10"
+                {% if page_size == 10 %}selected{% endif %}
+            >
+                10 Results
+            </option>
+
+            <option
+                value="25"
+                {% if page_size == 25 %}selected{% endif %}
+            >
+                25 Results
+            </option>
+
+            <option
+                value="50"
+                {% if page_size == 50 %}selected{% endif %}
+            >
+                50 Results
+            </option>
+
+        </select>
+
+
+        <button type="submit">
+            Search
+        </button>
+
+        <a
+            href="/"
+            class="clear-button"
+        >
+            Clear
+        </a>
+
+    </form>
+
+
+    <!-- =========================================
+         ACTIVE FILTERS
+    ========================================== -->
+
+    {% if condition
+       or sponsor_filter
+       or location_filter
+       or intervention_filter
+       or status_filter
+       or phase_filter
+       or study_type_filter
+       or sex_filter %}
+
+        <div class="active-filters">
+
+            <span class="active-filters-label">
+                Active filters:
+            </span>
+
+
+            {% if condition %}
+
+                <span class="filter-chip">
+                    Condition: {{ condition }}
+                </span>
+
+            {% endif %}
+
+
+            {% if intervention_filter %}
+
+                <span class="filter-chip">
+                    Intervention: {{ intervention_filter }}
+                </span>
+
+            {% endif %}
+
+
+            {% if sponsor_filter %}
+
+                <span class="filter-chip">
+                    Sponsor: {{ sponsor_filter }}
+                </span>
+
+            {% endif %}
+
+
+            {% if location_filter %}
+
+                <span class="filter-chip">
+                    Location: {{ location_filter }}
+                </span>
+
+            {% endif %}
+
+
+            {% if status_filter %}
+
+                <span class="filter-chip">
+                    Status:
+                    {{ status_filter|replace('_', ' ')|title }}
+                </span>
+
+            {% endif %}
+
+
+            {% if phase_filter %}
+
+                <span class="filter-chip">
+
+                    Phase:
+
+                    {% if phase_filter == "EARLY_PHASE1" %}
+                        Early Phase 1
+                    {% elif phase_filter == "PHASE1" %}
+                        Phase 1
+                    {% elif phase_filter == "PHASE2" %}
+                        Phase 2
+                    {% elif phase_filter == "PHASE3" %}
+                        Phase 3
+                    {% elif phase_filter == "PHASE4" %}
+                        Phase 4
+                    {% elif phase_filter == "NA" %}
+                        Not Applicable
+                    {% endif %}
+
+                </span>
+
+            {% endif %}
+
+
+            {% if study_type_filter %}
+
+                <span class="filter-chip">
+                    Study Type:
+                    {{ study_type_filter|replace('_', ' ')|title }}
+                </span>
+
+            {% endif %}
+
+
+            {% if sex_filter %}
+
+                <span class="filter-chip">
+                    Sex:
+                    {{ sex_filter|title }}
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =========================================
+         ERROR MESSAGE
+    ========================================== -->
+
+    {% if error_message %}
+
+        <div class="error-message">
+
+            <strong>
+                Unable to load studies
+            </strong>
+
+            <p>
+                {{ error_message }}
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =========================================
+         RESULTS
+    ========================================== -->
+
+    {% if studies %}
+
+        <div class="results-layout">
+
+
+            <!-- =========================================
+                 MAIN RESULTS
+            ========================================== -->
+
+            <main class="results-main">
+
+
+                <div class="results-header">
+
+                    <div>
+
+                        <h2>
+                            Search Results
+                        </h2>
+
+                        <p class="results-subtitle">
+                            {{ total_count }} matching studies
+                        </p>
+
+                    </div>
+
+                    <p>
+                        {{ studies|length }} shown on this page
+                    </p>
+
+                </div>
+
+
+                {% for study in studies %}
+
+                    <div class="study-card">
+
+
+                        <!-- STUDY TITLE -->
+                        <h2>
+                            {{ study.title }}
+                        </h2>
+
+
+                        <!-- NCT ID -->
+                        <p>
+
+                            <strong>
+                                NCT ID:
+                            </strong>
+
+                            <a
+                                class="nct-link"
+                                href="https://clinicaltrials.gov/study/{{ study.nct_id }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {{ study.nct_id }}
+                            </a>
+
+                        </p>
+
+
+                        <!-- STATUS -->
+                        <p>
+
+                            <strong>
+                                Status:
+                            </strong>
+
+                            <span
+                                class="status-badge status-{{ study.status|lower|replace(' ', '-')|replace(',', '') }}"
+                            >
+                                {{ study.status }}
+                            </span>
+
+                        </p>
+
+
+                        <!-- =========================================
+                             STUDY SUMMARY
+                        ========================================== -->
+
+                        <div class="study-meta">
+
+
+                            <div class="meta-item">
+
+                                <strong>
+                                    Phase
+                                </strong>
+
+                                <span>
+                                    {{ study.phase }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="meta-item">
+
+                                <strong>
+                                    Sponsor
+                                </strong>
+
+                                <span>
+                                    {{ study.sponsor }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="meta-item">
+
+                                <strong>
+                                    Conditions
+                                </strong>
+
+                                <span>
+                                    {{ study.condition }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="meta-item">
+
+                                <strong>
+                                    Enrollment
+                                </strong>
+
+                                <span>
+                                    {{ study.enrollment }}
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =========================================
+                             FULL DETAILS
+                        ========================================== -->
+
+                        <details class="trial-details">
+
+                            <summary>
+                                View Full Study Details
+                            </summary>
+
+
+                            <!-- IDENTIFICATION -->
+                            <h3>
+                                Identification
+                            </h3>
+
+
+                            <p>
+                                <strong>
+                                    Official Title:
+                                </strong>
+
+                                {{ study.official_title }}
+                            </p>
+
+
+                            {% if study.acronym != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Study Acronym:
+                                    </strong>
+
+                                    {{ study.acronym }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <p>
+                                <strong>
+                                    Organization Protocol ID:
+                                </strong>
+
+                                {{ study.org_study_id }}
+                            </p>
+
+
+                            {% if study.keywords != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Keywords:
+                                    </strong>
+
+                                    {{ study.keywords }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- =========================================
+                                 REGULATORY OVERVIEW
+                            ========================================== -->
+
+                            <h3>
+                                Regulatory Overview
+                            </h3>
+
+
+                            <div class="regulatory-overview-grid">
+
+
+                                <div class="regulatory-overview-item">
+
+                                    <span class="regulatory-overview-label">
+                                        FDA-Regulated Drug
+                                    </span>
+
+                                    <strong>
+                                        {{ study.is_fda_regulated_drug }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="regulatory-overview-item">
+
+                                    <span class="regulatory-overview-label">
+                                        FDA-Regulated Device
+                                    </span>
+
+                                    <strong>
+                                        {{ study.is_fda_regulated_device }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="regulatory-overview-item">
+
+                                    <span class="regulatory-overview-label">
+                                        Unapproved Device
+                                    </span>
+
+                                    <strong>
+                                        {{ study.is_unapproved_device }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="regulatory-overview-item">
+
+                                    <span class="regulatory-overview-label">
+                                        Data Monitoring Committee
+                                    </span>
+
+                                    <strong>
+                                        {{ study.oversight_has_dmc }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="regulatory-overview-item">
+
+                                    <span class="regulatory-overview-label">
+                                        FDAAA 801 Violation
+                                    </span>
+
+                                    <strong>
+                                        {{ study.fdaaa_801_violation }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="regulatory-overview-item">
+
+                                    <span class="regulatory-overview-label">
+                                        Results Reporting
+                                    </span>
+
+                                    <span class="
+                                        results-status-badge
+                                        {% if study.results_reporting_status == 'Results Posted' %}
+                                            results-status-posted
+                                        {% elif study.results_reporting_status == 'Results Submitted / Not Yet Posted' %}
+                                            results-status-pending
+                                        {% elif study.results_reporting_status == 'Results Waived' %}
+                                            results-status-waived
+                                        {% else %}
+                                            results-status-none
+                                        {% endif %}
+                                    ">
+                                        {{ study.results_reporting_status }}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="regulatory-overview-item">
+
+                                    <span class="regulatory-overview-label">
+                                        Expanded Access
+                                    </span>
+
+                                    <strong>
+                                        {{ study.has_expanded_access }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="regulatory-overview-item">
+
+                                    <span class="regulatory-overview-label">
+                                        Last Record Update
+                                    </span>
+
+                                    <strong>
+                                        {{ study.last_update }}
+                                    </strong>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- =========================================
+                                 SPONSOR / LEADERSHIP
+                            ========================================== -->
+
+                            <h3>
+                                Sponsor and Study Leadership
+                            </h3>
+
+
+                            <p>
+                                <strong>
+                                    Sponsor:
+                                </strong>
+
+                                {{ study.sponsor }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Sponsor Class:
+                                </strong>
+
+                                {{ study.sponsor_class }}
+                            </p>
+
+
+                            {% if study.collaborators != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Collaborators:
+                                    </strong>
+
+                                    {{ study.collaborators }}
+                                </p>
+
+                            {% endif %}
+
+
+                            {% if study.responsible_party_type != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Responsible Party:
+                                    </strong>
+
+                                    {{ study.responsible_party_type }}
+                                </p>
+
+                            {% endif %}
+
+
+                            {% if study.study_officials != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Study Officials:
+                                    </strong>
+
+                                    {{ study.study_officials }}
+                                </p>
+
+                            {% endif %}
+
+
+                            {% if study.official_roles != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Official Roles:
+                                    </strong>
+
+                                    {{ study.official_roles }}
+                                </p>
+
+                            {% endif %}
+
+
+                            {% if study.official_affiliations != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Official Affiliations:
+                                    </strong>
+
+                                    {{ study.official_affiliations }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- =========================================
+                                 STUDY DESIGN
+                            ========================================== -->
+
+                            <h3>
+                                Study Design
+                            </h3>
+
+
+                            <p>
+                                <strong>
+                                    Study Type:
+                                </strong>
+
+                                {{ study.study_type }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Phase:
+                                </strong>
+
+                                {{ study.phase }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Primary Purpose:
+                                </strong>
+
+                                {{ study.primary_purpose }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Allocation:
+                                </strong>
+
+                                {{ study.allocation }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Intervention Model:
+                                </strong>
+
+                                {{ study.intervention_model }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Masking:
+                                </strong>
+
+                                {{ study.masking }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Enrollment:
+                                </strong>
+
+                                {{ study.enrollment }}
+                            </p>
+
+
+                            <!-- =========================================
+                                 INTERVENTIONS
+                            ========================================== -->
+
+                            <h3>
+                                Interventions and Study Arms
+                            </h3>
+
+
+                            {% if study.arm_groups != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Arm Groups:
+                                    </strong>
+
+                                    {{ study.arm_groups }}
+                                </p>
+
+                            {% endif %}
+
+
+                            {% if study.arm_types != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Arm Types:
+                                    </strong>
+
+                                    {{ study.arm_types }}
+                                </p>
+
+                            {% endif %}
+
+
+                            {% if study.arm_descriptions != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Arm Descriptions:
+                                    </strong>
+                                </p>
+
+                                <div class="long-text">
+                                    {{ study.arm_descriptions }}
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if study.interventions != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Interventions:
+                                    </strong>
+
+                                    {{ study.interventions }}
+                                </p>
+
+                            {% endif %}
+
+
+                            {% if study.intervention_type != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Intervention Type:
+                                    </strong>
+
+                                    {{ study.intervention_type }}
+                                </p>
+
+                            {% endif %}
+
+
+                            {% if study.intervention_description != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Intervention Description:
+                                    </strong>
+                                </p>
+
+                                <div class="long-text">
+                                    {{ study.intervention_description }}
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- =========================================
+                                 STUDY DATES
+                            ========================================== -->
+
+                            <h3>
+                                Study Dates
+                            </h3>
+
+
+                            <p>
+                                <strong>
+                                    Start Date:
+                                </strong>
+
+                                {{ study.start_date }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Completion Date:
+                                </strong>
+
+                                {{ study.completion_date }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Last Update Posted:
+                                </strong>
+
+                                {{ study.last_update }}
+                            </p>
+
+
+                            <!-- =========================================
+                                 REGULATORY TIMELINE
+                            ========================================== -->
+
+                            <h3>
+                                Regulatory Timeline
+                            </h3>
+
+
+                            <div class="regulatory-timeline">
+
+
+                                <!-- REGISTRATION -->
+                                <div class="timeline-group">
+
+                                    <h4>
+                                        Registration
+                                    </h4>
+
+
+                                    <div class="timeline-row">
+
+                                        <span class="timeline-label">
+                                            First Submitted
+                                        </span>
+
+                                        <span class="timeline-value">
+                                            {{ study.study_first_submit_date }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="timeline-row">
+
+                                        <span class="timeline-label">
+                                            First Passed QC
+                                        </span>
+
+                                        <span class="timeline-value">
+                                            {{ study.study_first_submit_qc_date }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="timeline-row">
+
+                                        <span class="timeline-label">
+                                            First Posted
+                                        </span>
+
+                                        <span class="timeline-value">
+                                            {{ study.study_first_post_date }}
+                                        </span>
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- RESULTS REPORTING -->
+                                <div class="timeline-group">
+
+                                    <h4>
+                                        Results Reporting
+                                    </h4>
+
+
+                                    <div class="results-status-box">
+
+                                        <span class="results-status-label">
+                                            Reporting Status
+                                        </span>
+
+                                        <span class="
+                                            results-status-badge
+                                            {% if study.results_reporting_status == 'Results Posted' %}
+                                                results-status-posted
+                                            {% elif study.results_reporting_status == 'Results Submitted / Not Yet Posted' %}
+                                                results-status-pending
+                                            {% elif study.results_reporting_status == 'Results Waived' %}
+                                                results-status-waived
+                                            {% else %}
+                                                results-status-none
+                                            {% endif %}
+                                        ">
+                                            {{ study.results_reporting_status }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="timeline-row">
+
+                                        <span class="timeline-label">
+                                            Results First Submitted
+                                        </span>
+
+                                        <span class="timeline-value">
+                                            {{ study.results_first_submit_date }}
+                                        </span>
+
+                                    </div>
+
+
+                                    {% if study.estimated_results_first_submit_date != "Not available" %}
+
+                                        <div class="timeline-row">
+
+                                            <span class="timeline-label">
+                                                Pending Results Submission
+                                            </span>
+
+                                            <span class="timeline-value">
+                                                {{ study.estimated_results_first_submit_date }}
+                                            </span>
+
+                                        </div>
+
+                                    {% endif %}
+
+
+                                    <div class="timeline-row">
+
+                                        <span class="timeline-label">
+                                            Results Passed QC
+                                        </span>
+
+                                        <span class="timeline-value">
+                                            {{ study.results_first_submit_qc_date }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="timeline-row">
+
+                                        <span class="timeline-label">
+                                            Results First Posted
+                                        </span>
+
+                                        <span class="timeline-value">
+                                            {{ study.results_first_post_date }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="timeline-row">
+
+                                        <span class="timeline-label">
+                                            Results Waived
+                                        </span>
+
+                                        <span class="timeline-value">
+                                            {{ study.results_waived }}
+                                        </span>
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- CERTIFICATION / EXTENSION -->
+                                {% if study.certification_extension_submit_date != "Not available"
+                                   or study.certification_extension_post_date != "Not available" %}
+
+                                    <div class="timeline-group">
+
+                                        <h4>
+                                            Certification / Extension
+                                        </h4>
+
+
+                                        <div class="timeline-row">
+
+                                            <span class="timeline-label">
+                                                Submitted
+                                            </span>
+
+                                            <span class="timeline-value">
+                                                {{ study.certification_extension_submit_date }}
+                                            </span>
+
+                                        </div>
+
+
+                                        <div class="timeline-row">
+
+                                            <span class="timeline-label">
+                                                Posted
+                                            </span>
+
+                                            <span class="timeline-value">
+                                                {{ study.certification_extension_post_date }}
+                                            </span>
+
+                                        </div>
+
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <!-- RECORD MAINTENANCE -->
+                                <div class="timeline-group">
+
+                                    <h4>
+                                        Record Maintenance
+                                    </h4>
+
+
+                                    <div class="timeline-row">
+
+                                        <span class="timeline-label">
+                                            Last Update Submitted
+                                        </span>
+
+                                        <span class="timeline-value">
+                                            {{ study.last_update_submit_date }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="timeline-row">
+
+                                        <span class="timeline-label">
+                                            Last Update Posted
+                                        </span>
+
+                                        <span class="timeline-value">
+                                            {{ study.last_update }}
+                                        </span>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- =========================================
+                                 EXPANDED ACCESS
+                            ========================================== -->
+
+                            {% if study.has_expanded_access != "Not available"
+                               or study.expanded_access_nct_id != "Not available"
+                               or study.expanded_access_individual == "Yes"
+                               or study.expanded_access_intermediate == "Yes"
+                               or study.expanded_access_treatment == "Yes" %}
+
+
+                                <h3>
+                                    Expanded Access
+                                </h3>
+
+
+                                <div class="expanded-access-card">
+
+
+                                    <div class="expanded-access-row">
+
+                                        <span class="expanded-access-label">
+                                            Expanded Access Available
+                                        </span>
+
+                                        <span class="
+                                            expanded-access-value
+                                            {% if study.has_expanded_access == 'Yes' %}
+                                                expanded-access-yes
+                                            {% elif study.has_expanded_access == 'No' %}
+                                                expanded-access-no
+                                            {% endif %}
+                                        ">
+                                            {{ study.has_expanded_access }}
+                                        </span>
+
+                                    </div>
+
+
+                                    {% if study.expanded_access_nct_id != "Not available" %}
+
+                                        <div class="expanded-access-row">
+
+                                            <span class="expanded-access-label">
+                                                Expanded Access Record
+                                            </span>
+
+                                            <a
+                                                class="nct-link"
+                                                href="https://clinicaltrials.gov/study/{{ study.expanded_access_nct_id }}"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {{ study.expanded_access_nct_id }}
+                                            </a>
+
+                                        </div>
+
+                                    {% endif %}
+
+
+                                    {% if study.expanded_access_status != "Not available" %}
+
+                                        <div class="expanded-access-row">
+
+                                            <span class="expanded-access-label">
+                                                Access Status
+                                            </span>
+
+                                            <span class="expanded-access-value">
+                                                {{ study.expanded_access_status }}
+                                            </span>
+
+                                        </div>
+
+                                    {% endif %}
+
+
+                                    <div class="expanded-access-types">
+
+                                        <h4>
+                                            Access Types
+                                        </h4>
+
+
+                                        <div class="expanded-access-type-row">
+
+                                            <span>
+                                                Individual Patient
+                                            </span>
+
+                                            <strong>
+                                                {{ study.expanded_access_individual }}
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="expanded-access-type-row">
+
+                                            <span>
+                                                Intermediate-size Population
+                                            </span>
+
+                                            <strong>
+                                                {{ study.expanded_access_intermediate }}
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="expanded-access-type-row">
+
+                                            <span>
+                                                Treatment IND / Protocol
+                                            </span>
+
+                                            <strong>
+                                                {{ study.expanded_access_treatment }}
+                                            </strong>
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- =========================================
+                                 ELIGIBILITY
+                            ========================================== -->
+
+                            <h3>
+                                Eligibility
+                            </h3>
+
+
+                            <p>
+                                <strong>
+                                    Sex:
+                                </strong>
+
+                                {{ study.sex }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Minimum Age:
+                                </strong>
+
+                                {{ study.minimum_age }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Maximum Age:
+                                </strong>
+
+                                {{ study.maximum_age }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Healthy Volunteers:
+                                </strong>
+
+                                {{ study.healthy_volunteers }}
+                            </p>
+
+
+                            {% if study.eligibility_criteria != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Eligibility Criteria:
+                                    </strong>
+                                </p>
+
+                                <div class="long-text">
+                                    {{ study.eligibility_criteria }}
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- =========================================
+                                 LOCATIONS
+                            ========================================== -->
+
+                            <h3>
+                                Locations
+                            </h3>
+
+
+                            <div class="long-text">
+                                {{ study.locations }}
+                            </div>
+
+
+                            <!-- =========================================
+                                 STUDY CONTACT
+                            ========================================== -->
+
+                            {% if study.central_contact_names != "Not available"
+                               or study.central_contact_phones != "Not available"
+                               or study.central_contact_emails != "Not available" %}
+
+
+                                <h3>
+                                    Study Contact
+                                </h3>
+
+
+                                {% if study.central_contact_names != "Not available" %}
+
+                                    <p>
+                                        <strong>
+                                            Contact:
+                                        </strong>
+
+                                        {{ study.central_contact_names }}
+                                    </p>
+
+                                {% endif %}
+
+
+                                {% if study.central_contact_roles != "Not available" %}
+
+                                    <p>
+                                        <strong>
+                                            Contact Role:
+                                        </strong>
+
+                                        {{ study.central_contact_roles }}
+                                    </p>
+
+                                {% endif %}
+
+
+                                {% if study.central_contact_phones != "Not available" %}
+
+                                    <p>
+
+                                        <strong>
+                                            Phone:
+                                        </strong>
+
+                                        <a
+                                            class="contact-link"
+                                            href="tel:{{ study.central_contact_phones }}"
+                                        >
+                                            {{ study.central_contact_phones }}
+                                        </a>
+
+                                    </p>
+
+                                {% endif %}
+
+
+                                {% if study.central_contact_emails != "Not available" %}
+
+                                    <p>
+
+                                        <strong>
+                                            Email:
+                                        </strong>
+
+                                        <a
+                                            class="contact-link"
+                                            href="mailto:{{ study.central_contact_emails }}"
+                                        >
+                                            {{ study.central_contact_emails }}
+                                        </a>
+
+                                    </p>
+
+                                {% endif %}
+
+
+                            {% endif %}
+
+
+                            <!-- =========================================
+                                 DESCRIPTION
+                            ========================================== -->
+
+                            <h3>
+                                Study Description
+                            </h3>
+
+
+                            <p>
+                                <strong>
+                                    Summary:
+                                </strong>
+                            </p>
+
+
+                            <div class="long-text">
+                                {{ study.summary }}
+                            </div>
+
+
+                            {% if study.detailed_description != "Not available" %}
+
+                                <p>
+                                    <strong>
+                                        Detailed Description:
+                                    </strong>
+                                </p>
+
+                                <div class="long-text">
+                                    {{ study.detailed_description }}
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- =========================================
+                                 OUTCOMES
+                            ========================================== -->
+
+                            <h3>
+                                Study Outcomes
+                            </h3>
+
+
+                            <p>
+                                <strong>
+                                    Primary Outcome:
+                                </strong>
+
+                                {{ study.primary_outcome }}
+                            </p>
+
+
+                            <p>
+                                <strong>
+                                    Secondary Outcomes:
+                                </strong>
+
+                                {{ study.secondary_outcomes }}
+                            </p>
+
+
+                        </details>
+
+
+                    </div>
+
+                {% endfor %}
+
+
+                <!-- =========================================
+                     PAGINATION
+                ========================================== -->
+
+                {% if next_page_token %}
+
+                    <div class="pagination">
+
+                        <a
+                            class="next-button"
+                            href="{{ url_for(
+                                'home',
+                                condition=condition,
+                                status=status_filter,
+                                sponsor=sponsor_filter,
+                                location=location_filter,
+                                phase=phase_filter,
+                                intervention=intervention_filter,
+                                study_type=study_type_filter,
+                                sex=sex_filter,
+                                sort=sort_filter,
+                                page_size=page_size,
+                                page_token=next_page_token
+                            ) }}"
+                        >
+                            Next Results →
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+
+            </main>
+
+
+            <!-- =========================================
+                 INTELLIGENCE SIDEBAR
+            ========================================== -->
+
+            <aside class="intelligence-sidebar">
+
+
+                <!-- SIDEBAR HEADER -->
+                <div class="sidebar-header">
+
+                    <div>
+
+                        <h2>
+                            Trial Intelligence
+                        </h2>
+
+                        <p>
+                            Analytics for the studies
+                            shown on this page.
+                        </p>
+
+                    </div>
+
+                    <span class="analytics-scope">
+                        Page-level
+                    </span>
+
+                </div>
+
+
+                <!-- =========================================
+                     SUMMARY METRICS
+                ========================================== -->
+
+                <div class="sidebar-metrics">
+
+
+                    <div class="sidebar-metric">
+
+                        <span class="sidebar-metric-value">
+                            {{ total_count }}
+                        </span>
+
+                        <span class="sidebar-metric-label">
+                            Total Matching
+                        </span>
+
+                    </div>
+
+
+                    <div class="sidebar-metric">
+
+                        <span class="sidebar-metric-value">
+                            {{ studies|length }}
+                        </span>
+
+                        <span class="sidebar-metric-label">
+                            Shown
+                        </span>
+
+                    </div>
+
+
+                    <div class="sidebar-metric">
+
+                        <span class="sidebar-metric-value">
+                            {{ recruiting_count }}
+                        </span>
+
+                        <span class="sidebar-metric-label">
+                            Recruiting
+                        </span>
+
+                    </div>
+
+
+                    <div class="sidebar-metric">
+
+                        <span class="sidebar-metric-value">
+                            {{ industry_count }}
+                        </span>
+
+                        <span class="sidebar-metric-label">
+                            Industry
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =========================================
+                     REGULATORY INTELLIGENCE
+                ========================================== -->
+
+                <div class="regulatory-intelligence">
+
+
+                    <div class="regulatory-header">
+
+                        <h3>
+                            Regulatory Intelligence
+                        </h3>
+
+                        <p>
+                            FDA oversight and disclosure indicators
+                            for studies shown on this page.
+                        </p>
+
+                    </div>
+
+
+                    <!-- FDA OVERSIGHT -->
+                    {% for label, counts in regulatory_analytics.items() %}
+
+                        <div class="regulatory-item">
+
+                            <div class="regulatory-item-title">
+                                {{ label }}
+                            </div>
+
+                            <div class="regulatory-counts">
+
+                                <span class="regulatory-yes">
+                                    Yes {{ counts.yes }}
+                                </span>
+
+                                <span class="regulatory-no">
+                                    No {{ counts.no }}
+                                </span>
+
+                                {% if counts.unavailable > 0 %}
+
+                                    <span class="regulatory-na">
+                                        N/A {{ counts.unavailable }}
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+
+                    <!-- RESULTS REPORTING -->
+                    <div class="regulatory-subsection">
+
+                        <h4>
+                            Results Reporting
+                        </h4>
+
+                        <div class="sidebar-stat-list">
+
+                            {% for reporting_status, count in results_reporting_counts.items() %}
+
+                                <div class="sidebar-stat-row">
+
+                                    <span class="sidebar-long-label">
+                                        {{ reporting_status }}
+                                    </span>
+
+                                    <strong>
+                                        {{ count }}
+                                    </strong>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EXPANDED ACCESS -->
+                    <div class="regulatory-subsection">
+
+                        <h4>
+                            Expanded Access
+                        </h4>
+
+                        <div class="sidebar-stat-list">
+
+                            {% for access_type, count in expanded_access_counts.items() %}
+
+                                <div class="sidebar-stat-row">
+
+                                    <span class="sidebar-long-label">
+                                        {{ access_type }}
+                                    </span>
+
+                                    <strong>
+                                        {{ count }}
+                                    </strong>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =========================================
+                     PHASE DISTRIBUTION
+                ========================================== -->
+
+                <details
+                    class="sidebar-section"
+                    open
+                >
+
+                    <summary>
+                        Phase Distribution
+                    </summary>
+
+                    <div class="sidebar-stat-list">
+
+                        {% for phase, count in phase_counts.items() %}
+
+                            <div class="sidebar-stat-row">
+
+                                <span>
+                                    {{ phase }}
+                                </span>
+
+                                <strong>
+                                    {{ count }}
+                                </strong>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </details>
+
+
+                <!-- =========================================
+                     STATUS DISTRIBUTION
+                ========================================== -->
+
+                {% if status_counts %}
+
+                    <details
+                        class="sidebar-section"
+                        open
+                    >
+
+                        <summary>
+                            Status Distribution
+                        </summary>
+
+                        <div class="sidebar-stat-list">
+
+                            {% for status_name, count in status_counts.items() %}
+
+                                <div class="sidebar-stat-row">
+
+                                    <span>
+                                        {{ status_name }}
+                                    </span>
+
+                                    <strong>
+                                        {{ count }}
+                                    </strong>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </details>
+
+                {% endif %}
+
+
+                <!-- =========================================
+                     SPONSOR CLASS
+                ========================================== -->
+
+                {% if sponsor_class_counts %}
+
+                    <details class="sidebar-section">
+
+                        <summary>
+                            Sponsor Classes
+                        </summary>
+
+                        <div class="sidebar-stat-list">
+
+                            {% for sponsor_class, count in sponsor_class_counts.items() %}
+
+                                <div class="sidebar-stat-row">
+
+                                    <span>
+                                        {{ sponsor_class }}
+                                    </span>
+
+                                    <strong>
+                                        {{ count }}
+                                    </strong>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </details>
+
+                {% endif %}
+
+
+                <!-- =========================================
+                     TOP SPONSORS
+                ========================================== -->
+
+                {% if top_sponsors %}
+
+                    <details class="sidebar-section">
+
+                        <summary>
+                            Top Sponsors
+                        </summary>
+
+                        <div class="sidebar-stat-list">
+
+                            {% for sponsor_name, count in top_sponsors %}
+
+                                <div class="sidebar-stat-row">
+
+                                    <span class="sidebar-long-label">
+                                        {{ sponsor_name }}
+                                    </span>
+
+                                    <strong>
+                                        {{ count }}
+                                    </strong>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </details>
+
+                {% endif %}
+
+
+                <!-- =========================================
+                     INTERVENTION TYPES
+                ========================================== -->
+
+                {% if intervention_type_counts %}
+
+                    <details class="sidebar-section">
+
+                        <summary>
+                            Intervention Types
+                        </summary>
+
+                        <div class="sidebar-stat-list">
+
+                            {% for intervention_type, count in intervention_type_counts.items() %}
+
+                                <div class="sidebar-stat-row">
+
+                                    <span>
+                                        {{ intervention_type }}
+                                    </span>
+
+                                    <strong>
+                                        {{ count }}
+                                    </strong>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </details>
+
+                {% endif %}
+
+
+                <!-- =========================================
+                     COUNTRIES
+                ========================================== -->
+
+                {% if country_counts %}
+
+                    <details class="sidebar-section">
+
+                        <summary>
+                            Countries
+                        </summary>
+
+                        <div class="sidebar-stat-list">
+
+                            {% for country, count in country_counts.items() %}
+
+                                <div class="sidebar-stat-row">
+
+                                    <span>
+                                        {{ country }}
+                                    </span>
+
+                                    <strong>
+                                        {{ count }}
+                                    </strong>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </details>
+
+                {% endif %}
+
+
+                <!-- =========================================
+                     ENROLLMENT
+                ========================================== -->
+
+                <details class="sidebar-section">
+
+                    <summary>
+                        Enrollment
+                    </summary>
+
+                    <div class="sidebar-stat-list">
+
+                        {% for range_name, count in enrollment_distribution.items() %}
+
+                            <div class="sidebar-stat-row">
+
+                                <span>
+                                    {{ range_name }}
+                                </span>
+
+                                <strong>
+                                    {{ count }}
+                                </strong>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </details>
+
+
+                <!-- =========================================
+                     STUDY TYPES
+                ========================================== -->
+
+                {% if study_type_counts %}
+
+                    <details class="sidebar-section">
+
+                        <summary>
+                            Study Types
+                        </summary>
+
+                        <div class="sidebar-stat-list">
+
+                            {% for study_type, count in study_type_counts.items() %}
+
+                                <div class="sidebar-stat-row">
+
+                                    <span>
+                                        {{ study_type }}
+                                    </span>
+
+                                    <strong>
+                                        {{ count }}
+                                    </strong>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </details>
+
+                {% endif %}
+
+
+                <!-- SIDEBAR NOTE -->
+                <div class="sidebar-note">
+
+                    Distribution and regulatory metrics use the
+                    {{ studies|length }}
+                    studies currently loaded on this page.
+
+                    <br><br>
+
+                    Total Matching represents the complete
+                    filtered ClinicalTrials.gov search.
+
+                    <br><br>
+
+                    A study with multiple phases may contribute
+                    to more than one phase category.
+
+                    <br><br>
+
+                    Results-reporting indicators describe registry
+                    status and are not determinations of legal compliance.
+
+                </div>
+
+
+            </aside>
+
+
+        </div>
+
+
+    <!-- =========================================
+         NO RESULTS
+    ========================================== -->
+
+    {% elif
+        (
+            condition
+            or sponsor_filter
+            or location_filter
+            or intervention_filter
+            or status_filter
+            or phase_filter
+            or study_type_filter
+            or sex_filter
+        )
+        and not error_message
+    %}
+
+        <div class="study-card">
+
+            <h2>
+                No studies found
+            </h2>
+
+            <p>
+                No studies matched the selected search criteria.
+            </p>
+
+            <p>
+                Try removing one or more filters
+                or broadening your search.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+</div>
+
+</body>
+
+</html>
