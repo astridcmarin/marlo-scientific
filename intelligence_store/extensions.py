@@ -2,7 +2,10 @@
 
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
+import sqlite3
+
+from sqlalchemy import MetaData, event
+from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase
 
 
@@ -20,3 +23,21 @@ class Base(DeclarativeBase):
 
 db = SQLAlchemy(model_class=Base)
 migrate = Migrate()
+
+
+@event.listens_for(Engine, "connect")
+def enable_sqlite_foreign_keys(connection, _connection_record):
+    """Enforce evidence links on SQLite; PostgreSQL enforces them itself."""
+    if not isinstance(connection, sqlite3.Connection):
+        return
+    supports_autocommit = hasattr(connection, "autocommit")
+    previous_autocommit = getattr(connection, "autocommit", None)
+    if supports_autocommit:
+        connection.autocommit = True
+    cursor = connection.cursor()
+    try:
+        cursor.execute("PRAGMA foreign_keys=ON")
+    finally:
+        cursor.close()
+        if supports_autocommit:
+            connection.autocommit = previous_autocommit
