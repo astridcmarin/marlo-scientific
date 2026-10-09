@@ -1,0 +1,371 @@
+{
+  "schema_version": "drug-interaction-references-v1",
+  "catalog_version": "myeloma-interactions-v1.3",
+  "alias_catalog_version": "myeloma-seed-v1.3",
+  "alias_catalog_sha256": "896a58a2a89e8a992ba85a23ea726ba5d65f8ac9f3bcd88e10444589450c2845",
+  "scope": "Selected product-label references and exact generic partner names; not a complete clinical interaction checker or coadministration assessment.",
+  "entries": [
+    {
+      "entity_id": "lenalidomide",
+      "reference_product": "Revlimid capsule reference",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Revlimid / lenalidomide product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=5fa97bf5-28a2-48f1-8955-f56012d296be&version=41",
+        "set_id": "5fa97bf5-28a2-48f1-8955-f56012d296be",
+        "label_version": 41,
+        "label_effective_date": "20230324",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "c381f58f43297a98e66405c7430cea5577b52f9085fa49c6acfba6c862b9faa8",
+        "note": "The product label identifies Revlimid as a lenalidomide product."
+      },
+      "references": [
+        {
+          "id": "lenalidomide-digoxin",
+          "title": "Digoxin exposure",
+          "basis": "The label reports increased digoxin exposure with lenalidomide in the studied setting and describes periodic digoxin-level monitoring.",
+          "sections": [
+            "7.1"
+          ],
+          "partner_name": "Digoxin",
+          "kind": "drug_pair",
+          "finding": "exposure_change_reported",
+          "interpretation": "curated_summary"
+        },
+        {
+          "id": "lenalidomide-warfarin",
+          "title": "Warfarin study and monitoring context",
+          "basis": "The studied combination did not alter lenalidomide or warfarin pharmacokinetics. The label retains PT/INR monitoring for multiple-myeloma patients taking warfarin and notes that the dexamethasone–warfarin interaction is unknown.",
+          "sections": [
+            "7.3"
+          ],
+          "partner_name": "Warfarin",
+          "kind": "drug_pair",
+          "finding": "no_significant_effect_reported",
+          "interpretation": "curated_summary"
+        },
+        {
+          "id": "lenalidomide-thrombosis-context",
+          "title": "Therapies that can increase thrombosis risk",
+          "basis": "The label describes caution with erythropoietic agents and other thrombosis-promoting therapies, including estrogen-containing therapies. These classes are not expanded into individual drug matches.",
+          "sections": [
+            "7.2"
+          ],
+          "partner_name": null,
+          "kind": "class_reference",
+          "finding": "label_precaution",
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "bortezomib",
+      "reference_product": "Velcade injection reference; intravenous or subcutaneous labeling",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Velcade / bortezomib product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=1521d321-e724-4ffc-adad-34bf4f44fac7&version=36",
+        "set_id": "1521d321-e724-4ffc-adad-34bf4f44fac7",
+        "label_version": 36,
+        "label_effective_date": "20250828",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "ddbefd99992c3db6f4af196d90eeac8231119ef06ae79a4459067cc222cdf656",
+        "note": "The product label identifies Velcade as a bortezomib product."
+      },
+      "references": [
+        {
+          "id": "bortezomib-ketoconazole",
+          "title": "Strong CYP3A4 inhibitor example",
+          "basis": "The label describes increased bortezomib exposure with strong CYP3A4 inhibitors and identifies ketoconazole as the studied example; toxicity monitoring is discussed. Other class members are not inferred.",
+          "sections": [
+            "7.1",
+            "12.3"
+          ],
+          "partner_name": "Ketoconazole",
+          "kind": "drug_pair",
+          "finding": "exposure_change_reported",
+          "interpretation": "curated_summary"
+        },
+        {
+          "id": "bortezomib-rifampin",
+          "title": "Strong CYP3A4 inducer example",
+          "basis": "The label describes decreased bortezomib exposure with strong CYP3A4 inducers and advises avoiding that combination; rifampin is the studied example. Other class members are not inferred.",
+          "sections": [
+            "7.1",
+            "12.3"
+          ],
+          "partner_name": "Rifampin",
+          "kind": "drug_pair",
+          "finding": "exposure_change_reported",
+          "interpretation": "curated_summary"
+        },
+        {
+          "id": "bortezomib-dexamethasone",
+          "title": "Dexamethasone studied context",
+          "basis": "The label reports no clinically significant interaction with dexamethasone in the studied setting. This finding does not establish general regimen compatibility or safety.",
+          "sections": [
+            "7.2",
+            "12.3"
+          ],
+          "partner_name": "Dexamethasone",
+          "kind": "drug_pair",
+          "finding": "no_significant_effect_reported",
+          "interpretation": "curated_summary"
+        },
+        {
+          "id": "bortezomib-omeprazole",
+          "title": "Omeprazole studied context",
+          "basis": "The label reports no clinically significant interaction with omeprazole in the studied setting. This finding does not establish general regimen compatibility or safety.",
+          "sections": [
+            "7.2",
+            "12.3"
+          ],
+          "partner_name": "Omeprazole",
+          "kind": "drug_pair",
+          "finding": "no_significant_effect_reported",
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "daratumumab",
+      "reference_product": "Darzalex intravenous injection reference; not Darzalex Faspro",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Darzalex / daratumumab product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=a4d0efe9-5e54-467e-9eb4-56fa7d53b60b&version=46",
+        "set_id": "a4d0efe9-5e54-467e-9eb4-56fa7d53b60b",
+        "label_version": 46,
+        "label_effective_date": "20260921",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "cddb90ed421e66bf9e5d3bfa0f9648519762b7e636290009aefbf8040ffa7f39",
+        "note": "The product label identifies Darzalex as a daratumumab product."
+      },
+      "references": [
+        {
+          "id": "daratumumab-blood-testing",
+          "title": "Blood compatibility testing interference",
+          "basis": "Daratumumab can interfere with indirect antiglobulin testing, including antibody screening and cross-matching. This is a laboratory-test reference, not a second-drug interaction match.",
+          "sections": [
+            "7.1"
+          ],
+          "partner_name": null,
+          "kind": "laboratory_reference",
+          "finding": "laboratory_interference",
+          "interpretation": "curated_summary"
+        },
+        {
+          "id": "daratumumab-protein-testing",
+          "title": "Electrophoresis and immunofixation interference",
+          "basis": "The label describes possible interference with serum protein electrophoresis and immunofixation used to assess disease protein and response. No assay execution or observed interference is inferred from a trial name.",
+          "sections": [
+            "7.1"
+          ],
+          "partner_name": null,
+          "kind": "laboratory_reference",
+          "finding": "laboratory_interference",
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "pomalidomide",
+      "reference_product": "Pomalyst capsule reference",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Pomalyst / pomalidomide product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=2b25ef01-5c9e-11e1-b86c-0800200c9a66&version=26",
+        "set_id": "2b25ef01-5c9e-11e1-b86c-0800200c9a66",
+        "label_version": 26,
+        "label_effective_date": "20250226",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "29756c96d346b79171a8f431544d6cf481663f14ed6730fc0fc43b353276fc08",
+        "note": "The product label identifies Pomalyst as a pomalidomide product."
+      },
+      "references": [
+        {
+          "id": "pomalidomide-fluvoxamine",
+          "title": "Strong CYP1A2 inhibitor example: fluvoxamine",
+          "basis": "The label reports increased pomalidomide exposure with fluvoxamine and advises avoiding strong CYP1A2 inhibitors. Product-specific management is described in the complete label.",
+          "sections": [
+            "7.1",
+            "12.3"
+          ],
+          "partner_name": "Fluvoxamine",
+          "kind": "drug_pair",
+          "finding": "exposure_change_reported",
+          "interpretation": "curated_summary"
+        },
+        {
+          "id": "pomalidomide-ciprofloxacin",
+          "title": "Strong CYP1A2 inhibitor example: ciprofloxacin",
+          "basis": "Ciprofloxacin is a named example in the label precaution about strong CYP1A2 inhibitors. This selected reference does not assert a ciprofloxacin-specific clinical interaction study.",
+          "sections": [
+            "7.1"
+          ],
+          "partner_name": "Ciprofloxacin",
+          "kind": "drug_pair",
+          "finding": "label_precaution",
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "carfilzomib",
+      "reference_product": "Kyprolis intravenous infusion reference",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Kyprolis / carfilzomib product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=ea66eb30-e665-4693-99a1-a9d3b4bbe2d6&version=59",
+        "set_id": "ea66eb30-e665-4693-99a1-a9d3b4bbe2d6",
+        "label_version": 59,
+        "label_effective_date": "20250618",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "6b30f0caabad0684b34f643d933d828bc95bfe3395ff2ea271e0342057c9cd01",
+        "note": "The product label identifies Kyprolis as a carfilzomib product."
+      },
+      "references": [
+        {
+          "id": "carfilzomib-midazolam",
+          "title": "Midazolam studied context",
+          "basis": "The label reports that carfilzomib did not affect midazolam pharmacokinetics in the clinical interaction study. This specific finding is not a general absence-of-interactions statement.",
+          "sections": [
+            "12.3"
+          ],
+          "partner_name": "Midazolam",
+          "kind": "drug_pair",
+          "finding": "no_significant_effect_reported",
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "dexamethasone",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "HEMADY / dexamethasone product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=aec60743-f925-4d91-a865-064696a9f9e6&version=6",
+        "set_id": "aec60743-f925-4d91-a865-064696a9f9e6",
+        "label_version": 6,
+        "label_effective_date": "20240823",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "46f06c72fba8040cffebbe7c52bcd1865b9d5cefb705eb2b7b46aeffe9d905b4",
+        "note": "HEMADY identifies dexamethasone. This pinned historical reference does not establish the formulation or current marketing status of a trial intervention."
+      },
+      "reference_product": "HEMADY oral tablet reference",
+      "references": [
+        {
+          "id": "dexamethasone-cyp3a4-context",
+          "title": "CYP3A4 exposure context",
+          "basis": "Strong CYP3A4 inhibitors can increase dexamethasone exposure; strong inducers can decrease it.",
+          "sections": [
+            "7.1"
+          ],
+          "partner_name": null,
+          "kind": "class_reference",
+          "finding": "label_precaution",
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "cyclophosphamide",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Cyclophosphamide injection product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=3c1eb470-0bba-457d-94e3-b9508f0d398a&version=5",
+        "set_id": "3c1eb470-0bba-457d-94e3-b9508f0d398a",
+        "label_version": 5,
+        "label_effective_date": "20250421",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "12b64be6a34da9a305f803f0541edc2469359f7b4795567b64366f21cc7465b6",
+        "note": "The product identifies cyclophosphamide. This intravenous reference does not establish a trial intervention’s formulation, route or current marketing status."
+      },
+      "reference_product": "Cyclophosphamide injection reference; intravenous labeling",
+      "references": [
+        {
+          "id": "cyclophosphamide-protease-inhibitor-context",
+          "title": "Protease inhibitor context",
+          "basis": "Protease inhibitors may increase cytotoxic-metabolite concentrations; regimen-specific infection and neutropenia findings are described.",
+          "sections": [
+            "7.1"
+          ],
+          "partner_name": null,
+          "kind": "class_reference",
+          "finding": "label_precaution",
+          "interpretation": "curated_summary"
+        },
+        {
+          "id": "cyclophosphamide-anthracycline-context",
+          "title": "Anthracycline context",
+          "basis": "The label identifies potential additive cardiac toxicity with anthracyclines.",
+          "sections": [
+            "7.2"
+          ],
+          "partner_name": null,
+          "kind": "class_reference",
+          "finding": "label_precaution",
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "melphalan",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Evomela / melphalan product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=69f55869-dc11-408e-8fc7-47634269a52c&version=8",
+        "set_id": "69f55869-dc11-408e-8fc7-47634269a52c",
+        "label_version": 8,
+        "label_effective_date": "20260915",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "49f6c181e1d1db2bb5f3a212dc89b8a5342eb5164190e5b4607fede02fc52641",
+        "note": "Evomela identifies melphalan. This product reference does not establish trial formulation, route, treatment role or current marketing status."
+      },
+      "reference_product": "Evomela intravenous reference; myeloma transplant conditioning",
+      "references": [
+        {
+          "id": "melphalan-cyclosporine",
+          "title": "Cyclosporine sequence context",
+          "basis": "Renal impairment was reported after intravenous melphalan followed by oral cyclosporine; formal interaction studies were not conducted.",
+          "sections": [
+            "7"
+          ],
+          "partner_name": "Cyclosporine",
+          "kind": "drug_pair",
+          "finding": "label_precaution",
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "fludarabine",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Fludarabine phosphate injection product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=291f6ee2-f5d2-ae6c-e063-6294a90a5951&version=7",
+        "set_id": "291f6ee2-f5d2-ae6c-e063-6294a90a5951",
+        "label_version": 7,
+        "label_effective_date": "20260920",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "8e629988197768e2769fc7f823219500c3e1b90f25c0a3f0427be6682a91d5eb",
+        "note": "The label links the phosphate product to fludarabine-equivalent content. Name mapping does not equate doses, routes or active-metabolite exposure."
+      },
+      "reference_product": "Fludarabine phosphate intravenous reference; B-cell CLL labeling",
+      "references": [
+        {
+          "id": "fludarabine-pentostatin",
+          "title": "Pentostatin combination context",
+          "basis": "The label warns against this combination because of severe and fatal pulmonary toxicity.",
+          "sections": [
+            "7.1"
+          ],
+          "partner_name": "Pentostatin",
+          "kind": "drug_pair",
+          "finding": "label_precaution",
+          "interpretation": "curated_summary"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": "synthetic-patient-state-v1",
+  "purpose": "synthetic_educational",
+  "fields": {
+    "age_years": {
+      "value": 65.0,
+      "unit": "year",
+      "origin": "synthetic_input",
+      "observed_at": null,
+      "source_ref": null
+    },
+    "biological_sex": {
+      "value": "FEMALE",
+      "unit": null,
+      "origin": "synthetic_input",
+      "observed_at": null,
+      "source_ref": null
+    },
+    "weight": {
+      "value": 70.0,
+      "unit": "kg",
+      "origin": "synthetic_input",
+      "observed_at": null,
+      "source_ref": null
+    },
+    "height": {
+      "value": 165.0,
+      "unit": "cm",
+      "origin": "synthetic_input",
+      "observed_at": null,
+      "source_ref": null
+    },
+    "egfr_indexed": {
+      "value": 60.0,
+      "unit": "mL/min/1.73m2",
+      "origin": "synthetic_input",
+      "observed_at": null,
+      "source_ref": null
+    },
+    "creatinine_clearance": {
+      "value": null,
+      "unit": "mL/min",
+      "origin": "unknown",
+      "observed_at": null,
+      "source_ref": null
+    },
+    "serum_creatinine": {
+      "value": null,
+      "unit": "umol/L",
+      "origin": "unknown",
+      "observed_at": null,
+      "source_ref": null
+    },
+    "alt": {
+      "value": null,
+      "unit": "U/L",
+      "origin": "unknown",
+      "observed_at": null,
+      "source_ref": null
+    },
+    "ast": {
+      "value": null,
+      "unit": "U/L",
+      "origin": "unknown",
+      "observed_at": null,
+      "source_ref": null
+    },
+    "albumin": {
+      "value": null,
+      "unit": "g/L",
+      "origin": "unknown",
+      "observed_at": null,
+      "source_ref": null
+    },
+    "total_bilirubin": {
+      "value": null,
+      "unit": "umol/L",
+      "origin": "unknown",
+      "observed_at": null,
+      "source_ref": null
+    }
+  }
+}

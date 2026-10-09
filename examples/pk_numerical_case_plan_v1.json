@@ -1,0 +1,162 @@
+{
+  "schema_version": "synthetic-rk4-analytic-case-plan-v1",
+  "purpose": "mathematical_verification_only",
+  "plan_id": "eight-stage-fixed-synthetic-cases-v1",
+  "case_selection": "Project engineering cases chosen before comparison; not exhaustive or population representative",
+  "max_step_h": 0.001,
+  "display_step_h": 0.1,
+  "comparison_tolerance": {
+    "absolute_ng_ml": 5e-07,
+    "relative": 1e-08,
+    "authority": "Existing project numerical-audit targets, not clinical acceptance thresholds"
+  },
+  "cases": [
+    {
+      "case_id": "invented-single",
+      "parameters": {
+        "apparent_clearance_l_h": 2,
+        "apparent_volume_l": 10,
+        "transit_rate_h": 1
+      },
+      "events": [
+        {
+          "time_h": 0,
+          "amount_mg": 1,
+          "source_ref": "synthetic-mathematical-case"
+        }
+      ],
+      "sample_times_h": [
+        0,
+        0.137,
+        1.037,
+        7.253,
+        24.037
+      ]
+    },
+    {
+      "case_id": "source-typical-numbers-single",
+      "parameters": {
+        "apparent_clearance_l_h": 12,
+        "apparent_volume_l": 68.8,
+        "transit_rate_h": 13.5
+      },
+      "events": [
+        {
+          "time_h": 0,
+          "amount_mg": 25,
+          "source_ref": "synthetic-mathematical-case"
+        }
+      ],
+      "sample_times_h": [
+        0,
+        0.137,
+        1.037,
+        7.253,
+        24.037
+      ]
+    },
+    {
+      "case_id": "source-typical-numbers-repeated",
+      "parameters": {
+        "apparent_clearance_l_h": 12,
+        "apparent_volume_l": 68.8,
+        "transit_rate_h": 13.5
+      },
+      "events": [
+        {
+          "time_h": 0,
+          "amount_mg": 25,
+          "source_ref": "synthetic-mathematical-case"
+        },
+        {
+          "time_h": 24,
+          "amount_mg": 25,
+          "source_ref": "synthetic-mathematical-case"
+        },
+        {
+          "time_h": 48,
+          "amount_mg": 25,
+          "source_ref": "synthetic-mathematical-case"
+        },
+        {
+          "time_h": 72,
+          "amount_mg": 25,
+          "source_ref": "synthetic-mathematical-case"
+        }
+      ],
+      "sample_times_h": [
+        23.999,
+        24,
+        24.037,
+        48.037,
+        72
+      ]
+    },
+    {
+      "case_id": "equal-rates",
+      "parameters": {
+        "apparent_clearance_l_h": 10,
+        "apparent_volume_l": 10,
+        "transit_rate_h": 1
+      },
+      "events": [
+        {
+          "time_h": 0,
+          "amount_mg": 1,
+          "source_ref": "synthetic-mathematical-case"
+        }
+      ],
+      "sample_times_h": [
+        0,
+        0.137,
+        3.137,
+        12.5
+      ]
+    },
+    {
+      "case_id": "nearly-equal-rates",
+      "parameters": {
+        "apparent_clearance_l_h": 9.99999999999,
+        "apparent_volume_l": 10,
+        "transit_rate_h": 1
+      },
+      "events": [
+        {
+          "time_h": 0,
+          "amount_mg": 1,
+          "source_ref": "synthetic-mathematical-case"
+        }
+      ],
+      "sample_times_h": [
+        0.137,
+        3.137,
+        12.5
+      ]
+    },
+    {
+      "case_id": "unequal-amounts-repeated",
+      "parameters": {
+        "apparent_clearance_l_h": 2,
+        "apparent_volume_l": 10,
+        "transit_rate_h": 1
+      },
+      "events": [
+        {
+          "time_h": 0,
+          "amount_mg": 1,
+          "source_ref": "synthetic-mathematical-case"
+        },
+        {
+          "time_h": 24,
+          "amount_mg": 2,
+          "source_ref": "synthetic-mathematical-case"
+        }
+      ],
+      "sample_times_h": [
+        24,
+        24.037,
+        26.037
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+<section class="panel safety-section pk-launcher">
+  <div class="panel-heading"><div><p class="eyebrow">Model exploration</p><h2>Historical PK teaching model</h2><p>Lenalidomide · Single oral dose · Fixed published parameters</p></div><span class="small-label">Simulated concentrations</span></div>
+  <p>{{ report.pk_demo_availability.message }}</p>
+  <p class="panel-note">This model illustrates absorption and elimination using an invented dose. Its historical source population was advanced solid tumors; the model is not fitted to myeloma studies or this profile. Age, sex, weight, eGFR and medication names do not change its parameters.</p>
+  {% if report.pk_demo_availability.ready %}
+  <form method="post" action="{{ url_for('landscape.patient_pk') }}">
+    <input type="hidden" name="cohort_id" value="{{ summary.cohort.id }}">
+    <input type="hidden" name="profile_json" value="{{ report.profile|tojson|forceescape }}">
+    <input type="hidden" name="clearance_scale" value="1">
+    <button class="button secondary" type="submit">Open PK teaching model</button>
+  </form>
+  {% endif %}
+</section>

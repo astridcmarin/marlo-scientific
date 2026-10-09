@@ -1,0 +1,1340 @@
+{
+  "schema_version": "possible-match-review-queue-v1",
+  "source_file": "proposed_mappings_all.json",
+  "round": 2,
+  "rank_range": [
+    101,
+    155
+  ],
+  "review_scope_note": "Final possible-match review. Identity mappings only. Formulation-specific products, code-defined products, and radiolabeled variants remain distinct where appropriate. Deferred entries remain unassessed.",
+  "review_progress": {
+    "reviewed": 55,
+    "approved": 47,
+    "approved_with_changes": 7,
+    "deferred": 1,
+    "rejected": 0,
+    "pending": 0
+  },
+  "records": [
+    {
+      "possible_match_rank": 101,
+      "raw_group": "CI-994",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "tacedinaline",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to tacedinaline (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "tacedinaline",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Tacedinaline; CI-994 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/tacedinaline"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 102,
+      "raw_group": "CEP-18770",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "delanzomib",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to delanzomib (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "delanzomib",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Delanzomib; CEP 18770 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/delanzomib"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 103,
+      "raw_group": "CC-93269",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "alnuctamab",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to alnuctamab (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "alnuctamab",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Alnuctamab; CC-93269 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/alnuctamab"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 104,
+      "raw_group": "CC-92480",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "mezigdomide",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to be mezigdomide (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "mezigdomide",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Mezigdomide; CC-92480 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/mezigdomide"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 105,
+      "raw_group": "CC-122",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "avadomide",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to avadomide (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "avadomide",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Avadomide; CC-122 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/avadomide"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 106,
+      "raw_group": "CB-839",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "telaglenastat",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to telaglenastat (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "telaglenastat",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Telaglenastat; CB-839 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/telaglenastat"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 107,
+      "raw_group": "BT062 , intravenous administration",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "indatuximab ravtansine",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to indatuximab ravtansine (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "indatuximab ravtansine",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary / NCI Thesaurus",
+            "title": "Identity relationship reviewed against NCI terminology",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 108,
+      "raw_group": "BT062",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "indatuximab ravtansine",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to indatuximab ravtansine (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "indatuximab ravtansine",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary / NCI Thesaurus",
+            "title": "Identity relationship reviewed against NCI terminology",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 109,
+      "raw_group": "BL-8040",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "motixafortide",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to motixafortide (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "motixafortide",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Motixafortide; BL-8040 / BKT140 terminology",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/motixafortide"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 110,
+      "raw_group": "BKT140",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "motixafortide",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to motixafortide (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "motixafortide",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Motixafortide; BL-8040 / BKT140 terminology",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/motixafortide"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 111,
+      "raw_group": "BIBF 1120 ES",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "nintedanib",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to nintedanib (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "nintedanib",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Nintedanib; BIBF 1120 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/nintedanib"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 112,
+      "raw_group": "AV-299",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "ficlatuzumab",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to ficlatuzumab (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ficlatuzumab",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Ficlatuzumab; AV-299 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/ficlatuzumab"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 113,
+      "raw_group": "AUY922",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "luminespib",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to luminespib (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "luminespib",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Luminespib; AUY922 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/luminespib"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 114,
+      "raw_group": "ARRY-520, KSP(Eg5) inhibitor; intravenous",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "filanesib",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to filanesib (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "filanesib",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "FDA GSRS",
+            "title": "Filanesib; ARRY-520 synonym",
+            "reference": "https://precision.fda.gov/uniisearch/srs/unii/8A49OSO368"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 115,
+      "raw_group": "ACY-241",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "citarinostat",
+      "proposal_confidence": 0.85,
+      "proposal_reason": "Research code believed to correspond to citarinostat (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "citarinostat",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Citarinostat; ACY-241 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/citarinostat"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 116,
+      "raw_group": "Wild-type Reovirus",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "pelareorep",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to pelareorep (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "pelareorep",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Pelareorep; wild-type reovirus synonym",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/pelareorep"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 117,
+      "raw_group": "VS-6766",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "avutometinib",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to avutometinib (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "avutometinib",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Avutometinib; VS-6766 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/avutometinib"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 118,
+      "raw_group": "TTI-622",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "maplirpacept",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to maplirpacept (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "maplirpacept",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Maplirpacept; TTI-622 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/maplirpacept"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 119,
+      "raw_group": "TG02 citrate",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "zotiraciclib",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to zotiraciclib (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "zotiraciclib citrate",
+        "relationship_type": "development_code_to_specific_salt_form",
+        "parent_or_reference_product": "zotiraciclib",
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Zotiraciclib citrate (TG02 citrate)",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/zotiraciclib-citrate"
+          }
+        ],
+        "review_notes": "TG02 citrate is the citrate salt form of zotiraciclib; the salt-form distinction is retained.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 120,
+      "raw_group": "SyB L-0501",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "bendamustine hydrochloride formulation",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to bendamustine hydrochloride formulation (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "bendamustine hydrochloride",
+        "relationship_type": "brand_or_product_name_to_specific_salt_form",
+        "parent_or_reference_product": "bendamustine",
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Bendamustine hydrochloride; SyB L-0501 listed as foreign brand/product name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/bendamustine-hydrochloride"
+          }
+        ],
+        "review_notes": "SyB L-0501 is retained as bendamustine hydrochloride rather than collapsed to an unspecified bendamustine identity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 121,
+      "raw_group": "POL6326",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "balixafortide",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to balixafortide (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "balixafortide",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Balixafortide; POL6326 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/balixafortide"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 122,
+      "raw_group": "ONC201",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "dordaviprone",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to dordaviprone (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "dordaviprone",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Dordaviprone; ONC201 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/dordaviprone"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 123,
+      "raw_group": "ONC-201",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "dordaviprone",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to dordaviprone (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "dordaviprone",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Dordaviprone; ONC201 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/dordaviprone"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 124,
+      "raw_group": "NT-I7",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "efineptakin alfa",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to efineptakin alfa (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "efineptakin alfa",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Efineptakin alfa; NT-I7 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/efineptakin-alfa"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 125,
+      "raw_group": "N-803",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "nogapendekin alfa inbakicept",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to nogapendekin alfa inbakicept (N-803) (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "nogapendekin alfa inbakicept",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Nogapendekin alfa inbakicept; N-803 terminology",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/nogapendekin-alfa-inbakicept"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 126,
+      "raw_group": "JCARH125",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "orvacabtagene autoleucel",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to orvacabtagene autoleucel (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "orvacabtagene autoleucel",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "JCARH125 CAR-T identity",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/orvacabtagene-autoleucel"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 127,
+      "raw_group": "INCB001158",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "numidargistat",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to numidargistat (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "numidargistat",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Numidargistat; INCB001158 terminology",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/numidargistat"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 128,
+      "raw_group": "HCD122",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "lucatumumab",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to lucatumumab (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "lucatumumab",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Lucatumumab; HCD-122 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/lucatumumab"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 129,
+      "raw_group": "GSK525762",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "molibresib",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to molibresib (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "molibresib",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary / NCI Thesaurus",
+            "title": "Identity relationship reviewed against NCI terminology",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 130,
+      "raw_group": "Fully human BCMA chimeric antigen receptor autologous T cell injection (CT103A)",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "equecabtagene autoleucel",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to equecabtagene autoleucel (CT103A) (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "equecabtagene autoleucel",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Equecabtagene autoleucel; CT103A code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/equecabtagene-autoleucel"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 131,
+      "raw_group": "Compound 506U78",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "nelarabine",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to nelarabine (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "nelarabine",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Nelarabine; 506U78 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/nelarabine"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 132,
+      "raw_group": "CCS1477",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "inobrodib",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to inobrodib (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "inobrodib",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Inobrodib; CCS1477 terminology",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/inobrodib"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 133,
+      "raw_group": "BMS-986393",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "arlocabtagene autoleucel",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to arlocabtagene autoleucel (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "arlocabtagene autoleucel",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Arlocabtagene autoleucel; BMS-986393 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/autologous-anti-gprc5d-car-t-cells-bms-986393"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 134,
+      "raw_group": "bb2121",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "idecabtagene vicleucel",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to idecabtagene vicleucel (BCMA CAR-T); not an approved canonical drug and not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "idecabtagene vicleucel",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Idecabtagene vicleucel; BB2121 terminology",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/idecabtagene-vicleucel"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 135,
+      "raw_group": "ATG-010",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "selinexor",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to selinexor (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "selinexor",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Selinexor; ATG-010 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/selinexor"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 136,
+      "raw_group": "APG-2575",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "lisaftoclax",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to lisaftoclax (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "lisaftoclax",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Lisaftoclax; APG-2575 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/lisaftoclax"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 137,
+      "raw_group": "Anti-CXCR4 (BMS-936564)",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "ulocuplumab",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to ulocuplumab (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ulocuplumab",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Ulocuplumab; BMS-936564 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/ulocuplumab"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 138,
+      "raw_group": "ALT803",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "nogapendekin alfa inbakicept",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to nogapendekin alfa inbakicept (N-803) (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "nogapendekin alfa inbakicept",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Nogapendekin alfa inbakicept; ALT-803 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/nogapendekin-alfa-inbakicept"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 139,
+      "raw_group": "ALT-803",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "nogapendekin alfa inbakicept",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to nogapendekin alfa inbakicept (N-803) (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "nogapendekin alfa inbakicept",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Nogapendekin alfa inbakicept; ALT-803 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/nogapendekin-alfa-inbakicept"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 140,
+      "raw_group": "ACE-041",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "dalantercept",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to dalantercept (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "dalantercept",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Dalantercept; ACE-041 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/dalantercept"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 141,
+      "raw_group": "ABI-009",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "nab-sirolimus",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to nab-sirolimus (albumin-bound sirolimus) (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "nab-sirolimus",
+        "relationship_type": "formulation_specific_product",
+        "parent_or_reference_product": "sirolimus",
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Sirolimus protein-bound nanoparticles (ABI-009)",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/sirolimus-albumin-bound-nanoparticles"
+          }
+        ],
+        "review_notes": "ABI-009 is an albumin-bound/nanoparticle sirolimus formulation and remains distinct from conventional sirolimus.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 142,
+      "raw_group": "ABBV-075",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "mivebresib",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to mivebresib (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "mivebresib",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Mivebresib; ABBV-075 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/mivebresib"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 143,
+      "raw_group": "4SC-202",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "domatinostat",
+      "proposal_confidence": 0.8,
+      "proposal_reason": "Research code believed to correspond to domatinostat (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "domatinostat",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "PubChem / NCI Thesaurus",
+            "title": "Domatinostat; 4SC-202 synonym",
+            "reference": "https://pubchem.ncbi.nlm.nih.gov/compound/4sc-202"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 144,
+      "raw_group": "SCIO-469",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "talmapimod",
+      "proposal_confidence": 0.75,
+      "proposal_reason": "Research code believed to correspond to talmapimod (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "talmapimod",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Talmapimod; SCIO-469 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/talmapimod"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 145,
+      "raw_group": "DSP-5336",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "enzomenib",
+      "proposal_confidence": 0.75,
+      "proposal_reason": "Research code believed to correspond to enzomenib (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "enzomenib",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Enzomenib; DSP-5336 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/enzomenib"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 146,
+      "raw_group": "depsipeptide",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "romidepsin",
+      "proposal_confidence": 0.75,
+      "proposal_reason": "Research code believed to correspond to romidepsin (depsipeptide; the term can also be a class name) (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "romidepsin",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Romidepsin; depsipeptide synonym",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/romidepsin"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 147,
+      "raw_group": "5.0g SRT501",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "micronized resveratrol formulation",
+      "proposal_confidence": 0.75,
+      "proposal_reason": "Research code believed to correspond to micronized resveratrol formulation (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "resveratrol formulation SRT501",
+        "relationship_type": "formulation_specific_product",
+        "parent_or_reference_product": "resveratrol",
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Resveratrol formulation SRT501",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/resveratrol-formulation-srt501"
+          }
+        ],
+        "review_notes": "The dose-labelled formatting group maps to the SRT501 formulation, not unrestricted resveratrol.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 148,
+      "raw_group": "JNJ-79635322",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": null,
+      "proposal_confidence": 0.7,
+      "proposal_reason": "Research code possibly a BCMA/GPRC5D/CD3 trispecific antibody; recollection not verifiable from supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "JNJ-79635322",
+        "relationship_type": "code_defined_investigational_product",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Anti-BCMA/GPRC5D/CD3 trispecific antibody JNJ-79635322",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/anti-bcma-gprc5d-cd3-trispecific-antibody-jnj-79635322"
+          }
+        ],
+        "review_notes": "No separate generic name was established in this review. The verified code-defined trispecific antibody remains its own canonical product.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 149,
+      "raw_group": "GSK21110183",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "afuresertib",
+      "proposal_confidence": 0.7,
+      "proposal_reason": "Research code believed to correspond to afuresertib (probable misspelling of GSK2110183) (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "deferred",
+        "verified_canonical_name": null,
+        "relationship_type": null,
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Afuresertib",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/afuresertib"
+          }
+        ],
+        "review_notes": "The source group is GSK21110183, while authoritative sources list afuresertib as GSK2110183. Because the strings differ materially, this possible typo is not auto-normalized.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 150,
+      "raw_group": "GPC-100",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "burixafor",
+      "proposal_confidence": 0.7,
+      "proposal_reason": "Research code believed to correspond to burixafor (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "burixafor",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "PubMed",
+            "title": "Burixafor hydrobromide (GPC-100)",
+            "reference": "https://pubmed.ncbi.nlm.nih.gov/37539772/"
+          }
+        ],
+        "review_notes": "GPC-100 is independently supported as burixafor.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 151,
+      "raw_group": "GC012F injection",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "AZD0120)",
+      "proposal_confidence": 0.7,
+      "proposal_reason": "Research code possibly a BCMA/CD19 CAR-T (also known as AZD0120); not verifiable from supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "AZD0120",
+        "relationship_type": "former_development_code_or_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "AstraZeneca",
+            "title": "AZD0120 / GC012F clinical study information",
+            "reference": "https://dede.www.astrazenecaclinicaltrials.com/study/D8313C00001/"
+          }
+        ],
+        "review_notes": "GC012F is verified as the same BCMA/CD19 dual-targeting CAR-T program now designated AZD0120.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 152,
+      "raw_group": "GC012F",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "AZD0120",
+      "proposal_confidence": 0.7,
+      "proposal_reason": "Research code believed to correspond to AZD0120 (a BCMA/CD19-directed CAR-T) (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "AZD0120",
+        "relationship_type": "former_development_code_or_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "AstraZeneca",
+            "title": "AZD0120 / GC012F clinical study information",
+            "reference": "https://dede.www.astrazenecaclinicaltrials.com/study/D8313C00001/"
+          }
+        ],
+        "review_notes": "GC012F is verified as the same BCMA/CD19 dual-targeting CAR-T program now designated AZD0120.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 153,
+      "raw_group": "CC-95266",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "arlocabtagene autoleucel",
+      "proposal_confidence": 0.7,
+      "proposal_reason": "Research code believed to correspond to arlocabtagene autoleucel (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "arlocabtagene autoleucel",
+        "relationship_type": "development_code_or_verified_alias",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "NCI Drug Dictionary",
+            "title": "Arlocabtagene autoleucel; CC-95266 code name",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/autologous-anti-gprc5d-car-t-cells-bms-986393"
+          }
+        ],
+        "review_notes": "Identity relationship approved for formatting-group normalization. This does not imply regulatory approval, therapeutic equivalence, or formulation interchangeability.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 154,
+      "raw_group": "AZD0120",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": null,
+      "proposal_confidence": 0.7,
+      "proposal_reason": "Research code possibly a BCMA/CD19-directed CAR-T; recollection not verifiable from supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "AZD0120",
+        "relationship_type": "code_defined_cell_therapy_product",
+        "parent_or_reference_product": null,
+        "sources": [
+          {
+            "source_type": "AstraZeneca",
+            "title": "Pipeline / AZD0120",
+            "reference": "https://www.astrazeneca.com/our-therapy-areas/pipeline.html"
+          }
+        ],
+        "review_notes": "AZD0120 is treated as a verified code-defined cell therapy product; no further generic-name collapse is made.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "possible_match_rank": 155,
+      "raw_group": "[14C]-DSP-5336",
+      "proposal_canonical_name": null,
+      "inferred_target_from_reason": "enzomenib",
+      "proposal_confidence": 0.7,
+      "proposal_reason": "Research code believed to correspond to enzomenib (14C-labeled) (not an approved canonical drug); not in supplied reference data.",
+      "needs_human_review": true,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "[14C]-DSP-5336",
+        "relationship_type": "radiolabeled_variant_of_parent",
+        "parent_or_reference_product": "enzomenib",
+        "sources": [
+          {
+            "source_type": "NCI",
+            "title": "Clinical trial using [14C]-DSP-5336 / enzomenib",
+            "reference": "https://www.cancer.gov/research/participate/clinical-trials/intervention/enzomenib"
+          }
+        ],
+        "review_notes": "The carbon-14 radiolabeled compound remains distinct from unlabeled enzomenib and is not collapsed into the parent identity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    }
+  ]
+}

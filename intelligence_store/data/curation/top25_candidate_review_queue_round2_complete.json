@@ -1,0 +1,1146 @@
+{
+  "schema_version": "top25-candidate-review-queue-v1",
+  "source_file": "new_candidate_priority_analysis.json",
+  "selection_rule": "Candidates ranked 26-50 by trial_count descending, then formatting_group_count descending.",
+  "round": 2,
+  "records": [
+    {
+      "proposed_canonical_name": "panobinostat",
+      "trial_count": 28,
+      "formatting_group_count": 6,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Panobinostat",
+        "Farydak",
+        "LBH589 (panobinostat)",
+        "Panobinostat Capsules",
+        "Panobinostat Lactate",
+        "panobinostat (capsules)"
+      ],
+      "known_brand_names": [
+        "Farydak"
+      ],
+      "known_development_codes": [
+        "LBH589"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "panobinostat",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Farydak"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": true,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "FARYDAK (panobinostat) prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1b97bd3a-1040-4511-b0e6-4758e8083ae5"
+          }
+        ],
+        "review_notes": "Canonical identity, Farydak brand, histone deacetylase inhibitor class, and historical multiple-myeloma indication verified from DailyMed labeling. Current marketing status requires caution because the DailyMed record is an older inactive-label context, so approval status/market availability should not be inferred from this mapping."
+      }
+    },
+    {
+      "proposed_canonical_name": "pegylated liposomal doxorubicin (PLD)",
+      "trial_count": 25,
+      "formatting_group_count": 8,
+      "candidate_type": "formulation_variant",
+      "source_formatting_groups": [
+        "pegylated liposomal doxorubicin hydrochloride",
+        "Doxil",
+        "Pegylated Liposomal Doxorubicin (PLD)",
+        "PLD",
+        "Pegylated liposomal doxorubicin",
+        "DOXIL/CAELYX",
+        "Doxil®",
+        "Doxorubicin hydrochloride (DOXIL/CAELYX)"
+      ],
+      "known_brand_names": [
+        "Doxil",
+        "Caelyx"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": "doxorubicin",
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "pegylated liposomal doxorubicin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "formulation_variant",
+        "brand_names": [
+          "Doxil",
+          "Caelyx"
+        ],
+        "development_codes": [],
+        "parent_entity": "doxorubicin",
+        "reference_product": null,
+        "relationship_type": "pegylated_liposomal_formulation",
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": true,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "DOXIL (doxorubicin hydrochloride liposome injection) prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=917eddf9-1d3f-4abe-8c81-d33b066e5bae"
+          }
+        ],
+        "review_notes": "Kept separate from conventional doxorubicin. Current labeling explicitly includes multiple myeloma in combination with bortezomib. Caelyx is retained from the candidate grouping but should be regarded as a non-U.S. brand relationship rather than a U.S. DailyMed brand."
+      }
+    },
+    {
+      "proposed_canonical_name": "pembrolizumab",
+      "trial_count": 25,
+      "formatting_group_count": 2,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Pembrolizumab",
+        "Pembrolizumab (KEYTRUDA(R))"
+      ],
+      "known_brand_names": [
+        "Keytruda"
+      ],
+      "known_development_codes": [
+        "MK-3475"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "pembrolizumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [
+          "Keytruda"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "KEYTRUDA (pembrolizumab) prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/getFile.cfm?setid=9333c79b-d487-4538-a9f0-71b91a02b287"
+          }
+        ],
+        "review_notes": "Canonical identity, Keytruda brand, and PD-1-blocking monoclonal-antibody class verified. Current labeling does not include multiple myeloma as an indication and specifically warns that PD-1/PD-L1 blockade with a thalidomide analogue plus dexamethasone is not recommended outside controlled trials."
+      }
+    },
+    {
+      "proposed_canonical_name": "venetoclax",
+      "trial_count": 25,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Venetoclax"
+      ],
+      "known_brand_names": [
+        "Venclexta"
+      ],
+      "known_development_codes": [
+        "ABT-199"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "venetoclax",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Venclexta"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "VENCLEXTA (venetoclax) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b118a40d-6b56-cee3-10f6-ded821a97018"
+          }
+        ],
+        "review_notes": "Canonical identity, Venclexta brand, and BCL-2 inhibitor class verified. Current U.S. labeling covers CLL/SLL and AML, not multiple myeloma; therefore myeloma_directed is false."
+      }
+    },
+    {
+      "proposed_canonical_name": "carmustine",
+      "trial_count": 23,
+      "formatting_group_count": 3,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "carmustine",
+        "BCNU",
+        "Transplant 2 Carmustine"
+      ],
+      "known_brand_names": [
+        "BiCNU"
+      ],
+      "known_development_codes": [
+        "BCNU"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "carmustine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "BiCNU"
+        ],
+        "development_codes": [
+          "BCNU"
+        ],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": true,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "BiCNU (carmustine for injection) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=d6cbb63c-e0b1-43ee-ad6f-408da0772079"
+          }
+        ],
+        "review_notes": "Canonical identity, BiCNU brand, and BCNU designation verified. Current labeling explicitly lists multiple myeloma in combination with prednisone."
+      }
+    },
+    {
+      "proposed_canonical_name": "nivolumab",
+      "trial_count": 23,
+      "formatting_group_count": 2,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Nivolumab",
+        "Nivolumab 240mg"
+      ],
+      "known_brand_names": [
+        "Opdivo"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "nivolumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [
+          "Opdivo"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "OPDIVO (nivolumab) prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/getFile.cfm?setid=f570b9c4-6846-4de2-abfa-4d0a4ae4e394"
+          }
+        ],
+        "review_notes": "Canonical identity, Opdivo brand, PD-1-blocking monoclonal-antibody class, and antineoplastic role verified. Current labeling does not include multiple myeloma, so myeloma_directed is false."
+      }
+    },
+    {
+      "proposed_canonical_name": "sargramostim",
+      "trial_count": 23,
+      "formatting_group_count": 2,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "sargramostim",
+        "Sargramostim (GM-CSF)"
+      ],
+      "known_brand_names": [
+        "Leukine"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "sargramostim",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [
+          "Leukine"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care",
+          "mobilization"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "LEUKINE (sargramostim) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/getFile.cfm?setid=bb9a3820-f31a-4dd9-bef4-97094c01a398&type=pdf"
+          }
+        ],
+        "review_notes": "Canonical identity and Leukine brand verified. Label-supported uses include hematopoietic recovery and autologous peripheral-blood progenitor-cell mobilization; not a myeloma-directed antineoplastic therapy."
+      }
+    },
+    {
+      "proposed_canonical_name": "cytarabine",
+      "trial_count": 19,
+      "formatting_group_count": 4,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Cytarabine",
+        "Ara-C",
+        "I-DAC (Intermediate dose cytarabine)",
+        "Transplant 2 Cytarabine"
+      ],
+      "known_brand_names": [
+        "Cytosar-U"
+      ],
+      "known_development_codes": [
+        "Ara-C"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "cytarabine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "Cytarabine injection prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=21e8e8e6-3f85-4fdd-8452-c9d14d2ef69a"
+          }
+        ],
+        "review_notes": "Canonical identity and antineoplastic role verified. DailyMed RxNorm data also recognizes ara-C as a synonym, but it was not promoted as a development code. Current labeling does not establish multiple myeloma as an indication."
+      }
+    },
+    {
+      "proposed_canonical_name": "tocilizumab",
+      "trial_count": 19,
+      "formatting_group_count": 3,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Tocilizumab",
+        "Tocilizumab at emerging CRS",
+        "Tocilizumab before CAR-T cell infusion"
+      ],
+      "known_brand_names": [
+        "Actemra"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "tocilizumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [
+          "Actemra"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "ACTEMRA (tocilizumab) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=2e5365ff-cb2a-4b16-b2c7-e35c6bf2de13"
+          }
+        ],
+        "review_notes": "Canonical identity and Actemra brand verified. Labeling includes CAR-T-cell-induced severe or life-threatening cytokine release syndrome, supporting a supportive-care role rather than myeloma-directed therapy."
+      }
+    },
+    {
+      "proposed_canonical_name": "vorinostat",
+      "trial_count": 19,
+      "formatting_group_count": 3,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Vorinostat",
+        "MK0683, vorinostat, Suberoylanilide Hydroxamic Acid (SAHA) / Duration of Treatment - Up to 8 Cycles or 6 months",
+        "SAHA"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "MK0683",
+        "SAHA"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "vorinostat",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Zolinza"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "ZOLINZA (vorinostat) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=cd86ee78-2781-468b-930c-3c4677bcc092"
+          }
+        ],
+        "review_notes": "Canonical identity, Zolinza brand, and HDAC-inhibitor antineoplastic class verified. Current labeling is for cutaneous T-cell lymphoma, not multiple myeloma. MK0683 and SAHA were not promoted into verified development-code fields in this pass."
+      }
+    },
+    {
+      "proposed_canonical_name": "vincristine",
+      "trial_count": 19,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "vincristine sulfate",
+        "Vincristine"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "vincristine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "Vincristine sulfate injection prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=consumer&setid=b22e4c8e-dbe1-4d4b-a026-e1812974071c"
+          }
+        ],
+        "review_notes": "Canonical identity and antineoplastic use verified. Current labeling does not establish multiple myeloma as an indication, so myeloma_directed is false."
+      }
+    },
+    {
+      "proposed_canonical_name": "linvoseltamab",
+      "trial_count": 19,
+      "formatting_group_count": 1,
+      "candidate_type": "bispecific_antibody",
+      "source_formatting_groups": [
+        "Linvoseltamab"
+      ],
+      "known_brand_names": [
+        "Lynozyfic"
+      ],
+      "known_development_codes": [
+        "REGN5458"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "linvoseltamab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "bispecific_antibody",
+        "brand_names": [
+          "Lynozyfic"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": true,
+        "sources": [
+          {
+            "source_type": "FDA",
+            "title": "FDA grants accelerated approval to linvoseltamab-gcpt for relapsed or refractory multiple myeloma",
+            "reference": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-grants-accelerated-approval-linvoseltamab-gcpt-relapsed-or-refractory-multiple-myeloma"
+          }
+        ],
+        "review_notes": "Canonical identity, Lynozyfic brand, BCMA-directed CD3 bispecific T-cell-engager class, and multiple-myeloma indication verified. FDA granted accelerated approval July 2, 2025. REGN5458 was not promoted into the verified development-code field in this pass."
+      }
+    },
+    {
+      "proposed_canonical_name": "cisplatin",
+      "trial_count": 18,
+      "formatting_group_count": 4,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Cisplatin",
+        "Cisplatinum",
+        "Induction/Consolidation Cisplatin",
+        "Transplant 1 Cisplatin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "cisplatin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "Cisplatin injection prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=a440f077-46f6-4688-a209-65bce38d1c92"
+          }
+        ],
+        "review_notes": "Canonical identity and platinum-based antineoplastic role verified. Current labeling includes testicular, ovarian, and bladder cancers but not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "clarithromycin",
+      "trial_count": 18,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Clarithromycin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "clarithromycin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "other"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "Clarithromycin tablets prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=81c0c69e-b1ae-42f3-9e85-09b8daa75d8d"
+          }
+        ],
+        "review_notes": "Canonical identity verified as a macrolide antimicrobial. Although clarithromycin appears in some myeloma trial regimens, current labeling does not establish it as a myeloma-directed therapy. Role is left as 'other' rather than antineoplastic."
+      }
+    },
+    {
+      "proposed_canonical_name": "alemtuzumab",
+      "trial_count": 16,
+      "formatting_group_count": 4,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "alemtuzumab",
+        "Campath",
+        "CAMPATH 1H",
+        "CAMPATH-1H"
+      ],
+      "known_brand_names": [
+        "Campath",
+        "Lemtrada"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "alemtuzumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [
+          "Campath"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "CAMPATH (alemtuzumab) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=4f5f7255-7abc-4328-bd1a-ceaf139ef3e0"
+          }
+        ],
+        "review_notes": "Canonical identity, Campath brand, CD52-directed cytolytic monoclonal-antibody class, and antineoplastic role verified. Current labeling is for B-cell chronic lymphocytic leukemia, not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "azacitidine",
+      "trial_count": 16,
+      "formatting_group_count": 4,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Azacitidine",
+        "Azacitidine (AZA)",
+        "Vidaza",
+        "azacitadine"
+      ],
+      "known_brand_names": [
+        "Vidaza"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "azacitidine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Onureg"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "ONUREG (azacitidine) prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0e95e33f-8aba-4f19-b332-2416580d358b"
+          }
+        ],
+        "review_notes": "Canonical identity and antineoplastic role verified. Current ONUREG labeling is for continued treatment of acute myeloid leukemia after first remission, not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "arsenic trioxide",
+      "trial_count": 16,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "arsenic trioxide",
+        "Trisenox (Arsenic Trioxide)"
+      ],
+      "known_brand_names": [
+        "Trisenox"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "arsenic trioxide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "inorganic_compound",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "Arsenic trioxide injection prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=2a999752-f350-4eff-97e7-e7106dfa85b5"
+          }
+        ],
+        "review_notes": "Canonical identity and antineoplastic role verified. Current labeling is for acute promyelocytic leukemia, not multiple myeloma. Modality is recorded as inorganic_compound rather than small_molecule."
+      }
+    },
+    {
+      "proposed_canonical_name": "acetaminophen",
+      "trial_count": 14,
+      "formatting_group_count": 3,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Acetaminophen",
+        "Acetaminophen (paracetamol)",
+        "Paracetamol / Acetaminophen"
+      ],
+      "known_brand_names": [
+        "Tylenol"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "acetaminophen",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "Acetaminophen 500 mg tablet labeling",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fc5e6f2a-e813-0666-e053-6394a90a66a7"
+          }
+        ],
+        "review_notes": "Canonical identity and analgesic/antipyretic role verified. It is supportive care rather than a myeloma-directed therapy."
+      }
+    },
+    {
+      "proposed_canonical_name": "ciltacabtagene autoleucel",
+      "trial_count": 14,
+      "formatting_group_count": 3,
+      "candidate_type": "CAR_T",
+      "source_formatting_groups": [
+        "Cilta-cel",
+        "Ciltacabtagene Autoleucel",
+        "Cilta-cel OOS Therapy"
+      ],
+      "known_brand_names": [
+        "Carvykti"
+      ],
+      "known_development_codes": [
+        "JNJ-68284528",
+        "LCAR-B38M"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ciltacabtagene autoleucel",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "cell_therapy",
+        "brand_names": [
+          "Carvykti"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": true,
+        "sources": [
+          {
+            "source_type": "FDA",
+            "title": "CARVYKTI",
+            "reference": "https://www.fda.gov/vaccines-blood-biologics/cellular-gene-therapy-products/carvykti"
+          }
+        ],
+        "review_notes": "Canonical identity, Carvykti tradename, autologous CAR-T cell-therapy modality, and current multiple-myeloma indication verified from FDA."
+      }
+    },
+    {
+      "proposed_canonical_name": "mezigdomide",
+      "trial_count": 14,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Mezigdomide"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "CC-92480"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "mezigdomide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [
+          "CC-92480",
+          "BMS-986348"
+        ],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic",
+          "investigational"
+        ],
+        "myeloma_directed": true,
+        "sources": [
+          {
+            "source_type": "FDA",
+            "title": "FDA Orphan Drug designation record for mezigdomide",
+            "reference": "https://www.accessdata.fda.gov/scripts/opdlisting/oopd/detailedIndex.cfm?cfgridkey=685019"
+          },
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "NCT05552976 SUCCESSOR-2",
+            "reference": "https://clinicaltrials.gov/study/NCT05552976"
+          }
+        ],
+        "review_notes": "Canonical identity and multiple-myeloma development program verified. CC-92480 and BMS-986348 are verified study identifiers in the Phase 3 SUCCESSOR-2 record. FDA lists mezigdomide as orphan-designated for multiple myeloma but not FDA-approved for the orphan indication, so this record must not imply marketing approval."
+      }
+    },
+    {
+      "proposed_canonical_name": "thiotepa",
+      "trial_count": 14,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Thiotepa"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "thiotepa",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Tepadina"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic",
+          "conditioning"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "TEPADINA (thiotepa) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=559e353c-2dc0-16ba-e054-00144ff8d46c"
+          }
+        ],
+        "review_notes": "Canonical identity, Tepadina brand, and alkylating-antineoplastic class verified. Thiotepa is also used in transplant-conditioning contexts, but current U.S. labeling does not establish multiple myeloma as a labeled indication, so myeloma_directed is false."
+      }
+    },
+    {
+      "proposed_canonical_name": "cevostamab",
+      "trial_count": 13,
+      "formatting_group_count": 1,
+      "candidate_type": "bispecific_antibody",
+      "source_formatting_groups": [
+        "Cevostamab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "BFCR4350A"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "cevostamab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "bispecific_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic",
+          "investigational"
+        ],
+        "myeloma_directed": true,
+        "sources": [
+          {
+            "source_type": "FDA",
+            "title": "FDA Orphan Drug designation record for cevostamab",
+            "reference": "https://www.accessdata.fda.gov/scripts/opdlisting/oopd/detailedIndex.cfm?cfgridkey=799220"
+          }
+        ],
+        "review_notes": "Canonical identity and multiple-myeloma development intent verified. FDA orphan designation is for treatment of multiple myeloma and explicitly shows that cevostamab is not FDA approved for the orphan indication. The record therefore remains investigational and must not imply marketing approval."
+      }
+    },
+    {
+      "proposed_canonical_name": "palifermin",
+      "trial_count": 12,
+      "formatting_group_count": 6,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Palifermin",
+        "Kepivance (Palifermin)",
+        "Palifermin 2 x 180 μg/kg/day",
+        "Palifermin 6 x 60 μg/kg/day",
+        "Palifermin before and after",
+        "Palifermin before only"
+      ],
+      "known_brand_names": [
+        "Kepivance"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "palifermin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [
+          "Kepivance"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "KEPIVANCE (palifermin) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=426f6e64-2c20-4a61-6d65-7320426f6e64"
+          }
+        ],
+        "review_notes": "Canonical identity, Kepivance brand, and biologic growth-factor modality verified. Labeling identifies it as supportive care to reduce severe oral mucositis in patients with hematologic malignancies receiving myelotoxic therapy with autologous stem-cell support; not a myeloma-directed therapy."
+      }
+    },
+    {
+      "proposed_canonical_name": "diphenhydramine",
+      "trial_count": 12,
+      "formatting_group_count": 3,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Diphenhydramine",
+        "Diphenhydramine (or equivalent)",
+        "Diphenhydramine or equivalent"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "diphenhydramine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "Diphenhydramine hydrochloride labeling",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=298e9164-e378-4b39-a944-bfc8f8baa4de"
+          }
+        ],
+        "review_notes": "Canonical identity and antihistamine role verified. In oncology trial contexts it may appear as premedication/supportive care; it is not a myeloma-directed therapy."
+      }
+    },
+    {
+      "proposed_canonical_name": "siltuximab",
+      "trial_count": 12,
+      "formatting_group_count": 3,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Siltuximab",
+        "Siltuximab 8.3 mg/kg or 11 mg/kg",
+        "Siltuximab11 mg/kg"
+      ],
+      "known_brand_names": [
+        "Sylvant"
+      ],
+      "known_development_codes": [
+        "CNTO 328"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "siltuximab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [
+          "Sylvant"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "other"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "SYLVANT (siltuximab) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8d663642-f52e-49c0-a023-2da083fdfc0b"
+          }
+        ],
+        "review_notes": "Canonical identity, Sylvant brand, and IL-6 antagonist monoclonal-antibody modality verified. Current labeling is for HIV-negative/HHV-8-negative multicentric Castleman disease, not multiple myeloma, so myeloma_directed is false."
+      }
+    }
+  ],
+  "review_progress": {
+    "reviewed": 25,
+    "approved": 21,
+    "approved_with_changes": 4,
+    "rejected": 0,
+    "deferred": 0,
+    "pending": 0
+  }
+}

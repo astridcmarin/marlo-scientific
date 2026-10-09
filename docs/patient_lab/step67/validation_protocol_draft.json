@@ -1,0 +1,256 @@
+{
+  "schema_version": "patient-lab-validation-protocol-draft-v1",
+  "protocol_id": "hughes-educational-verification-validation-draft-1",
+  "created_on": "2026-10-08",
+  "status": "draft_not_locked_or_approved",
+  "role": "planning_document_not_platform_validation_gate_input",
+  "intended_use": "Evaluate implementation correctness and, only with suitable permitted data and a locked analysis plan, characterize deterministic typical-concentration prediction performance. No individual clinical decision claim.",
+  "bound_artifacts": {
+    "execution_contract": {
+      "filename": "hughes_execution_contract_v1.json",
+      "sha256": "59670d7f0328a395cd2a04f7076d27287340a3a860ff38ea43a84e9dc088a682"
+    },
+    "source_assessment": {
+      "filename": "hughes_source_assessment.json",
+      "sha256": "02b75e60ede3d734329dc59fe7efcba5b51f90f56b508d58d1fbc9aae524fbdf"
+    },
+    "data_access_inventory": {
+      "filename": "data_access_inventory.json",
+      "sha256": "34d6cd8b7cbce8d095cd4fd2e4722a5765f9890dd761fd440913d3beeaa86456"
+    },
+    "numerical_audit_implementation": {
+      "filename": "educational_pk_audit.py",
+      "sha256": "6976eee7bbba8c961c5eed0577b2fe440218aaba3b82e2ed7f0788e1571ade45"
+    }
+  },
+  "scope": {
+    "drug": "lenalidomide",
+    "route_form": "oral capsule",
+    "initial_amounts_mg": 0,
+    "individual_random_effects": "all_zero",
+    "observation_error": "omitted",
+    "display_step_h": 0.1,
+    "solver": "RK4",
+    "max_step_h": 0.001,
+    "maximum_horizon_h": 72,
+    "maximum_events": 4,
+    "first_event_time_h": 0,
+    "interval_h": 24,
+    "requires_existing_coverage_and_input_checks": true,
+    "scope_expansion_allowed_by_this_document": false
+  },
+  "workstreams": [
+    {
+      "id": "source_transcription",
+      "question": "Does the implementation represent the selected source equations, topology, units and typical parameter algebra?",
+      "current_evidence": "Step 65 assisted bounded comparison; no independent signoff",
+      "required_evidence": [
+        "Qualified independent review with identity and dated findings",
+        "Source document and model/code hashes",
+        "Reconciled compartment order, units, omissions and history"
+      ],
+      "acceptance": "All specified items resolved or explicitly documented limitations; reviewer decision recorded",
+      "completed_by_this_step": false
+    },
+    {
+      "id": "mathematical_verification",
+      "question": "Does the solver calculate the selected deterministic system correctly?",
+      "current_evidence": "Existing analytic audit and software tests; local checkpoint evidence only for runs actually audited",
+      "comparison_rule": "abs(actual-reference) <= absolute_tolerance + relative_tolerance*abs(reference); all compared values finite; expected lengths equal",
+      "tolerances": [
+        {
+          "code": "analytic_concentration",
+          "unit": "ng/mL",
+          "absolute_tolerance": 5e-07,
+          "relative_tolerance": 1e-08,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "analytic_cumulative_auc",
+          "unit": "ng*h/mL",
+          "absolute_tolerance": 5e-05,
+          "relative_tolerance": 1e-08,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "analytic_compartment_amounts",
+          "unit": "mg",
+          "absolute_tolerance": 5e-08,
+          "relative_tolerance": 1e-08,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "requested_amount_schedule",
+          "unit": "mg",
+          "absolute_tolerance": 1e-10,
+          "relative_tolerance": 0,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "point_amount_conservation",
+          "unit": "mg",
+          "absolute_tolerance": null,
+          "relative_tolerance": 0,
+          "absolute_tolerance_formula": "1e-9 * total_requested_amount_mg"
+        },
+        {
+          "code": "event_times",
+          "unit": "h",
+          "absolute_tolerance": 0,
+          "relative_tolerance": 0,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "event_continuity_concentration_ng_ml",
+          "unit": "ng/mL",
+          "absolute_tolerance": 5e-07,
+          "relative_tolerance": 0,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "event_continuity_auc_0_t_ng_h_ml",
+          "unit": "ng*h/mL",
+          "absolute_tolerance": 5e-05,
+          "relative_tolerance": 0,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "event_continuity_central_amount_mg",
+          "unit": "mg",
+          "absolute_tolerance": 5e-08,
+          "relative_tolerance": 0,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "analytic_event_amounts",
+          "unit": "mg",
+          "absolute_tolerance": 5e-08,
+          "relative_tolerance": 1e-08,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "analytic_event_concentration_ng_ml",
+          "unit": "ng/mL",
+          "absolute_tolerance": 5e-07,
+          "relative_tolerance": 1e-08,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "analytic_event_auc_0_t_ng_h_ml",
+          "unit": "ng*h/mL",
+          "absolute_tolerance": 5e-05,
+          "relative_tolerance": 1e-08,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "event_addition_to_abs",
+          "unit": "mg",
+          "absolute_tolerance": null,
+          "relative_tolerance": 0,
+          "absolute_tolerance_formula": "1e-9 * total_requested_amount_mg"
+        },
+        {
+          "code": "analytic_total_auc",
+          "unit": "ng*h/mL",
+          "absolute_tolerance": 5e-05,
+          "relative_tolerance": 1e-08,
+          "absolute_tolerance_formula": null
+        },
+        {
+          "code": "reported_window_auc",
+          "unit": "ng*h/mL",
+          "absolute_tolerance": 5e-05,
+          "relative_tolerance": 1e-08,
+          "absolute_tolerance_formula": null
+        }
+      ],
+      "tolerance_authority": "Existing project technical targets, not FDA or clinical acceptance thresholds",
+      "parameter_algebra_required_separately": true,
+      "completed_by_this_step": false
+    },
+    {
+      "id": "original_source_replay",
+      "question": "Can equivalent source-generated typical concentrations be reproduced with matched inputs and settings?",
+      "current_evidence": "Original dataset, actual histories and numeric reference outputs not obtained",
+      "required_evidence": [
+        "Permitted dataset and dictionary",
+        "Actual dosing and sampling histories",
+        "Exact source code, software version/settings and numeric outputs",
+        "Specified output columns and ETA/error interpretation"
+      ],
+      "absolute_tolerance": null,
+      "relative_tolerance": null,
+      "threshold_justification": null,
+      "fit_reproduction_in_scope": false,
+      "completed_by_this_step": false
+    },
+    {
+      "id": "internal_empirical_characterization",
+      "question": "How well do fixed typical predictions describe observations in development data?",
+      "current_evidence": "No empirical analysis run",
+      "independent_validation_claim_allowed": false,
+      "development_data_reuse_disclosed": true,
+      "completed_by_this_step": false
+    },
+    {
+      "id": "external_empirical_evaluation",
+      "question": "How well do fixed typical predictions describe eligible observations from an independent study?",
+      "current_evidence": "No accepted external dataset or analysis",
+      "dataset_id": null,
+      "dataset_sha256": null,
+      "independence_verified": false,
+      "primary_endpoint_proposal": "Subject-balanced mean log(predicted/observed) for eligible strictly positive quantified concentrations",
+      "primary_acceptance_limits": null,
+      "precision_endpoint_proposal": "Square root of the subject-balanced mean squared log(predicted/observed)",
+      "precision_acceptance_limit": null,
+      "threshold_justification": null,
+      "sample_size_and_precision_justification": null,
+      "completed_by_this_step": false
+    }
+  ],
+  "empirical_plan": {
+    "model_parameters_fixed": true,
+    "fit_subject_etas_to_evaluation_observations": false,
+    "target_population": null,
+    "covariate_methods_and_timing": null,
+    "dataset_partition_and_overlap_plan": null,
+    "eligibility_exclusion_rules": null,
+    "actual_time_alignment_method": null,
+    "blq_method": null,
+    "missing_data_method": null,
+    "subject_clustering_ci_method": null,
+    "ci_level_and_resamples": null,
+    "sensitivity_analyses": null,
+    "diagnostics_proposed": [
+      "Observed vs predicted concentration",
+      "Error vs time since actual dose",
+      "Error vs dose, fat-free mass and creatinine clearance",
+      "Subject and study attrition with reasons"
+    ],
+    "not_supported": [
+      "Clinical efficacy/toxicity/dose recommendations",
+      "Individual prediction intervals",
+      "VPC or stochastic population reproduction from deterministic curves alone",
+      "Measured AUC/Cmax/Tmax agreement without suitable sampling and a prespecified reference estimator"
+    ],
+    "real_participant_data_destination": "Separate permitted read-only validation workflow; never synthetic PatientState records"
+  },
+  "lock_record": {
+    "analysis_owner": null,
+    "independent_source_reviewer": null,
+    "scientific_reviewer": null,
+    "data_permission_reference": null,
+    "locked_at": null,
+    "locked_protocol_sha256": null,
+    "approval": null,
+    "performance_results_inspected_before_lock": null,
+    "amendment_policy": "Archive original protocol and data/code hashes. Date and justify changes; changes informed by performance make that analysis exploratory and require a new independent evaluation for confirmatory claims."
+  },
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false,
+  "source_model_reproduction_established": false,
+  "external_validation_established": false,
+  "data_imported": false,
+  "empirical_analysis_run": false,
+  "protocol_sha256": "f2947b2193a2215fc3e70c4c562e46de773d25e5b0af36e32652f263d399292b"
+}

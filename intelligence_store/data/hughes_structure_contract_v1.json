@@ -1,0 +1,74 @@
+{
+  "schema_version": "published-pk-structure-contract-v1",
+  "contract_version": "hughes-2019-final-structure-v1.0",
+  "drug": "lenalidomide",
+  "source": {
+    "doi": "10.1111/bcp.13873",
+    "filename": "bcp13873-sup-0001-supplementary material.docx",
+    "sha256": "261734ad9632f1a0f19156b8b4b6cd88d6637cbefe89be4363791caeeda11849",
+    "reviewed_on": "2026-10-07",
+    "location": "Supplementary Material 2: final NONMEM control stream",
+    "url": "https://bpspubs.onlinelibrary.wiley.com/doi/10.1111/bcp.13873"
+  },
+  "structure": {
+    "source_compartment_order": [
+      "ABS",
+      "CEN",
+      "TRANS1",
+      "TRANS2",
+      "TRANS3",
+      "TRANS4",
+      "TRANS5",
+      "TRANS6",
+      "TRANS7"
+    ],
+    "serial_precentral_order": [
+      "ABS",
+      "TRANS1",
+      "TRANS2",
+      "TRANS3",
+      "TRANS4",
+      "TRANS5",
+      "TRANS6",
+      "TRANS7"
+    ],
+    "precentral_stage_count": 8,
+    "central_compartment": "CEN",
+    "central_source_index": 2,
+    "central_inflow_source_index": 9,
+    "common_transfer_rate": "KTR",
+    "elimination": "(CL/V2) * central_amount"
+  },
+  "reference_values": {
+    "ffm_kg": 55.0,
+    "crcl_ml_min": 90.0,
+    "apparent_clearance_l_h": 12.0,
+    "apparent_volume_l": 68.8,
+    "transit_rate_h": 13.5,
+    "ffm_clearance_exponent": 0.75,
+    "ffm_volume_exponent": 1.0,
+    "crcl_exponent": 0.224
+  },
+  "units": {
+    "source_amount": "mg",
+    "source_volume": "L",
+    "source_time": "h",
+    "source_CP": "mg/L",
+    "display_concentration": "ng/mL",
+    "conversion_factor": 1000
+  },
+  "typical_value_assumption": "ETA1=ETA2=ETA3=0. No interindividual variability or residual-error observation is simulated.",
+  "verification_input": {
+    "amount_mg": 1.0,
+    "time_h": 0.0,
+    "initial_compartment": "ABS",
+    "meaning": "Normalized unit input for mathematical verification, not a treatment recommendation."
+  },
+  "boundaries": [
+    "Final control stream from Supplementary Material 2 only; the exploratory stream in Material 3 is not substituted.",
+    "The source data CSV, dosing records, NONMEM run and subject-level outputs are unavailable.",
+    "Initial unit amount in ABS is an explicit verification assumption; no source dosing record is replayed.",
+    "Apparent CL/F and V/F are used together without a separate bioavailability multiplier.",
+    "No patient input, dose selection, repeated treatment schedule, applicability decision or clinical prediction."
+  ]
+}

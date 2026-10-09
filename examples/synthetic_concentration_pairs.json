@@ -1,0 +1,76 @@
+{
+  "schema_version": "synthetic-pk-paired-concentrations-v1",
+  "purpose": "synthetic_fixture",
+  "fixture_id": "unequal-sample-counts-demo-v1",
+  "concentration_unit": "ng/mL",
+  "pairing_method": "explicit_same_time_synthetic_pairs",
+  "prediction_method": "supplied_synthetic_values_no_fitting",
+  "rows": [
+    {
+      "subject_id": "SYN-A",
+      "sample_id": "1",
+      "observed_time_h": 1,
+      "predicted_time_h": 1,
+      "observation_status": "quantified",
+      "observed_ng_ml": 10,
+      "predicted_ng_ml": 20,
+      "observed_source_ref": "invented-fixture-observation",
+      "predicted_source_ref": "invented-fixture-prediction"
+    },
+    {
+      "subject_id": "SYN-A",
+      "sample_id": "2",
+      "observed_time_h": 2,
+      "predicted_time_h": 2,
+      "observation_status": "quantified",
+      "observed_ng_ml": 20,
+      "predicted_ng_ml": 40,
+      "observed_source_ref": "invented-fixture-observation",
+      "predicted_source_ref": "invented-fixture-prediction"
+    },
+    {
+      "subject_id": "SYN-B",
+      "sample_id": "1",
+      "observed_time_h": 1,
+      "predicted_time_h": 1,
+      "observation_status": "quantified",
+      "observed_ng_ml": 20,
+      "predicted_ng_ml": 10,
+      "observed_source_ref": "invented-fixture-observation",
+      "predicted_source_ref": "invented-fixture-prediction"
+    },
+    {
+      "subject_id": "SYN-C",
+      "sample_id": "1",
+      "observed_time_h": 1,
+      "predicted_time_h": 1,
+      "observation_status": "blq",
+      "observed_ng_ml": null,
+      "predicted_ng_ml": 2,
+      "observed_source_ref": "invented-fixture-observation",
+      "predicted_source_ref": "invented-fixture-prediction"
+    },
+    {
+      "subject_id": "SYN-D",
+      "sample_id": "1",
+      "observed_time_h": 1,
+      "predicted_time_h": 1,
+      "observation_status": "missing",
+      "observed_ng_ml": null,
+      "predicted_ng_ml": 3,
+      "observed_source_ref": "invented-fixture-observation",
+      "predicted_source_ref": "invented-fixture-prediction"
+    },
+    {
+      "subject_id": "SYN-E",
+      "sample_id": "1",
+      "observed_time_h": 1,
+      "predicted_time_h": 1,
+      "observation_status": "quantified",
+      "observed_ng_ml": 0,
+      "predicted_ng_ml": 1,
+      "observed_source_ref": "invented-fixture-observation",
+      "predicted_source_ref": "invented-fixture-prediction"
+    }
+  ]
+}

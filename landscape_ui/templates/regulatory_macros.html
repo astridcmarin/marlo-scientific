@@ -1,0 +1,3 @@
+{% macro bool_value(field) %}<span>{{ field.label }}</span>{% if field.state=='invalid' %}<span class="variant-note">Raw: {{ field.raw_value|tojson }}</span>{% endif %}{% endmacro %}
+{% macro date_value(field) %}{% if field.state=='valid' %}{{ field.raw_date }}<span class="variant-note">{{ field.precision|title }} precision · Type: {{ field.date_type or 'Not reported' }}</span>{% elif field.state=='invalid' %}Invalid / unsupported<span class="variant-note">Raw: {{ field.raw_value|tojson }}</span>{% else %}Not reported{% endif %}{% endmacro %}
+{% macro evidence_link(cohort_id,snapshot_id) %}<a href="{{ url_for('landscape.snapshot',cohort_id=cohort_id,snapshot_id=snapshot_id) }}" target="_blank" rel="noopener noreferrer">Retained snapshot</a>{% endmacro %}

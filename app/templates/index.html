@@ -483,12 +483,19 @@
 
     {% endif %}
 
-
+    
     <!-- =========================================
          RESULTS
     ========================================== -->
-
     {% if studies %}
+
+        {% if condition %}
+            <p class="landscape-entry">
+                <a href="{{ url_for('landscape.index', condition=condition) }}">
+                    View {{ condition }} landscape &#8594;
+                </a>
+            </p>
+        {% endif %}
 
         <div class="results-layout">
 

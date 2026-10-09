@@ -1,0 +1,108 @@
+{
+  "schema_version": "assay-quality-review-v1",
+  "review_version": "lu-fig2d-quantitative-suitability-v1.0",
+  "entity_id": "lenalidomide",
+  "assay_id": "lu-fig2d-mm1s-chase",
+  "reviewed_on": "2026-10-09",
+  "decision": "retain_qualitative_evidence_not_selected_for_quantitative_calibration",
+  "decision_role": "project_scientific_judgment_based_on_currently_reviewed_material",
+  "review_status": "assistant_review_not_independently_verified",
+  "metadata_packet_sha256": "af1970a3109070f552474064d2df7a0be4c86f9ff449cff6ebca8c16f928a644",
+  "sources": {
+    "main": {
+      "filename": "nihms-583352.pdf",
+      "sha256": "787b8a809dc42e157b2f013ee2902e8520b3629f828329dfd1cbb463c1a5339b",
+      "locator": "PDF page 9 Figure 2D, caption pages 9–10"
+    },
+    "supplement": {
+      "filename": "NIHMS583352-supplement-Supplement.pdf",
+      "sha256": "3b2309bf58c2ce5eb6454670051655e47eba7b834f74565809f36c42369a360c",
+      "reviewed_locators": [
+        "PDF page 1: Cell culture",
+        "PDF page 3: Immunoblotting and Antibodies",
+        "PDF page 6: Protein Half Life Analysis",
+        "PDF pages 35 and 340: headers of Tables S1 and S2"
+      ],
+      "review_scope": "Selected methods and table headers, not exhaustive review of all supplementary pages"
+    },
+    "quantification_methodology": {
+      "doi": "10.1007/s12033-013-9672-6",
+      "url": "https://link.springer.com/article/10.1007/s12033-013-9672-6",
+      "role": "Primary experimental methodology reference supporting dynamic-range, background and normalization review, not validation of the Lu assay.",
+      "reviewed_on": "2026-10-09"
+    }
+  },
+  "image_inspection": {
+    "method": "Poppler pdfimages listing and native JPEG extraction followed by visual inspection; no enhancement or band densitometry",
+    "pdf_page": 9,
+    "embedded_image_width_px": 2024,
+    "embedded_image_height_px": 2028,
+    "encoding": "JPEG",
+    "bits_per_component": 8,
+    "color_components": 3,
+    "effective_resolution_ppi": 300,
+    "scope": "These properties describe the complete assembled Figure 2 image, not a raw detector exposure or each individual blot.",
+    "image_resolution_conclusion": "Sufficient for reading panel/lane labels; resolution alone does not establish quantitative signal quality."
+  },
+  "assessment": [
+    {
+      "criterion": "lane and time labels",
+      "status": "legible",
+      "finding": "Five chase times and treatment/genotype groups can be read."
+    },
+    {
+      "criterion": "analyte band definition",
+      "status": "unresolved",
+      "finding": "IKZF1 shows multiple bands. A quantitative selection/combination rule is not established."
+    },
+    {
+      "criterion": "detector linearity and saturation",
+      "status": "not_established",
+      "finding": "Published appearance cannot establish a linear quantitative range or prove saturation. No accepted calibration/exposure data for this assay were identified in the reviewed material."
+    },
+    {
+      "criterion": "background and image processing",
+      "status": "not_established",
+      "finding": "Raw exposures and a panel-specific background-subtraction rule are not available in the reviewed records. JPEG encoding alone is not a sufficient exclusion criterion."
+    },
+    {
+      "criterion": "loading-control normalization",
+      "status": "control_identified_method_unresolved",
+      "finding": "Vinculin is shown, but a numerical normalization rule and quantitative control range are not established."
+    },
+    {
+      "criterion": "replicates and uncertainty",
+      "status": "not_established",
+      "finding": "Figure 2D-specific replicate counts and numerical variability are unresolved. Reporter/qPCR replication is not imported."
+    },
+    {
+      "criterion": "assay medium",
+      "status": "unresolved",
+      "finding": "Cell culture lists RPMI for MM1S; the generic chase method says DMEM."
+    },
+    {
+      "criterion": "numerical data availability",
+      "status": "not_identified_in_reviewed_material",
+      "finding": "Reviewed Table S1/S2 headers concern reporter-screen/retest data; these are not treated as the Figure 2D protein-loss time series."
+    },
+    {
+      "criterion": "patient or dose-response applicability",
+      "status": "not_established",
+      "finding": "A perturbed cellular chase at one drug condition does not establish patient response or a general concentration-effect function."
+    }
+  ],
+  "measurements_extracted": [],
+  "accepted_parameters": {},
+  "fitting_status": "not_run",
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false,
+  "retained_use": "Source-linked qualitative mechanism illustration and assay metadata.",
+  "next_action": "Search for author-provided or published numerical protein-abundance time courses with units, controls, replicates, normalization and assay context. Prefer several exposure levels if a concentration-effect model is the goal.",
+  "reconsideration_conditions": [
+    "Raw or author-provided assay data with provenance",
+    "Defined analyte/band measurement and quantitative range",
+    "Documented normalization, replicates and uncertainty",
+    "Resolved or explicitly bounded assay context"
+  ],
+  "limitation": "Project selection decision, not a claim that the published experiment is invalid or that no usable data exist elsewhere. No band intensities, degradation constants, half-lives or clinical effects are inferred."
+}

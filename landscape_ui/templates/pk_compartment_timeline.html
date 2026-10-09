@@ -1,0 +1,49 @@
+{% if timeline is defined %}
+{% if timeline.available %}
+<link rel="stylesheet" href="{{ url_for('landscape.static',filename='pk-compartment-timeline.css') }}">
+<section class="panel pk-timeline" data-pk-timeline aria-labelledby="pk-timeline-heading">
+  <div class="pk-timeline-heading"><div><p class="pk-timeline-eyebrow">Archived values · Educational only</p><h2 id="pk-timeline-heading">Compartment timeline</h2></div><span class="pk-timeline-time" data-pk-time>{{ '%.3f'|format(timeline.first.time_h) }} h</span></div>
+  <p>Follow retained amounts through eight mathematical transit stages, the central compartment and the eliminated pool. These stages are not anatomical organs. No calculation is rerun.</p>
+  <div class="pk-timeline-controls" data-pk-controls hidden>
+    <div class="pk-timeline-playback">
+      <button type="button" class="button secondary" data-pk-play aria-pressed="false">Play archived timeline</button>
+      <label for="pk-timeline-speed">Viewing speed</label>
+      <select id="pk-timeline-speed" data-pk-speed><option value="1">1 point per second</option><option value="4" selected>4 points per second</option><option value="10">10 points per second</option></select>
+      <p data-pk-playback-status role="status" aria-live="polite">Playback paused.</p>
+    </div>
+    <p class="pk-timeline-note">Playback advances through archived sampled points only. Viewing speed does not change model parameters or simulated time values.</p>
+    <label for="pk-timeline-position">Select an archived time point</label>
+    <input id="pk-timeline-position" data-pk-position type="range" min="0" max="{{ timeline.max_index }}" step="1" value="0" aria-describedby="pk-timeline-status">
+    {% if timeline.events.available %}
+    <div class="pk-timeline-event-controls" data-pk-event-controls>
+      <p><strong>Jump to a synthetic request</strong></p>
+      <div class="pk-timeline-buttons">{% for event in timeline.events["items"] %}<button type="button" class="button secondary" data-pk-jump="{{ event.index }}">{{ '%.3f'|format(event.time_h) }} h · {{ '%g'|format(event.amount_mg) }} mg</button>{% endfor %}</div>
+      <label for="pk-timeline-phase">At a request time</label>
+      <select id="pk-timeline-phase" data-pk-phase><option value="after">After request</option><option value="before">Before request</option></select>
+    </div>
+    {% endif %}
+    <div class="pk-timeline-buttons"><button type="button" class="button secondary" data-pk-prev disabled>Previous point</button><button type="button" class="button secondary" data-pk-next>Next point</button><button type="button" class="button secondary" data-pk-reset>Back to start</button></div>
+    <p id="pk-timeline-status" data-pk-status role="status" aria-live="polite">Point 1 of {{ timeline.points|length }}</p>
+  </div>
+  <p class="pk-timeline-note">Sampled points at a request time show the retained after-request state. Before/after controls use archived boundary snapshots at those times only. A request is not a confirmed administration.</p>
+  {% if not timeline.events.available %}<p class="pk-timeline-note">{{ timeline.events.reason }}</p>{% endif %}
+  <p class="pk-timeline-note" data-pk-chart-note hidden>The orange chart markers identify the selected archived sampled point. At a request time they mark the sampled after-request curve; the before/after amounts and values are displayed in the timeline. No values between samples are estimated.</p>
+  <p data-pk-fallback>First archived point shown. Enable JavaScript to move through the timeline.</p>
+  <div class="pk-timeline-metrics">
+    <div><span>Central concentration</span><strong><span data-pk-concentration>{{ '%.6f'|format(timeline.first.concentration_ng_ml) }}</span> ng/mL</strong></div>
+    <div><span>Cumulative exposure (AUC)</span><strong><span data-pk-auc>{{ '%.6f'|format(timeline.first.auc_ng_h_ml) }}</span> ng·h/mL</strong></div>
+    <div><span>Cumulative requested amount</span><strong><span data-pk-requested>{{ '%.6f'|format(timeline.first.requested_mg) }}</span> mg</strong></div>
+    <div><span>Accounted amount</span><strong><span data-pk-accounted>{{ '%.6f'|format(timeline.first.accounted_mg) }}</span> mg</strong></div>
+  </div>
+  <div class="pk-timeline-stages">
+  {% for label in timeline.labels %}{% set amount = timeline.first.amounts_mg[loop.index0] %}
+    <div class="pk-timeline-stage{% if loop.index0 >= 8 %} pk-timeline-summary-stage{% endif %}"><h3>{{ label }}</h3><p><strong data-pk-amount="{{ loop.index0 }}">{{ '%.6f'|format(amount) }}</strong> mg</p><progress data-pk-meter="{{ loop.index0 }}" value="{{ amount }}" max="{{ timeline.first.requested_mg if timeline.first.requested_mg > 0 else 1 }}" aria-label="{{ label }} share of cumulative requested amount"></progress></div>
+  {% endfor %}
+  </div>
+  <p class="pk-timeline-note">Displayed values are rounded; archived JSON retains precision. Bars use the cumulative requested amount at the selected time as their scale. A new request can change that scale. Concentration, amounts and AUC describe the model; they do not establish efficacy, toxicity or dose suitability.</p>
+  <script type="application/json" data-pk-points>{{ timeline.points|tojson }}</script>
+<script type="application/json" data-pk-events>{{ timeline.events["items"]|tojson }}</script>
+</section>
+<script src="{{ url_for('landscape.static',filename='pk-compartment-timeline.js') }}" defer></script>
+{% else %}<section class="panel"><h2>Compartment timeline unavailable</h2><p>{{ timeline.reason }}</p></section>{% endif %}
+{% endif %}

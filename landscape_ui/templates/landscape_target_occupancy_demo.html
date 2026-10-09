@@ -1,0 +1,34 @@
+{% extends "landscape_base.html" %}
+{% block title %}Invented target binding · Patient Lab{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('landscape.static',filename='target-occupancy-demo.css') }}">
+<h1>Target binding demonstration</h1>
+<section class="scenario-notice"><strong>Invented inputs · Generic equilibrium mathematics</strong><p>No drug, target identity, patient state or saved PK run is attached. Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong>.</p></section>
+<div class="occupancy-layout">
+<section class="panel"><h2>Explore invented binding</h2>
+<form method="get" action="{{ url_for('landscape.target_occupancy_demo') }}" class="occupancy-form">
+<label for="occupancy-kd">Equilibrium dissociation constant, Kd (nM)</label><input id="occupancy-kd" name="kd_nm" type="number" min="0.000000000001" max="1000000000000" step="any" required value="{{ kd }}">
+<label for="occupancy-max">Maximum free concentration shown (nM)</label><input id="occupancy-max" name="max_nm" type="number" min="0.000000000001" max="1000000000000" step="any" required value="{{ maximum }}">
+<label for="occupancy-selected">Selected free target-site concentration (nM)</label><input id="occupancy-selected" name="selected_nm" type="number" min="0" max="{{ maximum }}" step="any" required value="{{ selected }}" aria-describedby="occupancy-input-note">
+<p id="occupancy-input-note">Enter a selected concentration within the displayed range. These are hypothetical free concentrations at the target, not total plasma concentrations.</p>
+<button type="submit" class="button primary">Calculate invented binding</button>
+</form><p><a href="{{ url_for('landscape.target_occupancy_demo') }}">Reset invented example</a> · <a href="{{ export_url }}">Download this demonstration JSON</a></p>
+<p>Fraction bound = C_free / (Kd + C_free). Inputs share the same nM unit. There is no time axis or kinetic simulation.</p>
+</section>
+<section class="panel"><h2>Equilibrium concentration–binding curve</h2>
+<p>Selected free concentration: <strong>{{ selected }} nM</strong> · Fraction bound: <strong>{{ '%.6g'|format(fraction) }}</strong> (dimensionless).</p>
+<svg class="occupancy-chart" viewBox="0 0 780 305" role="img" aria-labelledby="occupancy-chart-title occupancy-chart-description">
+<title id="occupancy-chart-title">Generic equilibrium binding curve with invented Kd {{ kd }} nM</title>
+<desc id="occupancy-chart-description">Horizontal axis: free target-site concentration, zero to {{ maximum }} nM. Vertical axis: fraction bound, zero to one. Orange dot: selected concentration {{ selected }} nM, fraction {{ fraction }}. No clinical response is plotted.</desc>
+{% for tick in chart.y_ticks %}<line x1="70" x2="740" y1="{{ tick.y }}" y2="{{ tick.y }}" class="occupancy-grid"/><text x="60" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
+{% for tick in chart.x_ticks %}<text x="{{ tick.x }}" y="272" text-anchor="middle">{{ tick.label }}</text>{% endfor %}
+<text x="70" y="18">Fraction bound</text><text x="405" y="296" text-anchor="middle">Free target-site concentration (nM)</text>
+<polyline points="{{ chart.polyline }}" fill="none" stroke="#007b83" stroke-width="2.5"/>
+<line x1="{{ chart.selected_x }}" x2="{{ chart.selected_x }}" y1="30" y2="250" stroke="#a63d16" stroke-dasharray="5 4"/>
+<circle cx="{{ chart.selected_x }}" cy="{{ chart.selected_y }}" r="5" fill="#a63d16" stroke="white" stroke-width="2"/>
+</svg><p>The curve connects 201 computed concentration samples for display. The orange selected point is evaluated directly by the equation, independently of that display grid. Drawing a curve adds no measured data.</p>
+</section></div>
+<section class="panel"><h2>What the demonstration assumes</h2><ul>{% for assumption in report.curve_report.assumptions %}<li>{{ assumption }}</li>{% endfor %}</ul><p>{{ report.curve_report.limitation }}</p><p>A binding fraction supplies no receptor activation, downstream biomarker, clinical effect or harm prediction. No concentration from Patient Lab is substituted into this example.</p></section>
+<details class="panel"><summary>Values, precision and provenance</summary><p>{{ report.curve_report.method_version }} · Each parameter is an invented educational declaration.</p><p>{{ report.curve_report.numerical_limitations }}</p><p>Displayed fractions are rounded. JSON contains both the concentration grid and independently calculated selected point, their input records and report hashes.</p><p class="catalog-digest">Page report SHA256: {{ report.report_sha256 }}</p><ul>{% for source in report.curve_report.concept_references %}<li><a href="{{ source.url }}" rel="noopener noreferrer">{{ source.title if source.title is defined else source.reference_id }}</a>: {{ source.role }}</li>{% endfor %}</ul>
+<div class="table-scroll"><table><caption>Computed equilibrium samples, not observations or time points.</caption><thead><tr><th>Free concentration (nM)</th><th>Fraction bound</th></tr></thead><tbody>{% for point in report.curve_report.points %}<tr><td>{{ '%.6g'|format(point.free_concentration_nm) }}</td><td>{{ '%.6g'|format(point.fraction_bound) }}</td></tr>{% endfor %}</tbody></table></div></details>
+{% endblock %}

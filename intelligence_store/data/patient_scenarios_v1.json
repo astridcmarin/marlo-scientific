@@ -1,0 +1,66 @@
+{
+  "schema_version": "synthetic-scenario-presets-v1",
+  "catalog_version": "patient-scenario-presets-v1.0",
+  "note": "Author-selected synthetic educational examples, not clinical recommendations or population-representative profiles. No dose is prefilled.",
+  "presets": [
+    {
+      "id": "interaction-reference",
+      "label": "Interaction reference example",
+      "description": "Synthetic profile demonstrating selected named medication references.",
+      "profile": {
+        "schema_version": "synthetic-patient-scenario-v1",
+        "purpose": "synthetic_educational",
+        "age_years": 65,
+        "biological_sex": "FEMALE",
+        "weight_kg": 70,
+        "egfr_ml_min_1_73m2": 60,
+        "selected_drug": "lenalidomide",
+        "dose_value": null,
+        "dose_unit": null,
+        "indication": "Multiple Myeloma",
+        "medications": [
+          "Digoxin",
+          "Warfarin"
+        ]
+      }
+    },
+    {
+      "id": "laboratory-reference",
+      "label": "Laboratory reference example",
+      "description": "Synthetic profile demonstrating a laboratory-test reference without a second-drug pair.",
+      "profile": {
+        "schema_version": "synthetic-patient-scenario-v1",
+        "purpose": "synthetic_educational",
+        "age_years": 60,
+        "biological_sex": "MALE",
+        "weight_kg": 80,
+        "egfr_ml_min_1_73m2": 75,
+        "selected_drug": "daratumumab",
+        "dose_value": null,
+        "dose_unit": null,
+        "indication": "Multiple Myeloma",
+        "medications": []
+      }
+    },
+    {
+      "id": "coverage-gap",
+      "label": "Coverage gap example",
+      "description": "Synthetic profile with descriptive fields missing and an uncurated medication name.",
+      "profile": {
+        "schema_version": "synthetic-patient-scenario-v1",
+        "purpose": "synthetic_educational",
+        "age_years": 70,
+        "biological_sex": "UNSPECIFIED",
+        "weight_kg": null,
+        "egfr_ml_min_1_73m2": null,
+        "selected_drug": "bortezomib",
+        "dose_value": null,
+        "dose_unit": null,
+        "indication": "Multiple Myeloma",
+        "medications": [
+          "Example uncurated medicine"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,460 @@
+{
+  "schema_version": "regimen-evidence-triage-v1",
+  "generated_at_utc": "2026-10-08T13:05:17.521950+00:00",
+  "source_queue_schema_version": "regimen-decomposition-review-queue-v4",
+  "summary": {
+    "total_regimens": 386,
+    "linked_regimen_ranks": 22,
+    "study_links": 22,
+    "regimens_without_study_link": 364,
+    "statuses": {
+      "fetch_error": 22
+    },
+    "api_evidence_records_in_input": 0,
+    "api_fetch_errors_in_input": 22,
+    "human_approved_regimens": null
+  },
+  "policy": "Diagnostic only. Exact intervention/arm association is a candidate for manual review, not regimen approval.",
+  "links": [
+    {
+      "regimen_rank": 260,
+      "raw_group": "Placebo, Velcade and dexamethasone",
+      "nct_id": "NCT01266811",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "exact intervention label shown in ClinicalTrials.gov study record",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "placebo_or_control_not_in_proposed_components"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 343,
+      "raw_group": "baclofen/amitriptyline/ketamine gel",
+      "nct_id": "NCT00516503",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "exact intervention label shown in ClinicalTrials.gov study record",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "formulation_or_product_qualifier"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 53,
+      "raw_group": "B (Placebo + Dexamethasone)",
+      "nct_id": "NCT00057564",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "secondary registry exact intervention label; official API confirmation pending",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "placebo_or_control_not_in_proposed_components",
+        "one_proposed_component_in_regimen_class"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 150,
+      "raw_group": "Dexamethasone plus Placebo",
+      "nct_id": "NCT00424047",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "secondary registry exact intervention label; official API confirmation pending",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "placebo_or_control_not_in_proposed_components",
+        "one_proposed_component_in_regimen_class"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 271,
+      "raw_group": "R2: Lenalidomide plus placebo maintenance",
+      "nct_id": "NCT03720041",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "secondary registry exact intervention label; official API confirmation pending",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "placebo_or_control_not_in_proposed_components",
+        "one_proposed_component_in_regimen_class"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 85,
+      "raw_group": "Bortezomib; Pegylated Liposomal Doxorubicin; Dexamethasone (VDD)",
+      "nct_id": "NCT00750815",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "exact intervention/comparison label matched on public ClinicalTrials.gov study page",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "formulation_or_product_qualifier"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 238,
+      "raw_group": "Mitoxantrone hydrochloride liposome/Dexamethasone/daratumumab",
+      "nct_id": "NCT05857982",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "exact intervention/comparison label matched on public ClinicalTrials.gov study page",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "formulation_or_product_qualifier"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 253,
+      "raw_group": "PDD regimen: doxorubicin hydrochloride iposome, bortizomib and dexamethasone",
+      "nct_id": "NCT02577783",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "exact intervention/comparison label matched on public ClinicalTrials.gov study page",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "formulation_identity_unresolved",
+        "unsupported_pegylation_assumption"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 333,
+      "raw_group": "Vincristine, DOXIL (doxorubicin HCl liposomal injection), and Dexamethasone (VDD) vs. Vincristine, Doxorubicin and Dexamethasone (VAD)",
+      "nct_id": "NCT00344422",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "exact intervention/comparison label matched on public ClinicalTrials.gov study page",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "comparison_arms_conflated",
+        "formulation_or_product_qualifier",
+        "requires_arm_level_regimen_review"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 351,
+      "raw_group": "bortezomib; pegylated liposomal doxorubicin",
+      "nct_id": "NCT00706953",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "exact intervention/comparison label matched on public ClinicalTrials.gov study page",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "formulation_or_product_qualifier"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 92,
+      "raw_group": "CD19/BCMA Targeted CAR T-cells and dasatinib",
+      "nct_id": "NCT04603872",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "clinicaltrials_gov_public_study_page",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "arm_level_context_required",
+        "cell_therapy_product_not_identified",
+        "cell_therapy_product_specificity",
+        "registry_internal_target_label_conflict",
+        "unresolved_component_identity"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 119,
+      "raw_group": "Conditioning treatment \"Treosulfan-TMI\"",
+      "nct_id": "NCT03963024",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "clinicaltrials_gov_public_study_page",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "contains_non_drug_procedure",
+        "proposed_decomposition_incomplete",
+        "radiation_procedure",
+        "radiation_term_requires_context",
+        "regimen_schedule_context_required"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 172,
+      "raw_group": "Fludarabine + Cyclophosphamide + BCMA-GPRC5D CAR-T Cells",
+      "nct_id": "NCT05998928",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "secondary_clinicaltrials_gov_mirror",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "cell_therapy_product_not_identified",
+        "cell_therapy_product_specificity",
+        "primary_api_confirmation_pending",
+        "sequential_lymphodepletion_then_infusion",
+        "unresolved_component_identity"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 175,
+      "raw_group": "Fludarabine, Thiotepa, Antithymocyte globulin (ATG), and Total Body Irradiation (TBI)",
+      "nct_id": "NCT00943800",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "clinicaltrials_gov_public_study_page",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "antithymocyte_globulin_product_unspecified",
+        "contains_non_drug_procedure",
+        "radiation_procedure",
+        "radiation_term_requires_context",
+        "transplant_arm_context_required",
+        "unresolved_component_identity"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 299,
+      "raw_group": "Thalidomide+Melphalan +Bortezomib+stem cell transplant",
+      "nct_id": "NCT01242267",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "clinicaltrials_gov_public_study_page",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "premedication_context_not_captured",
+        "stem_cell_transplant_omitted"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 357,
+      "raw_group": "clarithromycin, lenalidomide, dexamethasone and autologous BCMA-directed CAR T-cells",
+      "nct_id": "NCT04287660",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "secondary_clinicaltrials_gov_mirror",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "cell_therapy_product_not_identified",
+        "cell_therapy_product_specificity",
+        "primary_api_confirmation_pending",
+        "treatment_sequence_requires_context",
+        "unresolved_component_identity"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 1,
+      "raw_group": "G-CSF Plus Plerixafor",
+      "nct_id": "NCT00322491",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "clinicaltrials_gov_public_search_excerpt",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "growth_factor_product_unspecified",
+        "primary_api_confirmation_pending",
+        "source_level_review_pending",
+        "unresolved_component_identity"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 55,
+      "raw_group": "BL-8040 1.25 mg/kg + G-CSF",
+      "nct_id": "NCT03246529",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "nci_trial_record_and_trial_center",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "growth_factor_product_unspecified",
+        "primary_api_confirmation_pending",
+        "source_level_review_pending",
+        "unresolved_component_identity"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 129,
+      "raw_group": "Cytosine arabinoside + G-CSF (filgrastim)",
+      "nct_id": "NCT01908621",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "clinicaltrials_gov_public_search_excerpt",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "filgrastim_explicitly_specified",
+        "primary_api_confirmation_pending",
+        "source_level_review_pending"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 169,
+      "raw_group": "First Transplant - MEL-80+CFZ-TD-PACE + PBSC (biologic)",
+      "nct_id": "NCT02128230",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "secondary_registry_mirror_of_clinicaltrials_gov",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "primary_api_confirmation_pending",
+        "source_level_review_pending",
+        "stem_cell_transplant_omitted",
+        "transplant_stage_context_required"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 279,
+      "raw_group": "Second Transplant - MEL-80+CFZ-TD-PACE + PBSC (biologic)",
+      "nct_id": "NCT02128230",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "secondary_registry_mirror_of_clinicaltrials_gov",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "primary_api_confirmation_pending",
+        "source_level_review_pending",
+        "stem_cell_transplant_omitted",
+        "transplant_stage_context_required"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    },
+    {
+      "regimen_rank": 308,
+      "raw_group": "Transplant Preparative Regimen (Flu/Cy/Mes)",
+      "nct_id": "NCT00973804",
+      "status": "fetch_error",
+      "linked_study_evidence_basis": "clinicaltrials_gov_public_search_excerpt",
+      "primary_api_verified_at_link_creation": false,
+      "audit_flags": [
+        "primary_api_confirmation_pending",
+        "source_level_review_pending",
+        "transplant_procedure_separate_from_conditioning"
+      ],
+      "fetch_errors": [
+        "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+      ],
+      "issue_codes": [
+        "api_fetch_failed"
+      ],
+      "reviewer_approval_implied": false
+    }
+  ]
+}

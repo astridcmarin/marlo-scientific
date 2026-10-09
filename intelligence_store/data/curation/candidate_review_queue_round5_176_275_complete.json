@@ -1,0 +1,3739 @@
+{
+  "schema_version": "candidate-review-queue-v2",
+  "source_file": "new_candidate_priority_analysis.json",
+  "selection_rule": "Candidates ranked 176-275 by trial_count descending, then formatting_group_count descending.",
+  "round": 5,
+  "rank_range": [
+    176,
+    275
+  ],
+  "review_scope_note": "Low-frequency long-tail curation round. Approval is limited to identity mapping of the listed ClinicalTrials.gov formatting groups to the reviewed canonical entity. It does not independently verify regulatory status, formulation equivalence, clinical role, or mechanism.",
+  "review_progress": {
+    "reviewed": 100,
+    "approved": 78,
+    "approved_with_changes": 22,
+    "rejected": 0,
+    "deferred": 0,
+    "pending": 0
+  },
+  "records": [
+    {
+      "rank": 176,
+      "proposed_canonical_name": "clodronate",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Bonefos (Clodronate, BAY94-8393)",
+        "Clodronate (Bonefos, BAY94-8393)"
+      ],
+      "known_brand_names": [
+        "Bonefos"
+      ],
+      "known_development_codes": [
+        "BAY94-8393"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "clodronate",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: clodronate",
+            "reference": "https://clinicaltrials.gov/search?term=clodronate"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 177,
+      "proposed_canonical_name": "colesevelam",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "Colesevelam",
+        "Colesevelam Pill"
+      ],
+      "known_brand_names": [
+        "Welchol"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "colesevelam",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: colesevelam",
+            "reference": "https://clinicaltrials.gov/search?term=colesevelam"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 178,
+      "proposed_canonical_name": "defactinib",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Defactinib Hydrochloride",
+        "Defactinib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "defactinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: defactinib",
+            "reference": "https://clinicaltrials.gov/search?term=defactinib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 179,
+      "proposed_canonical_name": "fentanyl",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Fentanyl sublingual spray",
+        "fentanyl citrate"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "fentanyl",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: fentanyl",
+            "reference": "https://clinicaltrials.gov/search?term=fentanyl"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 180,
+      "proposed_canonical_name": "florbetaben F18",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "[18F]Florbetaben",
+        "¹⁸F-florbetaben"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "florbetaben F18",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "diagnostic_radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "diagnostic",
+          "imaging"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: florbetaben F18",
+            "reference": "https://clinicaltrials.gov/search?term=florbetaben%20F18"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 181,
+      "proposed_canonical_name": "fluphenazine",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Fluphenazine HCl",
+        "fluphenazine hydrochloride"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "fluphenazine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: fluphenazine",
+            "reference": "https://clinicaltrials.gov/search?term=fluphenazine"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 182,
+      "proposed_canonical_name": "holmium-166-DOTMP",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "radiopharmaceutical",
+      "source_formatting_groups": [
+        "Holmium-166-DOTMP",
+        "STR(TM) (Skeletal Targeted Radiotherapy, Holmium-166-DOTMP)"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "holmium-166-DOTMP",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "radiopharmaceutical"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: holmium-166-DOTMP",
+            "reference": "https://clinicaltrials.gov/search?term=holmium-166-DOTMP"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 183,
+      "proposed_canonical_name": "hyaluronidase (human recombinant, rHuPH20)",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Recombinant Human Hyaluronidase PH20 (rHuPH20)",
+        "Recombinant Human Hyaluronidase [rHuPH20]) SC Administration"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "hyaluronidase (human recombinant, rHuPH20)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: hyaluronidase (human recombinant, rHuPH20)",
+            "reference": "https://clinicaltrials.gov/search?term=hyaluronidase%20%28human%20recombinant%2C%20rHuPH20%29"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 184,
+      "proposed_canonical_name": "hydrocortisone",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Hydrocortisone",
+        "therapeutic hydrocortisone"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "hydrocortisone",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: hydrocortisone",
+            "reference": "https://clinicaltrials.gov/search?term=hydrocortisone"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 185,
+      "proposed_canonical_name": "larotrectinib",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Larotrectinib",
+        "Larotrectinib Sulfate"
+      ],
+      "known_brand_names": [
+        "Vitrakvi"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "larotrectinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: larotrectinib",
+            "reference": "https://clinicaltrials.gov/search?term=larotrectinib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 186,
+      "proposed_canonical_name": "masitinib",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Masitinib",
+        "masitinib (AB1010)"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "AB1010"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "masitinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: masitinib",
+            "reference": "https://clinicaltrials.gov/search?term=masitinib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 187,
+      "proposed_canonical_name": "motexafin gadolinium",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Motexafin Gadolinium Injection",
+        "motexafin gadolinium"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "motexafin gadolinium",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: motexafin gadolinium",
+            "reference": "https://clinicaltrials.gov/search?term=motexafin%20gadolinium"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 188,
+      "proposed_canonical_name": "oxycodone",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Oxycodone",
+        "oxycodone hydrochloride"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "oxycodone",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: oxycodone",
+            "reference": "https://clinicaltrials.gov/search?term=oxycodone"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 189,
+      "proposed_canonical_name": "poly-ICLC",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "Hiltonol",
+        "poly-ICLC"
+      ],
+      "known_brand_names": [
+        "Hiltonol"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "poly-ICLC",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: poly-ICLC",
+            "reference": "https://clinicaltrials.gov/search?term=poly-ICLC"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 190,
+      "proposed_canonical_name": "recombinant human thrombopoietin",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "recombinant human thrombopoietin",
+        "rhTPO"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "recombinant human thrombopoietin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: recombinant human thrombopoietin",
+            "reference": "https://clinicaltrials.gov/search?term=recombinant%20human%20thrombopoietin"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 191,
+      "proposed_canonical_name": "tbo-filgrastim",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Granix",
+        "Tbo-filgrastim"
+      ],
+      "known_brand_names": [
+        "Granix"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "tbo-filgrastim",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: tbo-filgrastim",
+            "reference": "https://clinicaltrials.gov/search?term=tbo-filgrastim"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 192,
+      "proposed_canonical_name": "tecemotide",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Tecemotide",
+        "Tecemotide (L-BLP25)"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "L-BLP25"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "tecemotide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: tecemotide",
+            "reference": "https://clinicaltrials.gov/search?term=tecemotide"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 193,
+      "proposed_canonical_name": "tetanus toxoid",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Tetanus Toxoid Vaccine",
+        "tetanus toxoid"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "tetanus toxoid",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: tetanus toxoid",
+            "reference": "https://clinicaltrials.gov/search?term=tetanus%20toxoid"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 194,
+      "proposed_canonical_name": "treosulfan",
+      "trial_count": 2,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Treosulfan",
+        "Treosulfan IV"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "treosulfan",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: treosulfan",
+            "reference": "https://clinicaltrials.gov/search?term=treosulfan"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 195,
+      "proposed_canonical_name": "2-methoxyestradiol",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "2-methoxyestradiol"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "2-methoxyestradiol",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 2-methoxyestradiol",
+            "reference": "https://clinicaltrials.gov/search?term=2-methoxyestradiol"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 196,
+      "proposed_canonical_name": "abiraterone",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Abiraterone"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "abiraterone",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: abiraterone",
+            "reference": "https://clinicaltrials.gov/search?term=abiraterone"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 197,
+      "proposed_canonical_name": "adavosertib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Adavosertib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "adavosertib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: adavosertib",
+            "reference": "https://clinicaltrials.gov/search?term=adavosertib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 198,
+      "proposed_canonical_name": "afuresertib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Afuresertib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "GSK2110183"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "afuresertib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: afuresertib",
+            "reference": "https://clinicaltrials.gov/search?term=afuresertib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 199,
+      "proposed_canonical_name": "beclomethasone dipropionate",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "beclomethasone dipropionate"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "beclomethasone dipropionate",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: beclomethasone dipropionate",
+            "reference": "https://clinicaltrials.gov/search?term=beclomethasone%20dipropionate"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 200,
+      "proposed_canonical_name": "bryostatin 1",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "bryostatin 1"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "bryostatin 1",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: bryostatin 1",
+            "reference": "https://clinicaltrials.gov/search?term=bryostatin%201"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 201,
+      "proposed_canonical_name": "capivasertib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Capivasertib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "AZD5363"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "capivasertib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: capivasertib",
+            "reference": "https://clinicaltrials.gov/search?term=capivasertib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 202,
+      "proposed_canonical_name": "caspofungin",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "caspofungin acetate"
+      ],
+      "known_brand_names": [
+        "Cancidas"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "caspofungin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: caspofungin",
+            "reference": "https://clinicaltrials.gov/search?term=caspofungin"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 203,
+      "proposed_canonical_name": "curcumin",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "Curcumin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "curcumin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: curcumin",
+            "reference": "https://clinicaltrials.gov/search?term=curcumin"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 204,
+      "proposed_canonical_name": "dinaciclib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Dinaciclib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "SCH 727965"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "dinaciclib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: dinaciclib",
+            "reference": "https://clinicaltrials.gov/search?term=dinaciclib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 205,
+      "proposed_canonical_name": "dostarlimab",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Dostarlimab"
+      ],
+      "known_brand_names": [
+        "Jemperli"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "dostarlimab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: dostarlimab",
+            "reference": "https://clinicaltrials.gov/search?term=dostarlimab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 206,
+      "proposed_canonical_name": "eltrombopag",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Eltrombopag"
+      ],
+      "known_brand_names": [
+        "Promacta"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "eltrombopag",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: eltrombopag",
+            "reference": "https://clinicaltrials.gov/search?term=eltrombopag"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 207,
+      "proposed_canonical_name": "epoetin beta",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Epoetin Beta"
+      ],
+      "known_brand_names": [
+        "NeoRecormon"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "epoetin beta",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: epoetin beta",
+            "reference": "https://clinicaltrials.gov/search?term=epoetin%20beta"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 208,
+      "proposed_canonical_name": "erdafitinib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Erdafitinib"
+      ],
+      "known_brand_names": [
+        "Balversa"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "erdafitinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: erdafitinib",
+            "reference": "https://clinicaltrials.gov/search?term=erdafitinib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 209,
+      "proposed_canonical_name": "erlotinib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Erlotinib"
+      ],
+      "known_brand_names": [
+        "Tarceva"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "erlotinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: erlotinib",
+            "reference": "https://clinicaltrials.gov/search?term=erlotinib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 210,
+      "proposed_canonical_name": "feladilimab",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Feladilimab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "feladilimab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: feladilimab",
+            "reference": "https://clinicaltrials.gov/search?term=feladilimab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 211,
+      "proposed_canonical_name": "forimtamig",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "bispecific_antibody",
+      "source_formatting_groups": [
+        "Forimtamig"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "forimtamig",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "bispecific_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic",
+          "investigational"
+        ],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: forimtamig",
+            "reference": "https://clinicaltrials.gov/search?term=forimtamig"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 212,
+      "proposed_canonical_name": "fosaprepitant",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Fosaprepitant"
+      ],
+      "known_brand_names": [
+        "Emend for injection"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "fosaprepitant",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: fosaprepitant",
+            "reference": "https://clinicaltrials.gov/search?term=fosaprepitant"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 213,
+      "proposed_canonical_name": "glutamine",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Glutamine"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "glutamine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: glutamine",
+            "reference": "https://clinicaltrials.gov/search?term=glutamine"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 214,
+      "proposed_canonical_name": "ifosfamide",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "ifosfamide"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ifosfamide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: ifosfamide",
+            "reference": "https://clinicaltrials.gov/search?term=ifosfamide"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 215,
+      "proposed_canonical_name": "ipatasertib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Ipatasertib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "GDC-0068"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ipatasertib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: ipatasertib",
+            "reference": "https://clinicaltrials.gov/search?term=ipatasertib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 216,
+      "proposed_canonical_name": "keyhole limpet hemocyanin",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "keyhole limpet hemocyanin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "keyhole limpet hemocyanin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: keyhole limpet hemocyanin",
+            "reference": "https://clinicaltrials.gov/search?term=keyhole%20limpet%20hemocyanin"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 217,
+      "proposed_canonical_name": "lirilumab",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Lirilumab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "IPH2102"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "lirilumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: lirilumab",
+            "reference": "https://clinicaltrials.gov/search?term=lirilumab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 218,
+      "proposed_canonical_name": "loratadine",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Loratadine"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "loratadine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: loratadine",
+            "reference": "https://clinicaltrials.gov/search?term=loratadine"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 219,
+      "proposed_canonical_name": "meloxicam",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Meloxicam"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "meloxicam",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: meloxicam",
+            "reference": "https://clinicaltrials.gov/search?term=meloxicam"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 220,
+      "proposed_canonical_name": "mezagitamab",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Mezagitamab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "TAK-079"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "mezagitamab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: mezagitamab",
+            "reference": "https://clinicaltrials.gov/search?term=mezagitamab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 221,
+      "proposed_canonical_name": "milatuzumab",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "milatuzumab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "hLL1"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "milatuzumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: milatuzumab",
+            "reference": "https://clinicaltrials.gov/search?term=milatuzumab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 222,
+      "proposed_canonical_name": "minocycline",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Minocycline"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "minocycline",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: minocycline",
+            "reference": "https://clinicaltrials.gov/search?term=minocycline"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 223,
+      "proposed_canonical_name": "motixafortide",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Motixafortide"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "BL-8040",
+        "BKT140"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "motixafortide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: motixafortide",
+            "reference": "https://clinicaltrials.gov/search?term=motixafortide"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 224,
+      "proposed_canonical_name": "oblimersen",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "oblimersen sodium"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "G3139"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "oblimersen",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: oblimersen",
+            "reference": "https://clinicaltrials.gov/search?term=oblimersen"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 225,
+      "proposed_canonical_name": "osimertinib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Osimertinib"
+      ],
+      "known_brand_names": [
+        "Tagrisso"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "osimertinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: osimertinib",
+            "reference": "https://clinicaltrials.gov/search?term=osimertinib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 226,
+      "proposed_canonical_name": "palonosetron",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Palonosetron"
+      ],
+      "known_brand_names": [
+        "Aloxi"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "palonosetron",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: palonosetron",
+            "reference": "https://clinicaltrials.gov/search?term=palonosetron"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 227,
+      "proposed_canonical_name": "pertuzumab",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Pertuzumab"
+      ],
+      "known_brand_names": [
+        "Perjeta"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "pertuzumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: pertuzumab",
+            "reference": "https://clinicaltrials.gov/search?term=pertuzumab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 228,
+      "proposed_canonical_name": "pralatrexate",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Pralatrexate"
+      ],
+      "known_brand_names": [
+        "Folotyn"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "pralatrexate",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: pralatrexate",
+            "reference": "https://clinicaltrials.gov/search?term=pralatrexate"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 229,
+      "proposed_canonical_name": "radium-223 dichloride",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "radiopharmaceutical",
+      "source_formatting_groups": [
+        "Radium-223 dichloride (Xofigo, BAY88-8223)"
+      ],
+      "known_brand_names": [
+        "Xofigo"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "radium-223 dichloride",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "radiopharmaceutical"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: radium-223 dichloride",
+            "reference": "https://clinicaltrials.gov/search?term=radium-223%20dichloride"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 230,
+      "proposed_canonical_name": "relatlimab",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Relatlimab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "relatlimab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: relatlimab",
+            "reference": "https://clinicaltrials.gov/search?term=relatlimab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 231,
+      "proposed_canonical_name": "ridaforolimus",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "ridaforolimus"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "AP23573"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ridaforolimus",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: ridaforolimus",
+            "reference": "https://clinicaltrials.gov/search?term=ridaforolimus"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 232,
+      "proposed_canonical_name": "sonrotoclax",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Sonrotoclax"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "sonrotoclax",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: sonrotoclax",
+            "reference": "https://clinicaltrials.gov/search?term=sonrotoclax"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 233,
+      "proposed_canonical_name": "tabalumab",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Tabalumab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "LY2127399"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "tabalumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: tabalumab",
+            "reference": "https://clinicaltrials.gov/search?term=tabalumab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 234,
+      "proposed_canonical_name": "tanespimycin",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Tanespimycin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "17-AAG"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "tanespimycin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: tanespimycin",
+            "reference": "https://clinicaltrials.gov/search?term=tanespimycin"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 235,
+      "proposed_canonical_name": "taselisib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Taselisib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "GDC-0032"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "taselisib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: taselisib",
+            "reference": "https://clinicaltrials.gov/search?term=taselisib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 236,
+      "proposed_canonical_name": "tinostamustine",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Tinostamustine"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "tinostamustine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: tinostamustine",
+            "reference": "https://clinicaltrials.gov/search?term=tinostamustine"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 237,
+      "proposed_canonical_name": "tinzaparin",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Tinzaparin"
+      ],
+      "known_brand_names": [
+        "Innohep"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "tinzaparin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: tinzaparin",
+            "reference": "https://clinicaltrials.gov/search?term=tinzaparin"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 238,
+      "proposed_canonical_name": "tipifarnib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "tipifarnib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "R115777"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "tipifarnib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: tipifarnib",
+            "reference": "https://clinicaltrials.gov/search?term=tipifarnib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 239,
+      "proposed_canonical_name": "ulixertinib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Ulixertinib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ulixertinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: ulixertinib",
+            "reference": "https://clinicaltrials.gov/search?term=ulixertinib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 240,
+      "proposed_canonical_name": "vactosertib",
+      "trial_count": 2,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Vactosertib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "vactosertib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: vactosertib",
+            "reference": "https://clinicaltrials.gov/search?term=vactosertib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 241,
+      "proposed_canonical_name": "iopofosine I-131",
+      "trial_count": 1,
+      "formatting_group_count": 3,
+      "candidate_type": "radiopharmaceutical",
+      "source_formatting_groups": [
+        "Iopofosine I 131 fractionated dose",
+        "Iopofosine I 131 multiple dose",
+        "Iopofosine I 131 single dose"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "I 131"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "iopofosine I-131",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "radiopharmaceutical"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: iopofosine I-131",
+            "reference": "https://clinicaltrials.gov/search?term=iopofosine%20I-131"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 242,
+      "proposed_canonical_name": "purinostat",
+      "trial_count": 1,
+      "formatting_group_count": 3,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Purinostat Mesylate 4 mg/m2",
+        "Purinostat Mesylate 6 mg/m2",
+        "Purinostat Mesylate 8.4 mg/m2"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "purinostat",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: purinostat",
+            "reference": "https://clinicaltrials.gov/search?term=purinostat"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 243,
+      "proposed_canonical_name": "mecapegfilgrastim",
+      "trial_count": 1,
+      "formatting_group_count": 2,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Mecapegfilgrastim, day 2",
+        "Mecapegfilgrastim, day 5"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "mecapegfilgrastim",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: mecapegfilgrastim",
+            "reference": "https://clinicaltrials.gov/search?term=mecapegfilgrastim"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 244,
+      "proposed_canonical_name": "sodium acetate C-11",
+      "trial_count": 1,
+      "formatting_group_count": 2,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "Sodium Acetate C11 PET CT",
+        "Sodium Acetate C11 PET MRI"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "sodium acetate C-11",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "diagnostic_radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "diagnostic",
+          "imaging"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: sodium acetate C-11",
+            "reference": "https://clinicaltrials.gov/search?term=sodium%20acetate%20C-11"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 245,
+      "proposed_canonical_name": "111In-labeled daratumumab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "Indium In 111-DOTA-Daratumumab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": "daratumumab (approved canonical drug)",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "111In-labeled daratumumab",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "diagnostic_radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "diagnostic",
+          "imaging"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 111In-labeled daratumumab",
+            "reference": "https://clinicaltrials.gov/search?term=111In-labeled%20daratumumab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 246,
+      "proposed_canonical_name": "18F-FAPI-74",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "[18F]FAPI-74 PET/CT"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "18F-FAPI-74",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "diagnostic_radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "diagnostic",
+          "imaging"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 18F-FAPI-74",
+            "reference": "https://clinicaltrials.gov/search?term=18F-FAPI-74"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 247,
+      "proposed_canonical_name": "18F-fludarabine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "18F-Fludarabine"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": "fludarabine (approved canonical drug)",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "18F-fludarabine",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "diagnostic_radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "diagnostic",
+          "imaging"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 18F-fludarabine",
+            "reference": "https://clinicaltrials.gov/search?term=18F-fludarabine"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 248,
+      "proposed_canonical_name": "18F-fluoroazomycin arabinoside",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "Fluorine F 18-fluoroazomycin Arabinoside"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "18F-fluoroazomycin arabinoside",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "diagnostic_radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "diagnostic",
+          "imaging"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 18F-fluoroazomycin arabinoside",
+            "reference": "https://clinicaltrials.gov/search?term=18F-fluoroazomycin%20arabinoside"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 249,
+      "proposed_canonical_name": "18F-fluorocholine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "Positron Emission Tomography using 18F-FCH"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "18F-fluorocholine",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "diagnostic_radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "diagnostic",
+          "imaging"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 18F-fluorocholine",
+            "reference": "https://clinicaltrials.gov/search?term=18F-fluorocholine"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 250,
+      "proposed_canonical_name": "18F-PSMA-1007",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "18F-PSMA-1007"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "PSMA-1007"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "18F-PSMA-1007",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "diagnostic_radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "diagnostic",
+          "imaging"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 18F-PSMA-1007",
+            "reference": "https://clinicaltrials.gov/search?term=18F-PSMA-1007"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 251,
+      "proposed_canonical_name": "225Ac-DOTATATE radioligand",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "radiopharmaceutical",
+      "source_formatting_groups": [
+        "225Ac-DOTATATE"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "225Ac-DOTATATE radioligand",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "radiopharmaceutical"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 225Ac-DOTATATE radioligand",
+            "reference": "https://clinicaltrials.gov/search?term=225Ac-DOTATATE%20radioligand"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 252,
+      "proposed_canonical_name": "225Ac-labeled daratumumab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "radiopharmaceutical",
+      "source_formatting_groups": [
+        "Actinium Ac 225-DOTA-Daratumumab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": "daratumumab (approved canonical drug)",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "225Ac-labeled daratumumab",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "radiopharmaceutical"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 225Ac-labeled daratumumab",
+            "reference": "https://clinicaltrials.gov/search?term=225Ac-labeled%20daratumumab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 253,
+      "proposed_canonical_name": "225Ac-lintuzumab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "radiopharmaceutical",
+      "source_formatting_groups": [
+        "Lintuzumab AC 225"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "AC 225"
+      ],
+      "parent_or_reference_product": "lintuzumab",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "225Ac-lintuzumab",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "radiopharmaceutical"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 225Ac-lintuzumab",
+            "reference": "https://clinicaltrials.gov/search?term=225Ac-lintuzumab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 254,
+      "proposed_canonical_name": "4'-iodo-4'-deoxydoxorubicin",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "4'-iodo-4'-deoxydoxorubicin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "4'-iodo-4'-deoxydoxorubicin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 4'-iodo-4'-deoxydoxorubicin",
+            "reference": "https://clinicaltrials.gov/search?term=4%27-iodo-4%27-deoxydoxorubicin"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 255,
+      "proposed_canonical_name": "68Ga-pentixather",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "68Ga-Pentixather"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": "pentixather",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "68Ga-pentixather",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "diagnostic_radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "diagnostic",
+          "imaging"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 68Ga-pentixather",
+            "reference": "https://clinicaltrials.gov/search?term=68Ga-pentixather"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 256,
+      "proposed_canonical_name": "89Zr-labeled bevacizumab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "89Zr-bevacizumab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": "bevacizumab",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "89Zr-labeled bevacizumab",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "diagnostic_radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "diagnostic",
+          "imaging"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 89Zr-labeled bevacizumab",
+            "reference": "https://clinicaltrials.gov/search?term=89Zr-labeled%20bevacizumab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 257,
+      "proposed_canonical_name": "90Y-ibritumomab tiuxetan (Zevalin)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "radiopharmaceutical",
+      "source_formatting_groups": [
+        "90Y Zevalin"
+      ],
+      "known_brand_names": [
+        "Zevalin"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": "ibritumomab tiuxetan",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "90Y-ibritumomab tiuxetan (Zevalin)",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "radiopharmaceutical"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: 90Y-ibritumomab tiuxetan (Zevalin)",
+            "reference": "https://clinicaltrials.gov/search?term=90Y-ibritumomab%20tiuxetan%20%28Zevalin%29"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 258,
+      "proposed_canonical_name": "abatacept",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Abatacept"
+      ],
+      "known_brand_names": [
+        "Orencia"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "abatacept",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: abatacept",
+            "reference": "https://clinicaltrials.gov/search?term=abatacept"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 259,
+      "proposed_canonical_name": "AE-941 (Neovastat) shark cartilage extract",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "shark cartilage extract AE-941"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "AE-941"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "AE-941 (Neovastat) shark cartilage extract",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: AE-941 (Neovastat) shark cartilage extract",
+            "reference": "https://clinicaltrials.gov/search?term=AE-941%20%28Neovastat%29%20shark%20cartilage%20extract"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 260,
+      "proposed_canonical_name": "aflibercept",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "aflibercept"
+      ],
+      "known_brand_names": [
+        "Zaltrap",
+        "Eylea"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "aflibercept",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: aflibercept",
+            "reference": "https://clinicaltrials.gov/search?term=aflibercept"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 261,
+      "proposed_canonical_name": "alisertib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Alisertib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "MLN8237"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "alisertib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: alisertib",
+            "reference": "https://clinicaltrials.gov/search?term=alisertib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 262,
+      "proposed_canonical_name": "amphotericin B deoxycholate",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "amphotericin B deoxycholate"
+      ],
+      "known_brand_names": [
+        "Fungizone"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "amphotericin B deoxycholate",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: amphotericin B deoxycholate",
+            "reference": "https://clinicaltrials.gov/search?term=amphotericin%20B%20deoxycholate"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 263,
+      "proposed_canonical_name": "amrubicin",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Amrubicin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "amrubicin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: amrubicin",
+            "reference": "https://clinicaltrials.gov/search?term=amrubicin"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 264,
+      "proposed_canonical_name": "anlotinib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Anlotinib Hydrochloride Capsule"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "anlotinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: anlotinib",
+            "reference": "https://clinicaltrials.gov/search?term=anlotinib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 265,
+      "proposed_canonical_name": "aponermin",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Apornemin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "aponermin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: aponermin",
+            "reference": "https://clinicaltrials.gov/search?term=aponermin"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 266,
+      "proposed_canonical_name": "arlocabtagene autoleucel",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "CAR_T",
+      "source_formatting_groups": [
+        "Arlocabtagene Autoleucel"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "BMS-986393"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "arlocabtagene autoleucel",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "cell_therapy",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic",
+          "cell_therapy",
+          "investigational"
+        ],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: arlocabtagene autoleucel",
+            "reference": "https://clinicaltrials.gov/search?term=arlocabtagene%20autoleucel"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 267,
+      "proposed_canonical_name": "armodafinil",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "armodafinil"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "armodafinil",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: armodafinil",
+            "reference": "https://clinicaltrials.gov/search?term=armodafinil"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 268,
+      "proposed_canonical_name": "AS03-adjuvanted H1N1 influenza vaccine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "AS03-adjuvanted H1N1 pandemic influenza vaccine"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "AS03-adjuvanted H1N1 influenza vaccine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: AS03-adjuvanted H1N1 influenza vaccine",
+            "reference": "https://clinicaltrials.gov/search?term=AS03-adjuvanted%20H1N1%20influenza%20vaccine"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 269,
+      "proposed_canonical_name": "atiprimod",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Atiprimod"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "atiprimod",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: atiprimod",
+            "reference": "https://clinicaltrials.gov/search?term=atiprimod"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 270,
+      "proposed_canonical_name": "avelumab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Avelumab"
+      ],
+      "known_brand_names": [
+        "Bavencio"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "avelumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: avelumab",
+            "reference": "https://clinicaltrials.gov/search?term=avelumab"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 271,
+      "proposed_canonical_name": "axitinib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Axitinib"
+      ],
+      "known_brand_names": [
+        "Inlyta"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "axitinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: axitinib",
+            "reference": "https://clinicaltrials.gov/search?term=axitinib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 272,
+      "proposed_canonical_name": "azacitidine (oral)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "formulation_variant",
+      "source_formatting_groups": [
+        "Oral azacitidine"
+      ],
+      "known_brand_names": [
+        "Onureg"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": "azacitidine",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "azacitidine (oral)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "formulation_variant",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: azacitidine (oral)",
+            "reference": "https://clinicaltrials.gov/search?term=azacitidine%20%28oral%29"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity. Special formulation/radiolabeled/vaccine/product distinctions remain separate and are not collapsed into a parent entity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 273,
+      "proposed_canonical_name": "beta alethine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "beta alethine"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "beta alethine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: beta alethine",
+            "reference": "https://clinicaltrials.gov/search?term=beta%20alethine"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 274,
+      "proposed_canonical_name": "bicalutamide",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Bicalutamide"
+      ],
+      "known_brand_names": [
+        "Casodex"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "bicalutamide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: bicalutamide",
+            "reference": "https://clinicaltrials.gov/search?term=bicalutamide"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 275,
+      "proposed_canonical_name": "birabresib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "OTX015/Birabresib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "OTX015"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "birabresib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "ClinicalTrials.gov search: birabresib",
+            "reference": "https://clinicaltrials.gov/search?term=birabresib"
+          }
+        ],
+        "review_notes": "Identity mapping accepted for the listed ClinicalTrials.gov formatting group(s). Round 5 uses an identity-only review scope for the low-frequency long tail. This approval does not establish FDA approval, current marketing status, formulation equivalence, therapeutic role, or myeloma-directed activity.",
+        "verification_scope": "identity_mapping_only"
+      }
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": "assay-extraction-review-v1",
+  "review_version": "lenalidomide-fig2d-conditions-v1.0",
+  "entity_id": "lenalidomide",
+  "purpose": "research_evidence_extraction",
+  "status": "conditions_extracted_measurements_pending",
+  "reviewed_on": "2026-10-09",
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false,
+  "source": {
+    "source_id": "lu-science-1244917",
+    "doi": "10.1126/science.1244917",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4070318/",
+    "locator": "Figure 2D and Figure 2 legend; published page 307",
+    "extraction_basis": "Main-paper legend text; image/lane values not extracted",
+    "unit_crosscheck": "PMC legend text reports micromolar and micrograms/mL; PDF text extraction corrupts micro symbols. Do not substitute mM or mg/mL from OCR.",
+    "review_status": "assistant_curated_not_independently_verified",
+    "source_bytes_archived": false,
+    "source_bytes_sha256": null
+  },
+  "supplement": {
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/4070318/bin/NIHMS583352-supplement-Supplement.pdf",
+    "retrieval_status": "not_retrieved",
+    "reviewed": false,
+    "reason": "PMC challenge and publisher access errors during this review",
+    "source_bytes_sha256": null
+  },
+  "assay": {
+    "assay_id": "lu-fig2d-mm1s-chase",
+    "cell_line": "MM1S",
+    "reported_genotypes": [
+      "CRBN+/+",
+      "CRBN-/-"
+    ],
+    "technique": "immunoblot",
+    "candidate_analytes": [
+      "IKZF1",
+      "IKZF3"
+    ],
+    "time_reference": "Elapsed chase time after CHX addition, if subsequently verified from the figure/methods.",
+    "conditions": [
+      {
+        "field": "lenalidomide_nominal_medium_concentration",
+        "value": 2.0,
+        "unit": "umol/L",
+        "source_locator": "Figure 2 legend (D)",
+        "scope": "Where indicated; not intracellular free concentration"
+      },
+      {
+        "field": "lenalidomide_pretreatment_duration",
+        "value": 1.0,
+        "unit": "h",
+        "source_locator": "Figure 2 legend (D)",
+        "scope": "Before CHX addition"
+      },
+      {
+        "field": "chx_medium_concentration",
+        "value": 100.0,
+        "unit": "ug/mL",
+        "source_locator": "Figure 2 legend (D)",
+        "scope": "Assay perturbation, not patient medication"
+      }
+    ],
+    "sampling_times_h": null,
+    "protein_measurements": [],
+    "vehicle_condition_verified": false,
+    "loading_control": null,
+    "normalization_method": null,
+    "replicate_count": null,
+    "replicate_type": null,
+    "measurement_uncertainty": null,
+    "unknowns_note": "The n=4 statement for reporter panel 2B is not assigned to panel 2D."
+  },
+  "model_assessment": {
+    "role": "project_inference",
+    "candidate_use": "Assay-specific protein-loss comparison after methods and quantitative data review.",
+    "limitation": "A chase perturbation is not unperturbed synthesis/turnover physiology. One exposure condition does not identify a concentration-response function.",
+    "data_ready_for_fitting": false,
+    "parameter_fitting_status": "not_run",
+    "accepted_model_parameters": {},
+    "plasma_to_cell_mapping": null,
+    "patient_revision_id": null,
+    "pk_run_id": null
+  },
+  "next_extraction_fields": [
+    "exact lane times and labels",
+    "treatment/genotype/vehicle grouping",
+    "analyte and loading control",
+    "raw or digitized lane intensity with provenance",
+    "normalization definition",
+    "replicate information",
+    "measurement/extraction uncertainty"
+  ],
+  "scope": "Protocol-condition extraction only. Empty measurements mean no values extracted, not zero abundance. No fitting, concentration simulation or patient prediction."
+}

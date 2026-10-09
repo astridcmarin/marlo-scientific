@@ -1,0 +1,55 @@
+{
+  "schema_version": "fixed-pk-teaching-catalog-v1",
+  "catalog_version": "lenalidomide-historical-pk-v1.0",
+  "entity_id": "lenalidomide",
+  "source": {
+    "citation": "Dahut et al., J Clin Pharmacol (2009), 49:650–660",
+    "doi": "10.1177/0091270009335001",
+    "pmid": "19451403",
+    "pmcid": "PMC2808857",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2808857/",
+    "location": "Table 6, population mean column; clearance row for the normal renal function group",
+    "verified_on": "2026-10-06",
+    "population_context": "Adult Phase I advanced solid-tumor population; not a myeloma-derived model. The study enrolled 45 participants, predominantly with prostate cancer.",
+    "scope": "Four published central parameter estimates only; no patient covariate equation or variability model is implemented."
+  },
+  "parameters": {
+    "apparent_clearance_ml_min": {
+      "value": 243.0,
+      "unit": "mL/min",
+      "basis": "Published central estimate for the normal renal function group; fixed reference, not assigned from eGFR."
+    },
+    "apparent_volume_l": {
+      "value": 57.8,
+      "unit": "L",
+      "basis": "Published apparent distribution volume V/F."
+    },
+    "absorption_rate_h": {
+      "value": 4.6,
+      "unit": "1/h",
+      "basis": "Published first-order absorption rate."
+    },
+    "lag_h": {
+      "value": 0.37,
+      "unit": "h",
+      "basis": "Published absorption delay."
+    }
+  },
+  "assumptions": [
+    "One compartment; first-order absorption and elimination; a single invented oral dose at time zero.",
+    "Use apparent CL/F and V/F directly. Absolute bioavailability is not estimated or multiplied into the concentration again.",
+    "All reference parameters are fixed. Age, sex, weight, eGFR, medication names and indication do not select or alter them.",
+    "Comparison scales clearance alone by an explicitly chosen 0.5, 1 or 2; these values are mathematical experiments, not clinical categories.",
+    "No repeat dosing, accumulation, treatment cycles, meals, active metabolites, between-person variability or residual error.",
+    "Accept 5–40 mg inputs as a boundary matching the study dose span, not as a suggested regimen. No mg/kg or mg/m² conversion."
+  ],
+  "equations": {
+    "ke": "ke = (CL/F)/(V/F)",
+    "elapsed": "u = max(0, time − lag)",
+    "concentration": "C(time) = 1000 × dose/(V/F) × ka/(ka − ke) × [exp(−ke × u) − exp(−ka × u)], in ng/mL",
+    "peak_time": "Tmax = lag + ln(ka/ke)/(ka − ke)",
+    "auc_infinity": "AUC(0–infinity) = 1000 × dose/(CL/F), in ng·h/mL",
+    "half_life": "Half-life = ln(2)/ke",
+    "conversion": "243 mL/min × 60/1000 = 14.58 L/h; 1 mg/L = 1000 ng/mL."
+  }
+}

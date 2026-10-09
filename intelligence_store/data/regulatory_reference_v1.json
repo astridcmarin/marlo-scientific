@@ -1,0 +1,36 @@
+{
+  "schema_version": "registry-regulatory-reference-v1",
+  "catalog_version": "registry-regulatory-fields-v1.0",
+  "verified_on": "2026-10-06",
+  "sources": [
+    {
+      "id": "api-metadata",
+      "label": "ClinicalTrials.gov API v2 field metadata",
+      "url": "https://clinicaltrials.gov/api/v2/studies/metadata",
+      "captured_parsed_metadata_sha256": "b5982b56f81ef31d02ee96dc0db7ca00b56154e8ba8878e9a6d242744655c745"
+    },
+    {
+      "id": "protocol-definitions",
+      "label": "ClinicalTrials.gov protocol field definitions",
+      "url": "https://clinicaltrials.gov/policy/protocol-definitions"
+    },
+    {
+      "id": "results-definitions",
+      "label": "ClinicalTrials.gov results field definitions",
+      "url": "https://clinicaltrials.gov/policy/results-definitions"
+    },
+    {
+      "id": "reporting-requirements",
+      "label": "ClinicalTrials.gov reporting requirements",
+      "url": "https://clinicaltrials.gov/policy/reporting-requirements"
+    }
+  ],
+  "notes": [
+    "FDA oversight flags describe reported registry fields, not product approval or a determination of reporting obligations.",
+    "FDAAA 801 violation is a reported registry boolean. False or absent does not establish compliance.",
+    "The registry does not distinguish a certification from an extension request in the combined dates.",
+    "Submitted, submitted with QC criteria, posted and posted with QC comments are retained as separate events.",
+    "Study documents are listed metadata only; their content and current availability are not validated.",
+    "Only valid full-day dates with compatible actual/undesignated date types produce elapsed-day calculations. Partial and estimated dates retain their precision without invented dates."
+  ]
+}

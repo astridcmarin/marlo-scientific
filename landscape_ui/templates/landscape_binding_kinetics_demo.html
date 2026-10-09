@@ -1,0 +1,35 @@
+{% extends "landscape_base.html" %}
+{% block title %}Invented binding kinetics · Patient Lab{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('landscape.static',filename='target-binding-kinetics.css') }}">
+<h1>Binding over time</h1>
+<p><a href="{{ url_for('landscape.target_occupancy_demo') }}">Explore the separate equilibrium concentration–binding demo</a></p>
+<section class="scenario-notice"><strong>Two invented systems · Constant free target-site concentration</strong><p>No drug, patient state or saved PK curve is attached. Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong>.</p></section>
+<div class="occupancy-layout"><section class="panel"><h2>Explore relaxation toward equilibrium</h2>
+<form method="get" action="{{ url_for('landscape.binding_kinetics_demo') }}" class="occupancy-form">
+<label for="binding-free">Constant free target-site concentration (nM)</label><input id="binding-free" name="concentration_nm" type="number" min="0" max="1000000" step="any" value="{{ concentration }}" required>
+<label for="binding-initial">Initial fraction bound (0–1)</label><input id="binding-initial" name="initial_fraction" type="number" min="0" max="1" step="any" value="{{ initial }}" required>
+<label for="binding-horizon">Viewing horizon (h)</label><input id="binding-horizon" name="horizon_h" type="number" min="0.000000001" max="72" step="any" value="{{ horizon }}" required>
+<label for="binding-time">Selected time (h)</label><input id="binding-time" name="time_h" type="number" min="0" max="{{ horizon }}" step="any" value="{{ selected }}" required aria-describedby="binding-time-note">
+<p id="binding-time-note">Keep the selected time within the viewing horizon. The free concentration is held constant throughout; it is not a plasma PK curve.</p>
+<button type="submit" class="button primary">Calculate invented time curves</button></form>
+<p><a href="{{ url_for('landscape.binding_kinetics_demo') }}">Reset example</a> · <a href="{{ export_url }}">Download this comparison JSON</a></p>
+</section><section class="panel"><h2>Same affinity, different relaxation speeds</h2>
+<p>Selected time: <strong>{{ selected }} h</strong>. Initial fraction: {{ initial }}. Free concentration: {{ concentration }} nM.</p>
+<ul>{% for series in chart.series %}<li>{{ series.label }}: fraction bound <strong>{{ '%.6g'|format(series.selected_fraction) }}</strong>.</li>{% endfor %}</ul>
+<svg class="occupancy-chart" viewBox="0 0 780 305" role="img" aria-labelledby="binding-title binding-desc">
+<title id="binding-title">Two invented binding time curves at constant free concentration {{ concentration }} nM</title><desc id="binding-desc">Time is zero to {{ horizon }} hours; fraction bound is zero to one. Solid teal: slower relaxation. Dashed purple: faster relaxation. Both have Kd 10 nM. At {{ selected }} hours, {% for series in chart.series %}{{ series.label }} has fraction {{ series.selected_fraction }}. {% endfor %}No clinical response is plotted.</desc>
+{% for tick in chart.y_ticks %}<line x1="70" x2="740" y1="{{ tick.y }}" y2="{{ tick.y }}" class="occupancy-grid"/><text x="60" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
+{% for tick in chart.x_ticks %}<text x="{{ tick.x }}" y="272" text-anchor="middle">{{ tick.label }}</text>{% endfor %}
+<text x="70" y="18">Fraction bound</text><text x="405" y="296" text-anchor="middle">Elapsed binding time (h)</text>
+<line x1="{{ chart.selected_x }}" x2="{{ chart.selected_x }}" y1="30" y2="250" stroke="#a63d16" stroke-dasharray="3 4"/>
+{% for series in chart.series %}<polyline points="{{ series.polyline }}" fill="none" stroke="{{ series.color }}" stroke-width="2.5" stroke-dasharray="{{ series.dash }}"/><circle cx="{{ chart.selected_x }}" cy="{{ series.selected_y }}" r="5" fill="{{ series.color }}" stroke="white" stroke-width="2"/>{% endfor %}
+</svg><p>Solid teal: slower relaxation. Dashed purple: faster relaxation. Each curve connects 201 analytically evaluated display points. Selected values are evaluated directly at the requested time, rather than interpolated.</p>
+</section></div>
+<section class="panel"><h2>Fixed invented rates and derived quantities</h2><div class="table-scroll"><table><thead><tr><th>System</th><th>kon (nM^-1 h^-1)</th><th>koff (h^-1)</th><th>Kd (nM)</th><th>Equilibrium fraction</th><th>Relaxation half-time (h)</th></tr></thead><tbody>{% for example in report.examples %}{% set curve = example.curve_report %}<tr><th>{{ example.label }}</th><td>{{ curve.inputs.kon.value }}</td><td>{{ curve.inputs.koff.value }}</td><td>{{ curve.derived.kd_nm }}</td><td>{{ '%.6g'|format(curve.derived.equilibrium_fraction) }}</td><td>{{ '%.6g'|format(curve.derived.relaxation_half_time_h) }}</td></tr>{% endfor %}</tbody></table></div>
+<p>Both rate constants in the faster system are ten times those in the slower system. Their ratio is unchanged. If the initial fraction is above equilibrium, binding decreases toward it; at equilibrium there is no changing gap.</p><p>Relaxation half-time describes the gap to equilibrium at this fixed concentration. It is not a PK elimination half-life or duration of therapeutic action.</p></section>
+<section class="panel"><h2>Assumptions and limits</h2><ul>{% for assumption in report.examples[0].curve_report.assumptions %}<li>{{ assumption }}</li>{% endfor %}</ul><p>{{ report.examples[0].curve_report.limitation }}</p><p>Binding fraction alone supplies no receptor activation, biomarker, efficacy or harm prediction. No saved patient input is read, replaced or inferred.</p></section>
+<details class="panel"><summary>Computed values and provenance</summary><p>{{ report.examples[0].curve_report.method_version }}. Parameters are invented educational declarations. All times use hours and all free concentrations use nM.</p><p>{{ report.examples[0].curve_report.numerical_limitation }}</p><p class="catalog-digest">Comparison report SHA256: {{ report.report_sha256 }}</p><p>JSON preserves the two curves, separately evaluated selected-time reports, explicit inputs, equations, assumptions and hashes. These are computed examples, not measured observations.</p>
+<p><a href="{{ report.examples[0].curve_report.concept_references[0].url }}" rel="noopener noreferrer">Association-kinetics concept reference</a>. No numerical parameter values are taken from this source.</p>
+<div class="table-scroll"><table><caption>Rounded display samples; JSON retains numerical precision.</caption><thead><tr><th>Time (h)</th><th>Slower fraction</th><th>Faster fraction</th></tr></thead><tbody>{% for point in report.examples[0].curve_report.points %}<tr><td>{{ '%.6g'|format(point.time_h) }}</td><td>{{ '%.6g'|format(point.fraction_bound) }}</td><td>{{ '%.6g'|format(report.examples[1].curve_report.points[loop.index0].fraction_bound) }}</td></tr>{% endfor %}</tbody></table></div></details>
+{% endblock %}

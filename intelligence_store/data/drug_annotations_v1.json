@@ -1,0 +1,363 @@
+{
+  "schema_version": "drug-annotations-v1",
+  "catalog_version": "myeloma-annotations-v1.3",
+  "alias_catalog_version": "myeloma-seed-v1.3",
+  "alias_catalog_sha256": "896a58a2a89e8a992ba85a23ea726ba5d65f8ac9f3bcd88e10444589450c2845",
+  "entries": [
+    {
+      "entity_id": "lenalidomide",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Revlimid / lenalidomide product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=5fa97bf5-28a2-48f1-8955-f56012d296be&version=41",
+        "set_id": "5fa97bf5-28a2-48f1-8955-f56012d296be",
+        "label_version": 41,
+        "label_effective_date": "20230324",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "c381f58f43297a98e66405c7430cea5577b52f9085fa49c6acfba6c862b9faa8",
+        "note": "The product label identifies Revlimid as a lenalidomide product."
+      },
+      "fields": {
+        "mechanism": {
+          "label": "Immunomodulatory agent",
+          "basis": "The label describes immunomodulatory effects mediated through cereblon.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "target": {
+          "label": "Cereblon",
+          "basis": "The label describes immunomodulatory effects mediated through cereblon.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "modality": {
+          "label": "Small molecule",
+          "basis": "Curated as a small molecule from the label’s chemical structure and molecular weight.",
+          "sections": [
+            "11 Description"
+          ],
+          "interpretation": "curated_classification"
+        }
+      }
+    },
+    {
+      "entity_id": "bortezomib",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Velcade / bortezomib product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=1521d321-e724-4ffc-adad-34bf4f44fac7&version=36",
+        "set_id": "1521d321-e724-4ffc-adad-34bf4f44fac7",
+        "label_version": 36,
+        "label_effective_date": "20250828",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "ddbefd99992c3db6f4af196d90eeac8231119ef06ae79a4459067cc222cdf656",
+        "note": "The product label identifies Velcade as a bortezomib product."
+      },
+      "fields": {
+        "mechanism": {
+          "label": "Proteasome inhibitor",
+          "basis": "The label describes reversible inhibition of chymotrypsin-like activity in the 26S proteasome.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "target": {
+          "label": "Proteasome",
+          "basis": "The label describes reversible inhibition of chymotrypsin-like activity in the 26S proteasome. Proteasome is a broad target-family category; subunits and reversibility remain in the source note.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "modality": {
+          "label": "Small molecule",
+          "basis": "Curated as a small molecule from the label’s chemical structure and molecular weight; peptide-derived chemical.",
+          "sections": [
+            "11 Description"
+          ],
+          "interpretation": "curated_classification"
+        }
+      }
+    },
+    {
+      "entity_id": "daratumumab",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Darzalex / daratumumab product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=a4d0efe9-5e54-467e-9eb4-56fa7d53b60b&version=46",
+        "set_id": "a4d0efe9-5e54-467e-9eb4-56fa7d53b60b",
+        "label_version": 46,
+        "label_effective_date": "20260921",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "cddb90ed421e66bf9e5d3bfa0f9648519762b7e636290009aefbf8040ffa7f39",
+        "note": "The product label identifies Darzalex as a daratumumab product."
+      },
+      "fields": {
+        "mechanism": {
+          "label": "CD38-directed cytolytic antibody",
+          "basis": "The label describes CD38 binding and immune-mediated or direct cytolytic activity.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "target": {
+          "label": "CD38",
+          "basis": "The label describes CD38 binding and immune-mediated or direct cytolytic activity.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "modality": {
+          "label": "Monoclonal antibody",
+          "basis": "The label explicitly identifies daratumumab as a human monoclonal antibody.",
+          "sections": [
+            "11 Description",
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_classification"
+        }
+      }
+    },
+    {
+      "entity_id": "pomalidomide",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Pomalyst / pomalidomide product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=2b25ef01-5c9e-11e1-b86c-0800200c9a66&version=26",
+        "set_id": "2b25ef01-5c9e-11e1-b86c-0800200c9a66",
+        "label_version": 26,
+        "label_effective_date": "20250226",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "29756c96d346b79171a8f431544d6cf481663f14ed6730fc0fc43b353276fc08",
+        "note": "The product label identifies Pomalyst as a pomalidomide product."
+      },
+      "fields": {
+        "mechanism": {
+          "label": "Immunomodulatory agent",
+          "basis": "The label describes immunomodulatory effects mediated through cereblon.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "target": {
+          "label": "Cereblon",
+          "basis": "The label describes immunomodulatory effects mediated through cereblon.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "modality": {
+          "label": "Small molecule",
+          "basis": "Curated as a small molecule from the label’s chemical structure and molecular weight.",
+          "sections": [
+            "11 Description"
+          ],
+          "interpretation": "curated_classification"
+        }
+      }
+    },
+    {
+      "entity_id": "carfilzomib",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Kyprolis / carfilzomib product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=ea66eb30-e665-4693-99a1-a9d3b4bbe2d6&version=59",
+        "set_id": "ea66eb30-e665-4693-99a1-a9d3b4bbe2d6",
+        "label_version": 59,
+        "label_effective_date": "20250618",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "6b30f0caabad0684b34f643d933d828bc95bfe3395ff2ea271e0342057c9cd01",
+        "note": "The product label identifies Kyprolis as a carfilzomib product."
+      },
+      "fields": {
+        "mechanism": {
+          "label": "Proteasome inhibitor",
+          "basis": "The label describes irreversible binding to active sites of the 20S core within the 26S proteasome.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "target": {
+          "label": "Proteasome",
+          "basis": "The label describes irreversible binding to active sites of the 20S core within the 26S proteasome. Proteasome is a broad target-family category; subunits and reversibility remain in the source note.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "modality": {
+          "label": "Small molecule",
+          "basis": "Curated as a small molecule from the label’s chemical structure and molecular weight; peptide-derived chemical.",
+          "sections": [
+            "11 Description"
+          ],
+          "interpretation": "curated_classification"
+        }
+      }
+    },
+    {
+      "entity_id": "dexamethasone",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "HEMADY / dexamethasone product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=aec60743-f925-4d91-a865-064696a9f9e6&version=6",
+        "set_id": "aec60743-f925-4d91-a865-064696a9f9e6",
+        "label_version": 6,
+        "label_effective_date": "20240823",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "46f06c72fba8040cffebbe7c52bcd1865b9d5cefb705eb2b7b46aeffe9d905b4",
+        "note": "HEMADY identifies dexamethasone. This pinned historical reference does not establish the formulation or current marketing status of a trial intervention."
+      },
+      "fields": {
+        "mechanism": {
+          "label": "Corticosteroid; precise myeloma mechanism unknown",
+          "basis": "Anti-inflammatory corticosteroid; myeloma-cell apoptosis is described, but the precise myeloma mechanism remains unknown.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "target": null,
+        "modality": {
+          "label": "Small molecule",
+          "basis": "Classification based on chemical structure and molecular weight.",
+          "sections": [
+            "11 Description"
+          ],
+          "interpretation": "curated_classification"
+        }
+      }
+    },
+    {
+      "entity_id": "cyclophosphamide",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Cyclophosphamide injection product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=3c1eb470-0bba-457d-94e3-b9508f0d398a&version=5",
+        "set_id": "3c1eb470-0bba-457d-94e3-b9508f0d398a",
+        "label_version": 5,
+        "label_effective_date": "20250421",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "12b64be6a34da9a305f803f0541edc2469359f7b4795567b64366f21cc7465b6",
+        "note": "The product identifies cyclophosphamide. This intravenous reference does not establish a trial intervention’s formulation, route or current marketing status."
+      },
+      "fields": {
+        "mechanism": {
+          "label": "Alkylating agent; incompletely characterized",
+          "basis": "Active metabolites affect malignant-cell growth; DNA cross-linking may contribute.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "target": {
+          "label": "DNA (proposed)",
+          "basis": "The label proposes tumor-cell DNA cross-linking.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "modality": {
+          "label": "Small molecule",
+          "basis": "Curated classification from chemical structure and molecular weight.",
+          "sections": [
+            "11 Description"
+          ],
+          "interpretation": "curated_classification"
+        }
+      }
+    },
+    {
+      "entity_id": "melphalan",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Evomela / melphalan product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=69f55869-dc11-408e-8fc7-47634269a52c&version=8",
+        "set_id": "69f55869-dc11-408e-8fc7-47634269a52c",
+        "label_version": 8,
+        "label_effective_date": "20260915",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "49f6c181e1d1db2bb5f3a212dc89b8a5342eb5164190e5b4607fede02fc52641",
+        "note": "Evomela identifies melphalan. This product reference does not establish trial formulation, route, treatment role or current marketing status."
+      },
+      "fields": {
+        "mechanism": {
+          "label": "Alkylating agent",
+          "basis": "Cytotoxicity is linked to DNA cross-linking in the label.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "target": {
+          "label": "DNA",
+          "basis": "DNA cross-linking is proposed in the label.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "modality": {
+          "label": "Small molecule",
+          "basis": "Curated from chemical structure and molecular weight.",
+          "sections": [
+            "11 Description"
+          ],
+          "interpretation": "curated_classification"
+        }
+      }
+    },
+    {
+      "entity_id": "fludarabine",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Fludarabine phosphate injection product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=291f6ee2-f5d2-ae6c-e063-6294a90a5951&version=7",
+        "set_id": "291f6ee2-f5d2-ae6c-e063-6294a90a5951",
+        "label_version": 7,
+        "label_effective_date": "20260920",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "8e629988197768e2769fc7f823219500c3e1b90f25c0a3f0427be6682a91d5eb",
+        "note": "The label links the phosphate product to fludarabine-equivalent content. Name mapping does not equate doses, routes or active-metabolite exposure."
+      },
+      "fields": {
+        "mechanism": {
+          "label": "Nucleoside metabolic inhibitor",
+          "basis": "The active nucleotide appears to inhibit DNA synthesis.",
+          "sections": [
+            "11 Description",
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "target": {
+          "label": "DNA polymerase alpha, ribonucleotide reductase and DNA primase",
+          "basis": "These enzymes are described as inhibited by the active nucleotide.",
+          "sections": [
+            "12.1 Mechanism of Action"
+          ],
+          "interpretation": "curated_summary"
+        },
+        "modality": {
+          "label": "Small molecule",
+          "basis": "Curated from chemical structure and molecular weight.",
+          "sections": [
+            "11 Description"
+          ],
+          "interpretation": "curated_classification"
+        }
+      }
+    }
+  ]
+}

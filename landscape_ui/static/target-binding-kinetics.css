@@ -1,0 +1,4 @@
+.occupancy-layout{display:grid;grid-template-columns:minmax(260px,1fr) minmax(0,2fr);gap:1rem;align-items:start}
+.occupancy-form{display:grid;gap:.6rem}.occupancy-form label{font-weight:600}.occupancy-form input{width:100%;box-sizing:border-box;padding:.7rem;border:1px solid #b8c8cb;border-radius:3px;font:inherit;background:#fff;color:#173b42}.occupancy-form input:focus-visible{outline:3px solid #007b83;outline-offset:2px}
+.occupancy-chart{display:block;width:100%;height:auto;min-width:0}.occupancy-chart text{font:12px system-ui,sans-serif;fill:#40575d}.occupancy-grid{stroke:#d9e3e5;stroke-width:1}.occupancy-form p{font-size:.92rem;color:#40575d}
+@media(max-width:900px){.occupancy-layout{grid-template-columns:1fr}}

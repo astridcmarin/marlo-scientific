@@ -1,0 +1,46 @@
+{% extends "landscape_base.html" %}
+{% block title %}Clearance sensitivity · Run {{ run.id }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('landscape.static',filename='transit-demo.css') }}">
+<h1>Declared clearance sensitivity</h1>
+<p>Run #{{ run.id }} · {{ run.title }} · Patient-state record #{{ revision.id }} · Scenario #{{ scenario.id }}</p>
+<p><a href="{{ url_for('landscape.saved_pk_run',scenario_id=scenario.id,revision_id=revision.id,run_id=run.id) }}">Open original archived curve</a> · <a href="{{ url_for('landscape.patient_lab_overview',scenario_id=scenario.id,revision_id=revision.id) }}">Patient Lab overview</a></p>
+<section class="scenario-notice"><strong>Invented mathematical variation · Clinical prediction is unvalidated</strong>
+<p>{{ limitation }}</p><p>Patient simulation ready: <strong>false</strong> · Uncertainty interval estimated: <strong>false</strong>.</p></section>
+<section class="panel"><h2>Declare a what-if assumption</h2>
+<p>Multiply the archived apparent clearance (CL/F) by your factor. Volume (V/F), transit rate, administration events and sampling times stay fixed. The changed elimination rate is CL/F divided by V/F. No patient covariate is changed or estimated.</p>
+<p>A factor of 0.8 means an invented 20% lower apparent clearance. The range 0.5–2.0 is a software demonstration bound, not a physiological range or confidence interval.</p>
+{% if error %}<p role="alert">{{ error }}</p>{% endif %}
+<form method="post"><input type="hidden" name="form_token" value="{{ form_token }}">
+<p><label for="clearance_factor">Declared clearance multiplier (0.5–2.0)</label> <input id="clearance_factor" name="clearance_factor" inputmode="decimal" maxlength="40" required value="{{ factor_text }}"></p>
+<p><label for="assumption_note">Assumption note describing the invented variation</label><br><textarea id="assumption_note" name="assumption_note" rows="3" maxlength="1000" required>{{ note }}</textarea></p>
+<button class="button primary" name="action" value="calculate">Calculate sensitivity overlay</button>
+<button class="button secondary" name="action" value="download">Calculate and download sensitivity JSON</button>
+</form><p>Both actions calculate from the current form. Results are transient; no sensitivity record, patient revision or educational run is saved or replaced. Opening this page only verifies the source archive.</p></section>
+{% if report %}
+<section class="panel"><h2>{{ 'Sensitivity calculated' if report.points else 'Sensitivity withheld' }}</h2>
+{% if report.points %}
+<p>Declared CL/F factor: {{ report.assumption.clearance_factor }}. Assumption: {{ report.assumption.source_ref }}</p>
+<div class="table-scroll"><table><caption>Fixed window: 0–{{ report.points[-1].time_h }} h. Analytic baseline and variation use the same sampling grid.</caption><thead><tr><th>Quantity</th><th>Analytic baseline</th><th>Invented variation</th></tr></thead><tbody>
+<tr><th>CL/F (L/h)</th><td>{{ '%.6g'|format(report.parameters.archived.apparent_clearance_l_h) }}</td><td>{{ '%.6g'|format(report.parameters.perturbed.apparent_clearance_l_h) }}</td></tr>
+<tr><th>Window AUC (ng·h/mL)</th><td>{{ '%.3f'|format(report.summaries.analytic_baseline.auc_0_window_ng_h_ml) }}</td><td>{{ '%.3f'|format(report.summaries.perturbed.auc_0_window_ng_h_ml) }}</td></tr>
+<tr><th>AUC to infinity (ng·h/mL)</th><td>{{ '%.3f'|format(report.summaries.analytic_baseline.analytic_auc_0_infinity_ng_h_ml) }}</td><td>{{ '%.3f'|format(report.summaries.perturbed.analytic_auc_0_infinity_ng_h_ml) }}</td></tr>
+</tbody></table></div>
+<p>AUC-to-infinity ratio (variation / baseline): {{ '%.6g'|format(report.summaries.infinity_auc_ratio) }}. The finite-window ratio can differ because elimination continues beyond the window.</p>
+<p>The overlay compares two analytic curves. Original archived concentrations remain in the JSON separately and on the original curve page; small solver-versus-analytic differences can remain within audit tolerance. These lines are hypothetical scenarios, not probability bands.</p>
+{% else %}<p>{{ report.withheld_reason }}</p>{% endif %}
+</section>
+{% for chart in charts %}<section class="panel"><h2>{{ chart.title }}</h2>
+<p>Solid teal: analytic baseline. Dashed purple: invented clearance variation.</p>
+<svg class="transit-chart" viewBox="0 0 780 305" role="img" aria-labelledby="sensitivity-title-{{ loop.index }}"><title id="sensitivity-title-{{ loop.index }}">{{ chart.title }}; hours on the horizontal axis, {{ chart.unit }} on the vertical axis. Solid analytic baseline and dashed invented clearance variation, not an uncertainty interval.</title>
+{% for tick in chart.ticks %}<line x1="70" y1="{{ tick.y }}" x2="740" y2="{{ tick.y }}" class="transit-grid"/><text x="62" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
+{% for tick in chart.time_ticks %}<text x="{{ tick.x }}" y="270" text-anchor="middle">{{ tick.label }}</text>{% endfor %}
+<text x="70" y="18">{{ chart.unit }}</text><text x="405" y="296" text-anchor="middle">Time (h)</text>
+{% for series in chart.series %}<polyline points="{{ series.polyline }}" fill="none" stroke="{{ series.color }}" stroke-dasharray="{{ series.dash }}" stroke-width="2.5"/>{% endfor %}</svg>
+</section>{% endfor %}
+<details class="panel"><summary>Assumptions and provenance</summary><p>{{ report.method_version }} · Source audit: {{ report.source_audit_status }}</p>
+<ul>{% for assumption in report.fixed_assumptions %}<li>{{ assumption }}</li>{% endfor %}</ul>
+<p class="catalog-digest">Source payload SHA256: {{ report.source_payload_sha256 }}<br>Source report SHA256: {{ report.source_report_sha256 }}<br>Audit report SHA256: {{ report.source_audit_report_sha256 }}<br>Sensitivity report SHA256: {{ report.report_sha256 }}</p>
+<p>The assumption note is a recorded declaration, not verified evidence. JSON contains the parameters, copied request, source binding, sampled curves and derived summaries. Mathematical agreement and payload integrity do not establish clinical applicability.</p></details>
+{% endif %}
+{% endblock %}

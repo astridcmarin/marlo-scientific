@@ -1,0 +1,85 @@
+{
+  "schema_version": "mechanism-evidence-plan-v1",
+  "plan_version": "lenalidomide-crbn-review-v1.0",
+  "entity_id": "lenalidomide",
+  "purpose": "research_planning",
+  "reviewed_on": "2026-10-09",
+  "status": "qualitative_mechanism_review_quantitative_extraction_pending",
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false,
+  "source": {
+    "source_id": "lu-science-1244917",
+    "title": "The Myeloma Drug Lenalidomide Promotes the Cereblon-Dependent Destruction of Ikaros Proteins",
+    "authors": "Lu et al.",
+    "doi": "10.1126/science.1244917",
+    "issue_date": "2014-01-17",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4070318/",
+    "accessed_on": "2026-10-09",
+    "access_level": "main_text_and_figure_legends",
+    "supplement_reviewed": false,
+    "source_bytes_archived": false,
+    "source_bytes_sha256": null,
+    "review_status": "assistant_curated_initial_review_not_independent_verification"
+  },
+  "claims": [
+    {
+      "claim_id": "substrate-recruitment",
+      "statement": "Lenalidomide promotes cereblon association with IKZF1 and IKZF3.",
+      "source_id": "lu-science-1244917",
+      "locator": "Figure 3 and associated results",
+      "context": "Cell and cell-extract experiments",
+      "interpretation": "qualitative_mechanism"
+    },
+    {
+      "claim_id": "protein-degradation",
+      "statement": "Cereblon-dependent ubiquitination and proteasomal degradation are part of the reported mechanism.",
+      "source_id": "lu-science-1244917",
+      "locator": "Figures 1–3 and associated results",
+      "context": "Experimental cellular systems",
+      "interpretation": "qualitative_mechanism"
+    },
+    {
+      "claim_id": "cell-context",
+      "statement": "Responses differ among the studied myeloma cell lines.",
+      "source_id": "lu-science-1244917",
+      "locator": "Figure 4 and associated results",
+      "context": "Studied myeloma cell lines, not individual patient predictions",
+      "interpretation": "context_limited_observation"
+    }
+  ],
+  "architecture_decision": {
+    "role": "project_inference",
+    "decision": "Keep the generic binding demos separate; first build an evidence-linked qualitative mechanism map.",
+    "reason": "Single-site occupancy omits substrate recruitment and protein turnover. No quantitative degradation or patient-response model is established.",
+    "next_candidate_observable": "Relative IKZF1 or IKZF3 protein abundance in a specified in-vitro assay",
+    "next_candidate_model": "Research-only protein-turnover model, only after usable assay data and assumptions are reviewed"
+  },
+  "quantitative_inputs": {
+    "binary_binding_kd_nm": null,
+    "binding_kon_nm_inv_h_inv": null,
+    "binding_koff_h_inv": null,
+    "baseline_protein_turnover_h_inv": null,
+    "drug_induced_degradation_rate_h_inv": null,
+    "concentration_effect_function": null,
+    "intracellular_free_concentration_mapping": null
+  },
+  "missing_evidence": [
+    "Extract concentration and time observations with units, controls, replicates and assay context.",
+    "Review supplementary methods and retain a dated source snapshot with a content hash.",
+    "Distinguish binary binding affinity, cellular degradation potency and clinical response endpoints.",
+    "Assess baseline synthesis/turnover and whether an indirect turnover model is identifiable from the available measurements.",
+    "Record uncertainty, variability and model-fit/reproduction checks before selecting quantitative parameters.",
+    "Establish a justified exposure-to-cell mapping before any future connection to the educational PK model."
+  ],
+  "parameter_policy": "Null means not extracted or accepted for this proposed model. It does not claim the parameter is absent from all literature. Invented demo values are never promoted.",
+  "existing_project_links": {
+    "drug_entity_id": "lenalidomide",
+    "target_name": "Cereblon",
+    "existing_alias_catalog_modified": false,
+    "existing_annotation_catalog_modified": false,
+    "patient_revision_id": null,
+    "pk_run_id": null,
+    "simulation_run": false
+  },
+  "scope": "Initial research plan only. No numerical fitting, simulation, efficacy, toxicity or dosing calculation. No clinical endpoint linkage or patient applicability is established."
+}

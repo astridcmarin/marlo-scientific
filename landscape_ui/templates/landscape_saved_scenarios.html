@@ -1,0 +1,12 @@
+{% extends "landscape_base.html" %}
+{% block title %}Saved synthetic scenarios · Workspace{% endblock %}
+{% block content %}
+<div class="heading-row"><div><p class="eyebrow">Workspace · Patient Lab</p><h1>Saved synthetic scenarios</h1><p class="intro">{{ count }} saved reference analyses. Each keeps its original inputs, evidence and results.</p></div></div>
+<p><a class="button primary" href="{{ url_for('landscape.patient_lab') }}">Create in Patient Lab</a> <a class="button secondary" href="{{ url_for('landscape.scenario_compare') }}">Compare saved scenarios</a> <a class="button secondary" href="{{ url_for('landscape.workspace') }}">Saved briefs</a></p>
+<section class="scenario-notice"><strong>Synthetic Educational Patient Scenarios</strong><p>Invented profiles only. Saved results are descriptive research references. They do not establish individual risk, treatment response or full trial eligibility. This local Workspace is shared; it has no account permissions.</p></section>
+<section class="panel"><div class="table-scroll" tabindex="0" role="region" aria-label="Saved synthetic analyses"><table class="saved-scenario-table"><thead><tr><th>ID / Scenario</th><th>Reference drug</th><th>Source cohort</th><th>Saved UTC</th></tr></thead><tbody>
+{% for row in scenarios %}{% set r=row.payload.analysis.report %}<tr><td>#{{ row.id }} · <a class="saved-scenario-link" href="{{ url_for('landscape.saved_scenario',scenario_id=row.id) }}">{{ row.title }}</a></td><td>{{ r.selected_drug.label }}</td><td>#{{ r.cohort.id }} · {{ r.cohort.condition }}<span class="variant-note">{{ r.cohort.scope }} · {{ r.total_trials }} studies</span></td><td>{{ row.payload.saved_at_utc[:19]|replace('T',' ') }}</td></tr>
+{% else %}<tr><td colspan="4">No saved scenarios yet. In Patient Lab, select “Prepare saved scenario,” review it, then save.</td></tr>{% endfor %}
+</tbody></table></div>
+<nav class="pagination" aria-label="Saved scenario pages">{% if previous_url %}<a class="button secondary" href="{{ previous_url }}">Previous</a>{% endif %}<span>Page {{ page }}</span>{% if next_url %}<a class="button secondary" href="{{ next_url }}">Next</a>{% endif %}</nav></section>
+{% endblock %}

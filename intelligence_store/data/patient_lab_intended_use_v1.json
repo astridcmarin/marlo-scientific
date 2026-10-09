@@ -1,0 +1,146 @@
+{
+  "schema_version": "patient-lab-intended-use-contract-v1",
+  "contract_version": "patient-lab-educational-intended-use-v1.0",
+  "purpose": "synthetic_educational",
+  "governance_status": "draft_pending_review",
+  "scope": {
+    "model": "Hughes 2019 lenalidomide deterministic typical-value educational implementation",
+    "users": "Developers and researchers exploring the mathematics of an explicitly synthetic scenario.",
+    "setting": "Local educational software development and model-method inspection.",
+    "supported_decisions": "Software/model investigation only; no clinical treatment decision.",
+    "population": "Declared synthetic profiles under the existing execution contract; this does not establish clinical population applicability.",
+    "outputs": "Model-derived concentration curves, exposure summaries, saved-run comparisons and declared clearance sensitivity.",
+    "decision_boundary": "None of these outputs is a validated individual patient prediction."
+  },
+  "permitted_uses": [
+    "Inspect deterministic PK mathematics using declared synthetic inputs.",
+    "Compare compatible archived educational calculations and inspect parameter sensitivity.",
+    "Review numerical checks, source bindings and independent-review preparation.",
+    "Plan evidence acquisition and validation without claiming completed validation."
+  ],
+  "prohibited_uses": [
+    "Select or adjust a real patient dose, treatment, schedule or monitoring plan.",
+    "Predict individual efficacy, toxicity, adverse-event probability or therapeutic suitability.",
+    "Present sensitivity scenarios as confidence intervals or population variability.",
+    "Represent transit states as measured anatomical organ concentrations.",
+    "Treat source-range membership, a drug-name match or a passed software test as clinical applicability.",
+    "Enter identifiable real-patient records into this synthetic educational workflow."
+  ],
+  "failure_modes": [
+    {
+      "code": "covariate_substitution",
+      "failure": "Indexed eGFR or total body weight is substituted for the explicitly required CrCl or FFM.",
+      "consequence": "Apparent parameter values and calculated exposure may be misleading.",
+      "recorded_controls": [
+        "Unit/type checks and separate explicit model-covariate inputs.",
+        "Input method declarations remain visible."
+      ],
+      "remaining_gap": "Covariate methods and their clinical provenance are not independently authenticated."
+    },
+    {
+      "code": "unit_or_compartment_error",
+      "failure": "Incorrect concentration conversion, units or absorption/central ordering.",
+      "consequence": "Concentration magnitude or time profile may be wrong.",
+      "recorded_controls": [
+        "Pinned structure/parameter contracts.",
+        "Numerical audit and source transcription review packet."
+      ],
+      "remaining_gap": "Independent qualified transcription review is pending."
+    },
+    {
+      "code": "source_change_or_corruption",
+      "failure": "A source contract or saved report changes without a traceable model version.",
+      "consequence": "An educational output may lose reproducibility or be attributed to the wrong source.",
+      "recorded_controls": [
+        "Source contract hashes and saved payload integrity checks."
+      ],
+      "remaining_gap": "Hash consistency does not authenticate source origin or establish scientific correctness."
+    },
+    {
+      "code": "out_of_domain_interpretation",
+      "failure": "Marginal source coverage or a synthetic disease declaration is interpreted as patient applicability.",
+      "consequence": "An unsupported model result may influence an individual-level conclusion.",
+      "recorded_controls": [
+        "Coverage limitations and bounded execution policy.",
+        "Patient readiness remains false."
+      ],
+      "remaining_gap": "Joint coverage and fit-for-purpose applicability have not been established."
+    },
+    {
+      "code": "uncertainty_misrepresentation",
+      "failure": "Deterministic ETA-zero output or clearance sensitivity is treated as a probabilistic prediction.",
+      "consequence": "Precision or confidence may be overstated.",
+      "recorded_controls": [
+        "Deterministic and sensitivity limitations recorded in reports."
+      ],
+      "remaining_gap": "Population/residual variability, covariance and calibrated uncertainty are not implemented."
+    },
+    {
+      "code": "unsupported_response_claim",
+      "failure": "PK exposure is treated as evidence of efficacy or toxicity for an individual.",
+      "consequence": "A clinical claim may be made without an exposure-response model or endpoint validation.",
+      "recorded_controls": [
+        "Clinical prediction validated and patient simulation ready remain false.",
+        "Validation-gap report records absent response-model evidence."
+      ],
+      "remaining_gap": "No validated PK/PD, clinical endpoint or adverse-effect risk model is connected."
+    },
+    {
+      "code": "policy_as_scientific_fact",
+      "failure": "Project execution limits or proposed governance text is described as published validation or accepted policy.",
+      "consequence": "Users may believe the system has scientific or institutional approval it does not have.",
+      "recorded_controls": [
+        "Project policy is separated from source transcription in Step 56.",
+        "This contract is a draft."
+      ],
+      "remaining_gap": "No named governance reviewers or acceptance decision are recorded."
+    },
+    {
+      "code": "sensitive_input_use",
+      "failure": "Real identifiable patient data is entered into the educational workflow.",
+      "consequence": "Sensitive information may be stored without an assessed data-handling workflow.",
+      "recorded_controls": [
+        "Synthetic educational purpose declaration."
+      ],
+      "remaining_gap": "No privacy/security readiness assessment or real-patient data workflow is established."
+    }
+  ],
+  "change_control": {
+    "status": "proposed_not_approved",
+    "review_roles": [
+      {
+        "role": "model_source_reviewer",
+        "assignment": null,
+        "responsibility": "Independently review source transcription, definitions and discrepancies."
+      },
+      {
+        "role": "software_reviewer",
+        "assignment": null,
+        "responsibility": "Review code changes, numerical checks and regression evidence."
+      },
+      {
+        "role": "intended_use_reviewer",
+        "assignment": null,
+        "responsibility": "Review scope, misuse risks, intended outputs and remaining validation gaps."
+      }
+    ],
+    "requirements": [
+      "Record the changed artifact, reason, source and affected model/contract versions.",
+      "Assess effects on equations, units, covariates, numerical behavior, assumptions and intended use.",
+      "Run relevant verification checks and retain evidence for independent review.",
+      "Preserve archived runs and their original source bindings; do not silently recompute or rewrite them.",
+      "Keep proposed review and validation status explicit until actual reviewer decisions exist."
+    ],
+    "incident_handling": [
+      "Record a suspected defect and affected versions/output IDs.",
+      "Withhold interpretation of affected outputs while investigating.",
+      "Document correction, verification and the impact on prior educational outputs."
+    ],
+    "acceptance_decision": null
+  },
+  "limitations": [
+    "This is a project-specific draft, not a regulatory or institutional classification.",
+    "Recorded controls are references to project behavior, not evidence that all controls have been comprehensively evaluated.",
+    "No risk probability, calibrated severity score or residual-risk acceptance is claimed."
+  ]
+}

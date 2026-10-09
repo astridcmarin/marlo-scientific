@@ -1,0 +1,41 @@
+{
+  "schema_version": "patient-pool-reference-v1",
+  "catalog_version": "myeloma-us-pool-v1.0",
+  "condition": "Myeloma",
+  "compatible_cohort_condition_names": [
+    "Myeloma",
+    "Multiple Myeloma"
+  ],
+  "country": "United States",
+  "state": null,
+  "reference_year": 2023,
+  "condition_pool": 202793,
+  "population": 334914895,
+  "sources": [
+    {
+      "id": "seer-prevalence",
+      "publisher": "National Cancer Institute, SEER",
+      "url": "https://seer.cancer.gov/statfacts/html/mulmy.html",
+      "field": "Estimated people living with myeloma in the United States, 2023",
+      "value": 202793,
+      "year": 2023,
+      "verified_on": "2026-10-06"
+    },
+    {
+      "id": "census-population",
+      "publisher": "U.S. Census Bureau",
+      "url": "https://www.census.gov/newsroom/facts-for-features/2024/fourth-of-july.html",
+      "field": "U.S. resident population on July 1, 2023, as published in the 2024 facts sheet",
+      "value": 334914895,
+      "year": 2023,
+      "verified_on": "2026-10-06"
+    }
+  ],
+  "limitations": [
+    "The disease pool is an estimated national prevalence count, not people available or eligible for recruitment.",
+    "The population denominator is the pinned July 1 estimate. The disease source reports a year, not an identical reference date. Derived per-100000 ratios are illustrative and are not a published SEER prevalence rate.",
+    "Reference values are historical and pinned, not automatically refreshed or projected to the current year.",
+    "No transfer of the national reference to states, cities or other countries.",
+    "Eligibility and accessibility shares are explicitly entered assumptions; registry counts do not estimate them."
+  ]
+}

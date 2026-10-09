@@ -1,0 +1,177 @@
+{
+  "schema_version": "drug-alias-catalog-v1",
+  "catalog_version": "myeloma-seed-v1.3",
+  "scope": "Exact single-name brand/generic alias references; not formulations, regimens, mechanisms, sponsor entities or development programs.",
+  "entries": [
+    {
+      "id": "lenalidomide",
+      "canonical_name": "Lenalidomide",
+      "aliases": [
+        "Lenalidomide",
+        "Revlimid"
+      ],
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Revlimid / lenalidomide product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=5fa97bf5-28a2-48f1-8955-f56012d296be&version=41",
+        "set_id": "5fa97bf5-28a2-48f1-8955-f56012d296be",
+        "label_version": 41,
+        "label_effective_date": "20230324",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "c381f58f43297a98e66405c7430cea5577b52f9085fa49c6acfba6c862b9faa8",
+        "note": "The product label identifies Revlimid as a lenalidomide product."
+      }
+    },
+    {
+      "id": "bortezomib",
+      "canonical_name": "Bortezomib",
+      "aliases": [
+        "Bortezomib",
+        "Velcade"
+      ],
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Velcade / bortezomib product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=1521d321-e724-4ffc-adad-34bf4f44fac7&version=36",
+        "set_id": "1521d321-e724-4ffc-adad-34bf4f44fac7",
+        "label_version": 36,
+        "label_effective_date": "20250828",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "ddbefd99992c3db6f4af196d90eeac8231119ef06ae79a4459067cc222cdf656",
+        "note": "The product label identifies Velcade as a bortezomib product."
+      }
+    },
+    {
+      "id": "daratumumab",
+      "canonical_name": "Daratumumab",
+      "aliases": [
+        "Daratumumab",
+        "Darzalex"
+      ],
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Darzalex / daratumumab product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=a4d0efe9-5e54-467e-9eb4-56fa7d53b60b&version=46",
+        "set_id": "a4d0efe9-5e54-467e-9eb4-56fa7d53b60b",
+        "label_version": 46,
+        "label_effective_date": "20260921",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "cddb90ed421e66bf9e5d3bfa0f9648519762b7e636290009aefbf8040ffa7f39",
+        "note": "The product label identifies Darzalex as a daratumumab product."
+      }
+    },
+    {
+      "id": "pomalidomide",
+      "canonical_name": "Pomalidomide",
+      "aliases": [
+        "Pomalidomide",
+        "Pomalyst"
+      ],
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Pomalyst / pomalidomide product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=2b25ef01-5c9e-11e1-b86c-0800200c9a66&version=26",
+        "set_id": "2b25ef01-5c9e-11e1-b86c-0800200c9a66",
+        "label_version": 26,
+        "label_effective_date": "20250226",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "29756c96d346b79171a8f431544d6cf481663f14ed6730fc0fc43b353276fc08",
+        "note": "The product label identifies Pomalyst as a pomalidomide product."
+      }
+    },
+    {
+      "id": "carfilzomib",
+      "canonical_name": "Carfilzomib",
+      "aliases": [
+        "Carfilzomib",
+        "Kyprolis"
+      ],
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Kyprolis / carfilzomib product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=ea66eb30-e665-4693-99a1-a9d3b4bbe2d6&version=59",
+        "set_id": "ea66eb30-e665-4693-99a1-a9d3b4bbe2d6",
+        "label_version": 59,
+        "label_effective_date": "20250618",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "6b30f0caabad0684b34f643d933d828bc95bfe3395ff2ea271e0342057c9cd01",
+        "note": "The product label identifies Kyprolis as a carfilzomib product."
+      }
+    },
+    {
+      "id": "dexamethasone",
+      "canonical_name": "Dexamethasone",
+      "aliases": [
+        "Dexamethasone",
+        "Hemady"
+      ],
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "HEMADY / dexamethasone product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=aec60743-f925-4d91-a865-064696a9f9e6&version=6",
+        "set_id": "aec60743-f925-4d91-a865-064696a9f9e6",
+        "label_version": 6,
+        "label_effective_date": "20240823",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "46f06c72fba8040cffebbe7c52bcd1865b9d5cefb705eb2b7b46aeffe9d905b4",
+        "note": "HEMADY identifies dexamethasone. This pinned historical reference does not establish the formulation or current marketing status of a trial intervention."
+      }
+    },
+    {
+      "id": "cyclophosphamide",
+      "canonical_name": "Cyclophosphamide",
+      "aliases": [
+        "Cyclophosphamide"
+      ],
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Cyclophosphamide injection product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=3c1eb470-0bba-457d-94e3-b9508f0d398a&version=5",
+        "set_id": "3c1eb470-0bba-457d-94e3-b9508f0d398a",
+        "label_version": 5,
+        "label_effective_date": "20250421",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "12b64be6a34da9a305f803f0541edc2469359f7b4795567b64366f21cc7465b6",
+        "note": "The product identifies cyclophosphamide. This intravenous reference does not establish a trial intervention’s formulation, route or current marketing status."
+      }
+    },
+    {
+      "id": "melphalan",
+      "canonical_name": "Melphalan",
+      "aliases": [
+        "Melphalan",
+        "Evomela"
+      ],
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Evomela / melphalan product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=69f55869-dc11-408e-8fc7-47634269a52c&version=8",
+        "set_id": "69f55869-dc11-408e-8fc7-47634269a52c",
+        "label_version": 8,
+        "label_effective_date": "20260915",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "49f6c181e1d1db2bb5f3a212dc89b8a5342eb5164190e5b4607fede02fc52641",
+        "note": "Evomela identifies melphalan. This product reference does not establish trial formulation, route, treatment role or current marketing status."
+      }
+    },
+    {
+      "id": "fludarabine",
+      "canonical_name": "Fludarabine",
+      "aliases": [
+        "Fludarabine",
+        "Fludarabine phosphate"
+      ],
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Fludarabine phosphate injection product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=291f6ee2-f5d2-ae6c-e063-6294a90a5951&version=7",
+        "set_id": "291f6ee2-f5d2-ae6c-e063-6294a90a5951",
+        "label_version": 7,
+        "label_effective_date": "20260920",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "8e629988197768e2769fc7f823219500c3e1b90f25c0a3f0427be6682a91d5eb",
+        "note": "The label links the phosphate product to fludarabine-equivalent content. Name mapping does not equate doses, routes or active-metabolite exposure."
+      }
+    }
+  ]
+}

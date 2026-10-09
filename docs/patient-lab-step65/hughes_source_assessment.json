@@ -1,0 +1,266 @@
+{
+  "schema_version": "hughes-assisted-source-assessment-v1",
+  "status": "assisted_source_comparison_matches",
+  "source_sha256": "261734ad9632f1a0f19156b8b4b6cd88d6637cbefe89be4363791caeeda11849",
+  "source_section": "Supplementary Material 2",
+  "source_extraction": {
+    "source_paragraph_start": 74,
+    "source_paragraph_end_exclusive": 157,
+    "values": {
+      "apparent_clearance": 12.0,
+      "apparent_volume": 68.8,
+      "transit_rate": 13.5,
+      "crcl_exponent": 0.224,
+      "ffm_clearance_exponent": 0.75,
+      "ffm_volume_exponent": 1.0,
+      "reference_ffm": 55.0,
+      "reference_crcl": 90.0
+    },
+    "source_order": [
+      "ABS",
+      "CEN",
+      "TRANS1",
+      "TRANS2",
+      "TRANS3",
+      "TRANS4",
+      "TRANS5",
+      "TRANS6",
+      "TRANS7"
+    ],
+    "precentral_order": [
+      "ABS",
+      "TRANS1",
+      "TRANS2",
+      "TRANS3",
+      "TRANS4",
+      "TRANS5",
+      "TRANS6",
+      "TRANS7"
+    ],
+    "dadt_expressions": {
+      "1": "-KTR*A(1)",
+      "2": "KTR*A(9)-K*A(2)",
+      "3": "KTR*A(1)-KTR*A(3)",
+      "4": "KTR*A(3)-KTR*A(4)",
+      "5": "KTR*A(4)-KTR*A(5)",
+      "6": "KTR*A(5)-KTR*A(6)",
+      "7": "KTR*A(6)-KTR*A(7)",
+      "8": "KTR*A(7)-KTR*A(8)",
+      "9": "KTR*A(8)-KTR*A(9)"
+    },
+    "observation_proportional_factor": 0.43
+  },
+  "contract_checks": [
+    {
+      "code": "parameter_apparent_clearance",
+      "source_expected": 12.0,
+      "project_actual": 12.0,
+      "status": "matches"
+    },
+    {
+      "code": "parameter_apparent_volume",
+      "source_expected": 68.8,
+      "project_actual": 68.8,
+      "status": "matches"
+    },
+    {
+      "code": "parameter_transit_rate",
+      "source_expected": 13.5,
+      "project_actual": 13.5,
+      "status": "matches"
+    },
+    {
+      "code": "parameter_crcl_exponent",
+      "source_expected": 0.224,
+      "project_actual": 0.224,
+      "status": "matches"
+    },
+    {
+      "code": "parameter_ffm_clearance_exponent",
+      "source_expected": 0.75,
+      "project_actual": 0.75,
+      "status": "matches"
+    },
+    {
+      "code": "parameter_ffm_volume_exponent",
+      "source_expected": 1.0,
+      "project_actual": 1.0,
+      "status": "matches"
+    },
+    {
+      "code": "parameter_reference_ffm",
+      "source_expected": 55.0,
+      "project_actual": 55.0,
+      "status": "matches"
+    },
+    {
+      "code": "parameter_reference_crcl",
+      "source_expected": 90.0,
+      "project_actual": 90.0,
+      "status": "matches"
+    },
+    {
+      "code": "source_order",
+      "source_expected": [
+        "ABS",
+        "CEN",
+        "TRANS1",
+        "TRANS2",
+        "TRANS3",
+        "TRANS4",
+        "TRANS5",
+        "TRANS6",
+        "TRANS7"
+      ],
+      "project_actual": [
+        "ABS",
+        "CEN",
+        "TRANS1",
+        "TRANS2",
+        "TRANS3",
+        "TRANS4",
+        "TRANS5",
+        "TRANS6",
+        "TRANS7"
+      ],
+      "status": "matches"
+    },
+    {
+      "code": "precentral_order",
+      "source_expected": [
+        "ABS",
+        "TRANS1",
+        "TRANS2",
+        "TRANS3",
+        "TRANS4",
+        "TRANS5",
+        "TRANS6",
+        "TRANS7"
+      ],
+      "project_actual": [
+        "ABS",
+        "TRANS1",
+        "TRANS2",
+        "TRANS3",
+        "TRANS4",
+        "TRANS5",
+        "TRANS6",
+        "TRANS7"
+      ],
+      "status": "matches"
+    },
+    {
+      "code": "stage_count",
+      "source_expected": 8,
+      "project_actual": 8,
+      "status": "matches"
+    },
+    {
+      "code": "central_source_index",
+      "source_expected": 2,
+      "project_actual": 2,
+      "status": "matches"
+    },
+    {
+      "code": "central_inflow_source_index",
+      "source_expected": 9,
+      "project_actual": 9,
+      "status": "matches"
+    },
+    {
+      "code": "unit_conversion_mg_l_to_ng_ml",
+      "source_expected": 1000,
+      "project_actual": 1000,
+      "status": "matches"
+    }
+  ],
+  "parameter_algebra_cases": [
+    {
+      "ffm_kg": 55,
+      "crcl_ml_min": 90,
+      "source_derived_typical_values": {
+        "apparent_clearance_l_h": 12.0,
+        "apparent_volume_l": 68.8,
+        "elimination_rate_h": 0.1744186046511628,
+        "transit_rate_h": 13.5
+      },
+      "project_values": {
+        "apparent_clearance_l_h": 12.0,
+        "apparent_volume_l": 68.8,
+        "elimination_rate_h": 0.1744186046511628,
+        "transit_rate_h": 13.5
+      },
+      "status": "matches"
+    },
+    {
+      "ffm_kg": 55,
+      "crcl_ml_min": 45,
+      "source_derived_typical_values": {
+        "apparent_clearance_l_h": 10.274259414557482,
+        "apparent_volume_l": 68.8,
+        "elimination_rate_h": 0.14933516590926574,
+        "transit_rate_h": 13.5
+      },
+      "project_values": {
+        "apparent_clearance_l_h": 10.274259414557482,
+        "apparent_volume_l": 68.8,
+        "elimination_rate_h": 0.14933516590926574,
+        "transit_rate_h": 13.5
+      },
+      "status": "matches"
+    },
+    {
+      "ffm_kg": 50,
+      "crcl_ml_min": 90,
+      "source_derived_typical_values": {
+        "apparent_clearance_l_h": 11.172149335466674,
+        "apparent_volume_l": 62.54545454545454,
+        "elimination_rate_h": 0.1786244806542637,
+        "transit_rate_h": 13.5
+      },
+      "project_values": {
+        "apparent_clearance_l_h": 11.172149335466674,
+        "apparent_volume_l": 62.54545454545454,
+        "elimination_rate_h": 0.1786244806542637,
+        "transit_rate_h": 13.5
+      },
+      "status": "matches"
+    },
+    {
+      "ffm_kg": 70,
+      "crcl_ml_min": 60,
+      "source_derived_typical_values": {
+        "apparent_clearance_l_h": 13.130713239260945,
+        "apparent_volume_l": 87.56363636363636,
+        "elimination_rate_h": 0.14995623508292194,
+        "transit_rate_h": 13.5
+      },
+      "project_values": {
+        "apparent_clearance_l_h": 13.130713239260945,
+        "apparent_volume_l": 87.56363636363636,
+        "elimination_rate_h": 0.14995623508292194,
+        "transit_rate_h": 13.5
+      },
+      "status": "matches"
+    }
+  ],
+  "code_sha256": {
+    "pk_parameter_reference.py": "1160271031ca1ee910e962f91af02bae9ad628d601e4e3a9afb4c5f4f471d307",
+    "transit_kernel.py": "088f8da0a5cfd9c392411079810a3220e56750289871999fc22a9bb511b29ebe",
+    "educational_pk.py": "9090eec6c6bc365872f0dbe23b46a8e5de9ea72a8f323d17a71bd505061f8f10"
+  },
+  "review_type": "automated_assisted_comparison_not_independent_signoff",
+  "independent_review_completed": false,
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false,
+  "ode_solver_rerun": false,
+  "database_writes_performed": false,
+  "not_verified": [
+    "Generic kernel derivative execution by this tool (code hash is identification only)",
+    "NONMEM estimation or source dataset reproduction",
+    "Random-effects covariance and observation-error reproduction",
+    "Predictive accuracy, uncertainty, individual applicability or clinical endpoints"
+  ],
+  "limitation": "Narrow recognized-source grammar and four fixed algebra cases. Agreement is not empirical validation, proof for all inputs, or a qualified independent reviewer decision.",
+  "report_sha256": "88dd32090066b54a414206fa1bbfcaf79e14fad3d9db487492205e84df8e0e71"
+}

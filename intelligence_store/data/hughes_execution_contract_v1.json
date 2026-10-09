@@ -1,0 +1,30 @@
+{
+  "schema_version": "educational-pk-execution-contract-v1",
+  "contract_version": "hughes-educational-execution-v1.0",
+  "structure_contract_sha256": "4322208e9d7dcd6d60d25624879beb6731f67301e894c05f13911d77685ca91d",
+  "coverage_contract_sha256": "b452b4f21d4449ef88fc7821481376c08b16ad8fcd1b90a6664bba7408857fe6",
+  "purpose": "synthetic_educational",
+  "scope": "Deterministic mathematical calculation using declared synthetic covariates; no clinical prediction validity claim.",
+  "display_step_h": 0.1,
+  "max_step_h": 0.001,
+  "maximum_horizon_h": 72.0,
+  "maximum_events": 4,
+  "required_interval_h": 24.0,
+  "first_event_time_h": 0.0,
+  "required_known_context": [
+    "age_years"
+  ],
+  "allowed_unknown_context": [
+    "weight",
+    "height",
+    "serum_creatinine"
+  ],
+  "rules": [
+    "Reject unsupported drug, binding conflicts, known context outside reported ranges, missing covariates or unlisted administration amounts.",
+    "Require an explicitly represented synthetic disease declaration.",
+    "Restrict to a fixed 0.1-hour display grid, daily events from time zero and at most 72 hours.",
+    "Keep source-review blockers and unknown context visible; no missing value is filled.",
+    "All random effects and observation error are omitted.",
+    "Execution limits are conservative project policy, not a published clinical regimen or validation boundary."
+  ]
+}

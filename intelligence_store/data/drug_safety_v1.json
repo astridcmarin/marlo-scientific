@@ -1,0 +1,550 @@
+{
+  "schema_version": "drug-safety-references-v1",
+  "catalog_version": "myeloma-safety-v1.3",
+  "alias_catalog_version": "myeloma-seed-v1.3",
+  "alias_catalog_sha256": "896a58a2a89e8a992ba85a23ea726ba5d65f8ac9f3bcd88e10444589450c2845",
+  "scope": "Selected label warning references, not a complete label summary, trial exposure assessment, adverse-event analysis or clinical recommendation.",
+  "entries": [
+    {
+      "entity_id": "lenalidomide",
+      "reference_product": "Revlimid capsule reference",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Revlimid / lenalidomide product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=5fa97bf5-28a2-48f1-8955-f56012d296be&version=41",
+        "set_id": "5fa97bf5-28a2-48f1-8955-f56012d296be",
+        "label_version": 41,
+        "label_effective_date": "20230324",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "c381f58f43297a98e66405c7430cea5577b52f9085fa49c6acfba6c862b9faa8",
+        "note": "The product label identifies Revlimid as a lenalidomide product."
+      },
+      "boxed_warning": {
+        "present": true,
+        "basis": "The boxed section addresses embryo-fetal harm, blood count toxicity and venous/arterial thromboembolic events.",
+        "sections": [
+          "Boxed warning"
+        ]
+      },
+      "selected_warnings": [
+        {
+          "topic": "Embryo-fetal harm",
+          "basis": "The label describes developmental harm and pregnancy-related precautions.",
+          "sections": [
+            "5.1"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Blood count toxicity",
+          "basis": "The label identifies substantial neutrophil and platelet reductions.",
+          "sections": [
+            "5.3"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Thromboembolic events",
+          "basis": "Venous and arterial events are described, including multiple-myeloma combination-treatment contexts.",
+          "sections": [
+            "5.4"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Liver injury",
+          "basis": "Liver failure is described in patients receiving the dexamethasone combination.",
+          "sections": [
+            "5.8"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Severe skin reactions",
+          "basis": "The label describes severe skin syndromes, including potentially fatal reactions.",
+          "sections": [
+            "5.9"
+          ],
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "bortezomib",
+      "reference_product": "Velcade injection reference; intravenous or subcutaneous labeling",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Velcade / bortezomib product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=1521d321-e724-4ffc-adad-34bf4f44fac7&version=36",
+        "set_id": "1521d321-e724-4ffc-adad-34bf4f44fac7",
+        "label_version": 36,
+        "label_effective_date": "20250828",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "ddbefd99992c3db6f4af196d90eeac8231119ef06ae79a4459067cc222cdf656",
+        "note": "The product label identifies Velcade as a bortezomib product."
+      },
+      "boxed_warning": {
+        "present": false,
+        "basis": "No boxed-warning section is present in the verified SPL version.",
+        "sections": []
+      },
+      "selected_warnings": [
+        {
+          "topic": "Peripheral neuropathy",
+          "basis": "The label describes sensory neuropathy, with severe sensory or motor cases also reported.",
+          "sections": [
+            "5.1"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Low blood pressure",
+          "basis": "Low blood pressure is described, including postural and orthostatic presentations.",
+          "sections": [
+            "5.2"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Cardiac complications",
+          "basis": "The label describes new or worsening heart failure and reduced ventricular function.",
+          "sections": [
+            "5.3"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Pulmonary complications",
+          "basis": "The label describes severe lung syndromes, including respiratory distress and infiltrative lung disease.",
+          "sections": [
+            "5.4"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Blood count toxicity",
+          "basis": "The label describes cyclical platelet and neutrophil reductions.",
+          "sections": [
+            "5.7"
+          ],
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "daratumumab",
+      "reference_product": "Darzalex intravenous injection reference; not Darzalex Faspro",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Darzalex / daratumumab product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=a4d0efe9-5e54-467e-9eb4-56fa7d53b60b&version=46",
+        "set_id": "a4d0efe9-5e54-467e-9eb4-56fa7d53b60b",
+        "label_version": 46,
+        "label_effective_date": "20260921",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "cddb90ed421e66bf9e5d3bfa0f9648519762b7e636290009aefbf8040ffa7f39",
+        "note": "The product label identifies Darzalex as a daratumumab product."
+      },
+      "boxed_warning": {
+        "present": false,
+        "basis": "No boxed-warning section is present in the verified SPL version.",
+        "sections": []
+      },
+      "selected_warnings": [
+        {
+          "topic": "Infusion reactions",
+          "basis": "The intravenous reference label describes serious infusion reactions, including anaphylactic reactions.",
+          "sections": [
+            "5.1"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Blood compatibility testing interference",
+          "basis": "The label describes interference with antibody detection during blood compatibility testing.",
+          "sections": [
+            "5.2"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Infections",
+          "basis": "The label describes serious infections, including life-threatening and fatal cases.",
+          "sections": [
+            "5.3"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Blood count toxicity",
+          "basis": "The label describes possible worsening of background-therapy-related neutrophil and platelet reductions.",
+          "sections": [
+            "5.4",
+            "5.5"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Embryo-fetal harm",
+          "basis": "The label describes fetal harm potential based on the mechanism of action.",
+          "sections": [
+            "5.7"
+          ],
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "pomalidomide",
+      "reference_product": "Pomalyst capsule reference",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Pomalyst / pomalidomide product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=2b25ef01-5c9e-11e1-b86c-0800200c9a66&version=26",
+        "set_id": "2b25ef01-5c9e-11e1-b86c-0800200c9a66",
+        "label_version": 26,
+        "label_effective_date": "20250226",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "29756c96d346b79171a8f431544d6cf481663f14ed6730fc0fc43b353276fc08",
+        "note": "The product label identifies Pomalyst as a pomalidomide product."
+      },
+      "boxed_warning": {
+        "present": true,
+        "basis": "The boxed section addresses embryo-fetal harm and venous/arterial thromboembolic events.",
+        "sections": [
+          "Boxed warning"
+        ]
+      },
+      "selected_warnings": [
+        {
+          "topic": "Embryo-fetal harm",
+          "basis": "The label describes developmental harm and pregnancy-related precautions.",
+          "sections": [
+            "5.1"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Thromboembolic events",
+          "basis": "The label describes venous and arterial events in treated patients.",
+          "sections": [
+            "5.3"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Blood count toxicity",
+          "basis": "Blood count toxicities are described, with prominent neutropenia in multiple-myeloma combination trials.",
+          "sections": [
+            "5.5"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Liver injury",
+          "basis": "The label describes liver failure and raised liver-related laboratory measurements.",
+          "sections": [
+            "5.6"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Severe skin reactions",
+          "basis": "The label describes severe skin syndromes, including potentially fatal reactions.",
+          "sections": [
+            "5.7"
+          ],
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "carfilzomib",
+      "reference_product": "Kyprolis intravenous infusion reference",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Kyprolis / carfilzomib product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=ea66eb30-e665-4693-99a1-a9d3b4bbe2d6&version=59",
+        "set_id": "ea66eb30-e665-4693-99a1-a9d3b4bbe2d6",
+        "label_version": 59,
+        "label_effective_date": "20250618",
+        "verified_on": "2026-10-06",
+        "retrieved_xml_sha256": "6b30f0caabad0684b34f643d933d828bc95bfe3395ff2ea271e0342057c9cd01",
+        "note": "The product label identifies Kyprolis as a carfilzomib product."
+      },
+      "boxed_warning": {
+        "present": false,
+        "basis": "No boxed-warning section is present in the verified SPL version.",
+        "sections": []
+      },
+      "selected_warnings": [
+        {
+          "topic": "Cardiac complications",
+          "basis": "The label describes heart failure, ischemic events and other cardiac complications.",
+          "sections": [
+            "5.1"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Acute renal injury",
+          "basis": "The label describes acute renal failure, including fatal cases.",
+          "sections": [
+            "5.2"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Tumor lysis syndrome",
+          "basis": "The label describes tumor lysis cases, including fatal outcomes.",
+          "sections": [
+            "5.3"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Pulmonary complications",
+          "basis": "The label describes respiratory failure and infiltrative lung disease.",
+          "sections": [
+            "5.4"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Infusion reactions",
+          "basis": "The label describes infusion reactions, including life-threatening presentations.",
+          "sections": [
+            "5.9"
+          ],
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "dexamethasone",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "HEMADY / dexamethasone product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=aec60743-f925-4d91-a865-064696a9f9e6&version=6",
+        "set_id": "aec60743-f925-4d91-a865-064696a9f9e6",
+        "label_version": 6,
+        "label_effective_date": "20240823",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "46f06c72fba8040cffebbe7c52bcd1865b9d5cefb705eb2b7b46aeffe9d905b4",
+        "note": "HEMADY identifies dexamethasone. This pinned historical reference does not establish the formulation or current marketing status of a trial intervention."
+      },
+      "reference_product": "HEMADY oral tablet reference",
+      "boxed_warning": {
+        "present": false,
+        "basis": "No boxed-warning section in this selected reference; this does not imply low risk.",
+        "sections": []
+      },
+      "selected_warnings": [
+        {
+          "topic": "Endocrine changes",
+          "basis": "Adrenal-axis suppression, hyperglycemia and Cushing’s syndrome are described.",
+          "sections": [
+            "5.1"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Infection risk",
+          "basis": "Immunosuppression can worsen or reactivate infections.",
+          "sections": [
+            "5.2"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Cardiovascular and renal effects",
+          "basis": "Blood-pressure, fluid and electrolyte changes are described.",
+          "sections": [
+            "5.3"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Thromboembolic events",
+          "basis": "Venous and arterial thrombosis risk is described.",
+          "sections": [
+            "5.4"
+          ],
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "cyclophosphamide",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Cyclophosphamide injection product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=3c1eb470-0bba-457d-94e3-b9508f0d398a&version=5",
+        "set_id": "3c1eb470-0bba-457d-94e3-b9508f0d398a",
+        "label_version": 5,
+        "label_effective_date": "20250421",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "12b64be6a34da9a305f803f0541edc2469359f7b4795567b64366f21cc7465b6",
+        "note": "The product identifies cyclophosphamide. This intravenous reference does not establish a trial intervention’s formulation, route or current marketing status."
+      },
+      "reference_product": "Cyclophosphamide injection reference; intravenous labeling",
+      "boxed_warning": {
+        "present": false,
+        "basis": "No boxed-warning section in this reference; absence does not imply low risk.",
+        "sections": []
+      },
+      "selected_warnings": [
+        {
+          "topic": "Marrow suppression and infections",
+          "basis": "Marrow suppression and serious infections are described.",
+          "sections": [
+            "5.1"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Urinary and renal toxicity",
+          "basis": "Hemorrhagic cystitis and renal toxicity are described.",
+          "sections": [
+            "5.2"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Cardiac toxicity",
+          "basis": "Serious cardiac injury is described.",
+          "sections": [
+            "5.3"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Pulmonary toxicity",
+          "basis": "Serious pulmonary injury is described.",
+          "sections": [
+            "5.4"
+          ],
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "melphalan",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Evomela / melphalan product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=69f55869-dc11-408e-8fc7-47634269a52c&version=8",
+        "set_id": "69f55869-dc11-408e-8fc7-47634269a52c",
+        "label_version": 8,
+        "label_effective_date": "20260915",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "49f6c181e1d1db2bb5f3a212dc89b8a5342eb5164190e5b4607fede02fc52641",
+        "note": "Evomela identifies melphalan. This product reference does not establish trial formulation, route, treatment role or current marketing status."
+      },
+      "reference_product": "Evomela intravenous reference; myeloma transplant conditioning",
+      "boxed_warning": {
+        "present": true,
+        "basis": "Marrow suppression, hypersensitivity and leukemogenicity are boxed topics.",
+        "sections": [
+          "Boxed warning"
+        ]
+      },
+      "selected_warnings": [
+        {
+          "topic": "Marrow suppression",
+          "basis": "Myeloablation in conditioning regimens is described.",
+          "sections": [
+            "5.1"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Gastrointestinal toxicity",
+          "basis": "Mucositis and other gastrointestinal effects are described.",
+          "sections": [
+            "5.2"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Liver toxicity",
+          "basis": "Hepatic injury is described.",
+          "sections": [
+            "5.3"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Hypersensitivity",
+          "basis": "Serious hypersensitivity is described.",
+          "sections": [
+            "5.4"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Secondary malignancies",
+          "basis": "Secondary malignancies are described.",
+          "sections": [
+            "5.5"
+          ],
+          "interpretation": "curated_summary"
+        }
+      ]
+    },
+    {
+      "entity_id": "fludarabine",
+      "source": {
+        "publisher": "DailyMed, U.S. National Library of Medicine",
+        "title": "Fludarabine phosphate injection product label",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=291f6ee2-f5d2-ae6c-e063-6294a90a5951&version=7",
+        "set_id": "291f6ee2-f5d2-ae6c-e063-6294a90a5951",
+        "label_version": 7,
+        "label_effective_date": "20260920",
+        "verified_on": "2026-10-07",
+        "retrieved_xml_sha256": "8e629988197768e2769fc7f823219500c3e1b90f25c0a3f0427be6682a91d5eb",
+        "note": "The label links the phosphate product to fludarabine-equivalent content. Name mapping does not equate doses, routes or active-metabolite exposure."
+      },
+      "reference_product": "Fludarabine phosphate intravenous reference; B-cell CLL labeling",
+      "boxed_warning": {
+        "present": false,
+        "basis": "No boxed-warning section in this reference; absence does not imply low risk.",
+        "sections": []
+      },
+      "selected_warnings": [
+        {
+          "topic": "Neurologic toxicity",
+          "basis": "Severe neurologic effects are described.",
+          "sections": [
+            "5.1"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Marrow suppression",
+          "basis": "Severe marrow suppression is described.",
+          "sections": [
+            "5.2"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Autoimmune cytopenias",
+          "basis": "Autoimmune blood-cell disorders are described.",
+          "sections": [
+            "5.3"
+          ],
+          "interpretation": "curated_summary"
+        },
+        {
+          "topic": "Pulmonary toxicity with pentostatin",
+          "basis": "Severe pulmonary toxicity is described in the combination context.",
+          "sections": [
+            "5.6"
+          ],
+          "interpretation": "curated_summary"
+        }
+      ]
+    }
+  ]
+}

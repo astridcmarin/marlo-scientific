@@ -1,0 +1,72 @@
+{% extends "landscape_base.html" %}
+{% block title %}Patient Lab · {{ revision.title }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('landscape.static',filename='patient-lab-workspace.css') }}">
+<link rel="stylesheet" href="{{ url_for('landscape.static',filename='transit-demo.css') }}">
+<div class="heading-row"><div><p class="eyebrow">Patient Lab · Synthetic educational workspace</p>
+<h1>{{ revision.title }}</h1>
+<p class="intro">{{ frozen.selected_drug.label }} · Scenario #{{ scenario.id }} · Patient-state record #{{ revision.id }} · Revision {{ revision.revision_number }}</p></div></div>
+<section class="scenario-notice"><strong>Educational exploration · Clinical prediction is unvalidated</strong>
+<p>Recorded patient state, archived exposure calculations and sourced drug knowledge share this workspace. Mechanism evidence is qualitative; it is not calculated from the PK curve. Patient simulation ready: <strong>false</strong>.</p></section>
+<p><a class="button primary" href="{{ url_for('landscape.patient_pk_compare',scenario_id=scenario.id,left_revision=revision.id) }}">Compare patient states and exposure</a></p>
+<nav class="lab-section-nav" aria-label="Patient Lab sections">
+<a href="#patient-state">Patient state</a><a href="#drug-knowledge">Drug knowledge</a><a href="#saved-exposure">Saved exposure</a><a href="#mechanism-evidence">Mechanism evidence</a><a href="#traceability">Provenance</a>
+</nav>
+<div class="lab-workspace-grid">
+<section id="patient-state" class="panel"><p class="eyebrow">Immutable record #{{ revision.id }}</p><h2>Patient state</h2>
+<p>{{ known|length }} fields supplied · {{ unknown|length }} fields unknown. Values are recorded declarations.</p>
+<dl class="lab-state-grid">{% for name, field in fields.items() %}<div><dt>{{ labels[name] }}</dt><dd>{% if field.value is none %}<span class="lab-unknown">Unknown</span>{% else %}{{ field.value }}{% if field.unit %} <span class="lab-unit">{{ field.unit }}</span>{% endif %}{% endif %}</dd></div>{% endfor %}</dl>
+<p><a class="button secondary" href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id) }}">Review input provenance</a>
+<a class="button secondary" href="{{ url_for('landscape.patient_state_edit',scenario_id=scenario.id) }}">Edit latest state / revision history</a></p>
+<p class="panel-note">This workspace stays attached to this revision. The editor opens the latest state; new revisions do not replace this record. Indexed eGFR and creatinine clearance remain distinct measures. Unknown values are not filled automatically.</p>
+</section>
+<section id="drug-knowledge" class="panel"><p class="eyebrow">Frozen scenario references</p><h2>{{ frozen.selected_drug.label }} knowledge</h2>
+<p>{{ frozen.cohort.condition }} · Cohort #{{ frozen.cohort.id }} · {{ frozen.cohort.scope }}</p>
+<dl class="lab-reference-counts"><div><dt>Studies reporting mapped names</dt><dd>{{ '{:,}'.format(frozen.reference_trials.count) }}</dd></div><div><dt>Recruiting registry records</dt><dd>{{ '{:,}'.format(frozen.recruiting_reference_trials.count) }}</dd></div></dl>
+<p class="panel-note">Saved descriptive counts, not patient matches or evidence of benefit.</p>
+{% set safety = frozen.safety_reference %}
+{% if safety %}<h3>Selected label safety context</h3><p>{{ safety.reference_product }}</p>
+<p>Boxed warning in retained reference: <strong>{% if safety.boxed_warning.present is sameas true %}Present{% elif safety.boxed_warning.present is sameas false %}Absent{% else %}Unknown{% endif %}</strong></p>
+<details><summary>Selected warning topics and source</summary><ul>{% for warning in safety.selected_warnings %}<li><strong>{{ warning.topic }}</strong><p>{{ warning.basis }}</p><p class="panel-note">Sections {{ warning.sections|join(', ') }}</p></li>{% endfor %}</ul>
+<p><a href="{{ safety.source.url }}" target="_blank" rel="noopener noreferrer">Supporting label reference</a> · Label date {{ safety.source.label_effective_date }} · Source checked {{ safety.source.verified_on }}</p></details>{% endif %}
+<h3>Entered medication reference coverage</h3><p>{{ frozen.medication_coverage.selected_references }} / {{ frozen.medication_coverage.entered_unique }} entered names have a selected pair reference · {{ frozen.medication_coverage.unassessed }} unassessed.</p>
+<p><a class="button secondary" href="{{ url_for('landscape.saved_scenario',scenario_id=scenario.id) }}">Open frozen reference report</a>
+<a class="button secondary" href="{{ url_for('landscape.drug_knowledge_detail',entity=frozen.selected_drug.entity_id,cohort_id=frozen.cohort.id) }}">Explore current drug knowledge</a></p>
+<p class="panel-note">Selected topics are incomplete label context, not an individual risk assessment. Current drug knowledge uses installed catalogs and can differ from this frozen scenario.</p></section>
+</div>
+<section id="saved-exposure" class="panel"><p class="eyebrow">Archived educational PK</p><h2>Saved exposure workspace</h2>
+<p>{{ count }} saved run rows · Showing the latest {{ runs|length }}. Displayed archives and their revision lineage were checked for integrity. This is not clinical validation.</p>
+<div class="lab-actions"><a class="button primary" href="{{ url_for('landscape.educational_pk',scenario_id=scenario.id,revision_id=revision.id) }}">Create an educational calculation</a>
+<a class="button secondary" href="{{ url_for('landscape.saved_pk_runs',scenario_id=scenario.id,revision_id=revision.id) }}">All saved runs</a>
+<a class="button secondary" href="{{ url_for('landscape.saved_pk_compare',scenario_id=scenario.id,revision_id=revision.id) }}">Compare two saved runs</a></div>
+{% if runs %}<ul class="lab-run-list">{% for item in runs %}<li{% if run and item.id==run.id %} class="lab-selected-run"{% endif %}><a href="{{ url_for('landscape.patient_lab_overview',scenario_id=scenario.id,revision_id=revision.id,run_id=item.id) }}#saved-exposure"{% if run and item.id==run.id %} aria-current="true"{% endif %}>Run #{{ item.id }} · {{ item.title }}</a><span>Saved {{ item.created_at_utc.isoformat() }}Z</span></li>{% endfor %}</ul>
+{% else %}<p>No educational runs have been saved for this record. Enter explicit model inputs and a treatment request to calculate; saving is a separate choice.</p>{% endif %}
+{% if run %}<div class="lab-selected-detail"><h3>Viewing run #{{ run.id }} · {{ run.title }}</h3><p>{% if not request.args.get('run_id') %}The latest saved run is shown automatically. {% endif %}These are archived values; no calculation is rerun.</p>
+<dl class="lab-run-metrics"><div><dt>Declared synthetic disease</dt><dd>{{ review.declared_disease_context.code }}</dd></div><div><dt>AUC 0–{{ report.points[-1].time_h }} h</dt><dd>{{ '%.3f'|format(report.auc_0_horizon_ng_h_ml) }} ng·h/mL</dd></div><div><dt>Analytic AUC to infinity</dt><dd>{{ '%.3f'|format(report.analytic_auc_0_infinity_ng_h_ml) }} ng·h/mL</dd></div></dl>
+<p class="panel-note">AUC measures modeled exposure, not therapeutic benefit or harm. The central compartment is a mathematical representation, not an organ.</p>
+{% for chart in charts %}<div class="lab-chart"><h3>{{ chart.title }}</h3><svg class="transit-chart" viewBox="0 0 780 305" data-pk-archive-chart="{{ chart.unit }}" role="img" aria-labelledby="lab-chart-title-{{ loop.index }}"><title id="lab-chart-title-{{ loop.index }}">Run {{ run.id }} {{ chart.title }}; time in hours, vertical axis {{ chart.unit }}. Archived educational values.</title>
+{% for tick in chart.ticks %}<line x1="70" y1="{{ tick.y }}" x2="740" y2="{{ tick.y }}" class="transit-grid"/><text x="62" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
+{% for tick in chart.time_ticks %}<text x="{{ tick.x }}" y="270" text-anchor="middle">{{ tick.label }}</text>{% endfor %}<text x="70" y="18">{{ chart.unit }}</text><text x="405" y="296" text-anchor="middle">Time (h)</text>{% for series in chart.series %}<polyline points="{{ series.polyline }}" fill="none" stroke="{{ series.color }}" stroke-width="2.5"/>{% endfor %}</svg></div>{% endfor %}
+<div class="lab-actions"><a href="{{ url_for('landscape.saved_pk_run',scenario_id=scenario.id,revision_id=revision.id,run_id=run.id) }}">Full run and inputs</a>
+<a href="{{ url_for('landscape.saved_pk_audit',scenario_id=scenario.id,revision_id=revision.id,run_id=run.id) }}">Mathematical audit</a>
+<a href="{{ url_for('landscape.saved_pk_metrics',scenario_id=scenario.id,revision_id=revision.id,run_id=run.id) }}">Sampled peak exposure</a>
+<a href="{{ url_for('landscape.saved_pk_sensitivity',scenario_id=scenario.id,revision_id=revision.id,run_id=run.id) }}">Invented clearance sensitivity</a>
+<a href="{{ url_for('landscape.saved_pk_run',scenario_id=scenario.id,revision_id=revision.id,run_id=run.id,format='json') }}">Download archived run JSON</a></div>
+<details><summary>Explicit model inputs and treatment request</summary><p>These declarations belong to this archived run. They are separate from the scenario dose and the recorded patient fields.</p><h3>Model inputs</h3><pre>{{ review.explicit_model_inputs|tojson(indent=2) }}</pre><h3>Treatment request</h3><pre>{{ review.treatment_request_preview.request|tojson(indent=2) }}</pre></details>
+</div>{% endif %}</section>
+{% if run %}<details class="panel"><summary>Explore the selected run's compartment timeline</summary>{% include "pk_compartment_timeline.html" %}</details>{% endif %}
+<section id="mechanism-evidence" class="panel"><p class="eyebrow">Qualitative drug knowledge · Separate from modeled exposure</p><h2>Mechanism evidence</h2>
+{% if mechanism %}<p>{{ frozen.selected_drug.label }} · Curated experimental sequence</p><ol class="lab-mechanism-stages">{% for stage in mechanism.stages %}<li><strong>{{ stage.label }}</strong><p>{{ stage.description }}</p></li>{% endfor %}</ol>
+<p>These stages summarize the curated cellular evidence. No target engagement, protein abundance or patient outcome is calculated from the archived concentration curve.</p>
+<p><a class="button secondary" href="{{ url_for('landscape.mechanism_map_demo') }}">Review claims and source figures</a> <a href="{{ url_for('landscape.mechanism_map_demo',format='json') }}">Download mechanism evidence JSON</a></p>
+<p class="panel-note">Quantitative degradation calibration is paused. The figure-review branch is not required for this workspace. The initial mechanism packet retains its own review date and scope; later assay reviews remain separate records.</p>
+{% elif mechanism_error %}<p role="status">{{ mechanism_error }}</p>
+{% else %}<p>No mechanism map is integrated for this selected drug. No mechanism is inferred from its name or from another drug's map.</p>{% endif %}
+<details><summary>Separate teaching demonstrations</summary><p>These use invented parameters and do not inherit this patient state or the archived exposure curve.</p><p><a href="{{ url_for('landscape.target_occupancy_demo') }}">Equilibrium target binding</a> · <a href="{{ url_for('landscape.binding_kinetics_demo') }}">Binding kinetics</a> · <a href="{{ url_for('landscape.binding_pulse_demo') }}">Binding pulse</a></p></details></section>
+<details id="traceability" class="panel"><summary>Provenance and current scientific scope</summary>
+<p><a href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id,format='json') }}">Download patient-state revision JSON</a> · <a href="{{ url_for('landscape.saved_scenario',scenario_id=scenario.id,format='json') }}">Download frozen scenario JSON</a></p>
+<p class="catalog-digest">State SHA256: {{ revision.state_sha256 }}<br>Revision payload SHA256: {{ revision.payload_sha256 }}<br>Source scenario SHA256: {{ scenario.payload_sha256 }}{% if run %}<br>Selected run payload SHA256: {{ run.payload_sha256 }}<br>Selected run report SHA256: {{ run.report_sha256 }}{% endif %}{% if mechanism %}<br>Mechanism packet SHA256: {{ mechanism.evidence_plan_sha256 }}{% endif %}</p>
+<p>Source scenario, patient revision and displayed run integrity are checked before display. A checksum does not authenticate a source or validate a model. No solver, audit, current catalog refresh or database write runs when opening this page.</p>
+<p>No integrated PK/PD, organ physiology, efficacy, toxicity, biomarker dynamics, disease progression or dose recommendation is established. Full patient simulation and clinical prediction remain unvalidated.</p>
+</details>
+{% endblock %}

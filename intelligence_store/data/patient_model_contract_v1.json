@@ -1,0 +1,73 @@
+{
+  "schema_version": "patient-model-contract-v1",
+  "contract_version": "lenalidomide-model-review-v1.0",
+  "drug": "lenalidomide",
+  "purpose": "synthetic_educational",
+  "selection_status": "pending_full_model_review",
+  "execution_enabled": false,
+  "reviewed_on": "2026-10-07",
+  "candidate_models": [
+    {
+      "id": "connarn-2018",
+      "citation": "Connarn et al. Clin Pharmacol Drug Dev. 2018;7(5):465–473",
+      "doi": "10.1002/cpdd.372",
+      "pmid": "28724202",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28724202/",
+      "review_level": "abstract_only",
+      "summary": "One-compartment population model; creatinine clearance and weight covariates. Study participants had creatinine clearance above 50 mL/min.",
+      "selection_note": "Provisional simple-structure candidate; full equations, parameter definitions and applicability remain unverified."
+    },
+    {
+      "id": "kim-2026",
+      "citation": "Kim et al. Drug Des Devel Ther. 2026;20:605741",
+      "doi": "10.2147/DDDT.S605741",
+      "pmid": "42163996",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42163996/",
+      "review_level": "abstract_only",
+      "summary": "Two-compartment total/unbound model in 30 myeloma patients; indexed eGFR and body surface area covariates.",
+      "selection_note": "Alternative for review; requires additional binding/compartment definitions and full model extraction."
+    }
+  ],
+  "label_context": {
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5fa97bf5-28a2-48f1-8955-f56012d296be",
+    "label_updated": "2023-03-24",
+    "section": "12.3 Pharmacokinetics",
+    "review_level": "section_context_only",
+    "note": "Label context supports checking renal-function definitions. This dated record is not a verified latest label or an executable covariate equation."
+  },
+  "global_blockers": [
+    {
+      "code": "model_not_selected",
+      "message": "Select one complete model; do not combine coefficients from different publications."
+    },
+    {
+      "code": "equations_not_verified",
+      "message": "Extract full structural and covariate equations, parameter tables, units and reference values."
+    },
+    {
+      "code": "applicability_not_defined",
+      "message": "Document population, covariate estimation methods, dose/route conditions and supported boundaries."
+    },
+    {
+      "code": "patient_interface_not_defined",
+      "message": "Define required state inputs and separate treatment inputs. Do not infer missing values or renal-measure equivalence."
+    },
+    {
+      "code": "validation_not_completed",
+      "message": "Implement dimensional checks, numerical checks and reproduction of published reference results."
+    },
+    {
+      "code": "uncertainty_not_defined",
+      "message": "Define a typical prediction and its limitations before adding variability or intervals."
+    }
+  ],
+  "invariants": [
+    "No patient-specific parameters or concentrations are calculated by this review.",
+    "A known value is an input-presence fact, not model eligibility.",
+    "Indexed eGFR is not creatinine clearance; which measure is appropriate depends on the selected model.",
+    "No renal-function derivation, body-surface-area calculation or unit conversion occurs.",
+    "Scenario drug, dose and medications are captured from the original saved scenario, not reinterpreted as a validated treatment schedule.",
+    "The historical teaching model remains separate and ignores patient state.",
+    "Source citations and review metadata do not authenticate uploaded patient inputs or establish model validation."
+  ]
+}

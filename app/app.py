@@ -2,9 +2,12 @@
 from flask import Flask, render_template, request
 import requests
 from intelligence_store import init_storage
+from intelligence_store.snapshots import save_trial_snapshots
+from landscape_ui import register_landscape
 
 app = Flask(__name__)
 init_storage(app)
+register_landscape(app)
 
 
 # ==================================================
@@ -758,6 +761,8 @@ def home():
         data, error_message = fetch_trials(params)
         if data:
             raw_studies = data.get("studies", [])
+            # Preserve source evidence before cleaning values for display.
+            save_trial_snapshots(raw_studies)
             next_page_token = data.get("nextPageToken")
             total_count = data.get("totalCount", 0)
             # --------------------------------------------------

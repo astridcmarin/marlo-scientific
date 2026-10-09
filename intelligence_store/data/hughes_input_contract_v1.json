@@ -1,0 +1,36 @@
+{
+  "schema_version": "pk-model-input-contract-v1",
+  "contract_version": "hughes-input-contract-v1.0",
+  "model_contract_sha256": "4322208e9d7dcd6d60d25624879beb6731f67301e894c05f13911d77685ca91d",
+  "source": {
+    "doi": "10.1111/bcp.13873",
+    "url": "https://bpspubs.onlinelibrary.wiley.com/doi/10.1111/bcp.13873",
+    "locations": [
+      "Section 2.3 covariate definitions",
+      "Table 1 observed study ranges"
+    ],
+    "reviewed_on": "2026-10-07"
+  },
+  "fields": {
+    "fat_free_mass": {
+      "unit": "kg",
+      "source_method": "Janmahasatian estimation",
+      "observed_range": [
+        32.0,
+        84.0
+      ],
+      "parameter": "FFM"
+    },
+    "creatinine_clearance": {
+      "unit": "mL/min",
+      "source_method": "Cockcroft\u2013Gault estimation",
+      "observed_range": [
+        36.0,
+        211.0
+      ],
+      "parameter": "CRCL2"
+    }
+  },
+  "policy": "Parameter preview is withheld for missing inputs or values outside these observed ranges. This conservative software boundary does not establish clinical validity inside the ranges.",
+  "provenance": "Direct synthetic covariates are allowed for algebra examples. A recorded source method is metadata only; no estimator is implemented or independently verified."
+}

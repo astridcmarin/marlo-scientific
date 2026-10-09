@@ -1,0 +1,3013 @@
+{
+  "schema_version": "candidate-review-queue-v2",
+  "source_file": "new_candidate_priority_analysis.json",
+  "selection_rule": "Candidates ranked 276-375 by trial_count descending, then formatting_group_count descending.",
+  "round": 6,
+  "rank_range": [
+    276,
+    375
+  ],
+  "review_scope_note": "Identity-mapping-only curation round. Approval means only that the listed ClinicalTrials.gov formatting group(s) may map to the stated canonical entity. It does not verify regulatory status, clinical role, mechanism, myeloma-directed activity, formulation equivalence, or interchangeability.",
+  "review_progress": {
+    "reviewed": 100,
+    "approved": 90,
+    "approved_with_changes": 10,
+    "rejected": 0,
+    "deferred": 0,
+    "pending": 0
+  },
+  "records": [
+    {
+      "rank": 276,
+      "proposed_canonical_name": "bisthianostat",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Bisthianostat"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "bisthianostat",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 277,
+      "proposed_canonical_name": "bleomycin",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "bleomycin sulfate"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "bleomycin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 278,
+      "proposed_canonical_name": "blinatumomab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "bispecific_antibody",
+      "source_formatting_groups": [
+        "Blinatumomab"
+      ],
+      "known_brand_names": [
+        "Blincyto"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "blinatumomab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "bispecific_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 279,
+      "proposed_canonical_name": "bosutinib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Bosutinib"
+      ],
+      "known_brand_names": [
+        "Bosulif"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "bosutinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 280,
+      "proposed_canonical_name": "brostallicin",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "brostallicin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "PNU-166196"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "brostallicin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 281,
+      "proposed_canonical_name": "budesonide",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Budesonide EC"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "budesonide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 282,
+      "proposed_canonical_name": "cabazitaxel",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Cabazitaxel"
+      ],
+      "known_brand_names": [
+        "Jevtana"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "cabazitaxel",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 283,
+      "proposed_canonical_name": "calcium phosphate rinse",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Caphosol"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "calcium phosphate rinse",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 284,
+      "proposed_canonical_name": "canfosfamide",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Canfosfamide HCl for injection"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "TLK286"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "canfosfamide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 285,
+      "proposed_canonical_name": "cannabidiol",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Cannabidiol"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "cannabidiol",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 286,
+      "proposed_canonical_name": "capecitabine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Capecitabine"
+      ],
+      "known_brand_names": [
+        "Xeloda"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "capecitabine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 287,
+      "proposed_canonical_name": "captopril",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "captopril"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "captopril",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 288,
+      "proposed_canonical_name": "carbon-11 methionine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "C11 Methionine positron emission tomography"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "carbon-11 methionine",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "imaging_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 289,
+      "proposed_canonical_name": "cefepime",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "cefepime hydrochloride"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "cefepime",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 290,
+      "proposed_canonical_name": "ceftazidime",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "ceftazidime"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ceftazidime",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 291,
+      "proposed_canonical_name": "cetuximab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "cetuximab"
+      ],
+      "known_brand_names": [
+        "Erbitux"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "cetuximab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 292,
+      "proposed_canonical_name": "chidamide",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "chidamide"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "chidamide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 293,
+      "proposed_canonical_name": "chloroquine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Chloroquine"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "chloroquine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 294,
+      "proposed_canonical_name": "cholestyramine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "Cholestyramine"
+      ],
+      "known_brand_names": [
+        "Questran"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "cholestyramine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 295,
+      "proposed_canonical_name": "choline salicylate",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Choline Salicylate"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "choline salicylate",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 296,
+      "proposed_canonical_name": "ciforadenant",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Ciforadenant"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "CPI-444"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ciforadenant",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 297,
+      "proposed_canonical_name": "cilengitide",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "cilengitide"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "EMD 121974"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "cilengitide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 298,
+      "proposed_canonical_name": "citarinostat",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Citarinostat"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "ACY-241"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "citarinostat",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 299,
+      "proposed_canonical_name": "cladribine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "cladribine"
+      ],
+      "known_brand_names": [
+        "Leustatin"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "cladribine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 300,
+      "proposed_canonical_name": "clioquinol",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Clioquinol"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "clioquinol",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 301,
+      "proposed_canonical_name": "colchicine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Colchicine"
+      ],
+      "known_brand_names": [
+        "Colcrys"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "colchicine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 302,
+      "proposed_canonical_name": "copper gluconate",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "Copper Gluconate"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "copper gluconate",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 303,
+      "proposed_canonical_name": "cosibelimab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Cosibelimab"
+      ],
+      "known_brand_names": [
+        "Unloxcyt"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "cosibelimab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 304,
+      "proposed_canonical_name": "curcumin (liposomal)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "formulation_variant",
+      "source_formatting_groups": [
+        "Liposomal Curcumin (LipoCurc)"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": "curcumin",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "curcumin (liposomal)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "formulation_variant",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": "curcumin",
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 305,
+      "proposed_canonical_name": "cyclosporine (ophthalmic)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "formulation_variant",
+      "source_formatting_groups": [
+        "cyclosporine ophthalmic emulsion"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": "cyclosporine",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "cyclosporine (ophthalmic)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "formulation_variant",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": "cyclosporine",
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 306,
+      "proposed_canonical_name": "daclizumab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "daclizumab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "daclizumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 307,
+      "proposed_canonical_name": "dacomitinib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Dacomitinib"
+      ],
+      "known_brand_names": [
+        "Vizimpro"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "dacomitinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 308,
+      "proposed_canonical_name": "dalotuzumab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Dalotuzumab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "dalotuzumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 309,
+      "proposed_canonical_name": "dapsone",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "dapsone"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "dapsone",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 310,
+      "proposed_canonical_name": "darolutamide",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Darolutamide"
+      ],
+      "known_brand_names": [
+        "Nubeqa"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "darolutamide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 311,
+      "proposed_canonical_name": "decitabine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "decitabine"
+      ],
+      "known_brand_names": [
+        "Dacogen"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "decitabine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 312,
+      "proposed_canonical_name": "defibrotide",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Defibrotide"
+      ],
+      "known_brand_names": [
+        "Defitelio"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "defibrotide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 313,
+      "proposed_canonical_name": "degarelix",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Degarelix"
+      ],
+      "known_brand_names": [
+        "Firmagon"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "degarelix",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 314,
+      "proposed_canonical_name": "denileukin diftitox",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Denileukin Diftitox (Ontak)"
+      ],
+      "known_brand_names": [
+        "Ontak"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "denileukin diftitox",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 315,
+      "proposed_canonical_name": "deoxycytidine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "deoxycytidine"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "deoxycytidine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 316,
+      "proposed_canonical_name": "desipramine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Desipramine Hydrochloride"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "desipramine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 317,
+      "proposed_canonical_name": "dextromethorphan",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "dextromethorphan hydrobromide"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "dextromethorphan",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 318,
+      "proposed_canonical_name": "disulfiram",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Disulfiram"
+      ],
+      "known_brand_names": [
+        "Antabuse"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "disulfiram",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 319,
+      "proposed_canonical_name": "dovitinib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Dovitinib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "dovitinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 320,
+      "proposed_canonical_name": "duvelisib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Duvelisib"
+      ],
+      "known_brand_names": [
+        "Copiktra"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "duvelisib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 321,
+      "proposed_canonical_name": "edetate calcium disodium",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "Edetate Calcium Disodium"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "edetate calcium disodium",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 322,
+      "proposed_canonical_name": "eftozanermin alfa",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Eftozanermin alfa"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "eftozanermin alfa",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 323,
+      "proposed_canonical_name": "emapalumab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Emapalumab"
+      ],
+      "known_brand_names": [
+        "Gamifant"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "emapalumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 324,
+      "proposed_canonical_name": "enasidenib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Enasidenib"
+      ],
+      "known_brand_names": [
+        "Idhifa"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "enasidenib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 325,
+      "proposed_canonical_name": "encorafenib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Encorafenib"
+      ],
+      "known_brand_names": [
+        "Braftovi"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "encorafenib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 326,
+      "proposed_canonical_name": "enoxaparin",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "low molecular weight heparin (enoxaparin sodium)"
+      ],
+      "known_brand_names": [
+        "Lovenox"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "enoxaparin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 327,
+      "proposed_canonical_name": "entinostat",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "entinostat"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "MS-275"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "entinostat",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 328,
+      "proposed_canonical_name": "entrectinib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Entrectinib"
+      ],
+      "known_brand_names": [
+        "Rozlytrek"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "entrectinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 329,
+      "proposed_canonical_name": "enzalutamide",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Enzalutamide"
+      ],
+      "known_brand_names": [
+        "Xtandi"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "enzalutamide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 330,
+      "proposed_canonical_name": "enzastaurin",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Enzastaurin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "enzastaurin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 331,
+      "proposed_canonical_name": "enzomenib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Enzomenib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "DSP-5336"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "enzomenib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 332,
+      "proposed_canonical_name": "epinephrine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Epinephrine"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "epinephrine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 333,
+      "proposed_canonical_name": "epirubicin",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "epirubicin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "epirubicin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 334,
+      "proposed_canonical_name": "ethanol",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "Ethanol"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ethanol",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 335,
+      "proposed_canonical_name": "etoposide phosphate",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "formulation_variant",
+      "source_formatting_groups": [
+        "etoposide phosphate"
+      ],
+      "known_brand_names": [
+        "Etopophos"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": "etoposide",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "etoposide phosphate",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "formulation_variant",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": "etoposide",
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 336,
+      "proposed_canonical_name": "evorpacept",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Evorpacept"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "evorpacept",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 337,
+      "proposed_canonical_name": "famotidine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Famotidine"
+      ],
+      "known_brand_names": [
+        "Pepcid"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "famotidine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 338,
+      "proposed_canonical_name": "fenofibrate",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Fenofibrate"
+      ],
+      "known_brand_names": [
+        "Tricor"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "fenofibrate",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 339,
+      "proposed_canonical_name": "fenretinide",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "fenretinide"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "fenretinide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 340,
+      "proposed_canonical_name": "ferric carboxymaltose",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Ferric carboxymaltose"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ferric carboxymaltose",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 341,
+      "proposed_canonical_name": "fexagratinib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Fexagratinib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "fexagratinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 342,
+      "proposed_canonical_name": "fianlimab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Fianlimab"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "fianlimab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 343,
+      "proposed_canonical_name": "filgrastim biosimilar (Grastofil)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biosimilar",
+      "source_formatting_groups": [
+        "Grastofil®"
+      ],
+      "known_brand_names": [
+        "Grastofil"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": "filgrastim (Neupogen)",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "filgrastim biosimilar (Grastofil)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biosimilar",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": "filgrastim (Neupogen)",
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 344,
+      "proposed_canonical_name": "filgrastim biosimilar (XM02)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biosimilar",
+      "source_formatting_groups": [
+        "XM02 Filgrastim"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": "filgrastim (Neupogen)",
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "filgrastim biosimilar (XM02)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biosimilar",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": "filgrastim (Neupogen)",
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 345,
+      "proposed_canonical_name": "flt3 ligand (recombinant)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "recombinant flt3 ligand"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "flt3 ligand (recombinant)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 346,
+      "proposed_canonical_name": "fluciclatide F18",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "Fluciclatide"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "fluciclatide F18",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "imaging_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 347,
+      "proposed_canonical_name": "fluciclovine F18",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "18F-fluciclovine injection"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "fluciclovine F18",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "imaging_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 348,
+      "proposed_canonical_name": "forodesine",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "forodesine hydrochloride"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "BCX-1777"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "forodesine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 349,
+      "proposed_canonical_name": "foscarnet",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "foscarnet sodium"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "foscarnet",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 350,
+      "proposed_canonical_name": "futibatinib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Futibatinib"
+      ],
+      "known_brand_names": [
+        "Lytgobi"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "futibatinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 351,
+      "proposed_canonical_name": "galinpepimut-S",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Galinpepimut-S"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "galinpepimut-S",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 352,
+      "proposed_canonical_name": "gallium maltolate",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "Gallium maltolate"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "gallium maltolate",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 353,
+      "proposed_canonical_name": "ganetespib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Ganetespib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "STA-9090"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ganetespib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 354,
+      "proposed_canonical_name": "gilteritinib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Gilteritinib"
+      ],
+      "known_brand_names": [
+        "Xospata"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "gilteritinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 355,
+      "proposed_canonical_name": "GM1 ganglioside (monosialotetrahexosylganglioside)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "Monosialotetrahexosylganglioside"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "GM1 ganglioside (monosialotetrahexosylganglioside)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 356,
+      "proposed_canonical_name": "granisetron",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Granisetron hydrochloride"
+      ],
+      "known_brand_names": [
+        "Kytril"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "granisetron",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 357,
+      "proposed_canonical_name": "heparin",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Heparin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "heparin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 358,
+      "proposed_canonical_name": "ibandronate",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Ibandronate"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ibandronate",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "supportive_care",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 359,
+      "proposed_canonical_name": "idasanutlin",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Idasanutlin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "RG7388"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "idasanutlin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 360,
+      "proposed_canonical_name": "idelalisib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Idelalisib"
+      ],
+      "known_brand_names": [
+        "Zydelig"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "idelalisib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 361,
+      "proposed_canonical_name": "imexon",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "imexon"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "imexon",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 362,
+      "proposed_canonical_name": "immune globulin (human) 10% (IGI 10%)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "IGI, 10%"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "immune globulin (human) 10% (IGI 10%)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 363,
+      "proposed_canonical_name": "immune globulin (unspecified product)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "therapeutic immune globulin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "immune globulin (unspecified product)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 364,
+      "proposed_canonical_name": "immune globulin intravenous (human) 10% (Gamunex-C)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Gamunex-C, 10% Injectable Solution"
+      ],
+      "known_brand_names": [
+        "Gamunex-C"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "immune globulin intravenous (human) 10% (Gamunex-C)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 365,
+      "proposed_canonical_name": "immune globulin subcutaneous (human) (Xembify)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Xembify"
+      ],
+      "known_brand_names": [
+        "Xembify"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "immune globulin subcutaneous (human) (Xembify)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 366,
+      "proposed_canonical_name": "incomplete Freund's adjuvant",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "other",
+      "source_formatting_groups": [
+        "Incomplete Freund's Adjuvant"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "incomplete Freund's adjuvant",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "other",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 367,
+      "proposed_canonical_name": "infliximab",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Infliximab"
+      ],
+      "known_brand_names": [
+        "Remicade"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "infliximab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 368,
+      "proposed_canonical_name": "influenza vaccine (high-dose)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Fluzone High Dose Vaccine"
+      ],
+      "known_brand_names": [
+        "Fluzone"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "influenza vaccine (high-dose)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 369,
+      "proposed_canonical_name": "inobrodib",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Inobrodib"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "CCS1477"
+      ],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "inobrodib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 370,
+      "proposed_canonical_name": "interferon alfa-1b",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "recombinant interferon alpha-1b"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "interferon alfa-1b",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 371,
+      "proposed_canonical_name": "interferon alfa-2a",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Interferon-alpha2a"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "interferon alfa-2a",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 372,
+      "proposed_canonical_name": "interferon gamma",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "recombinant interferon gamma"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "interferon gamma",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 373,
+      "proposed_canonical_name": "ioversol (contrast agent)",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "Ioversol"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "ioversol (contrast agent)",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "imaging_agent",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 374,
+      "proposed_canonical_name": "irinotecan",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Irinotecan"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "irinotecan",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    },
+    {
+      "rank": 375,
+      "proposed_canonical_name": "isotretinoin",
+      "trial_count": 1,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "isotretinoin"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "isotretinoin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [],
+        "myeloma_directed": null,
+        "sources": [],
+        "review_notes": "Identity-mapping review only. The listed ClinicalTrials.gov formatting group is accepted for mapping to this canonical entity. No claim is made here about regulatory status, mechanism, therapeutic role, myeloma-directed activity, formulation equivalence, biosimilarity/interchangeability, or marketing status.",
+        "verification_scope": "identity_mapping_only"
+      }
+    }
+  ]
+}

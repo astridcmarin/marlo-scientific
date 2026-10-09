@@ -1,0 +1,1168 @@
+{
+  "schema_version": "top25-candidate-review-queue-v1",
+  "source_file": "new_candidate_priority_analysis.json",
+  "selection_rule": "Candidates ranked 51-75 by trial_count descending, then formatting_group_count descending.",
+  "round": 3,
+  "records": [
+    {
+      "proposed_canonical_name": "trametinib",
+      "trial_count": 12,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Trametinib",
+        "Trametinib Dimethyl Sulfoxide"
+      ],
+      "known_brand_names": [
+        "Mekinist"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "trametinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Mekinist"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "MEKINIST (trametinib) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=0002ad27-779d-42ab-83b5-bc65453412a1"
+          }
+        ],
+        "review_notes": "Canonical identity, Mekinist brand, and kinase-inhibitor antineoplastic role verified. Current labeling does not include multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "epoetin alfa",
+      "trial_count": 12,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "epoetin alfa"
+      ],
+      "known_brand_names": [
+        "Epogen",
+        "Procrit"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "epoetin alfa",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [
+          "Epogen"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "EPOGEN (epoetin alfa) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=1f2d0b28-9cc5-4523-80b8-637fdaf3f7a5"
+          }
+        ],
+        "review_notes": "Canonical identity and Epogen brand verified. Epoetin alfa is an erythropoiesis-stimulating biologic used for anemia management and is supportive care rather than myeloma-directed therapy."
+      }
+    },
+    {
+      "proposed_canonical_name": "etentamig",
+      "trial_count": 11,
+      "formatting_group_count": 4,
+      "candidate_type": "bispecific_antibody",
+      "source_formatting_groups": [
+        "Etentamig",
+        "Etentamig (ABBV-383)",
+        "Intravenous (IV) Etentamig",
+        "Subcutaneous (SC) Etentamig"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [
+        "ABBV-383"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "etentamig",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "bispecific_antibody",
+        "brand_names": [],
+        "development_codes": [
+          "ABBV-383",
+          "TNB-383B"
+        ],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic",
+          "investigational"
+        ],
+        "myeloma_directed": true,
+        "sources": [
+          {
+            "source_type": "AbbVie",
+            "title": "Etentamig (ABBV-383) pipeline entry",
+            "reference": "https://www.abbviescience.com/en/pipeline.html"
+          },
+          {
+            "source_type": "ClinicalTrials.gov",
+            "title": "NCT06892522 Etentamig platform study",
+            "reference": "https://clinicaltrials.gov/study/NCT06892522"
+          },
+          {
+            "source_type": "NCI",
+            "title": "Etentamig drug dictionary entry",
+            "reference": "https://www.cancer.gov/publications/dictionaries/cancer-drug/def/etentamig"
+          }
+        ],
+        "review_notes": "Canonical identity, ABBV-383 and TNB-383B development codes, BCMA×CD3 bispecific-antibody modality, and active multiple-myeloma development program verified. AbbVie continues to describe etentamig as investigational in 2026, so the record must not imply marketing approval."
+      }
+    },
+    {
+      "proposed_canonical_name": "dasatinib",
+      "trial_count": 11,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Dasatinib",
+        "Dasatinib 100 MG"
+      ],
+      "known_brand_names": [
+        "Sprycel"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "dasatinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Sprycel"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "SPRYCEL (dasatinib) prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4764f37b-c9e6-4ede-bcc2-8a03b7c521df"
+          }
+        ],
+        "review_notes": "Canonical identity, Sprycel brand, and kinase-inhibitor antineoplastic role verified. Current labeling covers Ph+ CML and Ph+ ALL, not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "gemcitabine",
+      "trial_count": 11,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Gemcitabine",
+        "Gemcitabine Hydrochloride"
+      ],
+      "known_brand_names": [
+        "Gemzar"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "gemcitabine",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "Gemcitabine injection prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e18ed1cb-7dd0-4001-bfda-17d1f4587fb8"
+          }
+        ],
+        "review_notes": "Canonical identity and nucleoside-metabolic-inhibitor antineoplastic role verified. Current labeling includes ovarian, breast, non-small-cell lung, and pancreatic cancers, not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "aldesleukin",
+      "trial_count": 11,
+      "formatting_group_count": 1,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "aldesleukin"
+      ],
+      "known_brand_names": [
+        "Proleukin"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "aldesleukin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [
+          "Proleukin"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic",
+          "immunotherapy"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "PROLEUKIN (aldesleukin) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=f3c516ad-d405-4fbe-af6a-962080dbfa7d"
+          }
+        ],
+        "review_notes": "Canonical identity, Proleukin brand, biologic/lymphocyte-growth-factor modality, and antineoplastic immunotherapy role verified. Current labeling covers metastatic renal cell carcinoma and metastatic melanoma, not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "ruxolitinib",
+      "trial_count": 10,
+      "formatting_group_count": 3,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Ruxolitinib",
+        "Ruxolitinib Oral Tablet [Jakafi]",
+        "Ruxolitinib 25 mg"
+      ],
+      "known_brand_names": [
+        "Jakafi"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ruxolitinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Jakafi"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic",
+          "immunomodulatory"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "JAKAFI (ruxolitinib) prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f1c82580-87ae-11e0-bc84-0002a5d5c51b"
+          }
+        ],
+        "review_notes": "Canonical identity, Jakafi brand, and JAK-inhibitor role verified. Current U.S. labeling includes myelofibrosis, polycythemia vera, and graft-versus-host disease indications, not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "nirogacestat",
+      "trial_count": 10,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Nirogacestat"
+      ],
+      "known_brand_names": [
+        "Ogsiveo"
+      ],
+      "known_development_codes": [
+        "PF-03084014"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "nirogacestat",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Ogsiveo"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "OGSIVEO (nirogacestat) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=f172e6ff-3190-41b0-b95a-58a7ef9e9e1e"
+          }
+        ],
+        "review_notes": "Canonical identity, Ogsiveo brand, and gamma-secretase-inhibitor antineoplastic role verified. Current labeling is for progressing desmoid tumors requiring systemic treatment, not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "anti-thymocyte globulin (rabbit)",
+      "trial_count": 9,
+      "formatting_group_count": 5,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Thymoglobulin",
+        "Rabbit ATG",
+        "Rabbit anti-thymocyte globulin",
+        "anti-thymocyte globulin (rabbit)",
+        "rabbit anti-thymocyte globulin (ATG)"
+      ],
+      "known_brand_names": [
+        "Thymoglobulin"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "anti-thymocyte globulin (rabbit)",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "polyclonal_antibody",
+        "brand_names": [
+          "Thymoglobulin"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "immunosuppression",
+          "conditioning"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "THYMOGLOBULIN (anti-thymocyte globulin [rabbit]) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=bbd8ab99-552e-4b81-aca4-6b0c7af8b9ae"
+          }
+        ],
+        "review_notes": "Canonical identity and Thymoglobulin brand verified. Current labeling is for prophylaxis and treatment of acute kidney-transplant rejection with concomitant immunosuppression. In hematopoietic-transplant studies it may appear in conditioning/GVHD-prevention contexts, but it is not myeloma-directed therapy."
+      }
+    },
+    {
+      "proposed_canonical_name": "bevacizumab",
+      "trial_count": 9,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Bevacizumab"
+      ],
+      "known_brand_names": [
+        "Avastin"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "bevacizumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [
+          "Avastin"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "AVASTIN (bevacizumab) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=939b5d1f-9fb2-4499-80ef-0607aa6b114e"
+          }
+        ],
+        "review_notes": "Canonical identity, Avastin brand, VEGF-inhibitor monoclonal-antibody modality, and antineoplastic role verified. Current labeling includes several solid-tumor indications but not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "pneumococcal 13-valent conjugate vaccine",
+      "trial_count": 8,
+      "formatting_group_count": 8,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Prevnar-13",
+        "1-dose PCV13",
+        "2-dose PCV13",
+        "PCV 13",
+        "PCV13",
+        "Prevnar 13",
+        "Prevnar13",
+        "Vaccination with pneumococcal conjugate vaccine (PCV13)"
+      ],
+      "known_brand_names": [
+        "Prevnar 13",
+        "Prevnar"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "pneumococcal 13-valent conjugate vaccine",
+        "verified_entity_type": "vaccine",
+        "verified_drug_type": "vaccine",
+        "brand_names": [
+          "Prevnar 13"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "preventive",
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "PREVNAR 13 (pneumococcal 13-valent conjugate vaccine) labeling",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=Prevnar+13"
+          }
+        ],
+        "review_notes": "Canonical identity and Prevnar 13 brand verified. This is a preventive vaccine rather than a myeloma-directed therapy."
+      }
+    },
+    {
+      "proposed_canonical_name": "pegfilgrastim",
+      "trial_count": 8,
+      "formatting_group_count": 5,
+      "candidate_type": "biologic",
+      "source_formatting_groups": [
+        "Pegfilgrastim",
+        "Induction Pegfilgrastim",
+        "Injection of Pegfilgrastim",
+        "Pegfilgrastim (Neulasta)",
+        "Transplant 1 and 2 Pegfilgrastim"
+      ],
+      "known_brand_names": [
+        "Neulasta"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "pegfilgrastim",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "biologic",
+        "brand_names": [
+          "Neulasta"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "NEULASTA (pegfilgrastim) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fdfe5d72-6b80-435a-afa4-c5d74dd852ce"
+          }
+        ],
+        "review_notes": "Canonical identity and Neulasta brand verified. Pegfilgrastim is a leukocyte growth-factor biologic used to reduce febrile-neutropenia risk during myelosuppressive cancer therapy; supportive care, not myeloma-directed treatment."
+      }
+    },
+    {
+      "proposed_canonical_name": "denosumab",
+      "trial_count": 8,
+      "formatting_group_count": 4,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Denosumab",
+        "Denosumab (for the open-label treatment phase)",
+        "Denosumab 120 MG/1.7 ML Subcutaneous Solution [XGEVA]",
+        "Denosumab Q4W"
+      ],
+      "known_brand_names": [
+        "Xgeva",
+        "Prolia"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "denosumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [
+          "Xgeva"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care",
+          "bone_support"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "XGEVA (denosumab) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=628f0998-1206-4001-aeee-18133aa9f3bf"
+          }
+        ],
+        "review_notes": "Canonical identity, Xgeva brand, and RANKL-inhibitor monoclonal-antibody modality verified. Xgeva is explicitly indicated to prevent skeletal-related events in multiple myeloma, but its role is bone/supportive care rather than direct antimyeloma therapy, so myeloma_directed remains false."
+      }
+    },
+    {
+      "proposed_canonical_name": "aprepitant",
+      "trial_count": 8,
+      "formatting_group_count": 3,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Aprepitant",
+        "Emend",
+        "o Aprepitant 125 mg orally one hour prior to chemotherapy on Day -1 and 80 mg orally on Days 0 and +1"
+      ],
+      "known_brand_names": [
+        "Emend"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "aprepitant",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care",
+          "antiemetic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "Aprepitant capsules prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=af9b6086-4bf2-472c-8740-4134eaaebace"
+          }
+        ],
+        "review_notes": "Canonical identity and NK1-receptor-antagonist antiemetic role verified. Used to prevent nausea/vomiting associated with chemotherapy; not myeloma-directed therapy."
+      }
+    },
+    {
+      "proposed_canonical_name": "aspirin",
+      "trial_count": 8,
+      "formatting_group_count": 3,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Aspirin",
+        "ASA",
+        "Aspirin 100mg"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "aspirin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care",
+          "other"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "Aspirin 325 mg tablet labeling",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=0b27c0fd-7ea8-4588-9169-5ad4e8df77ef"
+          }
+        ],
+        "review_notes": "Canonical identity verified. Aspirin is not a myeloma-directed therapy; in myeloma trial contexts it may appear as supportive prophylaxis or for general analgesic/antipyretic use."
+      }
+    },
+    {
+      "proposed_canonical_name": "melphalan flufenamide",
+      "trial_count": 8,
+      "formatting_group_count": 3,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Melflufen",
+        "Melphalan flufenamide (Melflufen)",
+        "Melphalan Flufenamide"
+      ],
+      "known_brand_names": [
+        "Pepaxto"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "melphalan flufenamide",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Pepaxto"
+        ],
+        "development_codes": [],
+        "parent_entity": "melphalan",
+        "reference_product": null,
+        "relationship_type": "peptide_drug_conjugate_derivative",
+        "role_categories": [
+          "antineoplastic",
+          "historical_withdrawn"
+        ],
+        "myeloma_directed": true,
+        "sources": [
+          {
+            "source_type": "FDA",
+            "title": "WITHDRAWN: FDA grants accelerated approval to melphalan flufenamide for relapsed or refractory multiple myeloma",
+            "reference": "https://www.fda.gov/drugs/resources-information-approved-drugs/withdrawn-fda-grants-accelerated-approval-melphalan-flufenamide-relapsed-or-refractory-multiple"
+          }
+        ],
+        "review_notes": "Canonical identity, Pepaxto brand, and historical multiple-myeloma indication verified. FDA withdrew approval effective February 23, 2024 after the confirmatory study failed to verify clinical benefit and safety/effectiveness concerns remained. Keep this entity distinct from melphalan and do not infer current U.S. marketing approval."
+      }
+    },
+    {
+      "proposed_canonical_name": "montelukast",
+      "trial_count": 8,
+      "formatting_group_count": 2,
+      "candidate_type": "supportive_care",
+      "source_formatting_groups": [
+        "Montelukast",
+        "Montelukast or equivalent"
+      ],
+      "known_brand_names": [
+        "Singulair"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "montelukast",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Singulair"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "supportive_care",
+          "other"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "SINGULAIR (montelukast sodium) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=482dcc92-b47f-4ea6-854a-f5ac2aea7842"
+          }
+        ],
+        "review_notes": "Canonical identity and Singulair brand verified. Current labeling is for asthma, exercise-induced bronchoconstriction, and allergic rhinitis. In myeloma trials it may appear as supportive/premedication-related therapy rather than a myeloma-directed antineoplastic."
+      }
+    },
+    {
+      "proposed_canonical_name": "sorafenib",
+      "trial_count": 8,
+      "formatting_group_count": 2,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Sorafenib",
+        "sorafenib tosylate"
+      ],
+      "known_brand_names": [
+        "Nexavar"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "sorafenib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Nexavar"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "NEXAVAR (sorafenib) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=b50667e4-5ebc-4968-a646-d605058dbef0"
+          }
+        ],
+        "review_notes": "Canonical identity, Nexavar brand, and kinase-inhibitor antineoplastic role verified. Current labeling covers unresectable hepatocellular carcinoma, advanced renal cell carcinoma, and differentiated thyroid carcinoma, not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "everolimus",
+      "trial_count": 8,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Everolimus"
+      ],
+      "known_brand_names": [
+        "Afinitor",
+        "Zortress"
+      ],
+      "known_development_codes": [
+        "RAD001"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "everolimus",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Afinitor",
+          "Afinitor Disperz"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "AFINITOR / AFINITOR DISPERZ (everolimus) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2150f73a-179b-4afc-b8ce-67c85cc72f04"
+          }
+        ],
+        "review_notes": "Canonical identity, Afinitor/Afinitor Disperz brands, and kinase-inhibitor antineoplastic role verified. Current oncology labeling does not include multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "ibrutinib",
+      "trial_count": 8,
+      "formatting_group_count": 1,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Ibrutinib"
+      ],
+      "known_brand_names": [
+        "Imbruvica"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ibrutinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Imbruvica"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "IMBRUVICA (ibrutinib) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0dfd0279-ff17-4ea9-89be-9803c71bab44"
+          }
+        ],
+        "review_notes": "Canonical identity, Imbruvica brand, and kinase-inhibitor antineoplastic role verified. Current U.S. labeling includes CLL/SLL, Waldenstrom macroglobulinemia, and chronic GVHD, but not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "ipilimumab",
+      "trial_count": 8,
+      "formatting_group_count": 1,
+      "candidate_type": "monoclonal_antibody",
+      "source_formatting_groups": [
+        "Ipilimumab"
+      ],
+      "known_brand_names": [
+        "Yervoy"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "ipilimumab",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "monoclonal_antibody",
+        "brand_names": [
+          "Yervoy"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic",
+          "immunotherapy"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "YERVOY (ipilimumab) prescribing information",
+            "reference": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2265ef30-253e-11df-8a39-0800200c9a66"
+          }
+        ],
+        "review_notes": "Canonical identity, Yervoy brand, CTLA-4-blocking monoclonal-antibody modality, and antineoplastic immunotherapy role verified. Current labeling does not include multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "tretinoin",
+      "trial_count": 7,
+      "formatting_group_count": 7,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "All-Trans Retinoic Acid (ATRA)",
+        "Tretinoin",
+        "ATRA",
+        "All-Trans Retinoic Acid (ATRA) Dose -1",
+        "All-Trans Retinoic Acid (ATRA) Dose 0",
+        "All-Trans Retinoic Acid (ATRA) Dose 1",
+        "All-trans retinoic acid"
+      ],
+      "known_brand_names": [
+        "Vesanoid"
+      ],
+      "known_development_codes": [
+        "ATRA"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "tretinoin",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic",
+          "differentiation_therapy"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "TRETINOIN capsules prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9c4ae9d9-c2a0-4995-a27a-e3f0f0284db9"
+          }
+        ],
+        "review_notes": "Canonical identity and APL indication verified. All-trans retinoic acid (ATRA) is the accepted identity relationship represented by these formatting groups. Current labeling is for acute promyelocytic leukemia, not multiple myeloma."
+      }
+    },
+    {
+      "proposed_canonical_name": "68Ga-pentixafor",
+      "trial_count": 7,
+      "formatting_group_count": 3,
+      "candidate_type": "imaging_agent",
+      "source_formatting_groups": [
+        "68Ga-Pentixafor",
+        "[68Ga]Ga-PentixaFor",
+        "[68Ga]-Pentixafor"
+      ],
+      "known_brand_names": [],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved_with_changes",
+        "verified_canonical_name": "68Ga-pentixafor",
+        "verified_entity_type": "radiopharmaceutical",
+        "verified_drug_type": "diagnostic_radiopharmaceutical",
+        "brand_names": [],
+        "development_codes": [],
+        "parent_entity": "pentixafor",
+        "reference_product": null,
+        "relationship_type": "gallium-68-radiolabeled-form",
+        "role_categories": [
+          "diagnostic",
+          "imaging"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "PubMed",
+            "title": "[68Ga]Pentixafor PET/CT for staging and prognostic assessment of newly diagnosed multiple myeloma",
+            "reference": "https://pubmed.ncbi.nlm.nih.gov/38286937/"
+          },
+          {
+            "source_type": "PubMed",
+            "title": "Biodistribution and radiation dosimetry for the chemokine receptor CXCR4-targeting probe 68Ga-pentixafor",
+            "reference": "https://pubmed.ncbi.nlm.nih.gov/25698782/"
+          }
+        ],
+        "review_notes": "Kept distinct from non-radiolabeled pentixafor. Verified as a gallium-68-labeled CXCR4-targeting PET imaging tracer used in multiple-myeloma imaging studies. It is diagnostic/imaging, not myeloma-directed therapy, and this review does not imply FDA approval."
+      }
+    },
+    {
+      "proposed_canonical_name": "idecabtagene vicleucel",
+      "trial_count": 7,
+      "formatting_group_count": 3,
+      "candidate_type": "CAR_T",
+      "source_formatting_groups": [
+        "Idecabtagene vicleucel",
+        "Ide-cel (bb2121)",
+        "Nonconforming idecabtagene vicleucel"
+      ],
+      "known_brand_names": [
+        "Abecma"
+      ],
+      "known_development_codes": [
+        "bb2121"
+      ],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "idecabtagene vicleucel",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "cell_therapy",
+        "brand_names": [
+          "Abecma"
+        ],
+        "development_codes": [
+          "bb2121"
+        ],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic",
+          "cell_therapy"
+        ],
+        "myeloma_directed": true,
+        "sources": [
+          {
+            "source_type": "FDA",
+            "title": "ABECMA",
+            "reference": "https://www.fda.gov/vaccines-blood-biologics/abecma"
+          }
+        ],
+        "review_notes": "Canonical identity, Abecma tradename, CAR-T cell-therapy modality, and current multiple-myeloma indication verified from FDA. bb2121 is retained as the verified development identifier represented in the source formatting group."
+      }
+    },
+    {
+      "proposed_canonical_name": "sunitinib",
+      "trial_count": 7,
+      "formatting_group_count": 3,
+      "candidate_type": "small_molecule",
+      "source_formatting_groups": [
+        "Sunitinib",
+        "sunitinib malate",
+        "Sunitinib (CLOSED TO ENROLLMENT)"
+      ],
+      "known_brand_names": [
+        "Sutent"
+      ],
+      "known_development_codes": [],
+      "parent_or_reference_product": null,
+      "proposed_role_categories": [],
+      "myeloma_directed_candidate": "uncertain",
+      "requires_external_verification": true,
+      "verification_questions": [],
+      "review": {
+        "status": "approved",
+        "verified_canonical_name": "sunitinib",
+        "verified_entity_type": "drug",
+        "verified_drug_type": "small_molecule",
+        "brand_names": [
+          "Sutent"
+        ],
+        "development_codes": [],
+        "parent_entity": null,
+        "reference_product": null,
+        "relationship_type": null,
+        "role_categories": [
+          "antineoplastic"
+        ],
+        "myeloma_directed": false,
+        "sources": [
+          {
+            "source_type": "DailyMed",
+            "title": "SUTENT / sunitinib malate prescribing information",
+            "reference": "https://www.dailymed.nlm.nih.gov/dailymed/search.cfm?query=SUTENT"
+          }
+        ],
+        "review_notes": "Canonical identity, Sutent brand, and kinase-inhibitor antineoplastic role verified. Current U.S. labeling includes GIST, RCC, and pancreatic neuroendocrine tumors, not multiple myeloma."
+      }
+    }
+  ],
+  "review_progress": {
+    "reviewed": 25,
+    "approved": 19,
+    "approved_with_changes": 6,
+    "rejected": 0,
+    "deferred": 0,
+    "pending": 0
+  }
+}

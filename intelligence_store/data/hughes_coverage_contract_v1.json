@@ -1,0 +1,90 @@
+{
+  "schema_version": "hughes-coverage-contract-v1",
+  "contract_version": "hughes-source-coverage-v1.0",
+  "source": {
+    "doi": "10.1111/bcp.13873",
+    "url": "https://bpspubs.onlinelibrary.wiley.com/doi/10.1111/bcp.13873",
+    "reviewed_on": "2026-10-07",
+    "locations": [
+      "Table 1",
+      "Sections 2.3 and 3.2"
+    ]
+  },
+  "study_subject_count": 125,
+  "disease_counts": {
+    "MM": 20,
+    "CLL": 49,
+    "AML": 53,
+    "ALL": 3
+  },
+  "state_ranges": {
+    "age_years": {
+      "unit": "year",
+      "range": [
+        22,
+        79
+      ]
+    },
+    "weight": {
+      "unit": "kg",
+      "range": [
+        48,
+        152
+      ]
+    },
+    "height": {
+      "unit": "cm",
+      "range": [
+        150,
+        196
+      ]
+    },
+    "serum_creatinine": {
+      "unit": "umol/L",
+      "range": [
+        42,
+        147
+      ]
+    }
+  },
+  "covariate_ranges": {
+    "fat_free_mass": {
+      "unit": "kg",
+      "range": [
+        32,
+        84
+      ]
+    },
+    "creatinine_clearance": {
+      "unit": "mL/min",
+      "range": [
+        36,
+        211
+      ]
+    }
+  },
+  "listed_amounts_mg": [
+    2.5,
+    5,
+    7.5,
+    15,
+    20,
+    25,
+    30,
+    35,
+    50,
+    75
+  ],
+  "amount_range_mg": [
+    2.5,
+    75
+  ],
+  "inference_limits": [
+    "Marginal ranges do not establish joint coverage or patient suitability.",
+    "Disease membership is an explicit synthetic declaration; neither cohort condition nor indication text is treated as a verified diagnosis.",
+    "Counts do not quantify prediction confidence.",
+    "Methods and source covariates are not independently verified by this review.",
+    "Reported MM-study absorption differences were not retained in the final model; subgroup uncertainty remains.",
+    "No fed/fasted determination, clinical inclusion interpretation, regimen validation or clinical prediction."
+  ]
+}

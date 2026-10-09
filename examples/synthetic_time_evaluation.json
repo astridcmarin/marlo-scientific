@@ -1,0 +1,55 @@
+{
+  "schema_version": "synthetic-eight-stage-time-evaluation-v1",
+  "purpose": "synthetic_fixture",
+  "fixture_id": "off-grid-eight-stage-demo-v1",
+  "model_kind": "generic_eight_stage_mathematical_reference",
+  "initial_amounts": "all_zero_explicit_synthetic_assumption",
+  "subjects": [
+    {
+      "subject_id": "SYN-A",
+      "parameters": {
+        "apparent_clearance_l_h": 2,
+        "apparent_volume_l": 10,
+        "transit_rate_h": 1
+      },
+      "parameter_source_ref": "invented-mathematical-inputs",
+      "events": [
+        {
+          "time_h": 0,
+          "amount_mg": 1,
+          "source_ref": "invented-administration"
+        }
+      ],
+      "samples": [
+        {
+          "sample_id": "1",
+          "time_h": 0.137,
+          "observation_status": "quantified",
+          "observed_ng_ml": 1e-06,
+          "source_ref": "invented-observation"
+        },
+        {
+          "sample_id": "2",
+          "time_h": 1.037,
+          "observation_status": "quantified",
+          "observed_ng_ml": 0.002,
+          "source_ref": "invented-observation"
+        },
+        {
+          "sample_id": "3",
+          "time_h": 7.253,
+          "observation_status": "quantified",
+          "observed_ng_ml": 25,
+          "source_ref": "invented-observation"
+        },
+        {
+          "sample_id": "4",
+          "time_h": 24.037,
+          "observation_status": "quantified",
+          "observed_ng_ml": 4,
+          "source_ref": "invented-observation"
+        }
+      ]
+    }
+  ]
+}

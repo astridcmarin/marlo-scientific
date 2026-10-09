@@ -1,0 +1,118 @@
+{
+  "schema_version": "regimen-primary-source-evidence-v2",
+  "generated_at_utc": "2026-10-08T13:05:05.174846+00:00",
+  "methodology": "Explicit rank/NCT links only. No name-only inference. Offline fixtures cannot qualify for production.",
+  "records": [],
+  "errors": [
+    {
+      "regimen_rank": 260,
+      "nct_id": "NCT01266811",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 343,
+      "nct_id": "NCT00516503",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 53,
+      "nct_id": "NCT00057564",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 150,
+      "nct_id": "NCT00424047",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 271,
+      "nct_id": "NCT03720041",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 85,
+      "nct_id": "NCT00750815",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 238,
+      "nct_id": "NCT05857982",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 253,
+      "nct_id": "NCT02577783",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 333,
+      "nct_id": "NCT00344422",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 351,
+      "nct_id": "NCT00706953",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 92,
+      "nct_id": "NCT04603872",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 119,
+      "nct_id": "NCT03963024",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 172,
+      "nct_id": "NCT05998928",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 175,
+      "nct_id": "NCT00943800",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 299,
+      "nct_id": "NCT01242267",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 357,
+      "nct_id": "NCT04287660",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 1,
+      "nct_id": "NCT00322491",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 55,
+      "nct_id": "NCT03246529",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 129,
+      "nct_id": "NCT01908621",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 169,
+      "nct_id": "NCT02128230",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 279,
+      "nct_id": "NCT02128230",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    },
+    {
+      "regimen_rank": 308,
+      "nct_id": "NCT00973804",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1082)>"
+    }
+  ]
+}

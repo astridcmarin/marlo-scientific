@@ -1,0 +1,165 @@
+{
+  "schema_version": "assay-metadata-review-v2",
+  "review_version": "lenalidomide-fig2d-metadata-v2.0",
+  "entity_id": "lenalidomide",
+  "purpose": "research_evidence_extraction",
+  "status": "source_identified_metadata_extracted_measurements_pending",
+  "reviewed_on": "2026-10-09",
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false,
+  "source": {
+    "source_id": "lu-science-1244917",
+    "doi": "10.1126/science.1244917",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4070318/",
+    "locator": "Figure 2D and Figure 2 legend; published page 307",
+    "extraction_basis": "Uploaded main manuscript, visually inspected Figure 2D on PDF page 9 and caption on pages 9–10",
+    "unit_crosscheck": "Main figure legend and relevant supplement method agree on micro units.",
+    "review_status": "assistant_direct_source_review_not_independent_verification",
+    "source_bytes_archived": true,
+    "source_bytes_sha256": "787b8a809dc42e157b2f013ee2902e8520b3629f828329dfd1cbb463c1a5339b",
+    "filename": "nihms-583352.pdf",
+    "pdf_pages": 12,
+    "identified_role": "main_author_manuscript"
+  },
+  "supplement": {
+    "filename": "NIHMS583352-supplement-Supplement.pdf",
+    "identified_role": "supplementary_material",
+    "source_bytes_sha256": "3b2309bf58c2ce5eb6454670051655e47eba7b834f74565809f36c42369a360c",
+    "pdf_pages": 346,
+    "retrieval_status": "uploaded_source_available",
+    "relevant_methods_reviewed": true,
+    "review_scope": "Selected sections only: Cell culture, Immunoblotting, Antibodies, Protein Half Life Analysis. Not all 346 pages reviewed.",
+    "locators": {
+      "cell_culture": "PDF page 1 / printed page 2",
+      "immunoblotting_and_antibodies": "PDF page 3 / printed page 4",
+      "protein_half_life_analysis": "PDF page 6 / printed page 7"
+    },
+    "review_status": "assistant_direct_source_review_not_independent_verification"
+  },
+  "assay": {
+    "assay_id": "lu-fig2d-mm1s-chase",
+    "cell_line": "MM1S",
+    "reported_genotypes": [
+      "CRBN+/+",
+      "CRBN-/-"
+    ],
+    "technique": "immunoblot",
+    "candidate_analytes": [
+      "IKZF1",
+      "IKZF3"
+    ],
+    "time_reference": "Elapsed CHX chase time; LEN or DMSO pretreatment starts 1 hour earlier.",
+    "conditions": [
+      {
+        "field": "lenalidomide_nominal_medium_concentration",
+        "value": 2.0,
+        "unit": "umol/L",
+        "source_locator": "Figure 2 legend (D)",
+        "scope": "Where indicated; not intracellular free concentration"
+      },
+      {
+        "field": "lenalidomide_pretreatment_duration",
+        "value": 1.0,
+        "unit": "h",
+        "source_locator": "Figure 2 legend (D)",
+        "scope": "Before CHX addition"
+      },
+      {
+        "field": "chx_medium_concentration",
+        "value": 100.0,
+        "unit": "ug/mL",
+        "source_locator": "Figure 2 legend (D)",
+        "scope": "Assay perturbation, not patient medication"
+      }
+    ],
+    "sampling_times_h": [
+      0,
+      0.5,
+      1,
+      1.5,
+      2
+    ],
+    "protein_measurements": [],
+    "vehicle_condition_verified": true,
+    "loading_control": "Vinculin",
+    "normalization_method": null,
+    "replicate_count": null,
+    "replicate_type": null,
+    "measurement_uncertainty": null,
+    "unknowns_note": "Figure 2D replicate count and quantitative normalization remain unresolved; reporter/qPCR replicate counts are not transferred.",
+    "sampling_time_provenance": {
+      "original_values": [
+        0,
+        30,
+        60,
+        90,
+        120
+      ],
+      "original_unit": "min",
+      "canonical_unit": "h",
+      "conversion": "minutes divided by 60",
+      "source_locator": "Main PDF page 9, Figure 2D lane labels"
+    },
+    "groups": [
+      {
+        "group_id": "parental-dmso",
+        "genotype": "CRBN+/+",
+        "clone": "Parental",
+        "pretreatment": "DMSO"
+      },
+      {
+        "group_id": "parental-len",
+        "genotype": "CRBN+/+",
+        "clone": "Parental",
+        "pretreatment": "LEN"
+      },
+      {
+        "group_id": "t11-dmso",
+        "genotype": "CRBN-/-",
+        "clone": "T11",
+        "pretreatment": "DMSO"
+      },
+      {
+        "group_id": "t11-len",
+        "genotype": "CRBN-/-",
+        "clone": "T11",
+        "pretreatment": "LEN"
+      }
+    ],
+    "group_provenance": "Main PDF page 9, Figure 2D panel labels",
+    "loading_control_provenance": "Main PDF page 9, Figure 2D immunoblot labels",
+    "detection_method": "HRP-linked chemiluminescent immunoblot detection; supplement Immunoblotting section",
+    "assay_medium": null,
+    "medium_discrepancy": {
+      "culture_section": "MM1S listed with RPMI",
+      "generic_chase_method": "DMEM stated",
+      "resolution": "unresolved_for_Figure_2D",
+      "source_locators": [
+        "Supplement PDF page 1 / printed page 2",
+        "Supplement PDF page 6 / printed page 7"
+      ]
+    }
+  },
+  "model_assessment": {
+    "role": "project_inference",
+    "candidate_use": "Assay-specific protein-loss comparison after methods and quantitative data review.",
+    "limitation": "A chase perturbation is not unperturbed synthesis/turnover physiology. This single exposure condition does not identify a concentration-response function; quantitative immunoblot calibration and Figure 2D medium remain unresolved.",
+    "data_ready_for_fitting": false,
+    "parameter_fitting_status": "not_run",
+    "accepted_model_parameters": {},
+    "plasma_to_cell_mapping": null,
+    "patient_revision_id": null,
+    "pk_run_id": null
+  },
+  "next_extraction_fields": [
+    "analyte band selection (IKZF1 has multiple visible bands)",
+    "raw or digitized lane intensity with source-image provenance",
+    "background and saturation/linearity assessment",
+    "loading-control and time-zero normalization definition",
+    "assay-specific replicate information",
+    "measurement/extraction uncertainty",
+    "assay-medium discrepancy resolution"
+  ],
+  "scope": "Source-linked assay metadata only. Protein measurements remain empty, not zero. Selected methods review is not full supplement review or independent scientific validation. No fitting or patient prediction.",
+  "archive_role_note": "The earlier supplement-role archive with the main-manuscript hash is misclassified. This review records the correct identities without changing or deleting that archive."
+}

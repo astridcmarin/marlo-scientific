@@ -1,0 +1,77 @@
+{
+  "schema_version": "pk-parameter-extract-v1",
+  "extract_version": "hughes-2019-parameters-v1.0",
+  "drug": "lenalidomide",
+  "source": {
+    "citation": "Hughes et al. Br J Clin Pharmacol. 2019;85:924–934",
+    "doi": "10.1111/bcp.13873",
+    "pmid": "30672004",
+    "pmcid": "PMC6475687",
+    "url": "https://bpspubs.onlinelibrary.wiley.com/doi/10.1111/bcp.13873",
+    "reviewed_on": "2026-10-07",
+    "locations": [
+      "Table 2 final model column",
+      "Equation 4",
+      "Sections 2.3 and 3.2"
+    ],
+    "review_depth": "Main-text parameter layer only; supplementary control stream not retrieved."
+  },
+  "parameters": {
+    "apparent_clearance": {
+      "value": 12.0,
+      "unit": "L/h",
+      "location": "Table 2 final model CL/F"
+    },
+    "apparent_volume": {
+      "value": 68.8,
+      "unit": "L",
+      "location": "Table 2 final model Vd/F"
+    },
+    "transit_rate": {
+      "value": 13.5,
+      "unit": "1/h",
+      "location": "Table 2 final model KTR"
+    },
+    "crcl_exponent": {
+      "value": 0.224,
+      "unit": null,
+      "location": "Table 2 CrCl covariate effect; Equation 4"
+    },
+    "ffm_clearance_exponent": {
+      "value": 0.75,
+      "unit": null,
+      "location": "Table 2 CL/F scaling"
+    },
+    "ffm_volume_exponent": {
+      "value": 1.0,
+      "unit": null,
+      "location": "Table 2 Vd/F scaling"
+    },
+    "reference_ffm": {
+      "value": 55.0,
+      "unit": "kg",
+      "location": "Table 2 allometric denominator"
+    },
+    "reference_crcl": {
+      "value": 90.0,
+      "unit": "mL/min",
+      "location": "Table 2 CrCl denominator; Equation 4"
+    }
+  },
+  "equations": {
+    "clearance": "CL/F = 12 * (FFM/55)^0.75 * (CrCl/90)^0.224, with eta_CL=0",
+    "volume": "V/F = 68.8 * (FFM/55)^1.0, with eta_V=0",
+    "elimination_rate": "ke = (CL/F)/(V/F)"
+  },
+  "input_definitions": {
+    "ffm": "fat-free mass in kg, not total body weight; main text cites Janmahasatian estimation",
+    "crcl": "creatinine clearance in mL/min; main text uses Cockcroft–Gault"
+  },
+  "limitations": [
+    "Parameter layer only; full absorption implementation remains unverified.",
+    "Equation 4 shows the renal effect; Table 2 supplies FFM scaling.",
+    "Random effects set to zero; no interindividual or residual variability is simulated.",
+    "No source datasets or NONMEM run outputs were available for independent reproduction.",
+    "No patient adapter, dose, schedule, concentration, AUC, efficacy or toxicity output."
+  ]
+}

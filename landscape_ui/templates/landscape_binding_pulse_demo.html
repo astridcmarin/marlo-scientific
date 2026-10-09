@@ -1,0 +1,42 @@
+{% extends "landscape_base.html" %}
+{% block title %}Invented binding pulse · Patient Lab{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('landscape.static',filename='target-binding-pulse.css') }}">
+<h1>Concentration pulse and binding</h1>
+<p><a href="{{ url_for('landscape.binding_kinetics_demo') }}">Return to the constant-concentration binding demo</a></p>
+<section class="scenario-notice"><strong>Fixed invented example · No drug or patient</strong><p>Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong>.</p></section>
+<section class="panel"><h2>Inspect an exact time</h2>
+<p>Free target-site concentration is imposed at 10 nM until hour 4, then set to zero. Initial fraction bound is zero. The schedule and rate pairs are fixed invented inputs.</p>
+<form class="occupancy-form" method="get" action="{{ url_for('landscape.binding_pulse_demo') }}">
+<label for="pulse-time">Selected time (h)</label><input id="pulse-time" type="number" name="time_h" min="0" max="24" step="any" value="{{ selected }}" required>
+<button class="button primary" type="submit">Inspect invented pulse</button></form>
+<p><a href="{{ url_for('landscape.binding_pulse_demo') }}">Reset example</a> · <a href="{{ export_url }}">Download this comparison JSON</a></p>
+<p>Selected time: <strong>{{ selected }} h</strong> · Free concentration: <strong>{{ report.examples[0].selected_point.free_concentration_nm }} nM</strong>.</p>
+<ul>{% for series in chart.series %}<li>{{ series.label }}: fraction bound <strong>{{ '%.6g'|format(series.selected_fraction) }}</strong>.</li>{% endfor %}</ul></section>
+<div class="occupancy-layout pulse-charts">
+<section class="panel"><h2>Externally imposed free concentration</h2>
+<svg class="occupancy-chart" viewBox="0 0 780 305" role="img" aria-labelledby="pulse-concentration-title pulse-concentration-desc">
+<title id="pulse-concentration-title">Invented concentration step: 10 nM until 4 h, then zero</title><desc id="pulse-concentration-desc">The vertical segment at hour 4 is an ideal discontinuity, not elimination or a measured trajectory. The selected time {{ selected }} h uses the new concentration at the switch.</desc>
+{% for tick in chart.concentration_ticks %}<line x1="70" x2="740" y1="{{ tick.y }}" y2="{{ tick.y }}" class="occupancy-grid"/><text x="60" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
+{% for tick in chart.x_ticks %}<text x="{{ tick.x }}" y="272" text-anchor="middle">{{ tick.label }}</text>{% endfor %}
+<text x="70" y="18">Free concentration (nM)</text><text x="405" y="296" text-anchor="middle">Elapsed time (h)</text>
+<path d="M 70 30 H {{ chart.switch_x }} V 250 H 740" fill="none" stroke="#40575d" stroke-width="2.5"/>
+<circle cx="{{ chart.switch_x }}" cy="30" r="4" fill="white" stroke="#40575d"/><circle cx="{{ chart.switch_x }}" cy="250" r="4" fill="#40575d"/>
+<line x1="{{ chart.selected_x }}" x2="{{ chart.selected_x }}" y1="30" y2="250" stroke="#a63d16" stroke-dasharray="3 4"/><circle cx="{{ chart.selected_x }}" cy="{{ chart.concentration_y }}" r="5" fill="#a63d16"/>
+</svg><p>At 4 h the upper open circle is the preceding concentration; the lower filled circle is the new concentration. This is an external switch, not a dose administration or patient washout.</p></section>
+<section class="panel"><h2>Continuous binding, then dissociation</h2>
+<svg class="occupancy-chart" viewBox="0 0 780 305" role="img" aria-labelledby="pulse-binding-title pulse-binding-desc">
+<title id="pulse-binding-title">Two invented binding curves under the same pulse</title><desc id="pulse-binding-desc">Fraction bound stays continuous at hour 4, then declines. Solid teal: slower binding system. Dashed purple: faster binding system. {% for s in chart.series %}At {{ selected }} h, {{ s.label }} fraction is {{ s.selected_fraction }}. {% endfor %}</desc>
+{% for tick in chart.binding_ticks %}<line x1="70" x2="740" y1="{{ tick.y }}" y2="{{ tick.y }}" class="occupancy-grid"/><text x="60" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
+{% for tick in chart.x_ticks %}<text x="{{ tick.x }}" y="272" text-anchor="middle">{{ tick.label }}</text>{% endfor %}
+<text x="70" y="18">Fraction bound (0–1)</text><text x="405" y="296" text-anchor="middle">Elapsed time (h)</text>
+<line x1="{{ chart.switch_x }}" x2="{{ chart.switch_x }}" y1="30" y2="250" stroke="#879ba0" stroke-dasharray="6 5"/>
+<line x1="{{ chart.selected_x }}" x2="{{ chart.selected_x }}" y1="30" y2="250" stroke="#a63d16" stroke-dasharray="3 4"/>
+{% for s in chart.series %}<polyline points="{{ s.polyline }}" fill="none" stroke="{{ s.color }}" stroke-width="2.5" stroke-dasharray="{{ s.dash }}"/><circle cx="{{ chart.selected_x }}" cy="{{ s.selected_y }}" r="5" fill="{{ s.color }}" stroke="white" stroke-width="2"/>{% endfor %}
+</svg><p>Solid teal: slower system. Dashed purple: faster system. Both charts share the same time scale; their vertical axes have different units. Connected binding lines use {{ report.display.curve_points }} exact samples including the switch. Selected values are calculated directly.</p></section></div>
+<section class="panel"><h2>Exact switch states and fixed rates</h2>
+<div class="table-scroll"><table><thead><tr><th>System</th><th>kon (nM^-1 h^-1)</th><th>koff (h^-1)</th><th>Fraction just before 4 h</th><th>Fraction at 4 h</th></tr></thead><tbody>
+{% for e in report.examples %}{% set b=e.curve_report.boundaries[1] %}<tr><th>{{ e.label }}</th><td>{{ e.curve_report.inputs.kon.value }}</td><td>{{ e.curve_report.inputs.koff.value }}</td><td>{{ '%.6g'|format(b.before.fraction_bound) }}</td><td>{{ '%.6g'|format(b.after.fraction_bound) }}</td></tr>{% endfor %}
+</tbody></table></div><p>Both invented systems have Kd 10 nM. Once free concentration is zero, the existing bound fraction decays according to koff. No clinical duration of action is inferred.</p></section>
+<section class="panel"><h2>Scope and provenance</h2><p>The displayed quantities are free concentration and binding fraction. No saved PK curve, patient revision, drug identity or target identity is attached. No plasma-to-site conversion, target activation, biomarker, efficacy, toxicity or dose suitability is calculated.</p><p>The JSON retains full phase reports, boundaries, units, invented input origins, method versions, assumptions and integrity hashes. Hashes establish content consistency, not scientific validity.</p><p>Concept reference: <a href="{{ report.examples[0].curve_report.concept_reference.url }}">Association then dissociation equations (GraphPad)</a>. Our schedule is a mathematical composition; its parameters are invented.</p><details><summary>Computed binding values</summary><div class="table-scroll"><table><thead><tr><th>Time (h)</th><th>Free concentration (nM)</th><th>Slower fraction</th><th>Faster fraction</th></tr></thead><tbody>{% for p in report.examples[0].curve_report.points %}<tr><td>{{ '%.6g'|format(p.time_h) }}</td><td>{{ p.free_concentration_nm }}</td><td>{{ '%.6g'|format(p.fraction_bound) }}</td><td>{{ '%.6g'|format(report.examples[1].curve_report.points[loop.index0].fraction_bound) }}</td></tr>{% endfor %}</tbody></table></div></details><p class="pulse-hash">Report SHA256: {{ report.report_sha256 }}</p></section>
+{% endblock %}

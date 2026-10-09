@@ -1,0 +1,99 @@
+{
+  "schema_version": "patient-lab-data-access-research-log-v1",
+  "checked_on": "2026-10-08",
+  "status": "original_model_reproduction_materials_not_obtained",
+  "role": "research_log_not_platform_validation_gate_input",
+  "search_scope": {
+    "queries": [
+      "\"10.1111/bcp.13873\" dataset data availability NONMEM",
+      "\"Hughes\" \"lenalidomide\" \"nmprep_flagged.csv\"",
+      "\"Population pharmacokinetics of lenalidomide\" data repository Hughes",
+      "\"10.1111/bcp.13873\" site:zenodo.org OR site:figshare.com OR site:osf.io",
+      "\"nmprep_flagged.csv\" lenalidomide"
+    ],
+    "sources_inspected": [
+      "Hughes PMC article and supporting/associated-data sections",
+      "Hughes publisher record, including search for a data availability section",
+      "Supplied supplementary DOCX",
+      "Liang 2024 primary article indexed text and data availability statement"
+    ],
+    "access_limits": [
+      "OSF project and public API listing were not accessible through the lookup tool; not evidence of repository privacy or absence",
+      "ClinicalTrials.gov direct page reads did not expose complete records; current IPD-sharing statements were not verified"
+    ],
+    "search_not_exhaustive": true
+  },
+  "records": [
+    {
+      "id": "hughes_publication",
+      "role": "original_model_source",
+      "status": "public_article_inspected",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6475687/",
+      "doi": "10.1111/bcp.13873",
+      "supports": "Source methods, parameters, aggregate diagnostics and supplement links; not a downloaded analysis dataset."
+    },
+    {
+      "id": "hughes_supplement",
+      "role": "original_model_control_stream",
+      "status": "supplied_local_bytes_inspected",
+      "expected_sha256": "261734ad9632f1a0f19156b8b4b6cd88d6637cbefe89be4363791caeeda11849",
+      "supports": "Final Material 2 and study design summary; source CSV and numeric NONMEM output files are references, not attachments in the supplied DOCX."
+    },
+    {
+      "id": "hughes_analysis_dataset",
+      "role": "original_model_reproduction",
+      "status": "public_download_not_identified_in_search",
+      "filename_reference": "nmprep_flagged.csv",
+      "received": false,
+      "use_permission_verified": false,
+      "note": "Limited negative search finding; not evidence that the material does not exist or cannot be requested."
+    },
+    {
+      "id": "hughes_reference_outputs",
+      "role": "original_model_reproduction",
+      "status": "numeric_outputs_not_obtained",
+      "filename_reference": "run016_cl_crcl2_ffm_vpc.fit",
+      "received": false,
+      "note": "A control-stream output filename is not the output file itself. Published plots are aggregate evidence."
+    },
+    {
+      "id": "hughes_event_history_dictionary",
+      "role": "original_model_reproduction",
+      "status": "not_obtained",
+      "received": false,
+      "note": "Nominal study sampling schedules do not reconstruct actual subject-specific observation and administration records."
+    },
+    {
+      "id": "registry_study_links",
+      "role": "source_cross_reference",
+      "status": "supplement_ids_recorded_registry_ipd_unverified",
+      "nct_ids": [
+        "NCT00398515",
+        "NCT00466895",
+        "NCT00735930",
+        "NCT01132586"
+      ],
+      "note": "Study identifiers are from the supplied supplement. Public page reads returned thin shells; current IPD-sharing fields were not established. The footnote additionally mentions NCT01351896; this inconsistency needs source reconciliation, not an invented fifth analysis cohort."
+    },
+    {
+      "id": "liang_2024",
+      "role": "possible_external_evaluation_candidate",
+      "status": "primary_publication_reports_repository_file_access_unverified",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10830448/",
+      "doi": "10.1038/s41598-024-52460-2",
+      "repository_url": "https://osf.io/9m2hz/",
+      "files_downloaded": false,
+      "license_verified": false,
+      "suitable_for_current_execution": false,
+      "note": "Different study, not Hughes development data. Article reports sampling after five consecutive doses. Zero initial amounts and a four-event limit in the current workflow prevent direct replay; file contents, covariate completeness, rights and a prespecified intended use remain unassessed."
+    }
+  ],
+  "source_model_reproduction_established": false,
+  "external_validation_established": false,
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false,
+  "outreach_sent": false,
+  "patient_data_imported": false,
+  "scientific_approval": null,
+  "report_sha256": "b379da670de465ce1d57b719ced684ba5a6e89225d89e1f3b2b9bb07b1abbc8a"
+}

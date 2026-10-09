@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Landscape Intelligence{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('landscape.static', filename='landscape.css') }}">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <aside class="sidebar" aria-label="Main navigation">
+    <a class="brand" href="{{ url_for('landscape.index') }}"><span class="brand-mark" aria-hidden="true">CI</span><span>Clinical Intelligence<span class="brand-sub">CLINICAL &amp; REGULATORY</span></span></a>
+    <p class="nav-label">Intelligence workspace</p>
+    <nav>
+      <a class="nav-item" href="{{ url_for('home') }}"><span aria-hidden="true">⌕</span> Trial explorer</a>
+      {% set workspace_active = request.endpoint in ['landscape.workspace', 'landscape.workspace_brief', 'landscape.watchlists', 'landscape.watchlist', 'landscape.watchlist_trial', 'landscape.saved_scenarios', 'landscape.scenario_prepare', 'landscape.scenario_save', 'landscape.saved_scenario', 'landscape.scenario_compare', 'landscape.patient_state_compare','landscape.patient_state_edit','landscape.patient_state_save','landscape.patient_state_detail','landscape.validation_dashboard'] %}
+      {% set drug_active = request.endpoint in ['landscape.drug_knowledge', 'landscape.drug_knowledge_detail'] %}
+      {% set regulatory_active = request.endpoint in ['landscape.regulatory', 'landscape.regulatory_evidence', 'landscape.regulatory_profile'] %}
+      {% set sites_active = request.endpoint in ['landscape.sites', 'landscape.site_evidence'] %}
+      {% set patient_active = request.endpoint in ['landscape.mechanism_map_demo', 'landscape.binding_pulse_demo', 'landscape.binding_kinetics_demo', 'landscape.target_occupancy_demo', 'landscape.saved_pk_sensitivity', 'landscape.patient_pk_compare', 'landscape.patient_directory', 'landscape.patient_lab_overview', 'landscape.patient_lab', 'landscape.patient_criteria', 'landscape.patient_pk', 'landscape.transit_example', 'landscape.transit_regimen_example', 'landscape.educational_pk', 'landscape.saved_pk_runs', 'landscape.saved_pk_run', 'landscape.saved_pk_compare', 'landscape.saved_pk_audit', 'landscape.saved_pk_metrics'] %}
+      {% set protocol_active = request.endpoint in ['landscape.protocols', 'landscape.protocol_profile_page'] %}
+      {% set interaction_active = request.endpoint in ['landscape.interactions', 'landscape.interaction_evidence'] %}
+      {% set safety_active = request.endpoint in ['landscape.safety', 'landscape.safety_evidence'] %}
+      {% set nav_cohort = summary.cohort.id if summary is defined and summary else request.args.get('cohort_id') %}
+      <a class="nav-item{% if not drug_active and not protocol_active and not safety_active and not interaction_active and not patient_active and not sites_active and not regulatory_active and not workspace_active %} active{% endif %}" href="{{ url_for('landscape.index', cohort_id=nav_cohort) }}"{% if not drug_active and not protocol_active and not safety_active and not interaction_active and not patient_active and not sites_active and not regulatory_active and not workspace_active %} aria-current="page"{% endif %}><span aria-hidden="true">▥</span> Landscape</a>
+      <a class="nav-item{% if drug_active %} active{% endif %}" href="{{ url_for('landscape.drug_knowledge',cohort_id=nav_cohort) }}"{% if drug_active %} aria-current="page"{% endif %}><span aria-hidden="true">◇</span> Drug knowledge</a>
+      <a class="nav-item{% if protocol_active %} active{% endif %}" href="{{ url_for('landscape.protocols', cohort_id=nav_cohort) }}"{% if protocol_active %} aria-current="page"{% endif %}><span aria-hidden="true">▤</span> Protocols</a>
+      <a class="nav-item{% if safety_active %} active{% endif %}" href="{{ url_for('landscape.safety', cohort_id=nav_cohort) }}"{% if safety_active %} aria-current="page"{% endif %}><span aria-hidden="true">◇</span> Safety</a>
+      <a class="nav-item{% if interaction_active %} active{% endif %}" href="{{ url_for('landscape.interactions', cohort_id=nav_cohort) }}"{% if interaction_active %} aria-current="page"{% endif %}><span aria-hidden="true">⇄</span> Interactions</a>
+      <a class="nav-item{% if patient_active %} active{% endif %}" href="{{ url_for('landscape.patient_directory',cohort_id=nav_cohort) }}"{% if patient_active %} aria-current="page"{% endif %}><span aria-hidden="true">◈</span> Patient Lab</a>
+      <a class="nav-item{% if sites_active %} active{% endif %}" href="{{ url_for('landscape.sites',cohort_id=nav_cohort) }}"{% if sites_active %} aria-current="page"{% endif %}><span aria-hidden="true">◎</span> Site Feasibility</a>
+      <a class="nav-item{% if regulatory_active %} active{% endif %}" href="{{ url_for('landscape.regulatory',cohort_id=nav_cohort) }}"{% if regulatory_active %} aria-current="page"{% endif %}><span aria-hidden="true">§</span> Regulatory</a>
+      <a class="nav-item{% if workspace_active %} active{% endif %}" href="{{ url_for('landscape.workspace',cohort_id=nav_cohort) }}"{% if workspace_active %} aria-current="page"{% endif %}><span aria-hidden="true">▣</span> Workspace</a>
+    </nav>
+    <div class="sidebar-note"><span class="source-dot" aria-hidden="true"></span>ClinicalTrials.gov<br><span>Saved, evidence-linked analyses</span></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><span>Clinical &amp; Regulatory Intelligence Platform</span><span class="version-tag">v2 · {% if drug_active %}Drug knowledge{% elif workspace_active %}Workspace{% elif regulatory_active %}Regulatory{% elif sites_active %}Site Feasibility{% elif request.endpoint in ['landscape.protocols', 'landscape.protocol_profile_page'] %}Protocols{% elif request.endpoint in ['landscape.safety', 'landscape.safety_evidence'] %}Safety{% elif request.endpoint in ['landscape.interactions', 'landscape.interaction_evidence'] %}Interactions{% elif patient_active %}Patient Lab{% else %}Landscape{% endif %}</span></header>
+    <main id="main-content">{% block content %}{% endblock %}</main>
+    <footer class="page-footer">ClinicalTrials.gov registry data · Descriptive research intelligence</footer>
+  </div>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

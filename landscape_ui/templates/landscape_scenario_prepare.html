@@ -1,0 +1,16 @@
+{% extends "landscape_base.html" %}
+{% from "criteria_macros.html" import profile_fields %}
+{% block title %}Prepare saved synthetic scenario{% endblock %}
+{% block content %}
+<div class="heading-row"><div><p class="eyebrow">Workspace · Patient Lab</p><h1>Save synthetic scenario</h1><p class="intro">Review the analysis below and give it a name. Nothing has been saved yet.</p></div></div>
+<section class="scenario-notice"><strong>Synthetic Educational Patient Scenario</strong><p>Use invented values only. Saving retains this profile and reference analysis in the local shared Workspace. It does not create a clinical assessment.</p></section>
+<form class="panel scenario-form" method="post" action="{{ url_for('landscape.scenario_save') }}">
+<input type="hidden" name="form_token" value="{{ form_token }}"><input type="hidden" name="ticket" value="{{ ticket }}">
+<div class="scenario-field"><label for="saved-title">Scenario title</label><input id="saved-title" name="title" value="{{ title }}" required maxlength="160"></div>
+<p>Cohort #{{ report.cohort.id }} · {{ report.cohort.condition }} · {{ report.cohort.scope }} · {{ report.total_trials }} retained studies</p>
+<p class="panel-note">The saved result includes normalized inputs, reported age/sex comparisons, selected medication and label references, catalog versions and evidence references. PK curves and patient-pool assumptions are separate. This form expires after two hours.</p>
+<button class="button primary" type="submit">Save synthetic scenario</button>
+</form>
+<form method="post" action="{{ url_for('landscape.patient_lab') }}">{{ profile_fields(report.profile,report.cohort.id) }}<button class="button secondary" type="submit">Return to editable inputs</button></form>
+{% include "saved_scenario_report.html" %}
+{% endblock %}

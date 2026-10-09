@@ -1,0 +1,6 @@
+.mechanism-stages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;padding-left:1.5rem;list-style-position:inside}
+.mechanism-stages li{padding:1rem;background:#f0f6f5;border:1px solid #b8ceca;border-top:4px solid #007b83;overflow-wrap:anywhere}
+.mechanism-stages h3{font-size:1.05rem}.mechanism-claim{padding:1rem 0;border-bottom:1px solid #d9e3e5;scroll-margin-top:1rem}
+.mechanism-claim dt{font-weight:600}.mechanism-claim dd{margin:0 0 .6rem}.mechanism-hash{overflow-wrap:anywhere}
+@media(max-width:1000px){.mechanism-stages{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.mechanism-stages{grid-template-columns:1fr}}
