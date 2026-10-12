@@ -1,0 +1,638 @@
+.
+├── .gitignore
+├── Dockerfile
+├── FUTURE_PATIENT_LAB_ARCHITECTURE.md
+├── PATIENT_STATE_SCHEMA.md
+├── README.md
+├── SHA256SUMS.json
+├── app
+│   ├── app.py
+│   ├── static
+│   │   ├── images
+│   │   │   └── favicon.png
+│   │   └── style.css
+│   └── templates
+│       └── index.html
+├── docs
+│   ├── BORTEZOMIB_ASSUMPTIONS_STEP108.md
+│   ├── BORTEZOMIB_EVIDENCE_STEP105.md
+│   ├── BORTEZOMIB_FIGURES_STEP106.md
+│   ├── BORTEZOMIB_OBSERVATION_INTAKE_STEPS106_108.md
+│   ├── BORTEZOMIB_PROTEASOME_STEP104.md
+│   ├── BORTEZOMIB_TIMECOURSE_STEP107.md
+│   ├── NUMERICAL_VERIFICATION.json
+│   ├── PRODUCT_AND_SCIENCE_ROADMAP.md
+│   ├── patient-lab-step65
+│   │   ├── SOURCE_EQUATION_CHECK.md
+│   │   └── hughes_source_assessment.json
+│   ├── patient-lab-step66
+│   │   ├── DATA_ACCESS_ASSESSMENT.md
+│   │   ├── ORIGINAL_MATERIALS_CHECKLIST.md
+│   │   └── data_access_inventory.json
+│   └── patient_lab
+│       └── step67
+│           ├── VERIFICATION_VALIDATION_PROTOCOL.md
+│           └── validation_protocol_draft.json
+├── examples
+│   ├── pk_numerical_case_plan_v1.json
+│   ├── synthetic_concentration_pairs.json
+│   ├── synthetic_patient_state.json
+│   └── synthetic_time_evaluation.json
+├── instance
+│   ├── code_backups
+│   │   ├── step100-20261012T194320433056Z
+│   │   │   └── landscape_ui
+│   │   │       ├── protein_turnover_pages.py
+│   │   │       └── templates
+│   │   │           ├── landscape_base.html
+│   │   │           ├── landscape_patient_directory.html
+│   │   │           └── landscape_patient_lab_overview.html
+│   │   ├── step101-20261012T194500776087Z
+│   │   │   └── landscape_ui
+│   │   │       ├── protein_turnover_pages.py
+│   │   │       └── templates
+│   │   │           ├── landscape_base.html
+│   │   │           ├── landscape_drug_detail.html
+│   │   │           ├── landscape_drug_knowledge.html
+│   │   │           ├── landscape_patient_directory.html
+│   │   │           ├── landscape_patient_lab_overview.html
+│   │   │           └── landscape_simulation_lab.html
+│   │   ├── step102-20261012T194547608577Z
+│   │   │   └── landscape_ui
+│   │   │       ├── protein_turnover_pages.py
+│   │   │       └── templates
+│   │   │           ├── landscape_base.html
+│   │   │           └── landscape_drug_capabilities.html
+│   │   ├── step103-20261012T194652988519Z
+│   │   │   └── landscape_ui
+│   │   │       ├── patient_directory_pages.py
+│   │   │       └── templates
+│   │   │           ├── landscape_drug_capabilities.html
+│   │   │           ├── landscape_drug_detail.html
+│   │   │           └── landscape_patient_directory.html
+│   │   ├── step89-20261009T215618913074Z
+│   │   │   └── landscape_ui
+│   │   │       ├── patient_lab_overview_pages.py
+│   │   │       └── templates
+│   │   │           ├── landscape_patient_lab_overview.html
+│   │   │           └── patient_state_panel.html
+│   │   ├── step90-20261009T215619035316Z
+│   │   │   ├── intelligence_store
+│   │   │   │   └── educational_pk_comparison.py
+│   │   │   └── landscape_ui
+│   │   │       ├── patient_lab_overview_pages.py
+│   │   │       └── templates
+│   │   │           ├── landscape_base.html
+│   │   │           └── landscape_patient_lab_overview.html
+│   │   ├── step91-20261009T220655898420Z
+│   │   │   ├── intelligence_store
+│   │   │   │   ├── patient_pk_comparison.py
+│   │   │   │   └── patient_state_comparison.py
+│   │   │   └── landscape_ui
+│   │   │       ├── patient_pk_compare_pages.py
+│   │   │       └── templates
+│   │   │           └── landscape_patient_pk_compare.html
+│   │   ├── step92-20261009T221755037326Z
+│   │   │   └── landscape_ui
+│   │   │       ├── patient_lab_overview_pages.py
+│   │   │       └── templates
+│   │   │           └── landscape_base.html
+│   │   ├── step93-20261009T233255638410Z
+│   │   │   └── landscape_ui
+│   │   │       ├── patient_pk_compare_pages.py
+│   │   │       └── templates
+│   │   │           └── landscape_patient_pk_compare.html
+│   │   ├── step94-20261012T193322360301Z
+│   │   │   └── landscape_ui
+│   │   │       ├── patient_lab_overview_pages.py
+│   │   │       └── templates
+│   │   │           ├── landscape_base.html
+│   │   │           └── landscape_patient_lab_overview.html
+│   │   ├── step95-20261012T193343773158Z
+│   │   │   └── landscape_ui
+│   │   │       ├── protein_turnover_pages.py
+│   │   │       └── templates
+│   │   │           ├── landscape_base.html
+│   │   │           └── landscape_protein_turnover_demo.html
+│   │   ├── step96-20261012T193636655302Z
+│   │   │   └── landscape_ui
+│   │   │       ├── protein_turnover_pages.py
+│   │   │       └── templates
+│   │   │           ├── landscape_base.html
+│   │   │           └── landscape_turnover_experiment.html
+│   │   ├── step97-20261012T193819139248Z
+│   │   │   └── landscape_ui
+│   │   │       ├── protein_turnover_pages.py
+│   │   │       └── templates
+│   │   │           ├── landscape_base.html
+│   │   │           └── landscape_binding_turnover_experiment.html
+│   │   └── step98-20261012T194003808533Z
+│   │       ├── landscape_ui
+│   │       │   ├── protein_turnover_pages.py
+│   │       │   └── templates
+│   │       │       ├── landscape_base.html
+│   │       │       ├── landscape_patient_directory.html
+│   │       │       └── landscape_patient_lab_overview.html
+│   │       └── tests
+│   │           └── test_transit_pages.py
+│   ├── install_backups
+│   │   ├── step104-20261012T194817754892Z
+│   │   │   └── landscape_ui
+│   │   │       ├── protein_turnover_pages.py
+│   │   │       ├── simulation_lab_pages.py
+│   │   │       └── templates
+│   │   │           └── landscape_simulation_lab.html
+│   │   ├── step105-20261012T195102353781Z
+│   │   │   └── landscape_ui
+│   │   │       ├── protein_turnover_pages.py
+│   │   │       ├── simulation_lab_pages.py
+│   │   │       └── templates
+│   │   │           └── landscape_bortezomib_proteasome.html
+│   │   ├── step106-20261012T203645713759Z
+│   │   │   └── landscape_ui
+│   │   │       ├── protein_turnover_pages.py
+│   │   │       ├── simulation_lab_pages.py
+│   │   │       └── templates
+│   │   │           └── landscape_bortezomib_evidence.html
+│   │   ├── step107-20261012T204227716734Z
+│   │   │   └── landscape_ui
+│   │   │       ├── protein_turnover_pages.py
+│   │   │       ├── simulation_lab_pages.py
+│   │   │       └── templates
+│   │   │           └── landscape_bortezomib_figures.html
+│   │   └── step108-20261012T204947079015Z
+│   │       ├── docs
+│   │       │   └── NUMERICAL_VERIFICATION.json
+│   │       ├── intelligence_store
+│   │       │   └── bortezomib_timecourse.py
+│   │       └── landscape_ui
+│   │           ├── protein_turnover_pages.py
+│   │           ├── simulation_lab_pages.py
+│   │           └── templates
+│   │               └── landscape_bortezomib_timecourse.html
+│   ├── intelligence-before-step19.db
+│   ├── intelligence-before-step20.db
+│   ├── intelligence-before-step21.db
+│   ├── intelligence-before-step3.db
+│   ├── intelligence-before-step30.db
+│   ├── intelligence-before-step4.db
+│   ├── intelligence-before-step45.db
+│   ├── intelligence.db
+│   ├── lenalidomide_sources
+│   │   ├── main
+│   │   │   └── 787b8a809dc42e157b2f013ee2902e8520b3629f828329dfd1cbb463c1a5339b
+│   │   │       ├── manifest.json
+│   │   │       └── source.pdf
+│   │   └── supplement
+│   │       ├── 3b2309bf58c2ce5eb6454670051655e47eba7b834f74565809f36c42369a360c
+│   │       │   ├── manifest.json
+│   │       │   └── source.pdf
+│   │       └── 787b8a809dc42e157b2f013ee2902e8520b3629f828329dfd1cbb463c1a5339b
+│   │           ├── manifest.json
+│   │           └── source.pdf
+│   ├── step71-code-backup-6907ce3f480b4b58bfd6b0da2d1c088f
+│   │   ├── landscape_ui
+│   │   │   ├── educational_pk_run_pages.py
+│   │   │   └── templates
+│   │   │       └── landscape_saved_pk_run.html
+│   │   └── manifest.json
+│   ├── step74-code-backup-ac6ee752388f4e52ae32b3ace31a94e5
+│   │   ├── landscape_ui
+│   │   │   └── templates
+│   │   │       └── landscape_saved_pk_run.html
+│   │   └── manifest.json
+│   ├── step76-run-1.json
+│   ├── step76-timeline-checkpoint.json
+│   ├── step78-code-backup-82c3f59054324b96a31f96b5f70e8e5f
+│   │   ├── landscape_ui
+│   │   │   ├── __init__.py
+│   │   │   └── templates
+│   │   │       ├── landscape_base.html
+│   │   │       └── landscape_patient_lab_overview.html
+│   │   └── manifest.json
+│   ├── step80-code-backup-3d800949307f4d1f9ca169cb2967e692
+│   │   ├── landscape_ui
+│   │   │   ├── __init__.py
+│   │   │   └── templates
+│   │   │       ├── landscape_base.html
+│   │   │       └── landscape_patient_lab_overview.html
+│   │   └── manifest.json
+│   ├── step82-code-backup-f3d8af8d5d4e43c2803c8e07cbb8f49b
+│   │   ├── landscape_ui
+│   │   │   ├── __init__.py
+│   │   │   └── templates
+│   │   │       ├── landscape_base.html
+│   │   │       └── landscape_patient_lab_overview.html
+│   │   └── manifest.json
+│   ├── step84-code-backup-cd2872ffa69f492ca7047bed87a6a15a
+│   │   ├── landscape_ui
+│   │   │   ├── __init__.py
+│   │   │   └── templates
+│   │   │       ├── landscape_base.html
+│   │   │       └── landscape_patient_lab_overview.html
+│   │   └── manifest.json
+│   └── workspace_secret.key
+├── intelligence_migrations
+│   ├── README
+│   ├── alembic.ini
+│   ├── env.py
+│   ├── script.py.mako
+│   └── versions
+│       ├── 079ea8a37a8c_add_normalized_trial_records.py
+│       ├── 3538c7d69211_create_trial_evidence_snapshot_table.py
+│       ├── 3949e70874a5_add_immutable_educational_pk_runs.py
+│       ├── 3f2cbca88dff_add_saved_synthetic_patient_scenarios.py
+│       ├── b41fff86815f_add_frozen_trial_watchlists_and_review_.py
+│       ├── d9d5b1767e7d_add_analysis_cohorts_and_evidence_.py
+│       ├── db7fd9b5a7fd_add_saved_intelligence_briefs.py
+│       └── f25e8b6a96c1_add_immutable_patient_state_revisions.py
+├── intelligence_store
+│   ├── __init__.py
+│   ├── assay_evidence.py
+│   ├── binding_turnover.py
+│   ├── bortezomib_assumption_sensitivity.py
+│   ├── bortezomib_evidence_review.py
+│   ├── bortezomib_figure_review.py
+│   ├── bortezomib_observation_intake.py
+│   ├── bortezomib_proteasome.py
+│   ├── bortezomib_timecourse.py
+│   ├── brief_pdf.py
+│   ├── check_app.py
+│   ├── cohorts.py
+│   ├── data
+│   │   ├── bortezomib_figure_pairs_preview_v1.json
+│   │   ├── bortezomib_observation_template_v1.json
+│   │   ├── bortezomib_observed_summary_v1.json
+│   │   ├── bortezomib_pk_candidate_v1.json
+│   │   ├── bortezomib_proteasome_reference_v1.json
+│   │   ├── curation
+│   │   │   ├── candidate_review_queue_round5_176_275_complete.json
+│   │   │   ├── candidate_review_queue_round6_276_375_complete.json
+│   │   │   ├── candidate_review_queue_round7_376_475_complete.json
+│   │   │   ├── candidate_review_queue_round8_476_511_complete.json
+│   │   │   ├── new_candidate_priority_analysis.json
+│   │   │   ├── possible_match_review_round1_1_100_complete.json
+│   │   │   ├── possible_match_review_round2_101_155_complete.json
+│   │   │   ├── proposed_mappings_all.json
+│   │   │   ├── regimen_api_evidence_step9.json
+│   │   │   ├── regimen_evidence_triage_step9.json
+│   │   │   ├── top25_candidate_review_queue.json
+│   │   │   ├── top25_candidate_review_queue_round2_complete.json
+│   │   │   └── top25_candidate_review_queue_round3_complete.json
+│   │   ├── drug_aliases_v1.json
+│   │   ├── drug_annotations_v1.json
+│   │   ├── drug_interactions_v1.json
+│   │   ├── drug_safety_v1.json
+│   │   ├── formatting_group_mappings_v1.json
+│   │   ├── hughes_coverage_contract_v1.json
+│   │   ├── hughes_execution_contract_v1.json
+│   │   ├── hughes_input_contract_v1.json
+│   │   ├── hughes_parameter_extract_v1.json
+│   │   ├── hughes_structure_contract_v1.json
+│   │   ├── lenalidomide_assay_extraction_v1.json
+│   │   ├── lenalidomide_assay_metadata_v2.json
+│   │   ├── lenalidomide_assay_quality_review_v1.json
+│   │   ├── lenalidomide_mechanism_evidence_plan_v1.json
+│   │   ├── lenalidomide_pk_v1.json
+│   │   ├── patient_lab_intended_use_v1.json
+│   │   ├── patient_model_contract_v1.json
+│   │   ├── patient_pool_reference_v1.json
+│   │   ├── patient_scenarios_v1.json
+│   │   └── regulatory_reference_v1.json
+│   ├── drug_aliases.py
+│   ├── drug_capabilities.py
+│   ├── drug_knowledge.py
+│   ├── drug_knowledge_pages.py
+│   ├── educational_pk.py
+│   ├── educational_pk_audit.py
+│   ├── educational_pk_comparison.py
+│   ├── educational_pk_comparison_html.py
+│   ├── educational_pk_comparison_summary.py
+│   ├── educational_pk_metrics.py
+│   ├── educational_pk_runs.py
+│   ├── educational_pk_sensitivity.py
+│   ├── extensions.py
+│   ├── fonts
+│   │   ├── DejaVuSans-Bold.ttf
+│   │   ├── DejaVuSans.ttf
+│   │   └── LICENSE.txt
+│   ├── interactions.py
+│   ├── intervention_names.py
+│   ├── mechanism_evidence.py
+│   ├── mechanisms.py
+│   ├── model_coverage.py
+│   ├── models.py
+│   ├── normalization.py
+│   ├── patient_lab_checkpoint.py
+│   ├── patient_lab_intended_use.py
+│   ├── patient_lab_milestone.py
+│   ├── patient_model_binding.py
+│   ├── patient_model_review.py
+│   ├── patient_pk_comparison.py
+│   ├── patient_scenarios.py
+│   ├── patient_state.py
+│   ├── patient_state_comparison.py
+│   ├── patient_state_pages.py
+│   ├── patient_state_revisions.py
+│   ├── pharmacokinetics.py
+│   ├── pk_model_inputs.py
+│   ├── pk_parameter_reference.py
+│   ├── pk_transcription_review.py
+│   ├── pk_validation_artifacts.py
+│   ├── pk_validation_gap.py
+│   ├── protein_turnover.py
+│   ├── protein_turnover_experiments.py
+│   ├── protocols.py
+│   ├── published_transit_reference.py
+│   ├── regulatory.py
+│   ├── safety.py
+│   ├── saved_scenarios.py
+│   ├── scenario_comparison_pdf.py
+│   ├── scenario_comparisons.py
+│   ├── scenario_pages.py
+│   ├── site_exposure_response.py
+│   ├── site_feasibility.py
+│   ├── snapshots.py
+│   ├── stopping.py
+│   ├── summaries.py
+│   ├── target_binding_kinetics.py
+│   ├── target_binding_schedule.py
+│   ├── target_occupancy.py
+│   ├── transit_kernel.py
+│   ├── transit_regimen.py
+│   ├── treatment_requests.py
+│   ├── trial_criteria.py
+│   ├── validation.py
+│   ├── validation_pages.py
+│   ├── watchlist_pages.py
+│   ├── watchlists.py
+│   ├── workspace_models.py
+│   ├── workspace_pages.py
+│   └── workspaces.py
+├── landscape_ui
+│   ├── __init__.py
+│   ├── binding_kinetics_pages.py
+│   ├── binding_pulse_pages.py
+│   ├── binding_turnover_pages.py
+│   ├── bortezomib_assumption_pages.py
+│   ├── bortezomib_evidence_pages.py
+│   ├── bortezomib_figure_pages.py
+│   ├── bortezomib_proteasome_pages.py
+│   ├── bortezomib_timecourse_pages.py
+│   ├── data
+│   │   └── renal_pk
+│   │       ├── SHA256SUMS.json
+│   │       ├── ema_lenalidomide_2008.pdf
+│   │       └── renal_pk_group_evidence_v1.json
+│   ├── disease_library_pages.py
+│   ├── drug_capability_pages.py
+│   ├── drug_knowledge_pages.py
+│   ├── educational_pk_audit_pages.py
+│   ├── educational_pk_compare_pages.py
+│   ├── educational_pk_input_builder.py
+│   ├── educational_pk_metrics_pages.py
+│   ├── educational_pk_pages.py
+│   ├── educational_pk_run_pages.py
+│   ├── educational_pk_sensitivity_pages.py
+│   ├── educational_pk_variation_pages.py
+│   ├── mechanism_map_pages.py
+│   ├── patient_directory_pages.py
+│   ├── patient_lab_overview_pages.py
+│   ├── patient_pk_compare_pages.py
+│   ├── patient_state_compare_pages.py
+│   ├── patient_state_pages.py
+│   ├── pk_compartment_timeline.py
+│   ├── protein_turnover_experiment_pages.py
+│   ├── protein_turnover_pages.py
+│   ├── renal_pk_evidence_pages.py
+│   ├── scenario_pages.py
+│   ├── simulation_lab_pages.py
+│   ├── site_exposure_response_pages.py
+│   ├── static
+│   │   ├── drug-capabilities.css
+│   │   ├── landscape.css
+│   │   ├── landscape.js
+│   │   ├── patient-directory.css
+│   │   ├── patient-lab-compare.css
+│   │   ├── patient-lab-workspace.css
+│   │   ├── pharmacokinetics.js
+│   │   ├── pk-comparison.css
+│   │   ├── pk-compartment-timeline.css
+│   │   ├── pk-compartment-timeline.js
+│   │   ├── pk-timeline-csv.js
+│   │   ├── simulation-lab.css
+│   │   ├── target-binding-kinetics.css
+│   │   ├── target-binding-pulse.css
+│   │   ├── target-mechanism-map.css
+│   │   ├── target-occupancy-demo.css
+│   │   ├── transit-demo.css
+│   │   ├── turnover-experiment.css
+│   │   └── vendor
+│   │       ├── Chart_js_LICENSE.md
+│   │       ├── README.md
+│   │       └── chart.umd.js
+│   ├── target_occupancy_pages.py
+│   ├── templates
+│   │   ├── criteria_macros.html
+│   │   ├── interaction_macros.html
+│   │   ├── landscape_aliases.html
+│   │   ├── landscape_base.html
+│   │   ├── landscape_binding_kinetics_demo.html
+│   │   ├── landscape_binding_pulse_demo.html
+│   │   ├── landscape_binding_turnover_experiment.html
+│   │   ├── landscape_bortezomib_assumptions.html
+│   │   ├── landscape_bortezomib_evidence.html
+│   │   ├── landscape_bortezomib_figures.html
+│   │   ├── landscape_bortezomib_proteasome.html
+│   │   ├── landscape_bortezomib_timecourse.html
+│   │   ├── landscape_disease_library.html
+│   │   ├── landscape_drug_capabilities.html
+│   │   ├── landscape_drug_detail.html
+│   │   ├── landscape_drug_knowledge.html
+│   │   ├── landscape_educational_pk.html
+│   │   ├── landscape_evidence.html
+│   │   ├── landscape_interaction_evidence.html
+│   │   ├── landscape_interactions.html
+│   │   ├── landscape_interventions.html
+│   │   ├── landscape_mechanism_map_demo.html
+│   │   ├── landscape_mechanisms.html
+│   │   ├── landscape_message.html
+│   │   ├── landscape_overview.html
+│   │   ├── landscape_patient_criteria.html
+│   │   ├── landscape_patient_directory.html
+│   │   ├── landscape_patient_lab.html
+│   │   ├── landscape_patient_lab_overview.html
+│   │   ├── landscape_patient_pk.html
+│   │   ├── landscape_patient_pk_compare.html
+│   │   ├── landscape_patient_pk_report.html
+│   │   ├── landscape_patient_state_compare.html
+│   │   ├── landscape_patient_state_detail.html
+│   │   ├── landscape_patient_state_editor.html
+│   │   ├── landscape_pk_variation.html
+│   │   ├── landscape_protein_turnover_demo.html
+│   │   ├── landscape_protocol_profile.html
+│   │   ├── landscape_protocols.html
+│   │   ├── landscape_regulatory.html
+│   │   ├── landscape_regulatory_evidence.html
+│   │   ├── landscape_regulatory_profile.html
+│   │   ├── landscape_renal_pk_evidence.html
+│   │   ├── landscape_safety.html
+│   │   ├── landscape_safety_evidence.html
+│   │   ├── landscape_saved_pk_audit.html
+│   │   ├── landscape_saved_pk_compare.html
+│   │   ├── landscape_saved_pk_metrics.html
+│   │   ├── landscape_saved_pk_run.html
+│   │   ├── landscape_saved_pk_runs.html
+│   │   ├── landscape_saved_pk_sensitivity.html
+│   │   ├── landscape_saved_scenario.html
+│   │   ├── landscape_saved_scenarios.html
+│   │   ├── landscape_scenario_compare.html
+│   │   ├── landscape_scenario_prepare.html
+│   │   ├── landscape_simulation_lab.html
+│   │   ├── landscape_site_evidence.html
+│   │   ├── landscape_site_exposure_experiment.html
+│   │   ├── landscape_sites.html
+│   │   ├── landscape_snapshot.html
+│   │   ├── landscape_stopped.html
+│   │   ├── landscape_target_occupancy_demo.html
+│   │   ├── landscape_transit_demo.html
+│   │   ├── landscape_transit_regimen_demo.html
+│   │   ├── landscape_turnover_experiment.html
+│   │   ├── landscape_validation.html
+│   │   ├── landscape_watchlist.html
+│   │   ├── landscape_watchlist_trial.html
+│   │   ├── landscape_watchlists.html
+│   │   ├── landscape_workspace.html
+│   │   ├── landscape_workspace_brief.html
+│   │   ├── patient_state_panel.html
+│   │   ├── pk_compartment_timeline.html
+│   │   ├── pk_launcher.html
+│   │   ├── regulatory_macros.html
+│   │   ├── safety_macros.html
+│   │   ├── saved_criteria_summary.html
+│   │   └── saved_scenario_report.html
+│   ├── transit_pages.py
+│   ├── transit_regimen_pages.py
+│   ├── validation_pages.py
+│   ├── watchlist_pages.py
+│   └── workspace_pages.py
+├── project_structure.txt
+├── requirements.txt
+├── scripts
+│   ├── acquire_lenalidomide_source.py
+│   ├── bortezomib_proteasome_demo.py
+│   ├── check_bortezomib_observation_intake.py
+│   ├── check_hughes_source_transcription.py
+│   ├── check_simulation_lab.py
+│   ├── fetch_regimen_evidence_v2.py
+│   ├── install_binding_kinetics_page.py
+│   ├── install_binding_pulse_page.py
+│   ├── install_bortezomib_observation_intake.py
+│   ├── install_compartment_timeline.py
+│   ├── install_mechanism_map_page.py
+│   ├── install_target_occupancy_page.py
+│   ├── patient_lab_timeline_assets_v1.json
+│   ├── pk_numerical_crosscheck.py
+│   ├── pk_prediction_metrics_preview.py
+│   ├── pk_synthetic_time_pairs.py
+│   ├── protein_turnover_demo.py
+│   ├── regimen_approval_gate.py
+│   ├── regimen_evidence_triage.py
+│   ├── review_bortezomib_assumptions.py
+│   ├── review_bortezomib_evidence.py
+│   ├── review_bortezomib_figures.py
+│   ├── review_bortezomib_observation_intake.py
+│   ├── review_bortezomib_timecourse.py
+│   ├── review_lenalidomide_assay.py
+│   ├── review_lenalidomide_assay_metadata.py
+│   ├── review_lenalidomide_mechanism.py
+│   ├── target_binding_kinetics_demo.py
+│   ├── target_binding_pulse_demo.py
+│   ├── target_occupancy_demo.py
+│   ├── verify_bortezomib_assumptions.py
+│   ├── verify_bortezomib_timecourse.py
+│   └── verify_patient_lab_timeline.py
+├── synthetic_numerical_crosscheck_step70.json
+├── test_api.py
+├── tests
+│   ├── test_binding_kinetics_pages.py
+│   ├── test_binding_pulse_pages.py
+│   ├── test_binding_turnover.py
+│   ├── test_bortezomib_assumptions.py
+│   ├── test_bortezomib_evidence_review.py
+│   ├── test_bortezomib_figure_review.py
+│   ├── test_bortezomib_observation_intake.py
+│   ├── test_bortezomib_proteasome.py
+│   ├── test_bortezomib_timecourse.py
+│   ├── test_disease_library.py
+│   ├── test_drug_capabilities.py
+│   ├── test_drug_knowledge.py
+│   ├── test_educational_pk.py
+│   ├── test_educational_pk_audit.py
+│   ├── test_educational_pk_comparison.py
+│   ├── test_educational_pk_comparison_html.py
+│   ├── test_educational_pk_comparison_summary.py
+│   ├── test_educational_pk_comparison_summary_pages.py
+│   ├── test_educational_pk_input_builder.py
+│   ├── test_educational_pk_metrics.py
+│   ├── test_educational_pk_pages.py
+│   ├── test_educational_pk_run_pages.py
+│   ├── test_educational_pk_runs.py
+│   ├── test_educational_pk_sensitivity.py
+│   ├── test_educational_pk_sensitivity_pages.py
+│   ├── test_hughes_source_transcription.py
+│   ├── test_lenalidomide_assay_metadata.py
+│   ├── test_lenalidomide_assay_review.py
+│   ├── test_lenalidomide_mechanism_plan.py
+│   ├── test_lenalidomide_source_acquisition.py
+│   ├── test_mechanism_map_pages.py
+│   ├── test_model_coverage.py
+│   ├── test_patient_comparison_report.py
+│   ├── test_patient_directory.py
+│   ├── test_patient_directory_context.py
+│   ├── test_patient_lab_checkpoint.py
+│   ├── test_patient_lab_intended_use.py
+│   ├── test_patient_lab_milestone.py
+│   ├── test_patient_lab_overview.py
+│   ├── test_patient_lab_timeline_checkpoint.py
+│   ├── test_patient_lab_workspace.py
+│   ├── test_patient_model_binding.py
+│   ├── test_patient_model_review.py
+│   ├── test_patient_pk_compare.py
+│   ├── test_patient_state.py
+│   ├── test_patient_state_pages.py
+│   ├── test_patient_state_revisions.py
+│   ├── test_pk_comparison_run_choices.py
+│   ├── test_pk_compartment_timeline.py
+│   ├── test_pk_dose_event_timeline.py
+│   ├── test_pk_model_inputs.py
+│   ├── test_pk_numerical_crosscheck.py
+│   ├── test_pk_parameter_reference.py
+│   ├── test_pk_prediction_metrics_preview.py
+│   ├── test_pk_run_variations.py
+│   ├── test_pk_synthetic_time_pairs.py
+│   ├── test_pk_transcription_review.py
+│   ├── test_pk_validation_artifacts.py
+│   ├── test_pk_validation_gap.py
+│   ├── test_protein_turnover.py
+│   ├── test_published_transit_reference.py
+│   ├── test_regimen_approval_gate.py
+│   ├── test_regimen_evidence_triage.py
+│   ├── test_regimen_source_integrity.py
+│   ├── test_renal_pk_evidence_pages.py
+│   ├── test_simulation_lab.py
+│   ├── test_site_exposure_response.py
+│   ├── test_target_binding_kinetics.py
+│   ├── test_target_binding_schedule.py
+│   ├── test_target_occupancy.py
+│   ├── test_target_occupancy_pages.py
+│   ├── test_transit_kernel.py
+│   ├── test_transit_pages.py
+│   ├── test_transit_regimen.py
+│   ├── test_transit_regimen_pages.py
+│   ├── test_treatment_requests.py
+│   ├── test_turnover_experiment.py
+│   └── test_two_scenario_patient_comparison.py
+└── tests.zip
+
+114 directories, 522 files
