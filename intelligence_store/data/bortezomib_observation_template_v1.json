@@ -1,0 +1,25 @@
+{
+  "schema_version": "bortezomib-paired-observation-intake-v1",
+  "drug_id": "bortezomib",
+  "data_origin": "pending_extraction",
+  "relationship_to_model": "model_development_data",
+  "sources": [
+    {
+      "id": "reece2011",
+      "doi": "10.1007/s00280-010-1283-3",
+      "citation": "Reece et al. (2011), Cancer Chemother Pharmacol 67:57–67",
+      "location": null,
+      "sha256": null,
+      "archive_file": null
+    }
+  ],
+  "source_review": {
+    "reviewer": null,
+    "reviewed_on": null,
+    "series_selection": {"status": "pending", "source_location": null, "rationale": null},
+    "normalization": {"status": "pending", "source_location": null, "rationale": null},
+    "aggregation": {"status": "pending", "source_location": null, "rationale": null},
+    "population_and_schedule": {"status": "pending", "source_location": null, "rationale": null}
+  },
+  "observations": []
+}

@@ -1,0 +1,28 @@
+{% extends "landscape_base.html" %}
+{% block title %}Published renal PK evidence{% endblock %}
+{% block content %}
+<p class="eyebrow">Patient Lab · Published group evidence</p>
+<h1>Lenalidomide: renal PK study reference</h1>
+<p>Historical study CC-5013-PK-001 · Single oral 25 mg dose · Fasting · Four non-dialysis groups, 24 subjects.</p>
+<section class="panel"><h2>What these measurements describe</h2>
+<p>Reported group means and standard deviations from the EMA's 2008 assessment. These measurements are separate from your saved synthetic patients and educational PK runs.</p>
+<p><strong>Descriptive evidence only.</strong> Individual model comparison: not performed. Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong>.</p></section>
+<div style="overflow-x:auto" role="region" aria-label="Published pharmacokinetic measurements" tabindex="0">
+<table><caption>EMA Table 4, page 21. Values are mean (SD); ratios are derived from the reported AUC means.</caption>
+<thead><tr><th scope="col">Study group / measured CrCl</th><th scope="col">n</th><th scope="col">AUC∞ (ng·h/mL)</th><th scope="col">Cmax (ng/mL)</th><th scope="col">Terminal half-life (h)</th><th scope="col">AUC mean / normal-group mean</th></tr></thead>
+<tbody>{% for g in evidence.groups %}<tr><th scope="row">{{ g.group|replace('_',' ')|capitalize }}<br>
+{% if g.group == 'normal' %}&gt;80{% elif g.group == 'mild' %}50–80, both bounds included{% elif g.group == 'moderate' %}30 inclusive to &lt;50{% else %}&lt;30, without dialysis{% endif %} mL/min</th>
+<td>{{ g.n }}</td>{% for key in ['auc_infinity','cmax','terminal_half_life'] %}<td>{{ g.measurements[key].mean }} ({{ g.measurements[key].sd }})</td>{% endfor %}<td>{{ '%.3f'|format(ratios[g.group]) }}</td></tr>{% endfor %}</tbody></table></div>
+<section class="panel"><h2>How to interpret this reference</h2>
+<p>AUC summarizes exposure over time. Here AUC∞ includes extrapolation beyond the sampling period. It is not the same endpoint as a saved AUC from 0 to 24 hours.</p>
+<p>The ratio column divides each group's reported arithmetic mean AUC by the normal group's mean. It is not an individual exposure ratio, an adjusted causal effect or a comparison with your model. No confidence interval was calculated; SD describes dispersion.</p>
+<h3>Why there is no patient overlay</h3><ul>{% for limitation in evidence.limitations %}<li>{{ limitation }}</li>{% endfor %}</ul>
+<p>Representative CrCl, fat-free mass and disease context are not established from this extraction. Study category boundaries do not supply the individual covariates needed to evaluate a patient model.</p></section>
+<section class="panel"><h2>Source and review</h2>
+<p>{{ evidence.source.title }} · {{ evidence.source.document_reference }} · {{ evidence.source.date }}. Page 20: design and groups. Page 21, Table 4: selected measurements.</p>
+<p>This is a historical withdrawal assessment, not current labeling. Twelve mean/SD pairs were checked against rendered source pages by the assistant. Independent human review remains pending.</p>
+<p>Related publication: Chen et al., DOI 10.1177/0091270007309563. Only its abstract was reviewed; this table is attributed to EMA.</p>
+<p><a href="{{ evidence.source.url }}" target="_blank" rel="noopener noreferrer">Open EMA source</a> · <a href="{{ url_for('landscape.renal_pk_evidence',format='pdf') }}">Download archived source PDF</a> · <a href="{{ url_for('landscape.renal_pk_evidence',format='json') }}">Export evidence and derived ratios</a></p>
+<details><summary>Evidence integrity identifiers</summary><p style="overflow-wrap:anywhere">Source SHA256: {{ evidence.source.sha256 }}</p><p style="overflow-wrap:anywhere">Extraction SHA256: {{ evidence_sha }}</p><p>Hashes detect changes to the bundled files; they do not establish scientific validity.</p></details></section>
+<p><a class="button secondary" href="{{ url_for('landscape.patient_directory') }}">Open saved Patient Lab</a> <a href="{{ url_for('landscape.simulation_lab') }}">Open Simulation Lab</a></p>
+{% endblock %}

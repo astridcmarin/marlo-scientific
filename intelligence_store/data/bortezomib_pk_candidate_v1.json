@@ -1,0 +1,53 @@
+{
+  "schema_version": "bortezomib-pk-candidate-reference-v1",
+  "source": {
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6495529/",
+    "doi": "10.1016/j.xphs.2018.11.024",
+    "locations": [
+      "Equations 1\u20135",
+      "Table 1",
+      "Bortezomib PK model"
+    ],
+    "accessed_on": "2026-10-12"
+  },
+  "parameters": {
+    "central_volume_l": 19.1,
+    "k10_per_h": 3.72,
+    "k1ss_per_h": 1.08,
+    "k12_per_h": 2.77,
+    "k21_per_h": 0.89,
+    "k13_per_h": 2.14,
+    "k31_per_h": 0.04
+  },
+  "regimen": {
+    "dose_mg_m2": 1.3,
+    "assumed_mean_bsa_m2": 1.79,
+    "dose_times_h": [
+      0,
+      72,
+      168,
+      240
+    ],
+    "end_time_h": 288,
+    "route": "IV bolus"
+  },
+  "bsa_provenance": "Model authors used an external mean BSA; original PK study did not report BSA. Not a measured participant or personalized input.",
+  "molecular_weight_g_mol": 384.24,
+  "molecular_weight_source": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/209191s003lbl.pdf Section 11; historical chemistry reference",
+  "printed_equation_4": "dk1/dt = -k1*(1-k1ss/k1)",
+  "implemented_equation_4": "k1(t) = k1ss + (k10-k1ss)*exp(-lambda*t)",
+  "assumed_relaxation_rate_per_h": 1.0,
+  "equation_4_status": "The printed right side simplifies to -(k1-k1ss), but a rate factor is needed for dimensional consistency. The implementation explicitly assumes lambda=1 per hour. Author implementation and intended time scale are unverified.",
+  "clock_assumption": "Elapsed hours from first dose; elimination clock is continuous and is not reset at later doses.",
+  "initial_conditions": "All drug amounts and eliminated amount zero immediately before the first bolus.",
+  "scope": "Three mathematical distribution compartments; not anatomical organs or PBPK. Instantaneous Equation 5 coupling only; no dynamic target binding state.",
+  "source_reproduction_established": false,
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false,
+  "limitations": [
+    "Rounded published parameters; parameter covariance unavailable and uncertainty not propagated.",
+    "No fitting or empirical validation. Original author code not obtained.",
+    "Peak inhibition discrepancy from Steps 105\u2013106 remains unresolved.",
+    "No efficacy, toxicity, bone homeostasis, or combination model implemented."
+  ]
+}

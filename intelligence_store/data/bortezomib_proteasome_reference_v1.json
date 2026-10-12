@@ -1,0 +1,41 @@
+{
+  "schema_version": "bortezomib-proteasome-equation-reference-v1",
+  "drug_id": "bortezomib",
+  "source": {
+    "doi": "10.1016/j.xphs.2018.11.024",
+    "pmcid": "PMC6495529",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6495529/",
+    "citation": "Zhang and Mager, J Pharm Sci (2019), 108:732–740",
+    "locations": [
+      "Equation 5",
+      "Table 1: Bortezomib PD",
+      "Data Sources and PK/PD assessments"
+    ],
+    "accessed_on": "2026-10-10",
+    "extraction_status": "AI-assisted transcription from indexed primary-article text; independent verification pending"
+  },
+  "equation": "PA = PA0 - Imax * C^gamma / (IC50^gamma + C^gamma)",
+  "parameters": {
+    "baseline_percent": 100.0,
+    "maximum_inhibition_percentage_points": 71.1,
+    "ic50_nm": 1.79,
+    "hill_coefficient": 1.47
+  },
+  "input": {
+    "quantity": "plasma bortezomib concentration",
+    "unit": "nM",
+    "unbound_conversion": "not_applied"
+  },
+  "output": {
+    "quantity": "20S proteasome activity relative to baseline",
+    "unit": "percent_of_baseline"
+  },
+  "source_context": "Mean PK and proteasome activity from 21 multiple-myeloma patients; IV bortezomib 1.3 mg/m2 on days 1, 4, 8 and 11 of 21-day cycles.",
+  "observed_concentration_domain_nm": null,
+  "parameter_uncertainty_propagated": false,
+  "independent_source_review": false,
+  "source_figure_reproduction": false,
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false,
+  "scope": "Equation component only. No dose, time, patient covariates, efficacy, toxicity or bone model implemented."
+}

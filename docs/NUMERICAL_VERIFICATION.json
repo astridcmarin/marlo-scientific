@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "scenarios": [
+    {
+      "status": "passed",
+      "comparison": "RK4 versus separately coded DOP853 under the same explicit assumptions",
+      "assumed_relaxation_rate_per_h": 0.1,
+      "scipy_version": "1.17.0",
+      "maximum_absolute_differences": {
+        "amount_mg": 7.502258080105406e-06,
+        "concentration_nm": 0.0010222475045793544,
+        "activity_percentage_points": 5.992313916181047e-05
+      },
+      "tolerances": {
+        "amount_mg": 1e-05,
+        "concentration_nm": 0.002,
+        "activity_percentage_points": 0.001
+      },
+      "points_compared": 305,
+      "report_sha256": "997e35520cd8fcd65c313d5c1ed519f84d0df74fbd8242438b93186131707f07",
+      "biological_validation": false,
+      "independent_scientific_review": false
+    },
+    {
+      "status": "passed",
+      "comparison": "RK4 versus separately coded DOP853 under the same explicit assumptions",
+      "assumed_relaxation_rate_per_h": 1.0,
+      "scipy_version": "1.17.0",
+      "maximum_absolute_differences": {
+        "amount_mg": 7.177588720264083e-06,
+        "concentration_nm": 0.0009780084982367043,
+        "activity_percentage_points": 4.004110343203138e-05
+      },
+      "tolerances": {
+        "amount_mg": 1e-05,
+        "concentration_nm": 0.002,
+        "activity_percentage_points": 0.001
+      },
+      "points_compared": 305,
+      "report_sha256": "bcede5baa139f2322c81c7011a9583f00e5fcdb765b893e67b5ec6b65e176735",
+      "biological_validation": false,
+      "independent_scientific_review": false
+    },
+    {
+      "status": "passed",
+      "comparison": "RK4 versus separately coded DOP853 under the same explicit assumptions",
+      "assumed_relaxation_rate_per_h": 10.0,
+      "scipy_version": "1.17.0",
+      "maximum_absolute_differences": {
+        "amount_mg": 4.974815123848231e-06,
+        "concentration_nm": 0.000677861557420556,
+        "activity_percentage_points": 3.0154632156609296e-05
+      },
+      "tolerances": {
+        "amount_mg": 1e-05,
+        "concentration_nm": 0.002,
+        "activity_percentage_points": 0.001
+      },
+      "points_compared": 305,
+      "report_sha256": "c701839059de60a5d3a4ed3625613ee4cc5abe168009bd2bfac54a5b3bad78db",
+      "biological_validation": false,
+      "independent_scientific_review": false
+    }
+  ]
+}

@@ -17,6 +17,8 @@ from .scenario_pages import _error
 
 
 def register_patient_lab_overview_pages(bp):
+    from .protein_turnover_pages import register_protein_turnover_pages
+    register_protein_turnover_pages(bp)
     from .patient_directory_pages import register_patient_directory_pages
     register_patient_directory_pages(bp)
     from .patient_pk_compare_pages import register_patient_pk_compare_pages

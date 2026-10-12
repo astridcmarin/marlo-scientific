@@ -14,20 +14,31 @@
     <nav>
       <a class="nav-item" href="{{ url_for('home') }}"><span aria-hidden="true">⌕</span> Trial explorer</a>
       {% set workspace_active = request.endpoint in ['landscape.workspace', 'landscape.workspace_brief', 'landscape.watchlists', 'landscape.watchlist', 'landscape.watchlist_trial', 'landscape.saved_scenarios', 'landscape.scenario_prepare', 'landscape.scenario_save', 'landscape.saved_scenario', 'landscape.scenario_compare', 'landscape.patient_state_compare','landscape.patient_state_edit','landscape.patient_state_save','landscape.patient_state_detail','landscape.validation_dashboard'] %}
+<!-- Disease library navigation v1 -->
+      {% set disease_active = request.endpoint == 'landscape.disease_library' %}
       {% set drug_active = request.endpoint in ['landscape.drug_knowledge', 'landscape.drug_knowledge_detail'] %}
       {% set regulatory_active = request.endpoint in ['landscape.regulatory', 'landscape.regulatory_evidence', 'landscape.regulatory_profile'] %}
       {% set sites_active = request.endpoint in ['landscape.sites', 'landscape.site_evidence'] %}
-      {% set patient_active = request.endpoint in ['landscape.mechanism_map_demo', 'landscape.binding_pulse_demo', 'landscape.binding_kinetics_demo', 'landscape.target_occupancy_demo', 'landscape.saved_pk_sensitivity', 'landscape.patient_pk_compare', 'landscape.patient_directory', 'landscape.patient_lab_overview', 'landscape.patient_lab', 'landscape.patient_criteria', 'landscape.patient_pk', 'landscape.transit_example', 'landscape.transit_regimen_example', 'landscape.educational_pk', 'landscape.saved_pk_runs', 'landscape.saved_pk_run', 'landscape.saved_pk_compare', 'landscape.saved_pk_audit', 'landscape.saved_pk_metrics'] %}
+      {% set patient_active = request.endpoint in ['landscape.mechanism_map_demo', 'landscape.site_exposure_experiment', 'landscape.binding_turnover_experiment', 'landscape.turnover_experiment', 'landscape.protein_turnover_demo', 'landscape.binding_pulse_demo', 'landscape.binding_kinetics_demo', 'landscape.target_occupancy_demo', 'landscape.saved_pk_sensitivity', 'landscape.patient_pk_compare', 'landscape.patient_directory', 'landscape.patient_lab_overview', 'landscape.patient_lab', 'landscape.patient_criteria', 'landscape.patient_pk', 'landscape.transit_example', 'landscape.transit_regimen_example', 'landscape.educational_pk', 'landscape.saved_pk_runs', 'landscape.saved_pk_run', 'landscape.saved_pk_compare', 'landscape.saved_pk_audit', 'landscape.saved_pk_metrics'] %}
+<!-- Published renal PK evidence v1 -->
+{% set patient_active = patient_active or request.endpoint == 'landscape.renal_pk_evidence' %}
+<!-- Drug capability library v1 -->
+{% set patient_active = patient_active or request.endpoint == 'landscape.drug_capability_library' %}
+<!-- Simulation Lab navigation v1 -->
+      {% set simulation_active = request.endpoint in simulation_endpoints|default([]) %}
+      {% set patient_active = patient_active and not simulation_active %}
       {% set protocol_active = request.endpoint in ['landscape.protocols', 'landscape.protocol_profile_page'] %}
       {% set interaction_active = request.endpoint in ['landscape.interactions', 'landscape.interaction_evidence'] %}
       {% set safety_active = request.endpoint in ['landscape.safety', 'landscape.safety_evidence'] %}
       {% set nav_cohort = summary.cohort.id if summary is defined and summary else request.args.get('cohort_id') %}
-      <a class="nav-item{% if not drug_active and not protocol_active and not safety_active and not interaction_active and not patient_active and not sites_active and not regulatory_active and not workspace_active %} active{% endif %}" href="{{ url_for('landscape.index', cohort_id=nav_cohort) }}"{% if not drug_active and not protocol_active and not safety_active and not interaction_active and not patient_active and not sites_active and not regulatory_active and not workspace_active %} aria-current="page"{% endif %}><span aria-hidden="true">▥</span> Landscape</a>
+      <a class="nav-item{% if not drug_active and not disease_active and not protocol_active and not safety_active and not interaction_active and not patient_active and not simulation_active and not sites_active and not regulatory_active and not workspace_active %} active{% endif %}" href="{{ url_for('landscape.index', cohort_id=nav_cohort) }}"{% if not drug_active and not disease_active and not protocol_active and not safety_active and not interaction_active and not patient_active and not simulation_active and not sites_active and not regulatory_active and not workspace_active %} aria-current="page"{% endif %}><span aria-hidden="true">▥</span> Landscape</a>
+      <a class="nav-item{% if disease_active %} active{% endif %}" href="{{ url_for('landscape.disease_library') }}"{% if disease_active %} aria-current="page"{% endif %}><span aria-hidden="true">▤</span> Disease Library</a>
       <a class="nav-item{% if drug_active %} active{% endif %}" href="{{ url_for('landscape.drug_knowledge',cohort_id=nav_cohort) }}"{% if drug_active %} aria-current="page"{% endif %}><span aria-hidden="true">◇</span> Drug knowledge</a>
       <a class="nav-item{% if protocol_active %} active{% endif %}" href="{{ url_for('landscape.protocols', cohort_id=nav_cohort) }}"{% if protocol_active %} aria-current="page"{% endif %}><span aria-hidden="true">▤</span> Protocols</a>
       <a class="nav-item{% if safety_active %} active{% endif %}" href="{{ url_for('landscape.safety', cohort_id=nav_cohort) }}"{% if safety_active %} aria-current="page"{% endif %}><span aria-hidden="true">◇</span> Safety</a>
       <a class="nav-item{% if interaction_active %} active{% endif %}" href="{{ url_for('landscape.interactions', cohort_id=nav_cohort) }}"{% if interaction_active %} aria-current="page"{% endif %}><span aria-hidden="true">⇄</span> Interactions</a>
       <a class="nav-item{% if patient_active %} active{% endif %}" href="{{ url_for('landscape.patient_directory',cohort_id=nav_cohort) }}"{% if patient_active %} aria-current="page"{% endif %}><span aria-hidden="true">◈</span> Patient Lab</a>
+      <a class="nav-item{% if simulation_active %} active{% endif %}" href="{{ url_for('landscape.simulation_lab') }}"{% if simulation_active %} aria-current="page"{% endif %}><span aria-hidden="true">◌</span> Simulation Lab</a>
       <a class="nav-item{% if sites_active %} active{% endif %}" href="{{ url_for('landscape.sites',cohort_id=nav_cohort) }}"{% if sites_active %} aria-current="page"{% endif %}><span aria-hidden="true">◎</span> Site Feasibility</a>
       <a class="nav-item{% if regulatory_active %} active{% endif %}" href="{{ url_for('landscape.regulatory',cohort_id=nav_cohort) }}"{% if regulatory_active %} aria-current="page"{% endif %}><span aria-hidden="true">§</span> Regulatory</a>
       <a class="nav-item{% if workspace_active %} active{% endif %}" href="{{ url_for('landscape.workspace',cohort_id=nav_cohort) }}"{% if workspace_active %} aria-current="page"{% endif %}><span aria-hidden="true">▣</span> Workspace</a>
@@ -35,9 +46,9 @@
     <div class="sidebar-note"><span class="source-dot" aria-hidden="true"></span>ClinicalTrials.gov<br><span>Saved, evidence-linked analyses</span></div>
   </aside>
   <div class="workspace">
-    <header class="topbar"><span>Clinical &amp; Regulatory Intelligence Platform</span><span class="version-tag">v2 · {% if drug_active %}Drug knowledge{% elif workspace_active %}Workspace{% elif regulatory_active %}Regulatory{% elif sites_active %}Site Feasibility{% elif request.endpoint in ['landscape.protocols', 'landscape.protocol_profile_page'] %}Protocols{% elif request.endpoint in ['landscape.safety', 'landscape.safety_evidence'] %}Safety{% elif request.endpoint in ['landscape.interactions', 'landscape.interaction_evidence'] %}Interactions{% elif patient_active %}Patient Lab{% else %}Landscape{% endif %}</span></header>
-    <main id="main-content">{% block content %}{% endblock %}</main>
-    <footer class="page-footer">ClinicalTrials.gov registry data · Descriptive research intelligence</footer>
+    <header class="topbar"><span>Clinical &amp; Regulatory Intelligence Platform</span><span class="version-tag">v2 · {% if disease_active %}Disease Library{% elif simulation_active %}Simulation Lab{% elif drug_active %}Drug knowledge{% elif workspace_active %}Workspace{% elif regulatory_active %}Regulatory{% elif sites_active %}Site Feasibility{% elif request.endpoint in ['landscape.protocols', 'landscape.protocol_profile_page'] %}Protocols{% elif request.endpoint in ['landscape.safety', 'landscape.safety_evidence'] %}Safety{% elif request.endpoint in ['landscape.interactions', 'landscape.interaction_evidence'] %}Interactions{% elif patient_active %}Patient Lab{% else %}Landscape{% endif %}</span></header>
+    <main id="main-content">{% if simulation_active and request.endpoint != 'landscape.simulation_lab' %}<p><a href="{{ url_for('landscape.simulation_lab') }}">← All Simulation Lab experiments</a></p>{% endif %}{% block content %}{% endblock %}</main>
+    <footer class="page-footer">{% if simulation_active %}Hypothetical educational models · No validated patient predictions{% else %}ClinicalTrials.gov registry data · Descriptive research intelligence{% endif %}</footer>
   </div>
   {% block scripts %}{% endblock %}
 </body>

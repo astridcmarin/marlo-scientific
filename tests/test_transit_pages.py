@@ -24,7 +24,7 @@ class TransitPageTests(unittest.TestCase):
                        '491.963', '500.000', '241 time points', 'Patient simulation remains unavailable'):
             self.assertIn(phrase, body)
         self.assertEqual(body.count('aria-current="page"'), 1)
-        self.assertIn('class="nav-item active" href="/landscape/patient-lab"', body)
+        self.assertIn('class="nav-item active" href="/landscape/simulation-lab"', body)
         self.assertNotIn('<script', body)
         self.assertEqual(response.headers['Cache-Control'], 'no-store')
 

@@ -16,7 +16,7 @@ PAGE_SIZE = 10
 def register_patient_directory_pages(bp):
     @bp.get('/patient-lab/workspace')
     def patient_directory():
-        if set(request.args)-{'q','page','cohort_id'} or any(len(request.args.getlist(k))!=1 for k in request.args):
+        if set(request.args)-{'q','page','cohort_id','drug'} or any(len(request.args.getlist(k))!=1 for k in request.args):
             abort(400)
         q = request.args.get('q','').strip()
         raw_page = request.args.get('page','1')
@@ -25,10 +25,17 @@ def register_patient_directory_pages(bp):
             abort(400)
         if cohort is not None and not re.fullmatch(r'[1-9][0-9]{0,9}',cohort):
             abort(400)
+        drug = request.args.get('drug')
+        if drug is not None and not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,99}',drug):
+            abort(400)
         page = int(raw_page)
         try:
             scenarios_ready(); revisions_ready(); runs_ready()
             condition = SavedPatientScenario.title.contains(q,autoescape=True)
+            if cohort is not None:
+                condition = condition & (SavedPatientScenario.payload['inputs']['cohort_id'].as_integer()==int(cohort))
+            if drug is not None:
+                condition = condition & (SavedPatientScenario.payload['analysis']['report']['selected_drug']['entity_id'].as_string()==drug)
             count = db.session.scalar(select(func.count()).select_from(SavedPatientScenario).where(condition))
             pages = max(1,(count+PAGE_SIZE-1)//PAGE_SIZE)
             if page>pages:
@@ -45,6 +52,11 @@ def register_patient_directory_pages(bp):
                         raise ValueError('Scenario is no longer available.')
                     entry['scenario'] = row
                     entry['reference'] = row.payload['analysis']['report']
+                    reference = entry['reference']
+                    if cohort is not None and (row.payload['inputs']['cohort_id'] != int(cohort) or reference['cohort']['id'] != int(cohort)):
+                        raise ValueError('Saved cohort context does not match this selection.')
+                    if drug is not None and reference['selected_drug']['entity_id'] != drug:
+                        raise ValueError('Saved drug identity does not match this selection.')
                     revision = db.session.scalar(select(PatientStateRevision).where(PatientStateRevision.scenario_id==sid)
                         .order_by(PatientStateRevision.revision_number.desc()).limit(1))
                     if revision:
@@ -59,15 +71,15 @@ def register_patient_directory_pages(bp):
                             .order_by(EducationalPKRun.id.desc()).limit(1))
                         if run:
                             entry['run'] = read_pk_run(run.id)
-                except ValueError as exc:
+                except (ValueError,KeyError,TypeError) as exc:
                     entry['error'] = str(exc)
                     # Suppress all detail for this entry instead of presenting
                     # an unchecked source chain as a usable patient workspace.
                     entry.update(scenario=None,revision=None,run=None)
                 entries.append(entry)
-            nav = {'q':q,'cohort_id':cohort}
+            nav = {'q':q,'cohort_id':cohort,'drug':drug}
             return _response('landscape_patient_directory.html',entries=entries,q=q,count=count,
-                page=page,pages=pages,cohort_id=cohort,
+                page=page,pages=pages,cohort_id=cohort,drug=drug,
                 previous_url=url_for('landscape.patient_directory',**nav,page=page-1) if page>1 else None,
                 next_url=url_for('landscape.patient_directory',**nav,page=page+1) if page<pages else None)
         except ValueError as exc:

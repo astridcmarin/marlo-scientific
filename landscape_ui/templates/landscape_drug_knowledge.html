@@ -1,6 +1,6 @@
 {% extends "landscape_base.html" %}
 {% block title %}Drug Knowledge explorer{% endblock %}
-{% block content %}
+{% block content %}<p> <a class="button secondary" href="{{ url_for('landscape.drug_capability_library') }}">Drug and model library</a></p>
 <div class="heading-row"><div><p class="eyebrow">Curated references · Frozen registry evidence</p><h1>Drug Knowledge explorer</h1><p class="intro">Explore name mappings, mechanisms and selected label references together.</p></div></div>
 <form class="analysis-picker" method="get" action="{{ url_for('landscape.drug_knowledge') }}"><label for="knowledge-cohort">Complete cohort</label><select id="knowledge-cohort" name="cohort_id" required>{% for cohort in cohorts %}<option value="{{ cohort.id }}" {% if cohort.id==cohort_id %}selected{% endif %}>#{{ cohort.id }} · {{ cohort.condition }} · {{ cohort.scope }}</option>{% endfor %}</select>{% if cohorts %}<button class="button primary" type="submit">Open cohort</button>{% endif %}</form>
 {% if report %}

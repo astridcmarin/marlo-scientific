@@ -1,0 +1,609 @@
+{
+  "schema_version": "synthetic-rk4-analytic-crosscheck-report-v1",
+  "method_version": "fixed-synthetic-rk4-analytic-crosscheck-v1.0",
+  "status": "mathematical_crosscheck_passed",
+  "purpose": "mathematical_verification_only",
+  "plan_id": "eight-stage-fixed-synthetic-cases-v1",
+  "case_plan_file_sha256": "1cad762459fcbef5f51a282c27f3eb4d8fa8c79a5f1289ad10b4655211698d9e",
+  "case_plan_canonical_sha256": "35dd8a505a2d3ee714682258aa2a1669d7b5cbb0ebf9113e5defff87bff05252",
+  "implementation_sha256": "dc813d87f821c3f000bccc3763300dba22972a0c5bbb391ba9a7e3bb1e6ea914",
+  "kernel_sha256": "088f8da0a5cfd9c392411079810a3220e56750289871999fc22a9bb511b29ebe",
+  "kernel_method_version": "generic-transit-rk4-v1.0",
+  "reference_sha256": "57ce339ef584e0190534379aec232a584860d853a23e8a36273a63902c9ff441",
+  "python_version": "3.14.6",
+  "comparison_tolerance": {
+    "absolute_ng_ml": 5e-07,
+    "relative": 1e-08,
+    "authority": "Existing project numerical-audit targets, not clinical acceptance thresholds"
+  },
+  "case_count": 6,
+  "sample_count": 25,
+  "total_solver_steps": 414800,
+  "cases": [
+    {
+      "case_id": "invented-single",
+      "inputs": {
+        "case_id": "invented-single",
+        "parameters": {
+          "apparent_clearance_l_h": 2,
+          "apparent_volume_l": 10,
+          "transit_rate_h": 1
+        },
+        "events": [
+          {
+            "time_h": 0,
+            "amount_mg": 1,
+            "source_ref": "synthetic-mathematical-case"
+          }
+        ],
+        "sample_times_h": [
+          0,
+          0.137,
+          1.037,
+          7.253,
+          24.037
+        ]
+      },
+      "status": "passed",
+      "samples": [
+        {
+          "time_h": 0.0,
+          "rk4_concentration_ng_ml": 0.0,
+          "analytic_concentration_ng_ml": 0.0,
+          "absolute_error_ng_ml": 0.0,
+          "allowed_error_ng_ml": 5e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 0.137,
+          "rk4_concentration_ng_ml": 2.716816154545117e-10,
+          "analytic_concentration_ng_ml": 2.716816506536495e-10,
+          "absolute_error_ng_ml": 3.5199137787928726e-17,
+          "allowed_error_ng_ml": 5.000000000027168e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 1.037,
+          "rk4_concentration_ng_ml": 0.00129394005104622,
+          "analytic_concentration_ng_ml": 0.0012939400510590129,
+          "absolute_error_ng_ml": 1.2792935114025461e-14,
+          "allowed_error_ng_ml": 5.000129394005105e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 7.253,
+          "rk4_concentration_ng_ml": 32.03924926476843,
+          "analytic_concentration_ng_ml": 32.039249264768465,
+          "absolute_error_ng_ml": 3.552713678800501e-14,
+          "allowed_error_ng_ml": 8.203924926476847e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 24.037,
+          "rk4_concentration_ng_ml": 4.862811419296303,
+          "analytic_concentration_ng_ml": 4.862811419296274,
+          "absolute_error_ng_ml": 2.930988785010413e-14,
+          "allowed_error_ng_ml": 5.486281141929627e-07,
+          "status": "passed"
+        }
+      ],
+      "unit_response_calls": [
+        {
+          "dose_age_h": 0.137,
+          "unit_response_sha256": "efe2d22de7b47e91f5d053e9224085c7c45773690a2b5c2f670399060a316f4f",
+          "steps": 138,
+          "max_amount_balance_error_mg": 2.220446049250313e-16
+        },
+        {
+          "dose_age_h": 1.037,
+          "unit_response_sha256": "61fc00e99d05246c6b9debf8b25de8d5f379ebd9b4aab4cf1ddf483ba3caea14",
+          "steps": 1039,
+          "max_amount_balance_error_mg": 1.7763568394002505e-15
+        },
+        {
+          "dose_age_h": 7.253,
+          "unit_response_sha256": "ce77c11ca8e20f237b379ee4f567e2ab1ac5eb3b3db068dbac5d478a80c1f3b2",
+          "steps": 7290,
+          "max_amount_balance_error_mg": 2.220446049250313e-15
+        },
+        {
+          "dose_age_h": 24.037,
+          "unit_response_sha256": "54ee2228b4e5973d27ef8ef558def1d9489eeb0d049a002e97cbe00547253e82",
+          "steps": 24141,
+          "max_amount_balance_error_mg": 5.995204332975845e-15
+        }
+      ],
+      "solver_steps": 32608,
+      "max_absolute_concentration_error_ng_ml": 3.552713678800501e-14
+    },
+    {
+      "case_id": "source-typical-numbers-single",
+      "inputs": {
+        "case_id": "source-typical-numbers-single",
+        "parameters": {
+          "apparent_clearance_l_h": 12,
+          "apparent_volume_l": 68.8,
+          "transit_rate_h": 13.5
+        },
+        "events": [
+          {
+            "time_h": 0,
+            "amount_mg": 25,
+            "source_ref": "synthetic-mathematical-case"
+          }
+        ],
+        "sample_times_h": [
+          0,
+          0.137,
+          1.037,
+          7.253,
+          24.037
+        ]
+      },
+      "status": "passed",
+      "samples": [
+        {
+          "time_h": 0.0,
+          "rk4_concentration_ng_ml": 0.0,
+          "analytic_concentration_ng_ml": 0.0,
+          "absolute_error_ng_ml": 0.0,
+          "allowed_error_ng_ml": 5e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 0.137,
+          "rk4_concentration_ng_ml": 0.24207067877309016,
+          "analytic_concentration_ng_ml": 0.24207067820125053,
+          "absolute_error_ng_ml": 5.718396312026641e-10,
+          "allowed_error_ng_ml": 5.024207067820125e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 1.037,
+          "rk4_concentration_ng_ml": 324.74582967199933,
+          "analytic_concentration_ng_ml": 324.74582967205197,
+          "absolute_error_ng_ml": 5.263700586510822e-11,
+          "allowed_error_ng_ml": 3.7474582967205197e-06,
+          "status": "passed"
+        },
+        {
+          "time_h": 7.253,
+          "rk4_concentration_ng_ml": 113.79537674923199,
+          "analytic_concentration_ng_ml": 113.79537674923291,
+          "absolute_error_ng_ml": 9.237055564881302e-13,
+          "allowed_error_ng_ml": 1.6379537674923294e-06,
+          "status": "passed"
+        },
+        {
+          "time_h": 24.037,
+          "rk4_concentration_ng_ml": 6.0919000875342295,
+          "analytic_concentration_ng_ml": 6.0919000875342535,
+          "absolute_error_ng_ml": 2.398081733190338e-14,
+          "allowed_error_ng_ml": 5.609190008753425e-07,
+          "status": "passed"
+        }
+      ],
+      "unit_response_calls": [
+        {
+          "dose_age_h": 0.137,
+          "unit_response_sha256": "9276c6d356c3e615e561b69af48dbce1faed12b95ce0001741d085c02ea63820",
+          "steps": 138,
+          "max_amount_balance_error_mg": 4.440892098500626e-16
+        },
+        {
+          "dose_age_h": 1.037,
+          "unit_response_sha256": "2ca78d629dfa4c7273e62ea0b06fb9231ccadf07fdd2a5f2037847553038dc52",
+          "steps": 1039,
+          "max_amount_balance_error_mg": 1.5543122344752192e-15
+        },
+        {
+          "dose_age_h": 7.253,
+          "unit_response_sha256": "5f7765cedf565d1e313d11da6d5dca961ec9c8d554aae459c3e86d78ab5ffec4",
+          "steps": 7290,
+          "max_amount_balance_error_mg": 2.7755575615628914e-15
+        },
+        {
+          "dose_age_h": 24.037,
+          "unit_response_sha256": "9595a56caccfec7880125e58837258ef8bb86e30fa640829d39a2b5ba9310722",
+          "steps": 24141,
+          "max_amount_balance_error_mg": 3.9968028886505635e-15
+        }
+      ],
+      "solver_steps": 32608,
+      "max_absolute_concentration_error_ng_ml": 5.718396312026641e-10
+    },
+    {
+      "case_id": "source-typical-numbers-repeated",
+      "inputs": {
+        "case_id": "source-typical-numbers-repeated",
+        "parameters": {
+          "apparent_clearance_l_h": 12,
+          "apparent_volume_l": 68.8,
+          "transit_rate_h": 13.5
+        },
+        "events": [
+          {
+            "time_h": 0,
+            "amount_mg": 25,
+            "source_ref": "synthetic-mathematical-case"
+          },
+          {
+            "time_h": 24,
+            "amount_mg": 25,
+            "source_ref": "synthetic-mathematical-case"
+          },
+          {
+            "time_h": 48,
+            "amount_mg": 25,
+            "source_ref": "synthetic-mathematical-case"
+          },
+          {
+            "time_h": 72,
+            "amount_mg": 25,
+            "source_ref": "synthetic-mathematical-case"
+          }
+        ],
+        "sample_times_h": [
+          23.999,
+          24,
+          24.037,
+          48.037,
+          72
+        ]
+      },
+      "status": "passed",
+      "samples": [
+        {
+          "time_h": 23.999,
+          "rk4_concentration_ng_ml": 6.132410736733491,
+          "analytic_concentration_ng_ml": 6.132410736733521,
+          "absolute_error_ng_ml": 3.019806626980426e-14,
+          "allowed_error_ng_ml": 5.613241073673352e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 24.0,
+          "rk4_concentration_ng_ml": 6.131341223483858,
+          "analytic_concentration_ng_ml": 6.131341223483885,
+          "absolute_error_ng_ml": 2.6645352591003757e-14,
+          "allowed_error_ng_ml": 5.613134122348388e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 24.037,
+          "rk4_concentration_ng_ml": 6.091922500732747,
+          "analytic_concentration_ng_ml": 6.091922501078654,
+          "absolute_error_ng_ml": 3.4590730280115167e-10,
+          "allowed_error_ng_ml": 5.609192250107865e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 48.037,
+          "rk4_concentration_ng_ml": 6.184557663923241,
+          "analytic_concentration_ng_ml": 6.184557664269148,
+          "absolute_error_ng_ml": 3.4590730280115167e-10,
+          "allowed_error_ng_ml": 5.618455766426914e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 72.0,
+          "rk4_concentration_ng_ml": 6.225993896412807,
+          "analytic_concentration_ng_ml": 6.2259938964128345,
+          "absolute_error_ng_ml": 2.7533531010703882e-14,
+          "allowed_error_ng_ml": 5.622599389641283e-07,
+          "status": "passed"
+        }
+      ],
+      "unit_response_calls": [
+        {
+          "dose_age_h": 23.999,
+          "unit_response_sha256": "98a3957cc4d87dc6853bbd73db2a7100935e07a6334c59dd2dc8cb1badad786c",
+          "steps": 24103,
+          "max_amount_balance_error_mg": 3.9968028886505635e-15
+        },
+        {
+          "dose_age_h": 24.0,
+          "unit_response_sha256": "4046055f490e5130e80fe1e8c872a95c4795bdccb00f5804a75aae3ff663a944",
+          "steps": 24104,
+          "max_amount_balance_error_mg": 3.9968028886505635e-15
+        },
+        {
+          "dose_age_h": 24.037,
+          "unit_response_sha256": "9595a56caccfec7880125e58837258ef8bb86e30fa640829d39a2b5ba9310722",
+          "steps": 24141,
+          "max_amount_balance_error_mg": 3.9968028886505635e-15
+        },
+        {
+          "dose_age_h": 0.036999999999999034,
+          "unit_response_sha256": "f32ad9f1fd7125e1a4412f01ecb357245426e8b0d967a3024cb9460b3b269384",
+          "steps": 37,
+          "max_amount_balance_error_mg": 2.220446049250313e-16
+        },
+        {
+          "dose_age_h": 48.037,
+          "unit_response_sha256": "b6d234932e33107a2787ff372e3c6254cabcfc02e4563e3e7536dba867d6dd93",
+          "steps": 48317,
+          "max_amount_balance_error_mg": 9.992007221626409e-15
+        },
+        {
+          "dose_age_h": 72.0,
+          "unit_response_sha256": "714ccd31cbd1e099385b26e227a9962761eb6e43a95874746354bfbab9984a83",
+          "steps": 72440,
+          "max_amount_balance_error_mg": 9.992007221626409e-15
+        },
+        {
+          "dose_age_h": 48.0,
+          "unit_response_sha256": "7c88569963930043eeb0ae49998ed76958b50c994ebd7a8355b5b3ead83c9579",
+          "steps": 48280,
+          "max_amount_balance_error_mg": 9.992007221626409e-15
+        }
+      ],
+      "solver_steps": 241422,
+      "max_absolute_concentration_error_ng_ml": 3.4590730280115167e-10
+    },
+    {
+      "case_id": "equal-rates",
+      "inputs": {
+        "case_id": "equal-rates",
+        "parameters": {
+          "apparent_clearance_l_h": 10,
+          "apparent_volume_l": 10,
+          "transit_rate_h": 1
+        },
+        "events": [
+          {
+            "time_h": 0,
+            "amount_mg": 1,
+            "source_ref": "synthetic-mathematical-case"
+          }
+        ],
+        "sample_times_h": [
+          0,
+          0.137,
+          3.137,
+          12.5
+        ]
+      },
+      "status": "passed",
+      "samples": [
+        {
+          "time_h": 0.0,
+          "rk4_concentration_ng_ml": 0.0,
+          "analytic_concentration_ng_ml": 0.0,
+          "absolute_error_ng_ml": 0.0,
+          "allowed_error_ng_ml": 5e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 0.137,
+          "rk4_concentration_ng_ml": 2.683771980718724e-10,
+          "analytic_concentration_ng_ml": 2.6837723228284956e-10,
+          "absolute_error_ng_ml": 3.421097717822249e-17,
+          "allowed_error_ng_ml": 5.000000000026838e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 3.137,
+          "rk4_concentration_ng_ml": 1.009749940878946,
+          "analytic_concentration_ng_ml": 1.009749940878922,
+          "absolute_error_ng_ml": 2.4202861936828413e-14,
+          "allowed_error_ng_ml": 5.100974994087892e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 12.5,
+          "rk4_concentration_ng_ml": 5.509073376062295,
+          "analytic_concentration_ng_ml": 5.5090733760622985,
+          "absolute_error_ng_ml": 3.552713678800501e-15,
+          "allowed_error_ng_ml": 5.550907337606229e-07,
+          "status": "passed"
+        }
+      ],
+      "unit_response_calls": [
+        {
+          "dose_age_h": 0.137,
+          "unit_response_sha256": "f564e3dbadd347aa6ddd290d023acecadc514cc7807a583cc1308baa4ce27f77",
+          "steps": 138,
+          "max_amount_balance_error_mg": 2.220446049250313e-16
+        },
+        {
+          "dose_age_h": 3.137,
+          "unit_response_sha256": "0dd50aaee99c649fd5e61f38c072198714134939d3a503c8f69410bdaec5d442",
+          "steps": 3154,
+          "max_amount_balance_error_mg": 1.7763568394002505e-15
+        },
+        {
+          "dose_age_h": 12.5,
+          "unit_response_sha256": "9c4ac9b7df851bedc78a2991ef3cad2b617a79711256a371ab73c3a007e46b57",
+          "steps": 12549,
+          "max_amount_balance_error_mg": 2.4424906541753444e-15
+        }
+      ],
+      "solver_steps": 15841,
+      "max_absolute_concentration_error_ng_ml": 2.4202861936828413e-14
+    },
+    {
+      "case_id": "nearly-equal-rates",
+      "inputs": {
+        "case_id": "nearly-equal-rates",
+        "parameters": {
+          "apparent_clearance_l_h": 9.99999999999,
+          "apparent_volume_l": 10,
+          "transit_rate_h": 1
+        },
+        "events": [
+          {
+            "time_h": 0,
+            "amount_mg": 1,
+            "source_ref": "synthetic-mathematical-case"
+          }
+        ],
+        "sample_times_h": [
+          0.137,
+          3.137,
+          12.5
+        ]
+      },
+      "status": "passed",
+      "samples": [
+        {
+          "time_h": 0.137,
+          "rk4_concentration_ng_ml": 2.6837719807187657e-10,
+          "analytic_concentration_ng_ml": 2.683772322828537e-10,
+          "absolute_error_ng_ml": 3.4210977126523704e-17,
+          "allowed_error_ng_ml": 5.000000000026838e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 3.137,
+          "rk4_concentration_ng_ml": 1.0097499408792996,
+          "analytic_concentration_ng_ml": 1.0097499408792738,
+          "absolute_error_ng_ml": 2.5757174171303632e-14,
+          "allowed_error_ng_ml": 5.100974994087927e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 12.5,
+          "rk4_concentration_ng_ml": 5.509073376069947,
+          "analytic_concentration_ng_ml": 5.509073376069948,
+          "absolute_error_ng_ml": 1.7763568394002505e-15,
+          "allowed_error_ng_ml": 5.550907337606995e-07,
+          "status": "passed"
+        }
+      ],
+      "unit_response_calls": [
+        {
+          "dose_age_h": 0.137,
+          "unit_response_sha256": "0e7e8ed50c7f60eff4f47c452bcb2327f8f1cf9dbba9801227dd3846f24b321b",
+          "steps": 138,
+          "max_amount_balance_error_mg": 2.220446049250313e-16
+        },
+        {
+          "dose_age_h": 3.137,
+          "unit_response_sha256": "371bd20de19338b5b58068941fc00f3567c9f6808fbe4a94cc98802582df7fc3",
+          "steps": 3154,
+          "max_amount_balance_error_mg": 1.7763568394002505e-15
+        },
+        {
+          "dose_age_h": 12.5,
+          "unit_response_sha256": "57c132d87554ae39d5166608c14a5be5c43e3460d2b9f73891c409a4bd257099",
+          "steps": 12549,
+          "max_amount_balance_error_mg": 3.774758283725532e-15
+        }
+      ],
+      "solver_steps": 15841,
+      "max_absolute_concentration_error_ng_ml": 2.5757174171303632e-14
+    },
+    {
+      "case_id": "unequal-amounts-repeated",
+      "inputs": {
+        "case_id": "unequal-amounts-repeated",
+        "parameters": {
+          "apparent_clearance_l_h": 2,
+          "apparent_volume_l": 10,
+          "transit_rate_h": 1
+        },
+        "events": [
+          {
+            "time_h": 0,
+            "amount_mg": 1,
+            "source_ref": "synthetic-mathematical-case"
+          },
+          {
+            "time_h": 24,
+            "amount_mg": 2,
+            "source_ref": "synthetic-mathematical-case"
+          }
+        ],
+        "sample_times_h": [
+          24,
+          24.037,
+          26.037
+        ]
+      },
+      "status": "passed",
+      "samples": [
+        {
+          "time_h": 24.0,
+          "rk4_concentration_ng_ml": 4.898803774104801,
+          "analytic_concentration_ng_ml": 4.898803774104772,
+          "absolute_error_ng_ml": 2.842170943040401e-14,
+          "allowed_error_ng_ml": 5.489880377410477e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 24.037,
+          "rk4_concentration_ng_ml": 4.86281141929632,
+          "analytic_concentration_ng_ml": 4.862811419296291,
+          "absolute_error_ng_ml": 2.930988785010413e-14,
+          "allowed_error_ng_ml": 5.486281141929628e-07,
+          "status": "passed"
+        },
+        {
+          "time_h": 26.037,
+          "rk4_concentration_ng_ml": 3.4955582212650396,
+          "analytic_concentration_ng_ml": 3.495558221264992,
+          "absolute_error_ng_ml": 4.75175454539567e-14,
+          "allowed_error_ng_ml": 5.349555822126499e-07,
+          "status": "passed"
+        }
+      ],
+      "unit_response_calls": [
+        {
+          "dose_age_h": 24.0,
+          "unit_response_sha256": "a5dac195355b18fc68bf8a8d747c1debdaa5ce600ea549ccad45ade9059a997c",
+          "steps": 24104,
+          "max_amount_balance_error_mg": 5.995204332975845e-15
+        },
+        {
+          "dose_age_h": 24.037,
+          "unit_response_sha256": "54ee2228b4e5973d27ef8ef558def1d9489eeb0d049a002e97cbe00547253e82",
+          "steps": 24141,
+          "max_amount_balance_error_mg": 5.995204332975845e-15
+        },
+        {
+          "dose_age_h": 0.036999999999999034,
+          "unit_response_sha256": "b187568dabcf15416844e5b7a2092c20afbdbaec8185d95288128ca7dfe6e558",
+          "steps": 37,
+          "max_amount_balance_error_mg": 3.3306690738754696e-16
+        },
+        {
+          "dose_age_h": 26.037,
+          "unit_response_sha256": "0e8f89fa3c42f511dacb34e9a6d33fec46f68050434932e41739f6c64e42e440",
+          "steps": 26153,
+          "max_amount_balance_error_mg": 6.217248937900877e-15
+        },
+        {
+          "dose_age_h": 2.036999999999999,
+          "unit_response_sha256": "b08462b6c3041573872be6d768428ab4cc2b7b30ccf02760de0263fc1e511a56",
+          "steps": 2045,
+          "max_amount_balance_error_mg": 1.7763568394002505e-15
+        }
+      ],
+      "solver_steps": 76480,
+      "max_absolute_concentration_error_ng_ml": 4.75175454539567e-14
+    }
+  ],
+  "actual_installed_kernel_called": true,
+  "synthetic_analytic_reference_calculated": true,
+  "comparison_method": "Independent unit-response endpoint evaluations at exact dose ages; linear dose superposition",
+  "full_patient_execution_path_tested": false,
+  "saved_runs_read_or_modified": false,
+  "database_accessed": false,
+  "network_accessed": false,
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false,
+  "empirical_validation_performed": false,
+  "source_model_reproduction_established": false,
+  "not_checked": [
+    "Source equation independent signoff",
+    "Covariate-to-parameter derivation",
+    "Patient applicability and production preflight gates",
+    "Production display-grid/event composer",
+    "AUC or compartment-amount reference comparisons",
+    "Observed concentrations",
+    "Uncertainty, clinical outcomes or dosing decisions"
+  ],
+  "limitation": "A fixed engineering campaign checks concentration agreement and kernel unit-response balance only. Some cases use source-typical numeric parameters as test inputs, not verified individual estimates. Off-grid endpoints use the generic kernel, not a new patient execution mode. No scientific gate is cleared.",
+  "report_sha256": "2232890410127ca04da49ec449cda9f38eaa924ff675e5e642942667678941a6"
+}

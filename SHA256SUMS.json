@@ -1,0 +1,9 @@
+{
+  "CATALOG_CURATION_RULES.md": "34e5898bc415b5578a1a18c32ebd5c8a00cf6d4300a96c78ee8d9c3e3a2d4113",
+  "START_HERE.md": "bf12446abb748413f00c579764f888b9039229efd78678dd460ea9cb51db6afb",
+  "intelligence_store/data/drug_aliases_v1.json": "c3bb20d4c7cef33859e2a00933117355125097ff87685a824aa0ab616136ef60",
+  "intelligence_store/data/drug_annotations_v1.json": "2627ad81bd29ecdfc9476b40eba0e194069630bcce8f6e53969c6facbe081334",
+  "intelligence_store/data/drug_interactions_v1.json": "49722bac996ec57fa892253caa16322bf628a24c598a174714dc6b377a1c4734",
+  "intelligence_store/data/drug_safety_v1.json": "0a66aa6760a6df29005de4bcb94845fada2313f2a6c70924d5d9c0b099e0fa20",
+  "tests/test_drug_knowledge.py": "87b82f95970b6ffd0d5fd898dcdb5f9c9676e8417b9faec33b1635df3e9e3ff1"
+}

@@ -1,7 +1,7 @@
 {% extends "landscape_base.html" %}
 {% from "interaction_macros.html" import rule_reference %}
 {% block title %}{{ entry.label }} · Drug Knowledge{% endblock %}
-{% block content %}
+{% block content %}<p><a href="{{ url_for('landscape.patient_directory',cohort_id=cohort_id,drug=entry.entity_id) }}">Open matching saved patient work</a></p><p> <a class="button secondary" href="{{ url_for('landscape.drug_capability_library') }}">Drug and model library</a></p>
 <p><a href="{{ url_for('landscape.drug_knowledge',cohort_id=cohort_id) }}">&#8592; Drug Knowledge explorer</a></p>
 <div class="heading-row"><div><p class="eyebrow">Curated drug entity · {{ entry.entity_id }}</p><h1>{{ entry.label }}</h1><p class="intro">{{ report.cohort.condition }} · {{ report.cohort.scope }} · Cohort #{{ cohort_id }}</p></div></div>
 <p class="scope-note">{{ report.limitation }}</p><p class="panel-note">{{ report.view_scope }}</p>

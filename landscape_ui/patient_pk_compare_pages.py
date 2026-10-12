@@ -1,7 +1,7 @@
 """Select two scenarios, their states and their compatible archived PK runs."""
 import json
 import re
-from flask import Response, abort, request
+from flask import Response, abort, request, render_template
 from sqlalchemy import select, func
 from sqlalchemy.exc import SQLAlchemyError
 from intelligence_store.extensions import db
@@ -24,7 +24,7 @@ def register_patient_pk_compare_pages(bp):
         if set(request.args)-keys or any(len(request.args.getlist(k))!=1 for k in request.args):
             abort(400)
         output = request.args.get('format','html')
-        if output not in ('html','json'):
+        if output not in ('html','json','report'):
             abort(400)
         ids = {}
         for key in keys-{'format'}:
@@ -86,6 +86,15 @@ def register_patient_pk_compare_pages(bp):
                         {'label':f"Left run #{ids['left_run']}",'color':'#007b83','dash':'','values':[p['left_concentration_ng_ml'] for p in points]},
                         {'label':f"Right run #{ids['right_run']}",'color':'#8b5b92','dash':'6 3','values':[p['right_concentration_ng_ml'] for p in points]}])
                     chart['time_ticks'] = [{'x':70+670*i/4,'label':f'{times[-1]*i/4:g}'} for i in range(5)]
+            if output=='report':
+                if report is None:
+                    abort(400,description='Select two different states with a saved run for each.')
+                html = render_template('landscape_patient_pk_report.html',report=report,chart=chart,
+                    labels=LABELS,categories=CATEGORIES)
+                return Response(html,mimetype='text/html',headers={
+                    'Content-Disposition':'attachment; filename="patient-lab-comparison-report.html"',
+                    'Cache-Control':'no-store','X-Content-Type-Options':'nosniff',
+                    'Content-Security-Policy':"default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"})
             if output=='json':
                 if report is None:
                     abort(400,description='Select two different states with a saved run for each.')

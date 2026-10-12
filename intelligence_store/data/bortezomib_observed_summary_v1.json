@@ -1,0 +1,153 @@
+{
+  "schema_version": "bortezomib-observed-summary-v1",
+  "source": {
+    "doi": "10.1007/s00280-010-1283-3",
+    "pmcid": "PMC3951913",
+    "citation": "Reece et al. (2011), Cancer Chemother Pharmacol 67:57–67",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3951913/",
+    "location": "Table 3, caption and footnotes; Pharmacodynamics; Patient disposition",
+    "source_html_sha256": "2cc3a0c906bf82e770cf6dfe30222b8ae2ac031d79a256f1fc14a125fb93e205",
+    "accessed_on": "2026-10-10"
+  },
+  "model_source_review": {
+    "doi": "10.1016/j.xphs.2018.11.024",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6495529/",
+    "source_html_sha256": "ff29f9ebb17cb5646bb73655913081a2b5cc8e086ea07210a92f004209b1a4f1",
+    "locations": [
+      "Equation 5",
+      "Table 1",
+      "Data Sources",
+      "PK/PD assessments",
+      "Reference 10"
+    ],
+    "equation_and_parameters": "matched_step104_transcription",
+    "review_method": "AI-assisted direct HTML and MathML inspection",
+    "independent_review": false
+  },
+  "endpoint": "maximum whole-blood 20S proteasome inhibition",
+  "aggregation": "mean_of_patient_peak_inhibition_summaries",
+  "dispersion": "standard_deviation_not_standard_error",
+  "population": {
+    "disease": "relapsed multiple myeloma",
+    "randomized_total": 42,
+    "randomized_per_dose": 21,
+    "evaluable_per_dose": 12,
+    "row_specific_exclusions": "Table 3 excludes outlying results at specified visits; Emax footnote b reduces two 1.0 mg/m2 rows to n=11."
+  },
+  "relationship_to_model": "source_study_used_in_model_development; not_independent_external_validation",
+  "rows": [
+    {
+      "id": "iv-1-c1-d1",
+      "dose_mg_per_m2": 1.0,
+      "route": "IV",
+      "cycle": 1,
+      "day": 1,
+      "mean_peak_inhibition_percent": 69.7,
+      "sd_percentage_points": 11,
+      "n": 11,
+      "paired_plasma_concentration_nm": null,
+      "paired_time_h": null,
+      "source_location": "Table 3, Emax row; n includes applicable footnotes a/b"
+    },
+    {
+      "id": "iv-1-c1-d11",
+      "dose_mg_per_m2": 1.0,
+      "route": "IV",
+      "cycle": 1,
+      "day": 11,
+      "mean_peak_inhibition_percent": 83.4,
+      "sd_percentage_points": 7.02,
+      "n": 11,
+      "paired_plasma_concentration_nm": null,
+      "paired_time_h": null,
+      "source_location": "Table 3, Emax row; n includes applicable footnotes a/b"
+    },
+    {
+      "id": "iv-1-c3-d1",
+      "dose_mg_per_m2": 1.0,
+      "route": "IV",
+      "cycle": 3,
+      "day": 1,
+      "mean_peak_inhibition_percent": 78.3,
+      "sd_percentage_points": 7.09,
+      "n": 11,
+      "paired_plasma_concentration_nm": null,
+      "paired_time_h": null,
+      "source_location": "Table 3, Emax row; n includes applicable footnotes a/b"
+    },
+    {
+      "id": "iv-1-c3-d11",
+      "dose_mg_per_m2": 1.0,
+      "route": "IV",
+      "cycle": 3,
+      "day": 11,
+      "mean_peak_inhibition_percent": 83.5,
+      "sd_percentage_points": 7.05,
+      "n": 11,
+      "paired_plasma_concentration_nm": null,
+      "paired_time_h": null,
+      "source_location": "Table 3, Emax row; n includes applicable footnotes a/b"
+    },
+    {
+      "id": "iv-1.3-c1-d1",
+      "dose_mg_per_m2": 1.3,
+      "route": "IV",
+      "cycle": 1,
+      "day": 1,
+      "mean_peak_inhibition_percent": 73,
+      "sd_percentage_points": 10.8,
+      "n": 12,
+      "paired_plasma_concentration_nm": null,
+      "paired_time_h": null,
+      "source_location": "Table 3, Emax row; n includes applicable footnotes a/b"
+    },
+    {
+      "id": "iv-1.3-c1-d11",
+      "dose_mg_per_m2": 1.3,
+      "route": "IV",
+      "cycle": 1,
+      "day": 11,
+      "mean_peak_inhibition_percent": 78.6,
+      "sd_percentage_points": 6.5,
+      "n": 12,
+      "paired_plasma_concentration_nm": null,
+      "paired_time_h": null,
+      "source_location": "Table 3, Emax row; n includes applicable footnotes a/b"
+    },
+    {
+      "id": "iv-1.3-c3-d1",
+      "dose_mg_per_m2": 1.3,
+      "route": "IV",
+      "cycle": 3,
+      "day": 1,
+      "mean_peak_inhibition_percent": 78.2,
+      "sd_percentage_points": 9.27,
+      "n": 11,
+      "paired_plasma_concentration_nm": null,
+      "paired_time_h": null,
+      "source_location": "Table 3, Emax row; n includes applicable footnotes a/b"
+    },
+    {
+      "id": "iv-1.3-c3-d11",
+      "dose_mg_per_m2": 1.3,
+      "route": "IV",
+      "cycle": 3,
+      "day": 11,
+      "mean_peak_inhibition_percent": 82.9,
+      "sd_percentage_points": 9.46,
+      "n": 11,
+      "paired_plasma_concentration_nm": null,
+      "paired_time_h": null,
+      "source_location": "Table 3, Emax row; n includes applicable footnotes a/b"
+    }
+  ],
+  "limitations": [
+    "Summary peaks are not matched concentration-response observations.",
+    "Patient peaks may occur at different sampling times; mean peaks and peak mean profiles are distinct summaries.",
+    "No raw individual observations or figure points were extracted.",
+    "Observed concentration domain remains unknown in this extraction."
+  ],
+  "extraction_status": "AI-assisted table transcription; independent verification pending",
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false
+}
