@@ -1,4 +1,4 @@
-"""Strict generic inputs, matching exports and narrow backed-up installation."""
+"""Strict generic inputs and matching exports."""
 import hashlib
 import importlib.util
 import json
@@ -10,8 +10,6 @@ from unittest.mock import patch
 from flask import Flask
 
 ROOT=Path(__file__).resolve().parents[1]
-spec=importlib.util.spec_from_file_location('occupancy_installer',ROOT/'scripts/install_binding_kinetics_page.py')
-installer=importlib.util.module_from_spec(spec);spec.loader.exec_module(installer)
 
 
 class BindingKineticsPageTests(unittest.TestCase):
@@ -73,34 +71,5 @@ class BindingKineticsPageTests(unittest.TestCase):
             'time_h=%3Cscript%3E','horizon_h=1&time_h=2']:
             with self.subTest(query=query):self.assertEqual(self.client.get(self.path+'?'+query).status_code,400)
         self.assertEqual(self.client.post(self.path).status_code,405)
-
-    def project(self,folder,bad=False):
-        root=Path(folder)
-        for asset in ['intelligence_store/target_binding_kinetics.py','landscape_ui/binding_kinetics_pages.py',
-            'landscape_ui/templates/landscape_binding_kinetics_demo.html','landscape_ui/static/target-binding-kinetics.css']:
-            path=root/asset;path.parent.mkdir(parents=True,exist_ok=True);path.write_text('asset')
-        paths=[root/'landscape_ui/__init__.py',root/'landscape_ui/templates/landscape_base.html',
-            root/'landscape_ui/templates/landscape_patient_lab_overview.html']
-        paths[0].write_text('custom initializer\n'+installer.REGISTER_ANCHOR+'\n    app.register_blueprint(bp)')
-        paths[1].write_text('custom base\n'+installer.NAV_ANCHOR+"'landscape.patient_lab'] %}")
-        paths[2].write_text('custom overview\n'+('unrecognized' if bad else installer.OVERVIEW_ANCHOR))
-        return root,paths
-
-    def test_install_preserves_all_custom_content_backups_and_idempotence(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root,paths=self.project(folder);original=[p.read_bytes() for p in paths]
-            result=installer.install(root);self.assertEqual(result['status'],'installed')
-            for path,raw in zip(paths,original):
-                self.assertEqual((Path(result['code_backup_directory'])/path.relative_to(root)).read_bytes(),raw)
-                self.assertIn('custom',path.read_text())
-            self.assertEqual(installer.install(root)['status'],'already_installed')
-
-    def test_unknown_final_anchor_changes_none_of_existing_files(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root,paths=self.project(folder,True);before=[p.read_bytes() for p in paths]
-            with self.assertRaises(ValueError):installer.install(root)
-            self.assertEqual([p.read_bytes() for p in paths],before)
-            self.assertFalse((root/'instance').exists())
-
 
 if __name__=='__main__':unittest.main()

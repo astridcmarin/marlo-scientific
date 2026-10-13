@@ -2,6 +2,8 @@
 
 Start with the roadmap and the current Patient Lab plan. Step numbers are historical delivery labels and are not unique; module and schema versions are the stable identifiers (see the repository checkpoint).
 
+Several step documents describe installer scripts (`scripts/install_*.py`) from when features arrived as packages. Those features are integrated into the code, and the installers were retired on 13 October 2026; they remain in git history.
+
 ## Current direction
 
 - [Product and science roadmap](PRODUCT_AND_SCIENCE_ROADMAP.md) — product goal, development phases, capability representation.

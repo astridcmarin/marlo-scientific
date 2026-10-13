@@ -9,8 +9,6 @@ from unittest.mock import patch
 from flask import Flask
 
 ROOT=Path(__file__).resolve().parents[1]
-spec=importlib.util.spec_from_file_location('mechanism_installer',ROOT/'scripts/install_mechanism_map_page.py')
-installer=importlib.util.module_from_spec(spec);spec.loader.exec_module(installer)
 
 
 class MechanismMapTests(unittest.TestCase):
@@ -80,34 +78,5 @@ class MechanismMapTests(unittest.TestCase):
         old=PLAN_PATH.read_bytes();a=build_mechanism_map();b=build_mechanism_map()
         self.assertEqual(a,b);self.assertEqual(PLAN_PATH.read_bytes(),old)
         self.assertEqual(a['evidence_plan_sha256'],hashlib.sha256(old).hexdigest())
-
-    def fixture(self,folder,bad=False):
-        root=Path(folder)
-        for asset in ['intelligence_store/mechanism_evidence.py','intelligence_store/data/lenalidomide_mechanism_evidence_plan_v1.json',
-            'landscape_ui/mechanism_map_pages.py','landscape_ui/templates/landscape_mechanism_map_demo.html',
-            'landscape_ui/static/target-mechanism-map.css']:
-            path=root/asset;path.parent.mkdir(parents=True,exist_ok=True);path.write_text('asset')
-        paths=[root/'landscape_ui/__init__.py',root/'landscape_ui/templates/landscape_base.html',root/'landscape_ui/templates/landscape_patient_lab_overview.html']
-        paths[0].write_text('custom initializer\n'+installer.REGISTER_ANCHOR+'\n    app.register_blueprint(bp)')
-        paths[1].write_text('custom base\n'+installer.NAV_ANCHOR+"'landscape.binding_pulse_demo', 'landscape.patient_lab'] %}")
-        paths[2].write_text('custom overview\n'+('unknown' if bad else installer.OVERVIEW_ANCHOR))
-        return root,paths
-
-    def test_install_backup_custom_content_preservation_and_idempotence(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root,paths=self.fixture(folder);before=[p.read_bytes() for p in paths]
-            result=installer.install(root);self.assertEqual(result['status'],'installed')
-            for p,raw in zip(paths,before):
-                self.assertIn('custom',p.read_text())
-                self.assertEqual((Path(result['code_backup_directory'])/p.relative_to(root)).read_bytes(),raw)
-            self.assertIn('landscape.binding_pulse_demo',paths[1].read_text())
-            self.assertEqual(installer.install(root)['status'],'already_installed')
-
-    def test_unrecognized_anchor_changes_none_of_the_existing_files(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root,paths=self.fixture(folder,True);before=[p.read_bytes() for p in paths]
-            with self.assertRaises(ValueError):installer.install(root)
-            self.assertEqual(before,[p.read_bytes() for p in paths]);self.assertFalse((root/'instance').exists())
-
 
 if __name__=='__main__':unittest.main()
