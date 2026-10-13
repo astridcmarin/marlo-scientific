@@ -1,5 +1,4 @@
 """Local workspace pages with signed, browser-bound save submissions."""
-import hashlib
 import hmac
 import json
 import os

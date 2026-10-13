@@ -9,11 +9,11 @@ import re
 import click
 from sqlalchemy.exc import SQLAlchemyError
 
-from .drug_aliases import AliasCatalogError, load_alias_catalog, reconcile_drug_aliases
-from .interactions import InteractionCatalogError, summarize_interactions
+from .drug_aliases import load_alias_catalog, reconcile_drug_aliases
+from .interactions import summarize_interactions
 from .intervention_names import name_key
-from .safety import SafetyCatalogError, summarize_safety
-from .summaries import CohortSummaryError, summarize_cohort
+from .safety import summarize_safety
+from .summaries import summarize_cohort
 from .trial_criteria import summarize_criteria
 from .pharmacokinetics import pk_availability
 

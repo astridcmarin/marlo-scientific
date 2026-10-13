@@ -22,8 +22,8 @@ def _exposure_model():
     """Check installed contracts without running the solver or patient review."""
     coverage = load_coverage_contract()
     inputs = load_input_contract()
-    structure = load_structure_contract()
-    parameters = load_parameter_extract()
+    load_structure_contract()
+    load_parameter_extract()
     execution = load_execution_contract()
     return {
         'model_id': 'hughes-educational-pk-v1', 'drug_id': 'lenalidomide',

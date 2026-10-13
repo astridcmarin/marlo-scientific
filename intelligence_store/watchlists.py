@@ -1,7 +1,6 @@
 """Local curation of retained trial evidence with explicit analyst review state."""
 import copy
 from datetime import datetime
-import json
 import re
 import click
 from sqlalchemy import CheckConstraint, DateTime, ForeignKey, JSON, String, Text, UniqueConstraint, inspect, select, update

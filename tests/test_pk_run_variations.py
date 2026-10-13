@@ -1,10 +1,9 @@
 """Review-bound educational input copies and immutable source provenance."""
-import copy
 import json
 import unittest
 from html.parser import HTMLParser
 from unittest.mock import patch
-from sqlalchemy import select, update
+from sqlalchemy import select
 from werkzeug.datastructures import MultiDict
 import test_educational_pk_comparison as fixtures
 from intelligence_store.extensions import db

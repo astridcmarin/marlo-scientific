@@ -1,7 +1,6 @@
 """Save complete-cohort outputs once; read/export without recomputing."""
 import copy
 from datetime import datetime, timezone
-import hashlib
 import json
 import re
 import click

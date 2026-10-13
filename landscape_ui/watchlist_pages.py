@@ -74,7 +74,7 @@ def register_watchlist_pages(bp):
         if request.method=='POST':
             draft=request.form.get('nct_ids','')
             try:
-                added=add_trials(list_id,draft)
+                add_trials(list_id,draft)
                 return redirect(url_for('landscape.watchlist',list_id=list_id),code=303)
             except ValueError as exc:error=str(exc)
         output=request.args.get('format','html')

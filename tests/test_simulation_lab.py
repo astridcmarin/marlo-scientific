@@ -1,5 +1,4 @@
 """Combined navigation and export smoke checks, with no configured database."""
-import json
 import unittest
 from contextlib import ExitStack
 from unittest.mock import patch
