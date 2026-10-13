@@ -1,0 +1,15 @@
+<section class="panel" aria-labelledby="estimate-provenance-heading"><h2 id="estimate-provenance-heading">Why these covariates? Estimate from the saved record</h2>
+<p>Weight basis for Cockcroft–Gault: <strong>{{ estimate.weight_basis }}</strong> · evidence: {{ estimate.weight_basis_evidence.evidence_level }}{% if estimate.weight_basis_evidence.is_primary_assumption %} (primary assumption){% endif %} · assessment status: <strong>{{ estimate.weight_basis_evidence.assessment_status }}</strong>. {{ estimate.weight_basis_evidence.summary }}</p>
+{% if estimate.status != 'estimated' %}<p role="alert">The saved record is missing estimator inputs: {{ estimate.missing_fields|join(', ') }}. No covariate is filled in. Save a new patient-state revision with these values to estimate covariates.</p>
+{% else %}<div class="table-scroll"><table><caption>Each step records its formula, version and inputs. Values are calculations under the stated assumptions, not measurements.</caption>
+<thead><tr><th>Quantity</th><th>Value</th><th>Formula (version)</th><th>Inputs</th><th>Assumptions</th></tr></thead><tbody>
+{% for step in estimate.derivations %}<tr><td>{{ step.quantity }}</td><td>{{ '%.2f'|format(step.value) }} {{ step.unit }}</td><td>{{ step.formula_id }} ({{ step.formula_version }})</td>
+<td>{% for name, item in step.inputs.items() %}{{ name }} = {{ item.value if item.value is string else '%.4g'|format(item.value) }}{% if item.unit %} {{ item.unit }}{% endif %} <small>({{ item['from'] }})</small>{% if not loop.last %}<br>{% endif %}{% endfor %}</td>
+<td>{% for name, value in step.assumptions.items() %}{{ name }}: {{ value }}{% if not loop.last %}<br>{% endif %}{% else %}—{% endfor %}</td></tr>{% endfor %}
+</tbody></table></div>
+<div class="table-scroll"><table><caption>Coverage against the Hughes 2019 study (Table 1). Outside means extrapolation, not a clinical threshold.</caption>
+<thead><tr><th>Field</th><th>Role</th><th>Value</th><th>Reported range</th><th>Status</th></tr></thead><tbody>
+{% for check in estimate.coverage_checks %}<tr><td>{{ check.field }}</td><td>{{ check.role }}</td><td>{{ '%.1f'|format(check.value) }} {{ check.unit }}</td><td>{{ check.source_range[0] }}–{{ check.source_range[1] }}</td><td>{{ check.status }}</td></tr>{% endfor %}
+</tbody></table></div>{% endif %}
+{% if estimate.warnings %}<ul>{% for warning in estimate.warnings %}<li>{{ warning }}</li>{% endfor %}</ul>{% endif %}
+<p class="catalog-digest">Estimate SHA256: {{ estimate.report_sha256 }}<br>State SHA256: {{ estimate.state_sha256 }}<br>Formula registry: {{ estimate.registry_version }} · Weight-basis assessment: {{ estimate.assessment_version }}</p></section>

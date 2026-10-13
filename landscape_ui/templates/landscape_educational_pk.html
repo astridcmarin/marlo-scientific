@@ -5,7 +5,7 @@
 <h1>Educational PK calculation</h1>
 <p><a href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id) }}">Back to patient-state record #{{ revision.id }}</a> · Scenario #{{ scenario.id }}</p>
 <section class="scenario-notice"><strong>Synthetic education · Clinical prediction is unvalidated</strong><p>The saved revision supplies provenance and consistency context. Explicit model covariates remain separate declarations; missing values are not filled. This calculation does not predict efficacy, toxicity or a suitable clinical dose.</p></section>
-<p><a class="button secondary" href="{{ url_for('landscape.saved_pk_runs',scenario_id=scenario.id,revision_id=revision.id) }}">View saved educational runs</a></p>
+<p><a class="button primary" href="{{ url_for('landscape.estimated_pk',scenario_id=scenario.id,revision_id=revision.id) }}">Estimate covariates from this record</a> <a class="button secondary" href="{{ url_for('landscape.saved_pk_runs',scenario_id=scenario.id,revision_id=revision.id) }}">View saved educational runs</a></p>
 <section class="panel"><h2>Build invented inputs</h2>
 <p>Enter direct synthetic covariates and each requested administration. Values are not derived from the saved patient. FFM is fat-free mass, not total weight; CrCl is creatinine clearance, not indexed eGFR. This builder does not execute either estimator.</p>
 <p>Lenalidomide · oral capsule · hours from the simulation-window start. This limited workflow accepts an event at time zero, then exactly 24-hour intervals, up to four events and at most 72 hours. These are execution constraints, not a treatment recommendation.</p>
