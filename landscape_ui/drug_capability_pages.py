@@ -12,7 +12,7 @@ def register_drug_capability_pages(bp):
         q = request.args.get('q','').strip()
         capability = request.args.get('capability','all')
         output = request.args.get('format','html')
-        if len(q)>120 or capability not in ('all','exposure','efficacy','toxicity') or output not in ('html','json'):
+        if len(q)>120 or capability not in ('all','exposure','efficacy','toxicity','target_activity','research_timecourse','assumption_experiment') or output not in ('html','json'):
             abort(400)
         try:
             report = capability_inventory()
@@ -22,7 +22,7 @@ def register_drug_capability_pages(bp):
         rows = [r for r in report['entries'] if not q or
                 any(q.casefold() in name.casefold() for name in [r['label']]+r['aliases'])]
         if capability != 'all':
-            rows = [r for r in rows if r['capabilities'][capability]['status']=='implemented_educational']
+            rows = [r for r in rows if r['capabilities'][capability]['status'] in ('implemented_educational','available_research_tool')]
         if output == 'json':
             # Export the complete source-bound inventory; filters are explicitly separate.
             payload = {'inventory':report,'selection':{'query':q,'capability':capability,

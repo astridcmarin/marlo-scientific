@@ -1,4 +1,6 @@
-# Steps106–108: Bortezomib observation intake
+# Bortezomib observation intake v1 (historically labeled Steps 106–108)
+
+Checkpoint naming: this batch reused step numbers already assigned to figure review, time-course modeling and assumption sensitivity. Its stable name is **observation intake v1**. Existing filenames and schema identifiers are retained for compatibility; see [checkpoint mapping](REPOSITORY_CHECKPOINT.md).
 
 This new development batch follows Step105. Step106 defines a paired-observation extraction contract; Step107 checks source archives and record compatibility; Step108 produces a deterministic readiness report through one CLI. These are new implementation checkpoints, not previously recovered packages. The batch prepares evidence collection and does not resolve the scientific discrepancy.
 
@@ -56,4 +58,4 @@ Output files are never overwritten. Archive paths outside the input directory, i
 
 ## Roadmap checkpoint
 
-This advances the evidence preparation layer of drug-specific endpoint development. Actual extraction, independent review, matched-profile comparison, uncertainty analysis and a compatible bortezomib PK implementation remain ahead. Broader disease and drug coverage remains a separate active roadmap goal. Deployment is deferred.
+This advances the evidence preparation layer of drug-specific endpoint development. Actual extraction, independent review, matched-profile comparison, uncertainty analysis remain ahead. A study-regimen time-course candidate exists, but a scientifically supported, patient-compatible bortezomib PK implementation remains ahead. Broader disease and drug coverage remains a separate active roadmap goal. Deployment is deferred.

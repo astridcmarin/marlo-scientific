@@ -28,6 +28,13 @@
   <p class="pk-timeline-note">Sampled points at a request time show the retained after-request state. Before/after controls use archived boundary snapshots at those times only. A request is not a confirmed administration.</p>
   {% if not timeline.events.available %}<p class="pk-timeline-note">{{ timeline.events.reason }}</p>{% endif %}
   <p class="pk-timeline-note" data-pk-chart-note hidden>The orange chart markers identify the selected archived sampled point. At a request time they mark the sampled after-request curve; the before/after amounts and values are displayed in the timeline. No values between samples are estimated.</p>
+  <div class="pk-timeline-buttons"><button type="button" class="button secondary" data-pk-csv disabled>Download archived timeline CSV</button></div>
+  <p class="pk-timeline-note">CSV includes sampled points and available before-request snapshots with run identifiers and archive hashes. It is a numerical projection; download the archived run JSON for full inputs, sources and assumptions.</p>
+  <p data-pk-csv-status role="status" aria-live="polite">CSV download requires JavaScript and supported archived run provenance.</p>
+  {% if run is defined and scenario is defined and revision is defined and report is defined and review is defined %}
+  <script type="application/json" data-pk-csv-metadata>{{ {'run_id':run.id,'scenario_id':scenario.id,'revision_id':revision.id,'payload_sha256':run.payload_sha256,'report_sha256':run.report_sha256,'revision_payload_sha256':review.binding.revision_payload_sha256,'execution_contract_sha256':report.execution_contract_sha256,'method_version':report.method_version,'solver_method_version':report.solver_method_version}|tojson }}</script>
+  {% endif %}
+  <script type="application/json" data-pk-boundary-coverage>{{ timeline.events.available|tojson }}</script>
   <p data-pk-fallback>First archived point shown. Enable JavaScript to move through the timeline.</p>
   <div class="pk-timeline-metrics">
     <div><span>Central concentration</span><strong><span data-pk-concentration>{{ '%.6f'|format(timeline.first.concentration_ng_ml) }}</span> ng/mL</strong></div>
@@ -44,6 +51,7 @@
   <script type="application/json" data-pk-points>{{ timeline.points|tojson }}</script>
 <script type="application/json" data-pk-events>{{ timeline.events["items"]|tojson }}</script>
 </section>
+<script src="{{ url_for('landscape.static',filename='pk-timeline-csv.js') }}" defer></script>
 <script src="{{ url_for('landscape.static',filename='pk-compartment-timeline.js') }}" defer></script>
 {% else %}<section class="panel"><h2>Compartment timeline unavailable</h2><p>{{ timeline.reason }}</p></section>{% endif %}
 {% endif %}

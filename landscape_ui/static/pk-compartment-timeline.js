@@ -125,6 +125,26 @@
       });
       window.addEventListener('pagehide', () => stop());
     }
+    const csvButton = q('[data-pk-csv]');
+    const csvStatus = q('[data-pk-csv-status]');
+    if (csvButton) csvButton.disabled = true;
+    if (csvButton && csvStatus && window.PKTimelineCSV && window.Blob && window.URL &&
+        typeof window.URL.createObjectURL === 'function' && typeof window.URL.revokeObjectURL === 'function') {
+      try {
+        const metadata = JSON.parse(q('[data-pk-csv-metadata]').textContent);
+        const coverage = JSON.parse(q('[data-pk-boundary-coverage]').textContent);
+        const csv = window.PKTimelineCSV.build(points, events, metadata, coverage);
+        csvButton.disabled = false;
+        csvStatus.textContent = coverage ? 'Archived timeline CSV ready.' : 'CSV ready; request boundary snapshots are unavailable.';
+        csvButton.addEventListener('click', () => {
+          stop();
+          try {
+            window.PKTimelineCSV.download(csv, metadata.run_id, window);
+            csvStatus.textContent = 'CSV download requested. Keep the archived JSON with it for full provenance.';
+          } catch (_) { csvStatus.textContent = 'CSV download could not be started. Use the archived JSON download instead.'; }
+        });
+      } catch (_) { csvStatus.textContent = 'CSV withheld: supported archive provenance or numerical data are unavailable. Use the archived JSON download.'; }
+    }
     slider.max = String(points.length - 1);
     slider.addEventListener('input', () => { stop(); show(Number(slider.value)); });
     prev.addEventListener('click', () => { stop(); show(Number(slider.value) - 1); });

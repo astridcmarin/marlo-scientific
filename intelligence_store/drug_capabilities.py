@@ -11,7 +11,9 @@ from .published_transit_reference import load_structure_contract, CONTRACT_SHA25
 from .educational_pk import load_execution_contract, CONTRACT_SHA256 as EXECUTION_SHA
 from .patient_state import digest
 
-METHOD = 'drug-capability-inventory-v1.0'
+from .drug_research_tools import research_tool_registry
+
+METHOD = 'drug-capability-inventory-v1.1'
 DISEASE_LABELS = {'MM':'Multiple Myeloma', 'CLL':'Chronic Lymphocytic Leukemia',
                   'AML':'Acute Myeloid Leukemia', 'ALL':'Acute Lymphoblastic Leukemia'}
 
@@ -62,6 +64,7 @@ def capability_inventory():
         model = _exposure_model()
     except ValueError:
         warnings.append({'area':'exposure','message':'The registered lenalidomide model contracts could not be verified.'})
+    research_registry = research_tool_registry()
     rows = []
     for entry in sorted(catalog['entries'], key=lambda e:e['canonical_name'].casefold()):
         capabilities = {}
@@ -77,7 +80,12 @@ def capability_inventory():
                                     'unavailable' if registered else 'not_registered'}
         capabilities['efficacy'] = {'status':'not_registered'}
         capabilities['toxicity'] = {'status':'not_registered'}
-        row = {'entity_id':entry['id'], 'label':entry['canonical_name'], 'aliases':copy.deepcopy(entry['aliases']),
+        research_tools = copy.deepcopy(research_registry.get(entry['id'],[]))
+        for kind in ('target_activity','research_timecourse','assumption_experiment'):
+            candidates=[t for t in research_tools if t['kind']==kind]
+            capabilities[kind]={'status':'available_research_tool' if any(t['availability']=='available' for t in candidates)
+                                else 'unavailable' if candidates else 'not_registered'}
+        row = {'research_tools':research_tools,'entity_id':entry['id'], 'label':entry['canonical_name'], 'aliases':copy.deepcopy(entry['aliases']),
                'identity_reference':copy.deepcopy(entry['source']), 'capabilities':capabilities,
                'exposure_model':copy.deepcopy(model) if registered and model else None,
                'disease_indications':'not_assessed_by_this_inventory'}
@@ -88,6 +96,8 @@ def capability_inventory():
               'counts':{'drug_entities':len(rows),
                         'educational_exposure_models':sum(r['capabilities']['exposure']['status']=='implemented_educational' for r in rows),
                         'efficacy_models':0,'toxicity_models':0},
+              'research_tool_counts':{kind:sum(t['availability']=='available' and t['kind']==kind for r in rows for t in r['research_tools'])
+                                      for kind in ('target_activity','research_timecourse','assumption_experiment','evidence_review')},
               'clinical_prediction_validated':False,'ready_for_patient_simulation':False,
               'limitation':'Catalog presence is not current-label verification, disease indication, approval, model applicability or clinical suitability. Safety references are not toxicity predictions. Generic experiments are not drug-specific models.'}
     report['report_sha256'] = digest(report)

@@ -1,5 +1,6 @@
 """One entry point for the existing hypothetical teaching experiments."""
 from flask import Response, abort, render_template, request
+from intelligence_store.drug_research_tools import research_tool_registry
 
 GROUPS = (
     {'id':'exposure','title':'Exposure and compartments','description':'Follow amounts through mathematical transit stages.',
@@ -40,5 +41,5 @@ def register_simulation_lab_pages(bp):
     @bp.get('/simulation-lab')
     def simulation_lab():
         if request.args:abort(400)
-        return Response(render_template('landscape_simulation_lab.html',groups=GROUPS),headers={
+        return Response(render_template('landscape_simulation_lab.html',groups=GROUPS,research_tools=research_tool_registry().get('bortezomib',[])),headers={
             'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'})

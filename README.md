@@ -187,7 +187,6 @@ Marlo Scientific is primarily developed using Python and Flask.
 | CSS | Interface design |
 | JavaScript | Interactive functionality |
 | JSON | Structured scientific reference data |
-| Docker | Application containerization |
 | Git | Version control |
 | GitHub | Source code management |
 
@@ -236,7 +235,6 @@ marlo-scientific/
 │
 ├── tests/
 │
-├── Dockerfile
 ├── requirements.txt
 └── README.md
 ```
@@ -328,11 +326,15 @@ The exact startup procedure should be verified against the current Flask applica
 
 The project includes automated tests using Python testing utilities.
 
-Where pytest is installed and configured:
+Run the same unittest discovery command used by GitHub Actions:
 
 ```bash
-python -m pytest tests/
+python -m unittest discover -s tests
 ```
+
+The optional live ClinicalTrials.gov smoke check is separate from test discovery: `python scripts/smoke_clinicaltrials_api.py`. It requires network access. Containerization is not yet implemented.
+
+See [the current repository checkpoint](docs/REPOSITORY_CHECKPOINT.md) for implemented capabilities and outstanding scientific work.
 
 Scientific model tests should be run whenever computational models or their supporting evidence contracts are modified.
 
