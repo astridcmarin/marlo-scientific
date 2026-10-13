@@ -1,6 +1,6 @@
 # Patient Lab 2.0 — covariate-aware virtual patient
 
-Recorded 13 October 2026. Owner: Astrid. Status: in progress (2.0a–2.0d done).
+Recorded 13 October 2026. Owner: Astrid. Status: in progress (2.0a–2.0e done).
 
 ## Goal
 
@@ -59,13 +59,21 @@ patient_state (v1) ─► covariate_estimation ─► pk_model_inputs ─► edu
 | 2.0b | Formula registry and covariate estimation | Delivered in this change. |
 | 2.0c | Covariate resolution and applicability | Done. Range checks in `pk_model_inputs`; the estimate adds input and covariate coverage checks; saved v2 runs carry the estimate. |
 | 2.0d | Individualized typical-value run | Done. `estimated_pk.py` estimates covariates from a saved revision and runs `educational_pk` unchanged; `save_estimated_pk_run` stores `saved-educational-pk-run-v2` with the estimate, verified on every read. Page: `…/revisions/<id>/estimated-pk` (ideal body weight preselected and labelled; compare-all-bases overlay). CLI: `patient-pk-estimated`, `patient-pk-save-estimated`. |
-| 2.0e | Population mode | Next. Sample (eta_CL, eta_V) jointly from the OMEGA block and eta_KTR separately; seeded; percentile bands. |
-| 2.0f | Run record and UI | Provenance panel, applicability badges, weight-basis toggle, persistent "simulated, synthetic, not a clinical prediction" banner. |
+| 2.0e | Population mode | Done. `population_pk.py` draws seeded (η_CL, η_V) jointly from the OMEGA block and η_KTR independently, solves each virtual patient exactly (closed-form transit chain, verified against the numerical solver to < 1e-9 in every regime and against the typical curve on every run) and reports 5/25/50/75/95th percentile bands plus AUC and peak distributions. Page action "Show population band"; CLI `patient-pk-population`. Excludes residual error, parameter uncertainty and between-occasion variability (stated in every report). |
+| 2.0f | Run record and UI | Next. Provenance panel, applicability badges, weight-basis toggle, persistent "simulated, synthetic, not a clinical prediction" banner. |
 | 2.0g | Reproduction check | Compare predicted exposure by renal group with the Dahut 2009 groups already in `lenalidomide_pk_v1.json`; record pass, fail or discrepancy in the validation-gap register. Expect under-prediction in severe impairment (see below). |
 
 ## Typical value vs individual prediction (2.0d)
 
 A 2.0d curve is the model's **typical value for a patient with these covariates**: every random effect (η) is zero. It is not an individual prediction. Predicting a specific person requires that person's measured concentrations and Bayesian (MAP) estimation, which is out of scope. Two patients with identical covariates can differ about twofold in exposure (CL/F between-subject variability ≈ 54% CV), which is why 2.0e adds the population band.
+
+## The population band (2.0e)
+
+The band answers: how far would patients with exactly these covariates spread around the typical curve under this model? For the example record (three daily 5 mg requests), median AUC matched the typical value (1661 vs 1660 ng·h/mL) and the 5th–95th percentile range spanned about 5.7-fold, which is what ω²_CL = 0.296 implies (exp(2 × 1.645 × 0.544) ≈ 6).
+
+Two points worth keeping in view:
+- The band is model-implied variability, not uncertainty about the model. It omits residual error (relevant when comparing with observed concentrations), uncertainty in the published estimates, and anything the model leaves out.
+- Between-subject variability dwarfs the unresolved weight-basis effect (≈ 6-fold vs ≈ 1.06-fold for the example). The weight basis matters for traceability far more than for the numbers.
 
 ## Scientific notes recorded during 2.0a/2.0b
 

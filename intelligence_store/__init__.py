@@ -39,6 +39,7 @@ from .published_transit_reference import register_published_transit_reference_co
 from .pk_model_inputs import register_pk_model_input_commands
 from .covariate_estimation import register_covariate_estimation_commands
 from .estimated_pk import register_estimated_pk_commands
+from .population_pk import register_population_pk_commands
 from .patient_model_binding import register_patient_model_binding_commands
 from .treatment_requests import register_treatment_request_commands
 from .model_coverage import register_model_coverage_commands
@@ -109,6 +110,7 @@ def init_storage(app):
     register_pk_model_input_commands(app)
     register_covariate_estimation_commands(app)
     register_estimated_pk_commands(app)
+    register_population_pk_commands(app)
     register_patient_model_binding_commands(app)
     register_treatment_request_commands(app)
     register_model_coverage_commands(app)
