@@ -1,6 +1,5 @@
 """Source-checked research-tool registry. Inventory does not execute models."""
 import hashlib
-from pathlib import Path
 from .bortezomib_proteasome import load_reference as load_pd,REFERENCE_SHA256
 from .bortezomib_timecourse import load_reference as load_pk,REFERENCE_HASH
 from .bortezomib_evidence_review import DATA_PATH as SUMMARY_PATH,DATA_SHA256 as SUMMARY_SHA

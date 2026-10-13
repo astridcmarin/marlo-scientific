@@ -1,7 +1,5 @@
 """Offline tests for the regimen approval gate. Synthetic evidence is test-only."""
 import copy
-import hashlib
-import json
 import unittest
 import sys
 from pathlib import Path

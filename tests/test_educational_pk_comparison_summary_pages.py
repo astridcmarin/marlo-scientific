@@ -1,5 +1,4 @@
 """Read-only audited summary integration and withholding in the existing UI."""
-import copy
 import unittest
 from unittest.mock import patch
 from sqlalchemy import select

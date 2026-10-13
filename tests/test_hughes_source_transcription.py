@@ -1,7 +1,5 @@
 """Bounded source extraction and discrepancy detection without clinical approval."""
-import copy
 import importlib.util
-import json
 from pathlib import Path
 import tempfile
 import unittest

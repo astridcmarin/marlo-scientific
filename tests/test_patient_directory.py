@@ -1,37 +1,26 @@
 """Integration checks for the unified, read-only Patient Lab workspace."""
-import copy
 import json
-from pathlib import Path
-import tempfile
 import unittest
 from sqlalchemy import select, update, delete, inspect
-from sqlalchemy.exc import IntegrityError
-from flask import Flask, current_app
+from flask import Flask
 from datetime import datetime
 from intelligence_store.models import AnalysisCohort, CohortTrial, TrialSnapshot
 from intelligence_store.patient_scenarios import load_scenario_presets
 from intelligence_store.saved_scenarios import analyze_for_save, save_scenario
 from intelligence_store.extensions import db
-from intelligence_store.patient_state import example_state, digest, state_from_scenario
-from intelligence_store.patient_state_revisions import (PatientStateRevision, save_revision,
-    read_revision, export_revision, register_patient_state_revision_commands)
-from intelligence_store.validation import validate_platform
+from intelligence_store.patient_state import digest, state_from_scenario
+from intelligence_store.patient_state_revisions import PatientStateRevision, save_revision
 
 
 from unittest.mock import patch
 from intelligence_store.pk_model_inputs import model_input_example
-from intelligence_store.patient_model_binding import review_model_binding, register_patient_model_binding_commands
 
 
-from intelligence_store.treatment_requests import (treatment_request_example,validate_treatment_request,
-    treatment_request_preview,review_patient_treatment,register_treatment_request_commands)
+from intelligence_store.treatment_requests import treatment_request_example
 
 
-from intelligence_store.model_coverage import (review_model_coverage,load_coverage_contract,register_model_coverage_commands)
 
 
-from intelligence_store.educational_pk import (calculate_educational_pk,load_execution_contract,register_educational_pk_commands)
-import math
 
 
 class PatientDirectoryTests(unittest.TestCase):
@@ -143,7 +132,7 @@ class PatientDirectoryTests(unittest.TestCase):
     def test_latest_state_does_not_borrow_older_exposure(self):
         from intelligence_store.educational_pk_runs import save_pk_run
         self.baseline()
-        old=save_pk_run(self.revision.id,model_input_example(),treatment_request_example(),'MM',title='Old state exposure')
+        save_pk_run(self.revision.id,model_input_example(),treatment_request_example(),'MM',title='Old state exposure')
         new=save_revision(self.scenario.id,self.base,title='Latest state without run',parent_revision_id=self.revision.id)
         text=self.client.get(self.path).get_data(as_text=True)
         self.assertIn('Latest state without run',text)
@@ -166,7 +155,6 @@ class PatientDirectoryTests(unittest.TestCase):
         self.assertNotIn('Corrupt title',text)
 
     def test_title_search_is_literal_and_pagination_is_bounded(self):
-        from intelligence_store.saved_scenarios import SavedPatientScenario
         from intelligence_store.saved_scenarios import save_scenario
         for i in range(11):
             save_scenario('Patient '+str(i),1,self.profile,digest(self.analysis),format(i+1,'064x'))

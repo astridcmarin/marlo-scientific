@@ -5,17 +5,14 @@ from pathlib import Path
 import tempfile
 import unittest
 from sqlalchemy import select, update, delete, inspect
-from sqlalchemy.exc import IntegrityError
-from flask import Flask, current_app
+from flask import Flask
 from datetime import datetime
 from intelligence_store.models import AnalysisCohort, CohortTrial, TrialSnapshot
 from intelligence_store.patient_scenarios import load_scenario_presets
 from intelligence_store.saved_scenarios import analyze_for_save, save_scenario
 from intelligence_store.extensions import db
 from intelligence_store.patient_state import example_state, digest, state_from_scenario
-from intelligence_store.patient_state_revisions import (PatientStateRevision, save_revision,
-    read_revision, export_revision, register_patient_state_revision_commands)
-from intelligence_store.validation import validate_platform
+from intelligence_store.patient_state_revisions import PatientStateRevision, save_revision
 
 
 class PatientModelReviewTests(unittest.TestCase):

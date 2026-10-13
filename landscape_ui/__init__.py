@@ -30,7 +30,7 @@ from intelligence_store.site_feasibility import (
     empty_pool_inputs, POOL_FIELDS, FeasibilityError, name_key as geography_key,
     digest as feasibility_digest,
 )
-from intelligence_store.regulatory import summarize_regulatory, OVERSIGHT_FIELDS, RESULT_LABELS, REVIEW_LABELS, BOOL_STATES
+from intelligence_store.regulatory import summarize_regulatory, OVERSIGHT_FIELDS, REVIEW_LABELS, BOOL_STATES
 from intelligence_store.patient_scenarios import (
     load_scenario_presets, summarize_scenario, validate_scenario, ScenarioValidationError, SCHEMA_VERSION, SEX_VALUES, DOSE_UNITS,
 )

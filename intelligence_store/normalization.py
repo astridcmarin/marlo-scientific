@@ -12,26 +12,6 @@ from .models import NormalizedTrial, TrialSnapshot, utc_now
 
 NORMALIZATION_VERSION = "trial-fields-v1.0"
 
-# Every field is traceable through source_snapshot_id to the retained JSON.
-FIELD_PATHS = {
-    "brief_title": "protocolSection.identificationModule.briefTitle",
-    "official_title": "protocolSection.identificationModule.officialTitle",
-    "overall_status": "protocolSection.statusModule.overallStatus",
-    "study_type": "protocolSection.designModule.studyType",
-    "phases": "protocolSection.designModule.phases",
-    "conditions": "protocolSection.conditionsModule.conditions",
-    "enrollment_count": "protocolSection.designModule.enrollmentInfo.count",
-    "enrollment_type": "protocolSection.designModule.enrollmentInfo.type",
-    "lead_sponsor_name": "protocolSection.sponsorCollaboratorsModule.leadSponsor.name",
-    "lead_sponsor_class": "protocolSection.sponsorCollaboratorsModule.leadSponsor.class",
-    "start_date": "protocolSection.statusModule.startDateStruct.date",
-    "start_date_type": "protocolSection.statusModule.startDateStruct.type",
-    "primary_completion_date": "protocolSection.statusModule.primaryCompletionDateStruct.date",
-    "primary_completion_date_type": "protocolSection.statusModule.primaryCompletionDateStruct.type",
-    "completion_date": "protocolSection.statusModule.completionDateStruct.date",
-    "completion_date_type": "protocolSection.statusModule.completionDateStruct.type",
-}
-
 
 def _mapping(value):
     return value if isinstance(value, dict) else {}

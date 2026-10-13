@@ -1,5 +1,4 @@
 """The combined checkpoint preserves explicit lineage and scientific blockers."""
-import copy
 import json
 from pathlib import Path
 import tempfile
