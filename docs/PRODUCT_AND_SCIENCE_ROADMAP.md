@@ -1,6 +1,6 @@
 # Product and scientific development direction
 
-Decision recorded 10 October 2026. Owner: Astrid. Implementation checkpoint: Step 101.
+Product direction recorded 10 October 2026. Owner: Astrid. Repository checkpoint updated 13 October 2026: Step 109 plus the separate observation-intake workflow.
 
 ## Product goal
 
@@ -18,7 +18,7 @@ The existing lenalidomide model is a deterministic educational implementation. G
 
 | Phase | Concrete work | Completion evidence |
 |---|---|---|
-| 1. Explicit capability library | Connect each curated drug with reference coverage, model endpoints, source populations, inputs, versions and gaps. | Searchable inventory accurately reflects installed assets and withholds unavailable entries. Step 101 supplies the first view. |
+| 1. Explicit capability library | Connect each curated drug with reference coverage, model endpoints, source populations, inputs, versions and gaps. | Searchable inventory accurately reflects installed assets and withholds unavailable entries. Step 101 supplies the first view; Step 109 adds source-checked research-tool discovery. |
 | 2. Broader disease and drug evidence | Extend curated identities and disease associations; preserve formulations, components and regimens distinctly; expand source review and trial cohorts. | Reviewed source-linked entries, documented coverage and reproducible counts. No disease indication inferred from an alias or trial condition alone. |
 | 3. Drug-specific exposure models | Add suitable published PK models and formulation/route boundaries. Establish mathematical verification, independent transcription review and observed-data evaluation. | Reproducible equations, parameters and comparison results, with population and uncertainty limits. |
 | 4. Efficacy and toxicity endpoints | Select quantitative exposure-response or mechanistic models with suitable measurements. Implement each endpoint under its evidence-supported scope. | Observed endpoint reproduction/evaluation and documented assumptions; no efficacy or risk inferred solely from binding, a warning or a trial count. |
@@ -41,8 +41,14 @@ Every drug may have identity, mechanism, safety and interaction references while
 
 A group mean is not an individual observation. Marginal covariate ranges do not establish joint coverage. A generic biological demonstration cannot be relabeled as a researched drug model. Evidence currency and validation state must stay visible.
 
-## Immediate work after Step 101
+## Current checkpoint and next work
 
-Choose the next quantitative endpoint and candidate published model based on accessible evidence. Complete a source/data feasibility review before implementing new drug response equations. In parallel, plan how to extend the drug and disease library without revisiting the paused normalization branch unless the owner requests it.
+Steps 104–108 provide the bortezomib target-activity equation, peak-evidence review, provisional figure review, study-regimen time-course candidate and elimination-assumption comparison. Step 109 connects these five research tools to the Drug and Model Library and Simulation Lab. They remain review-required; no efficacy or toxicity model is registered. The educational exposure-model count remains one.
+
+A separate observation-intake batch reused the numbers 106–108. Refer to it as **observation intake v1**, using its module/schema identifiers rather than those ambiguous numbers. It checks source archives and paired-observation completeness; its empty template reports `evidence_incomplete`. It neither supersedes the time-course work nor resolves the peak-evidence discrepancy. See [repository checkpoint](REPOSITORY_CHECKPOINT.md) for the mapping.
+
+The next scientific work is to resolve the bortezomib elimination formulation and review adequately sourced, compatible observations before evaluating model reproduction. Preserve the distinction between software verification and empirical/independent scientific validation. Lenalidomide source reproduction and independent review also remain pending.
+
+Broader disease and drug evidence can proceed alongside that review. Biological-profile integration requires compatible, supported models. Accounts, billing and production infrastructure remain future work; deployment is deferred.
 
 The eventual research workflow is: disease/drug search → source investigation → supported model selection → declared biological profile → exposure and endpoint simulation → uncertainty review → saved reproducible investigation. Current tools cover only parts of this chain.
