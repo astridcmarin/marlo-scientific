@@ -28,6 +28,8 @@ ASSESSMENT_SHA256 = 'bbaffa714dd5bd2fb9773a1620fb022c35bd90175b972d0a0855d9f6916
 VARIABILITY_PATH = DATA / 'hughes_variability_extract_v1.json'
 VARIABILITY_SHA256 = '2e5970e646f6acdbee434f6c52e1bc051ecfdec163c0aee825fe1c4ea1dde5d4'
 COVERAGE_PATH = DATA / 'hughes_coverage_contract_v1.json'
+FINDINGS_PATH = DATA / 'hughes_applicability_findings_v1.json'
+FINDINGS_SHA256 = 'a7dbfdd44cc3c5f56a6642cdd762eedab3da3a8f57f30c32f22fcd5029bce5a0'
 COVERAGE_SHA256 = 'b452b4f21d4449ef88fc7821481376c08b16ad8fcd1b90a6664bba7408857fe6'
 
 WEIGHT_BASES = ('ideal_body_weight_devine', 'adjusted_body_weight_0_4', 'total_body_weight')
@@ -71,6 +73,10 @@ def load_weight_basis_assessment(path=ASSESSMENT_PATH):
 
 def load_variability_extract(path=VARIABILITY_PATH):
     return _load_pinned(path, VARIABILITY_SHA256, 'pk-variability-extract-v1', 'Variability extract')
+
+
+def load_applicability_findings(path=FINDINGS_PATH):
+    return _load_pinned(path, FINDINGS_SHA256, 'model-applicability-findings-v1', 'Applicability findings')
 
 
 def load_coverage_contract(path=COVERAGE_PATH):
@@ -169,6 +175,7 @@ def estimate_hughes_covariates(state, weight_basis):
             **copy.deepcopy(assessment['basis_evidence'][weight_basis])},
         'status': 'missing_inputs' if missing else 'estimated',
         'missing_fields': missing, 'estimates': None, 'derivations': [], 'coverage_checks': [], 'warnings': [],
+        'applicability_findings': [], 'findings_version': None,
         'simulation_status': 'not_run', 'ready_for_patient_simulation': False,
         'limitations': [
             'Estimates are calculations from declared synthetic inputs under the recorded assumptions, not measurements.',
@@ -244,6 +251,15 @@ def estimate_hughes_covariates(state, weight_basis):
         report['coverage_checks'].append({'field': name, 'role': 'model_covariate', 'value': value,
                                           'unit': spec['unit'], 'source_range': spec['range'],
                                           'status': _range_status(value, spec['range'])})
+    findings = load_applicability_findings()
+    report['applicability_findings'] = []
+    for finding in findings['findings']:
+        value = {'creatinine_clearance': crcl, 'fat_free_mass': ffm}[finding['covariate']]
+        if value < finding['applies_below']:
+            warnings.append(finding['warning'])
+            report['applicability_findings'].append({'id': finding['id'], 'status': finding['status'],
+                                                     'evidence_report': finding['evidence']['report']})
+    report['findings_version'] = findings['findings_version']
     outside = [c['field'] for c in report['coverage_checks'] if c['status'] == 'outside_reported_range']
     if outside:
         warnings.append('Outside the reported Hughes study ranges: ' + ', '.join(outside) + '. Any model use would be extrapolation.')

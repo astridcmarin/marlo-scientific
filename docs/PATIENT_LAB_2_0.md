@@ -1,6 +1,6 @@
 # Patient Lab 2.0 — covariate-aware virtual patient
 
-Recorded 13 October 2026. Owner: Astrid. Status: in progress (2.0a–2.0e done).
+Recorded 13 October 2026. Owner: Astrid. Status: 2.0a–2.0e and 2.0g done; 2.0f partly delivered within 2.0d/2.0e.
 
 ## Goal
 
@@ -61,7 +61,22 @@ patient_state (v1) ─► covariate_estimation ─► pk_model_inputs ─► edu
 | 2.0d | Individualized typical-value run | Done. `estimated_pk.py` estimates covariates from a saved revision and runs `educational_pk` unchanged; `save_estimated_pk_run` stores `saved-educational-pk-run-v2` with the estimate, verified on every read. Page: `…/revisions/<id>/estimated-pk` (ideal body weight preselected and labelled; compare-all-bases overlay). CLI: `patient-pk-estimated`, `patient-pk-save-estimated`. |
 | 2.0e | Population mode | Done. `population_pk.py` draws seeded (η_CL, η_V) jointly from the OMEGA block and η_KTR independently, solves each virtual patient exactly (closed-form transit chain, verified against the numerical solver to < 1e-9 in every regime and against the typical curve on every run) and reports 5/25/50/75/95th percentile bands plus AUC and peak distributions. Page action "Show population band"; CLI `patient-pk-population`. Excludes residual error, parameter uncertainty and between-occasion variability (stated in every report). |
 | 2.0f | Run record and UI | Next. Provenance panel, applicability badges, weight-basis toggle, persistent "simulated, synthetic, not a clinical prediction" banner. |
-| 2.0g | Reproduction check | Compare predicted exposure by renal group with the Dahut 2009 groups already in `lenalidomide_pk_v1.json`; record pass, fail or discrepancy in the validation-gap register. Expect under-prediction in severe impairment (see below). |
+| 2.0g | Reproduction check | Done as an exploratory aggregate consistency check against study CC-5013-PK-001 (the renal-group data in `landscape_ui/data/renal_pk/`, extracted from the EMA assessment of Chen et al. 2007; earlier notes called this "Dahut", which was wrong). Plan locked and committed before computation (`hughes_renal_group_check_plan_v1.json`); report `docs/verification/hughes_renal_group_check_v1.json`; CLI `hughes-renal-group-check`. Result below. |
+
+## Renal-group consistency check (2.0g)
+
+Question: do group-mean exposures observed across renal-function groups fall within the range the Hughes model predicts for a study of the same design? Method: 10,000 simulated replicates of the study (single 25 mg dose, reported group sizes, creatinine-clearance ranges, Hughes between-subject variability); a group is *consistent* if its observed mean lies within the simulated 5th–95th percentile. Primary endpoint: AUC∞ relative to the normal group.
+
+| Group (CrCl, mL/min) | Observed AUC ratio | Simulated 90% range | Classification | Observed ÷ median |
+|---|---|---|---|---|
+| Normal (>80) | — (absolute 2181 vs 1589–3334 ng·h/mL) | | consistent | |
+| Mild (50–80) | 1.27 | 0.63–1.94 | consistent | 1.15 |
+| Moderate (30–50) | 2.76 | 0.74–2.11 | model under-predicts | 2.2 |
+| Severe (<30) | 3.76 | 0.85–2.55 | model under-predicts | 2.6 |
+
+Identical classification in all four prespecified scenarios. Terminal half-life agrees with the same picture (observed ≈ 9–11 h vs ≈ 5–6 h simulated below 50 mL/min).
+
+Interpretation: the model's weak renal exponent (0.224) holds down to about 50 mL/min and fails below it, including part of its own reported data range (36–50 mL/min). Consequence in the platform: `hughes_applicability_findings_v1.json` adds a warning to every covariate estimate with CrCl < 50 mL/min; calculations still run. This is an exploratory finding from aggregate data, not validation. The natural next model for reduced renal function is Kim 2026 (renally impaired MM patients, unbound and total concentrations), once its final tables are transcribed.
 
 ## Typical value vs individual prediction (2.0d)
 
@@ -97,6 +112,6 @@ Resolution path: ask the corresponding author what weight produced `CRCL2` and w
 1. Software verification — the code computes the intended equations (worked-example tests, pinned sources).
 2. Transcription verification — parameters match the paper and control stream.
 3. Reproduction — the model reproduces its own published results.
-4. External consistency — agreement with data not used to fit it (Dahut renal groups, if independent of the fitting data).
+4. External consistency — agreement with data not used to fit it (done for the CC-5013-PK-001 renal groups in 2.0g, as an aggregate check; that study was not part of the Hughes dataset).
 
 Passing all four supports research use. `clinical_prediction_validated` stays false.
