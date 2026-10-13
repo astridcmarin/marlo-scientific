@@ -312,15 +312,17 @@ pip install -r requirements.txt
 
 ### Start the Application
 
-The application entry point is located at:
+From the repository root, with the virtual environment active:
 
-```text
-app/app.py
+```bash
+export PYTHONPATH=.                    # lets Flask find intelligence_store and landscape_ui
+flask --app app/app.py db upgrade      # create or update the database schema
+flask --app app/app.py run
 ```
 
-Application startup may require local configuration, database initialization, or environment variables.
+By default the database is SQLite at `instance/intelligence.db`; set `DATABASE_URL` to use another database. A workspace signing key is generated in `instance/` on first use. The `instance/` folder is ignored by git.
 
-The exact startup procedure should be verified against the current Flask application configuration before use.
+Command-line tools are registered on the same app, for example `flask --app app/app.py covariate-estimate --example --compare-bases`. Run `flask --app app/app.py --help` for the full list.
 
 ### Run Tests
 
@@ -334,7 +336,7 @@ python -m unittest discover -s tests
 
 The optional live ClinicalTrials.gov smoke check is separate from test discovery: `python scripts/smoke_clinicaltrials_api.py`. It requires network access. Containerization is not yet implemented.
 
-See [the current repository checkpoint](docs/REPOSITORY_CHECKPOINT.md) for implemented capabilities and outstanding scientific work.
+See [the documentation index](docs/README.md) and [the current repository checkpoint](docs/REPOSITORY_CHECKPOINT.md) for implemented capabilities and outstanding scientific work.
 
 Scientific model tests should be run whenever computational models or their supporting evidence contracts are modified.
 

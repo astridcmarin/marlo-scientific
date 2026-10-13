@@ -1,0 +1,40 @@
+# Documentation index
+
+Start with the roadmap and the current Patient Lab plan. Step numbers are historical delivery labels and are not unique; module and schema versions are the stable identifiers (see the repository checkpoint).
+
+## Current direction
+
+- [Product and science roadmap](PRODUCT_AND_SCIENCE_ROADMAP.md) — product goal, development phases, capability representation.
+- [Patient Lab 2.0](PATIENT_LAB_2_0.md) — current computational-pharmacology work: scope, non-goals, architecture, step status, and the recorded scientific decisions (Hughes 2019 lenalidomide model, Cockcroft–Gault weight basis, typical value vs population band).
+- [Repository checkpoint](REPOSITORY_CHECKPOINT.md) — what is integrated, step-number history, outstanding scientific work.
+
+## Patient Lab foundations
+
+- [Synthetic patient-state schema v1](PATIENT_STATE_SCHEMA.md) — fields, units, provenance and preview contract.
+- [Step 65 — source-equation check](patient-lab-step65/SOURCE_EQUATION_CHECK.md) and [source assessment data](patient-lab-step65/hughes_source_assessment.json).
+- [Step 66 — data access assessment](patient-lab-step66/DATA_ACCESS_ASSESSMENT.md), [original-materials checklist](patient-lab-step66/ORIGINAL_MATERIALS_CHECKLIST.md) and [inventory](patient-lab-step66/data_access_inventory.json). The checklist includes the open question on the Hughes `CRCL2` covariate.
+- [Step 67 — verification and validation protocol (draft)](patient_lab/step67/VERIFICATION_VALIDATION_PROTOCOL.md) and [protocol data](patient_lab/step67/validation_protocol_draft.json).
+
+## Verification records
+
+- [Numerical verification summary](NUMERICAL_VERIFICATION.json).
+- [Synthetic RK4–analytic cross-check (Step 70)](verification/synthetic_numerical_crosscheck_step70.json) — output of `scripts/pk_numerical_crosscheck.py`.
+
+## Scientific decision records kept as data
+
+- Lenalidomide assay quality review — `intelligence_store/data/lenalidomide_assay_quality_review_v1.json`: the Lu Fig. 2D assay is retained as qualitative evidence and not used for quantitative calibration.
+- Hughes Cockcroft–Gault weight-basis assessment — `intelligence_store/data/hughes_weight_basis_assessment_v1.json` (see Patient Lab 2.0).
+
+## Bortezomib research tools
+
+- [Step 104 — proteasome target activity](BORTEZOMIB_PROTEASOME_STEP104.md)
+- [Step 105 — peak-evidence review](BORTEZOMIB_EVIDENCE_STEP105.md)
+- [Step 106 — provisional figure review](BORTEZOMIB_FIGURES_STEP106.md)
+- [Step 107 — study-regimen time course](BORTEZOMIB_TIMECOURSE_STEP107.md)
+- [Step 108 — elimination-assumption comparison](BORTEZOMIB_ASSUMPTIONS_STEP108.md)
+- [Observation intake v1](BORTEZOMIB_OBSERVATION_INTAKE_STEPS106_108.md) — separate workflow that reused the numbers 106–108.
+- [Step 109 — discoverable drug research tools](DRUG_RESEARCH_TOOLS_STEP109.md)
+
+## History
+
+- [Computational human direction — Step 26 proposal](history/FUTURE_PATIENT_LAB_ARCHITECTURE_STEP26.md). Historical; its "Patient Lab 2.0" meant the versioned patient state, not the current plan.

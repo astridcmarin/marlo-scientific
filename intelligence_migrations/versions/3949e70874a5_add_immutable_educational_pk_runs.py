@@ -1,7 +1,7 @@
 """Add immutable educational PK runs
 
 Revision ID: 3949e70874a5
-Revises: 3d51a5314688
+Revises: f25e8b6a96c1
 Create Date: 2026-10-07 18:35:20.578349
 
 """
@@ -11,7 +11,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '3949e70874a5'
-down_revision = '3d51a5314688'
+down_revision = 'f25e8b6a96c1'
 branch_labels = None
 depends_on = None
 

@@ -1,6 +1,8 @@
 # Computational human direction — historical Step 26 proposal
 
-> Historical design document. Versioned patient state, saved revisions and comparison workflows have since been implemented. This is not the current implementation checklist. See [the current roadmap](docs/PRODUCT_AND_SCIENCE_ROADMAP.md) and [repository checkpoint](docs/REPOSITORY_CHECKPOINT.md).
+> Historical design document. Versioned patient state, saved revisions and comparison workflows have since been implemented. This is not the current implementation checklist. See [the current roadmap](../PRODUCT_AND_SCIENCE_ROADMAP.md) and [repository checkpoint](../REPOSITORY_CHECKPOINT.md).
+>
+> Naming note: this proposal used "Patient Lab 2.0" for the versioned patient state, which has since shipped. The current [Patient Lab 2.0 plan](../PATIENT_LAB_2_0.md) (covariate estimation, personalized PK, population band) is a different, later scope.
 
 The central question remains: **What happens when this drug meets this biological system?**
 Keep the existing Flask application, retained trial evidence, curated drug knowledge,
