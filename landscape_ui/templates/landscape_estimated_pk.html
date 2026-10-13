@@ -1,0 +1,51 @@
+{% extends "landscape_base.html" %}
+{% block title %}Estimated-covariate PK · Record {{ revision.id }}{% endblock %}
+{% block content %}<p><a class="button secondary" href="{{ url_for('landscape.patient_lab_overview',scenario_id=scenario.id,revision_id=revision.id) }}">Patient Lab overview for this record</a></p>
+<link rel="stylesheet" href="{{ url_for('landscape.static',filename='transit-demo.css') }}">
+<h1>Educational PK from this patient record</h1>
+<p><a href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id) }}">Back to patient-state record #{{ revision.id }}</a> · Scenario #{{ scenario.id }} · <a href="{{ url_for('landscape.educational_pk',scenario_id=scenario.id,revision_id=revision.id) }}">Enter covariates directly instead</a></p>
+<section class="scenario-notice"><strong>Simulated, synthetic, not a clinical prediction</strong><p>Fat-free mass and creatinine clearance are estimated from this record's age, sex, weight, height and serum creatinine, then used by the Hughes 2019 model. The curve is the model's <em>typical value</em> for a patient with these covariates, with all random effects at zero. Patients with identical covariates vary widely around it. It does not predict efficacy, toxicity or a suitable dose.</p></section>
+{% include 'estimate_provenance_panel.html' %}
+<section class="panel"><h2>Request a calculation</h2>
+{% if error %}<p role="alert">{{ error }}</p>{% endif %}
+<form method="post"><input type="hidden" name="form_token" value="{{ form_token }}">
+<p><label for="weight_basis">Cockcroft–Gault weight basis</label><br><select id="weight_basis" name="weight_basis">{% for option in basis_options %}<option value="{{ option.value }}" {% if form.weight_basis==option.value %}selected{% endif %}>{{ option.label }}</option>{% endfor %}</select></p>
+<p>The source paper does not state which weight it used. Ideal body weight is preselected because it best reproduces the study's reported creatinine clearance; it remains an inferred assumption. Use “Compare all weight bases” to see how much the choice moves exposure.</p>
+<p><label for="disease">Declared synthetic disease context</label> <select id="disease" name="disease">{% for code in disease_codes %}<option value="{{ code }}" {% if form.disease==code %}selected{% endif %}>{{ {"UNKNOWN":"Unknown — declare context before calculating", "MM":"Multiple myeloma (MM)","CLL":"Chronic lymphocytic leukemia (CLL)","AML":"Acute myeloid leukemia (AML)","ALL":"Acute lymphoblastic leukemia (ALL)","OTHER":"Other — outside represented context"}[code] }}</option>{% endfor %}</select></p>
+<p><label for="horizon">Simulation horizon (h; at most 72)</label> <input id="horizon" name="horizon" inputmode="decimal" maxlength="40" required value="{{ form.horizon }}"></p>
+<p><label for="events">Requested events: one line per event, time (h), amount (mg)</label><br><textarea id="events" name="events" rows="4" maxlength="1000" required>{{ form.events }}</textarea></p>
+<p>Lenalidomide · oral capsule. Time zero, then exactly 24-hour intervals, up to four events. Amounts must be ones administered in the source study. These are execution constraints, not a treatment recommendation.</p>
+<p><label for="source_ref">Provenance note for the requested administrations</label><br><textarea id="source_ref" name="source_ref" rows="2" maxlength="1000" required>{{ form.source_ref }}</textarea></p>
+<button class="button primary" name="action" value="calculate">Calculate educational curve</button>
+<button class="button secondary" name="action" value="compare">Compare all weight bases</button>
+<button class="button secondary" name="action" value="download">Calculate and download report JSON</button>
+</form>
+<form method="post"><input type="hidden" name="form_token" value="{{ form_token }}">
+{% for name in ['weight_basis','disease','horizon','events','source_ref'] %}<input type="hidden" name="{{ name }}" value="{{ form[name] }}">{% endfor %}
+<p><label for="title">Saved-run title</label> <input id="title" name="title" maxlength="160" required value="{{ form.title }}"> <button class="button secondary" name="action" value="save">Calculate and save with estimate</button></p>
+</form><p>Saving uses the values last submitted above and archives the covariate estimate with the run. The patient record is never changed.</p></section>
+{% if report %}
+<section class="panel"><h2>{{ 'Educational calculation completed' if calculation and calculation.points else 'Calculation not run' }}</h2>
+<p>Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong> · Prediction type: {{ report.prediction_type }}</p>
+{% if not calculation %}<p>The record is missing estimator inputs; no calculation was attempted.</p>{% endif %}
+{% if calculation and calculation.execution_blockers %}<ul>{% for b in calculation.execution_blockers %}<li>{{ b.code }}: {{ b.message }}</li>{% endfor %}</ul>{% endif %}
+{% if calculation and calculation.points %}<p>Typical CL/F {{ '%.2f'|format(calculation.parameters.apparent_clearance_l_h) }} L/h · V/F {{ '%.1f'|format(calculation.parameters.apparent_volume_l) }} L. AUC over 0–{{ calculation.points[-1].time_h }} h: {{ '%.1f'|format(calculation.auc_0_horizon_ng_h_ml) }} ng·h/mL.</p>{% endif %}
+<p>{{ report.prediction_note }}</p></section>
+{% for chart in charts %}<section class="panel"><h2>{{ chart.title }}</h2><svg class="transit-chart" viewBox="0 0 780 305" role="img" aria-labelledby="epk-title-{{ loop.index }}"><title id="epk-title-{{ loop.index }}">{{ chart.title }}; time in hours, vertical axis {{ chart.unit }}. Synthetic typical-value calculation.</title>
+{% for tick in chart.ticks %}<line x1="70" y1="{{ tick.y }}" x2="740" y2="{{ tick.y }}" class="transit-grid"/><text x="62" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
+{% for tick in chart.time_ticks %}<text x="{{ tick.x }}" y="270" text-anchor="middle">{{ tick.label }}</text>{% endfor %}<text x="70" y="18">{{ chart.unit }}</text><text x="405" y="296" text-anchor="middle">Time (h)</text>{% for series in chart.series %}<polyline points="{{ series.polyline }}" fill="none" stroke="{{ series.color }}" stroke-width="2.5"/>{% endfor %}</svg></section>{% endfor %}
+<details class="panel"><summary>Assumptions, inherited review gaps and traceability</summary><p>{{ report.provenance_note }}</p>{% if calculation %}<ul>{% for text in calculation.limitations %}<li>{{ text }}</li>{% endfor %}{% for b in calculation.clinical_review_blockers %}<li>{{ b.code }}: {{ b.message }}</li>{% endfor %}</ul>{% endif %}<p class="catalog-digest">Report SHA256: {{ report.report_sha256 }}<br>Estimate SHA256: {{ report.covariate_estimate_sha256 }}{% if calculation %}<br>Calculation SHA256: {{ report.calculation_sha256 }}{% endif %}</p></details>
+{% endif %}
+{% if comparison %}
+<section class="panel"><h2>Weight-basis comparison</h2><p>Same record, same request; only the Cockcroft–Gault weight basis changes. Random effects are zero in every curve.</p>
+<div class="table-scroll"><table><thead><tr><th>Weight basis</th><th>Evidence</th><th>CrCl (mL/min)</th><th>Typical CL/F (L/h)</th><th>AUC over horizon (ng·h/mL)</th><th>Peak (ng/mL)</th><th>Status</th></tr></thead><tbody>
+{% for row in comparison.rows %}<tr><td><span style="color:{{ {'ideal_body_weight_devine':'#007b83','adjusted_body_weight_0_4':'#b5651d','total_body_weight':'#6a4c93'}[row.weight_basis] }}">■</span> {{ row.weight_basis }}</td><td>{{ row.evidence_level }}</td>
+<td>{{ '%.1f'|format(row.creatinine_clearance_ml_min) if row.creatinine_clearance_ml_min is defined else '—' }}</td><td>{{ '%.2f'|format(row.apparent_clearance_l_h) if row.apparent_clearance_l_h is defined else '—' }}</td>
+<td>{{ '%.1f'|format(row.auc_0_horizon_ng_h_ml) if row.auc_0_horizon_ng_h_ml is defined else '—' }}</td><td>{{ '%.1f'|format(row.peak_concentration_ng_ml) if row.peak_concentration_ng_ml is defined else '—' }}</td><td>{{ row.status }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% if comparison.spread %}<p>CrCl differs {{ '%.2f'|format(comparison.spread.crcl_max_to_min_ratio) }}-fold across bases; exposure (AUC) differs {{ '%.2f'|format(comparison.spread.auc_max_to_min_ratio) }}-fold. In this model clearance scales with CrCl to the power 0.224, so the unresolved assumption moves exposure far less than it moves CrCl.</p>{% endif %}</section>
+{% for chart in overlay %}<section class="panel"><h2>{{ chart.title }}</h2><svg class="transit-chart" viewBox="0 0 780 305" role="img" aria-labelledby="overlay-title"><title id="overlay-title">{{ chart.title }}; one line per weight basis. Synthetic typical-value calculation.</title>
+{% for tick in chart.ticks %}<line x1="70" y1="{{ tick.y }}" x2="740" y2="{{ tick.y }}" class="transit-grid"/><text x="62" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
+{% for tick in chart.time_ticks %}<text x="{{ tick.x }}" y="270" text-anchor="middle">{{ tick.label }}</text>{% endfor %}<text x="70" y="18">{{ chart.unit }}</text><text x="405" y="296" text-anchor="middle">Time (h)</text>{% for series in chart.series %}<polyline points="{{ series.polyline }}" fill="none" stroke="{{ series.color }}" stroke-width="2.5"/>{% endfor %}</svg>
+<p>{% for series in chart.series %}<span style="color:{{ series.color }}">■</span> {{ series.label }}{% if not loop.last %} · {% endif %}{% endfor %}</p></section>{% endfor %}
+{% endif %}{% endblock %}

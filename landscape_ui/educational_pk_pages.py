@@ -100,3 +100,6 @@ def register_educational_pk_pages(bp):
     # Register the bounded archive-variation workflow without changing the blueprint initializer.
     from .educational_pk_variation_pages import register_educational_pk_variation_pages
     register_educational_pk_variation_pages(bp)
+    # Patient Lab 2.0d: covariates estimated from the saved record.
+    from .estimated_pk_pages import register_estimated_pk_pages
+    register_estimated_pk_pages(bp)

@@ -25,10 +25,31 @@ def build_synthetic_inputs(values):
         raise ValueError('Describe the invented inputs in a provenance note (1–1000 characters).')
     note=note.strip()
     ffm=_decimal(values['ffm'],'FFM');crcl=_decimal(values['crcl'],'CrCl')
-    horizon=_decimal(values['horizon'],'Horizon')
+    treatment=_treatment(values['horizon'],values['events'],note)
+    inputs=validate_model_inputs({'schema_version':'hughes-model-inputs-v1','purpose':'synthetic_educational',
+        'fields':{name:{'value':float(value),'unit':unit,'origin':'synthetic_input',
+            'method':'direct_synthetic_covariate','source_ref':note}
+            for name,value,unit in [('fat_free_mass',ffm,'kg'),('creatinine_clearance',crcl,'mL/min')]}})
+    return inputs,treatment
+
+
+TREATMENT_FIELDS={'horizon','events','source_ref'}
+
+
+def build_treatment_request(values):
+    """Treatment request only, for workflows whose covariates come from elsewhere (estimated PK)."""
+    if set(values)!=TREATMENT_FIELDS:
+        raise ValueError('Supply horizon, events and a provenance note only.')
+    note=values['source_ref']
+    if not isinstance(note,str) or not 1<=len(note.strip())<=1000:
+        raise ValueError('Describe the requested administrations in a provenance note (1–1000 characters).')
+    return _treatment(values['horizon'],values['events'],note.strip())
+
+
+def _treatment(horizon_text,text,note):
+    horizon=_decimal(horizon_text,'Horizon')
     if not 0<horizon<=72 or horizon*10!=(horizon*10).to_integral_value():
         raise ValueError('Horizon must be positive, at most 72 h, and on a 0.1 h grid.')
-    text=values['events']
     if not isinstance(text,str) or len(text)>1000:
         raise ValueError('Supply up to four administration lines: time in h, amount in mg.')
     lines=text.strip().splitlines()
@@ -44,11 +65,6 @@ def build_synthetic_inputs(values):
             raise ValueError('This execution supports time zero followed by exactly 24 h intervals; enter each event explicitly.')
         events.append({'time':{'value':float(time),'unit':'h'},
             'amount':{'value':float(amount),'unit':'mg'},'origin':'synthetic_input','source_ref':note})
-    inputs=validate_model_inputs({'schema_version':'hughes-model-inputs-v1','purpose':'synthetic_educational',
-        'fields':{name:{'value':float(value),'unit':unit,'origin':'synthetic_input',
-            'method':'direct_synthetic_covariate','source_ref':note}
-            for name,value,unit in [('fat_free_mass',ffm,'kg'),('creatinine_clearance',crcl,'mL/min')]}})
-    treatment=validate_treatment_request({'schema_version':'synthetic-treatment-request-v1',
+    return validate_treatment_request({'schema_version':'synthetic-treatment-request-v1',
         'purpose':'synthetic_educational','drug':'lenalidomide','route':'oral','formulation':'capsule',
         'origin':'synthetic_input','source_ref':note,'horizon':{'value':float(horizon),'unit':'h'},'events':events})
-    return inputs,treatment

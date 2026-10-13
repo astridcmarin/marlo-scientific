@@ -13,8 +13,13 @@ from .patient_state_revisions import read_revision, _positive_id
 from .educational_pk import calculate_educational_pk
 from .treatment_requests import _read_json, validate_treatment_request
 from .pk_model_inputs import validate_model_inputs
+from .covariate_estimation import to_hughes_model_inputs, WEIGHT_BASES
+from .estimated_pk import calculate_estimated_pk, PREDICTION_TYPE
 
 SCHEMA='saved-educational-pk-run-v1'
+# v2 adds the covariate estimate that produced the model inputs (Patient Lab 2.0d).
+SCHEMA_V2='saved-educational-pk-run-v2'
+SCHEMAS=(SCHEMA,SCHEMA_V2)
 
 
 class EducationalPKRun(db.Model):
@@ -62,7 +67,7 @@ def read_pk_run(run_id):
         treatment=review['treatment_request_preview']
         _hashed(treatment,'Saved treatment request preview')
         inputs=review['explicit_model_inputs'];request=treatment['request']
-        if (row.schema_version!=SCHEMA or p['schema_version']!=SCHEMA
+        if (row.schema_version not in SCHEMAS or p['schema_version']!=row.schema_version
             or p['revision_id']!=row.revision_id or p['title']!=row.title
             or p['saved_at_utc']!=row.created_at_utc.isoformat()+'Z'
             or digest(p)!=row.payload_sha256 or report_sha!=row.report_sha256
@@ -89,18 +94,50 @@ def read_pk_run(run_id):
             or p['identity']!={'revision_id':row.revision_id,'title':row.title,'report_sha256':report_sha}
             or digest(p['identity'])!=row.save_key):
             raise ValueError('Saved educational run format, source anchor or integrity check failed.')
+        if row.schema_version==SCHEMA_V2:_verify_estimate(p,inputs,revision)
     except (KeyError,TypeError,AttributeError,RecursionError) as exc:
         raise ValueError('Saved educational run format or integrity check failed.') from exc
     return row
 
 
+def _verify_estimate(payload,inputs,revision):
+    """A v2 run must carry the unmodified estimate that produced its inputs, bound to the same revision state."""
+    estimate=payload['covariate_estimate']
+    _hashed(estimate,'Saved covariate estimate')
+    if (estimate.get('state_sha256')!=revision.state_sha256
+        or payload['weight_basis']!=estimate['weight_basis']
+        or payload['prediction_type']!=PREDICTION_TYPE
+        or to_hughes_model_inputs(estimate)!=inputs):
+        raise ValueError('Saved covariate estimate does not match the run inputs or patient-state anchor.')
+
+
+def _title(title):
+    if not isinstance(title,str) or not 1<=len(title.strip())<=160 or any(ord(c)<32 for c in title):
+        raise ValueError('Enter a one-line title of 1–160 characters.')
+    return title.strip()
+
+
 def save_pk_run(revision_id,inputs,request,disease_code,*,title='Educational PK run'):
     """Calculate from explicit inputs; refuse blocked reports and caller-supplied report imports."""
     _positive_id(revision_id,'Revision ID');runs_ready()
-    if not isinstance(title,str) or not 1<=len(title.strip())<=160 or any(ord(c)<32 for c in title):
-        raise ValueError('Enter a one-line title of 1–160 characters.')
-    title=title.strip()
+    title=_title(title)
     report=calculate_educational_pk(revision_id,inputs,request,disease_code)
+    return _store(revision_id,title,report,SCHEMA,{})
+
+
+def save_estimated_pk_run(revision_id,weight_basis,request,disease_code,*,title='Estimated educational PK run'):
+    """Estimate covariates from the revision, calculate, and archive the estimate with the run (v2)."""
+    _positive_id(revision_id,'Revision ID');runs_ready()
+    title=_title(title)
+    result=calculate_estimated_pk(revision_id,weight_basis,request,disease_code)
+    if result['calculation'] is None:
+        raise ValueError('Calculation blocked; no run saved: missing estimator inputs '+', '.join(result['covariate_estimate']['missing_fields']))
+    return _store(revision_id,title,result['calculation'],SCHEMA_V2,
+                  {'covariate_estimate':copy.deepcopy(result['covariate_estimate']),'weight_basis':weight_basis,
+                   'prediction_type':result['prediction_type']})
+
+
+def _store(revision_id,title,report,schema,extra):
     if report['status']!='completed_educational_calculation':
         raise ValueError('Calculation blocked; no run saved: '+', '.join(b['code'] for b in report['execution_blockers']))
     identity={'revision_id':revision_id,'title':title,'report_sha256':report['report_sha256']}
@@ -108,10 +145,11 @@ def save_pk_run(revision_id,inputs,request,disease_code,*,title='Educational PK 
     existing=db.session.scalar(select(EducationalPKRun).where(EducationalPKRun.save_key==key))
     if existing is not None:return read_pk_run(existing.id)
     created=datetime.now(timezone.utc).replace(tzinfo=None)
-    payload={'schema_version':SCHEMA,'revision_id':revision_id,'title':title,'saved_at_utc':created.isoformat()+'Z',
+    payload={'schema_version':schema,'revision_id':revision_id,'title':title,'saved_at_utc':created.isoformat()+'Z',
              'identity':identity,'report':copy.deepcopy(report),
-             'scope_note':'Immutable synthetic educational calculation snapshot. Saving does not establish clinical validity.'}
-    row=EducationalPKRun(revision_id=revision_id,title=title,created_at_utc=created,schema_version=SCHEMA,
+             'scope_note':'Immutable synthetic educational calculation snapshot. Saving does not establish clinical validity.',
+             **extra}
+    row=EducationalPKRun(revision_id=revision_id,title=title,created_at_utc=created,schema_version=schema,
         report_sha256=report['report_sha256'],payload_sha256=digest(payload),save_key=key,payload=payload)
     db.session.add(row)
     try:db.session.commit()
@@ -144,6 +182,19 @@ def register_educational_pk_run_commands(app):
         except (ValueError,OSError,UnicodeError,SQLAlchemyError) as exc:
             db.session.rollback();raise click.ClickException(str(exc)) from exc
         click.echo(f'Educational PK run ID: {row.id}\nPatient-state record ID: {row.revision_id}\nReport SHA256: {row.report_sha256}\nClinical prediction validated: false')
+
+    @app.cli.command('patient-pk-save-estimated')
+    @click.option('--revision-id',type=click.IntRange(min=1),required=True)
+    @click.option('--weight-basis',type=click.Choice(WEIGHT_BASES),required=True)
+    @click.option('--treatment-file',type=click.Path(exists=True,dir_okay=False,path_type=Path),required=True)
+    @click.option('--disease-code',type=click.Choice(('MM','CLL','AML','ALL','OTHER','UNKNOWN')),required=True)
+    @click.option('--title',default='Estimated educational PK run',show_default=True)
+    def save_estimated_command(revision_id,weight_basis,treatment_file,disease_code,title):
+        """Estimate covariates from the revision, calculate, and save the run with its estimate."""
+        try:row=save_estimated_pk_run(revision_id,weight_basis,_read_json(treatment_file),disease_code,title=title)
+        except (ValueError,OSError,UnicodeError,SQLAlchemyError) as exc:
+            db.session.rollback();raise click.ClickException(str(exc)) from exc
+        click.echo(f'Educational PK run ID: {row.id}\nPatient-state record ID: {row.revision_id}\nWeight basis: {weight_basis}\nReport SHA256: {row.report_sha256}\nClinical prediction validated: false')
 
     @app.cli.command('patient-pk-list')
     @click.option('--revision-id',type=click.IntRange(min=1),required=True)
