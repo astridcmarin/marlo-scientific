@@ -4,6 +4,7 @@ Research and educational platform: clinical-trial intelligence, drug/regulatory 
 
 ## Start here
 
+- `docs/README.md` — index of all documentation.
 - `docs/PRODUCT_AND_SCIENCE_ROADMAP.md` — product direction and phases.
 - `docs/PATIENT_LAB_2_0.md` — current Patient Lab work: scope, non-goals, architecture, step status, and recorded scientific decisions (Hughes 2019 lenalidomide model, Cockcroft–Gault weight basis).
 - `docs/REPOSITORY_CHECKPOINT.md` — step-number history (step numbers are not unique; use module/schema versions).
@@ -14,3 +15,4 @@ Research and educational platform: clinical-trial intelligence, drug/regulatory 
 - Every value carries provenance: origin, method/formula and version, source location, assumptions. Unknown stays unknown; no silent defaults or unit conversions.
 - Synthetic inputs only. Outputs keep `ready_for_patient_simulation` / validation flags false unless a documented review changes them.
 - Tests use `unittest`: `python -m unittest discover -s tests`. Dependencies are in `requirements.txt`.
+- Run the app and CLI tools from the repo root with `PYTHONPATH=.` and `flask --app app/app.py …`; schema changes need a new Alembic migration whose `down_revision` is the current head (`tests/test_migrations.py` checks the chain).

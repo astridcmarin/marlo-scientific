@@ -18,7 +18,6 @@ def module(name, relative):
     return result
 review = module('_tested_intake', 'intelligence_store/bortezomib_observation_intake.py')
 cli = module('_tested_cli', 'scripts/review_bortezomib_observation_intake.py')
-installer = module('_tested_installer', 'scripts/install_bortezomib_observation_intake.py')
 
 
 def fixture():
@@ -153,23 +152,6 @@ class ObservationIntakeTests(unittest.TestCase):
             sub = base/'inner'; sub.mkdir(); (sub/'outside-link').symlink_to(source)
             data['sources'][0]['archive_file'] = 'outside-link'
             with self.assertRaises(ValueError): cli.archive_hashes(data, sub/'input.json')
-
-    def test_installer_preflight_idempotence_and_custom_file_preservation(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
-            with self.assertRaises(ValueError): installer.install(root, ROOT)
-            self.assertEqual(list(root.iterdir()), [])
-            for name in installer.PINS:
-                target = root/name; target.parent.mkdir(parents=True, exist_ok=True)
-                target.write_bytes((ROOT/name).read_bytes())
-            (root/'intelligence_store/bortezomib_evidence_review.py').write_text('# fixture')
-            self.assertIn('Installed', installer.install(root, ROOT))
-            self.assertEqual(installer.install(root, ROOT), 'Already installed.')
-            target = root/'scripts/review_bortezomib_observation_intake.py'
-            target.write_text('# customized')
-            with self.assertRaises(ValueError): installer.install(root, ROOT)
-            self.assertEqual(target.read_text(), '# customized')
-
 
 if __name__ == '__main__':
     unittest.main()

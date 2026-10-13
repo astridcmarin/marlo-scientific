@@ -70,6 +70,9 @@ or external request is needed by the validator/preview command.
 
 ## Compatibility and next architecture step
 
+> Superseded in part (13 October 2026): stored, immutable state revisions now exist (`patient_state_revisions.py`, migration `f25e8b6a96c1`), and model execution from a revision is implemented for the Hughes lenalidomide model (see [Patient Lab 2.0](PATIENT_LAB_2_0.md)). The compatibility notes below still apply; the "not yet" statements describe the state at the time of writing.
+
+
 Legacy scenario v1 schema, stored payloads and report digests are unchanged.
 The adapter invokes that schema's validator with a local placeholder catalog for
 the legacy selected ID; this checks profile syntax without asserting current drug

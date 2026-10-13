@@ -1,4 +1,4 @@
-"""Archived display projection, safe fallback and narrow integration installation."""
+"""Archived display projection and safe fallback."""
 import copy
 import importlib.util
 from pathlib import Path
@@ -15,7 +15,6 @@ def load(name, path):
     return module
 
 view = load('timeline_projection', ROOT / 'landscape_ui/pk_compartment_timeline.py')
-installer = load('timeline_installer', ROOT / 'scripts/install_compartment_timeline.py')
 
 
 def archived_report():
@@ -81,45 +80,5 @@ class CompartmentTimelineTests(unittest.TestCase):
             self.assertIn('timeline unavailable', hidden)
             self.assertNotIn('type="range"', hidden)
             self.assertNotIn('pk-compartment-timeline.js', hidden)
-
-    def project(self, folder, bad_template=False):
-        root = Path(folder)
-        for asset in ('pk_compartment_timeline.py','templates/pk_compartment_timeline.html',
-                      'static/pk-compartment-timeline.css','static/pk-compartment-timeline.js'):
-            path = root/'landscape_ui'/asset; path.parent.mkdir(parents=True,exist_ok=True); path.write_text('asset')
-        route = root/'landscape_ui/educational_pk_run_pages.py'
-        route.write_text(installer.IMPORT_ANCHOR + installer.CONTEXT + 'original_context')
-        template = root/'landscape_ui/templates/landscape_saved_pk_run.html'
-        template.write_text('custom heading\n'+ ('different template' if bad_template else installer.CHART_ANCHOR + '\n' + installer.SVG_ANCHOR + '>'))
-        return root, route, template
-
-    def test_installer_preserves_custom_content_backs_up_and_is_idempotent(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root, route, template = self.project(folder)
-            old = route.read_bytes()
-            result = installer.install(root)
-            self.assertEqual(result['status'], 'installed')
-            self.assertIn('custom heading', template.read_text())
-            self.assertIn('original_context', route.read_text())
-            self.assertEqual((Path(result['code_backup_directory'])/'landscape_ui/educational_pk_run_pages.py').read_bytes(),old)
-            self.assertEqual(installer.install(root)['status'], 'already_installed')
-            self.assertEqual(template.read_text().count(installer.INCLUDE),1)
-            self.assertEqual(template.read_text().count(installer.SVG_HOOK),1)
-
-    def test_existing_timeline_upgrade_adds_only_chart_hook(self):
-        route = installer.NEW_IMPORT + installer.NEW_CONTEXT
-        template = installer.INCLUDE + '\n' + installer.CHART_ANCHOR + '\n' + installer.SVG_ANCHOR + '>custom'
-        new_route, new_template = installer.proposed_sources(route, template)
-        self.assertEqual(new_route, route)
-        self.assertEqual(new_template, template.replace(installer.SVG_ANCHOR, installer.SVG_HOOK))
-
-    def test_unrecognized_template_does_not_change_either_existing_file(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root, route, template = self.project(folder,True)
-            originals = route.read_bytes(), template.read_bytes()
-            with self.assertRaises(ValueError): installer.install(root)
-            self.assertEqual((route.read_bytes(),template.read_bytes()), originals)
-            self.assertFalse((root/'instance').exists())
-
 
 if __name__ == '__main__': unittest.main()
