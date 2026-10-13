@@ -9,13 +9,14 @@ from intelligence_store.covariate_estimation import WEIGHT_BASES, load_weight_ba
 from intelligence_store.estimated_pk import (calculate_estimated_pk, compare_estimated_pk, estimate_for_revision,
                                              primary_weight_basis, DISEASE_CODES)
 from intelligence_store.educational_pk_runs import save_estimated_pk_run
+from intelligence_store.population_pk import calculate_population_pk
 from .workspace_pages import COOKIE, TTL, _form_token, _validate_token, _response
 from .scenario_pages import _error
 from .transit_pages import _chart
 from .educational_pk_pages import _charts
 from .educational_pk_input_builder import TREATMENT_FIELDS, build_treatment_request
 
-ACTIONS = ('calculate', 'compare', 'download', 'save')
+ACTIONS = ('calculate', 'compare', 'population', 'download', 'save')
 FORM_FIELDS = TREATMENT_FIELDS | {'form_token', 'action', 'weight_basis', 'disease'}
 BASIS_COLORS = {'ideal_body_weight_devine': '#007b83', 'adjusted_body_weight_0_4': '#b5651d',
                 'total_body_weight': '#6a4c93'}
@@ -51,6 +52,27 @@ def _overlay(comparison):
     return [chart]
 
 
+def _band_chart(population):
+    """Shaded 5–95% and 25–75% bands, population median and typical curve on one axis."""
+    if not population or not population['band']:
+        return None
+    times = population['times_h']
+    band = population['band']
+    top = max(max(b['p95'] for b in band), max(population['typical_concentration_ng_ml'])) * 1.1 or 1.0
+    x = lambda t: 70 + 670 * t / times[-1]
+    y = lambda v: 250 - 220 * v / top
+    def area(lo, hi):
+        upper = [f'{x(b["time_h"]):.3f},{y(b[hi]):.3f}' for b in band]
+        lower = [f'{x(b["time_h"]):.3f},{y(b[lo]):.3f}' for b in reversed(band)]
+        return ' '.join(upper + lower)
+    line = lambda values: ' '.join(f'{x(t):.3f},{y(v):.3f}' for t, v in zip(times, values))
+    return {'title': 'Concentration across virtual patients with these covariates', 'unit': 'ng/mL',
+            'outer': area('p05', 'p95'), 'inner': area('p25', 'p75'),
+            'median': line([b['p50'] for b in band]), 'typical': line(population['typical_concentration_ng_ml']),
+            'ticks': [{'y': 250 - 220 * i / 4, 'label': f'{top * i / 4:.3g}'} for i in range(5)],
+            'time_ticks': [{'x': 70 + 670 * i / 4, 'label': f'{times[-1] * i / 4:g}'} for i in range(5)]}
+
+
 def register_estimated_pk_pages(bp):
     @bp.route('/workspace/scenarios/<int:scenario_id>/patient-state/revisions/<int:revision_id>/estimated-pk',
               methods=['GET', 'POST'])
@@ -66,7 +88,7 @@ def register_estimated_pk_pages(bp):
                 abort(404)
             form = {'weight_basis': primary_weight_basis(), 'disease': 'UNKNOWN', 'horizon': '24',
                     'events': '0, 25', 'source_ref': '', 'title': ''}
-            report = comparison = None
+            report = comparison = population = None
             error = None
             status = 200
             if request.method == 'POST':
@@ -89,6 +111,8 @@ def register_estimated_pk_pages(bp):
                                                 revision_id=revision_id, run_id=row.id), code=303)
                     if action == 'compare':
                         comparison = compare_estimated_pk(revision_id, treatment, form['disease'])
+                    elif action == 'population':
+                        population = calculate_population_pk(revision_id, form['weight_basis'], treatment, form['disease'])
                     else:
                         report = calculate_estimated_pk(revision_id, form['weight_basis'], treatment, form['disease'])
                 except (ValueError, OverflowError) as exc:
@@ -99,14 +123,15 @@ def register_estimated_pk_pages(bp):
                                     mimetype='application/json',
                                     headers={'Content-Disposition': f'attachment; filename="estimated-pk-revision-{revision_id}.json"',
                                              'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'})
-            estimate = report['covariate_estimate'] if report else estimate_for_revision(revision_id, form['weight_basis'])
+            estimate = (report or population or {}).get('covariate_estimate') or estimate_for_revision(revision_id, form['weight_basis'])
             calculation = report['calculation'] if report else None
             nonce, token = _form_token()
             response = _response('landscape_estimated_pk.html', scenario=scenario, revision=revision, form_token=token,
                                  form=form, basis_options=_basis_options(), disease_codes=('UNKNOWN', 'MM', 'CLL', 'AML', 'ALL', 'OTHER'),
                                  estimate=estimate, report=report, calculation=calculation,
                                  charts=_charts(calculation), comparison=comparison,
-                                 overlay=_overlay(comparison) if comparison else [], error=error)
+                                 overlay=_overlay(comparison) if comparison else [], population=population,
+                                 band_chart=_band_chart(population), error=error)
             response.status_code = status
             response.headers['X-Content-Type-Options'] = 'nosniff'
             response.set_cookie(COOKIE, nonce, max_age=TTL, httponly=True, secure=request.is_secure,

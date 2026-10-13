@@ -18,6 +18,7 @@
 <p><label for="source_ref">Provenance note for the requested administrations</label><br><textarea id="source_ref" name="source_ref" rows="2" maxlength="1000" required>{{ form.source_ref }}</textarea></p>
 <button class="button primary" name="action" value="calculate">Calculate educational curve</button>
 <button class="button secondary" name="action" value="compare">Compare all weight bases</button>
+<button class="button secondary" name="action" value="population">Show population band</button>
 <button class="button secondary" name="action" value="download">Calculate and download report JSON</button>
 </form>
 <form method="post"><input type="hidden" name="form_token" value="{{ form_token }}">
@@ -48,4 +49,24 @@
 {% for tick in chart.ticks %}<line x1="70" y1="{{ tick.y }}" x2="740" y2="{{ tick.y }}" class="transit-grid"/><text x="62" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
 {% for tick in chart.time_ticks %}<text x="{{ tick.x }}" y="270" text-anchor="middle">{{ tick.label }}</text>{% endfor %}<text x="70" y="18">{{ chart.unit }}</text><text x="405" y="296" text-anchor="middle">Time (h)</text>{% for series in chart.series %}<polyline points="{{ series.polyline }}" fill="none" stroke="{{ series.color }}" stroke-width="2.5"/>{% endfor %}</svg>
 <p>{% for series in chart.series %}<span style="color:{{ series.color }}">■</span> {{ series.label }}{% if not loop.last %} · {% endif %}{% endfor %}</p></section>{% endfor %}
+{% endif %}
+{% if population %}
+<section class="panel"><h2>Population band</h2>
+{% if not population.band %}<p>No band: the typical-value calculation did not complete ({{ population.typical_status_detail|join(', ') }}).</p>{% else %}
+<p>{{ population.n_subjects }} virtual patients share this record's covariates and differ only by the source model's between-subject variability (seed {{ population.seed }}, reproducible). Weight basis: {{ population.weight_basis }}.</p>
+{% if band_chart %}<svg class="transit-chart" viewBox="0 0 780 305" role="img" aria-labelledby="band-title"><title id="band-title">{{ band_chart.title }}; shaded 5th–95th and 25th–75th percentiles, solid population median, dashed typical-value curve. Synthetic educational calculation.</title>
+{% for tick in band_chart.ticks %}<line x1="70" y1="{{ tick.y }}" x2="740" y2="{{ tick.y }}" class="transit-grid"/><text x="62" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
+{% for tick in band_chart.time_ticks %}<text x="{{ tick.x }}" y="270" text-anchor="middle">{{ tick.label }}</text>{% endfor %}<text x="70" y="18">{{ band_chart.unit }}</text><text x="405" y="296" text-anchor="middle">Time (h)</text>
+<polygon points="{{ band_chart.outer }}" fill="#007b83" fill-opacity="0.15" stroke="none"/><polygon points="{{ band_chart.inner }}" fill="#007b83" fill-opacity="0.3" stroke="none"/>
+<polyline points="{{ band_chart.median }}" fill="none" stroke="#007b83" stroke-width="2.5"/><polyline points="{{ band_chart.typical }}" fill="none" stroke="#6a4c93" stroke-width="2" stroke-dasharray="6 4"/></svg>
+<p><span style="color:#007b83">■</span> light: 5th–95th percentile · darker: 25th–75th · solid line: population median · <span style="color:#6a4c93">- -</span> dashed: typical-value curve</p>{% endif %}
+<div class="table-scroll"><table><caption>Exposure across the virtual population. Percentiles describe spread under the model, not the probability of any outcome.</caption>
+<thead><tr><th>Metric</th><th>5th</th><th>25th</th><th>Median</th><th>75th</th><th>95th</th></tr></thead><tbody>
+{% for key, label in [('auc_0_horizon_ng_h_ml','AUC over horizon (ng·h/mL)'),('auc_0_infinity_ng_h_ml','AUC to infinity (ng·h/mL)'),('peak_concentration_ng_ml','Peak concentration (ng/mL)')] %}{% set row = population.exposure[key] %}<tr><td>{{ label }}</td><td>{{ '%.1f'|format(row.p05) }}</td><td>{{ '%.1f'|format(row.p25) }}</td><td>{{ '%.1f'|format(row.p50) }}</td><td>{{ '%.1f'|format(row.p75) }}</td><td>{{ '%.1f'|format(row.p95) }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p>Typical-value AUC over the horizon: {{ '%.1f'|format(population.exposure.typical_auc_0_horizon_ng_h_ml) }} ng·h/mL. {{ population.median_note }}</p>
+<details><summary>What the band includes and leaves out</summary><p>{{ population.band_meaning }}</p><p>Not included:</p><ul>{% for item in population.excluded %}<li>{{ item }}</li>{% endfor %}</ul>
+<p>Sampled vs specified variances — CL/F: {{ '%.3f'|format(population.sampling_diagnostics.sampled.omega_cl) }} vs {{ population.sampling_diagnostics.specified.omega_cl }}; V/F: {{ '%.3f'|format(population.sampling_diagnostics.sampled.omega_v) }} vs {{ population.sampling_diagnostics.specified.omega_v }}; KTR: {{ '%.3f'|format(population.sampling_diagnostics.sampled.omega_ktr) }} vs {{ population.sampling_diagnostics.specified.omega_ktr }}; CL–V correlation {{ '%.3f'|format(population.sampling_diagnostics.sampled.corr_cl_v) }} vs {{ '%.3f'|format(population.sampling_diagnostics.specified.corr_cl_v) }}.</p>
+<p>Verification: the exact transit-chain solution at typical parameters matches the numerical typical curve within {{ '%.1e'|format(population.verification.exact_vs_numerical_typical_max_abs_ng_ml) }} ng/mL.</p>
+<p class="catalog-digest">Report SHA256: {{ population.report_sha256 }}<br>Typical report SHA256: {{ population.typical_report_sha256 }}<br>Variability extract: {{ population.variability_extract_version }}</p></details>{% endif %}</section>
 {% endif %}{% endblock %}
