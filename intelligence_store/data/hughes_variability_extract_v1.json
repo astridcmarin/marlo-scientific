@@ -1,0 +1,44 @@
+{
+  "schema_version": "pk-variability-extract-v1",
+  "extract_version": "hughes-2019-variability-v1.0",
+  "drug": "lenalidomide",
+  "source": {
+    "doi": "10.1111/bcp.13873",
+    "locations": [
+      "Supplementary Material 2 final control stream: $OMEGA BLOCK(2), $OMEGA, $THETA RUV_PROP, $ERROR",
+      "Table 2 final model column (BSV and RUV as %CV, correlation)"
+    ],
+    "reviewed_on": "2026-10-13"
+  },
+  "random_effects": {
+    "distribution": "eta ~ N(0, OMEGA); individual parameter = typical value * exp(eta) (Equation 1)",
+    "order": ["eta_CL", "eta_V", "eta_KTR"],
+    "omega_matrix": [
+      [0.296, 0.25, 0.0],
+      [0.25, 0.284, 0.0],
+      [0.0, 0.0, 0.367]
+    ],
+    "control_stream_labels": {"eta_CL": "PPVCL", "eta_V": "PPVV", "eta_KTR": "PPVKA (applied to KTR)"}
+  },
+  "table2_reported": {
+    "bsv_cl_pct_cv": 54.4,
+    "bsv_v_pct_cv": 53.3,
+    "bsv_ktr_pct_cv": 60.6,
+    "corr_cl_v": 0.862,
+    "proportional_ruv_pct_cv": 43
+  },
+  "residual_error": {
+    "model": "proportional",
+    "equation": "Y = CP + CP * RUVPROP * EPS1, EPS1 ~ N(0, 1) (SIGMA 1 FIX)",
+    "ruv_prop": 0.43
+  },
+  "resolved_conventions": [
+    "Table 2 %CV equals 100 * sqrt(omega^2) (0.296 -> 54.4%, 0.284 -> 53.3%, 0.367 -> 60.6%). Use the omega matrix directly; do not convert %CV with ln(1 + CV^2).",
+    "Correlation 0.25 / sqrt(0.296 * 0.284) = 0.862 matches Table 2. Sample eta_CL and eta_V jointly."
+  ],
+  "limitations": [
+    "Point estimates only; parameter uncertainty (bootstrap intervals in Table 2) is not represented.",
+    "No between-occasion variability (tested and not retained by the authors).",
+    "Not yet used by any simulation in this repository."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "covariate-method-assessment-v1",
+  "assessment_version": "hughes-crcl-weight-basis-v1.0",
+  "model": "lenalidomide_hughes_2019",
+  "covariate": "creatinine_clearance",
+  "formula": "creatinine_clearance_cockcroft_gault",
+  "question": "Which body weight did Hughes et al. use inside Cockcroft-Gault to compute the CrCl covariate?",
+  "assessed_on": "2026-10-13",
+  "status": "unresolved",
+  "source_facts": [
+    {"location": "Section 2.3", "fact": "Creatinine clearance was calculated with the Cockcroft-Gault formula (reference 41). No weight basis or cap is stated."},
+    {"location": "Table 1", "fact": "CrCl mean 80.1, SD 29.5, median 75.5, range 36-211 mL/min; total body weight mean 88.8 kg, range 48-152 kg; FFM mean 57.7, median 58.4 kg."},
+    {"location": "Supplementary Material 2 control stream ($INPUT, $PK)", "fact": "CrCl enters as a precomputed data column named CRCL2; the stream normalizes with RF=CRCL2/90 and comments '90' as the mean CrCl. The FFM normalizer 55 is likewise commented as the mean, although Table 1 reports a mean of 57.7 kg."}
+  ],
+  "reconstruction": {
+    "script": "scripts/reconstruct_hughes_crcl_weight_basis.py",
+    "method": "Virtual population matched to Table 1 marginals (sex mix, age, total weight, height range, serum creatinine) under assumed joint structure; Cockcroft-Gault applied with each candidate weight. Simulated FFM (mean 57.5 kg) reproduces Table 1 FFM (57.7 kg), which checks the body-size assumptions independently of CrCl.",
+    "seed": 20261013,
+    "n_per_scenario": 100000,
+    "results_base_scenario_ml_min": {
+      "total_body_weight": {"mean": 109.5, "median": 102.3},
+      "ideal_body_weight_devine": {"mean": 82.0, "median": 77.6},
+      "adjusted_body_weight_0_4": {"mean": 93.0, "median": 88.0},
+      "fat_free_mass": {"mean": 71.8, "median": 67.3}
+    },
+    "table1_target_ml_min": {"mean": 80.1, "median": 75.5},
+    "robustness": "Closest basis was ideal body weight in all three tested scenarios (height-weight correlation 0.5 or 0.7; pooled or sex-specific serum creatinine)."
+  },
+  "basis_evidence": {
+    "ideal_body_weight_devine": {"evidence_level": "best_match_to_table1", "summary": "Reproduces the Table 1 CrCl mean and median within about 2 mL/min."},
+    "adjusted_body_weight_0_4": {"evidence_level": "not_excluded", "summary": "About 12 mL/min above Table 1, but its simulated mean (about 93) is close to the control stream's 'mean CrCl 90' comment."},
+    "total_body_weight": {"evidence_level": "disfavored", "summary": "About 29 mL/min above the Table 1 mean; inconsistent with both Table 1 and the control-stream comment."}
+  },
+  "decision": {
+    "primary_assumption": "ideal_body_weight_devine",
+    "sensitivity_bases": ["adjusted_body_weight_0_4", "total_body_weight"],
+    "label_on_outputs": "inferred_by_population_reconstruction",
+    "resolution_path": "Ask the corresponding author what weight produced the CRCL2 column and whether any cap applied. A documented answer replaces this assessment with a new version."
+  },
+  "limits": [
+    "Indirect evidence from marginal summary statistics with an assumed joint distribution.",
+    "Does not establish the authors' method, assay, rounding or capping.",
+    "Applies to the Hughes 2019 covariate definition only. Other models define their own renal covariates."
+  ]
+}
