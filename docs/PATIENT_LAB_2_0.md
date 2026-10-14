@@ -202,7 +202,7 @@ Passing all four supports research use. `clinical_prediction_validated` stays fa
 - **How the curve is drawn.** The Simulation 3.0 platelet model is exactly scale-invariant: all compartments start at baseline, the feedback uses the ratio baseline/current, and the drug term does not involve counts. Its fraction-of-baseline curve is therefore identical for any starting count; this is tested at 40, 171 and 400 ×10⁹/L. A patient's typical absolute curve is their baseline × that fraction.
 - **The same pattern in the data.** Lonial 2005 found the mean percentage fall independent of baseline. A low start therefore reaches low absolute counts sooner, which fits the observed risk depending strongly on baseline.
 - **Observed context** (`bortezomib_platelet_context_v1.json`, pinned; quotes checked against the source text):
-  - grading as the source used it (NCI CTC v2.0: grade 2 from 50 to under 75, grade 3 from 10 to under 50, grade 4 under 10). Current CTCAE versions draw grades 3 and 4 differently and are not used, so that the lines and the incidences share one definition;
+  - grading as the source used it (NCI CTC v2.0: grade 2 from 50 to under 75, grade 3 from 10 to under 50, grade 4 under 10). The incidences below use this definition, so it is kept as the primary grading; current CTCAE v5.0 grades are added alongside (see below);
   - entry thresholds (50, or 30 with extensive marrow involvement);
   - incidences: 42% any grade and 30% grade 3/4, overall; grade 4 in 24% of patients with a baseline under 70 versus at most 1% above;
   - the roughly 60% average individual fall, drawn as an illustrative line.
