@@ -1,6 +1,6 @@
 # Simulation 3.0 — bortezomib platelet time course (first drug-effect module)
 
-Status: **3.0a evidence recorded.** Engine and locked reproduction check are next.
+Status: **3.0a evidence recorded; 3.0b PK engine done.** Locked platelet reproduction check is next.
 
 ## Why this model
 
@@ -63,5 +63,27 @@ These are the data the model was fitted to, so reproducing them is an internal c
 
 - **3.0a (this step):** transcription, open questions and observed values, pinned and tested; `articles/` added to `.gitignore`.
 - **3.0b:** PK engine (three compartments, IV bolus, per-m² parameters × BSA), checked against an independent numerical solution and against the reported bortezomib exposure.
+
+## 3.0b — PK engine (`intelligence_store/bortezomib_pk.py`)
+
+**The solution.** After an IV bolus, a three-compartment model gives a plasma concentration that is a sum of three exponentials. Their rates are the roots of the model's characteristic cubic. The engine computes them exactly and adds up doses by superposition. It agrees with an independent fixed-step RK4 integration to within 10⁻⁶ relative at every tested time, including the instants before and after each dose. AUC equals dose/CL.
+
+**Body size cancels.** Every parameter is per m² and the dose is per m², so concentration depends only on the dose in mg/m². In this model every adult on 1.3 mg/m² has the same curve. That is the assumption behind mg/m² dosing, built in rather than tested.
+
+**At 1.3 mg/m²:**
+- 135 ng/mL at injection, 82 ng/mL at 5 min, about 5.6 ng/mL at 1 h.
+- Half-lives of about 6 min, 1.6 h and 98 h. The last is slow return from a very large tissue compartment.
+
+**Against the label** (section 12.3; two copies agree; `bortezomib_label_pk_v1.json`):
+
+| Quantity | Label | Model | Placement |
+|---|---|---|---|
+| Terminal half-life, repeated doses, 1.3 mg/m² | 76–108 h | 98 h | Inside |
+| Distribution volume | 498–1884 L/m² | 975 L/m² | Inside |
+| Clearance, repeated doses | 15–32 L/h | 14.9 L/h (1.62 m²) | Just below |
+| Clearance, first dose | 102–112 L/h | 14.9 L/h | About 7× lower |
+| Cmax | 112 (first dose); 89–120 ng/mL | 135 (0 min) → 82 (5 min) | Not comparable: sampling time unstated |
+
+**Reading.** The model reproduces repeat-dose disposition, as the source states. It has a single clearance, however, so it overstates exposure after the very first dose of cycle 1 about sevenfold. Any platelet result for early cycle 1 inherits this. The 3.0c check uses cycle 1 day 11, after four doses, so it is affected less, though not zero.
 - **3.0c:** locked plan, then the platelet model under each reading of questions 1 and 2, compared with the observed cycle-1 dip and the recovery.
 - **3.0d:** a page showing typical platelet curves for both variants, clearly labelled, with no dosing interpretation.
