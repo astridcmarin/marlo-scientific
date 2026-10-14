@@ -1,6 +1,6 @@
 # Patient Lab 2.0 — covariate-aware virtual patient
 
-Recorded 13 October 2026. Owner: Astrid. Status: 2.0a–2.0e and 2.0g done; 2.0f partly delivered within 2.0d/2.0e; 2.1 (Kim 2026 second model) engine and checks done, page integration next.
+Recorded 13 October 2026. Owner: Astrid. Status: 2.0a–2.0g done; 2.1 (Kim 2026) and 2.2 (platelets and the bortezomib curve for a patient) done.
 
 ## Goal
 
@@ -60,7 +60,7 @@ patient_state (v1) ─► covariate_estimation ─► pk_model_inputs ─► edu
 | 2.0c | Covariate resolution and applicability | Done. Range checks in `pk_model_inputs`; the estimate adds input and covariate coverage checks; saved v2 runs carry the estimate. |
 | 2.0d | Individualized typical-value run | Done. `estimated_pk.py` estimates covariates from a saved revision and runs `educational_pk` unchanged; `save_estimated_pk_run` stores `saved-educational-pk-run-v2` with the estimate, verified on every read. Page: `…/revisions/<id>/estimated-pk` (ideal body weight preselected and labelled; compare-all-bases overlay). CLI: `patient-pk-estimated`, `patient-pk-save-estimated`. |
 | 2.0e | Population mode | Done. `population_pk.py` draws seeded (η_CL, η_V) jointly from the OMEGA block and η_KTR independently, solves each virtual patient exactly (closed-form transit chain, verified against the numerical solver to < 1e-9 in every regime and against the typical curve on every run) and reports 5/25/50/75/95th percentile bands plus AUC and peak distributions. Page action "Show population band"; CLI `patient-pk-population`. Excludes residual error, parameter uncertainty and between-occasion variability (stated in every report). |
-| 2.0f | Run record and UI | Next. Provenance panel, applicability badges, weight-basis toggle, persistent "simulated, synthetic, not a clinical prediction" banner. |
+| 2.0f | Run record and UI | Done for the three Patient Lab result pages (Hughes educational PK, saved Kim run, bortezomib platelets for a patient): one shared banner and one run-record panel. The weight-basis toggle already existed (2.0d). See "Run record (2.0f)" below. |
 | 2.0g | Reproduction check | Done as an exploratory aggregate consistency check against study CC-5013-PK-001 (the renal-group data in `landscape_ui/data/renal_pk/`, extracted from the EMA assessment of Chen et al. 2007; earlier notes called this "Dahut", which was wrong). Plan locked and committed before computation (`hughes_renal_group_check_plan_v1.json`); report `docs/verification/hughes_renal_group_check_v1.json`; CLI `hughes-renal-group-check`. Result below. |
 
 ## Renal-group consistency check (2.0g)
@@ -184,6 +184,29 @@ A virtual population matched to Table 1 (checked independently: simulated FFM 57
 Decision: primary assumption `ideal_body_weight_devine`, labeled `inferred_by_population_reconstruction`, with adjusted and total body weight as sensitivity branches. Every estimate carries its basis and evidence level. For this model the choice moves typical CL/F by only about 6% for a 30% CrCl spread, because of the 0.224 exponent.
 
 Resolution path: ask the corresponding author what weight produced `CRCL2` and whether a cap applied. A documented answer becomes a new assessment version.
+
+## Run record (2.0f)
+
+Every Patient Lab result page now opens with the same banner and ends with the same run record, so a result is never read without its provenance.
+
+- **Banner** (`run_record_macros.html`, `simulation_banner`): "Simulated · Synthetic patient record · Not a clinical prediction", what kind of result this is, what it is *not*, and both validation flags (false). Two result types are defined in `intelligence_store/run_record.py`: a typical-value concentration curve and a hypothetical typical effect curve.
+- **Run record** (`patient-lab-run-record-v1`, built by `run_record.py`, shown by `run_record_panel`):
+  - model, citation and DOI;
+  - the patient record used (revision, schema, checksum), each input with its origin, and each derived input with its formula and version;
+  - assumptions, each with the reading used, its status (unresolved, assumed, settled by a locked check, by design, fixed) and its basis;
+  - coverage of the source data ("within reported range", "outside", "below entry threshold") and warnings;
+  - **what has been checked about the model**, in the four validation layers below;
+  - limitations and every checksum, plus a checksum of the record itself.
+- **Nothing is recalculated.** The record copies values from the page's report and from pinned files; the tests check that it is deterministic and that its fields match the report.
+- **Model evidence status** (`model_evidence_status_v1.json`, pinned): per model and layer, done / partial / not done, with a one-line finding. Where a verification report is cited, the tests check its file checksum and that the quoted classification and per-group results are the ones in the report. Current state:
+
+| Model | Software | Transcription | Reproduction | External consistency |
+|---|---|---|---|---|
+| Hughes 2019 | done | partial (control stream not retrieved) | not done | exploratory: mild consistent; moderate, severe under-predicted |
+| Kim 2026 | done | done, CL/F form open | done (Table 2 group CL/F) | exploratory: mild, moderate consistent; severe under-predicted (primary scenario) |
+| Lignet 2022 (platelets) | done | partial (independent review pending) | done (locked check, fitting data) | not done |
+
+The table is the honest summary of the platform's evidence today: no model has external consistency at the individual level, and none is validated for clinical prediction.
 
 ## Validation layers (kept separate)
 

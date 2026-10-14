@@ -105,7 +105,7 @@ class PatientView(unittest.TestCase):
         detail = self.client.get(base).get_data(as_text=True)
         self.assertIn('Bortezomib platelet curve', detail)
         text = self.client.get(base + '/bortezomib-platelets?cycles=2').get_data(as_text=True)
-        for expected in ('Hypothetical typical curve — not a prediction for this patient', 'Baseline platelet count',
+        for expected in ('Hypothetical typical effect curve', 'Baseline platelet count',
                          'Observed in the source study', 'Common Toxicity Criteria version 2.0', 'grade 2', 'CTCAE v5.0'):
             self.assertIn(expected, text)
         data = self.client.get(base + '/bortezomib-platelets?format=json').get_json()

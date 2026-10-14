@@ -5,6 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from intelligence_store.extensions import db
 from intelligence_store.kim_pk_runs import KimPKRun, export_kim_pk_run, kim_runs_ready, read_kim_pk_run
 from intelligence_store.patient_state_revisions import read_revision
+from intelligence_store.run_record import RESULT_TYPES, record_for_kim_run
 from intelligence_store.saved_scenarios import read_scenario
 from .transit_pages import _chart
 from .workspace_pages import _response
@@ -46,7 +47,8 @@ def register_kim_pk_run_pages(bp):
             report = row.payload['report']
             response = _response('landscape_saved_kim_run.html', scenario=scenario, revision=revision, run=row,
                                  report=report, estimate=report['covariate_estimate'], chart=_kim_chart(report),
-                                 request_json=json.dumps(report['treatment_request'], indent=2))
+                                 request_json=json.dumps(report['treatment_request'], indent=2),
+                                 result_type=RESULT_TYPES['typical_value_pk'], record=record_for_kim_run(row))
             response.headers['X-Content-Type-Options'] = 'nosniff'
             return response
         except ValueError as exc:

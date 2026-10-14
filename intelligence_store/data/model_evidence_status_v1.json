@@ -1,0 +1,62 @@
+{
+  "schema_version": "model-evidence-status-v1",
+  "status_version": "model-evidence-status-v1.0",
+  "recorded_on": "2026-10-14",
+  "purpose": "What has and has not been checked for each model used on a Patient Lab result page, in the four validation layers of docs/PATIENT_LAB_2_0.md. Shown in every run record so a result is read together with the evidence behind its model.",
+  "layers": {
+    "software_verification": "The code computes the intended equations.",
+    "transcription_verification": "The parameters and equations match the source.",
+    "reproduction": "The model reproduces results from the data it was fitted to.",
+    "external_consistency": "Agreement with data not used to fit the model."
+  },
+  "never_established": "Clinical prediction validity. Passing every layer supports research use only; clinical_prediction_validated stays false.",
+  "models": {
+    "lenalidomide_hughes_2019": {
+      "name": "Lenalidomide population PK (Hughes et al. 2019)",
+      "citation": "Hughes et al. Br J Clin Pharmacol. 2019;85:924-934",
+      "doi": "10.1111/bcp.13873",
+      "layers": {
+        "software_verification": {"status": "done", "summary": "Solver checked against an independent analytic reference on synthetic cases.",
+                                  "evidence_report": "docs/verification/synthetic_numerical_crosscheck_step70.json",
+                                  "evidence_report_file_sha256": "23370e9594595a502069f8c8c800b94701d16ad3ad50bc98f6758b22cbc9bd14"},
+        "transcription_verification": {"status": "partial", "summary": "Main-text parameter table reviewed; the supplementary control stream was not retrieved."},
+        "reproduction": {"status": "not_done", "summary": "No reproduction of the source's own published results has been run on this platform."},
+        "external_consistency": {"status": "done_exploratory", "summary": "Aggregate check of group-mean exposure relative to normal renal function, study CC-5013-PK-001 (EMA assessment): mild consistent; moderate and severe under-predicted.",
+                                 "classification": "exploratory_aggregate_external_consistency_check",
+                                 "result_by_group": {"mild": "consistent", "moderate": "model_under_predicts", "severe": "model_under_predicts"},
+                                 "evidence_report": "docs/verification/hughes_renal_group_check_v1.json",
+                                 "evidence_report_file_sha256": "70cae05e8dca498bc3e9774177dd4fc406c9508f419ad1f8a64be80c84c0c159"}
+      }
+    },
+    "lenalidomide_kim_2026": {
+      "name": "Lenalidomide population PK in renal impairment (Kim et al. 2026)",
+      "citation": "Kim H, Park SS, Choi S, et al. Drug Des Devel Ther. 2026;20:605741",
+      "doi": "10.2147/DDDT.S605741",
+      "layers": {
+        "software_verification": {"status": "done", "summary": "Exact two-compartment solution checked against numerical integration in the test suite."},
+        "transcription_verification": {"status": "done_with_open_question", "summary": "Tables and printed equations transcribed; the printed CL/F equation form conflicts with the paper's own results, and a multiplicative reading is used until the authors confirm."},
+        "reproduction": {"status": "done", "summary": "Typical total CL/F at each group's median covariates lies within one SD of the authors' Table 2 group means. Same patients as the fit, so this confirms transcription, not predictive performance."},
+        "external_consistency": {"status": "done_exploratory", "summary": "Aggregate check of group-mean exposure relative to normal renal function, study CC-5013-PK-001 (EMA assessment): mild and moderate consistent; severe under-predicted in the primary scenario (consistent in some alternative scenarios).",
+                                 "classification": "exploratory_aggregate_external_consistency_check",
+                                 "result_by_group": {"mild": "consistent", "moderate": "consistent", "severe": "model_under_predicts"},
+                                 "evidence_report": "docs/verification/kim_renal_group_check_v1.json",
+                                 "evidence_report_file_sha256": "e53f62db6506346a3d5027388b0c9165de51b8fab0c5f9efc1ad7b29d34da4bb"}
+      }
+    },
+    "bortezomib_platelets_lignet_2022": {
+      "name": "Bortezomib thrombocytopenia model (Lignet et al. 2022)",
+      "citation": "Lignet F, et al. CPT Pharmacometrics Syst Pharmacol. 2022;11(5):594-603",
+      "doi": "10.1002/psp4.12743",
+      "layers": {
+        "software_verification": {"status": "done", "summary": "Exact three-compartment PK solution checked against numerical integration; platelet integration repeated at half step size."},
+        "transcription_verification": {"status": "partial", "summary": "AI-assisted transcription from the article and supplement; independent review pending. Units of the drug-effect term and its bound were not stated and were settled by the reproduction check."},
+        "reproduction": {"status": "done", "summary": "Locked check against the fitting data (Lonial 2005): both variants consistent with the observed cycle 1 day 11 fall only with concentrations in ng/mL and the effect term as printed.",
+                         "classification": "internal_consistency_check_against_fitting_data",
+                         "evidence_report": "docs/verification/bortezomib_platelet_check_v1.json",
+                         "evidence_report_file_sha256": "1fc74f8757364d0befe15bf9dad2d54e817398ad056b5f4f13091a9021ab5e9f"},
+        "external_consistency": {"status": "not_done", "summary": "No data outside the fitting study have been compared."}
+      }
+    }
+  },
+  "clinical_prediction_validated": false
+}

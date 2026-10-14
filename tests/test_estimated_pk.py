@@ -305,7 +305,7 @@ class EstimatedPKTests(unittest.TestCase):
         self.assertIn('value="ideal_body_weight_devine" selected', text)
         self.assertIn('primary assumption', text)
         self.assertIn('creatinine_clearance_cockcroft_gault', text)
-        self.assertIn('Simulated, synthetic, not a clinical prediction', text)
+        self.assertIn('Not a clinical prediction', text)
 
     def test_page_calculate_compare_download_and_save(self):
         revision = self.revision()
