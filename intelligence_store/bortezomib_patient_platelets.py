@@ -19,12 +19,18 @@ from .bortezomib_platelets import platelet_timecourse
 
 CONTEXT_PATH = Path(__file__).parent / 'data' / 'bortezomib_platelet_context_v1.json'
 CONTEXT_SHA256 = '4154f2d0cde5933a1e017fce62effbf012bcf09453b3b46e2ef43fb558e12775'
+CTCAE_V5_PATH = Path(__file__).parent / 'data' / 'platelet_grading_ctcae_v5_v1.json'
+CTCAE_V5_SHA256 = '475dabd7647b9294e17ed184b7816488c3273b75507f460746cf3b273787d525'
 SCHEMA_VERSION = 'bortezomib-patient-platelet-view-v1'
 METHOD_VERSION = 'bortezomib-patient-platelets-v1.0'
 
 
 def load_context(path=CONTEXT_PATH):
     return _load_pinned(path, CONTEXT_SHA256, 'observed-context-v1', 'Bortezomib platelet context')
+
+
+def load_ctcae_v5(path=CTCAE_V5_PATH):
+    return _load_pinned(path, CTCAE_V5_SHA256, 'grading-reference-v1', 'CTCAE v5.0 platelet grading')
 
 
 def grade_for(count, grading):
@@ -42,6 +48,7 @@ def patient_platelet_view(revision_id, cycles=1):
         raise ValueError('Saved patient-state revision does not exist.')
     state = revision.payload['state']
     context = load_context()
+    current = load_ctcae_v5()
     field = state['fields'].get('platelet_count')
     report = {'schema_version': SCHEMA_VERSION, 'method_version': METHOD_VERSION, 'revision_id': revision.id,
               'state_schema_version': state['schema_version'], 'state_sha256': revision.state_sha256,
@@ -82,13 +89,16 @@ def patient_platelet_view(revision_id, cycles=1):
         variants[name] = {'description': v['description'], 'absolute_1e9_per_l': absolute,
                           'lowest_typical_1e9_per_l': lowest, 'lowest_typical_time_h': v['nadir_time_h'],
                           'typical_curve_grade_at_lowest': grade_for(lowest, grading),
+                          'typical_curve_grade_at_lowest_ctcae_v5': grade_for(lowest, current),
                           'pre_dose_day11_by_cycle': [dict(d, platelets_1e9_per_l=baseline * d['fraction_of_baseline'])
                                                       for d in v['pre_dose_day11_by_cycle']]}
     report.update(
         status='completed', cycles=cycles, baseline_1e9_per_l=baseline,
         baseline_provenance={k: field[k] for k in ('origin', 'observed_at', 'source_ref')},
         times_h=curves['times_h'], regimen=copy.deepcopy(curves['regimen']), variants=variants,
-        grading=copy.deepcopy(grading), eligibility_warnings=warnings,
+        grading=copy.deepcopy(grading), current_grading={k: copy.deepcopy(current[k]) for k in
+                                                           ('system', 'thresholds', 'difference_from_ctc_v2', 'source')},
+        current_grading_sha256=CTCAE_V5_SHA256, eligibility_warnings=warnings,
         observed_context={'incidence_for_this_baseline': incidence,
                           'grade_3_4_overall_percent': observed['grade_3_4_incidence']['value_percent'],
                           'any_grade_percent': observed['any_grade_incidence']['value_percent'],

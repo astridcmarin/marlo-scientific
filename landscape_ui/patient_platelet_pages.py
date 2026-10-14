@@ -25,8 +25,11 @@ def _chart(view):
               'points': ' '.join(f'{x(t):.2f},{y(c):.2f}' for t, c in zip(view['times_h'], v['absolute_1e9_per_l']))}
              for name, v in view['variants'].items()]
     grades = [{'grade': b['grade'], 'value': b['upper_exclusive'], 'y': y(b['upper_exclusive'])} for b in view['grading']['thresholds']]
+    old = {b['upper_exclusive'] for b in view['grading']['thresholds']}
+    current = [{'grade': b['grade'], 'value': b['upper_exclusive'], 'y': y(b['upper_exclusive'])}
+               for b in view['current_grading']['thresholds'] if b['upper_exclusive'] not in old]
     nadir = view['observed_context']['illustrative_average_individual_nadir_1e9_per_l']
-    return {'lines': lines, 'grades': grades, 'baseline_y': y(view['baseline_1e9_per_l']), 'nadir_y': y(nadir),
+    return {'lines': lines, 'grades': grades, 'current_grades': current, 'baseline_y': y(view['baseline_1e9_per_l']), 'nadir_y': y(nadir),
             'ticks': [{'y': y(v), 'label': f'{v:g}'} for v in range(0, int(top) + 1, 50)],
             'days': [{'x': x(24.0 * d), 'label': f'{d + 1}'} for d in range(0, int(end / 24) + 1, 7)],
             'doses': [x(t) for t in view['regimen']['dose_times_h']]}

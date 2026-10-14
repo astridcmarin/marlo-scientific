@@ -206,6 +206,7 @@ Passing all four supports research use. `clinical_prediction_validated` stays fa
   - entry thresholds (50, or 30 with extensive marrow involvement);
   - incidences: 42% any grade and 30% grade 3/4, overall; grade 4 in 24% of patients with a baseline under 70 versus at most 1% above;
   - the roughly 60% average individual fall, drawn as an illustrative line.
+- **Current grading as well** (`platelet_grading_ctcae_v5_v1.json`, pinned; read from the NCI CTCAE v5.0 PDF, page 83, with every boundary checked against its text). Grades 1–2 match CTC v2.0. Grade 3 is 25 to under 50 (v2.0: 10 to under 50) and grade 4 is under 25 (v2.0: under 10). The page draws the v5.0 grade-4 line separately and gives each variant's lowest typical point under both systems. Lonial's "grade 4" (under 10) is a deeper fall than today's grade 4, so its 24% figure would be larger under v5.0 definitions.
 - **Interpretation on the page.** The typical curve dips less than individual patients do, because averaging smooths dips that happen on different days. The grade lines are references, not this patient's grade. The observed incidence for the patient's baseline is presented as the better guide to risk.
 - **Not run:** a record without a platelet count (any v1 record) gets an explanation and a link to add one; a baseline below the source's entry thresholds gets a warning.
 
