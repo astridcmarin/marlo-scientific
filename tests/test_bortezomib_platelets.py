@@ -62,3 +62,42 @@ class LockedCheck(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class Page(unittest.TestCase):
+    def setUp(self):
+        from flask import Flask
+        from landscape_ui import register_landscape
+        app = Flask(__name__)
+        app.config['TESTING'] = True
+        app.add_url_rule('/', 'home', lambda: 'Home')
+        register_landscape(app)
+        self.client = app.test_client()
+        self.path = '/landscape/simulation-lab/bortezomib-platelets'
+
+    def test_page_shows_both_variants_observed_point_and_limits(self):
+        response = self.client.get(self.path)
+        self.assertEqual(response.status_code, 200)
+        text = response.get_data(as_text=True)
+        for expected in ('Typical curve from mean data — not a toxicity prediction', 'Myelosuppression variant',
+                         'Platelet-budding variant', 'Observed mean, cycle 1 day 11', 'Which variant is right is not settled',
+                         'briefly <em>removes</em> cells', 'Clinical prediction validated: <strong>false</strong>'):
+            self.assertIn(expected, text)
+
+    def test_json_matches_the_locked_check_and_strict_inputs(self):
+        data = self.client.get(self.path + '?cycles=2&format=json').get_json()
+        self.assertEqual(data['cycles'], 2)
+        committed = json.loads(REPORT.read_text())
+        rows = {(r['variant'], r['units'], r['effect_bound']): r for r in committed['rows']}
+        for name, v in data['variants'].items():
+            day11 = v['pre_dose_day11_by_cycle'][0]['fraction_of_baseline']
+            self.assertAlmostEqual(day11, rows[(name, 'ng_per_ml', 'unbounded_as_printed')]['cycle1_day11_ratio'], places=9)
+        self.assertEqual(data['reading']['check_report_sha256'], committed['report_sha256'])
+        self.assertFalse(data['clinical_prediction_validated'])
+        for bad in ('?cycles=0', '?cycles=5', '?cycles=1.5', '?cycles=2&x=1', '?format=csv'):
+            self.assertEqual(self.client.get(self.path + bad).status_code, 400, bad)
+
+    def test_listed_in_simulation_lab(self):
+        text = self.client.get('/landscape/simulation-lab').get_data(as_text=True)
+        self.assertIn('Platelet time course (Lignet 2022)', text)
+        self.assertIn('/landscape/simulation-lab/bortezomib-platelets', text)
