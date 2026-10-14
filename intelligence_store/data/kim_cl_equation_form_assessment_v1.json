@@ -1,0 +1,41 @@
+{
+  "schema_version": "covariate-method-assessment-v1",
+  "assessment_version": "kim-cl-equation-form-v1.0",
+  "model": "lenalidomide_kim_2026",
+  "question": "Does the BSA effect on unbound CL/F enter additively in L/h, as printed, or multiplicatively?",
+  "assessed_on": "2026-10-13",
+  "status": "unresolved",
+  "source_facts": [
+    {"location": "p.10 final-model equation", "fact": "Printed as CL/F (L/h) = 8.52 * exp[0.0131 * (eGFR - 46.92)] + 1.1 * (BSA - 1.64): the closing bracket precedes the BSA term."},
+    {"location": "p.6 Covariate Analysis", "fact": "Continuous covariates were explored with linear, power or exponential functions."},
+    {"location": "p.16 Discussion", "fact": "The model that included BSA as a linear covariate on CL/F described the data most accurately."},
+    {"location": "p.17 Discussion", "fact": "Eight PTA results: severe RI, BSA 2.0: 7.5 mg 42.5%, 10 mg 70.0%; BSA < 1.6: 5 mg 58.9-69.6%. Moderate RI, BSA 2.0: 10 mg 30.6%, 15 mg 65.9%; BSA < 1.6: 7.5 mg 56.0-63.8%."}
+  ],
+  "reconstruction": {
+    "script": "scripts/assess_kim_cl_equation_form.py",
+    "seed": 7,
+    "n_per_cell": 20000,
+    "results": {
+      "linear_multiplicative": {"mean_abs_error_pct_points": 13.8, "dose_escalation_raises_pta_as_reported": true},
+      "exponential": {"mean_abs_error_pct_points": 13.8, "dose_escalation_raises_pta_as_reported": true},
+      "additive_as_printed": {"mean_abs_error_pct_points": 30.1, "dose_escalation_raises_pta_as_reported": false}
+    },
+    "reading": "With the printed additive form, BSA moves CL/F by only about 0.4 L/h at BSA 2.0, so escalating the dose in large patients would lower target attainment; the paper reports the opposite. Both multiplicative forms reproduce the direction of every reported result. They cannot be separated with the published information."
+  },
+  "form_evidence": {
+    "linear_multiplicative": {"evidence_level": "consistent_with_reported_results_and_text", "summary": "Matches the reported PTA pattern and the Discussion's description of BSA as a linear covariate."},
+    "exponential": {"evidence_level": "consistent_with_reported_results", "summary": "Matches the reported PTA pattern equally well; the usual NONMEM exponential parameterisation."},
+    "additive_as_printed": {"evidence_level": "contradicted_by_reported_results", "summary": "Reverses the reported dose-escalation results."}
+  },
+  "decision": {
+    "primary_form": "linear_multiplicative",
+    "sensitivity_forms": ["exponential", "additive_as_printed"],
+    "label_on_outputs": "inferred_from_reported_simulation_results",
+    "resolution_path": "Ask the corresponding author (Eun Kyoung Chung, Kyung Hee University) for the final control stream or the intended equation."
+  },
+  "limits": [
+    "Individual eGFR and BSA values are not published; the reconstruction approximates their distributions, so close numerical agreement is not expected.",
+    "The paper's virtual-population method is described only briefly.",
+    "This assessment does not establish the authors' implementation."
+  ]
+}

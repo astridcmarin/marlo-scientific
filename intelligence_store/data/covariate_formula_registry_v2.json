@@ -1,0 +1,206 @@
+{
+  "schema_version": "covariate-formula-registry-v1",
+  "registry_version": "covariate-formulas-v2.0",
+  "purpose": "synthetic_educational",
+  "reviewed_on": "2026-10-13",
+  "scope": "Deterministic estimators that turn declared synthetic patient-state fields into published-model covariates. An estimate is a calculation under stated assumptions, not a measured value.",
+  "constants": {
+    "creatinine_umol_per_mg_dl": {
+      "value": 88.4,
+      "meaning": "Serum creatinine unit conversion (umol/L per mg/dL), from creatinine molar mass 113.12 g/mol."
+    },
+    "cm_per_inch": {
+      "value": 2.54,
+      "meaning": "Exact definition."
+    }
+  },
+  "formulas": {
+    "body_mass_index": {
+      "version": "1.0",
+      "equation": "BMI = weight_kg / (height_cm / 100)^2",
+      "inputs": {
+        "weight": "kg",
+        "height": "cm"
+      },
+      "output_unit": "kg/m2",
+      "source": {
+        "citation": "Quetelet index; definitional.",
+        "source_status": "definitional"
+      },
+      "notes": [
+        "Uses total body weight. Required by the Janmahasatian fat-free mass estimator."
+      ]
+    },
+    "fat_free_mass_janmahasatian": {
+      "version": "1.0",
+      "equation": "MALE: FFM = 9270 * WT / (6680 + 216 * BMI); FEMALE: FFM = 9270 * WT / (8780 + 244 * BMI)",
+      "inputs": {
+        "weight": "kg",
+        "body_mass_index": "kg/m2",
+        "biological_sex": null
+      },
+      "output_unit": "kg",
+      "constants": {
+        "MALE": {
+          "numerator": 9270,
+          "intercept": 6680,
+          "bmi_slope": 216
+        },
+        "FEMALE": {
+          "numerator": 9270,
+          "intercept": 8780,
+          "bmi_slope": 244
+        }
+      },
+      "source": {
+        "citation": "Janmahasatian S, Duffull SB, Ash S, Ward LC, Byrne NM, Green B. Quantification of lean bodyweight. Clin Pharmacokinet. 2005;44(10):1051-1065.",
+        "doi": "10.2165/00003088-200544100-00004",
+        "source_status": "equation_widely_reproduced; derivation-population limits not yet transcribed into this registry"
+      },
+      "notes": [
+        "Hughes 2019 cites this method for FFM (Section 2.3, reference 40).",
+        "The control stream reads FFM as a precomputed data column; the exact implementation used to build that column is not published."
+      ]
+    },
+    "ideal_body_weight_devine": {
+      "version": "1.0",
+      "equation": "MALE: IBW = 50 + 2.3 * (height_in - 60); FEMALE: IBW = 45.5 + 2.3 * (height_in - 60); height_in = height_cm / 2.54",
+      "inputs": {
+        "height": "cm",
+        "biological_sex": null
+      },
+      "output_unit": "kg",
+      "constants": {
+        "MALE": {
+          "base_kg": 50.0
+        },
+        "FEMALE": {
+          "base_kg": 45.5
+        },
+        "kg_per_inch_over_60": 2.3
+      },
+      "source": {
+        "citation": "Devine BJ. Gentamicin therapy. Drug Intell Clin Pharm. 1974;8:650-655.",
+        "source_status": "equation_widely_reproduced; originally an empirical dosing convention, not a body-composition measurement"
+      },
+      "notes": [
+        "Below 60 inches (152.4 cm) the linear formula extrapolates below its base weight; this is flagged.",
+        "Used here only as a candidate Cockcroft-Gault weight basis."
+      ]
+    },
+    "adjusted_body_weight_0_4": {
+      "version": "1.0",
+      "equation": "ABW = IBW + 0.4 * (TBW - IBW)",
+      "inputs": {
+        "weight": "kg",
+        "ideal_body_weight": "kg"
+      },
+      "output_unit": "kg",
+      "constants": {
+        "correction_factor": 0.4
+      },
+      "source": {
+        "citation": "Conventional dosing-weight correction (commonly used with aminoglycoside dosing and Cockcroft-Gault in obesity).",
+        "source_status": "convention; primary source not verified in this registry"
+      },
+      "notes": [
+        "Applied as written for every patient. When TBW < IBW the result lies between them; practice conventions differ and none is assumed."
+      ]
+    },
+    "creatinine_clearance_cockcroft_gault": {
+      "version": "1.0",
+      "equation": "CrCL_mL_min = (140 - age_years) * W / (72 * SCr_mg_dl) * (0.85 if FEMALE else 1); SCr_mg_dl = SCr_umol_l / 88.4",
+      "inputs": {
+        "age_years": "year",
+        "dosing_weight": "kg",
+        "serum_creatinine": "umol/L",
+        "biological_sex": null
+      },
+      "output_unit": "mL/min",
+      "constants": {
+        "age_anchor": 140,
+        "denominator": 72,
+        "female_factor": 0.85
+      },
+      "source": {
+        "citation": "Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. Nephron. 1976;16(1):31-41.",
+        "doi": "10.1159/000180580",
+        "source_status": "equation_widely_reproduced"
+      },
+      "weight_basis_required": true,
+      "supported_weight_bases": [
+        "total_body_weight",
+        "ideal_body_weight_devine",
+        "adjusted_body_weight_0_4"
+      ],
+      "notes": [
+        "The original paper does not settle which weight to use in obesity; the weight basis is a declared assumption on every estimate.",
+        "Derived in adult men with stable serum creatinine; the 0.85 female factor was proposed rather than derived from female measurements.",
+        "Assumes steady-state serum creatinine. Not meaningful for rapidly changing renal function.",
+        "Predates standardized (IDMS-traceable) creatinine assays; assay differences shift estimates.",
+        "Not indexed to body surface area. Never interchangeable with indexed eGFR."
+      ]
+    },
+    "egfr_ckd_epi_2021_creatinine": {
+      "version": "1.0",
+      "equation": "eGFR = 142 * min(SCr/kappa, 1)^alpha * max(SCr/kappa, 1)^-1.200 * 0.9938^age * (1.012 if FEMALE); SCr in mg/dL; FEMALE kappa=0.7, alpha=-0.241; MALE kappa=0.9, alpha=-0.302",
+      "inputs": {
+        "age_years": "year",
+        "serum_creatinine": "umol/L",
+        "biological_sex": null
+      },
+      "output_unit": "mL/min/1.73m2",
+      "constants": {
+        "coefficient": 142.0,
+        "age_base": 0.9938,
+        "upper_exponent": -1.2,
+        "female_factor": 1.012,
+        "FEMALE": {
+          "kappa": 0.7,
+          "alpha": -0.241
+        },
+        "MALE": {
+          "kappa": 0.9,
+          "alpha": -0.302
+        }
+      },
+      "source": {
+        "citation": "Inker LA, Eneanya ND, Coresh J, et al. New creatinine- and cystatin C-based equations to estimate GFR without race. N Engl J Med. 2021;385(19):1737-1749.",
+        "doi": "10.1056/NEJMoa2102953",
+        "source_status": "equation_widely_reproduced"
+      },
+      "notes": [
+        "Race-free 2021 creatinine equation, as cited by Kim 2026 (Methods p.6; Table 1 footnote).",
+        "Indexed to 1.73 m2 body surface area. Not interchangeable with Cockcroft-Gault creatinine clearance.",
+        "Serum creatinine converted from umol/L at 88.4 umol/L per mg/dL. Defined for adults; assumes stable creatinine."
+      ]
+    },
+    "body_surface_area_du_bois": {
+      "version": "1.0",
+      "equation": "BSA = 0.007184 * weight_kg^0.425 * height_cm^0.725",
+      "inputs": {
+        "weight": "kg",
+        "height": "cm"
+      },
+      "output_unit": "m2",
+      "constants": {
+        "coefficient": 0.007184,
+        "weight_exponent": 0.425,
+        "height_exponent": 0.725
+      },
+      "source": {
+        "citation": "Du Bois D, Du Bois EF. A formula to estimate the approximate surface area if height and weight be known. Arch Intern Med. 1916;17:863-871.",
+        "source_status": "equation_widely_reproduced"
+      },
+      "notes": [
+        "Kim 2026 cites the Du-Bois method for BSA (Methods p.5)."
+      ]
+    }
+  },
+  "boundaries": [
+    "Estimators run only on synthetic educational patient states.",
+    "No unit conversion is performed on inputs other than the documented creatinine conversion inside Cockcroft-Gault.",
+    "An estimate does not make a model applicable. Model applicability is reviewed separately against source coverage."
+  ],
+  "supersedes": "covariate-formulas-v1.0. Every v1 formula is unchanged; v2 adds CKD-EPI 2021 eGFR and Du Bois BSA for the Kim 2026 model. v1 stays in the repository as the record behind estimates made before v2."
+}
