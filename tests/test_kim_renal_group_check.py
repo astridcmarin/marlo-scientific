@@ -1,12 +1,15 @@
 """Patient Lab 2.1c: locked plan, covariate construction and reproducible report for the Kim renal-group check."""
+import hashlib
 import json
 from pathlib import Path
 import random
 import tempfile
 import unittest
 
-from intelligence_store.patient_state import digest
-from intelligence_store.covariate_estimation import cockcroft_gault, egfr_ckd_epi_2021
+from intelligence_store.patient_state import UNITS, SCHEMA_VERSION as STATE_SCHEMA, digest
+from intelligence_store.covariate_estimation import CovariateEstimationError, cockcroft_gault, egfr_ckd_epi_2021
+from intelligence_store.kim_model import (estimate_kim_covariates, load_applicability_findings,
+                                          load_dose_proportionality_evidence)
 from intelligence_store.kim_renal_group_check import (PLAN_SHA256, backsolve_serum_creatinine, draw_subject, load_plan,
                                                       run_check, scenario_settings)
 
@@ -64,6 +67,58 @@ class CommittedReport(unittest.TestCase):
         self.assertEqual(committed['classification_across_scenarios']['mild'], ['consistent'])
         for group in ('moderate', 'severe'):
             self.assertEqual(committed['classification_across_scenarios'][group], ['consistent', 'model_under_predicts'])
+
+
+def state(scr):
+    values = dict(age_years=65, biological_sex='FEMALE', weight=70, height=165, serum_creatinine=scr)
+    return {'schema_version': STATE_SCHEMA, 'purpose': 'synthetic_educational',
+            'fields': {k: {'value': v, 'unit': UNITS[k], 'origin': 'synthetic_input', 'observed_at': None,
+                           'source_ref': None} for k, v in values.items()}}
+
+
+class KimApplicabilityFinding(unittest.TestCase):
+    def test_finding_cites_the_committed_report(self):
+        finding = load_applicability_findings()['findings'][0]
+        self.assertEqual(hashlib.sha256(REPORT.read_bytes()).hexdigest(), finding['evidence']['report_file_sha256'])
+        committed = json.loads(REPORT.read_text())
+        self.assertEqual(committed['primary_endpoint_by_group']['severe'], 'model_under_predicts')
+        self.assertEqual(finding['status'], 'exploratory_finding_not_validation')
+
+    def test_warning_appears_only_below_egfr_30(self):
+        low = estimate_kim_covariates(state(180))
+        self.assertLess(low['estimates']['egfr_indexed']['value'], 30)
+        self.assertEqual([f['id'] for f in low['applicability_findings']], ['renal-under-prediction-severe'])
+        self.assertTrue(any('may under-predict' in w for w in low['warnings']))
+        moderate = estimate_kim_covariates(state(120))
+        self.assertGreater(moderate['estimates']['egfr_indexed']['value'], 30)
+        self.assertEqual(moderate['applicability_findings'], [])
+        self.assertFalse(any('may under-predict' in w for w in moderate['warnings']))
+
+    def test_changed_findings_or_dose_evidence_is_refused(self):
+        data = ROOT / 'intelligence_store' / 'data'
+        for name, loader in (('kim_applicability_findings_v1.json', load_applicability_findings),
+                             ('lenalidomide_dose_proportionality_evidence_v1.json', load_dose_proportionality_evidence)):
+            with tempfile.TemporaryDirectory() as tmp:
+                path = Path(tmp) / name
+                path.write_bytes((data / name).read_bytes() + b' ')
+                with self.assertRaises(CovariateEstimationError):
+                    loader(path)
+
+
+class DoseProportionalityEvidence(unittest.TestCase):
+    def test_source_file_is_the_pinned_report(self):
+        source = load_dose_proportionality_evidence()['primary_source']
+        self.assertEqual(hashlib.sha256((ROOT / source['local_file']).read_bytes()).hexdigest(), source['sha256'])
+
+    def test_quotes_appear_on_the_cited_page(self):
+        try:
+            import pypdf
+        except ImportError:
+            self.skipTest('pypdf not installed')
+        source = load_dose_proportionality_evidence()['primary_source']
+        text = ' '.join((pypdf.PdfReader(str(ROOT / source['local_file'])).pages[19].extract_text() or '').split())
+        for quote in source['quotes']:
+            self.assertIn(quote, text)
 
 
 if __name__ == '__main__':
