@@ -1,10 +1,33 @@
-instance/
+# Python
 .venv/
+venv/
 __pycache__/
 *.pyc
+.pytest_cache/
+
+# Environment and credentials
 .env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local application data
+instance/
+
+# macOS
 .DS_Store
+
+# Backup archives and local inventories
+intelligence_store.zip
+tests.zip
+project_structure.txt
+
+# Temporary files
+tmp/
+logs/
+
 # Copyrighted source documents kept locally for review; never commit.
+# Bracketed so the rule holds whether the folder is "articles" or "Articles".
 Guglieri*.pdf
-# Copyrighted articles and supplements kept locally for review; never commit.
-articles/
+[Aa]rticles/
