@@ -14,7 +14,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from .intervention_names import group_intervention_names, name_key
 from .summaries import CohortSummaryError, summarize_cohort
 
-ALIAS_METHOD_VERSION = "drug-aliases-v1.1"
+ALIAS_METHOD_VERSION = "drug-aliases-v1.2"
 CATALOG_PATH = Path(__file__).parent / "data" / "drug_aliases_v1.json"
 FORMATTING_MAP_PATH = Path(__file__).parent / "data" / "formatting_group_mappings_v1.json"
 
@@ -193,6 +193,8 @@ def reconcile_drug_aliases(summary, catalog=None, formatting_catalog=None):
     buckets = defaultdict(list)
     entities = {}
     mapped_keys = []
+    reviewed_into_catalog = defaultdict(list)
+    catalog_by_id = {entry["id"]: entry for entry in catalog["entries"]}
 
     for group in formatting["groups"]:
         alias_entry = catalog["alias_index"].get(group["key"])
@@ -209,6 +211,20 @@ def reconcile_drug_aliases(summary, catalog=None, formatting_catalog=None):
                 "mapping_entry": None,
                 "mapping_status": "source-backed",
             }
+            mapped_keys.append(group["key"])
+
+        elif formatting_entry is not None and formatting_entry["entity_id"] in catalog_by_id:
+            # A reviewed name for a drug that already has a label-sourced catalog entry joins that
+            # drug's row; which names arrived by review stays recorded on the row.
+            catalog_entry = catalog_by_id[formatting_entry["entity_id"]]
+            key = "catalog:" + catalog_entry["id"]
+            entities.setdefault(key, {
+                "canonical_name": catalog_entry["canonical_name"],
+                "catalog_entry": catalog_entry,
+                "mapping_entry": None,
+                "mapping_status": "reviewed-mapping",
+            })
+            reviewed_into_catalog[key].append(group["key"])
             mapped_keys.append(group["key"])
 
         elif formatting_entry is not None:
@@ -244,6 +260,7 @@ def reconcile_drug_aliases(summary, catalog=None, formatting_catalog=None):
                 "mapping_status": entity["mapping_status"] if entity else "unmapped",
                 "catalog_entry": entity["catalog_entry"] if entity else None,
                 "mapping_entry": entity["mapping_entry"] if entity else None,
+                "reviewed_mapping_keys": sorted(reviewed_into_catalog.get(key, [])),
             }
         )
 

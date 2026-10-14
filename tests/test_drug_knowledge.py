@@ -193,3 +193,38 @@ class DrugKnowledgeTests(unittest.TestCase):
                     load_interaction_catalog(aliases,path=p)
 
 if __name__=='__main__':unittest.main()
+
+
+class ReviewedMappingMergeTests(unittest.TestCase):
+    setUp=fixtures.SavedScenarioTests.setUp
+    tearDown=fixtures.SavedScenarioTests.tearDown
+    extra=DrugKnowledgeTests.extra
+
+    def test_reviewed_code_joins_catalog_drug_and_is_not_unmapped(self):
+        # PS-341 is a reviewed mapping to bortezomib, which also has label-sourced aliases.
+        self.extra('NCT00000002',['PS-341'])
+        self.extra('NCT00000003',['Velcade'])
+        self.extra('NCT00000004',['Thalidomide','Unknown compound'])
+        cohort=db.session.get(AnalysisCohort,1);cohort.expected_count=cohort.retrieved_count=4;db.session.commit()
+        r=build_drug_knowledge(summarize_cohort(1))
+        b=next(e for e in r['entries'] if e['entity_id']=='bortezomib')
+        self.assertEqual(b['nct_ids'],['NCT00000002','NCT00000003'])
+        unmapped_labels={g['label'] for g in r['unmapped_groups']}
+        self.assertEqual(unmapped_labels,{'Unknown compound'})
+        self.assertEqual([g['label'] for g in r['reviewed_mapping_groups']],['thalidomide'])
+        self.assertEqual(r['coverage']['reviewed_mapping_names']['nct_ids'],['NCT00000004'])
+        from intelligence_store.drug_aliases import reconcile_drug_aliases
+        rows={row['key']:row for row in reconcile_drug_aliases(summarize_cohort(1))['groups']}
+        self.assertEqual(rows['catalog:bortezomib']['mapping_status'],'source-backed')
+        self.assertEqual(rows['catalog:bortezomib']['reviewed_mapping_keys'],['ps-341'])
+        self.assertNotIn('reviewed:bortezomib',rows)
+
+    def test_catalog_drug_found_only_through_review_is_labelled_reviewed(self):
+        self.extra('NCT00000002',['CC-4047'])
+        cohort=db.session.get(AnalysisCohort,1);cohort.expected_count=cohort.retrieved_count=2;db.session.commit()
+        from intelligence_store.drug_aliases import reconcile_drug_aliases
+        rows={row['key']:row for row in reconcile_drug_aliases(summarize_cohort(1))['groups']}
+        self.assertEqual(rows['catalog:pomalidomide']['mapping_status'],'reviewed-mapping')
+        self.assertEqual(rows['catalog:pomalidomide']['catalog_entry']['id'],'pomalidomide')
+        r=build_drug_knowledge(summarize_cohort(1))
+        self.assertEqual(next(e for e in r['entries'] if e['entity_id']=='pomalidomide')['nct_ids'],['NCT00000002'])
