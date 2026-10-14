@@ -37,8 +37,8 @@ def load_plan(path=PLAN_PATH):
     return json.loads(raw)
 
 
-def _segments(events, t_end):
-    cuts = {0.0, t_end}
+def _segments(events, t_end, extra_cuts=()):
+    cuts = {0.0, t_end} | {t for t in extra_cuts if 0.0 < t < t_end}
     for start, _ in events:
         if start < t_end:
             cuts.update({start, min(start + FINE_WINDOW_H, t_end)})
@@ -78,7 +78,7 @@ def simulate(variant, units, bound, events, t_end_h, step_scale=1.0, record_at=(
         return (growth - ktr * prol, ktr * prol - ktr * t1, ktr * t1 - ktr * t2,
                 ktr * t2 - release, release - ktr * circ)
 
-    for a, b, step in _segments(events, t_end_h):
+    for a, b, step in _segments(events, t_end_h, record):
         active = [(s0, d) for s0, d in events if s0 <= a]
         conc = lambda time: factor * 1000.0 * math.fsum(d * cf * math.exp(-lam * (time - s0)) for s0, d in active for cf, lam in terms)
         n = max(1, math.ceil((b - a) / (step * step_scale) - 1e-9))
@@ -186,3 +186,69 @@ def register_bortezomib_platelet_commands(app):
             click.echo(f'Saved report: {output}\nReport SHA256: {report["report_sha256"]}')
         else:
             click.echo(payload, nl=False)
+
+
+ADOPTED_READING = {'units': 'ng_per_ml', 'effect_bound': 'unbounded_as_printed'}
+REPORT_PATH = Path(__file__).resolve().parent.parent / 'docs' / 'verification' / 'bortezomib_platelet_check_v1.json'
+TIMECOURSE_SCHEMA = 'bortezomib-platelet-timecourse-v1'
+MAX_CYCLES = 4
+
+
+def platelet_timecourse(cycles=1):
+    """Typical platelet curves (fraction of each variant's baseline) for 1.3 mg/m2 on days 1, 4, 8, 11 of
+    21-day cycles, under the reading adopted by the locked check, plus the driving PK curve."""
+    from .bortezomib_pk import concentration_curve
+    if isinstance(cycles, bool) or not isinstance(cycles, int) or not 1 <= cycles <= MAX_CYCLES:
+        raise ValueError(f'Cycles must be a whole number from 1 to {MAX_CYCLES}.')
+    extract = load_model_extract()
+    end = 504.0 * cycles
+    events = standard_regimen(1.3, cycles=cycles)
+    times = [float(h) for h in range(1, int(end) + 1)]
+    variants = {}
+    for variant in VARIANTS:
+        v = extract['pd_model']['variants'][variant]
+        result = simulate(variant, ADOPTED_READING['units'], ADOPTED_READING['effect_bound'], events, end,
+                          record_at=times, extract=extract)
+        if result['status'] != 'completed':
+            raise ValueError('Platelet simulation did not complete.')
+        fractions = [1.0] + [result['recorded'][t] for t in times]
+        day11 = [{'cycle': c + 1, 'time_h': 504.0 * c + 240.0, 'fraction_of_baseline': fractions[int(504 * c + 240)]}
+                 for c in range(cycles)]
+        variants[variant] = {
+            'parameters': {k: v[k] for k in ('gamma', 'mtt_h', 'circ0_1e9_per_l', 'slope')},
+            'description': v['description'], 'fraction_of_baseline': fractions,
+            'platelets_1e9_per_l_from_fitted_baseline': [f * v['circ0_1e9_per_l'] for f in fractions],
+            'nadir_fraction': result['nadir_ratio'], 'nadir_time_h': result['nadir_time_h'],
+            'pre_dose_day11_by_cycle': day11,
+            'next_cycle_day1_fraction': fractions[-1],
+            'hours_effect_term_negative': result['time_effect_term_negative_h'],
+            'effect_term_zero_at_ng_ml': 1.0 / v['slope']}
+    pk_times = sorted({h / 20.0 for h in range(0, 20 * 6)} | {float(h) for h in range(0, int(end) + 1)})
+    report_raw = REPORT_PATH.read_bytes()
+    report = json.loads(report_raw)
+    if report['decision']['adopted_primary_reading'] != ADOPTED_READING:
+        raise ValueError('Adopted reading does not match the committed check report.')
+    observed = load_plan()['endpoints']['primary']
+    out = {'schema_version': TIMECOURSE_SCHEMA, 'method_version': METHOD_VERSION, 'cycles': cycles,
+           'regimen': {'dose_mg_m2': 1.3, 'route': 'IV bolus', 'days': [1, 4, 8, 11], 'cycle_length_days': 21,
+                       'dose_times_h': [t for t, _ in events]},
+           'times_h': [0.0] + times, 'variants': variants,
+           'pk': {'times_h': pk_times, 'concentration_ng_ml': concentration_curve(events, pk_times, extract)},
+           'observed_reference': {'cycle1_day11_ratio': observed['observed'], 'interval': observed['interval'],
+                                  'source': observed['observed_source']},
+           'reading': dict(ADOPTED_READING, check_report_sha256=report['report_sha256'],
+                           check_report_file_sha256=hashlib.sha256(report_raw).hexdigest()),
+           'sources': {'model_extract_sha256': EXTRACT_SHA256, 'observed_sha256': OBSERVED_SHA256,
+                       'label_reference_sha256': LABEL_SHA256, 'plan_sha256': PLAN_SHA256},
+           'prediction_type': 'typical_value_from_mean_data',
+           'limitations': [
+               'Typical curve fitted to mean platelet counts; patients vary widely around it and no between-patient spread is available.',
+               'The effect term (1 - slope x C) is used as printed: it goes negative for a few hours after each dose, so it describes the net effect on mean counts, not a literal mechanism.',
+               'The PK model has one clearance and overstates first-dose exposure about 7-fold; early cycle 1 is affected most.',
+               'Only the studied regimen (1.3 mg/m2, days 1, 4, 8, 11 of 21-day cycles) is run; no dose holds, reductions or other schedules.',
+               'Later-cycle mean counts in the source may rise partly because patients with low counts stopped treatment.',
+               'Myeloma-related low platelets before treatment are not modelled.',
+               'Not a toxicity prediction, dosing advice or a basis for treatment decisions.'],
+           'clinical_prediction_validated': False, 'ready_for_patient_simulation': False}
+    out['report_sha256'] = digest(out)
+    return out

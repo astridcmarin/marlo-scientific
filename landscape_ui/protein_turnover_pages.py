@@ -17,6 +17,8 @@ def register_protein_turnover_pages(bp):
     register_bortezomib_evidence_pages(bp)
     from .bortezomib_proteasome_pages import register_bortezomib_proteasome_pages
     register_bortezomib_proteasome_pages(bp)
+    from .bortezomib_platelet_pages import register_bortezomib_platelet_pages
+    register_bortezomib_platelet_pages(bp)
     from .disease_library_pages import register_disease_library_pages
     register_disease_library_pages(bp)
     from .drug_capability_pages import register_drug_capability_pages
