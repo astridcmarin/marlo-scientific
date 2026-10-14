@@ -6,3 +6,5 @@ __pycache__/
 .DS_Store
 # Copyrighted source documents kept locally for review; never commit.
 Guglieri*.pdf
+# Copyrighted articles and supplements kept locally for review; never commit.
+articles/

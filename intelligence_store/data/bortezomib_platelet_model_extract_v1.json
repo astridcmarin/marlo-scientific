@@ -1,0 +1,109 @@
+{
+  "schema_version": "pd-model-extract-v1",
+  "extract_version": "bortezomib-platelet-lignet-2022-v1.0",
+  "model_id": "bortezomib_platelets_lignet_2022",
+  "drug": "bortezomib",
+  "recorded_on": "2026-10-14",
+  "source": {
+    "citation": "Lignet F, Becker AD, Gimmi C, Rohdich F, El Bawab S. Using thrombocytopenia modeling to investigate the mechanisms underlying platelet depletion induced by pan-proteasome inhibitors. CPT Pharmacometrics Syst Pharmacol. 2022;11(5):594-603.",
+    "doi": "10.1002/psp4.12743",
+    "pmcid": "PMC9124357",
+    "license": "CC BY-NC-ND 4.0 (article); not redistributed here",
+    "files_reviewed": [
+      {"file": "article PDF (publisher download 2026-10-14)", "sha256": "b1ea316fec62982f8de25e1adf17fa23cee58ab21ca44c966be57629145a4915"},
+      {"file": "psp412743-sup-0001-tables1.docx (Table S1)", "sha256": "52e9d01cd8d4ccc50579df3e4457c9d7f6eea5c5e6b5946daf582ced2cfa5c50"},
+      {"file": "psp412743-sup-0002-tables2.docx (Table S2)", "sha256": "29f5f6d697fd9c1ea7f963d510ea2252c43363a85ca05ad5f7d25aba53b324b3"}
+    ],
+    "storage": "Source files are kept on the platform owner's computer only; they are not committed.",
+    "funding_and_interests": "No funding; authors employed by Merck KGaA at the time.",
+    "extraction": "AI-assisted transcription from the PDF text layer and supplement XML; independent review pending."
+  },
+  "data_behind_the_model": {
+    "platelets": "Mean platelet counts digitised from published graphs (Lonial et al. 2005, ref 7); no individual data for bortezomib.",
+    "pk": "Mean concentration profiles from Reece et al. 2011 (12 patients, days 1 and 11 of cycles 1 and 3) used only for graphical comparison.",
+    "regimen": "1.3 mg/m2 IV on days 1, 4, 8 and 11 of 21-day cycles, up to 8 cycles",
+    "population": "Relapsed multiple myeloma (SUMMIT/CREST); 55-57% men; median age 59-62",
+    "between_patient_variability": "Not estimated for bortezomib (mean data only). Outputs can only be typical values."
+  },
+  "pk_model": {
+    "structure": "Three-compartment, linear, IV administration",
+    "origin": "Hanley et al. 2017 pediatric population PK (Table S1), scaled to adults: P_adult = P_pediatric x (BSA_adult / BSA_pediatric)^b with b = 1, BSA_pediatric = 1.30 m2, BSA_adult = 1.62 m2 (article Methods; Table 1)",
+    "parameters_per_m2": {
+      "clearance_l_h_m2": 9.2, "central_volume_l_m2": 9.6, "q2_l_h_m2": 24.7,
+      "peripheral_volume_2_l_m2": 31.2, "q3_l_h_m2": 25.5, "peripheral_volume_3_l_m2": 934.6
+    },
+    "pediatric_source_values": {
+      "clearance_l_h": 9.59, "central_volume_l": 10.0, "q2_l_h": 25.8, "peripheral_volume_2_l": 32.5,
+      "q3_l_h": 26.6, "peripheral_volume_3_l": 975,
+      "location": "Table S1 (population medians; Hanley et al. 2017)"
+    },
+    "scaling_check": "Each Table 1 value equals the pediatric value / 1.30 x (1.62 / 1.30) to rounding (tested). The per-m2 values are therefore multiplied by the adult BSA (1.62 m2 in the source) to obtain L or L/h.",
+    "location": "Table 1; Methods 'PK model development and analysis'; Supplementary Information S1",
+    "concentration_unit_in_source_figures": "ng/mL (Figure 2 axis labels)"
+  },
+  "pd_model": {
+    "structure": "Semi-mechanistic thrombocytopenia model: proliferating progenitors (Prol), three transit compartments (Trans1-3), circulating platelets (Circ); feedback (Circ0/Circ)^gamma on proliferation (Friberg 2002; Bender 2012; Tsuji 2017; Collins 2017)",
+    "equations": {
+      "eq1_base_prol": "dProl/dt = Kprol*Prol*(Circ0/Circ)^gamma - Ktr*Prol",
+      "eq2_3_4_transit": "dTrans_i/dt = Ktr*Trans_(i-1) - Ktr*Trans_i  (i = 1..3; Trans_0 = Prol)",
+      "eq5_base_circ": "dCirc/dt = Ktr*Trans3 - Kcirc*Circ",
+      "eq6_myelosuppression": "dProl/dt = Kprol*Prol*(1 - slope*C)*(Circ0/Circ)^gamma - Ktr*Prol",
+      "eq7_budding_trans3": "dTrans3/dt = Ktr*Trans2 - Ktr*Trans3*(1 - slope*C)",
+      "eq8_budding_circ": "dCirc/dt = Ktr*Trans3*(1 - slope*C) - Kcirc*Circ",
+      "mtt": "MTT = (n + 1)/Ktr with n = 3, i.e. Ktr = 4/MTT"
+    },
+    "variants": {
+      "myelosuppression": {"description": "Drug slows division of progenitor cells (Eq 6).",
+                           "gamma": 0.38, "mtt_h": 99, "circ0_1e9_per_l": 171, "slope": 0.07,
+                           "cv_percent": {"gamma": 11.5, "mtt_h": 7.6, "circ0": 4.5, "slope": 11.2}},
+      "platelet_budding": {"description": "Drug slows release of new platelets from megakaryocytes (Eqs 7-8).",
+                           "gamma": 0.16, "mtt_h": 846, "circ0_1e9_per_l": 135, "slope": 0.5,
+                           "cv_percent": {"gamma": 0, "mtt_h": 13.3, "circ0": 3.6, "slope": 6.6}}
+    },
+    "parameter_location": "Table 2 (bortezomib columns); values are estimates with coefficient of variation (%)",
+    "published_myelosuppression_ranges": {"gamma": [0.14, 0.29], "mtt_h": [37, 134]}
+  },
+  "model_comparison_in_source": {
+    "table_s2_bortezomib": {"myelosuppression": {"minus_2ll": 2027, "aic": 2037, "bic": 2053},
+                            "platelet_budding": {"minus_2ll": 2003, "aic": 2013, "bic": 2029}},
+    "statistical_reading": "For bortezomib the platelet-budding variant has the lower -2LL, AIC and BIC.",
+    "text_reading": "Discussion: 'the model with myelosuppression better describes the data' and the budding model 'could be more biologically relevant'. The statement matches Table S2 for ixazomib and carfilzomib, not for bortezomib.",
+    "plausibility": "Budding MTT 846 h is about sixfold above the highest published platelet MTT (134 h); myelosuppression parameters lie within or near published ranges (gamma 0.38 slightly above 0.29).",
+    "mechanistic_evidence": "In-vitro and clinical work (Lonial 2005; Murai 2014) points to impaired platelet budding rather than suppressed progenitor proliferation.",
+    "platform_decision": "Implement both variants side by side, each labelled with its fit, plausibility and mechanism evidence. Neither is called correct."
+  },
+  "open_questions": [
+    {"id": "concentration_unit", "question": "Units of C in the drug-effect term (1 - slope*C).",
+     "evidence": "Never stated for the PD equations. PK figures are labelled ng/mL. nM would rescale the effect by 2.6.",
+     "candidate_readings": ["ng_per_ml", "nM"], "resolution": "Locked reproduction check against Lonial 2005 observed means."},
+    {"id": "negative_effect_term", "question": "Whether (1 - slope*C) was bounded at zero.",
+     "evidence": "With C in ng/mL the term is negative above 14.3 ng/mL (myelosuppression) or 2.0 ng/mL (budding). Bortezomib plasma concentrations after a 1.3 mg/m2 IV dose briefly exceed both, which would make production or budding negative, i.e. cell destruction rather than inhibition. The source does not say whether the term was bounded; Phoenix WinNonlin does not bound it by default.",
+     "candidate_readings": ["unbounded_as_printed", "bounded_at_zero"], "resolution": "Locked reproduction check."},
+    {"id": "kcirc", "question": "Value of the circulating platelet loss rate Kcirc.",
+     "evidence": "Figure 1b shows Kcirc separately; no value or rule is given. In the cited base models Kcirc = Ktr (Friberg 2002), which is also required for all compartments to start at the same baseline.",
+     "candidate_readings": ["equal_to_ktr"], "resolution": "Assumed equal to Ktr; recorded as an assumption."},
+    {"id": "kprol", "question": "Value of the proliferation rate Kprol.",
+     "evidence": "Figure 1a labels the base model 'Kprol (=Ktr)'.",
+     "candidate_readings": ["equal_to_ktr"], "resolution": "Taken from Figure 1a."},
+    {"id": "initial_conditions", "question": "Starting values of each compartment.",
+     "evidence": "Not stated. With Kprol = Kcirc = Ktr the pre-treatment steady state is Prol = Trans1-3 = Circ = Circ0.",
+     "candidate_readings": ["steady_state_at_circ0"], "resolution": "Assumed pre-treatment steady state."},
+    {"id": "administration", "question": "IV bolus or infusion.",
+     "evidence": "'intravenously (i.v.) twice weekly' only. The bortezomib label describes a 3-5 second IV push.",
+     "candidate_readings": ["iv_bolus"], "resolution": "Treated as bolus; recorded as an assumption."},
+    {"id": "double_scaling", "question": "Whether the pediatric parameters should have been scaled again.",
+     "evidence": "Supplement S1 states Hanley et al. referenced body size to an average adult, yet the parameters were also scaled from 1.30 to 1.62 m2.",
+     "candidate_readings": ["as_published"], "resolution": "Reproduce as published, because the PD parameters were estimated with this PK model; record as a concern."},
+    {"id": "time_dependent_clearance", "question": "Bortezomib clearance falls after the first dose.",
+     "evidence": "The bortezomib label reports lower clearance after repeated dosing than after the first dose; this linear model has a single clearance.",
+     "candidate_readings": ["linear_as_published"], "resolution": "Reproduce as published; record as a limitation."}
+  ],
+  "limits": [
+    "Fitted to digitised mean data; typical-value outputs only; no between-patient variability.",
+    "Late rises in mean platelet counts may reflect withdrawal of patients with thrombocytopenia (source Limitations).",
+    "Myeloma-related thrombocytopenia before treatment is not modelled; it enters only through a low starting count.",
+    "No external validation in the source."
+  ],
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false
+}
