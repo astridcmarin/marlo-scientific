@@ -1,4 +1,4 @@
-# Synthetic patient-state schema v1
+# Synthetic patient-state schema (v1 and v2)
 
 Root keys are exactly `schema_version`, `purpose` and `fields`:
 
@@ -28,6 +28,23 @@ Every field can instead have a null value and unknown origin. Numeric strings ar
 accepted and canonicalized to floats; booleans, infinities and NaN are rejected.
 These are data-contract rules. The schema does not declare a value physiologically
 plausible or within a clinical reference interval. Unit conversion is deferred.
+
+## Schema v2 (Patient Lab 2.2)
+
+`synthetic-patient-state-v2` is v1 plus one field:
+
+| Field | Exact unit | Input type |
+|---|---|---|
+| platelet_count | 10^9/L | finite positive number |
+
+**Compatibility rules:**
+- **v1 validates exactly as before.** A v1 state is canonicalised to v1, with the same fields and the same checksum. A v1 state that contains `platelet_count` is rejected. Saved v1 revisions therefore keep their state checksums, and everything that re-validates them is unaffected.
+- **v2 canonicalises to v2.** All v2 fields are present; omitted ones are unknown.
+- **New revisions are saved as v2.** The editor saves the current schema. When it opens a v1 revision, the new field shows as unknown. A form rendered before the upgrade, without the platelet inputs, is accepted and saves the platelet count as unknown.
+- **Comparisons work across versions.** A field is compared if either side has it; a v1 side reads it as unknown. v1–v1 comparisons are unchanged (11 fields).
+- **The name `UNITS` keeps its v1 meaning** for existing importers. The v2 field list is `UNITS_V2`, and `units_for(schema)` returns the list for any version.
+
+**Why platelets.** The bortezomib platelet model (Simulation 3.0) gives curves as a fraction of baseline. A patient's own starting count turns those into absolute counts, which is the input the next step needs.
 
 ## Provenance
 

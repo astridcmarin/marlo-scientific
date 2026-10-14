@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import click
 from sqlalchemy.exc import SQLAlchemyError
-from .patient_state import UNITS, digest
+from .patient_state import UNITS_V2, digest, unknown_field
 from .patient_state_revisions import read_revision
 
 METHOD_VERSION='patient-state-comparison-v1.0'
@@ -31,8 +31,10 @@ def _compare_verified_revisions(left,right):
     """Compare fields after the caller has verified each scenario anchor."""
     rows=[]
     counts={key:0 for key in ('unchanged','value_changed','became_known','became_unknown','metadata_only')}
-    for name in UNITS:
-        a,b=left.payload['state']['fields'][name],right.payload['state']['fields'][name]
+    left_fields,right_fields=left.payload['state']['fields'],right.payload['state']['fields']
+    # Fields of the newer schema appear only if either side has them; a v1 side reads them as unknown.
+    for name in [n for n in UNITS_V2 if n in left_fields or n in right_fields]:
+        a,b=left_fields.get(name,unknown_field(name)),right_fields.get(name,unknown_field(name))
         metadata=[key for key in METADATA if a[key]!=b[key]]
         if a['value'] is None and b['value'] is not None:category='became_known'
         elif a['value'] is not None and b['value'] is None:category='became_unknown'
@@ -40,7 +42,7 @@ def _compare_verified_revisions(left,right):
         elif metadata:category='metadata_only'
         else:category='unchanged'
         counts[category]+=1
-        rows.append({'field':name,'unit':UNITS[name],'category':category,'metadata_changes':metadata,
+        rows.append({'field':name,'unit':UNITS_V2[name],'category':category,'metadata_changes':metadata,
                      'left':copy.deepcopy(a),'right':copy.deepcopy(b)})
     def captured(row):
         return {'revision_id':row.id,'revision_number':row.revision_number,'title':row.title,

@@ -6,7 +6,8 @@ from itsdangerous import BadSignature, SignatureExpired
 from sqlalchemy import func, select
 from sqlalchemy.exc import SQLAlchemyError
 from intelligence_store.extensions import db
-from intelligence_store.patient_state import (UNITS, digest, state_from_scenario, validate_patient_state)
+from intelligence_store.patient_state import (CURRENT_SCHEMA_VERSION, UNITS_V1, UNITS_V2 as UNITS, digest,
+    state_from_scenario, unknown_field, validate_patient_state)
 from intelligence_store.patient_state_revisions import (PatientStateRevision, revisions_ready,
     read_revision, save_revision, export_revision)
 from intelligence_store.saved_scenarios import read_scenario
@@ -16,10 +17,11 @@ from .scenario_pages import _error
 LABELS = {'age_years':'Age', 'biological_sex':'Biological sex', 'weight':'Weight', 'height':'Height',
     'egfr_indexed':'Indexed eGFR', 'creatinine_clearance':'Creatinine clearance',
     'serum_creatinine':'Serum creatinine', 'alt':'ALT', 'ast':'AST',
-    'albumin':'Albumin', 'total_bilirubin':'Total bilirubin'}
+    'albumin':'Albumin', 'total_bilirubin':'Total bilirubin', 'platelet_count':'Platelet count'}
 GROUPS = [('Patient descriptors',['age_years','biological_sex','weight','height']),
           ('Renal measures',['egfr_indexed','creatinine_clearance','serum_creatinine']),
-          ('Laboratory values',['alt','ast','albumin','total_bilirubin'])]
+          ('Laboratory values',['alt','ast','albumin','total_bilirubin']),
+          ('Blood counts',['platelet_count'])]
 
 
 def scenario_state_summary(scenario_id):
@@ -79,7 +81,7 @@ def _editor(scenario,base,parent,*,inputs=None,title='Patient state',error=None,
     history,count,pages=_history(scenario.id,page)
     nonce,token=_form_token()
     response=_response('landscape_patient_state_editor.html',scenario=scenario,
-        fields=inputs if inputs is not None else base['fields'],labels=LABELS,units=UNITS,groups=GROUPS,
+        fields=_display_fields(inputs if inputs is not None else base['fields']),labels=LABELS,units=UNITS,groups=GROUPS,
         parent=parent,title=title,error=error,ticket=ticket or _ticket(scenario,base,parent),form_token=token,
         history=history,count=count,page=page,pages=pages)
     response.status_code=status
@@ -88,9 +90,16 @@ def _editor(scenario,base,parent,*,inputs=None,title='Patient state',error=None,
     return response
 
 
+def _display_fields(fields):
+    """Editing a v1 revision shows the fields added in later schema versions as unknown."""
+    return {name: fields.get(name, unknown_field(name)) for name in UNITS}
+
+
 def _form_state():
-    allowed={'ticket','form_token','title'}|{f'{prefix}__{name}' for prefix in ('value','origin','time','source') for name in UNITS}
-    if set(request.form)!=allowed or any(len(request.form.getlist(key))!=1 for key in request.form):
+    def allowed(units):
+        return {'ticket','form_token','title'}|{f'{prefix}__{name}' for prefix in ('value','origin','time','source') for name in units}
+    # A form rendered before schema v2 lacks the platelet inputs; it saves them as unknown.
+    if set(request.form) not in (allowed(UNITS),allowed(UNITS_V1)) or any(len(request.form.getlist(key))!=1 for key in request.form):
         raise ValueError('The form contains unsupported or duplicate fields. Reload the editor.')
     fields={}
     for name,unit in UNITS.items():
@@ -99,7 +108,7 @@ def _form_state():
             'origin':request.form.get('origin__'+name,'unknown') if value else 'unknown',
             'observed_at':request.form.get('time__'+name,'').strip() or None,
             'source_ref':request.form.get('source__'+name,'').strip() or None}
-    return {'schema_version':'synthetic-patient-state-v1','purpose':'synthetic_educational','fields':fields}
+    return {'schema_version':CURRENT_SCHEMA_VERSION,'purpose':'synthetic_educational','fields':fields}
 
 
 def register_patient_state_pages(bp):

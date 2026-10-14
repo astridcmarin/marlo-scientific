@@ -103,7 +103,10 @@ class PatientStatePageTests(unittest.TestCase):
         self.assertEqual(self.post(nextform).status_code,303)
         self.assertEqual(read_revision(2).revision_number,2)
         self.assertEqual(self.scenario.payload,before)
-        self.assertEqual(read_revision(1).payload['state'],self.base)
+        # New revisions are saved as schema v2: the v1 baseline plus an unknown platelet count.
+        from intelligence_store.patient_state import SCHEMA_V2, unknown_field
+        expected=copy.deepcopy(self.base);expected['schema_version']=SCHEMA_V2;expected['fields']['platelet_count']=unknown_field('platelet_count')
+        self.assertEqual(read_revision(1).payload['state'],expected)
         original=self.client.get(f'/landscape/workspace/scenarios/{self.scenario.id}?format=json')
         self.assertEqual(original.json['payload'],before)
 
@@ -195,3 +198,27 @@ class PatientStatePageTests(unittest.TestCase):
                 self.assertEqual(editor.text.count('class="nav-item active"'),1)
 
 if __name__=='__main__':unittest.main()
+
+
+class CrossSchemaComparisonTests(unittest.TestCase):
+    setUp=PatientStatePageTests.setUp
+    tearDown=PatientStatePageTests.tearDown
+    save_scenario=PatientStatePageTests.save_scenario
+    setup_scenario=PatientStatePageTests.setup_scenario
+
+    def test_v1_and_v2_revisions_compare_with_platelets_becoming_known(self):
+        import copy as _copy
+        from intelligence_store.patient_state import SCHEMA_V2
+        from intelligence_store.patient_state_revisions import save_revision
+        from intelligence_store.patient_state_comparison import compare_revisions
+        self.setup_scenario()
+        first=save_revision(self.scenario.id,self.base,title='v1 baseline')
+        second_state=_copy.deepcopy(self.base);second_state['schema_version']=SCHEMA_V2
+        second_state['fields']['platelet_count']={'value':165,'unit':'10^9/L','origin':'synthetic_input','observed_at':None,'source_ref':None}
+        second=save_revision(self.scenario.id,second_state,parent_revision_id=first.id,title='v2 with platelets')
+        report=compare_revisions(first.id,second.id)
+        rows={r['field']:r for r in report['fields']}
+        self.assertEqual(rows['platelet_count']['category'],'became_known')
+        self.assertEqual(report['field_count'],12)
+        self.assertEqual(compare_revisions(first.id,first.id)['field_count'],11)
+        self.assertEqual(read_revision(first.id).payload['state']['schema_version'],'synthetic-patient-state-v1')
