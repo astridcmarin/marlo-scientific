@@ -10,6 +10,7 @@ from intelligence_store.estimated_pk import (calculate_estimated_pk, compare_est
                                              estimate_for_revision, primary_weight_basis, DISEASE_CODES)
 from intelligence_store.kim_model import CL_FORMS, load_form_assessment, primary_cl_form
 from intelligence_store.educational_pk_runs import save_estimated_pk_run
+from intelligence_store.kim_pk_runs import save_kim_pk_run
 from intelligence_store.population_pk import calculate_population_pk
 from .workspace_pages import COOKIE, TTL, _form_token, _validate_token, _response
 from .scenario_pages import _error
@@ -17,7 +18,8 @@ from .transit_pages import _chart
 from .educational_pk_pages import _charts
 from .educational_pk_input_builder import TREATMENT_FIELDS, build_treatment_request
 
-ACTIONS = ('calculate', 'compare', 'models', 'population', 'download', 'save')
+ACTIONS = ('calculate', 'compare', 'models', 'population', 'download', 'save', 'save_kim')
+SAVE_ACTIONS = ('save', 'save_kim')
 FORM_FIELDS = TREATMENT_FIELDS | {'form_token', 'action', 'weight_basis', 'disease', 'cl_form'}
 BASIS_COLORS = {'ideal_body_weight_devine': '#007b83', 'adjusted_body_weight_0_4': '#b5651d',
                 'total_body_weight': '#6a4c93'}
@@ -135,7 +137,7 @@ def register_estimated_pk_pages(bp):
                     abort(400)
                 _validate_token()
                 action = request.form['action']
-                if action not in ACTIONS or (action == 'save') != ('title' in request.form):
+                if action not in ACTIONS or (action in SAVE_ACTIONS) != ('title' in request.form):
                     abort(400)
                 form.update({k: request.form[k] for k in request.form if k in form})
                 if (form['weight_basis'] not in WEIGHT_BASES or form['cl_form'] not in CL_FORMS
@@ -143,6 +145,10 @@ def register_estimated_pk_pages(bp):
                     abort(400)
                 try:
                     treatment = build_treatment_request({k: form[k] for k in TREATMENT_FIELDS})
+                    if action == 'save_kim':
+                        row = save_kim_pk_run(revision_id, treatment, form['disease'], form['cl_form'], title=form['title'])
+                        return redirect(url_for('landscape.saved_kim_run', scenario_id=scenario_id,
+                                                revision_id=revision_id, run_id=row.id), code=303)
                     if action == 'save':
                         row = save_estimated_pk_run(revision_id, form['weight_basis'], treatment, form['disease'],
                                                     title=form['title'])
