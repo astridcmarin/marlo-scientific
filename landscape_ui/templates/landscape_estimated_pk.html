@@ -26,8 +26,8 @@
 </form>
 <form method="post"><input type="hidden" name="form_token" value="{{ form_token }}">
 {% for name in ['weight_basis','cl_form','disease','horizon','events','source_ref'] %}<input type="hidden" name="{{ name }}" value="{{ form[name] }}">{% endfor %}
-<p><label for="title">Saved-run title</label> <input id="title" name="title" maxlength="160" required value="{{ form.title }}"> <button class="button secondary" name="action" value="save">Calculate and save with estimate</button></p>
-</form><p>Saving uses the values last submitted above and archives the covariate estimate with the run. The patient record is never changed.</p></section>
+<p><label for="title">Saved-run title</label> <input id="title" name="title" maxlength="160" required value="{{ form.title }}"> <button class="button secondary" name="action" value="save">Calculate and save with estimate</button> <button class="button secondary" name="action" value="save_kim">Calculate and save Kim 2026 run</button></p>
+</form><p>Saving uses the values last submitted above. A Hughes run archives the covariate estimate and weight basis; a Kim run archives its eGFR/BSA estimate, the CL/F equation reading with its evidence, and the warnings shown at save time. Blocked calculations are not saved. The patient record is never changed.</p></section>
 {% if report %}
 <section class="panel"><h2>{{ 'Educational calculation completed' if calculation and calculation.points else 'Calculation not run' }}</h2>
 <p>Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong> · Prediction type: {{ report.prediction_type }}</p>

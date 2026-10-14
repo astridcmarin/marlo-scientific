@@ -123,7 +123,25 @@ Reading: Kim describes the renal effect much better than Hughes, but likely stil
 - **Guglieri-López et al. (Cancer Chemother Pharmacol 2017; 15 patients)** is PK only. It has one compartment, three transit stages, CrCl on CL/F and BSA on V/F. It is not implemented: Hughes has a similar structure, and 15 patients is too few to rely on the covariate estimates. Its claim that the model can individualise dose is not adopted. The associated thesis (Valencia 2017) may contain PK/PD work; it is unread.
 - **Mechanistic neutropenia models exist for a related cereblon modulator (avadomide).** Transferring their parameters to lenalidomide would be borrowing biology from a different molecule.
 
-Decision: no blood-count time-course module. Revisit if the full pooled exposure–safety analysis or the thesis can be obtained.
+Decision: no blood-count time-course module. Revisit if the full pooled exposure–safety analysis can be obtained.
+
+**Thesis review (Guglieri-López, Universitat de València 2017; reviewed 2026-10-14 from the platform owner's local copy, not stored in the repository).** 54 myeloma patients at one hospital, observational; 15 contributed PK samples. Two exposure–response analyses, both time-to-event:
+- **Time to severe (grade 3/4) neutropenia** (section 5.3.2.2; Table 5.21; model file in appendix 8.7.3). 27 of 54 patients had an event within 600 days. The model uses a constant hazard modified by:
+  - baseline neutrophil count: hazard ratio 0.78 per 10⁹/L
+  - age: 1.04 per year
+  - Cmax: 1.02 per 10 ng/mL (95% CI 1.01–1.03)
+
+  AUC was not significant (p = 0.39), unlike the Celgene pooled analysis.
+
+  Not implemented, for four reasons:
+  - The final baseline hazard is not reported; the model file shows only the initial estimate. So absolute risk over time cannot be computed.
+  - Cmax for 65% of patients was a typical value from the 15-patient PK model, whose absorption rate the thesis itself says was poorly estimated.
+  - The effect is tied to that PK model's Cmax, not to Hughes or Kim.
+  - The author advises caution because the confidence intervals sit close to 1.
+
+  Thrombocytopenia was too rare to model (fewer than 10% of patients).
+- **Time to progression** (section 5.3.2.1; Table 5.17). Above an AUC of 1,110 ng·h/mL, progression risk rose by a hazard ratio of 1.19 per 100 ng·h/mL. Higher exposure going with faster progression is very likely confounding in observational data (renal function, disease severity, dose changes), not a drug effect. It will not be presented as exposure → efficacy.
+- **Use:** evidence for the knowledge layer only. In this single-centre cohort, low baseline neutrophils and older age were the main risk factors for severe neutropenia, and the drug-exposure effect was weak. The pooled Celgene analysis (ASH 2013 abstract 3234) remains the only lead for an exposure–safety model.
 
 **2.1e — Comparison with a measured reference exposure.** The Hughes–Kim comparison now shows each model's typical daily AUC divided by the mean AUC measured after the approved 25 mg starting dose in subjects with normal renal function (CC-5013-PK-001: 2181 ± 703 ng·h/mL, n = 7; `lenalidomide_reference_exposure_v1.json`).
 - **Why it compares like with like:** dose proportionality makes a single-dose AUC equal to one day's AUC on daily dosing.
@@ -133,7 +151,10 @@ Decision: no blood-count time-course module. Revisit if the full pooled exposure
 
 Example, moderate impairment on 7.5 mg daily: Hughes 0.42, Kim 0.60. The models disagree about where this patient sits relative to the reference, and the disagreement itself is the information.
 
-Not yet done: Kim in saved runs.
+**2.1f — Saved Kim runs.** Kim runs are saved from the estimated-PK page (“Calculate and save Kim 2026 run”) or the CLI (`patient-pk-save-kim`, `patient-pk-export-kim`). They live in their own table, `kim_pk_run`, created by migration `585bc7cb8d18`. They are kept apart because every existing saved-run reader expects the Hughes report structure.
+- **What is archived:** the full report, including the eGFR/BSA estimate, the CL/F reading with its evidence, and the warnings shown at save time.
+- **Verification on every read:** the report and estimate checksums, the link to the patient-state record, the request, and the validation flags. The model is never re-run.
+- **Not saved:** blocked calculations (a dose outside the study, a non-MM context, missing inputs).
 
 ## Typical value vs individual prediction (2.0d)
 

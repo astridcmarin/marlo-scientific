@@ -1616,6 +1616,8 @@ register_educational_pk_pages(bp)
 
 from .educational_pk_run_pages import register_educational_pk_run_pages
 register_educational_pk_run_pages(bp)
+from .kim_pk_run_pages import register_kim_pk_run_pages
+register_kim_pk_run_pages(bp)
 
 from .educational_pk_compare_pages import register_educational_pk_compare_pages
 register_educational_pk_compare_pages(bp)
