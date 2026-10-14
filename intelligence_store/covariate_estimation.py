@@ -21,8 +21,11 @@ SCHEMA_VERSION = 'hughes-covariate-estimate-v1'
 COMPARISON_SCHEMA_VERSION = 'hughes-covariate-weight-basis-comparison-v1'
 METHOD_VERSION = 'covariate-estimation-v1.0'
 DATA = Path(__file__).parent / 'data'
-REGISTRY_PATH = DATA / 'covariate_formula_registry_v1.json'
-REGISTRY_SHA256 = '04b601577f7a9b4b6a41b6ef7218d96fb68ee2ea731fee50f57de57b3456b712'
+REGISTRY_PATH = DATA / 'covariate_formula_registry_v2.json'
+REGISTRY_SHA256 = 'c85c007c075a2b9566ad9e13538441dcafbb283d3bbe14cecf91dc7f38ddb0ef'
+# v1 is kept as the record behind estimates made before v2; tests check v2 leaves every v1 formula unchanged.
+REGISTRY_V1_PATH = DATA / 'covariate_formula_registry_v1.json'
+REGISTRY_V1_SHA256 = '04b601577f7a9b4b6a41b6ef7218d96fb68ee2ea731fee50f57de57b3456b712'
 ASSESSMENT_PATH = DATA / 'hughes_weight_basis_assessment_v1.json'
 ASSESSMENT_SHA256 = 'bbaffa714dd5bd2fb9773a1620fb022c35bd90175b972d0a0855d9f6916be2c6'
 VARIABILITY_PATH = DATA / 'hughes_variability_extract_v1.json'
@@ -44,6 +47,9 @@ DEVINE_KG_PER_INCH = 2.3
 DEVINE_MIN_HEIGHT_CM = 60 * CM_PER_INCH
 ABW_FACTOR = 0.4
 CG_FEMALE_FACTOR = 0.85
+DU_BOIS = (0.007184, 0.425, 0.725)
+CKD_EPI_2021 = {'coefficient': 142.0, 'age_base': 0.9938, 'upper_exponent': -1.2, 'female_factor': 1.012,
+                'FEMALE': (0.7, -0.241), 'MALE': (0.9, -0.302)}
 
 
 class CovariateEstimationError(ValueError):
@@ -65,6 +71,10 @@ def _load_pinned(path, expected, schema, label):
 
 def load_formula_registry(path=REGISTRY_PATH):
     return _load_pinned(path, REGISTRY_SHA256, 'covariate-formula-registry-v1', 'Covariate formula registry')
+
+
+def load_formula_registry_v1(path=REGISTRY_V1_PATH):
+    return _load_pinned(path, REGISTRY_V1_SHA256, 'covariate-formula-registry-v1', 'Covariate formula registry v1')
 
 
 def load_weight_basis_assessment(path=ASSESSMENT_PATH):
@@ -130,6 +140,22 @@ def cockcroft_gault(age_years, dosing_weight_kg, serum_creatinine_umol_l, sex):
     return value * (CG_FEMALE_FACTOR if _sex(sex) == 'FEMALE' else 1.0)
 
 
+def body_surface_area_du_bois(weight_kg, height_cm):
+    coefficient, weight_exponent, height_exponent = DU_BOIS
+    return coefficient * _positive(weight_kg, 'weight') ** weight_exponent * _positive(height_cm, 'height') ** height_exponent
+
+
+def egfr_ckd_epi_2021(age_years, serum_creatinine_umol_l, sex):
+    """Race-free CKD-EPI 2021 creatinine equation; mL/min/1.73 m2 (indexed)."""
+    if isinstance(age_years, bool) or not isinstance(age_years, (int, float)) or not 18 <= age_years <= 130:
+        raise CovariateEstimationError('CKD-EPI 2021 is defined for adults; age must be 18-130 years.')
+    kappa, alpha = CKD_EPI_2021[_sex(sex)]
+    ratio = _positive(serum_creatinine_umol_l, 'serum creatinine') / CREATININE_UMOL_PER_MG_DL / kappa
+    value = (CKD_EPI_2021['coefficient'] * min(ratio, 1.0) ** alpha * max(ratio, 1.0) ** CKD_EPI_2021['upper_exponent']
+             * CKD_EPI_2021['age_base'] ** age_years)
+    return value * (CKD_EPI_2021['female_factor'] if sex == 'FEMALE' else 1.0)
+
+
 # ---------------------------------------------------------------- estimation
 
 def _range_status(value, bounds):
@@ -146,6 +172,10 @@ def _step(quantity, value, unit, formula_id, registry, inputs, assumptions=None)
 def _field_input(state, name):
     field = state['fields'][name]
     return {'value': field['value'], 'unit': field['unit'], 'from': f'patient_state.{name}', 'origin': field['origin']}
+
+
+def primary_weight_basis_hughes():
+    return load_weight_basis_assessment()['decision']['primary_assumption']
 
 
 def estimate_hughes_covariates(state, weight_basis):
