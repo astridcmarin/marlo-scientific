@@ -1,0 +1,170 @@
+{
+  "schema_version": "bortezomib-platelet-check-report-v1",
+  "method_version": "bortezomib-platelets-v1.0",
+  "plan_version": "bortezomib-platelet-check-plan-v1.0",
+  "plan_sha256": "86bb80e1feefc348ce6a569552ae8736c6359ee8e5a775a2d6d4fc52d0641eab",
+  "model_extract_sha256": "3093fff25dbf44a75aa31b4d41d40d57eabc5cf29ce21c7718276edf8a028e84",
+  "observed_sha256": "7ada11d52455cab9aa9576c68461e7230028979584d468427e95966dec7e6fd6",
+  "label_reference_sha256": "c82d910e29a9ac0e6b60a33e47608c39f014bb0ca0589152ddf014d261d0938a",
+  "classification": "internal_consistency_check_against_fitting_data",
+  "observed_primary": 0.6485,
+  "interval": [
+    0.5789,
+    0.7181
+  ],
+  "rows": [
+    {
+      "variant": "myelosuppression",
+      "units": "ng_per_ml",
+      "effect_bound": "unbounded_as_printed",
+      "status": "completed",
+      "cycle1_day11_ratio": 0.6910250124013314,
+      "cycle2_day1_ratio": 1.0256635760680475,
+      "recovery_label": "recovers",
+      "nadir_ratio": 0.6734920735050935,
+      "nadir_time_h": 303.05,
+      "time_effect_term_negative_h": 1.7640000000000013,
+      "step_halving_primary_change": 1.0840217612440028e-12,
+      "numerically_resolved": true,
+      "classification": "consistent"
+    },
+    {
+      "variant": "myelosuppression",
+      "units": "ng_per_ml",
+      "effect_bound": "bounded_at_zero",
+      "status": "completed",
+      "cycle1_day11_ratio": 0.7332234640729467,
+      "cycle2_day1_ratio": 0.9920512865934905,
+      "recovery_label": "recovers",
+      "nadir_ratio": 0.7090754935826112,
+      "nadir_time_h": 311.5,
+      "time_effect_term_negative_h": 1.7640000000000013,
+      "step_halving_primary_change": 9.323235072855596e-09,
+      "numerically_resolved": true,
+      "classification": "inconsistent"
+    },
+    {
+      "variant": "myelosuppression",
+      "units": "nM",
+      "effect_bound": "unbounded_as_printed",
+      "status": "completed",
+      "cycle1_day11_ratio": 0.36698661010073774,
+      "cycle2_day1_ratio": 1.203809297564187,
+      "recovery_label": "recovers",
+      "nadir_ratio": 0.3114571541981495,
+      "nadir_time_h": 319.5,
+      "time_effect_term_negative_h": 4.8899999999996835,
+      "step_halving_primary_change": 1.6695533844313104e-12,
+      "numerically_resolved": true,
+      "classification": "inconsistent"
+    },
+    {
+      "variant": "myelosuppression",
+      "units": "nM",
+      "effect_bound": "bounded_at_zero",
+      "status": "completed",
+      "cycle1_day11_ratio": 0.4616983060155184,
+      "cycle2_day1_ratio": 1.0160444754346207,
+      "recovery_label": "recovers",
+      "nadir_ratio": 0.392675589437071,
+      "nadir_time_h": 327.5,
+      "time_effect_term_negative_h": 4.8899999999996835,
+      "step_halving_primary_change": 6.851992861989231e-10,
+      "numerically_resolved": true,
+      "classification": "inconsistent"
+    },
+    {
+      "variant": "platelet_budding",
+      "units": "ng_per_ml",
+      "effect_bound": "unbounded_as_printed",
+      "status": "completed",
+      "cycle1_day11_ratio": 0.6800932621221838,
+      "cycle2_day1_ratio": 1.0216432297737625,
+      "recovery_label": "recovers",
+      "nadir_ratio": 0.5335657524030841,
+      "nadir_time_h": 256.2,
+      "time_effect_term_negative_h": 19.900000000000347,
+      "step_halving_primary_change": 1.2486678357959136e-12,
+      "numerically_resolved": true,
+      "classification": "consistent"
+    },
+    {
+      "variant": "platelet_budding",
+      "units": "ng_per_ml",
+      "effect_bound": "bounded_at_zero",
+      "status": "completed",
+      "cycle1_day11_ratio": 0.7657871273448223,
+      "cycle2_day1_ratio": 0.9808789779645839,
+      "recovery_label": "recovers",
+      "nadir_ratio": 0.7027276562729573,
+      "nadir_time_h": 291.6,
+      "time_effect_term_negative_h": 19.900000000000347,
+      "step_halving_primary_change": 3.6528554625547827e-09,
+      "numerically_resolved": true,
+      "classification": "inconsistent"
+    },
+    {
+      "variant": "platelet_budding",
+      "units": "nM",
+      "effect_bound": "unbounded_as_printed",
+      "status": "invalid_state",
+      "classification": "invalid_state",
+      "invalid_at_h": 168.06
+    },
+    {
+      "variant": "platelet_budding",
+      "units": "nM",
+      "effect_bound": "bounded_at_zero",
+      "status": "completed",
+      "cycle1_day11_ratio": 0.37778550093867763,
+      "cycle2_day1_ratio": 0.7367003441158185,
+      "recovery_label": "does_not_recover",
+      "nadir_ratio": 0.22811266048218107,
+      "nadir_time_h": 353.35,
+      "time_effect_term_negative_h": 244.75000000003158,
+      "step_halving_primary_change": 3.028414741201857e-09,
+      "numerically_resolved": true,
+      "classification": "inconsistent"
+    }
+  ],
+  "decision": {
+    "consistent_by_variant": {
+      "myelosuppression": [
+        {
+          "units": "ng_per_ml",
+          "effect_bound": "unbounded_as_printed"
+        }
+      ],
+      "platelet_budding": [
+        {
+          "units": "ng_per_ml",
+          "effect_bound": "unbounded_as_printed"
+        }
+      ]
+    },
+    "consistent_for_both_variants": [
+      {
+        "units": "ng_per_ml",
+        "effect_bound": "unbounded_as_printed"
+      }
+    ],
+    "adopted_primary_reading": {
+      "units": "ng_per_ml",
+      "effect_bound": "unbounded_as_printed"
+    },
+    "per_variant_if_none_shared": null
+  },
+  "not_this": [
+    "Not validation: Lonial 2005 is the dataset the model was fitted to.",
+    "Not a choice between the myelosuppression and platelet-budding variants; both are evaluated and both are kept.",
+    "Not a dosing or toxicity prediction for any patient."
+  ],
+  "known_differences": [
+    "Model outputs are typical values; the observed values are means across patients with dose holds and reductions.",
+    "Lignet fitted digitised Figure 2 means, which may differ slightly from the text values used here.",
+    "The PK model overstates first-dose exposure about 7-fold (single clearance); day 11 follows four doses, so the effect is reduced but not removed.",
+    "The variants have their own fitted Circ0 (171 and 135) against an observed baseline of 165; the ratio endpoint removes this difference."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "637ca34082775870c8707ba8295d7dca91491990be596f51def70867f178841a"
+}
