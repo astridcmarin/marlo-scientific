@@ -1,0 +1,37 @@
+{
+  "schema_version": "observed-summary-v1",
+  "summary_version": "bortezomib-platelets-lonial-2005-v1.0",
+  "drug": "bortezomib",
+  "recorded_on": "2026-10-14",
+  "source": {
+    "citation": "Lonial S, Waller EK, Richardson PG, et al. Risk factors and kinetics of thrombocytopenia associated with bortezomib for relapsed, refractory multiple myeloma. Blood. 2005;106(12):3777-3784.",
+    "doi": "10.1182/blood-2005-03-1173",
+    "pmcid": "PMC1895114",
+    "file_reviewed": {"file": "PMC printout PDF (35 pages)", "sha256": "cd9946ea649395d5036e69abfc61ff2d71a80979c6855697a2d1d8e9fb7546fb"},
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted from the PDF text layer; page numbers refer to the PMC printout."
+  },
+  "population": {
+    "trials": "SUMMIT and CREST (phase 2)",
+    "n_platelet_analysis": 228,
+    "regimen": "1.3 mg/m2 IV days 1, 4, 8, 11 of 21-day cycles, up to 8 cycles; doses withheld or reduced for toxicity",
+    "platelet_sampling": "Before bortezomib on days 1, 4, 8 and 11 of each cycle"
+  },
+  "relationship_to_model": "Same source used to fit Lignet 2022 (via digitised Figure 2). A reproduction check against it is an internal consistency check, not external validation.",
+  "values": [
+    {"id": "baseline_mean", "value": 165, "sd": 91.3, "unit": "1e9/L", "statistic": "mean of patient values",
+     "quote": "The mean baseline platelet count was 165 × 109/L (SD 91.3)", "location": "printout page 10, Results"},
+    {"id": "cycle1_day11_mean", "value": 107, "sd": 65.7, "unit": "1e9/L", "statistic": "mean of patient values on cycle 1 day 11 (before that day's dose)",
+     "quote": "the mean cycle 1 day 11 platelet count was 107 × 109/L (SD 65.7)", "location": "printout page 10, Results"},
+    {"id": "mean_individual_reduction_to_nadir", "value": 60, "unit": "percent", "statistic": "approximately; mean of (baseline - individual nadir)/baseline",
+     "quote": "an approximately 60% reduction in platelet counts from start to nadir", "location": "printout page 15",
+     "comparability": "Not comparable with a typical-value curve: individual nadirs fall on different days, so their mean exceeds the dip of the mean curve."},
+    {"id": "cyclic_recovery", "value": null, "unit": null, "statistic": "qualitative",
+     "quote": "decreasing during the portion of the cycle when bortezomib was administered and recovering to baseline during the rest periods of each cycle",
+     "location": "printout page 11; Figure 2"}
+  ],
+  "derived_for_checks": {
+    "cycle1_day11_over_baseline": {"value": 0.6485, "formula": "107 / 165", "note": "Ratio of means, not mean of ratios."}
+  },
+  "not_extracted": "Figure 2 (mean platelet count by cycle day with standard errors) is an image; values were not digitised."
+}
