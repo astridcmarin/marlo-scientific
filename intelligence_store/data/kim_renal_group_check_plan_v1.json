@@ -1,0 +1,99 @@
+{
+  "schema_version": "aggregate-consistency-plan-v1",
+  "plan_version": "kim-renal-group-check-plan-v1.0",
+  "recorded_on": "2026-10-14",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before any simulation of this design was run. Not blinded: the Hughes result on the same data (under-prediction below CrCl 50) and the size of Kim's published eGFR effect were known while planning, and a rough single-point estimate of the severe-to-normal clearance ratio under Kim (about 3) was worked out in conversation. No virtual trial of this design was computed.",
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "not_this": [
+    "Not model validation, qualification or an acceptance decision; no acceptance limits are introduced.",
+    "Not a comparison of individual concentrations; only group means and SDs are available.",
+    "Not a dosing or applicability decision for any patient.",
+    "Not a head-to-head ranking of Kim against Hughes; each is classified against the data on its own terms."
+  ],
+  "question": "Do group-mean lenalidomide exposures observed across renal-function groups in CC-5013-PK-001 fall within the range the Kim 2026 model predicts for a study of the same design?",
+  "model": {
+    "id": "lenalidomide_kim_2026",
+    "extract": "intelligence_store/data/kim_2026_model_extract_v1.json",
+    "equation_form_assessment": "intelligence_store/data/kim_cl_equation_form_assessment_v1.json",
+    "equations": {
+      "CLu_F_linear_multiplicative": "8.52 * exp(0.0131 * (eGFR - 46.92)) * (1 + 1.1 * (BSA - 1.64)) * exp(eta_CL)",
+      "CLu_F_exponential": "8.52 * exp(0.0131 * (eGFR - 46.92)) * exp(1.1 * (BSA - 1.64)) * exp(eta_CL)",
+      "V1u_F": "48.8 * exp(1.16 * (BSA - 1.64)) * exp(eta_V1)",
+      "fixed": "Q = 8.05 L/h, V2 = 21.2 L (unbound scale), Fu = 0.614",
+      "total_CL_F": "CLu_F * Fu",
+      "AUC_infinity_total": "1000 * dose_mg / total_CL_F (ng*h/mL; exact for linear disposition)",
+      "terminal_half_life": "ln(2) / beta, beta the smaller root of the two-compartment disposition with k10 = CLu/V1u, k12 = Q/V1u, k21 = Q/V2"
+    },
+    "random_effects": "eta_CL and eta_V1 independent normal with variance (CV/100)^2: CL 18.9% CV, V1 30.8% CV. The CV-to-variance convention and independence are assumptions recorded in the extract (no control stream).",
+    "parameter_values": "Read from the pinned extract at run time; the equations above are for reading only."
+  },
+  "observed_data": {
+    "file": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+    "sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+    "study": "CC-5013-PK-001 (Chen et al. 2007), via EMA assessment EMEA/CHMP/249329/2008, pages 20-21",
+    "design": "single 25 mg oral dose, fasting; non-dialysis groups only",
+    "statistics": "arithmetic group mean and SD as reported; no individual data"
+  },
+  "covariate_construction": {
+    "problem": "The study reports creatinine-clearance ranges only. Kim needs indexed CKD-EPI 2021 eGFR and Du Bois BSA, which depend on age, sex, body size and serum creatinine, none of which were extracted.",
+    "method": [
+      "1. Draw creatinine clearance uniformly within the subject's group range.",
+      "2. Draw age, sex, weight and height from the scenario's demographic assumptions.",
+      "3. Back-solve serum creatinine from Cockcroft-Gault with the scenario's weight basis: SCr_mg_dl = (140 - age) * dosing_weight * (0.85 if female) / (72 * CrCl).",
+      "4. Check the back-solve by recomputing CrCl with the registry's Cockcroft-Gault function (relative error at most 1e-9).",
+      "5. Compute eGFR (CKD-EPI 2021, registry v2) and BSA (Du Bois, registry v2) from the same subject."
+    ],
+    "draw_order_per_subject": ["crcl", "age", "sex", "weight", "height", "z_cl", "z_v1"],
+    "sex_draw": "male if uniform(0,1) < male_fraction",
+    "reported_alongside_results": "Per group: median and range of back-solved serum creatinine, eGFR and BSA, and the fraction of simulated subjects outside Kim's reported eGFR (11.1-94.7) and BSA (1.41-2.01) ranges."
+  },
+  "virtual_trial": {
+    "dose_mg": 25,
+    "group_sizes": "as reported per group (7, 5, 6, 6)",
+    "trials": 10000,
+    "seed": 20261014,
+    "seed_per_scenario": "seed + scenario index in the order listed below",
+    "group_statistic": "arithmetic mean across the simulated subjects of each group, matching the reported statistic"
+  },
+  "endpoints": {
+    "primary": "Ratio of each impaired group's mean AUC infinity to the normal group's mean AUC infinity (mild, moderate, severe). Under linear pharmacokinetics this ratio does not depend on dose or on bioavailability differences common to all groups.",
+    "secondary": "Absolute group mean AUC infinity for all four groups (depends on the dose-proportionality assumption).",
+    "descriptive": "Group mean terminal half-life.",
+    "excluded": "Cmax: single-dose fasting study versus a model fitted at steady state with sparse sampling; absorption (Ka) was fixed in Kim, not estimated."
+  },
+  "classification_rule": {
+    "consistent": "observed value within the 5th-95th percentile of simulated values",
+    "model_under_predicts": "observed value above the 95th percentile",
+    "model_over_predicts": "observed value below the 5th percentile",
+    "also_reported": "observed / simulated median, as a descriptive fold difference only"
+  },
+  "scenarios": {
+    "primary": {
+      "crcl_ml_min": {"normal": [80, 140], "mild": [50, 80], "moderate": [30, 50], "severe": [10, 30]},
+      "cockcroft_gault_weight_basis": "total_body_weight",
+      "age_years": [40, 75],
+      "male_fraction": 0.5,
+      "weight_kg": [60, 100],
+      "height_cm": {"MALE": [165, 185], "FEMALE": [152, 172]},
+      "cl_form": "linear_multiplicative",
+      "rationale": "CrCl ranges as in the Hughes check. Total body weight was the common Cockcroft-Gault practice for renal-impairment studies of that era; the study's actual method is not stated in the extracted pages. Demographic ranges are assumed broad adult ranges, not study values."
+    },
+    "sensitivity_exponential_form": {"change": "Kim CL/F read with the exponential BSA term.", "cl_form": "exponential"},
+    "sensitivity_ideal_weight_basis": {"change": "Study creatinine clearance assumed computed with Devine ideal body weight.", "cockcroft_gault_weight_basis": "ideal_body_weight_devine"},
+    "sensitivity_older": {"change": "Older subjects; age enters Cockcroft-Gault and CKD-EPI differently, so this moves eGFR for a given CrCl.", "age_years": [60, 80]},
+    "sensitivity_kim_body_size": {"change": "Body size from Kim's reported ranges for both sexes.", "weight_kg": [47, 86], "height_cm": {"MALE": [140, 179], "FEMALE": [140, 179]}},
+    "sensitivity_normal_within_kim_range": {"change": "Normal group restricted to CrCl 80-100 mL/min, limiting extrapolation of Kim's exponential eGFR effect above its data (eGFR max 94.7).", "crcl_ml_min": {"normal": [80, 100], "mild": [50, 80], "moderate": [30, 50], "severe": [10, 30]}},
+    "sensitivity_severe_near_boundary": {"change": "Severe group placed at the top of its range.", "crcl_ml_min": {"normal": [80, 140], "mild": [50, 80], "moderate": [30, 50], "severe": [20, 30]}}
+  },
+  "scenario_inheritance": "Each sensitivity scenario changes only the keys it lists; every other setting is the primary scenario's.",
+  "known_differences": [
+    "Population: Kim was fitted in 30 Korean patients with multiple myeloma at steady state; the disease context of the renal study subjects was not established from the extracted pages.",
+    "Dose: 25 mg single dose versus Kim's 5-10 mg; linear (dose-proportional) pharmacokinetics is assumed and not verified from a source in this repository. The primary ratio endpoint is unaffected under linearity; absolute AUC is not.",
+    "eGFR and BSA are constructed from assumed demographics and a back-solved serum creatinine, not observed. The study's Cockcroft-Gault method and weight basis are not stated in the extracted pages.",
+    "The normal group extends above Kim's highest eGFR (94.7), where its exponential renal effect is extrapolated; part of the severe group lies below its lowest (11.1).",
+    "Fu is fixed at 0.614 in every group; protein binding may differ in renal impairment.",
+    "Kim random-effect variances use an assumed CV convention and assumed independence."
+  ],
+  "decision_use": "If a group is classified consistent in the primary scenario and in every sensitivity scenario, that is recorded as an exploratory finding alongside the Hughes finding. Any other pattern is reported as found. No result changes model defaults or labels without a separate, documented review."
+}
