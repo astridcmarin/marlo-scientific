@@ -124,3 +124,37 @@ class PatientStateTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+
+class SchemaV2Tests(unittest.TestCase):
+    def v1(self):
+        from intelligence_store.patient_state import example_state
+        return example_state()
+
+    def test_v1_states_validate_to_exactly_themselves(self):
+        from intelligence_store.patient_state import SCHEMA_VERSION, UNITS_V1, validate_patient_state, digest
+        state = self.v1()
+        canonical = validate_patient_state(state)
+        self.assertEqual(canonical['schema_version'], SCHEMA_VERSION)
+        self.assertEqual(set(canonical['fields']), set(UNITS_V1))
+        self.assertEqual(validate_patient_state(canonical), canonical)
+        self.assertEqual(digest(validate_patient_state(canonical)), digest(canonical))
+
+    def test_v2_adds_platelet_count_and_v1_refuses_it(self):
+        import copy
+        from intelligence_store.patient_state import (SCHEMA_V2, PatientStateError, UNITS_V2, validate_patient_state)
+        field = {'value': 165, 'unit': '10^9/L', 'origin': 'synthetic_input', 'observed_at': None, 'source_ref': None}
+        v2 = copy.deepcopy(self.v1()); v2['schema_version'] = SCHEMA_V2; v2['fields']['platelet_count'] = field
+        canonical = validate_patient_state(v2)
+        self.assertEqual(set(canonical['fields']), set(UNITS_V2))
+        self.assertEqual(canonical['fields']['platelet_count']['value'], 165.0)
+        v1 = copy.deepcopy(self.v1()); v1['fields']['platelet_count'] = field
+        with self.assertRaises(PatientStateError):
+            validate_patient_state(v1)
+        for bad in ({'value': 0}, {'unit': '/uL'}):
+            broken = copy.deepcopy(v2); broken['fields']['platelet_count'].update(bad)
+            with self.assertRaises(PatientStateError):
+                validate_patient_state(broken)
+        unknown = copy.deepcopy(v2); unknown['schema_version'] = 'synthetic-patient-state-v3'
+        with self.assertRaises(PatientStateError):
+            validate_patient_state(unknown)

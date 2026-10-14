@@ -10,13 +10,27 @@ import click
 SCHEMA_VERSION = 'synthetic-patient-state-v1'
 VALIDATION_VERSION = 'patient-state-validation-v1.0'
 # Units describe field identity, not a claim about normality or model applicability.
-UNITS = {
+UNITS_V1 = {
     'age_years': 'year', 'biological_sex': None,
     'weight': 'kg', 'height': 'cm',
     'egfr_indexed': 'mL/min/1.73m2', 'creatinine_clearance': 'mL/min',
     'serum_creatinine': 'umol/L', 'alt': 'U/L', 'ast': 'U/L',
     'albumin': 'g/L', 'total_bilirubin': 'umol/L',
 }
+# Schema v2 (Patient Lab 2.2) adds a baseline platelet count. v1 states keep validating to exactly their
+# v1 canonical form, so every saved v1 revision keeps its state checksum.
+SCHEMA_V2 = 'synthetic-patient-state-v2'
+UNITS_V2 = dict(UNITS_V1, platelet_count='10^9/L')
+UNITS = UNITS_V1  # existing importers keep the v1 meaning
+SCHEMA_UNITS = {SCHEMA_VERSION: UNITS_V1, SCHEMA_V2: UNITS_V2}
+CURRENT_SCHEMA_VERSION = SCHEMA_V2
+
+
+def units_for(schema_version):
+    try:
+        return SCHEMA_UNITS[schema_version]
+    except (KeyError, TypeError) as exc:
+        raise PatientStateError('Only the synthetic educational state schemas v1 and v2 are supported.') from exc
 ORIGINS = ('unknown', 'synthetic_input', 'assumption', 'legacy_scenario')
 FIELD_KEYS = {'value', 'unit', 'origin', 'observed_at', 'source_ref'}
 
@@ -31,7 +45,7 @@ def digest(value):
 
 
 def unknown_field(name):
-    return {'value': None, 'unit': UNITS[name], 'origin': 'unknown',
+    return {'value': None, 'unit': UNITS_V2[name], 'origin': 'unknown',
             'observed_at': None, 'source_ref': None}
 
 
@@ -39,13 +53,14 @@ def validate_patient_state(state):
     """Return an independent canonical copy. Omitted fields remain unknown."""
     if not isinstance(state, dict) or set(state) != {'schema_version', 'purpose', 'fields'}:
         raise PatientStateError('State requires schema_version, purpose and fields only.')
-    if state['schema_version'] != SCHEMA_VERSION or state['purpose'] != 'synthetic_educational':
+    if state['purpose'] != 'synthetic_educational':
         raise PatientStateError('Only the synthetic educational state schema is supported.')
+    units = units_for(state['schema_version'])
     fields = state['fields']
-    if not isinstance(fields, dict) or set(fields) - set(UNITS):
-        raise PatientStateError('State contains missing or unsupported field definitions.')
-    result = {'schema_version': SCHEMA_VERSION, 'purpose': 'synthetic_educational', 'fields': {}}
-    for name, unit in UNITS.items():
+    if not isinstance(fields, dict) or set(fields) - set(units):
+        raise PatientStateError('State contains missing or unsupported field definitions for its schema version.')
+    result = {'schema_version': state['schema_version'], 'purpose': 'synthetic_educational', 'fields': {}}
+    for name, unit in units.items():
         raw = fields.get(name, unknown_field(name))
         if not isinstance(raw, dict) or set(raw) != FIELD_KEYS:
             raise PatientStateError(f'{name}: supply value, unit, origin, observed_at and source_ref.')
@@ -73,7 +88,7 @@ def validate_patient_state(state):
                     raise PatientStateError(f'{name}: expected a finite numeric value or null.') from exc
                 if not math.isfinite(value) or value < 0:
                     raise PatientStateError(f'{name}: expected a finite nonnegative value.')
-                if name in ('weight', 'height') and value == 0:
+                if name in ('weight', 'height', 'platelet_count') and value == 0:
                     raise PatientStateError(f'{name}: supplied value must be positive.')
                 if name == 'age_years' and value > 130:
                     raise PatientStateError('age_years: supported software input range is 0–130.')
@@ -128,7 +143,7 @@ def preview_patient_state(state):
     known = [name for name, field in canonical['fields'].items() if field['value'] is not None]
     return {'schema_version': 'patient-state-preview-v1', 'validation_version': VALIDATION_VERSION,
             'state': canonical, 'state_sha256': digest(canonical), 'known_fields': known,
-            'unknown_fields': [name for name in UNITS if name not in known],
+            'unknown_fields': [name for name in units_for(canonical['schema_version']) if name not in known],
             'simulation_status': 'not_run',
             'limitation': 'Synthetic state input validation only. No normal-range interpretation, organ-function score, '
                           'derived physiology, exposure adjustment or patient-response prediction. '
