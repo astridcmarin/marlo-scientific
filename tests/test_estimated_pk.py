@@ -174,6 +174,11 @@ class EstimatedPKTests(unittest.TestCase):
         self.assertEqual({round(t, 6) for t in hughes['times_h']}, {round(t, 6) for t in kim['times_h']})
         self.assertGreater(models['ratio']['kim_to_hughes_auc_0_infinity'], 1.3)
         self.assertTrue(any('under-predicts' in w for w in hughes['warnings']))
+        for row in (hughes, kim):
+            ref = row['reference_exposure']
+            self.assertEqual(ref['daily_dose_mg'], 7.5)
+            self.assertAlmostEqual(ref['typical_daily_auc_ng_h_ml'], row['auc_0_infinity_ng_h_ml'] / len(request['events']), places=6)
+            self.assertAlmostEqual(ref['ratio_to_reference'], ref['typical_daily_auc_ng_h_ml'] / 2181, places=12)
         self.assertFalse(models['clinical_prediction_validated'])
         body = {k: v for k, v in models.items() if k != 'report_sha256'}
         self.assertEqual(models['report_sha256'], digest(body))
@@ -183,6 +188,8 @@ class EstimatedPKTests(unittest.TestCase):
         only_hughes = compare_published_models(revision.id, 'ideal_body_weight_devine', 'linear_multiplicative', self.request_mg(25), 'MM')
         self.assertEqual(only_hughes['rows'][0]['status'], 'completed_educational_calculation')
         self.assertEqual([b['code'] for b in only_hughes['rows'][1]['blockers']], ['amount_outside_study'])
+        self.assertIn('reference_exposure', only_hughes['rows'][0])
+        self.assertNotIn('reference_exposure', only_hughes['rows'][1])
         self.assertIsNone(only_hughes['ratio'])
         only_kim = compare_published_models(revision.id, 'ideal_body_weight_devine', 'linear_multiplicative', self.request_mg(10), 'MM')
         self.assertNotIn('times_h', only_kim['rows'][0])
@@ -206,6 +213,8 @@ class EstimatedPKTests(unittest.TestCase):
         self.assertIn('Published-model comparison', text)
         self.assertIn('Concentration by published model', text)
         self.assertIn('Kim/Hughes AUC to infinity', text)
+        self.assertIn('Typical daily AUC ÷ reference', text)
+        self.assertIn('It is not a target, limit, toxicity prediction or dose recommendation.', text)
         text = self.client.post(self.page(revision), data=self.form(revision, 'models')).get_data(as_text=True)
         self.assertIn('Not run — amount_outside_study', text)
         bad = self.form(revision, 'models')
