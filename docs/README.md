@@ -22,6 +22,7 @@ Several step documents describe installer scripts (`scripts/install_*.py`) from 
 - [Numerical verification summary](NUMERICAL_VERIFICATION.json).
 - [Synthetic RK4–analytic cross-check (Step 70)](verification/synthetic_numerical_crosscheck_step70.json) — output of `scripts/pk_numerical_crosscheck.py`.
 - [Hughes renal-group consistency check (2.0g)](verification/hughes_renal_group_check_v1.json) — exploratory check against study CC-5013-PK-001; plan locked in `intelligence_store/data/hughes_renal_group_check_plan_v1.json`. Finding recorded in `intelligence_store/data/hughes_applicability_findings_v1.json`.
+- [Kim renal-group consistency check (2.1c)](verification/kim_renal_group_check_v1.json) — the same study and design for the Kim 2026 model, with eGFR built from assumed demographics; plan locked in `intelligence_store/data/kim_renal_group_check_plan_v1.json`.
 
 ## Scientific decision records kept as data
 

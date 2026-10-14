@@ -95,7 +95,25 @@ Motivated by 2.0g. Kim et al. (Drug Des Devel Ther 2026;20, doi 10.2147/DDDT.S60
 - Hughes refuses estimated CrCl below its study minimum (36 mL/min), so in severe impairment only Kim runs. That is extrapolation avoided, not a missing feature.
 The overlay shows both total curves and Kim's unbound curve; Hughes's transit delay and Kim's peripheral-compartment accumulation are visible in it.
 
-Not yet done: Kim in saved runs; a locked external check of Kim against the CC-5013-PK-001 groups, which needs eGFR rather than the CrCl ranges that study reported.
+**2.1c — External check of Kim against CC-5013-PK-001.** This is the same exploratory design as 2.0g: the plan (`kim_renal_group_check_plan_v1.json`) was committed and pinned before any virtual trial of this design ran, and the report is `docs/verification/kim_renal_group_check_v1.json` (CLI `kim-renal-group-check`).
+
+The study reports only creatinine-clearance ranges, so each virtual subject gets assumed demographics. Serum creatinine is back-solved from Cockcroft–Gault, and eGFR and BSA then follow from that same subject. This construction is the largest assumption in the check:
+- About 60% of simulated normal-group subjects have an eGFR above Kim's data (94.7), where its exponential renal effect is extrapolated.
+- About a third of the severe group falls below 11.1.
+
+Primary endpoint (each group's AUC ÷ the normal group's), observed vs Kim's simulated median:
+
+| Group | Observed | Kim median (5th–95th) | Classification | Hughes, observed ÷ median |
+|---|---|---|---|---|
+| Mild | 1.27 | 1.62 (1.26–2.06) | consistent | 1.15 (consistent) |
+| Moderate | 2.76 | 2.24 (1.80–2.78) | consistent, at the edge | 2.22 (under-predicts) |
+| Severe | 3.76 | 2.84 (2.27–3.54) | under-predicts, about 1.3× | 2.56 (under-predicts) |
+
+Across the seven scenarios, mild is consistent in every one. Moderate and severe switch between consistent and under-predicts depending on the assumptions; the severe group passes only when CrCl is assumed computed from ideal body weight or Korean body size is used. Absolute AUC: normal consistent, moderate and severe about 1.3–1.4× above Kim's median. Terminal half-life, which Hughes put at about 5–6 h against an observed 9–11 h, is reproduced in the severe group (9.5 vs 9.2 h) but under-predicted in moderate (7.6 vs 10.6 h).
+
+Reading: Kim describes the renal effect much better than Hughes, but likely still somewhat under-predicts exposure in severe impairment. Under the plan this is reported as found; no model default, label or warning changes without a separate documented review. A dose-proportionality source should be added to the repository before the absolute values are relied on.
+
+Not yet done: Kim in saved runs; review of whether the 2.1c result should become a Kim applicability finding.
 
 ## Typical value vs individual prediction (2.0d)
 

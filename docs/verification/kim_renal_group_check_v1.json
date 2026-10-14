@@ -1,0 +1,1868 @@
+{
+  "schema_version": "kim-renal-group-check-report-v1",
+  "method_version": "kim-renal-group-check-v1.0",
+  "plan_version": "kim-renal-group-check-plan-v1.0",
+  "plan_sha256": "a15179d0d7b366b59841a7333adc4547a7bbded4610f43b59488d8598a206bb8",
+  "observed_data_sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+  "kim_extract_sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af",
+  "kim_form_assessment_sha256": "1de6b91bd9e8f5d633182f8794defc3a85c47f668dfc15ea9bcfe3695bc95d5a",
+  "formula_registry_sha256": "c85c007c075a2b9566ad9e13538441dcafbb283d3bbe14cecf91dc7f38ddb0ef",
+  "trials": 10000,
+  "seed": 20261014,
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "not_this": [
+    "Not model validation, qualification or an acceptance decision; no acceptance limits are introduced.",
+    "Not a comparison of individual concentrations; only group means and SDs are available.",
+    "Not a dosing or applicability decision for any patient.",
+    "Not a head-to-head ranking of Kim against Hughes; each is classified against the data on its own terms."
+  ],
+  "primary_endpoint_by_group": {
+    "mild": "consistent",
+    "moderate": "consistent",
+    "severe": "model_under_predicts"
+  },
+  "classification_across_scenarios": {
+    "mild": [
+      "consistent"
+    ],
+    "moderate": [
+      "consistent",
+      "model_under_predicts"
+    ],
+    "severe": [
+      "consistent",
+      "model_under_predicts"
+    ]
+  },
+  "secondary_absolute_auc_by_group": {
+    "normal": "consistent",
+    "mild": "model_over_predicts",
+    "moderate": "model_under_predicts",
+    "severe": "model_under_predicts"
+  },
+  "scenarios": {
+    "primary": {
+      "settings": {
+        "crcl_ml_min": {
+          "normal": [
+            80,
+            140
+          ],
+          "mild": [
+            50,
+            80
+          ],
+          "moderate": [
+            30,
+            50
+          ],
+          "severe": [
+            10,
+            30
+          ]
+        },
+        "cockcroft_gault_weight_basis": "total_body_weight",
+        "age_years": [
+          40,
+          75
+        ],
+        "male_fraction": 0.5,
+        "weight_kg": [
+          60,
+          100
+        ],
+        "height_cm": {
+          "MALE": [
+            165,
+            185
+          ],
+          "FEMALE": [
+            152,
+            172
+          ]
+        },
+        "cl_form": "linear_multiplicative"
+      },
+      "groups": [
+        {
+          "group": "normal",
+          "n": 7,
+          "crcl_range_simulated": [
+            80,
+            140
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 30.38689847792689,
+              "median": 67.56232244816151,
+              "max": 151.31556624876612
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 47.013682826675804,
+              "median": 98.20031452459257,
+              "max": 124.15790485893709
+            },
+            "bsa_m2": {
+              "min": 1.5643225022584795,
+              "median": 1.8968822543613908,
+              "max": 2.236647043397695
+            },
+            "fraction_egfr_outside_kim_range": 0.6067428571428571,
+            "fraction_bsa_outside_kim_range": 0.22852857142857144
+          },
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1761.9025667485828,
+              "p50": 2065.9747057041723,
+              "p95": 2435.727902672895
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.0556760419080844
+          },
+          "half_life": {
+            "observed_mean": 3.34,
+            "simulated_group_mean": {
+              "p05": 3.367537406601841,
+              "p50": 3.896368006319105,
+              "p95": 4.637968044676294
+            },
+            "observed_over_median": 0.8572085579655744
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "crcl_range_simulated": [
+            50,
+            80
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 52.61412885416556,
+              "median": 114.18391053585253,
+              "max": 242.05995662450266
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 26.919375782282405,
+              "median": 55.598613486795564,
+              "max": 100.17551682639403
+            },
+            "bsa_m2": {
+              "min": 1.5656658208142094,
+              "median": 1.8990577881972706,
+              "max": 2.237454911526622
+            },
+            "fraction_egfr_outside_kim_range": 0.00924,
+            "fraction_bsa_outside_kim_range": 0.23544
+          },
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 2768.4780201357044,
+              "p50": 3346.748740582233,
+              "p95": 4026.856212170309
+            },
+            "classification": "model_over_predicts",
+            "observed_over_median": 0.8267725528503899
+          },
+          "half_life": {
+            "observed_mean": 3.67,
+            "simulated_group_mean": {
+              "p05": 4.667191353722226,
+              "p50": 5.758515127913005,
+              "p95": 7.2357598404827534
+            },
+            "observed_over_median": 0.6373170719324094
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 1.2567351034046954,
+              "p50": 1.6174447136343928,
+              "p95": 2.0636880322850883
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.7843755518643383
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "crcl_range_simulated": [
+            30,
+            50
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 84.51324697138264,
+              "median": 185.28303831915906,
+              "max": 401.0537374284631
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 14.369379874307716,
+              "median": 31.14745839410674,
+              "max": 69.82727195647871
+            },
+            "bsa_m2": {
+              "min": 1.563373400283421,
+              "median": 1.8981995830660727,
+              "max": 2.2379046000909706
+            },
+            "fraction_egfr_outside_kim_range": 0.0,
+            "fraction_bsa_outside_kim_range": 0.22908333333333333
+          },
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 3980.8595273606297,
+              "p50": 4640.457270329604,
+              "p95": 5374.047957530407
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.2975014420448134
+          },
+          "half_life": {
+            "observed_mean": 10.6,
+            "simulated_group_mean": {
+              "p05": 6.341095102471515,
+              "p50": 7.638760177272307,
+              "p95": 9.357054995089603
+            },
+            "observed_over_median": 1.3876597450379846
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 1.7957883719691399,
+              "p50": 2.2437579076526744,
+              "p95": 2.780505621973046
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.2303734900174388
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "crcl_range_simulated": [
+            10,
+            30
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 141.2510507487431,
+              "median": 373.58225435668044,
+              "max": 1210.939471105309
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 3.9227664931857507,
+              "median": 13.502401208409985,
+              "max": 36.93566044648871
+            },
+            "bsa_m2": {
+              "min": 1.5648206853199438,
+              "median": 1.8983569081450051,
+              "max": 2.2360882984362163
+            },
+            "fraction_egfr_outside_kim_range": 0.3514833333333333,
+            "fraction_bsa_outside_kim_range": 0.23305
+          },
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 5078.495840045564,
+              "p50": 5874.483563549573,
+              "p95": 6836.28504149605
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3943353337175235
+          },
+          "half_life": {
+            "observed_mean": 9.22,
+            "simulated_group_mean": {
+              "p05": 7.8781838758708185,
+              "p50": 9.496705514086093,
+              "p95": 11.604644533524235
+            },
+            "observed_over_median": 0.9708629994185177
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 2.2736821129755347,
+              "p50": 2.8418297712746696,
+              "p95": 3.5434801696843095
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3215487878809125
+          }
+        }
+      ]
+    },
+    "sensitivity_exponential_form": {
+      "settings": {
+        "crcl_ml_min": {
+          "normal": [
+            80,
+            140
+          ],
+          "mild": [
+            50,
+            80
+          ],
+          "moderate": [
+            30,
+            50
+          ],
+          "severe": [
+            10,
+            30
+          ]
+        },
+        "cockcroft_gault_weight_basis": "total_body_weight",
+        "age_years": [
+          40,
+          75
+        ],
+        "male_fraction": 0.5,
+        "weight_kg": [
+          60,
+          100
+        ],
+        "height_cm": {
+          "MALE": [
+            165,
+            185
+          ],
+          "FEMALE": [
+            152,
+            172
+          ]
+        },
+        "cl_form": "exponential"
+      },
+      "groups": [
+        {
+          "group": "normal",
+          "n": 7,
+          "crcl_range_simulated": [
+            80,
+            140
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 29.99920144766221,
+              "median": 67.48860838915192,
+              "max": 148.4201114013567
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 46.65603077911257,
+              "median": 98.17253377170181,
+              "max": 124.24780514260296
+            },
+            "bsa_m2": {
+              "min": 1.5639014418413566,
+              "median": 1.8979152439290976,
+              "max": 2.2356631884468845
+            },
+            "fraction_egfr_outside_kim_range": 0.6074714285714286,
+            "fraction_bsa_outside_kim_range": 0.2318
+          },
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1679.0762490399275,
+              "p50": 1981.6706947379166,
+              "p95": 2355.7567562126783
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.100586492897825
+          },
+          "half_life": {
+            "observed_mean": 3.34,
+            "simulated_group_mean": {
+              "p05": 3.2709529492866585,
+              "p50": 3.7720836579172694,
+              "p95": 4.463314890200369
+            },
+            "observed_over_median": 0.8854522600498629
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "crcl_range_simulated": [
+            50,
+            80
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 52.612612199990046,
+              "median": 113.9830143967983,
+              "max": 238.40329052159686
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 26.528856994735772,
+              "median": 55.86807681523162,
+              "max": 100.45362545437837
+            },
+            "bsa_m2": {
+              "min": 1.5655158226538326,
+              "median": 1.8977944413216234,
+              "max": 2.2367970753873747
+            },
+            "fraction_egfr_outside_kim_range": 0.00804,
+            "fraction_bsa_outside_kim_range": 0.23262
+          },
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 2661.0859960227117,
+              "p50": 3212.351826899602,
+              "p95": 3870.8611101765932
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.861362686624076
+          },
+          "half_life": {
+            "observed_mean": 3.67,
+            "simulated_group_mean": {
+              "p05": 4.517230767260372,
+              "p50": 5.53015499793414,
+              "p95": 6.8903781685460075
+            },
+            "observed_over_median": 0.6636342021825745
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 1.247571178799931,
+              "p50": 1.618303495204355,
+              "p95": 2.0784496403079404
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.7839593090088628
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "crcl_range_simulated": [
+            30,
+            50
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 82.5507129176155,
+              "median": 185.6468189061936,
+              "max": 403.44219390142877
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 14.21192030309462,
+              "median": 31.09434791308844,
+              "max": 69.10121206533353
+            },
+            "bsa_m2": {
+              "min": 1.5649066306475423,
+              "median": 1.8981122605631278,
+              "max": 2.235370181042909
+            },
+            "fraction_egfr_outside_kim_range": 0.0,
+            "fraction_bsa_outside_kim_range": 0.23275
+          },
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 3821.705573887381,
+              "p50": 4464.254933257156,
+              "p95": 5227.633034130155
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3487132993112985
+          },
+          "half_life": {
+            "observed_mean": 10.6,
+            "simulated_group_mean": {
+              "p05": 6.149514100841412,
+              "p50": 7.377115717540476,
+              "p95": 8.998834162270771
+            },
+            "observed_over_median": 1.4368759290025115
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 1.7864238000970072,
+              "p50": 2.2501940292009452,
+              "p95": 2.8368965103641988
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.2268543120137827
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "crcl_range_simulated": [
+            10,
+            30
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 138.2232822538523,
+              "median": 375.40329630348606,
+              "max": 1179.1021090299005
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 3.893562375142246,
+              "median": 13.45484673314931,
+              "max": 37.600777582861475
+            },
+            "bsa_m2": {
+              "min": 1.5630318017484097,
+              "median": 1.898412343321234,
+              "max": 2.2361831600535624
+            },
+            "fraction_egfr_outside_kim_range": 0.35163333333333335,
+            "fraction_bsa_outside_kim_range": 0.22965
+          },
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 4812.123016641318,
+              "p50": 5659.159344204509,
+              "p95": 6639.699745351146
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.4473881192951963
+          },
+          "half_life": {
+            "observed_mean": 9.22,
+            "simulated_group_mean": {
+              "p05": 7.596963199374355,
+              "p50": 9.132761854902302,
+              "p95": 11.101289500186219
+            },
+            "observed_over_median": 1.0095522194144229
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 2.2599342610951627,
+              "p50": 2.8557394708876322,
+              "p95": 3.5882290792271965
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3151118047980037
+          }
+        }
+      ]
+    },
+    "sensitivity_ideal_weight_basis": {
+      "settings": {
+        "crcl_ml_min": {
+          "normal": [
+            80,
+            140
+          ],
+          "mild": [
+            50,
+            80
+          ],
+          "moderate": [
+            30,
+            50
+          ],
+          "severe": [
+            10,
+            30
+          ]
+        },
+        "cockcroft_gault_weight_basis": "ideal_body_weight_devine",
+        "age_years": [
+          40,
+          75
+        ],
+        "male_fraction": 0.5,
+        "weight_kg": [
+          60,
+          100
+        ],
+        "height_cm": {
+          "MALE": [
+            165,
+            185
+          ],
+          "FEMALE": [
+            152,
+            172
+          ]
+        },
+        "cl_form": "linear_multiplicative"
+      },
+      "groups": [
+        {
+          "group": "normal",
+          "n": 7,
+          "crcl_range_simulated": [
+            80,
+            140
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 22.295676480593677,
+              "median": 52.72669040902409,
+              "max": 120.96513037079156
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 66.86194030750067,
+              "median": 107.83325254302288,
+              "max": 129.2906807964619
+            },
+            "bsa_m2": {
+              "min": 1.5647229900971482,
+              "median": 1.8991236368792301,
+              "max": 2.23699832686668
+            },
+            "fraction_egfr_outside_kim_range": 0.9269285714285714,
+            "fraction_bsa_outside_kim_range": 0.2312857142857143
+          },
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1510.1061330651771,
+              "p50": 1745.9537482380183,
+              "p95": 2025.6120480466743
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.2491739842484497
+          },
+          "half_life": {
+            "observed_mean": 3.34,
+            "simulated_group_mean": {
+              "p05": 3.0632493389370796,
+              "p50": 3.4391857352276762,
+              "p95": 3.9601743816577706
+            },
+            "observed_over_median": 0.971160110891449
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "crcl_range_simulated": [
+            50,
+            80
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 39.19968947179418,
+              "median": 89.21636116549841,
+              "max": 189.98646034504924
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 38.79850950687835,
+              "median": 75.4723789700678,
+              "max": 112.92356876515998
+            },
+            "bsa_m2": {
+              "min": 1.5645307532682051,
+              "median": 1.8970234912793136,
+              "max": 2.2365490360090337
+            },
+            "fraction_egfr_outside_kim_range": 0.14804,
+            "fraction_bsa_outside_kim_range": 0.2292
+          },
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 2157.518475483195,
+              "p50": 2644.843809440118,
+              "p95": 3240.2552550372366
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.0461865423295982
+          },
+          "half_life": {
+            "observed_mean": 3.67,
+            "simulated_group_mean": {
+              "p05": 3.8653446820749617,
+              "p50": 4.708348872485285,
+              "p95": 5.902375512133069
+            },
+            "observed_over_median": 0.779466454035893
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 1.1757789995829497,
+              "p50": 1.511964002850554,
+              "p95": 1.9435268577433544
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.8390967559248387
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "crcl_range_simulated": [
+            30,
+            50
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 62.9098716488234,
+              "median": 144.63531981037596,
+              "max": 317.5418325240022
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 20.95276924367113,
+              "median": 42.16891546520915,
+              "max": 88.81385430882938
+            },
+            "bsa_m2": {
+              "min": 1.5637289763330011,
+              "median": 1.8989392560988534,
+              "max": 2.2376793151167433
+            },
+            "fraction_egfr_outside_kim_range": 0.0,
+            "fraction_bsa_outside_kim_range": 0.23105
+          },
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 3407.9725689195384,
+              "p50": 4020.9776499121162,
+              "p95": 4750.570994755154
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.497397032319142
+          },
+          "half_life": {
+            "observed_mean": 10.6,
+            "simulated_group_mean": {
+              "p05": 5.556747303873977,
+              "p50": 6.731080617064007,
+              "p95": 8.24257581149374
+            },
+            "observed_over_median": 1.5747842884436518
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 1.839233428993828,
+              "p50": 2.303530015694429,
+              "p95": 2.873072652418905
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.1984476993066706
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "crcl_range_simulated": [
+            10,
+            30
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 103.7421222498026,
+              "median": 295.7009570993107,
+              "max": 960.7706034698182
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 5.533147485565258,
+              "median": 18.23436507622925,
+              "max": 48.51444948577258
+            },
+            "bsa_m2": {
+              "min": 1.5642415874143705,
+              "median": 1.899139842478299,
+              "max": 2.2373740818276358
+            },
+            "fraction_egfr_outside_kim_range": 0.16096666666666667,
+            "fraction_bsa_outside_kim_range": 0.23075
+          },
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 4700.506145098141,
+              "p50": 5530.404637871463,
+              "p95": 6492.2535349338705
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.4810851169748305
+          },
+          "half_life": {
+            "observed_mean": 9.22,
+            "simulated_group_mean": {
+              "p05": 7.403559111047231,
+              "p50": 8.970132171140966,
+              "p95": 10.966500046230527
+            },
+            "observed_over_median": 1.0278555348005818
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 2.526659647990704,
+              "p50": 3.164571594351028,
+              "p95": 3.9415222061954913
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.1867693865090483
+          }
+        }
+      ]
+    },
+    "sensitivity_older": {
+      "settings": {
+        "crcl_ml_min": {
+          "normal": [
+            80,
+            140
+          ],
+          "mild": [
+            50,
+            80
+          ],
+          "moderate": [
+            30,
+            50
+          ],
+          "severe": [
+            10,
+            30
+          ]
+        },
+        "cockcroft_gault_weight_basis": "total_body_weight",
+        "age_years": [
+          60,
+          80
+        ],
+        "male_fraction": 0.5,
+        "weight_kg": [
+          60,
+          100
+        ],
+        "height_cm": {
+          "MALE": [
+            165,
+            185
+          ],
+          "FEMALE": [
+            152,
+            172
+          ]
+        },
+        "cl_form": "linear_multiplicative"
+      },
+      "groups": [
+        {
+          "group": "normal",
+          "n": 7,
+          "crcl_range_simulated": [
+            80,
+            140
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 27.351795675148047,
+              "median": 57.49033400983201,
+              "max": 119.20441166549567
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 54.300570032408004,
+              "median": 97.57745188463018,
+              "max": 117.44827138305477
+            },
+            "bsa_m2": {
+              "min": 1.5636187187416781,
+              "median": 1.89748792914338,
+              "max": 2.236804376796392
+            },
+            "fraction_egfr_outside_kim_range": 0.6582857142857143,
+            "fraction_bsa_outside_kim_range": 0.23017142857142858
+          },
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1745.6695802895877,
+              "p50": 2021.6917137792698,
+              "p95": 2346.8172626243513
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.0787994950639264
+          },
+          "half_life": {
+            "observed_mean": 3.34,
+            "simulated_group_mean": {
+              "p05": 3.3506251172275103,
+              "p50": 3.8222868350083905,
+              "p95": 4.470723938052534
+            },
+            "observed_over_median": 0.8738224377639278
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "crcl_range_simulated": [
+            50,
+            80
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 48.03203914547487,
+              "median": 97.22456561866616,
+              "max": 192.05896679845827
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 30.434572313397688,
+              "median": 62.481834784030994,
+              "max": 99.618416825378
+            },
+            "bsa_m2": {
+              "min": 1.567154390578624,
+              "median": 1.8998159438658941,
+              "max": 2.236679196821633
+            },
+            "fraction_egfr_outside_kim_range": 0.01288,
+            "fraction_bsa_outside_kim_range": 0.2308
+          },
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 2534.6499504823787,
+              "p50": 3083.267817594172,
+              "p95": 3705.462935409988
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.8974244741927897
+          },
+          "half_life": {
+            "observed_mean": 3.67,
+            "simulated_group_mean": {
+              "p05": 4.354721679887459,
+              "p50": 5.3539973377698304,
+              "p95": 6.736011826174798
+            },
+            "observed_over_median": 0.6854691492111784
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 1.1921743966262912,
+              "p50": 1.5254248174004559,
+              "p95": 1.9243307683993274
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.83169230983737
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "crcl_range_simulated": [
+            30,
+            50
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 77.15520312677803,
+              "median": 157.85075414154602,
+              "max": 323.3102567110809
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 16.53575622765017,
+              "median": 34.91570999820216,
+              "max": 73.85518203795634
+            },
+            "bsa_m2": {
+              "min": 1.5648599362931639,
+              "median": 1.8978019895726121,
+              "max": 2.2366552789135152
+            },
+            "fraction_egfr_outside_kim_range": 0.0,
+            "fraction_bsa_outside_kim_range": 0.22968333333333332
+          },
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 3779.1046381192464,
+              "p50": 4407.673082686355,
+              "p95": 5141.762602138936
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3660269005999799
+          },
+          "half_life": {
+            "observed_mean": 10.6,
+            "simulated_group_mean": {
+              "p05": 6.069586065270919,
+              "p50": 7.327321057429453,
+              "p95": 8.963934104572953
+            },
+            "observed_over_median": 1.4466405821336643
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 1.7606337499924463,
+              "p50": 2.1796427192865715,
+              "p95": 2.701013970831387
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.2665654894562037
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "crcl_range_simulated": [
+            10,
+            30
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 128.51653548668662,
+              "median": 317.27262965102443,
+              "max": 953.3381072422703
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 4.523400722499784,
+              "median": 15.221871279282905,
+              "max": 40.13556271831037
+            },
+            "bsa_m2": {
+              "min": 1.5638705695147077,
+              "median": 1.89739053462015,
+              "max": 2.2373631518047787
+            },
+            "fraction_egfr_outside_kim_range": 0.2675666666666667,
+            "fraction_bsa_outside_kim_range": 0.23153333333333334
+          },
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 4938.628757193201,
+              "p50": 5749.721427379112,
+              "p95": 6691.928589548548
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.4245907568662317
+          },
+          "half_life": {
+            "observed_mean": 9.22,
+            "simulated_group_mean": {
+              "p05": 7.747819131001997,
+              "p50": 9.307213082551193,
+              "p95": 11.423529447615113
+            },
+            "observed_over_median": 0.9906295169372777
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 2.295616777016442,
+              "p50": 2.842366165495447,
+              "p95": 3.5207981880328925
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3212993931544696
+          }
+        }
+      ]
+    },
+    "sensitivity_kim_body_size": {
+      "settings": {
+        "crcl_ml_min": {
+          "normal": [
+            80,
+            140
+          ],
+          "mild": [
+            50,
+            80
+          ],
+          "moderate": [
+            30,
+            50
+          ],
+          "severe": [
+            10,
+            30
+          ]
+        },
+        "cockcroft_gault_weight_basis": "total_body_weight",
+        "age_years": [
+          40,
+          75
+        ],
+        "male_fraction": 0.5,
+        "weight_kg": [
+          47,
+          86
+        ],
+        "height_cm": {
+          "MALE": [
+            140,
+            179
+          ],
+          "FEMALE": [
+            140,
+            179
+          ]
+        },
+        "cl_form": "linear_multiplicative"
+      },
+      "groups": [
+        {
+          "group": "normal",
+          "n": 7,
+          "crcl_range_simulated": [
+            80,
+            140
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 23.377600443417084,
+              "median": 55.996258630651035,
+              "max": 129.0168672742158
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 56.32381228418508,
+              "median": 105.73439479035306,
+              "max": 134.40333816527254
+            },
+            "bsa_m2": {
+              "min": 1.3294918721333264,
+              "median": 1.6839243714360372,
+              "max": 2.0475510968446966
+            },
+            "fraction_egfr_outside_kim_range": 0.8367714285714286,
+            "fraction_bsa_outside_kim_range": 0.03365714285714286
+          },
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1918.4670235734452,
+              "p50": 2234.152384654738,
+              "p95": 2614.3906407623103
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9762091498235238
+          },
+          "half_life": {
+            "observed_mean": 3.34,
+            "simulated_group_mean": {
+              "p05": 3.2850869602529142,
+              "p50": 3.687583209622412,
+              "p95": 4.259263998836361
+            },
+            "observed_over_median": 0.9057422734989612
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "crcl_range_simulated": [
+            50,
+            80
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 41.4575101767228,
+              "median": 94.39513232945217,
+              "max": 206.15036989621822
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 31.746337961358265,
+              "median": 69.71176459928611,
+              "max": 113.13710099621471
+            },
+            "bsa_m2": {
+              "min": 1.3308221801732447,
+              "median": 1.6826296969484391,
+              "max": 2.0499497543387193
+            },
+            "fraction_egfr_outside_kim_range": 0.1345,
+            "fraction_bsa_outside_kim_range": 0.03324
+          },
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 2825.714046353863,
+              "p50": 3449.4390201387955,
+              "p95": 4207.268388722568
+            },
+            "classification": "model_over_predicts",
+            "observed_over_median": 0.8021594189215915
+          },
+          "half_life": {
+            "observed_mean": 3.67,
+            "simulated_group_mean": {
+              "p05": 4.229020753007414,
+              "p50": 5.151477507245235,
+              "p95": 6.421919540435731
+            },
+            "observed_over_median": 0.7124169706338369
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 1.1970527824225219,
+              "p50": 1.541269446900674,
+              "p95": 1.9806029719316218
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.8231423080618512
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "crcl_range_simulated": [
+            30,
+            50
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 66.17632470863758,
+              "median": 153.56350622767138,
+              "max": 341.1709324469661
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 17.178880589689978,
+              "median": 38.920250362407266,
+              "max": 90.35093758807272
+            },
+            "bsa_m2": {
+              "min": 1.330813061321241,
+              "median": 1.6841984876360392,
+              "max": 2.0477323414076207
+            },
+            "fraction_egfr_outside_kim_range": 0.0,
+            "fraction_bsa_outside_kim_range": 0.034166666666666665
+          },
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 4354.768499045242,
+              "p50": 5125.793562355995,
+              "p95": 6027.71982916835
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.1746473842057221
+          },
+          "half_life": {
+            "observed_mean": 10.6,
+            "simulated_group_mean": {
+              "p05": 5.991398935477265,
+              "p50": 7.195518140668297,
+              "p95": 8.734666733166138
+            },
+            "observed_over_median": 1.473139222607186
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 1.8278159476596774,
+              "p50": 2.2971144181923604,
+              "p95": 2.869128137943765
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.2017948369177271
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "crcl_range_simulated": [
+            10,
+            30
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 109.36850190042387,
+              "median": 311.7137875682548,
+              "max": 983.0013633367139
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 4.63514176886989,
+              "median": 16.82642219252043,
+              "max": 48.74630199132448
+            },
+            "bsa_m2": {
+              "min": 1.3275778092508435,
+              "median": 1.6844691948313315,
+              "max": 2.046737591679844
+            },
+            "fraction_egfr_outside_kim_range": 0.20661666666666667,
+            "fraction_bsa_outside_kim_range": 0.03386666666666667
+          },
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 5877.937644164097,
+              "p50": 6914.912418740616,
+              "p95": 8138.588151205191
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.1845413945953913
+          },
+          "half_life": {
+            "observed_mean": 9.22,
+            "simulated_group_mean": {
+              "p05": 7.814236179699997,
+              "p50": 9.38003474510062,
+              "p95": 11.347312636603606
+            },
+            "observed_over_median": 0.9829387897327131
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 2.4707703207147707,
+              "p50": 3.0911983719289076,
+              "p95": 3.8535184759924235
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.2149387511641403
+          }
+        }
+      ]
+    },
+    "sensitivity_normal_within_kim_range": {
+      "settings": {
+        "crcl_ml_min": {
+          "normal": [
+            80,
+            100
+          ],
+          "mild": [
+            50,
+            80
+          ],
+          "moderate": [
+            30,
+            50
+          ],
+          "severe": [
+            10,
+            30
+          ]
+        },
+        "cockcroft_gault_weight_basis": "total_body_weight",
+        "age_years": [
+          40,
+          75
+        ],
+        "male_fraction": 0.5,
+        "weight_kg": [
+          60,
+          100
+        ],
+        "height_cm": {
+          "MALE": [
+            165,
+            185
+          ],
+          "FEMALE": [
+            152,
+            172
+          ]
+        },
+        "cl_form": "linear_multiplicative"
+      },
+      "groups": [
+        {
+          "group": "normal",
+          "n": 7,
+          "crcl_range_simulated": [
+            80,
+            100
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 41.376865174729836,
+              "median": 81.84446880422578,
+              "max": 150.7245612777707
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 46.82935957918683,
+              "median": 82.69563063084937,
+              "max": 112.78026622700625
+            },
+            "bsa_m2": {
+              "min": 1.5649987872726967,
+              "median": 1.898243567368441,
+              "max": 2.236506561965222
+            },
+            "fraction_egfr_outside_kim_range": 0.2513,
+            "fraction_bsa_outside_kim_range": 0.2297142857142857
+          },
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 2082.1988183943254,
+              "p50": 2420.1720365484,
+              "p95": 2803.364394762505
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.901175605313785
+          },
+          "half_life": {
+            "observed_mean": 3.34,
+            "simulated_group_mean": {
+              "p05": 3.760153282729955,
+              "p50": 4.401194968633564,
+              "p95": 5.258797618072971
+            },
+            "observed_over_median": 0.7588848082858205
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "crcl_range_simulated": [
+            50,
+            80
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 51.6759195898995,
+              "median": 113.87305799657815,
+              "max": 238.38563780064732
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 26.62868712003039,
+              "median": 55.800044978036695,
+              "max": 100.68911138651012
+            },
+            "bsa_m2": {
+              "min": 1.564763750202169,
+              "median": 1.8979003011176085,
+              "max": 2.23759491952211
+            },
+            "fraction_egfr_outside_kim_range": 0.0086,
+            "fraction_bsa_outside_kim_range": 0.23034
+          },
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 2759.5717688643235,
+              "p50": 3346.967097183972,
+              "p95": 4027.2981544604486
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.8267186140933572
+          },
+          "half_life": {
+            "observed_mean": 3.67,
+            "simulated_group_mean": {
+              "p05": 4.6457655461782394,
+              "p50": 5.74373272656846,
+              "p95": 7.23541728451589
+            },
+            "observed_over_median": 0.6389573078538088
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 1.0849074128026057,
+              "p50": 1.3828565899084497,
+              "p95": 1.759766370652103
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9174372086920634
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "crcl_range_simulated": [
+            30,
+            50
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 84.54909604301528,
+              "median": 185.7311685479025,
+              "max": 396.53502109860176
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 14.47517484674715,
+              "median": 31.056178536475755,
+              "max": 69.61016918141736
+            },
+            "bsa_m2": {
+              "min": 1.5648069232938093,
+              "median": 1.8980923267314735,
+              "max": 2.237483667401085
+            },
+            "fraction_egfr_outside_kim_range": 0.0,
+            "fraction_bsa_outside_kim_range": 0.23221666666666665
+          },
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 4003.1818173081733,
+              "p50": 4642.619774354509,
+              "p95": 5403.9509211369505
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.2968970737727785
+          },
+          "half_life": {
+            "observed_mean": 10.6,
+            "simulated_group_mean": {
+              "p05": 6.38024808821768,
+              "p50": 7.654112918908601,
+              "p95": 9.388684809140912
+            },
+            "observed_over_median": 1.384876355013515
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 1.560874280991416,
+              "p50": 1.9185888392273218,
+              "p95": 2.387544057202756
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.4389014421165167
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "crcl_range_simulated": [
+            10,
+            30
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 138.5727828817695,
+              "median": 375.81461440547525,
+              "max": 1165.823728373484
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 3.8663951609162144,
+              "median": 13.458879863907617,
+              "max": 36.49777934321359
+            },
+            "bsa_m2": {
+              "min": 1.5639319216581071,
+              "median": 1.8985265844758055,
+              "max": 2.236385976537167
+            },
+            "fraction_egfr_outside_kim_range": 0.3485666666666667,
+            "fraction_bsa_outside_kim_range": 0.23005
+          },
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 5074.916026880964,
+              "p50": 5868.7092102806855,
+              "p95": 6850.6719756629545
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3957072512046043
+          },
+          "half_life": {
+            "observed_mean": 9.22,
+            "simulated_group_mean": {
+              "p05": 7.869764750317062,
+              "p50": 9.498225323148652,
+              "p95": 11.580382003626815
+            },
+            "observed_over_median": 0.9707076518314876
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 1.978892222630696,
+              "p50": 2.428293233742687,
+              "p95": 3.007920802446533
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.5466075667490382
+          }
+        }
+      ]
+    },
+    "sensitivity_severe_near_boundary": {
+      "settings": {
+        "crcl_ml_min": {
+          "normal": [
+            80,
+            140
+          ],
+          "mild": [
+            50,
+            80
+          ],
+          "moderate": [
+            30,
+            50
+          ],
+          "severe": [
+            20,
+            30
+          ]
+        },
+        "cockcroft_gault_weight_basis": "total_body_weight",
+        "age_years": [
+          40,
+          75
+        ],
+        "male_fraction": 0.5,
+        "weight_kg": [
+          60,
+          100
+        ],
+        "height_cm": {
+          "MALE": [
+            165,
+            185
+          ],
+          "FEMALE": [
+            152,
+            172
+          ]
+        },
+        "cl_form": "linear_multiplicative"
+      },
+      "groups": [
+        {
+          "group": "normal",
+          "n": 7,
+          "crcl_range_simulated": [
+            80,
+            140
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 29.641237095447313,
+              "median": 67.56623333258746,
+              "max": 149.43274367510244
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 46.76376425606006,
+              "median": 98.16673726430021,
+              "max": 123.9346794478179
+            },
+            "bsa_m2": {
+              "min": 1.5652252092917551,
+              "median": 1.8985767689209343,
+              "max": 2.236797318725339
+            },
+            "fraction_egfr_outside_kim_range": 0.6077857142857143,
+            "fraction_bsa_outside_kim_range": 0.23324285714285714
+          },
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1752.851373220967,
+              "p50": 2063.5283012912114,
+              "p95": 2443.7195274920246
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.0569275927232415
+          },
+          "half_life": {
+            "observed_mean": 3.34,
+            "simulated_group_mean": {
+              "p05": 3.362084073736818,
+              "p50": 3.9007327394296123,
+              "p95": 4.658316411769053
+            },
+            "observed_over_median": 0.8562493826450653
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "crcl_range_simulated": [
+            50,
+            80
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 52.06510499145439,
+              "median": 113.77991325394248,
+              "max": 240.8203218160139
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 26.477155886294806,
+              "median": 55.857582378070646,
+              "max": 100.64451572167887
+            },
+            "bsa_m2": {
+              "min": 1.5661640477312058,
+              "median": 1.8980000357276208,
+              "max": 2.238009887500509
+            },
+            "fraction_egfr_outside_kim_range": 0.00848,
+            "fraction_bsa_outside_kim_range": 0.23008
+          },
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 2771.8716311036046,
+              "p50": 3347.9833873227326,
+              "p95": 4003.2874661340065
+            },
+            "classification": "model_over_predicts",
+            "observed_over_median": 0.8264676612426907
+          },
+          "half_life": {
+            "observed_mean": 3.67,
+            "simulated_group_mean": {
+              "p05": 4.648129839901459,
+              "p50": 5.735978591258228,
+              "p95": 7.22248232230609
+            },
+            "observed_over_median": 0.639821077016077
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 1.2562812131728738,
+              "p50": 1.620806148004267,
+              "p95": 2.076126100783552
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.7827488138721531
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "crcl_range_simulated": [
+            30,
+            50
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 85.29027248008666,
+              "median": 185.97291754573882,
+              "max": 402.45907099982753
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 14.451629806638241,
+              "median": 31.12517779795856,
+              "max": 69.95282452769648
+            },
+            "bsa_m2": {
+              "min": 1.5637830974087619,
+              "median": 1.8993534304078838,
+              "max": 2.23814167021704
+            },
+            "fraction_egfr_outside_kim_range": 0.0,
+            "fraction_bsa_outside_kim_range": 0.23438333333333333
+          },
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 3979.0754418810566,
+              "p50": 4620.753326624439,
+              "p95": 5396.843151695912
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3030342834592452
+          },
+          "half_life": {
+            "observed_mean": 10.6,
+            "simulated_group_mean": {
+              "p05": 6.347116154484856,
+              "p50": 7.640166374752988,
+              "p95": 9.362367867695891
+            },
+            "observed_over_median": 1.3874043417467732
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 1.7829355248468852,
+              "p50": 2.2407092960798236,
+              "p95": 2.802949697716289
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.2320474826532342
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "crcl_range_simulated": [
+            20,
+            30
+          ],
+          "constructed_covariates": {
+            "serum_creatinine_umol_l": {
+              "min": 137.7351118152047,
+              "median": 296.37388138368664,
+              "max": 612.7489678144935
+            },
+            "egfr_ml_min_1_73m2": {
+              "min": 8.756342880120506,
+              "median": 17.71526486108612,
+              "max": 37.80441104781476
+            },
+            "bsa_m2": {
+              "min": 1.5654154473500934,
+              "median": 1.8991444779788136,
+              "max": 2.2350472626378073
+            },
+            "fraction_egfr_outside_kim_range": 0.022766666666666668,
+            "fraction_bsa_outside_kim_range": 0.23213333333333333
+          },
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 4806.228115519829,
+              "p50": 5554.832701271536,
+              "p95": 6435.511049859744
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.474571862105771
+          },
+          "half_life": {
+            "observed_mean": 9.22,
+            "simulated_group_mean": {
+              "p05": 7.52107087032671,
+              "p50": 9.037200465087988,
+              "p95": 10.954140929663723
+            },
+            "observed_over_median": 1.020227451589482
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 2.1530448141648404,
+              "p50": 2.688950157528512,
+              "p95": 3.340795312625353
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3966851260061364
+          }
+        }
+      ]
+    }
+  },
+  "known_differences": [
+    "Population: Kim was fitted in 30 Korean patients with multiple myeloma at steady state; the disease context of the renal study subjects was not established from the extracted pages.",
+    "Dose: 25 mg single dose versus Kim's 5-10 mg; linear (dose-proportional) pharmacokinetics is assumed and not verified from a source in this repository. The primary ratio endpoint is unaffected under linearity; absolute AUC is not.",
+    "eGFR and BSA are constructed from assumed demographics and a back-solved serum creatinine, not observed. The study's Cockcroft-Gault method and weight basis are not stated in the extracted pages.",
+    "The normal group extends above Kim's highest eGFR (94.7), where its exponential renal effect is extrapolated; part of the severe group lies below its lowest (11.1).",
+    "Fu is fixed at 0.614 in every group; protein binding may differ in renal impairment.",
+    "Kim random-effect variances use an assumed CV convention and assumed independence."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "812613bcd7337d6b8577aa2c9c102918674fb530042261d68b7a4c21ac1e4f22"
+}
