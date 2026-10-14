@@ -89,7 +89,13 @@ Motivated by 2.0g. Kim et al. (Drug Des Devel Ther 2026;20, doi 10.2147/DDDT.S60
 - **Internal reproduction** (`kim-internal-reproduction`): typical total CL/F at each group's median covariates lies within one SD of the authors' Table 2 group means for all three readings (severe 3.76 vs 3.39, moderate 5.66 vs 5.74, control 8.74 vs 8.01 L/h). Same patients as the fit, so this confirms transcription and the unbound→total conversion, not predictive performance.
 - **Model comparison** (`pk-model-compare`): for a 68-year-old 70 kg woman on 10 mg, the two models agree at normal renal function (Kim/Hughes AUC 0.98) and diverge as it falls (1.38 at eGFR 47, 1.63 at 26, 1.70 at 14) — the direction the 2.0g check found missing from Hughes.
 
-Not yet done: Kim in the estimated-PK page and saved runs (next step); a locked external check of Kim against the CC-5013-PK-001 groups, which needs eGFR rather than the CrCl ranges that study reported.
+**2.1b — Hughes and Kim on the page.** The estimated-PK page has a “Compare Hughes and Kim” action and a selector for the Kim CL/F reading (primary preselected, the others labelled as sensitivity readings). Both models run on the same saved record and request; each estimates its own covariates and keeps its own assumption, warnings and blockers. A model that cannot run is shown as not run with the reason, never replaced by the other. In practice:
+- the two studies share only 5 and 7.5 mg, so only those doses run both models;
+- Kim needs the MM context;
+- Hughes refuses estimated CrCl below its study minimum (36 mL/min), so in severe impairment only Kim runs. That is extrapolation avoided, not a missing feature.
+The overlay shows both total curves and Kim's unbound curve; Hughes's transit delay and Kim's peripheral-compartment accumulation are visible in it.
+
+Not yet done: Kim in saved runs; a locked external check of Kim against the CC-5013-PK-001 groups, which needs eGFR rather than the CrCl ranges that study reported.
 
 ## Typical value vs individual prediction (2.0d)
 

@@ -17,8 +17,10 @@ from intelligence_store.patient_state import UNITS, SCHEMA_VERSION as STATE_SCHE
 from intelligence_store.patient_state_revisions import PatientStateRevision, save_revision, export_revision
 from intelligence_store.treatment_requests import treatment_request_example
 from intelligence_store.covariate_estimation import WEIGHT_BASES, estimate_hughes_covariates, to_hughes_model_inputs
-from intelligence_store.estimated_pk import (calculate_estimated_pk, compare_estimated_pk, estimate_for_revision,
-                                             primary_weight_basis, PREDICTION_TYPE, register_estimated_pk_commands)
+from intelligence_store.estimated_pk import (calculate_estimated_pk, compare_estimated_pk, compare_published_models,
+                                             estimate_for_revision, primary_weight_basis, PREDICTION_TYPE,
+                                             register_estimated_pk_commands)
+from intelligence_store.kim_model import calculate_kim_pk
 from intelligence_store.educational_pk_runs import (EducationalPKRun, SCHEMA, SCHEMA_V2, export_pk_run, read_pk_run,
                                                     save_estimated_pk_run, save_pk_run)
 from intelligence_store.pk_model_inputs import model_input_example
@@ -154,6 +156,65 @@ class EstimatedPKTests(unittest.TestCase):
         self.assertLess(spread['auc_max_to_min_ratio'], spread['crcl_max_to_min_ratio'])
         self.assertEqual(primary_weight_basis(), 'ideal_body_weight_devine')
 
+    # ------------------------------------------------------------ published-model comparison
+
+    def request_mg(self, amount):
+        request = treatment_request_example()
+        for event in request['events']:
+            event['amount']['value'] = amount
+        return request
+
+    def test_model_comparison_matches_each_model_run_alone(self):
+        revision = self.revision(full_state(serum_creatinine=120))
+        request = self.request_mg(7.5)
+        models = compare_published_models(revision.id, 'ideal_body_weight_devine', 'linear_multiplicative', request, 'MM')
+        hughes, kim = models['rows']
+        self.assertEqual(hughes['report_sha256'], calculate_estimated_pk(revision.id, 'ideal_body_weight_devine', request, 'MM')['report_sha256'])
+        self.assertEqual(kim['report_sha256'], calculate_kim_pk(revision.id, request, 'MM', 'linear_multiplicative')['report_sha256'])
+        self.assertEqual({round(t, 6) for t in hughes['times_h']}, {round(t, 6) for t in kim['times_h']})
+        self.assertGreater(models['ratio']['kim_to_hughes_auc_0_infinity'], 1.3)
+        self.assertTrue(any('under-predicts' in w for w in hughes['warnings']))
+        self.assertFalse(models['clinical_prediction_validated'])
+        body = {k: v for k, v in models.items() if k != 'report_sha256'}
+        self.assertEqual(models['report_sha256'], digest(body))
+
+    def test_model_comparison_blocks_rather_than_substitutes(self):
+        revision = self.revision()
+        only_hughes = compare_published_models(revision.id, 'ideal_body_weight_devine', 'linear_multiplicative', self.request_mg(25), 'MM')
+        self.assertEqual(only_hughes['rows'][0]['status'], 'completed_educational_calculation')
+        self.assertEqual([b['code'] for b in only_hughes['rows'][1]['blockers']], ['amount_outside_study'])
+        self.assertIsNone(only_hughes['ratio'])
+        only_kim = compare_published_models(revision.id, 'ideal_body_weight_devine', 'linear_multiplicative', self.request_mg(10), 'MM')
+        self.assertNotIn('times_h', only_kim['rows'][0])
+        self.assertIn('times_h', only_kim['rows'][1])
+        not_mm = compare_published_models(revision.id, 'ideal_body_weight_devine', 'linear_multiplicative', self.request_mg(5), 'CLL')
+        self.assertIn('disease_context_outside_study', [b['code'] for b in not_mm['rows'][1]['blockers']])
+        with self.assertRaises(ValueError):
+            compare_published_models(revision.id, 'ideal_body_weight_devine', 'printed', self.request_mg(5), 'MM')
+        severe = save_revision(self.scenario.id, full_state(serum_creatinine=180), parent_revision_id=revision.id, title='Severe')
+        below = compare_published_models(severe.id, 'ideal_body_weight_devine', 'linear_multiplicative', self.request_mg(5), 'MM')
+        self.assertLess(below['rows'][0]['covariates']['creatinine_clearance'], 36)
+        self.assertIn('outside_context_range', [b['code'] for b in below['rows'][0]['blockers']])
+        self.assertEqual(below['rows'][1]['status'], 'completed')
+
+    def test_page_compares_models_and_keeps_the_form_explicit(self):
+        revision = self.revision(full_state(serum_creatinine=120))
+        text = self.client.get(self.page(revision)).get_data(as_text=True)
+        self.assertIn('value="linear_multiplicative" selected', text)
+        self.assertIn('primary reading', text)
+        text = self.client.post(self.page(revision), data=self.form(revision, 'models', events='0, 7.5')).get_data(as_text=True)
+        self.assertIn('Published-model comparison', text)
+        self.assertIn('Concentration by published model', text)
+        self.assertIn('Kim/Hughes AUC to infinity', text)
+        text = self.client.post(self.page(revision), data=self.form(revision, 'models')).get_data(as_text=True)
+        self.assertIn('Not run — amount_outside_study', text)
+        bad = self.form(revision, 'models')
+        bad['cl_form'] = 'printed'
+        self.assertEqual(self.client.post(self.page(revision), data=bad).status_code, 400)
+        bad = self.form(revision, 'models')
+        del bad['cl_form']
+        self.assertEqual(self.client.post(self.page(revision), data=bad).status_code, 400)
+
     # ------------------------------------------------------------ saved runs
 
     def test_saved_v2_run_archives_and_verifies_estimate(self):
@@ -220,7 +281,8 @@ class EstimatedPKTests(unittest.TestCase):
     def form(self, revision, action='calculate', **values):
         text = self.client.get(self.page(revision)).get_data(as_text=True)
         token = re.search(r'name="form_token" value="([^"]+)"', text).group(1)
-        data = {'form_token': token, 'action': action, 'weight_basis': 'ideal_body_weight_devine', 'disease': 'MM',
+        data = {'form_token': token, 'action': action, 'weight_basis': 'ideal_body_weight_devine',
+                'cl_form': 'linear_multiplicative', 'disease': 'MM',
                 'horizon': '24', 'events': '0, 25', 'source_ref': 'Invented request for page test'}
         data.update(values)
         return data

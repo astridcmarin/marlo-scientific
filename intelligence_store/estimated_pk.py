@@ -117,6 +117,79 @@ def compare_estimated_pk(revision_id, request, disease_code='UNKNOWN'):
     return report
 
 
+MODEL_COMPARISON_SCHEMA_VERSION = 'estimated-pk-model-comparison-v1'
+MODEL_COMPARISON_NOTE = ('Both curves are typical values (random effects at zero) for covariates estimated from the same '
+                         'saved record. Hughes 2019 was fitted in US patients with hematologic malignancies using '
+                         'Cockcroft-Gault creatinine clearance; Kim 2026 in 30 Korean multiple myeloma patients with '
+                         'renal impairment using CKD-EPI 2021 eGFR. A difference between the curves is a difference '
+                         'between published models, not a measured fact about any patient, and neither curve has been '
+                         'validated for prediction.')
+
+
+def _hughes_row(result):
+    row = {'model': 'lenalidomide_hughes_2019', 'label': 'Hughes 2019', 'status': result['status'],
+           'assumption': {'weight_basis': result['weight_basis']}, 'covariates': {},
+           'warnings': list(result['covariate_estimate']['warnings']), 'blockers': [],
+           'report_sha256': result['report_sha256']}
+    if result['covariate_estimate']['status'] == 'estimated':
+        row['covariates'] = {k: v['value'] for k, v in result['covariate_estimate']['estimates'].items()}
+    calc = result['calculation']
+    if calc is not None:
+        row['blockers'] = [{'code': b['code'], 'message': b['message']} for b in calc['execution_blockers']]
+        if calc['points']:
+            peak = max(calc['points'], key=lambda p: p['concentration_ng_ml'])
+            row.update(typical_total_cl_f_l_h=calc['parameters']['apparent_clearance_l_h'],
+                       auc_0_horizon_ng_h_ml=calc['auc_0_horizon_ng_h_ml'],
+                       auc_0_infinity_ng_h_ml=calc['analytic_auc_0_infinity_ng_h_ml'],
+                       peak_concentration_ng_ml=peak['concentration_ng_ml'], peak_time_h=peak['time_h'],
+                       times_h=[p['time_h'] for p in calc['points']],
+                       total_concentration_ng_ml=[p['concentration_ng_ml'] for p in calc['points']])
+    return row
+
+
+def _kim_row(result):
+    estimate = result['covariate_estimate']
+    row = {'model': 'lenalidomide_kim_2026', 'label': 'Kim 2026', 'status': result['status'],
+           'assumption': {'cl_form': result['cl_form'], 'cl_form_evidence': result['cl_form_evidence']},
+           'covariates': ({k: v['value'] for k, v in estimate['estimates'].items()} if estimate['status'] == 'estimated' else {}),
+           'warnings': list(estimate['warnings']), 'blockers': copy.deepcopy(result['execution_blockers']),
+           'report_sha256': result['report_sha256']}
+    if result['status'] == 'completed':
+        exposure = result['exposure']
+        row.update(typical_total_cl_f_l_h=result['parameters']['total_clearance_l_h'],
+                   auc_0_horizon_ng_h_ml=exposure['total_auc_0_horizon_ng_h_ml'],
+                   auc_0_infinity_ng_h_ml=exposure['total_auc_0_infinity_ng_h_ml'],
+                   peak_concentration_ng_ml=exposure['peak_total_ng_ml'], peak_time_h=exposure['peak_time_h'],
+                   times_h=list(result['times_h']), total_concentration_ng_ml=list(result['total_concentration_ng_ml']),
+                   unbound_concentration_ng_ml=list(result['unbound_concentration_ng_ml']))
+    return row
+
+
+def compare_published_models(revision_id, weight_basis, cl_form, request, disease_code='UNKNOWN'):
+    """Hughes 2019 and Kim 2026 typical-value curves for one saved revision and one request.
+
+    Each model keeps its own covariates, assumption, coverage warnings and execution blockers; a model that
+    is blocked (for example a dose its study did not use) is shown as blocked, never silently substituted.
+    """
+    from .kim_model import calculate_kim_pk
+    if weight_basis not in WEIGHT_BASES:
+        raise ValueError('Unsupported Cockcroft-Gault weight basis.')
+    hughes = calculate_estimated_pk(revision_id, weight_basis, request, disease_code)
+    kim = calculate_kim_pk(revision_id, request, disease_code, cl_form)
+    rows = [_hughes_row(hughes), _kim_row(kim)]
+    ratio = None
+    if all('auc_0_infinity_ng_h_ml' in r for r in rows):
+        ratio = {'kim_to_hughes_auc_0_infinity': rows[1]['auc_0_infinity_ng_h_ml'] / rows[0]['auc_0_infinity_ng_h_ml'],
+                 'kim_to_hughes_peak': rows[1]['peak_concentration_ng_ml'] / rows[0]['peak_concentration_ng_ml']}
+    report = {'schema_version': MODEL_COMPARISON_SCHEMA_VERSION, 'method_version': METHOD_VERSION,
+              'revision_id': revision_id, 'declared_disease_code': disease_code,
+              'prediction_type': PREDICTION_TYPE, 'rows': rows, 'ratio': ratio, 'note': MODEL_COMPARISON_NOTE,
+              'hughes_report_sha256': hughes['report_sha256'], 'kim_report_sha256': kim['report_sha256'],
+              'clinical_prediction_validated': False, 'ready_for_patient_simulation': False}
+    report['report_sha256'] = digest(report)
+    return report
+
+
 def register_estimated_pk_commands(app):
     @app.cli.command('patient-pk-estimated')
     @click.option('--revision-id', type=click.IntRange(min=1), required=True)

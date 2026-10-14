@@ -11,18 +11,21 @@
 <form method="post"><input type="hidden" name="form_token" value="{{ form_token }}">
 <p><label for="weight_basis">Cockcroft–Gault weight basis</label><br><select id="weight_basis" name="weight_basis">{% for option in basis_options %}<option value="{{ option.value }}" {% if form.weight_basis==option.value %}selected{% endif %}>{{ option.label }}</option>{% endfor %}</select></p>
 <p>The source paper does not state which weight it used. Ideal body weight is preselected because it best reproduces the study's reported creatinine clearance; it remains an inferred assumption. Use “Compare all weight bases” to see how much the choice moves exposure.</p>
+<p><label for="cl_form">Kim 2026 CL/F equation reading (used only by “Compare Hughes and Kim”)</label><br><select id="cl_form" name="cl_form">{% for option in cl_form_options %}<option value="{{ option.value }}" {% if form.cl_form==option.value %}selected{% endif %}>{{ option.label }}</option>{% endfor %}</select></p>
+<p>The printed Kim clearance equation is ambiguous about how body surface area enters. Read literally, it reverses the paper's own reported results, so the linear multiplicative reading is preselected; it stays unresolved until the authors confirm.</p>
 <p><label for="disease">Declared synthetic disease context</label> <select id="disease" name="disease">{% for code in disease_codes %}<option value="{{ code }}" {% if form.disease==code %}selected{% endif %}>{{ {"UNKNOWN":"Unknown — declare context before calculating", "MM":"Multiple myeloma (MM)","CLL":"Chronic lymphocytic leukemia (CLL)","AML":"Acute myeloid leukemia (AML)","ALL":"Acute lymphoblastic leukemia (ALL)","OTHER":"Other — outside represented context"}[code] }}</option>{% endfor %}</select></p>
 <p><label for="horizon">Simulation horizon (h; at most 72)</label> <input id="horizon" name="horizon" inputmode="decimal" maxlength="40" required value="{{ form.horizon }}"></p>
 <p><label for="events">Requested events: one line per event, time (h), amount (mg)</label><br><textarea id="events" name="events" rows="4" maxlength="1000" required>{{ form.events }}</textarea></p>
-<p>Lenalidomide · oral capsule. Time zero, then exactly 24-hour intervals, up to four events. Amounts must be ones administered in the source study. These are execution constraints, not a treatment recommendation.</p>
+<p>Lenalidomide · oral capsule. Each model runs only amounts administered in its own source study: Hughes 2.5–75 mg (listed amounts), Kim 5, 7.5 or 10 mg; both together only at 5 or 7.5 mg. Kim also requires the multiple myeloma context. Time zero, then exactly 24-hour intervals, up to four events. Amounts must be ones administered in the source study. These are execution constraints, not a treatment recommendation.</p>
 <p><label for="source_ref">Provenance note for the requested administrations</label><br><textarea id="source_ref" name="source_ref" rows="2" maxlength="1000" required>{{ form.source_ref }}</textarea></p>
 <button class="button primary" name="action" value="calculate">Calculate educational curve</button>
 <button class="button secondary" name="action" value="compare">Compare all weight bases</button>
+<button class="button secondary" name="action" value="models">Compare Hughes and Kim</button>
 <button class="button secondary" name="action" value="population">Show population band</button>
 <button class="button secondary" name="action" value="download">Calculate and download report JSON</button>
 </form>
 <form method="post"><input type="hidden" name="form_token" value="{{ form_token }}">
-{% for name in ['weight_basis','disease','horizon','events','source_ref'] %}<input type="hidden" name="{{ name }}" value="{{ form[name] }}">{% endfor %}
+{% for name in ['weight_basis','cl_form','disease','horizon','events','source_ref'] %}<input type="hidden" name="{{ name }}" value="{{ form[name] }}">{% endfor %}
 <p><label for="title">Saved-run title</label> <input id="title" name="title" maxlength="160" required value="{{ form.title }}"> <button class="button secondary" name="action" value="save">Calculate and save with estimate</button></p>
 </form><p>Saving uses the values last submitted above and archives the covariate estimate with the run. The patient record is never changed.</p></section>
 {% if report %}
@@ -49,6 +52,24 @@
 {% for tick in chart.ticks %}<line x1="70" y1="{{ tick.y }}" x2="740" y2="{{ tick.y }}" class="transit-grid"/><text x="62" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
 {% for tick in chart.time_ticks %}<text x="{{ tick.x }}" y="270" text-anchor="middle">{{ tick.label }}</text>{% endfor %}<text x="70" y="18">{{ chart.unit }}</text><text x="405" y="296" text-anchor="middle">Time (h)</text>{% for series in chart.series %}<polyline points="{{ series.polyline }}" fill="none" stroke="{{ series.color }}" stroke-width="2.5"/>{% endfor %}</svg>
 <p>{% for series in chart.series %}<span style="color:{{ series.color }}">■</span> {{ series.label }}{% if not loop.last %} · {% endif %}{% endfor %}</p></section>{% endfor %}
+{% endif %}
+{% if models %}
+<section class="panel"><h2>Published-model comparison</h2><p>{{ models.note }}</p>
+<div class="table-scroll"><table><caption>Same saved record and request. Each model estimates its own covariates and keeps its own assumption.</caption>
+<thead><tr><th>Model</th><th>Covariates</th><th>Assumption</th><th>Typical total CL/F (L/h)</th><th>AUC over horizon (ng·h/mL)</th><th>AUC to infinity (ng·h/mL)</th><th>Peak total (ng/mL)</th><th>Status</th></tr></thead><tbody>
+{% for row in models.rows %}<tr><td><span style="color:{{ {'lenalidomide_hughes_2019':'#007b83','lenalidomide_kim_2026':'#b5651d'}[row.model] }}">■</span> {{ row.label }}</td>
+<td>{% for name, value in row.covariates.items() %}{{ name|replace('_',' ') }} = {{ '%.2f'|format(value) }}{% if not loop.last %}<br>{% endif %}{% else %}—{% endfor %}</td>
+<td>{% if row.assumption.weight_basis %}weight basis: {{ row.assumption.weight_basis|replace('_',' ') }}{% else %}CL/F reading: {{ row.assumption.cl_form|replace('_',' ') }} ({{ row.assumption.cl_form_evidence.evidence_level|replace('_',' ') }}){% endif %}</td>
+<td>{{ '%.2f'|format(row.typical_total_cl_f_l_h) if row.typical_total_cl_f_l_h is defined else '—' }}</td><td>{{ '%.1f'|format(row.auc_0_horizon_ng_h_ml) if row.auc_0_horizon_ng_h_ml is defined else '—' }}</td>
+<td>{{ '%.1f'|format(row.auc_0_infinity_ng_h_ml) if row.auc_0_infinity_ng_h_ml is defined else '—' }}</td><td>{{ '%.1f'|format(row.peak_concentration_ng_ml) if row.peak_concentration_ng_ml is defined else '—' }}</td><td>{{ row.status|replace('_',' ') }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% if models.ratio %}<p>Kim/Hughes AUC to infinity: <strong>{{ '%.2f'|format(models.ratio.kim_to_hughes_auc_0_infinity) }}</strong> · peak: {{ '%.2f'|format(models.ratio.kim_to_hughes_peak) }}. The models agree near normal renal function and diverge as it falls; an external check found Hughes under-predicts exposure below creatinine clearance 50 mL/min. Kim has not yet had an external check.</p>{% endif %}
+{% for row in models.rows %}{% if row.blockers or row.warnings %}<h3>{{ row.label }}</h3><ul>{% for b in row.blockers %}<li><strong>Not run — {{ b.code }}:</strong> {{ b.message }}</li>{% endfor %}{% for w in row.warnings %}<li>{{ w }}</li>{% endfor %}</ul>{% endif %}{% endfor %}
+<p class="catalog-digest">Comparison SHA256: {{ models.report_sha256 }}<br>Hughes report SHA256: {{ models.hughes_report_sha256 }}<br>Kim report SHA256: {{ models.kim_report_sha256 }}</p></section>
+{% for chart in model_overlay %}<section class="panel"><h2>{{ chart.title }}</h2><svg class="transit-chart" viewBox="0 0 780 305" role="img" aria-labelledby="model-overlay-title"><title id="model-overlay-title">{{ chart.title }}; solid lines total concentration, dashed line Kim unbound concentration. Synthetic typical-value calculation.</title>
+{% for tick in chart.ticks %}<line x1="70" y1="{{ tick.y }}" x2="740" y2="{{ tick.y }}" class="transit-grid"/><text x="62" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
+{% for tick in chart.time_ticks %}<text x="{{ tick.x }}" y="270" text-anchor="middle">{{ tick.label }}</text>{% endfor %}<text x="70" y="18">{{ chart.unit }}</text><text x="405" y="296" text-anchor="middle">Time (h)</text>{% for series in chart.series %}<polyline points="{{ series.polyline }}" fill="none" stroke="{{ series.color }}" stroke-width="2.5"{% if series.dash %} stroke-dasharray="{{ series.dash }}"{% endif %}/>{% endfor %}</svg>
+<p>{% for series in chart.series %}<span style="color:{{ series.color }}">{{ '- -' if series.dash else '■' }}</span> {{ series.label }}{% if not loop.last %} · {% endif %}{% endfor %}</p></section>{% endfor %}
 {% endif %}
 {% if population %}
 <section class="panel"><h2>Population band</h2>
