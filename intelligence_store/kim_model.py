@@ -28,6 +28,10 @@ EXTRACT_PATH = DATA / 'kim_2026_model_extract_v1.json'
 EXTRACT_SHA256 = 'c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af'
 FORM_ASSESSMENT_PATH = DATA / 'kim_cl_equation_form_assessment_v1.json'
 FORM_ASSESSMENT_SHA256 = '1de6b91bd9e8f5d633182f8794defc3a85c47f668dfc15ea9bcfe3695bc95d5a'
+FINDINGS_PATH = DATA / 'kim_applicability_findings_v1.json'
+FINDINGS_SHA256 = 'deb1c48cf97a59d6bca251935cb1e57fb4a64c158810bf1583a78aeb157d9af9'
+DOSE_EVIDENCE_PATH = DATA / 'lenalidomide_dose_proportionality_evidence_v1.json'
+DOSE_EVIDENCE_SHA256 = 'ec140c8f5ea9fa5c348d1bbde535a7dfd19dacd17360b0eb3607798e9b5f2952'
 
 ESTIMATE_SCHEMA = 'kim-covariate-estimate-v1'
 RUN_SCHEMA = 'kim-educational-pk-v1'
@@ -48,6 +52,14 @@ def load_extract(path=EXTRACT_PATH):
 
 def load_form_assessment(path=FORM_ASSESSMENT_PATH):
     return _load_pinned(path, FORM_ASSESSMENT_SHA256, 'covariate-method-assessment-v1', 'Kim CL equation-form assessment')
+
+
+def load_applicability_findings(path=FINDINGS_PATH):
+    return _load_pinned(path, FINDINGS_SHA256, 'model-applicability-findings-v1', 'Kim applicability findings')
+
+
+def load_dose_proportionality_evidence(path=DOSE_EVIDENCE_PATH):
+    return _load_pinned(path, DOSE_EVIDENCE_SHA256, 'pk-property-evidence-v1', 'Lenalidomide dose-proportionality evidence')
 
 
 def primary_cl_form():
@@ -149,6 +161,7 @@ def estimate_kim_covariates(state):
               'extract_version': extract['extract_version'], 'extract_sha256': EXTRACT_SHA256,
               'status': 'missing_inputs' if missing else 'estimated', 'missing_fields': missing,
               'estimates': None, 'derivations': [], 'coverage_checks': [], 'warnings': [],
+              'applicability_findings': [], 'findings_version': None,
               'simulation_status': 'not_run', 'ready_for_patient_simulation': False,
               'limitations': ['Estimates are calculations from declared synthetic inputs, not measurements.',
                               'eGFR here is the indexed CKD-EPI 2021 value the Kim model was fitted with; it is not creatinine clearance.',
@@ -181,6 +194,14 @@ def estimate_kim_covariates(state):
     outside = [c['field'] for c in report['coverage_checks'] if c['status'] == 'outside_reported_range']
     if outside:
         report['warnings'].append('Outside the reported Kim 2026 study ranges: ' + ', '.join(outside) + '. Any model use would be extrapolation.')
+    findings = load_applicability_findings()
+    covariates = {'egfr_indexed': egfr, 'body_surface_area': bsa}
+    for finding in findings['findings']:
+        if covariates[finding['covariate']] < finding['applies_below']:
+            report['warnings'].append(finding['warning'])
+            report['applicability_findings'].append({'id': finding['id'], 'status': finding['status'],
+                                                     'evidence_report': finding['evidence']['report']})
+    report['findings_version'] = findings['findings_version']
     declared = fields['egfr_indexed']['value']
     if declared is not None and not math.isclose(declared, egfr, rel_tol=1e-9):
         report['warnings'].append(f'The state also declares egfr_indexed = {declared} mL/min/1.73m2; the CKD-EPI 2021 estimate differs and neither replaces the other.')

@@ -1,0 +1,43 @@
+{
+  "schema_version": "pk-property-evidence-v1",
+  "evidence_version": "lenalidomide-dose-proportionality-v1.0",
+  "drug": "lenalidomide",
+  "property": "dose_proportional_exposure",
+  "recorded_on": "2026-10-14",
+  "statement": "Lenalidomide pharmacokinetics are linear: Cmax and AUC increase in proportion to dose over at least 5 to 400 mg, in healthy volunteers and patients.",
+  "primary_source": {
+    "title": "Withdrawal assessment report for Lenalidomide Celgene Europe",
+    "document_reference": "EMEA/CHMP/249329/2008",
+    "local_file": "landscape_ui/data/renal_pk/ema_lenalidomide_2008.pdf",
+    "sha256": "c27c16b42062171d3146273e33abd2360dc630cd8f8f513b835010c6842b2661",
+    "location": "PDF page 20, 'Dose proportionality and time dependencies'",
+    "quotes": [
+      "The pharmacokinetic disposition of lenalidomide is linear in healthy volunteers and patients.",
+      "dose-proportional manner over the dose range studied (5 to 400 mg)",
+      "There is no clinically important time- or dose-dependency in the pharmacokinetics of lenalidomide"
+    ],
+    "verification": "Quotes checked against text extracted from the pinned local PDF (a test repeats this when pypdf is installed)."
+  },
+  "corroborating_sources": [
+    {
+      "title": "REVLIMID (lenalidomide) prescribing information, section 12.3 Pharmacokinetics",
+      "dailymed_setid": "5fa97bf5-28a2-48f1-8955-f56012d296be",
+      "dailymed_label_revised": "3/2023 (as shown on DailyMed, retrieved 2026-10-14)",
+      "read_via": "https://medlibrary.org/lib/rx/meds/revlimid/page/9/ (mirror; states no revision date). DailyMed and FDA PDF text extraction ended before section 12.3, so the wording was not read from an FDA-hosted copy.",
+      "quotes": [
+        "The single and multiple dose pharmacokinetic disposition of lenalidomide is linear",
+        "AUC and Cmax values increasing proportionally with dose."
+      ],
+      "status": "secondary_copy_not_checked_against_fda_hosted_text"
+    }
+  ],
+  "applies_to": [
+    "Kim 2026 renal-group check (2.1c): resolves the plan's known difference that dose proportionality was assumed without a source in this repository. Kim's 5-10 mg and the study's 25 mg both lie inside 5-400 mg.",
+    "Any comparison that scales exposure between doses for either lenalidomide model."
+  ],
+  "limits": [
+    "Population-level linearity; says nothing about an individual.",
+    "Does not address whether Fu or clearance change with renal function; that is a separate question."
+  ],
+  "noted_but_not_used": "The same label section reports plasma protein binding of approximately 30% (Fu about 0.7), against Kim's estimated Fu of 0.614. Recorded for a later review of the unbound-to-total conversion; no value is changed."
+}

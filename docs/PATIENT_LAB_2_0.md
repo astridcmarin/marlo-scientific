@@ -111,9 +111,14 @@ Primary endpoint (each group's AUC ÷ the normal group's), observed vs Kim's sim
 
 Across the seven scenarios, mild is consistent in every one. Moderate and severe switch between consistent and under-predicts depending on the assumptions; the severe group passes only when CrCl is assumed computed from ideal body weight or Korean body size is used. Absolute AUC: normal consistent, moderate and severe about 1.3–1.4× above Kim's median. Terminal half-life, which Hughes put at about 5–6 h against an observed 9–11 h, is reproduced in the severe group (9.5 vs 9.2 h) but under-predicted in moderate (7.6 vs 10.6 h).
 
-Reading: Kim describes the renal effect much better than Hughes, but likely still somewhat under-predicts exposure in severe impairment. Under the plan this is reported as found; no model default, label or warning changes without a separate documented review. A dose-proportionality source should be added to the repository before the absolute values are relied on.
+Reading: Kim describes the renal effect much better than Hughes, but likely still somewhat under-predicts exposure in severe impairment.
 
-Not yet done: Kim in saved runs; review of whether the 2.1c result should become a Kim applicability finding.
+**2.1d — Review outcome and dose evidence.** The 2.1c result was reviewed with the platform owner on 2026-10-14, and two records were added.
+- **Kim finding** (`kim_applicability_findings_v1.json`): severe impairment only. Kim estimates with eGFR below 30 now carry a warning that exposure may be under-predicted by roughly 1.2–1.5-fold. That range is what all seven scenarios span; Kim under-predicted in 5 of them. Moderate impairment is not warned. The threshold is Kim's own severe boundary and corresponds only approximately to the study's CrCl < 30 group.
+- **Dose proportionality** (`lenalidomide_dose_proportionality_evidence_v1.json`). Source: page 20 of the pinned EMA report already in the repository, which says exposure is dose-proportional over 5–400 mg; a test checks the quotes against the PDF. The FDA label section 12.3 says the same, but was read only through a mirror. This resolves the 2.1c known difference about scaling from Kim's 5–10 mg to the study's 25 mg.
+- **Noted, not acted on:** the label gives protein binding of about 30% (Fu ≈ 0.7), while Kim estimated 0.614. This is for a later review of the unbound-to-total conversion.
+
+Not yet done: Kim in saved runs.
 
 ## Typical value vs individual prediction (2.0d)
 

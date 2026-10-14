@@ -1,0 +1,28 @@
+{
+  "schema_version": "model-applicability-findings-v1",
+  "findings_version": "kim-applicability-findings-v1.0",
+  "model": "lenalidomide_kim_2026",
+  "recorded_on": "2026-10-14",
+  "review": "Reviewed with the platform owner after the 2.1c report (2026-10-14): record a finding for severe renal impairment only; moderate impairment is consistent in the primary scenario and is not warned.",
+  "findings": [
+    {
+      "id": "renal-under-prediction-severe",
+      "covariate": "egfr_indexed",
+      "applies_below": 30,
+      "unit": "mL/min/1.73m2",
+      "threshold_note": "The external data group is creatinine clearance below 30 mL/min; Kim's covariate is indexed eGFR. eGFR 30 is Kim's own severe-group boundary and corresponds only approximately to the study group (constructed eGFR median 13.5, range 4-37 in the primary scenario).",
+      "finding": "In an exploratory aggregate check against study CC-5013-PK-001 (single 25 mg dose), the Kim model under-predicted the severe group's exposure relative to normal renal function by about 1.3-fold in the primary scenario (observed ratio 3.76 vs simulated median 2.84). It reproduced the severe group's terminal half-life (9.2 h observed, 9.5 h simulated). The mild group was consistent in every scenario; the moderate group was consistent in the primary scenario.",
+      "warning": "Estimated eGFR is below 30 mL/min/1.73 m2. An external check suggests this model may under-predict lenalidomide exposure in severe renal impairment by roughly 1.2 to 1.5 fold; treat the curve as possibly somewhat low.",
+      "robustness": "Under-predicts in 5 of 7 prespecified scenarios; consistent when study creatinine clearance is assumed computed from ideal body weight or when Kim's body-size ranges are used. Observed over simulated median 1.19 to 1.55 across all seven.",
+      "evidence": {
+        "plan": "intelligence_store/data/kim_renal_group_check_plan_v1.json",
+        "report": "docs/verification/kim_renal_group_check_v1.json",
+        "report_file_sha256": "e53f62db6506346a3d5027388b0c9165de51b8fab0c5f9efc1ad7b29d34da4bb",
+        "observed_data": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+        "dose_scaling": "intelligence_store/data/lenalidomide_dose_proportionality_evidence_v1.json"
+      },
+      "status": "exploratory_finding_not_validation",
+      "consequence": "Reported as a warning on every Kim covariate estimate below the threshold. Calculations still run; nothing is corrected or hidden."
+    }
+  ]
+}
