@@ -1,0 +1,707 @@
+{
+  "schema_version": "hughes-renal-group-check-report-v1",
+  "method_version": "hughes-renal-group-check-v1.0",
+  "plan_version": "hughes-renal-group-check-plan-v1.0",
+  "plan_sha256": "8f733d98aa4e155dd8ab50d97c00d54d481ac09daa04dd6d3dd6c450e863ca97",
+  "observed_data_sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+  "parameter_extract_sha256": "8199220db206c3e78fd5abc40191602d5b59e6275f5c77d9e43e0f7c90ae5f74",
+  "variability_extract_sha256": "2e5970e646f6acdbee434f6c52e1bc051ecfdec163c0aee825fe1c4ea1dde5d4",
+  "trials": 10000,
+  "seed": 20261013,
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "not_this": [
+    "Not the concentration-level empirical evaluation proposed in the Step 67 protocol (no individual observations are available).",
+    "Not model validation, qualification or an acceptance decision. The protocol's acceptance limits remain null and none are introduced here.",
+    "Not a dosing or applicability decision for any patient."
+  ],
+  "primary_endpoint_by_group": {
+    "mild": "consistent",
+    "moderate": "model_under_predicts",
+    "severe": "model_under_predicts"
+  },
+  "classification_across_scenarios": {
+    "mild": [
+      "consistent"
+    ],
+    "moderate": [
+      "model_under_predicts"
+    ],
+    "severe": [
+      "model_under_predicts"
+    ]
+  },
+  "scenarios": {
+    "primary": {
+      "settings": {
+        "crcl_ml_min": {
+          "normal": [
+            80,
+            140
+          ],
+          "mild": [
+            50,
+            80
+          ],
+          "moderate": [
+            30,
+            50
+          ],
+          "severe": [
+            10,
+            30
+          ]
+        },
+        "ffm_kg": [
+          40,
+          70
+        ]
+      },
+      "groups": [
+        {
+          "group": "normal",
+          "n": 7,
+          "crcl_range_simulated": [
+            80,
+            140
+          ],
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1589.3641097306286,
+              "p50": 2290.7094885690863,
+              "p95": 3333.76936053558
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9521067646872946
+          },
+          "half_life": {
+            "observed_mean": 3.34,
+            "simulated_group_mean": {
+              "p05": 3.2728411773395614,
+              "p50": 3.9312794564918265,
+              "p95": 4.729434246223796
+            },
+            "observed_over_median": 0.8495961777747875
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "crcl_range_simulated": [
+            50,
+            80
+          ],
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 1651.3968339906937,
+              "p50": 2549.261844158033,
+              "p95": 3946.417499027635
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.0854122366209429
+          },
+          "half_life": {
+            "observed_mean": 3.67,
+            "simulated_group_mean": {
+              "p05": 3.552289782727873,
+              "p50": 4.402428502938768,
+              "p95": 5.470714062619032
+            },
+            "observed_over_median": 0.8336308011703432
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 0.6346157107835981,
+              "p50": 1.1029921837999013,
+              "p95": 1.943300377345326
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.1502203809788658
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "crcl_range_simulated": [
+            30,
+            50
+          ],
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 1943.8400556329175,
+              "p50": 2859.6301379118395,
+              "p95": 4237.464150361521
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.105517045780143
+          },
+          "half_life": {
+            "observed_mean": 10.6,
+            "simulated_group_mean": {
+              "p05": 4.058228526292148,
+              "p50": 4.93799724554201,
+              "p95": 6.0274253138366936
+            },
+            "observed_over_median": 2.1466192613958235
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 0.7351253724632918,
+              "p50": 1.2438597035635128,
+              "p95": 2.1067869220611573
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.2194305673572976
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "crcl_range_simulated": [
+            10,
+            30
+          ],
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 2267.8548805446458,
+              "p50": 3382.5435935684745,
+              "p95": 5081.446609772193
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.4215504614853343
+          },
+          "half_life": {
+            "observed_mean": 9.22,
+            "simulated_group_mean": {
+              "p05": 4.746053927556432,
+              "p50": 5.821737379526446,
+              "p95": 7.111516732776413
+            },
+            "observed_over_median": 1.5837196697371425
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 0.8544239358148165,
+              "p50": 1.4668939403517207,
+              "p95": 2.5524786417890026
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.5602510081208987
+          }
+        }
+      ]
+    },
+    "sensitivity_wide_open_ends": {
+      "settings": {
+        "crcl_ml_min": {
+          "normal": [
+            80,
+            200
+          ],
+          "mild": [
+            50,
+            80
+          ],
+          "moderate": [
+            30,
+            50
+          ],
+          "severe": [
+            5,
+            30
+          ]
+        },
+        "ffm_kg": [
+          40,
+          70
+        ]
+      },
+      "groups": [
+        {
+          "group": "normal",
+          "n": 7,
+          "crcl_range_simulated": [
+            80,
+            200
+          ],
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1510.2240914241627,
+              "p50": 2185.7107021449483,
+              "p95": 3168.3323201380413
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9978447732628452
+          },
+          "half_life": {
+            "observed_mean": 3.34,
+            "simulated_group_mean": {
+              "p05": 3.103278221114423,
+              "p50": 3.7433526853590093,
+              "p95": 4.491327717732764
+            },
+            "observed_over_median": 0.8922482813504051
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "crcl_range_simulated": [
+            50,
+            80
+          ],
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 1672.2274835111666,
+              "p50": 2565.433568827444,
+              "p95": 3978.175161782244
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.0785701230473428
+          },
+          "half_life": {
+            "observed_mean": 3.67,
+            "simulated_group_mean": {
+              "p05": 3.5573498126090253,
+              "p50": 4.414942104949949,
+              "p95": 5.462428315820852
+            },
+            "observed_over_median": 0.8312679787771771
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 0.6645465546434618,
+              "p50": 1.1629005479660741,
+              "p95": 2.0842353278275856
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.0909652524336462
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "crcl_range_simulated": [
+            30,
+            50
+          ],
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 1931.764352131011,
+              "p50": 2876.811438757959,
+              "p95": 4293.766984890917
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.0929421785807136
+          },
+          "half_life": {
+            "observed_mean": 10.6,
+            "simulated_group_mean": {
+              "p05": 4.047830694974275,
+              "p50": 4.9152383497334515,
+              "p95": 6.013800033967316
+            },
+            "observed_over_median": 2.156558694773129
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 0.756237529629428,
+              "p50": 1.312713872677159,
+              "p95": 2.2430592507286717
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.103017500655139
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "crcl_range_simulated": [
+            5,
+            30
+          ],
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 2361.9256241481235,
+              "p50": 3514.327544267378,
+              "p95": 5290.820545233838
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.3307446152426166
+          },
+          "half_life": {
+            "observed_mean": 9.22,
+            "simulated_group_mean": {
+              "p05": 4.938791721815799,
+              "p50": 6.0780102652385075,
+              "p95": 7.507830447314886
+            },
+            "observed_over_median": 1.5169438019430852
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 0.9272003140394658,
+              "p50": 1.6055939759417523,
+              "p95": 2.7902435056332746
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.3390824491534943
+          }
+        }
+      ]
+    },
+    "sensitivity_fixed_ffm": {
+      "settings": {
+        "crcl_ml_min": {
+          "normal": [
+            80,
+            140
+          ],
+          "mild": [
+            50,
+            80
+          ],
+          "moderate": [
+            30,
+            50
+          ],
+          "severe": [
+            10,
+            30
+          ]
+        },
+        "ffm_kg": [
+          55,
+          55
+        ]
+      },
+      "groups": [
+        {
+          "group": "normal",
+          "n": 7,
+          "crcl_range_simulated": [
+            80,
+            140
+          ],
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1573.253398433395,
+              "p50": 2258.8872885428996,
+              "p95": 3248.484844386815
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9655196215685729
+          },
+          "half_life": {
+            "observed_mean": 3.34,
+            "simulated_group_mean": {
+              "p05": 3.281350554445974,
+              "p50": 3.947453379559022,
+              "p95": 4.727010995224227
+            },
+            "observed_over_median": 0.8461151225484816
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "crcl_range_simulated": [
+            50,
+            80
+          ],
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 1652.2897798701842,
+              "p50": 2513.2836202981443,
+              "p95": 3842.7667099276973
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.1009501584511812
+          },
+          "half_life": {
+            "observed_mean": 3.67,
+            "simulated_group_mean": {
+              "p05": 3.5545769732481807,
+              "p50": 4.410214928393205,
+              "p95": 5.463108554961175
+            },
+            "observed_over_median": 0.8321589898878486
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 0.6371332342557996,
+              "p50": 1.109440943131573,
+              "p95": 1.937508212224277
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.1435345862448265
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "crcl_range_simulated": [
+            30,
+            50
+          ],
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 1936.889523677384,
+              "p50": 2820.914004250864,
+              "p95": 4143.994560474909
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.1344145872319733
+          },
+          "half_life": {
+            "observed_mean": 10.6,
+            "simulated_group_mean": {
+              "p05": 4.050315072369711,
+              "p50": 4.9244333071612285,
+              "p95": 5.998053262258616
+            },
+            "observed_over_median": 2.152531944048308
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 0.7365122377204707,
+              "p50": 1.24973617252508,
+              "p95": 2.116239965760148
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.208994432812935
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "crcl_range_simulated": [
+            10,
+            30
+          ],
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 2257.7455464174295,
+              "p50": 3320.421589405913,
+              "p95": 4942.812477194546
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.466855421653106
+          },
+          "half_life": {
+            "observed_mean": 9.22,
+            "simulated_group_mean": {
+              "p05": 4.771079521167934,
+              "p50": 5.823547643367792,
+              "p95": 7.106356307996763
+            },
+            "observed_over_median": 1.583227366655151
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 0.8626208680461419,
+              "p50": 1.4711019941359553,
+              "p95": 2.5117701577472187
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.5529274683620926
+          }
+        }
+      ]
+    },
+    "sensitivity_severe_near_boundary": {
+      "settings": {
+        "crcl_ml_min": {
+          "normal": [
+            80,
+            140
+          ],
+          "mild": [
+            50,
+            80
+          ],
+          "moderate": [
+            30,
+            50
+          ],
+          "severe": [
+            20,
+            30
+          ]
+        },
+        "ffm_kg": [
+          40,
+          70
+        ]
+      },
+      "groups": [
+        {
+          "group": "normal",
+          "n": 7,
+          "crcl_range_simulated": [
+            80,
+            140
+          ],
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1600.9429568131136,
+              "p50": 2298.4103505098033,
+              "p95": 3331.8728270478186
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9489167152054633
+          },
+          "half_life": {
+            "observed_mean": 3.34,
+            "simulated_group_mean": {
+              "p05": 3.2960579615242107,
+              "p50": 3.934162429975717,
+              "p95": 4.723803919046574
+            },
+            "observed_over_median": 0.8489735895374853
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "crcl_range_simulated": [
+            50,
+            80
+          ],
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 1658.834542271802,
+              "p50": 2547.6619577601286,
+              "p95": 3920.9171957656404
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.0860938562008873
+          },
+          "half_life": {
+            "observed_mean": 3.67,
+            "simulated_group_mean": {
+              "p05": 3.5549181274569923,
+              "p50": 4.421376892645566,
+              "p95": 5.489745402147032
+            },
+            "observed_over_median": 0.8300581671977814
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 0.6252648041354135,
+              "p50": 1.1134803217367826,
+              "p95": 1.9400649634359042
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.1393861796211786
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "crcl_range_simulated": [
+            30,
+            50
+          ],
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 1931.788479484438,
+              "p50": 2865.278913615769,
+              "p95": 4307.001954761493
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.1013661083353123
+          },
+          "half_life": {
+            "observed_mean": 10.6,
+            "simulated_group_mean": {
+              "p05": 4.059657094621227,
+              "p50": 4.942468962731251,
+              "p95": 5.991348664251991
+            },
+            "observed_over_median": 2.144677099629645
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 0.728023144917579,
+              "p50": 1.250839237097642,
+              "p95": 2.1573379774945667
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.2070464098955562
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "crcl_range_simulated": [
+            20,
+            30
+          ],
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 2130.66355375736,
+              "p50": 3168.437313968697,
+              "p95": 4753.282469805023
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.5851860675571268
+          },
+          "half_life": {
+            "observed_mean": 9.22,
+            "simulated_group_mean": {
+              "p05": 4.477087683457182,
+              "p50": 5.459518848634255,
+              "p95": 6.651583165663885
+            },
+            "observed_over_median": 1.688793510128912
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 0.8013724061875264,
+              "p50": 1.379631158317605,
+              "p95": 2.357341836655568
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.722188946625218
+          }
+        }
+      ]
+    }
+  },
+  "known_differences": [
+    "Population: the Hughes model was fitted in patients with hematologic malignancies; the disease context of the renal study subjects was not established from the extracted pages.",
+    "Creatinine clearance method and weight basis used to assign renal groups are not stated in the extracted pages.",
+    "Hughes data contained no patient below CrCL 36 mL/min; the severe group lies largely outside the model's data.",
+    "Body size of the renal study subjects was not extracted."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "ecf17e4c41d4198253f9aca9035e8f42e68c9d8af61cc8ea2c3d3d7e7ec54ae8"
+}

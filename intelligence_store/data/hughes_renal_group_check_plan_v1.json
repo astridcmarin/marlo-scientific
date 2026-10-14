@@ -1,0 +1,78 @@
+{
+  "schema_version": "aggregate-consistency-plan-v1",
+  "plan_version": "hughes-renal-group-check-plan-v1.0",
+  "recorded_on": "2026-10-13",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before any simulation was run. The expected direction (the Hughes model may under-predict exposure at low creatinine clearance) had already been discussed in planning, so this is not a blinded analysis.",
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "not_this": [
+    "Not the concentration-level empirical evaluation proposed in the Step 67 protocol (no individual observations are available).",
+    "Not model validation, qualification or an acceptance decision. The protocol's acceptance limits remain null and none are introduced here.",
+    "Not a dosing or applicability decision for any patient."
+  ],
+  "question": "Do group-mean lenalidomide exposures observed across renal-function groups fall within the range the Hughes 2019 model predicts for a study of the same design?",
+  "model": {
+    "id": "lenalidomide_hughes_2019",
+    "parameter_extract": "hughes_parameter_extract_v1.json",
+    "variability_extract": "hughes_variability_extract_v1.json",
+    "equations": {
+      "CL_F": "12.0 * (FFM/55)^0.75 * (CrCL/90)^0.224 * exp(eta_CL)",
+      "V_F": "68.8 * (FFM/55) * exp(eta_V)",
+      "AUC_infinity": "1000 * dose_mg / CL_F  (ng*h/mL; exact for linear one-compartment disposition)",
+      "terminal_half_life": "ln(2) * V_F / CL_F"
+    },
+    "random_effects": "(eta_CL, eta_V) jointly normal from the OMEGA block; eta_KTR does not affect AUC or half-life and is not sampled."
+  },
+  "observed_data": {
+    "file": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+    "sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+    "study": "CC-5013-PK-001 (Chen et al. 2007), via EMA assessment EMEA/CHMP/249329/2008, pages 20-21",
+    "design": "single 25 mg oral dose, fasting; non-dialysis groups only",
+    "statistics": "arithmetic group mean and SD as reported; no individual data"
+  },
+  "virtual_trial": {
+    "dose_mg": 25,
+    "group_sizes": "as reported per group (7, 5, 6, 6)",
+    "trials": 10000,
+    "seed": 20261013,
+    "group_statistic": "arithmetic mean across the simulated subjects of each group, matching the reported statistic"
+  },
+  "endpoints": {
+    "primary": "Ratio of each impaired group's mean AUC infinity to the normal group's mean AUC infinity (mild, moderate, severe). Relative endpoints reduce sensitivity to population-level differences in clearance and to unknown body size.",
+    "secondary": "Absolute group mean AUC infinity for all four groups.",
+    "descriptive": "Group mean terminal half-life.",
+    "excluded": "Cmax: the source study was fasting while the Hughes data had uncontrolled food intake, which mainly affects absorption."
+  },
+  "classification_rule": {
+    "consistent": "observed value within the 5th-95th percentile of simulated values",
+    "model_under_predicts": "observed value above the 95th percentile",
+    "model_over_predicts": "observed value below the 5th percentile",
+    "also_reported": "observed / simulated median, as a descriptive fold difference only"
+  },
+  "scenarios": {
+    "primary": {
+      "crcl_ml_min": {"normal": [80, 140], "mild": [50, 80], "moderate": [30, 50], "severe": [10, 30]},
+      "crcl_distribution": "uniform within each range",
+      "ffm_kg": [40, 70],
+      "ffm_distribution": "uniform, same for all groups"
+    },
+    "sensitivity_wide_open_ends": {
+      "change": "Open-ended ranges widened.",
+      "crcl_ml_min": {"normal": [80, 200], "mild": [50, 80], "moderate": [30, 50], "severe": [5, 30]}
+    },
+    "sensitivity_fixed_ffm": {
+      "change": "Fat-free mass fixed at the 55 kg model reference for everyone.",
+      "ffm_kg": [55, 55]
+    },
+    "sensitivity_severe_near_boundary": {
+      "change": "Severe group placed at the top of its range, the most favourable assumption for the model.",
+      "crcl_ml_min": {"normal": [80, 140], "mild": [50, 80], "moderate": [30, 50], "severe": [20, 30]}
+    }
+  },
+  "known_differences": [
+    "Population: the Hughes model was fitted in patients with hematologic malignancies; the disease context of the renal study subjects was not established from the extracted pages.",
+    "Creatinine clearance method and weight basis used to assign renal groups are not stated in the extracted pages.",
+    "Hughes data contained no patient below CrCL 36 mL/min; the severe group lies largely outside the model's data.",
+    "Body size of the renal study subjects was not extracted."
+  ]
+}

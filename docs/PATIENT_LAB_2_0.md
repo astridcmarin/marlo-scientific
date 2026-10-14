@@ -1,6 +1,6 @@
 # Patient Lab 2.0 — covariate-aware virtual patient
 
-Recorded 13 October 2026. Owner: Astrid. Status: in progress (2.0a–2.0e done).
+Recorded 13 October 2026. Owner: Astrid. Status: 2.0a–2.0e and 2.0g done; 2.0f partly delivered within 2.0d/2.0e; 2.1 (Kim 2026 second model) engine and checks done, page integration next.
 
 ## Goal
 
@@ -61,7 +61,35 @@ patient_state (v1) ─► covariate_estimation ─► pk_model_inputs ─► edu
 | 2.0d | Individualized typical-value run | Done. `estimated_pk.py` estimates covariates from a saved revision and runs `educational_pk` unchanged; `save_estimated_pk_run` stores `saved-educational-pk-run-v2` with the estimate, verified on every read. Page: `…/revisions/<id>/estimated-pk` (ideal body weight preselected and labelled; compare-all-bases overlay). CLI: `patient-pk-estimated`, `patient-pk-save-estimated`. |
 | 2.0e | Population mode | Done. `population_pk.py` draws seeded (η_CL, η_V) jointly from the OMEGA block and η_KTR independently, solves each virtual patient exactly (closed-form transit chain, verified against the numerical solver to < 1e-9 in every regime and against the typical curve on every run) and reports 5/25/50/75/95th percentile bands plus AUC and peak distributions. Page action "Show population band"; CLI `patient-pk-population`. Excludes residual error, parameter uncertainty and between-occasion variability (stated in every report). |
 | 2.0f | Run record and UI | Next. Provenance panel, applicability badges, weight-basis toggle, persistent "simulated, synthetic, not a clinical prediction" banner. |
-| 2.0g | Reproduction check | Compare predicted exposure by renal group with the Dahut 2009 groups already in `lenalidomide_pk_v1.json`; record pass, fail or discrepancy in the validation-gap register. Expect under-prediction in severe impairment (see below). |
+| 2.0g | Reproduction check | Done as an exploratory aggregate consistency check against study CC-5013-PK-001 (the renal-group data in `landscape_ui/data/renal_pk/`, extracted from the EMA assessment of Chen et al. 2007; earlier notes called this "Dahut", which was wrong). Plan locked and committed before computation (`hughes_renal_group_check_plan_v1.json`); report `docs/verification/hughes_renal_group_check_v1.json`; CLI `hughes-renal-group-check`. Result below. |
+
+## Renal-group consistency check (2.0g)
+
+Question: do group-mean exposures observed across renal-function groups fall within the range the Hughes model predicts for a study of the same design? Method: 10,000 simulated replicates of the study (single 25 mg dose, reported group sizes, creatinine-clearance ranges, Hughes between-subject variability); a group is *consistent* if its observed mean lies within the simulated 5th–95th percentile. Primary endpoint: AUC∞ relative to the normal group.
+
+| Group (CrCl, mL/min) | Observed AUC ratio | Simulated 90% range | Classification | Observed ÷ median |
+|---|---|---|---|---|
+| Normal (>80) | — (absolute 2181 vs 1589–3334 ng·h/mL) | | consistent | |
+| Mild (50–80) | 1.27 | 0.63–1.94 | consistent | 1.15 |
+| Moderate (30–50) | 2.76 | 0.74–2.11 | model under-predicts | 2.2 |
+| Severe (<30) | 3.76 | 0.85–2.55 | model under-predicts | 2.6 |
+
+Identical classification in all four prespecified scenarios. Terminal half-life agrees with the same picture (observed ≈ 9–11 h vs ≈ 5–6 h simulated below 50 mL/min).
+
+Interpretation: the model's weak renal exponent (0.224) holds down to about 50 mL/min and fails below it, including part of its own reported data range (36–50 mL/min). Consequence in the platform: `hughes_applicability_findings_v1.json` adds a warning to every covariate estimate with CrCl < 50 mL/min; calculations still run. This is an exploratory finding from aggregate data, not validation. The natural next model for reduced renal function is Kim 2026 (renally impaired MM patients, unbound and total concentrations), once its final tables are transcribed.
+
+## 2.1 — Kim 2026 as a second model (renal impairment)
+
+Motivated by 2.0g. Kim et al. (Drug Des Devel Ther 2026;20, doi 10.2147/DDDT.S605741) modelled total and unbound lenalidomide in 30 Korean multiple myeloma patients spanning eGFR 11–95 mL/min/1.73 m², sampled at steady state on 5–10 mg/day.
+
+- **Model** (`kim_2026_model_extract_v1.json`, pinned): two compartments, first-order absorption (Ka 1.16 h⁻¹ fixed), parameters on the **unbound** scale; total = unbound ÷ Fu (0.614). Covariates: CKD-EPI 2021 eGFR (indexed) and Du Bois BSA. The 2025 conference abstract is superseded and not used.
+- **Equation-form problem.** The printed CL/F equation adds the BSA term outside the exponential (in L/h), which makes body size nearly irrelevant and reverses the paper's own reported dose-escalation results. Both multiplicative readings reproduce them (`kim_cl_equation_form_assessment_v1.json`, script `scripts/assess_kim_cl_equation_form.py`). Primary reading: linear multiplicative; the form is an explicit argument with no default, and status stays *unresolved* until the authors confirm.
+- **Formulas.** `covariate_formula_registry_v2.json` adds CKD-EPI 2021 and Du Bois BSA; every v1 formula is unchanged and v1 stays in the repository as the record behind earlier estimates.
+- **Engine** (`kim_model.py`): exact two-compartment oral solution with superposition, unbound and total curves; checked against an independent RK4 integration, near-coincident rates and AUC = dose/CL. Scope: MM only, study doses 5/7.5/10 mg, same schedule limits as Hughes. CLI `patient-pk-kim`.
+- **Internal reproduction** (`kim-internal-reproduction`): typical total CL/F at each group's median covariates lies within one SD of the authors' Table 2 group means for all three readings (severe 3.76 vs 3.39, moderate 5.66 vs 5.74, control 8.74 vs 8.01 L/h). Same patients as the fit, so this confirms transcription and the unbound→total conversion, not predictive performance.
+- **Model comparison** (`pk-model-compare`): for a 68-year-old 70 kg woman on 10 mg, the two models agree at normal renal function (Kim/Hughes AUC 0.98) and diverge as it falls (1.38 at eGFR 47, 1.63 at 26, 1.70 at 14) — the direction the 2.0g check found missing from Hughes.
+
+Not yet done: Kim in the estimated-PK page and saved runs (next step); a locked external check of Kim against the CC-5013-PK-001 groups, which needs eGFR rather than the CrCl ranges that study reported.
 
 ## Typical value vs individual prediction (2.0d)
 
@@ -97,6 +125,6 @@ Resolution path: ask the corresponding author what weight produced `CRCL2` and w
 1. Software verification — the code computes the intended equations (worked-example tests, pinned sources).
 2. Transcription verification — parameters match the paper and control stream.
 3. Reproduction — the model reproduces its own published results.
-4. External consistency — agreement with data not used to fit it (Dahut renal groups, if independent of the fitting data).
+4. External consistency — agreement with data not used to fit it (done for the CC-5013-PK-001 renal groups in 2.0g, as an aggregate check; that study was not part of the Hughes dataset).
 
 Passing all four supports research use. `clinical_prediction_validated` stays false.

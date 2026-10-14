@@ -1,0 +1,295 @@
+{
+ "schema_version": "pk-model-extract-v1",
+ "extract_version": "kim-2026-final-model-v1.0",
+ "model_id": "lenalidomide_kim_2026",
+ "drug": "lenalidomide",
+ "source": {
+  "citation": "Kim H, Park SS, Choi S, et al. Population Pharmacokinetics and Model-Informed Precision Dosing of Lenalidomide Incorporating Total and Unbound Plasma Concentrations in Renally Impaired Patients with Multiple Myeloma. Drug Des Devel Ther. 2026;20:605741.",
+  "doi": "10.2147/DDDT.S605741",
+  "published": "2026-05-15",
+  "license": "CC BY-NC 4.0",
+  "pdf_sha256": "5566d69421863a614bce59b64ddae4b048f6ced3078218a2b146ac3b8efe6afa",
+  "pdf_supplied_by": "project owner, 2026-10-13",
+  "reviewed_on": "2026-10-13",
+  "locations": [
+   "Methods p.3-6",
+   "Table 1 p.7",
+   "Table 2 p.9",
+   "Results p.8-10 including final-model equations p.10",
+   "Table 3 p.11",
+   "Discussion p.11-17"
+  ],
+  "supplementary_material": "not obtained; no control stream available",
+  "review_depth": "Main text, tables and printed equations; equations read from the rendered page image."
+ },
+ "structure": {
+  "compartments": 2,
+  "absorption": "first-order, no lag",
+  "elimination": "first-order from the central compartment",
+  "concentration_scale": "Parameters describe UNBOUND drug (apparent unbound CL/F, V1/F, Q/F, V2/F). Total concentration = unbound concentration / Fu (linear binding).",
+  "protein_binding": "linear; Fu constant, no covariates (p.10, Discussion p.16)",
+  "location": "Results p.8; equations p.10; protein-binding equation p.5"
+ },
+ "parameters": {
+  "unbound_clearance_l_h": {
+   "value": 8.52,
+   "rse_pct": 3.9,
+   "bootstrap_ci95": [
+    7.96,
+    9.09
+   ],
+   "location": "Table 3"
+  },
+  "unbound_central_volume_l": {
+   "value": 48.8,
+   "rse_pct": 10.7,
+   "bootstrap_ci95": [
+    39.51,
+    57.12
+   ],
+   "location": "Table 3"
+  },
+  "unbound_intercompartmental_clearance_l_h": {
+   "value": 8.05,
+   "rse_pct": 27.9,
+   "bootstrap_ci95": [
+    4.92,
+    12.79
+   ],
+   "location": "Table 3"
+  },
+  "unbound_peripheral_volume_l": {
+   "value": 21.2,
+   "rse_pct": 13.8,
+   "bootstrap_ci95": [
+    16.55,
+    26.51
+   ],
+   "location": "Table 3"
+  },
+  "absorption_rate_h": {
+   "value": 1.16,
+   "fixed": true,
+   "basis": "fixed from the authors' NCA",
+   "location": "Table 3; Results p.8"
+  },
+  "fraction_unbound": {
+   "value": 0.614,
+   "rse_pct": 1.32,
+   "bootstrap_ci95": [
+    0.601,
+    0.626
+   ],
+   "location": "Table 3 (61.4%)"
+  },
+  "cl_egfr_coefficient": {
+   "value": 0.0131,
+   "rse_pct": 15.1,
+   "bootstrap_ci95": [
+    0.01,
+    0.016
+   ],
+   "location": "Table 3"
+  },
+  "cl_bsa_coefficient": {
+   "value": 1.1,
+   "rse_pct": 29.6,
+   "bootstrap_ci95": [
+    0.59,
+    1.64
+   ],
+   "location": "Table 3"
+  },
+  "v1_bsa_coefficient": {
+   "value": 1.16,
+   "rse_pct": 26.2,
+   "bootstrap_ci95": [
+    0.6,
+    1.74
+   ],
+   "location": "Table 3"
+  },
+  "reference_egfr": {
+   "value": 46.92,
+   "unit": "mL/min/1.73m2",
+   "location": "equation p.10"
+  },
+  "reference_bsa": {
+   "value": 1.64,
+   "unit": "m2",
+   "location": "equation p.10"
+  }
+ },
+ "covariate_equations": {
+  "printed_cl": "CL/F (L/h) = 8.52 * exp[0.0131 * (eGFR - 46.92)] + 1.1 * (BSA - 1.64)",
+  "cl_forms": {
+   "linear_multiplicative": "8.52 * exp(0.0131 * (eGFR - 46.92)) * (1 + 1.1 * (BSA - 1.64))",
+   "exponential": "8.52 * exp(0.0131 * (eGFR - 46.92) + 1.1 * (BSA - 1.64))",
+   "additive_as_printed": "8.52 * exp(0.0131 * (eGFR - 46.92)) + 1.1 * (BSA - 1.64)"
+  },
+  "cl_form_assessment": "kim_cl_equation_form_assessment_v1.json",
+  "v1": "48.8 * exp(1.16 * (BSA - 1.64))",
+  "v2": "21.2",
+  "q": "8.05",
+  "ka": "1.16 (fixed)",
+  "fu": "0.614"
+ },
+ "random_effects": {
+  "reported": {
+   "cl_pct_cv": 18.9,
+   "v1_pct_cv": 30.8,
+   "cl_shrinkage_pct": 2,
+   "v1_shrinkage_pct": 8
+  },
+  "distribution": "exponential (log-normal), estimated for CL/F and V1/F only (Results p.8)",
+  "correlation": "none reported; treated as independent",
+  "cv_to_omega": "ASSUMPTION: omega = %CV/100 (the convention confirmed for Hughes; not confirmed here because no control stream is available)"
+ },
+ "residual_error": {
+  "unbound": {
+   "proportional_pct": 12.5,
+   "additive_ng_ml": 1.11
+  },
+  "total": {
+   "proportional_pct": 12.6,
+   "additive_ng_ml": 2.19
+  },
+  "location": "Table 3 (\"addictive\" in the source is a typo for additive)"
+ },
+ "covariate_definitions": {
+  "egfr": {
+   "formula": "egfr_ckd_epi_2021_creatinine",
+   "unit": "mL/min/1.73m2",
+   "indexed": true,
+   "location": "Methods p.6; Table 1 note"
+  },
+  "bsa": {
+   "formula": "body_surface_area_du_bois",
+   "unit": "m2",
+   "location": "Covariate Analysis p.5"
+  }
+ },
+ "study_population": {
+  "n": 30,
+  "disease": "multiple myeloma",
+  "country": "Republic of Korea",
+  "setting": "maintenance; lenalidomide-naive at enrolment",
+  "design": "prospective; serial sampling at steady state on day 3 of cycle 1 at 0, 2, 4, 8, 12 and 24 h; fasting 10 h before and 4 h after dose",
+  "groups_by_egfr": {
+   "severe_lt_30": 11,
+   "moderate_30_to_60": 11,
+   "control_ge_60": 8
+  },
+  "doses_mg": [
+   5,
+   7.5,
+   10
+  ],
+  "observations": {
+   "total": 171,
+   "unbound": 174
+  },
+  "assay_lloq_ng_ml": 5,
+  "ranges_table1": {
+   "age_years": [
+    47,
+    84
+   ],
+   "weight_kg": [
+    47,
+    86
+   ],
+   "height_cm": [
+    140,
+    179
+   ],
+   "bsa_m2": [
+    1.41,
+    2.01
+   ],
+   "egfr_ml_min_1_73m2": [
+    11.1,
+    94.7
+   ],
+   "crcl_ml_min": [
+    15.3,
+    81.2
+   ],
+   "serum_creatinine_mg_dl": [
+    0.7,
+    5.9
+   ],
+   "albumin_g_dl": [
+    3.0,
+    5.2
+   ]
+  },
+  "medians_table1": {
+   "age_years": 68,
+   "weight_kg": 62,
+   "height_cm": 162,
+   "bsa_m2": 1.64,
+   "egfr_ml_min_1_73m2": 47,
+   "male_fraction": 0.4
+  },
+  "location": "Table 1 p.7 (serum creatinine unit printed as g/dL; mg/dL intended)"
+ },
+ "transcription_notes": [
+  "Printed CL/F equation places the BSA term outside the exponential (additive in L/h). The paper's own target-attainment results are reproduced only by a multiplicative form; see kim_cl_equation_form_assessment_v1.json.",
+  "Table 3 labels CL/F, V1/F, Q/F and V2/F as apparent UNBOUND parameters; total CL/F = unbound CL/F x Fu (8.52 x 0.614 = 5.23 L/h at the reference covariates).",
+  "eGFR is the indexed CKD-EPI 2021 value; the authors also tried non-indexed eGFR and CrCl and found eGFR + BSA fitted best (p.9-10, p.16).",
+  "No patient had albumin below 3 g/dL; Fu may not apply to profound hypoalbuminemia (Discussion p.16).",
+  "No dialysis or renal replacement therapy patients were included.",
+  "The page-10 equation prints V2/F = 21.1 L; Table 3 reports 21.2 L. The Table 3 value is used."
+ ],
+ "author_reported_groups": {
+  "use": "Internal reproduction only: these are the same patients the model was fitted to.",
+  "table1_medians": {
+   "severe": {
+    "egfr": 25.2,
+    "bsa": 1.6,
+    "n": 11
+   },
+   "moderate": {
+    "egfr": 52.1,
+    "bsa": 1.65,
+    "n": 11
+   },
+   "control": {
+    "egfr": 77.4,
+    "bsa": 1.75,
+    "n": 8
+   }
+  },
+  "table2_total_cl_f_l_h": {
+   "severe": {
+    "mean": 3.39,
+    "sd": 0.8
+   },
+   "moderate": {
+    "mean": 5.74,
+    "sd": 1.7
+   },
+   "control": {
+    "mean": 8.01,
+    "sd": 2.63
+   }
+  },
+  "table2_unbound_cl_f_l_h": {
+   "severe": {
+    "mean": 5.4,
+    "sd": 1.16
+   },
+   "moderate": {
+    "mean": 9.49,
+    "sd": 2.84
+   },
+   "control": {
+    "mean": 13.3,
+    "sd": 5.47
+   }
+  },
+  "location": "Table 1 p.7 (medians); Table 2 p.9 (non-compartmental CL/F, mean +/- SD)",
+  "caveat": "Non-compartmental group means and model typical values at group medians are different statistics; agreement is descriptive."
+ }
+}

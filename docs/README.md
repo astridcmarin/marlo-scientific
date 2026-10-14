@@ -21,8 +21,12 @@ Several step documents describe installer scripts (`scripts/install_*.py`) from 
 
 - [Numerical verification summary](NUMERICAL_VERIFICATION.json).
 - [Synthetic RK4–analytic cross-check (Step 70)](verification/synthetic_numerical_crosscheck_step70.json) — output of `scripts/pk_numerical_crosscheck.py`.
+- [Hughes renal-group consistency check (2.0g)](verification/hughes_renal_group_check_v1.json) — exploratory check against study CC-5013-PK-001; plan locked in `intelligence_store/data/hughes_renal_group_check_plan_v1.json`. Finding recorded in `intelligence_store/data/hughes_applicability_findings_v1.json`.
 
 ## Scientific decision records kept as data
+
+- Kim 2026 model extract and CL/F equation-form assessment — `intelligence_store/data/kim_2026_model_extract_v1.json`, `kim_cl_equation_form_assessment_v1.json` (see Patient Lab 2.0, section 2.1).
+- Covariate formula registries — `covariate_formula_registry_v2.json` is current; `v1` is kept because estimates made before v2 cite it.
 
 - Lenalidomide assay quality review — `intelligence_store/data/lenalidomide_assay_quality_review_v1.json`: the Lu Fig. 2D assay is retained as qualitative evidence and not used for quantitative calibration.
 - Hughes Cockcroft–Gault weight-basis assessment — `intelligence_store/data/hughes_weight_basis_assessment_v1.json` (see Patient Lab 2.0).

@@ -1,0 +1,25 @@
+{
+  "schema_version": "model-applicability-findings-v1",
+  "findings_version": "hughes-applicability-findings-v1.0",
+  "model": "lenalidomide_hughes_2019",
+  "recorded_on": "2026-10-13",
+  "findings": [
+    {
+      "id": "renal-under-prediction-below-50",
+      "covariate": "creatinine_clearance",
+      "applies_below": 50,
+      "unit": "mL/min",
+      "finding": "In an exploratory aggregate check against study CC-5013-PK-001 (single 25 mg dose), the Hughes model under-predicted group-mean exposure about 2.2-fold in the 30-50 mL/min group and about 2.6-fold below 30 mL/min, and under-predicted terminal half-life (observed about 9-11 h vs about 5-6 h simulated). The 50-80 mL/min and >80 mL/min groups were consistent with the model.",
+      "warning": "Creatinine clearance is below 50 mL/min. An external check found this model under-predicts lenalidomide exposure here by roughly 2 to 3 fold; treat the curve and band as likely too low.",
+      "robustness": "Same classification in all four prespecified scenarios.",
+      "evidence": {
+        "plan": "intelligence_store/data/hughes_renal_group_check_plan_v1.json",
+        "report": "docs/verification/hughes_renal_group_check_v1.json",
+        "report_file_sha256": "70cae05e8dca498bc3e9774177dd4fc406c9508f419ad1f8a64be80c84c0c159",
+        "observed_data": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json"
+      },
+      "status": "exploratory_finding_not_validation",
+      "consequence": "Reported as a warning on every covariate estimate below the threshold. Calculations still run; nothing is corrected or hidden."
+    }
+  ]
+}
