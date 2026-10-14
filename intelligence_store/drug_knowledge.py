@@ -6,7 +6,7 @@ from .safety import load_safety_catalog
 from .interactions import load_interaction_catalog, summarize_interactions
 from .regulatory import digest
 
-METHOD = 'drug-knowledge-explorer-v1.0'
+METHOD = 'drug-knowledge-explorer-v1.1'
 LIMITATION = ('Exact curated aliases identify reported DRUG/BIOLOGICAL names only. '
     'Name matches do not establish administration, formulation, route, dose, intervention role, '
     'approval, efficacy or clinical risk. Mechanism classifications and label references are curated context, '
@@ -38,13 +38,17 @@ def build_drug_knowledge(summary):
             'safety':copy.deepcopy(safety['entity_index'].get(entry['id'])),
             'interactions':copy.deepcopy(interaction_index.get(entry['id'])),
             'evidence':{nct:copy.deepcopy(summary['evidence'][nct]) for nct in sorted(ids)}})
-    unmapped = [copy.deepcopy(r) for r in aliases['groups'] if r['catalog_entry'] is None]
+    # Only genuinely unmapped groups; reviewed mappings to entities outside the label catalog are reported separately.
+    unmapped = [copy.deepcopy(r) for r in aliases['groups'] if r['mapping_status'] == 'unmapped']
+    reviewed = [copy.deepcopy(r) for r in aliases['groups'] if r['mapping_status'] == 'reviewed-mapping' and r['catalog_entry'] is None]
+    reviewed_ids = {nct for row in reviewed for nct in row['nct_ids']}
     unmapped_ids = {nct for row in unmapped for nct in row['nct_ids']}
     def coverage(ids):return {'count':len(ids), 'nct_ids':sorted(ids)}
     result = {'method_version':METHOD, 'cohort':copy.deepcopy(summary['cohort']),
-        'total_trials':len(total), 'entries':entries, 'unmapped_groups':unmapped,
+        'total_trials':len(total), 'entries':entries, 'unmapped_groups':unmapped, 'reviewed_mapping_groups':reviewed,
         'coverage':{'mapped_names':coverage(matched), 'no_mapped_names':coverage(total-matched),
-                    'unmapped_names':coverage(unmapped_ids), 'unmapped_group_count':len(unmapped)},
+                    'unmapped_names':coverage(unmapped_ids), 'unmapped_group_count':len(unmapped),
+                    'reviewed_mapping_names':coverage(reviewed_ids), 'reviewed_mapping_group_count':len(reviewed)},
         'provenance':{'alias_catalog_version':catalog['catalog_version'], 'alias_catalog_sha256':catalog['sha256'],
             'annotation_catalog_version':annotations['catalog_version'], 'annotation_catalog_sha256':annotations['sha256'],
             'safety_catalog_version':safety['catalog_version'], 'safety_catalog_sha256':safety['sha256'],

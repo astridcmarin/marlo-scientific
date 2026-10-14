@@ -15,7 +15,7 @@ class ResearchToolTests(unittest.TestCase):
         self.assertEqual(r['counts']['educational_exposure_models'],1)
         self.assertEqual(r['research_tool_counts'],{'target_activity':1,'research_timecourse':1,'assumption_experiment':1,'evidence_review':2})
         b=next(x for x in r['entries'] if x['entity_id']=='bortezomib')
-        self.assertEqual(len(b['research_tools']),5);self.assertIsNone(b['exposure_model'])
+        self.assertEqual(len(b['research_tools']),6);self.assertIsNone(b['exposure_model'])
         for t in b['research_tools']:
             self.assertFalse(t['clinical_prediction_validated']);self.assertFalse(t['ready_for_patient_simulation'])
             self.assertEqual(t['scientific_status'],'review_required')
@@ -35,7 +35,7 @@ class ResearchToolTests(unittest.TestCase):
     def test_pk_failure_withholds_only_dependent_tools(self):
         with patch.object(registry,'load_pk',side_effect=ValueError('changed')):
             tools=registry.research_tool_registry()['bortezomib']
-            self.assertEqual([t['availability'] for t in tools],['available','unavailable','unavailable','available','available'])
+            self.assertEqual([t['availability'] for t in tools],['available','unavailable','unavailable','available','available','available'])
             self.assertEqual(self.client.get(self.path+'?capability=research_timecourse&format=json').json['selection']['entity_ids'],[])
             body=self.client.get(self.path+'?q=bortezomib').get_data(as_text=True)
             self.assertIn('tool link withheld',body)
@@ -49,7 +49,7 @@ class ResearchToolTests(unittest.TestCase):
     def test_evidence_failure_not_reported_as_missing_model(self):
         with patch.object(registry,'_pinned',return_value=False):
             tools=registry.research_tool_registry()['bortezomib']
-            self.assertEqual([t['availability'] for t in tools],['available','available','available','unavailable','unavailable'])
+            self.assertEqual([t['availability'] for t in tools],['available','available','available','unavailable','unavailable','unavailable'])
     def test_links_resolve_and_simulation_directory_lists_all(self):
         endpoints={r.endpoint for r in self.app.url_map.iter_rules()}
         body=self.client.get('/landscape/simulation-lab').get_data(as_text=True)

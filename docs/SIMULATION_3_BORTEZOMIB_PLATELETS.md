@@ -1,6 +1,6 @@
 # Simulation 3.0 — bortezomib platelet time course (first drug-effect module)
 
-Status: **3.0a–3.0c done** (evidence, PK engine, locked reading check). The page (3.0d) is next.
+Status: **3.0a–3.0d done.** Evidence, PK engine, locked reading check and page (`/landscape/simulation-lab/bortezomib-platelets`).
 
 ## Why this model
 
@@ -121,3 +121,19 @@ The term should therefore be read as an empirical description of the drug's net 
 - **Budding:** the curve bottoms out at the end of dosing and deeper (0.53 at about 256 h).
 
 Lonial's mean-of-individual-nadirs (about 60%) cannot separate them, because it is a different statistic.
+
+## 3.0d — Page (`landscape_ui/bortezomib_platelet_pages.py`)
+
+`/landscape/simulation-lab/bortezomib-platelets` (1–4 cycles; JSON export). It is also listed as a research tool on the Simulation Lab page. The registry withholds the link if the model, observed-data or plan files fail their checksums. It is registered as a research tool, not a toxicity model; the inventory still counts 0 toxicity models.
+
+**What the page shows:**
+- typical platelet curves for both variants as a percentage of each variant's fitted baseline;
+- the observed cycle-1 day-11 mean with the locked-check interval;
+- a table of day-11 values by cycle, the lowest point, the start of the next cycle, and the hours with a negative effect term;
+- the PK curve on a log axis, with the concentrations above which each variant's effect term turns negative.
+
+Only the fitted regimen is run: 1.3 mg/m² on days 1, 4, 8 and 11 of 21-day cycles.
+
+**What it makes visible:**
+- **The budding variant drops sharply at each dose.** This is the negative effect term briefly moving platelets back out of the circulation, as described in 3.0c.
+- **Over several cycles the variants diverge.** Myelosuppression sinks slightly each cycle (day 11: 69%, 64%, 62%). Budding rebounds above baseline (day 11: 68%, 77%, 92%; 143% at the start of cycle 4). The data they were fitted to cannot tell them apart, so the unresolved mechanism matters most beyond cycle 1.
