@@ -118,6 +118,21 @@ Reading: Kim describes the renal effect much better than Hughes, but likely stil
 - **Dose proportionality** (`lenalidomide_dose_proportionality_evidence_v1.json`). Source: page 20 of the pinned EMA report already in the repository, which says exposure is dose-proportional over 5–400 mg; a test checks the quotes against the PDF. The FDA label section 12.3 says the same, but was read only through a mirror. This resolves the 2.1c known difference about scaling from Kim's 5–10 mg to the study's 25 mg.
 - **Noted, not acted on:** the label gives protein binding of about 30% (Fu ≈ 0.7), while Kim estimated 0.614. This is for a later review of the unbound-to-total conversion.
 
+**Evidence scan: exposure–response (2026-10-14).** Before building any drug-effect module, I searched for a published, transcribable model linking lenalidomide exposure to neutrophil or platelet counts over time. None was found:
+- **Chen, Zhou & Palmisano (Clin Pharmacokinet 2017)** summarise a pooled six-study analysis. AUC predicted grade 3/4 thrombocytopenia (odds ratio 3.34, 95% CI 1.18–9.42), and the neutropenia link was not clearly established (odds ratio 1.98, CI 1.00–3.92). Neither was apparent in cycle 1. The review does not give the AUC units or baseline risk, so the probability model cannot be reconstructed.
+- **Guglieri-López et al. (Cancer Chemother Pharmacol 2017; 15 patients)** is PK only. It has one compartment, three transit stages, CrCl on CL/F and BSA on V/F. It is not implemented: Hughes has a similar structure, and 15 patients is too few to rely on the covariate estimates. Its claim that the model can individualise dose is not adopted. The associated thesis (Valencia 2017) may contain PK/PD work; it is unread.
+- **Mechanistic neutropenia models exist for a related cereblon modulator (avadomide).** Transferring their parameters to lenalidomide would be borrowing biology from a different molecule.
+
+Decision: no blood-count time-course module. Revisit if the full pooled exposure–safety analysis or the thesis can be obtained.
+
+**2.1e — Comparison with a measured reference exposure.** The Hughes–Kim comparison now shows each model's typical daily AUC divided by the mean AUC measured after the approved 25 mg starting dose in subjects with normal renal function (CC-5013-PK-001: 2181 ± 703 ng·h/mL, n = 7; `lenalidomide_reference_exposure_v1.json`).
+- **Why it compares like with like:** dose proportionality makes a single-dose AUC equal to one day's AUC on daily dosing.
+- **Why the reference is fair to both models:** each reproduced this normal-group value in its renal check (observed ÷ median: Hughes 0.95, Kim 1.06).
+- **Regulatory context:** the renal dose reductions were described as aiming for comparable daily AUC. This is a secondary source, Chen 2017, not checked against its full text.
+- **What it is not:** the ratio carries no band, target, toxicity prediction or dose recommendation, and the page says so beside it.
+
+Example, moderate impairment on 7.5 mg daily: Hughes 0.42, Kim 0.60. The models disagree about where this patient sits relative to the reference, and the disagreement itself is the information.
+
 Not yet done: Kim in saved runs.
 
 ## Typical value vs individual prediction (2.0d)

@@ -172,11 +172,17 @@ def compare_published_models(revision_id, weight_basis, cl_form, request, diseas
     is blocked (for example a dose its study did not use) is shown as blocked, never silently substituted.
     """
     from .kim_model import calculate_kim_pk
+    from .reference_exposure import average_daily_dose, compare_to_reference
+    from .treatment_requests import validate_treatment_request
     if weight_basis not in WEIGHT_BASES:
         raise ValueError('Unsupported Cockcroft-Gault weight basis.')
     hughes = calculate_estimated_pk(revision_id, weight_basis, request, disease_code)
     kim = calculate_kim_pk(revision_id, request, disease_code, cl_form)
     rows = [_hughes_row(hughes), _kim_row(kim)]
+    daily_dose = average_daily_dose(validate_treatment_request(request))
+    for row in rows:
+        if 'typical_total_cl_f_l_h' in row:
+            row['reference_exposure'] = compare_to_reference(daily_dose, row['typical_total_cl_f_l_h'])
     ratio = None
     if all('auc_0_infinity_ng_h_ml' in r for r in rows):
         ratio = {'kim_to_hughes_auc_0_infinity': rows[1]['auc_0_infinity_ng_h_ml'] / rows[0]['auc_0_infinity_ng_h_ml'],

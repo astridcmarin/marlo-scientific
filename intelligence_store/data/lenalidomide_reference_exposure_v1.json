@@ -1,0 +1,41 @@
+{
+  "schema_version": "reference-exposure-v1",
+  "reference_version": "lenalidomide-reference-exposure-v1.0",
+  "drug": "lenalidomide",
+  "recorded_on": "2026-10-14",
+  "purpose": "A measured exposure to compare simulated exposure against: the mean AUC after the approved full starting dose (25 mg) in subjects with normal renal function. Shown as a ratio for context only.",
+  "reference": {
+    "metric": "auc_infinity_after_single_dose",
+    "value": 2181,
+    "sd": 703,
+    "n": 7,
+    "unit": "ng*h/mL",
+    "dose_mg": 25,
+    "population": "CC-5013-PK-001 normal renal function group (CrCl > 80 mL/min), single oral dose, fasting; disease context not established",
+    "source_file": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+    "source_file_sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+    "source_group": "normal",
+    "original_source": "EMA assessment EMEA/CHMP/249329/2008, PDF page 21, Table 4"
+  },
+  "comparison_metric": {
+    "definition": "Simulated daily AUC = 1000 * average daily dose (mg) / typical total CL/F (L/h), in ng*h/mL.",
+    "why_comparable": "Under linear pharmacokinetics, AUC to infinity after one dose equals AUC over one dosing interval at steady state for the same dose given every 24 h, so a single-dose reference applies to daily dosing.",
+    "linearity_evidence": "intelligence_store/data/lenalidomide_dose_proportionality_evidence_v1.json",
+    "model_agreement_at_reference": "In the 2.0g and 2.1c checks, both Hughes and Kim reproduced this normal-group AUC within their simulated 5th-95th percentile, so the ratio is not dominated by a model-versus-reference offset."
+  },
+  "regulatory_context": {
+    "statement": "The approved renal dose reductions were described as chosen so that daily exposure (AUC) in impaired groups is comparable with that of the full starting dose in patients with CrCl at or above 50 mL/min.",
+    "source": "Chen N, Zhou S, Palmisano M. Clinical Pharmacokinetics and Pharmacodynamics of Lenalidomide. Clin Pharmacokinet 2017;56:139-152. doi:10.1007/s40262-016-0432-1",
+    "status": "secondary_summary_read_via_web_tool_not_checked_against_full_text"
+  },
+  "not_this": [
+    "Not a target, limit or acceptable range; no band is applied to the ratio.",
+    "Not a toxicity or efficacy prediction: the published exposure-safety evidence is limited to odds ratios for grade 3/4 events and is not reproduced here.",
+    "Not a dose recommendation for any patient."
+  ],
+  "limits": [
+    "Seven subjects, one study, single dose; the reference mean has its own uncertainty (SD 703, about 32% CV).",
+    "The ratio uses the model's typical value; patients with identical covariates vary widely around it.",
+    "Healthy or non-myeloma subjects may differ from patients in exposure at the same dose."
+  ]
+}
