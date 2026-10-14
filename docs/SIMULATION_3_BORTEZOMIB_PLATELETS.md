@@ -1,6 +1,6 @@
 # Simulation 3.0 — bortezomib platelet time course (first drug-effect module)
 
-Status: **3.0a evidence recorded; 3.0b PK engine done.** Locked platelet reproduction check is next.
+Status: **3.0a–3.0c done** (evidence, PK engine, locked reading check). The page (3.0d) is next.
 
 ## Why this model
 
@@ -87,3 +87,37 @@ These are the data the model was fitted to, so reproducing them is an internal c
 **Reading.** The model reproduces repeat-dose disposition, as the source states. It has a single clearance, however, so it overstates exposure after the very first dose of cycle 1 about sevenfold. Any platelet result for early cycle 1 inherits this. The 3.0c check uses cycle 1 day 11, after four doses, so it is affected less, though not zero.
 - **3.0c:** locked plan, then the platelet model under each reading of questions 1 and 2, compared with the observed cycle-1 dip and the recovery.
 - **3.0d:** a page showing typical platelet curves for both variants, clearly labelled, with no dosing interpretation.
+
+## 3.0c — Locked reading check (`bortezomib_platelets.py`, `docs/verification/bortezomib_platelet_check_v1.json`)
+
+**Procedure.** The plan (`bortezomib_platelet_check_plan_v1.json`) was committed alone before any platelet simulation ran. It ran all 8 combinations of units (ng/mL, nM), effect term (as printed, capped at zero) and variant, for one cycle of 1.3 mg/m² on days 1, 4, 8 and 11.
+- **Fixed assumptions:** Kprol = Kcirc = Ktr, start at steady state, IV bolus.
+- **Primary endpoint:** platelets just before the day-11 dose ÷ baseline. Observed: 107/165 = 0.65. A reading is consistent if it falls in 0.58–0.72, an interval derived in advance from the reported SDs and n = 228.
+- **Numerical checks:** RK4, with fine steps in the 4 h after each dose. Halving every step changed nothing at the reported precision. With no drug, every compartment stays exactly at baseline.
+
+**Result.**
+
+| Variant | Units | Effect term | Day-11 ratio | Cycle 2 day 1 | Classification |
+|---|---|---|---|---|---|
+| Myelosuppression | ng/mL | as printed | 0.69 | 1.03 | **consistent** |
+| Myelosuppression | ng/mL | capped at 0 | 0.73 | 0.99 | inconsistent |
+| Myelosuppression | nM | as printed | 0.37 | 1.20 | inconsistent |
+| Myelosuppression | nM | capped at 0 | 0.46 | 1.02 | inconsistent |
+| Platelet budding | ng/mL | as printed | 0.68 | 1.02 | **consistent** |
+| Platelet budding | ng/mL | capped at 0 | 0.77 | 0.98 | inconsistent |
+| Platelet budding | nM | as printed | — | — | invalid state (platelets reach zero at about 168 h) |
+| Platelet budding | nM | capped at 0 | 0.38 | 0.74 | inconsistent |
+
+**Decision, per the plan's rule:** ng/mL with the effect term as printed is the only reading consistent for both variants, and it is adopted. Both consistent readings recover by the next cycle, as Lonial describes.
+
+**What “as printed” means.** The fitted parameters reproduce the data only when (1 − slope·C) is allowed to go negative. In this reading the model briefly removes cells instead of slowing them:
+- about 1.8 h per cycle for the myelosuppression variant;
+- about 20 h per cycle for the budding variant.
+
+The term should therefore be read as an empirical description of the drug's net effect on platelets, not a literal mechanism. Capping it would require re-estimating the parameters, which the plan forbids. Each variant's curve is still a description of mean data from the patients it was fitted to.
+
+**Descriptive differences between the variants (both consistent at day 11):**
+- **Myelosuppression:** the curve bottoms out later and shallower (lowest 0.67 of baseline at about 303 h).
+- **Budding:** the curve bottoms out at the end of dosing and deeper (0.53 at about 256 h).
+
+Lonial's mean-of-individual-nadirs (about 60%) cannot separate them, because it is a different statistic.

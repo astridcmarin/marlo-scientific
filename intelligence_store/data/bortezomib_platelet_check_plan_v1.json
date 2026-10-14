@@ -1,0 +1,67 @@
+{
+  "schema_version": "reading-resolution-plan-v1",
+  "plan_version": "bortezomib-platelet-check-plan-v1.0",
+  "recorded_on": "2026-10-14",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before any platelet simulation was run. Not blinded: the PK engine had been run, so peak concentrations (135 ng/mL at injection, 82 ng/mL at 5 min) and therefore the times above the effect-term zero points were known. No platelet trajectory under any reading had been computed.",
+  "classification": "internal_consistency_check_against_fitting_data",
+  "not_this": [
+    "Not validation: Lonial 2005 is the dataset the model was fitted to.",
+    "Not a choice between the myelosuppression and platelet-budding variants; both are evaluated and both are kept.",
+    "Not a dosing or toxicity prediction for any patient."
+  ],
+  "question": "Under which reading of the unstated details (units of C; whether the effect term is bounded at zero) does the Lignet 2022 model reproduce the observed fall in mean platelet count by cycle 1 day 11?",
+  "model": {
+    "extract": "intelligence_store/data/bortezomib_platelet_model_extract_v1.json",
+    "pk": "intelligence_store/bortezomib_pk.py (exact three-compartment solution, Lignet Table 1)",
+    "fixed_assumptions": {
+      "kprol": "equal to Ktr (Figure 1a)",
+      "kcirc": "equal to Ktr (cited base models)",
+      "initial_state": "Prol = Trans1 = Trans2 = Trans3 = Circ = Circ0 of the variant (pre-treatment steady state)",
+      "administration": "IV bolus",
+      "molecular_weight_g_mol": 384.24
+    }
+  },
+  "readings": {
+    "units": {"ng_per_ml": "C as computed (ng/mL)", "nM": "C x 1000 / 384.24"},
+    "effect_bound": {"unbounded_as_printed": "(1 - slope*C) used as printed, including negative values",
+                     "bounded_at_zero": "max(0, 1 - slope*C)"},
+    "variants": ["myelosuppression", "platelet_budding"],
+    "grid": "All 8 combinations (2 units x 2 bounds x 2 variants)."
+  },
+  "regimen": "1.3 mg/m2 IV bolus at days 1, 4, 8, 11 of a 21-day cycle (t = 0, 72, 168, 240 h); cycle 2 starts at t = 504 h; simulate to 504 h.",
+  "numerics": {
+    "method": "Fixed-step RK4 on the five platelet compartments, with the exact PK concentration evaluated at each stage.",
+    "steps": "0.002 h for the first 4 h after each dose, 0.05 h otherwise; steps split at dose times.",
+    "convergence_check": "Repeat each reading with all steps halved; the endpoint values must agree within 1e-4 relative, otherwise the reading is reported as numerically unresolved.",
+    "invalid_state": "If Circ, Prol or any transit compartment becomes zero or negative, the reading is reported as invalid_state (the feedback term (Circ0/Circ)^gamma is undefined) and is not consistent."
+  },
+  "endpoints": {
+    "primary": {"name": "cycle1_day11_ratio", "definition": "Circ just before the day-11 dose (t = 240 h, pre-dose) divided by Circ0 of the variant",
+                "observed": 0.6485, "observed_source": "107 / 165 (Lonial 2005, n = 228)",
+                "interval": [0.5789, 0.7181],
+                "interval_derivation": "ratio +/- 1.96 x SE, with SE from the delta method using SD/sqrt(n) for both means and ignoring their positive correlation (conservative: the true interval is narrower)."},
+    "descriptive": [
+      {"name": "cycle2_day1_ratio", "definition": "Circ at t = 504 h divided by Circ0", "label_rule": "recovers if >= 0.90, otherwise does_not_recover", "observed": "recovering to baseline during the rest periods (qualitative)"},
+      {"name": "nadir_ratio_and_time", "definition": "minimum Circ/Circ0 over 0-504 h and its time"},
+      {"name": "time_effect_term_negative_h", "definition": "total hours over 0-504 h with 1 - slope*C < 0 (unbounded readings)"}
+    ]
+  },
+  "classification_rule": {
+    "consistent": "Primary ratio inside the interval, numerically resolved and no invalid_state.",
+    "inconsistent": "Primary ratio outside the interval.",
+    "invalid_state": "As defined under numerics."
+  },
+  "decision_rule": {
+    "adopt_reading": "A unit-and-bound reading is adopted as primary if it is consistent for BOTH variants. If several qualify, all are reported and the one with ng/mL units (matching the source PK figures) is preferred; if still more than one, the bounded reading is preferred because it matches the stated mechanism (inhibition, not destruction).",
+    "partial": "If a reading is consistent for only one variant, it is reported as such and nothing is adopted for the other variant.",
+    "none": "If no reading is consistent for a variant, no reading is adopted for it; the variant is shown only with all readings labelled unresolved.",
+    "never": "No parameter is re-estimated or tuned to improve the match."
+  },
+  "known_differences": [
+    "Model outputs are typical values; the observed values are means across patients with dose holds and reductions.",
+    "Lignet fitted digitised Figure 2 means, which may differ slightly from the text values used here.",
+    "The PK model overstates first-dose exposure about 7-fold (single clearance); day 11 follows four doses, so the effect is reduced but not removed.",
+    "The variants have their own fitted Circ0 (171 and 135) against an observed baseline of 165; the ratio endpoint removes this difference."
+  ]
+}

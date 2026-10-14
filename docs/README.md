@@ -42,7 +42,7 @@ Several step documents describe installer scripts (`scripts/install_*.py`) from 
 - [Step 107 — study-regimen time course](BORTEZOMIB_TIMECOURSE_STEP107.md)
 - [Step 108 — elimination-assumption comparison](BORTEZOMIB_ASSUMPTIONS_STEP108.md)
 - [Observation intake v1](BORTEZOMIB_OBSERVATION_INTAKE_STEPS106_108.md) — separate workflow that reused the numbers 106–108.
-- [Simulation 3.0 — bortezomib platelet time course](SIMULATION_3_BORTEZOMIB_PLATELETS.md): Lignet 2022 model transcription, open questions and Lonial 2005 observed values (`intelligence_store/data/bortezomib_platelet_*_v1.json`). PK engine and label comparison: `bortezomib_pk.py`, `bortezomib_label_pk_v1.json`.
+- [Simulation 3.0 — bortezomib platelet time course](SIMULATION_3_BORTEZOMIB_PLATELETS.md): Lignet 2022 model transcription, open questions and Lonial 2005 observed values (`intelligence_store/data/bortezomib_platelet_*_v1.json`). PK engine and label comparison: `bortezomib_pk.py`, `bortezomib_label_pk_v1.json`. Locked reading check: [report](verification/bortezomib_platelet_check_v1.json), plan `bortezomib_platelet_check_plan_v1.json`.
 - [Step 109 — discoverable drug research tools](DRUG_RESEARCH_TOOLS_STEP109.md)
 
 ## History
