@@ -1,0 +1,50 @@
+{
+  "schema_version": "observed-context-v1",
+  "context_version": "bortezomib-platelet-context-lonial-2005-v1.0",
+  "drug": "bortezomib",
+  "recorded_on": "2026-10-14",
+  "source": {
+    "citation": "Lonial S, Waller EK, Richardson PG, et al. Risk factors and kinetics of thrombocytopenia associated with bortezomib for relapsed, refractory multiple myeloma. Blood. 2005;106(12):3777-3784.",
+    "doi": "10.1182/blood-2005-03-1173",
+    "file_reviewed_sha256": "cd9946ea649395d5036e69abfc61ff2d71a80979c6855697a2d1d8e9fb7546fb",
+    "storage": "PMC printout kept on the platform owner's computer only; quotes checked against its text layer on 2026-10-14.",
+    "population": "228 patients with relapsed or refractory multiple myeloma (SUMMIT, CREST), bortezomib 1.3 mg/m2 days 1, 4, 8, 11 of 21-day cycles"
+  },
+  "grading": {
+    "system": "NCI Common Toxicity Criteria version 2.0 (as used by the source)",
+    "unit": "1e9/L",
+    "thresholds": [
+      {"grade": 2, "lower_inclusive": 50, "upper_exclusive": 75},
+      {"grade": 3, "lower_inclusive": 10, "upper_exclusive": 50},
+      {"grade": 4, "lower_inclusive": null, "upper_exclusive": 10}
+    ],
+    "grade_1": "75 to below the laboratory lower limit of normal; not drawn because the limit is laboratory-specific",
+    "quote": "grade 2, 50 × 109/L or greater to less than 75 × 109/L; grade 3, 10 × 109/L or greater to less than 50 × 109/L; grade 4, less than 10 × 109/L",
+    "location": "printout page 5, Methods",
+    "note": "Current CTCAE versions place the grade 3/4 boundaries differently; they are not used here, so that the grade lines and the observed incidences share one definition."
+  },
+  "eligibility": {
+    "minimum_platelets_1e9_per_l": 50,
+    "minimum_with_extensive_marrow_involvement_1e9_per_l": 30,
+    "transfusion_allowed_to_meet_threshold": true,
+    "quote": "a platelet count of 50 × 109/L or greater; if they had extensive bone marrow involvement, the threshold was lowered to 30 × 109/L or greater",
+    "location": "printout page 4, Methods"
+  },
+  "observed": [
+    {"id": "any_grade_incidence", "value_percent": 42, "numerator": 96, "denominator": 228,
+     "quote": "The incidence of all grades of treatment-emergent thrombocytopenia with bortezomib 1.3 mg/m2 was 42% (96 of 228 patients)", "location": "printout page 10"},
+    {"id": "grade_3_4_incidence", "value_percent": 30, "numerator": 68, "denominator": 228,
+     "quote": "The incidence of grade 3/4 thrombocytopenia was 30% (68 of 228 patients) and it was inversely related to the baseline platelet count", "location": "printout page 10"},
+    {"id": "grade_4_by_baseline", "baseline_threshold_1e9_per_l": 70, "below_threshold_percent": 24, "at_or_above_threshold_percent_at_most": 1,
+     "quote": "Grade 4 thrombocytopenia (< 10 × 109/L) occurred in 24% of patients with baseline platelet counts less than 70 × 109/L, whereas its incidence was low (≤ 1%) in patients with higher baseline counts",
+     "location": "printout pages 10-11"},
+    {"id": "mean_individual_reduction", "value_percent": 60, "approximate": true,
+     "quote": "an approximately 60% reduction in platelet counts from start to nadir, regardless of their baseline platelet count",
+     "location": "printout page 15",
+     "use": "Shown as an illustrative line at 40% of the patient's baseline: the average patient's own lowest count, not a prediction for this patient."}
+  ],
+  "limits": [
+    "Incidences are from adverse-event reporting in one pooled phase 2 population; patients could receive transfusions and dose holds.",
+    "The baseline split at 70 x1e9/L is the source's; no finer relationship is extracted (Figure 1 is an image)."
+  ]
+}
