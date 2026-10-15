@@ -37,13 +37,21 @@ class ModelProperties(unittest.TestCase):
         grading = load_context()['grading']
         self.assertEqual([grade_for(c, grading) for c in (80, 75, 74.9, 50, 49.9, 10, 9.9)], [None, None, 2, 2, 3, 3, 4])
 
+    def test_ctcae_v5_bands_differ_only_at_grades_3_and_4(self):
+        from intelligence_store.bortezomib_patient_platelets import load_ctcae_v5
+        v5, v2 = load_ctcae_v5(), load_context()['grading']
+        self.assertEqual([grade_for(c, v5) for c in (75, 60, 49.9, 25, 24.9, 9.9)], [None, 2, 3, 3, 4, 4])
+        self.assertEqual([grade_for(c, v2) for c in (24.9, 9.9)], [3, 4])
+
     def test_changed_context_is_refused(self):
-        name = 'bortezomib_platelet_context_v1.json'
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / name
-            path.write_bytes((DATA / name).read_bytes() + b' ')
-            with self.assertRaises(CovariateEstimationError):
-                load_context(path)
+        from intelligence_store.bortezomib_patient_platelets import load_ctcae_v5
+        for name, loader in (('bortezomib_platelet_context_v1.json', load_context),
+                             ('platelet_grading_ctcae_v5_v1.json', load_ctcae_v5)):
+            with tempfile.TemporaryDirectory() as tmp:
+                path = Path(tmp) / name
+                path.write_bytes((DATA / name).read_bytes() + b' ')
+                with self.assertRaises(CovariateEstimationError):
+                    loader(path)
 
 
 class PatientView(unittest.TestCase):
@@ -76,6 +84,9 @@ class PatientView(unittest.TestCase):
         self.assertAlmostEqual(view['observed_context']['illustrative_average_individual_nadir_1e9_per_l'], 64.0)
         self.assertIn('at most 1%', view['observed_context']['incidence_for_this_baseline'])
         self.assertEqual(view['eligibility_warnings'], [])
+        self.assertEqual(view['current_grading']['system'], 'CTCAE v5.0')
+        for v in view['variants'].values():
+            self.assertIn('typical_curve_grade_at_lowest_ctcae_v5', v)
 
     def test_low_baselines_bring_warnings_and_the_matching_incidence(self):
         low = patient_platelet_view(self.with_platelets(60, self.revision).id)
@@ -94,8 +105,8 @@ class PatientView(unittest.TestCase):
         detail = self.client.get(base).get_data(as_text=True)
         self.assertIn('Bortezomib platelet curve', detail)
         text = self.client.get(base + '/bortezomib-platelets?cycles=2').get_data(as_text=True)
-        for expected in ('Hypothetical typical curve — not a prediction for this patient', 'Baseline platelet count',
-                         'Observed in the source study', 'Common Toxicity Criteria version 2.0', 'grade 2'):
+        for expected in ('Hypothetical typical effect curve', 'Baseline platelet count',
+                         'Observed in the source study', 'Common Toxicity Criteria version 2.0', 'grade 2', 'CTCAE v5.0'):
             self.assertIn(expected, text)
         data = self.client.get(base + '/bortezomib-platelets?format=json').get_json()
         self.assertEqual(data['baseline_1e9_per_l'], 160.0)

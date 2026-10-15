@@ -138,7 +138,7 @@ class KimPKRunTests(unittest.TestCase):
         saved = self.client.post(self.page(), data=data)
         self.assertEqual(saved.status_code, 303)
         view = self.client.get(saved.headers['Location']).get_data(as_text=True)
-        for expected in ('Kim from page', 'linear multiplicative', 'Warnings at save time', 'may under-predict',
+        for expected in ('Kim from page', 'linear multiplicative', 'Run record', 'may under-predict',
                          'Clinical prediction validated: <strong>false</strong>', 'the model is not re-run'):
             self.assertIn(expected, view)
         exported = self.client.get(saved.headers['Location'] + '?format=json')

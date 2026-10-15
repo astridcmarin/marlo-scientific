@@ -6,6 +6,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from intelligence_store.extensions import db
 from intelligence_store.bortezomib_platelets import MAX_CYCLES
 from intelligence_store.bortezomib_patient_platelets import patient_platelet_view
+from intelligence_store.bortezomib_platelet_evidence import load_model_extract
+from intelligence_store.run_record import RESULT_TYPES, record_for_patient_platelets
 from intelligence_store.patient_state_revisions import read_revision
 from intelligence_store.saved_scenarios import read_scenario
 from .bortezomib_platelet_pages import COLORS, LABELS
@@ -25,8 +27,11 @@ def _chart(view):
               'points': ' '.join(f'{x(t):.2f},{y(c):.2f}' for t, c in zip(view['times_h'], v['absolute_1e9_per_l']))}
              for name, v in view['variants'].items()]
     grades = [{'grade': b['grade'], 'value': b['upper_exclusive'], 'y': y(b['upper_exclusive'])} for b in view['grading']['thresholds']]
+    old = {b['upper_exclusive'] for b in view['grading']['thresholds']}
+    current = [{'grade': b['grade'], 'value': b['upper_exclusive'], 'y': y(b['upper_exclusive'])}
+               for b in view['current_grading']['thresholds'] if b['upper_exclusive'] not in old]
     nadir = view['observed_context']['illustrative_average_individual_nadir_1e9_per_l']
-    return {'lines': lines, 'grades': grades, 'baseline_y': y(view['baseline_1e9_per_l']), 'nadir_y': y(nadir),
+    return {'lines': lines, 'grades': grades, 'current_grades': current, 'baseline_y': y(view['baseline_1e9_per_l']), 'nadir_y': y(nadir),
             'ticks': [{'y': y(v), 'label': f'{v:g}'} for v in range(0, int(top) + 1, 50)],
             'days': [{'x': x(24.0 * d), 'label': f'{d + 1}'} for d in range(0, int(end / 24) + 1, 7)],
             'doses': [x(t) for t in view['regimen']['dose_times_h']]}
@@ -52,6 +57,8 @@ def register_patient_platelet_pages(bp):
                 return Response(json.dumps(view, indent=2, allow_nan=False) + '\n', mimetype='application/json', headers=headers)
             response = _response('landscape_patient_bortezomib_platelets.html', scenario=scenario, revision=revision,
                                  view=view, chart=_chart(view) if view['status'] == 'completed' else None,
+                                 result_type=RESULT_TYPES['hypothetical_typical_pd_curve'],
+                                 record=record_for_patient_platelets(view, load_model_extract()) if view['status'] == 'completed' else None,
                                  labels=LABELS, colors=COLORS, max_cycles=MAX_CYCLES)
             response.headers.update(headers)
             return response

@@ -1,0 +1,29 @@
+{
+  "schema_version": "grading-reference-v1",
+  "reference_version": "ctcae-v5-platelet-count-decreased-v1.0",
+  "recorded_on": "2026-10-14",
+  "source": {
+    "title": "Common Terminology Criteria for Adverse Events (CTCAE) Version 5.0",
+    "publisher": "U.S. Department of Health and Human Services, National Institutes of Health, National Cancer Institute",
+    "published": "2017-11-27",
+    "url": "https://dctd.cancer.gov/research/ctep-trials/for-sites/adverse-events/ctcae-v5-8x11.pdf",
+    "file_reviewed": "CTCAE_v5_Quick_Reference_8.5x11.pdf (147 pages)",
+    "file_sha256": "759783e37fdf8d23cc6f801297f5270d8990ef86d5f5c2eec056f1b600bee4ab",
+    "location": "Investigations, 'Platelet count decreased' (PDF page 83)",
+    "storage": "Kept on the platform owner's computer; read from its text layer on 2026-10-14."
+  },
+  "term": "Platelet count decreased",
+  "definition": "A finding based on laboratory test results that indicate a decrease in number of platelets in a blood specimen.",
+  "system": "CTCAE v5.0",
+  "unit": "1e9/L",
+  "thresholds": [
+    {"grade": 2, "lower_inclusive": 50, "upper_exclusive": 75},
+    {"grade": 3, "lower_inclusive": 25, "upper_exclusive": 50},
+    {"grade": 4, "lower_inclusive": null, "upper_exclusive": 25}
+  ],
+  "grade_1": "<LLN - 75.0 x 10e9/L; not drawn because the lower limit of normal is laboratory-specific",
+  "grade_5": "none listed",
+  "source_text": {"grade_1": "<LLN - 75.0 x 10e9 /L", "grade_2": "<75.0 - 50.0 x 10e9 /L", "grade_3": "<50.0 - 25.0 x 10e9 /L", "grade_4": "<25.0 x 10e9 /L"},
+  "boundary_convention": "CTCAE ranges such as '<50.0 - 25.0' are read as from 25.0 up to but not including 50.0.",
+  "difference_from_ctc_v2": "Grades 1 and 2 match NCI CTC v2.0 (used by Lonial 2005). Grade 3 is 25 to <50 here versus 10 to <50 in v2.0; grade 4 is <25 here versus <10 in v2.0. A v2.0 grade 4 event is therefore a deeper fall than a v5.0 grade 4 event."
+}

@@ -1,0 +1,54 @@
+{# Patient Lab 2.0f: one banner and one run-record panel for every Patient Lab result page. #}
+{% macro status_badge(status) %}<span class="rr-status rr-{{ {'done':'ok','by_design':'ok','within_reported_range':'ok','at_or_above_entry_threshold':'ok','settled_by_locked_check':'ok','fixed':'ok','completed':'ok','completed_educational_calculation':'ok',
+'not_done':'gap','unresolved':'open','assumed':'open','partial':'open','done_with_open_question':'open','done_exploratory':'open'}.get(status,'flag') }}">{{ status|replace('_',' ') }}</span>{% endmacro %}
+
+{% macro simulation_banner(result_type) %}
+<section class="scenario-notice rr-banner" aria-label="What this result is">
+<p class="rr-banner-flags"><strong>Simulated</strong> · <strong>Synthetic patient record</strong> · <strong>Not a clinical prediction</strong></p>
+<p><strong>{{ result_type.label }}.</strong> {{ result_type.is }}</p>
+{{ caller() }}
+<p>It is not {% for item in result_type.is_not %}{{ item }}{% if loop.revindex == 2 %}, or {% elif not loop.last %}, {% endif %}{% endfor %}.</p>
+<p class="rr-banner-flags">Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong></p>
+</section>
+{% endmacro %}
+
+{% macro value(v) %}{% if v is number %}{{ '%.4g'|format(v) }}{% else %}{{ v }}{% endif %}{% endmacro %}
+
+{% macro run_record_panel(record) %}
+<section class="panel rr-panel" aria-labelledby="run-record-heading">
+<h2 id="run-record-heading">Run record</h2>
+<p class="panel-note">Where this result comes from and how far to trust it. Every value is copied from the calculation's report or from a pinned source file; nothing here is recalculated.</p>
+
+<h3>Model and source</h3>
+<p><strong>{{ record.model.name }}</strong> · {{ record.model.citation }} · <a href="https://doi.org/{{ record.model.doi }}" rel="noopener">doi:{{ record.model.doi }}</a> · status {{ status_badge(record.status) }}</p>
+
+<h3>Patient record used</h3>
+<p>Record #{{ record.patient_record.revision_id }} · schema {{ record.patient_record.state_schema_version }} · data: <strong>{{ record.patient_record.data }}</strong>{% if record.saved_at_utc %} · run saved {{ record.saved_at_utc }}{% endif %}</p>
+<div class="table-scroll"><table class="rr-table"><thead><tr><th>Input</th><th>Value</th><th>Origin or method</th></tr></thead><tbody>
+{% for row in record.inputs_from_record %}<tr><td>{{ row.name|replace('_',' ') }}</td><td>{{ value(row.value) }}{% if row.unit %} {{ row.unit }}{% endif %}</td><td>{{ (row.origin or 'unknown')|replace('_',' ') }}</td></tr>{% endfor %}
+{% for row in record.derived_inputs %}<tr><td>{{ row.name|replace('_',' ') }} <small>(derived)</small></td><td>{{ value(row.value) }} {{ row.unit }}</td><td>{{ row.method }}</td></tr>{% endfor %}
+</tbody></table></div>
+
+<h3>Assumptions</h3>
+<div class="table-scroll"><table class="rr-table"><thead><tr><th>Assumption</th><th>Reading used</th><th>Status</th><th>Basis</th></tr></thead><tbody>
+{% for a in record.assumptions %}<tr><td>{{ a.name }}</td><td>{{ a.reading }}</td><td>{{ status_badge(a.status) }}</td><td>{{ a.evidence }}</td></tr>{% endfor %}
+</tbody></table></div>
+
+<h3>Inside the source data?</h3>
+<div class="table-scroll"><table class="rr-table"><caption>Outside a reported range means extrapolation from the source study, not a clinical threshold.</caption><thead><tr><th>Item</th><th>This record</th><th>Source</th><th>Status</th></tr></thead><tbody>
+{% for c in record.applicability %}<tr><td>{{ c.item|replace('_',' ') }}</td><td>{{ value(c.value) }} {{ c.unit }}</td><td>{{ c.reference }}</td><td>{{ status_badge(c.status) }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% if record.warnings %}<ul class="rr-warnings">{% for w in record.warnings %}<li role="note">{{ w }}</li>{% endfor %}</ul>{% endif %}
+
+<h3>What has been checked about this model</h3>
+<div class="table-scroll"><table class="rr-table"><thead><tr><th>Layer</th><th>Status</th><th>What was found</th></tr></thead><tbody>
+{% for layer in record.model.layers %}<tr><td>{{ layer.layer|replace('_',' ')|capitalize }}<br><small>{{ layer.description }}</small></td><td>{{ status_badge(layer.status) }}</td><td>{{ layer.summary }}{% if layer.evidence_report %}<br><small>Report: {{ layer.evidence_report }}</small>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="panel-note"><strong>Not established for any model:</strong> {{ record.model.never_established }}</p>
+
+<details><summary>Limitations and checksums</summary>
+{% if record.limitations %}<ul>{% for text in record.limitations %}<li>{{ text }}</li>{% endfor %}</ul>{% endif %}
+<p class="catalog-digest">{% for c in record.checksums %}{{ c.label }}: {{ c.sha256 }}<br>{% endfor %}Model evidence status: {{ record.evidence_status_version }} ({{ record.evidence_status_sha256 }})<br>Run record ({{ record.schema_version }}): {{ record.record_sha256 }}</p>
+</details>
+</section>
+{% endmacro %}

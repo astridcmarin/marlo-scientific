@@ -1,11 +1,12 @@
 {% extends "landscape_base.html" %}
+{% from "run_record_macros.html" import simulation_banner, run_record_panel %}
 {% block title %}Saved Kim run #{{ run.id }}{% endblock %}
 {% block content %}<link rel="stylesheet" href="{{ url_for('landscape.static',filename='transit-demo.css') }}">
 <h1>{{ run.title }}</h1>
 <p><a href="{{ url_for('landscape.estimated_pk',scenario_id=scenario.id,revision_id=revision.id) }}">Back to educational PK for record #{{ revision.id }}</a> · Saved {{ run.payload.saved_at_utc }} · <a href="{{ url_for('landscape.saved_kim_run',scenario_id=scenario.id,revision_id=revision.id,run_id=run.id,format='json') }}">Export JSON</a></p>
-<section class="scenario-notice"><strong>Saved synthetic calculation, not a clinical prediction</strong><p>{{ run.payload.scope_note }} This page shows the archived values after checking every checksum and the link to the patient record; the model is not re-run.</p></section>
+{% call simulation_banner(result_type) %}<p>{{ run.payload.scope_note }} This page shows the archived values after checking every checksum and the link to the patient record; the model is not re-run.</p>{% endcall %}
 <section class="panel"><h2>Kim 2026 typical-value result</h2>
-<p>Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong> · Prediction type: {{ report.prediction_type }}</p>
+<p>Prediction type: {{ report.prediction_type }}</p>
 <div class="table-scroll"><table><thead><tr><th>Quantity</th><th>Value</th></tr></thead><tbody>
 <tr><td>Typical total CL/F</td><td>{{ '%.2f'|format(report.parameters.total_clearance_l_h) }} L/h (unbound {{ '%.2f'|format(report.parameters.unbound_clearance_l_h) }} L/h, Fu {{ report.parameters.fraction_unbound }})</td></tr>
 <tr><td>AUC over horizon (total)</td><td>{{ '%.1f'|format(report.exposure.total_auc_0_horizon_ng_h_ml) }} ng·h/mL</td></tr>
@@ -17,18 +18,6 @@
 {% for tick in chart.ticks %}<line x1="70" y1="{{ tick.y }}" x2="740" y2="{{ tick.y }}" class="transit-grid"/><text x="62" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
 {% for tick in chart.time_ticks %}<text x="{{ tick.x }}" y="270" text-anchor="middle">{{ tick.label }}</text>{% endfor %}<text x="70" y="18">{{ chart.unit }}</text><text x="405" y="296" text-anchor="middle">Time (h)</text>{% for series in chart.series %}<polyline points="{{ series.polyline }}" fill="none" stroke="{{ series.color }}" stroke-width="2.5"{% if series.dash %} stroke-dasharray="{{ series.dash }}"{% endif %}/>{% endfor %}</svg>
 <p>{% for series in chart.series %}<span style="color:{{ series.color }}">{{ '- -' if series.dash else '■' }}</span> {{ series.label }}{% if not loop.last %} · {% endif %}{% endfor %}</p></section>
-<section class="panel"><h2>Assumption recorded with this run</h2>
-<p>CL/F equation reading: <strong>{{ report.cl_form|replace('_',' ') }}</strong> · {{ report.cl_form_evidence.evidence_level|replace('_',' ') }} · {{ 'primary reading' if report.cl_form_evidence.is_primary_form else 'sensitivity reading' }} · assessment status: <strong>{{ report.cl_form_evidence.assessment_status }}</strong>. {{ report.cl_form_evidence.summary }}</p></section>
-<section class="panel"><h2>Covariates estimated from the saved record</h2>
-<div class="table-scroll"><table><thead><tr><th>Quantity</th><th>Value</th><th>Formula</th></tr></thead><tbody>
-{% for step in estimate.derivations %}<tr><td>{{ step.quantity }}</td><td>{{ '%.2f'|format(step.value) }} {{ step.unit }}</td><td>{{ step.formula_id }} ({{ step.formula_version }})</td></tr>{% endfor %}
-</tbody></table></div>
-<div class="table-scroll"><table><caption>Coverage against the Kim 2026 study (Table 1). Outside means extrapolation, not a clinical threshold.</caption>
-<thead><tr><th>Field</th><th>Value</th><th>Reported range</th><th>Status</th></tr></thead><tbody>
-{% for check in estimate.coverage_checks %}<tr><td>{{ check.field }}</td><td>{{ '%.2f'|format(check.value) }} {{ check.unit }}</td><td>{{ '%.3g'|format(check.source_range[0]) }}–{{ '%.3g'|format(check.source_range[1]) }}</td><td>{{ check.status|replace('_',' ') }}</td></tr>{% endfor %}
-</tbody></table></div>
-{% if estimate.warnings %}<h3>Warnings at save time</h3><ul>{% for w in estimate.warnings %}<li>{{ w }}</li>{% endfor %}</ul>{% endif %}</section>
-<details class="panel"><summary>Limitations, request and traceability</summary><ul>{% for text in report.limitations %}<li>{{ text }}</li>{% endfor %}</ul>
-<pre>{{ request_json }}</pre>
-<p class="catalog-digest">Payload SHA256: {{ run.payload_sha256 }}<br>Report SHA256: {{ run.report_sha256 }}<br>Estimate SHA256: {{ report.covariate_estimate_sha256 }}<br>Model extract: {{ estimate.extract_version }} · Formula registry: {{ estimate.registry_version }} · Findings: {{ estimate.findings_version }}</p></details>
+{{ run_record_panel(record) }}
+<details class="panel"><summary>Archived treatment request</summary><pre>{{ request_json }}</pre></details>
 {% endblock %}

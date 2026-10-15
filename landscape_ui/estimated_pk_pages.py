@@ -2,6 +2,7 @@
 import json
 from flask import Response, abort, redirect, request, url_for
 from sqlalchemy.exc import SQLAlchemyError
+from intelligence_store.run_record import RESULT_TYPES, record_for_estimated_pk
 from intelligence_store.extensions import db
 from intelligence_store.patient_state_revisions import read_revision
 from intelligence_store.saved_scenarios import read_scenario
@@ -177,6 +178,8 @@ def register_estimated_pk_pages(bp):
             response = _response('landscape_estimated_pk.html', scenario=scenario, revision=revision, form_token=token,
                                  form=form, basis_options=_basis_options(), cl_form_options=_cl_form_options(), disease_codes=('UNKNOWN', 'MM', 'CLL', 'AML', 'ALL', 'OTHER'),
                                  estimate=estimate, report=report, calculation=calculation,
+                                 result_type=RESULT_TYPES['typical_value_pk'],
+                                 record=record_for_estimated_pk(report) if report else None,
                                  charts=_charts(calculation), comparison=comparison,
                                  overlay=_overlay(comparison) if comparison else [], population=population,
                                  band_chart=_band_chart(population), models=models,

@@ -1,11 +1,12 @@
 {% extends "landscape_base.html" %}
+{% from "run_record_macros.html" import simulation_banner, run_record_panel %}
 {% block title %}Estimated-covariate PK · Record {{ revision.id }}{% endblock %}
 {% block content %}<p><a class="button secondary" href="{{ url_for('landscape.patient_lab_overview',scenario_id=scenario.id,revision_id=revision.id) }}">Patient Lab overview for this record</a></p>
 <link rel="stylesheet" href="{{ url_for('landscape.static',filename='transit-demo.css') }}">
 <h1>Educational PK from this patient record</h1>
 <p><a href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id) }}">Back to patient-state record #{{ revision.id }}</a> · Scenario #{{ scenario.id }} · <a href="{{ url_for('landscape.educational_pk',scenario_id=scenario.id,revision_id=revision.id) }}">Enter covariates directly instead</a></p>
-<section class="scenario-notice"><strong>Simulated, synthetic, not a clinical prediction</strong><p>Fat-free mass and creatinine clearance are estimated from this record's age, sex, weight, height and serum creatinine, then used by the Hughes 2019 model. The curve is the model's <em>typical value</em> for a patient with these covariates, with all random effects at zero. Patients with identical covariates vary widely around it. It does not predict efficacy, toxicity or a suitable dose.</p></section>
-{% include 'estimate_provenance_panel.html' %}
+{% call simulation_banner(result_type) %}<p>Fat-free mass and creatinine clearance are estimated from this record's age, sex, weight, height and serum creatinine, then used by the Hughes 2019 model. Patients with identical covariates vary widely around the typical curve.</p>{% endcall %}
+{% if not record %}{% include 'estimate_provenance_panel.html' %}{% endif %}
 <section class="panel"><h2>Request a calculation</h2>
 {% if error %}<p role="alert">{{ error }}</p>{% endif %}
 <form method="post"><input type="hidden" name="form_token" value="{{ form_token }}">
@@ -30,7 +31,7 @@
 </form><p>Saving uses the values last submitted above. A Hughes run archives the covariate estimate and weight basis; a Kim run archives its eGFR/BSA estimate, the CL/F equation reading with its evidence, and the warnings shown at save time. Blocked calculations are not saved. The patient record is never changed.</p></section>
 {% if report %}
 <section class="panel"><h2>{{ 'Educational calculation completed' if calculation and calculation.points else 'Calculation not run' }}</h2>
-<p>Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong> · Prediction type: {{ report.prediction_type }}</p>
+<p>Prediction type: {{ report.prediction_type }}</p>
 {% if not calculation %}<p>The record is missing estimator inputs; no calculation was attempted.</p>{% endif %}
 {% if calculation and calculation.execution_blockers %}<ul>{% for b in calculation.execution_blockers %}<li>{{ b.code }}: {{ b.message }}</li>{% endfor %}</ul>{% endif %}
 {% if calculation and calculation.points %}<p>Typical CL/F {{ '%.2f'|format(calculation.parameters.apparent_clearance_l_h) }} L/h · V/F {{ '%.1f'|format(calculation.parameters.apparent_volume_l) }} L. AUC over 0–{{ calculation.points[-1].time_h }} h: {{ '%.1f'|format(calculation.auc_0_horizon_ng_h_ml) }} ng·h/mL.</p>{% endif %}
@@ -38,7 +39,8 @@
 {% for chart in charts %}<section class="panel"><h2>{{ chart.title }}</h2><svg class="transit-chart" viewBox="0 0 780 305" role="img" aria-labelledby="epk-title-{{ loop.index }}"><title id="epk-title-{{ loop.index }}">{{ chart.title }}; time in hours, vertical axis {{ chart.unit }}. Synthetic typical-value calculation.</title>
 {% for tick in chart.ticks %}<line x1="70" y1="{{ tick.y }}" x2="740" y2="{{ tick.y }}" class="transit-grid"/><text x="62" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
 {% for tick in chart.time_ticks %}<text x="{{ tick.x }}" y="270" text-anchor="middle">{{ tick.label }}</text>{% endfor %}<text x="70" y="18">{{ chart.unit }}</text><text x="405" y="296" text-anchor="middle">Time (h)</text>{% for series in chart.series %}<polyline points="{{ series.polyline }}" fill="none" stroke="{{ series.color }}" stroke-width="2.5"/>{% endfor %}</svg></section>{% endfor %}
-<details class="panel"><summary>Assumptions, inherited review gaps and traceability</summary><p>{{ report.provenance_note }}</p>{% if calculation %}<ul>{% for text in calculation.limitations %}<li>{{ text }}</li>{% endfor %}{% for b in calculation.clinical_review_blockers %}<li>{{ b.code }}: {{ b.message }}</li>{% endfor %}</ul>{% endif %}<p class="catalog-digest">Report SHA256: {{ report.report_sha256 }}<br>Estimate SHA256: {{ report.covariate_estimate_sha256 }}{% if calculation %}<br>Calculation SHA256: {{ report.calculation_sha256 }}{% endif %}</p></details>
+{{ run_record_panel(record) }}
+<details class="panel"><summary>Provenance note and inherited review gaps</summary><p>{{ report.provenance_note }}</p>{% if calculation and calculation.clinical_review_blockers %}<ul>{% for b in calculation.clinical_review_blockers %}<li>{{ b.code }}: {{ b.message }}</li>{% endfor %}</ul>{% endif %}</details>
 {% endif %}
 {% if comparison %}
 <section class="panel"><h2>Weight-basis comparison</h2><p>Same record, same request; only the Cockcroft–Gault weight basis changes. Random effects are zero in every curve.</p>
