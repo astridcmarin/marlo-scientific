@@ -145,7 +145,7 @@ class Records(unittest.TestCase):
                   'What has been checked about this model', 'Inside the source data?')
         rev = self.platelet_revision(120)
         platelets = self.client.get(f'{base}/{rev.id}/bortezomib-platelets').get_data(as_text=True)
-        for text in shared + ('Hypothetical typical effect curve', 'settled by locked check', 'not done', 'doi:10.1002/psp4.12743', 'Sources searched', 'CR009058'):
+        for text in shared + ('Hypothetical typical effect curve', 'settled by locked check', 'not done', 'doi:10.1002/psp4.12743', 'Sources searched', 'CR009058', 'Ogawa Y'):
             self.assertIn(text, platelets)
         missing = self.client.get(f'{base}/{self.revision.id}/bortezomib-platelets').get_data(as_text=True)
         self.assertIn('Not a clinical prediction', missing)

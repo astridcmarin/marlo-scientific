@@ -97,7 +97,7 @@
         },
         "external_consistency": {
           "status": "not_done",
-          "summary": "No usable outside data. The Japanese phase I/II study (NCT00752518, sponsor report CR009058; 0.7, 1.0 and 1.3 mg/m2, same schedule) is the only candidate found, and its public synopsis gives no platelet counts over time. The full report, which tabulated hematology values by testing time, is not public.",
+          "summary": "No usable outside data. The Japanese phase I/II study (NCT00752518; Ogawa et al. 2008; sponsor report CR009058; 0.7, 1.0 and 1.3 mg/m2, same schedule) is the only candidate found. Neither the paper nor the public synopsis gives platelet counts over time; the full report, which tabulated hematology values by testing time, is not public.",
           "search": {
             "searched_on": "2026-10-15",
             "candidates": [
@@ -112,8 +112,10 @@
                 "result": "No platelet values over time. Page 7 states descriptive statistics of hematology values by testing time and time to nadir and recovery were calculated in the full report. Grade 3 or higher platelet decrease is not among the grade 3 or higher events listed (lowest listed 23.5%); thrombocytopenia is reported once as a serious event (1/34)."
               },
               {
-                "source": "Tobinai K, et al. Blood. 2006;108(11) abstract, cited by the synopsis",
-                "result": "Not obtained; a meeting abstract on PK and proteasome inhibition."
+                "source": "Ogawa Y, Tobinai K, Ogura M, et al. Cancer Sci. 2008;99(1):140-144. doi:10.1111/j.1349-7006.2007.00638.x",
+                "file_sha256": "a374b700a9e4e9420f3abb6be63299e9740ea774c49949af97375cfb63c0d3cf",
+                "storage": "Kept on the platform owner's computer only; not committed.",
+                "result": "No platelet values over time; Figure 1 shows only plasma concentrations and 20S proteasome inhibition. Table 2 gives thrombocytopenia by NCI-CTC grade: at 1.3 mg/m2 (n = 25), grade 1/2 in 12 and grade 3/4 in 11 patients; 28 of 34 (82%) overall. Entry required platelets of at least 75 x10^9/L."
               },
               {
                 "source": "Shi DS, et al. J Clin Invest. 2014;124(9):3757-3766",
