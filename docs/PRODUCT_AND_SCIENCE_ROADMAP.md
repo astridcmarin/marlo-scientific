@@ -53,7 +53,7 @@ No efficacy or toxicity model is registered, and no model is validated for clini
 The library inventory now counts two lenalidomide exposure models, the bortezomib PK component and the platelet tool (inventory v1.2). Earlier step-number history, including the reused numbers 106–108 for **observation intake v1**, is in the [13 October checkpoint](history/REPOSITORY_CHECKPOINT_2026-10-13.md).
 
 **Next work:**
-1. Simulation 4.0 (linked exposure–effect for a patient). Lenalidomide has no usable effect model; the [evidence scan](SIMULATION_4_EVIDENCE_SCAN.md) points to carfilzomib, pending Ou et al. 2017.
+1. Simulation 4.0 (linked exposure–effect for a patient). Lenalidomide has no usable effect model; the [evidence scan](SIMULATION_4_EVIDENCE_SCAN.md) found no curated drug that meets all criteria; next, look for the lenalidomide exposure–safety model in public FDA/EMA reviews.
 2. For bortezomib, a published PK model with time-dependent clearance; the Ogawa 2008 check (3.0f) found the current single clearance fits repeat-dose but not first-dose exposure.
 
 Preserve the distinction between software verification and empirical or independent scientific validation.
