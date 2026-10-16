@@ -16,7 +16,7 @@ from .patient_state import digest
 from .patient_state_revisions import read_revision
 
 SCHEMA_VERSION = 'patient-renal-pathways-view-v1'
-METHOD_VERSION = 'patient-renal-pathways-v1.0'
+METHOD_VERSION = 'patient-renal-pathways-v1.1'
 READING = 'A_intact_nephron'
 CALIBRATION_CRCL = 110.0
 FU = 0.77
@@ -57,8 +57,13 @@ def patient_renal_pathways(revision_id, weight_basis=None):
     if 30.0 <= crcl < 50.0:
         warnings.append('In moderate impairment (30-50 mL/min) the check found renal elimination lower than this reading '
                         'predicts: the true renal share is probably smaller and exposure higher than shown.')
-    if crcl < 30.0:
+    if 10.0 <= crcl < 30.0:
         warnings.append('Severe impairment: the reading was consistent with the severe group mean, but that group had only 6 subjects.')
+    if crcl < 10.0:
+        warnings.append('End-stage range: in Simulation 2.0c, exposure in end-stage kidney disease matched this model only if some residual '
+                        'kidney function remained (about 5-10 mL/min); with none, the model over-predicted exposure by about 1.3-fold. '
+                        'Haemodialysis is an additional route not shown here: one 4-hour session started 3 h after a 25 mg dose '
+                        'removed about 39% of the dose in the study.')
     total = p['total_ml_min']
     view.update(
         status='completed', crcl_ml_min=crcl,

@@ -46,6 +46,11 @@ class PatientPathways(unittest.TestCase):
         self.assertTrue(30 <= v['crcl_ml_min'] < 50)
         self.assertTrue(any('probably smaller' in w for w in v['warnings']))
 
+    def test_end_stage_range_carries_the_esrd_and_dialysis_note(self):
+        v = patient_renal_pathways(self.revision_with(serum_creatinine=600).id)
+        self.assertLess(v['crcl_ml_min'], 10)
+        self.assertTrue(any('39% of the dose' in w for w in v['warnings']))
+
     def test_missing_inputs_are_reported_not_filled(self):
         state = copy.deepcopy(fixtures.full_state())
         state['fields']['serum_creatinine'] = {'value': None, 'unit': state['fields']['serum_creatinine']['unit'],

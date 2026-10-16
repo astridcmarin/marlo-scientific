@@ -1,6 +1,6 @@
 # Simulation 2.0 — lenalidomide elimination pathways (kidney-focused)
 
-Status: **2.0a and 2.0b done**: pathway model, locked check and a patient organ view.
+Status: **2.0a–2.0c done**: pathway model, locked check, patient organ view, and end-stage kidney disease and dialysis.
 
 ## Why this, and not a full PBPK model
 
@@ -76,8 +76,31 @@ Page `…/patient-state/revisions/<id>/renal-pathways`, linked from the patient 
 
 This is the platform's first organ-level view: it shows where the drug goes, not only how much is in plasma.
 
+## 2.0c — End-stage kidney disease and dialysis
+
+- **Evidence:** EMA 2008 Table 4, ESRD columns, pinned in `lenalidomide_esrd_dialysis_evidence_v1.json`. The same six subjects received 25 mg once on a non-dialysis day and once 3 h before a 4-hour haemodialysis session.
+- **Plan:** `lenalidomide_esrd_dialysis_plan_v1.json`, locked in commit `382a301` before computation. It discloses that a mental estimate of about 1.3-fold over-prediction had been made.
+
+**Primary test: does the normal-group non-renal clearance (29 mL/min, held constant) predict ESRD exposure?** Observed AUC was 11,121 ng·h/mL (95% CI 8,883–13,359).
+
+| Assumed residual creatinine clearance | Predicted AUC | Ratio | Result |
+|---|---|---|---|
+| 0 (no kidney function) | 14,540 | 1.31 | over-predicts |
+| 5 mL/min | 11,562 | 1.04 | consistent |
+| 10 mL/min | 9,596 | 0.86 | consistent |
+
+**Inconclusive under the plan's rule.** The ESRD subjects' residual kidney function is not reported. The data fit a constant non-renal route if a little kidney function remained, which is common in dialysis patients, but not if none did.
+
+**Descriptive results:**
+- **Non-renal clearance implied by each group's own data:** normal 29, mild 47, moderate 40, severe 29 mL/min. There is no trend with kidney function; the spread is what groups of 5–7 people produce. The constant non-renal assumption therefore stands, and the moderate-group shortfall in 2.0a is better explained by renal elimination falling faster than creatinine clearance.
+- **Dialysis:** with the subjects' own non-dialysis clearance (37.5 mL/min) applied through the dialysis day, their own routes eliminated 15.4 mg. One 4-hour session started 3 h after dosing therefore removed about **9.6 mg, 39% of the dose**, and exposure that day was 0.61 times the non-dialysis day. Dialyser clearance itself cannot be computed: concentrations during the session were not reported.
+
+**Patient page:** for an estimated creatinine clearance below 10 mL/min, the 2.0b page now warns that the model fits end-stage disease only with some residual function, and that dialysis is an extra route not drawn.
+
+Report `docs/verification/lenalidomide_esrd_dialysis_check_v1.json`; CLI `lenalidomide-esrd-dialysis-check`.
+
 ## Next
 
-- **Add the end-stage renal disease and dialysis groups** of CC-5013-PK-001 (not yet transcribed). Dialysis is an extra elimination route; the off-dialysis CL/F was 39 mL/min.
-- **Test whether non-renal clearance changes with kidney function**, as the moderate group hints.
+- **A dialysis route on the patient page,** if session-level concentration data can be found; today only the total removed by one session is known.
+- **Why renal elimination falls faster than creatinine clearance:** literature on lenalidomide's tubular transporters.
 
