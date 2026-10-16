@@ -42,6 +42,7 @@ Several step documents describe installer scripts (`scripts/install_*.py`) from 
 - [Step 107 — study-regimen time course](BORTEZOMIB_TIMECOURSE_STEP107.md)
 - [Step 108 — elimination-assumption comparison](BORTEZOMIB_ASSUMPTIONS_STEP108.md)
 - [Observation intake v1](BORTEZOMIB_OBSERVATION_INTAKE_STEPS106_108.md) — separate workflow that reused the numbers 106–108.
+- [Simulation 4.0 — evidence scan](SIMULATION_4_EVIDENCE_SCAN.md): search for a patient-dependent exposure–effect model; no curated drug meets all criteria; carfilzomib fails on patient dependence (body surface area is its only PK covariate); next route is the public FDA/EMA reviews for a lenalidomide exposure–safety model.
 - [Simulation 3.0 — bortezomib platelet time course](SIMULATION_3_BORTEZOMIB_PLATELETS.md): Lignet 2022 model transcription, open questions and Lonial 2005 observed values (`intelligence_store/data/bortezomib_platelet_*_v1.json`). PK engine and label comparison: `bortezomib_pk.py`, `bortezomib_label_pk_v1.json`. Locked reading check: [report](verification/bortezomib_platelet_check_v1.json), plan `bortezomib_platelet_check_plan_v1.json`. Run record and model evidence status: `intelligence_store/run_record.py`, `model_evidence_status_v2.json` (Patient Lab 2.0f; outside-data search 3.0e). PK component outside check against Ogawa 2008 (3.0f): [report](verification/bortezomib_pk_ogawa_check_v1.json), plan `bortezomib_pk_ogawa_check_plan_v1.json`, CLI `bortezomib-pk-ogawa-check`.
 - [Step 109 — discoverable drug research tools](DRUG_RESEARCH_TOOLS_STEP109.md)
 
