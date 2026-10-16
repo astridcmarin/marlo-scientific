@@ -1,0 +1,929 @@
+{
+  "schema_version": "lenalidomide-renal-pathways-check-report-v1",
+  "method_version": "lenalidomide-renal-pathways-v1.0",
+  "plan_version": "lenalidomide-renal-pathways-plan-v1.0",
+  "plan_sha256": "591e032c7bf96f80b8bcae217a171b258923875bdfd7a37cd81baa86939f194a",
+  "evidence_sha256": "e7c62bc477bfc6170f42f1f01e5935ea222bec0fbf513da718178030c42d2c8f",
+  "classification": "exploratory_aggregate_consistency_check",
+  "scenarios": [
+    {
+      "label": "primary",
+      "settings": {
+        "normal": 110,
+        "mild": 65,
+        "moderate": 40,
+        "severe_without_dialysis": 20,
+        "fu": 0.77
+      },
+      "calibration": {
+        "crcl_ml_min": 110,
+        "fu": 0.77,
+        "total_ml_min": 191.04386367109888,
+        "renal_ml_min": 162.38728412043403,
+        "non_renal_ml_min": 28.656579550664844,
+        "filtration_ml_min": 84.7,
+        "secretion_ml_min": 77.68728412043403
+      },
+      "secretion_positive": true,
+      "groups": [
+        {
+          "group": "mild",
+          "n": 5,
+          "observed_auc_mean": 2767,
+          "observed_auc_sd": 1094,
+          "interval_95": [
+            1408.6416537585849,
+            4125.358346241415
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 65,
+              "filtration_ml_min": 50.050000000000004,
+              "secretion_ml_min": 45.90612243480193,
+              "renal_ml_min": 95.95612243480193,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 124.61270198546677,
+              "fe": 0.7700348432055748,
+              "auc_ng_h_ml": 3343.693379790941,
+              "ratio_to_observed": 1.20841827964978,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 65,
+              "filtration_ml_min": 50.050000000000004,
+              "secretion_ml_min": 77.68728412043403,
+              "renal_ml_min": 127.73728412043403,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 156.39386367109887,
+              "fe": 0.8167665989061405,
+              "auc_ng_h_ml": 2664.2136519047167,
+              "ratio_to_observed": 0.9628527834856222,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            }
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "observed_auc_mean": 6021,
+          "observed_auc_sd": 847,
+          "interval_95": [
+            5132.121732019954,
+            6909.878267980046
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 40,
+              "filtration_ml_min": 30.8,
+              "secretion_ml_min": 28.24992149833965,
+              "renal_ml_min": 59.04992149833965,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 87.70650104900449,
+              "fe": 0.6732673267326732,
+              "auc_ng_h_ml": 4750.693069306931,
+              "ratio_to_observed": 0.7890206060964841,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.42
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 40,
+              "filtration_ml_min": 30.8,
+              "secretion_ml_min": 77.68728412043403,
+              "renal_ml_min": 108.48728412043403,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 137.14386367109887,
+              "fe": 0.7910473076696335,
+              "auc_ng_h_ml": 3038.1721464835273,
+              "ratio_to_observed": 0.5045959386287207,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.42
+            }
+          }
+        },
+        {
+          "group": "severe_without_dialysis",
+          "n": 6,
+          "observed_auc_mean": 8191,
+          "observed_auc_sd": 1317,
+          "interval_95": [
+            6808.883495950742,
+            9573.116504049258
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 20,
+              "filtration_ml_min": 15.4,
+              "secretion_ml_min": 14.124960749169825,
+              "renal_ml_min": 29.524960749169825,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 58.181540299834666,
+              "fe": 0.5074626865671641,
+              "auc_ng_h_ml": 7161.492537313432,
+              "ratio_to_observed": 0.874312359579225,
+              "classification": "consistent",
+              "fe_observed": 0.44
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 20,
+              "filtration_ml_min": 15.4,
+              "secretion_ml_min": 77.68728412043403,
+              "renal_ml_min": 93.08728412043403,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 121.74386367109888,
+              "fe": 0.7646158197502014,
+              "auc_ng_h_ml": 3422.48598083207,
+              "ratio_to_observed": 0.4178349384485496,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.44
+            }
+          }
+        }
+      ]
+    },
+    {
+      "label": "normal at 90",
+      "settings": {
+        "normal": 90,
+        "mild": 65,
+        "moderate": 40,
+        "severe_without_dialysis": 20,
+        "fu": 0.77
+      },
+      "calibration": {
+        "crcl_ml_min": 90,
+        "fu": 0.77,
+        "total_ml_min": 191.04386367109888,
+        "renal_ml_min": 162.38728412043403,
+        "non_renal_ml_min": 28.656579550664844,
+        "filtration_ml_min": 69.3,
+        "secretion_ml_min": 93.08728412043403
+      },
+      "secretion_positive": true,
+      "groups": [
+        {
+          "group": "mild",
+          "n": 5,
+          "observed_auc_mean": 2767,
+          "observed_auc_sd": 1094,
+          "interval_95": [
+            1408.6416537585849,
+            4125.358346241415
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 65,
+              "filtration_ml_min": 50.050000000000004,
+              "secretion_ml_min": 67.22970519809125,
+              "renal_ml_min": 117.27970519809125,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 145.9362847487561,
+              "fe": 0.8036363636363636,
+              "auc_ng_h_ml": 2855.1272727272726,
+              "ratio_to_observed": 1.031849393829878,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 65,
+              "filtration_ml_min": 50.050000000000004,
+              "secretion_ml_min": 93.08728412043403,
+              "renal_ml_min": 143.13728412043403,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 171.79386367109888,
+              "fe": 0.8331920655470666,
+              "auc_ng_h_ml": 2425.387366945651,
+              "ratio_to_observed": 0.8765404289648179,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            }
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "observed_auc_mean": 6021,
+          "observed_auc_sd": 847,
+          "interval_95": [
+            5132.121732019954,
+            6909.878267980046
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 40,
+              "filtration_ml_min": 30.8,
+              "secretion_ml_min": 41.37212627574846,
+              "renal_ml_min": 72.17212627574845,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 100.8287058264133,
+              "fe": 0.7157894736842104,
+              "auc_ng_h_ml": 4132.421052631579,
+              "ratio_to_observed": 0.6863346707576116,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.42
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 40,
+              "filtration_ml_min": 30.8,
+              "secretion_ml_min": 93.08728412043403,
+              "renal_ml_min": 123.88728412043403,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 152.54386367109888,
+              "fe": 0.8121420366508381,
+              "auc_ng_h_ml": 2731.454787096813,
+              "ratio_to_observed": 0.45365467316007524,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.42
+            }
+          }
+        },
+        {
+          "group": "severe_without_dialysis",
+          "n": 6,
+          "observed_auc_mean": 8191,
+          "observed_auc_sd": 1317,
+          "interval_95": [
+            6808.883495950742,
+            9573.116504049258
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 20,
+              "filtration_ml_min": 15.4,
+              "secretion_ml_min": 20.68606313787423,
+              "renal_ml_min": 36.08606313787423,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 64.74264268853906,
+              "fe": 0.5573770491803278,
+              "auc_ng_h_ml": 6435.737704918033,
+              "ratio_to_observed": 0.7857084244802873,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.44
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 20,
+              "filtration_ml_min": 15.4,
+              "secretion_ml_min": 93.08728412043403,
+              "renal_ml_min": 108.48728412043404,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 137.14386367109887,
+              "fe": 0.7910473076696336,
+              "auc_ng_h_ml": 3038.1721464835273,
+              "ratio_to_observed": 0.370915901170007,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.44
+            }
+          }
+        }
+      ]
+    },
+    {
+      "label": "normal at 130",
+      "settings": {
+        "normal": 130,
+        "mild": 65,
+        "moderate": 40,
+        "severe_without_dialysis": 20,
+        "fu": 0.77
+      },
+      "calibration": {
+        "crcl_ml_min": 130,
+        "fu": 0.77,
+        "total_ml_min": 191.04386367109888,
+        "renal_ml_min": 162.38728412043403,
+        "non_renal_ml_min": 28.656579550664844,
+        "filtration_ml_min": 100.10000000000001,
+        "secretion_ml_min": 62.28728412043402
+      },
+      "secretion_positive": true,
+      "groups": [
+        {
+          "group": "mild",
+          "n": 5,
+          "observed_auc_mean": 2767,
+          "observed_auc_sd": 1094,
+          "interval_95": [
+            1408.6416537585849,
+            4125.358346241415
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 65,
+              "filtration_ml_min": 50.050000000000004,
+              "secretion_ml_min": 31.14364206021701,
+              "renal_ml_min": 81.19364206021702,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 109.85022161088186,
+              "fe": 0.7391304347826086,
+              "auc_ng_h_ml": 3793.0434782608695,
+              "ratio_to_observed": 1.3708144120928332,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 65,
+              "filtration_ml_min": 50.050000000000004,
+              "secretion_ml_min": 62.28728412043402,
+              "renal_ml_min": 112.33728412043402,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 140.99386367109886,
+              "fe": 0.7967530018362146,
+              "auc_ng_h_ml": 2955.211353301439,
+              "ratio_to_observed": 1.0680200048071697,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            }
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "observed_auc_mean": 6021,
+          "observed_auc_sd": 847,
+          "interval_95": [
+            5132.121732019954,
+            6909.878267980046
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 40,
+              "filtration_ml_min": 30.8,
+              "secretion_ml_min": 19.165318190902777,
+              "renal_ml_min": 49.96531819090278,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 78.62189774156762,
+              "fe": 0.6355140186915886,
+              "auc_ng_h_ml": 5299.626168224298,
+              "ratio_to_observed": 0.8801903617711839,
+              "classification": "consistent",
+              "fe_observed": 0.42
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 40,
+              "filtration_ml_min": 30.8,
+              "secretion_ml_min": 62.28728412043402,
+              "renal_ml_min": 93.08728412043402,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 121.74386367109886,
+              "fe": 0.7646158197502014,
+              "auc_ng_h_ml": 3422.4859808320703,
+              "ratio_to_observed": 0.5684248431875221,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.42
+            }
+          }
+        },
+        {
+          "group": "severe_without_dialysis",
+          "n": 6,
+          "observed_auc_mean": 8191,
+          "observed_auc_sd": 1317,
+          "interval_95": [
+            6808.883495950742,
+            9573.116504049258
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 20,
+              "filtration_ml_min": 15.4,
+              "secretion_ml_min": 9.582659095451389,
+              "renal_ml_min": 24.98265909545139,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 53.63923864611623,
+              "fe": 0.4657534246575341,
+              "auc_ng_h_ml": 7767.945205479451,
+              "ratio_to_observed": 0.9483512642509402,
+              "classification": "consistent",
+              "fe_observed": 0.44
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 20,
+              "filtration_ml_min": 15.4,
+              "secretion_ml_min": 62.28728412043402,
+              "renal_ml_min": 77.68728412043403,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 106.34386367109887,
+              "fe": 0.7305290727512578,
+              "auc_ng_h_ml": 3918.1072821967105,
+              "ratio_to_observed": 0.47834297182233065,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.44
+            }
+          }
+        }
+      ]
+    },
+    {
+      "label": "impaired groups at their upper limits",
+      "settings": {
+        "normal": 110,
+        "mild": 80,
+        "moderate": 50,
+        "severe_without_dialysis": 30,
+        "fu": 0.77
+      },
+      "calibration": {
+        "crcl_ml_min": 110,
+        "fu": 0.77,
+        "total_ml_min": 191.04386367109888,
+        "renal_ml_min": 162.38728412043403,
+        "non_renal_ml_min": 28.656579550664844,
+        "filtration_ml_min": 84.7,
+        "secretion_ml_min": 77.68728412043403
+      },
+      "secretion_positive": true,
+      "groups": [
+        {
+          "group": "mild",
+          "n": 5,
+          "observed_auc_mean": 2767,
+          "observed_auc_sd": 1094,
+          "interval_95": [
+            1408.6416537585849,
+            4125.358346241415
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 80,
+              "filtration_ml_min": 61.6,
+              "secretion_ml_min": 56.4998429966793,
+              "renal_ml_min": 118.0998429966793,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 146.75642254734413,
+              "fe": 0.8047337278106509,
+              "auc_ng_h_ml": 2839.1715976331366,
+              "ratio_to_observed": 1.0260829770990736,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 80,
+              "filtration_ml_min": 61.6,
+              "secretion_ml_min": 77.68728412043403,
+              "renal_ml_min": 139.28728412043404,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 167.94386367109888,
+              "fe": 0.829368105959585,
+              "auc_ng_h_ml": 2480.9877393476327,
+              "ratio_to_observed": 0.8966345281343089,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            }
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "observed_auc_mean": 6021,
+          "observed_auc_sd": 847,
+          "interval_95": [
+            5132.121732019954,
+            6909.878267980046
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 50,
+              "filtration_ml_min": 38.5,
+              "secretion_ml_min": 35.31240187292456,
+              "renal_ml_min": 73.81240187292457,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 102.46898142358941,
+              "fe": 0.7203389830508474,
+              "auc_ng_h_ml": 4066.2711864406774,
+              "ratio_to_observed": 0.6753481458961431,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.42
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 50,
+              "filtration_ml_min": 38.5,
+              "secretion_ml_min": 77.68728412043403,
+              "renal_ml_min": 116.18728412043403,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 144.84386367109886,
+              "fe": 0.8021553773535333,
+              "auc_ng_h_ml": 2876.6608132796273,
+              "ratio_to_observed": 0.4777712694369087,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.42
+            }
+          }
+        },
+        {
+          "group": "severe_without_dialysis",
+          "n": 6,
+          "observed_auc_mean": 8191,
+          "observed_auc_sd": 1317,
+          "interval_95": [
+            6808.883495950742,
+            9573.116504049258
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 30,
+              "filtration_ml_min": 23.1,
+              "secretion_ml_min": 21.187441123754734,
+              "renal_ml_min": 44.28744112375473,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 72.94402067441958,
+              "fe": 0.607142857142857,
+              "auc_ng_h_ml": 5712.142857142857,
+              "ratio_to_observed": 0.6973681915691438,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.44
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 30,
+              "filtration_ml_min": 23.1,
+              "secretion_ml_min": 77.68728412043403,
+              "renal_ml_min": 100.78728412043404,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 129.44386367109888,
+              "fe": 0.7786177054829132,
+              "auc_ng_h_ml": 3218.8985622784407,
+              "ratio_to_observed": 0.3929799245853303,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.44
+            }
+          }
+        }
+      ]
+    },
+    {
+      "label": "impaired groups at their lower limits",
+      "settings": {
+        "normal": 110,
+        "mild": 50,
+        "moderate": 30,
+        "severe_without_dialysis": 10,
+        "fu": 0.77
+      },
+      "calibration": {
+        "crcl_ml_min": 110,
+        "fu": 0.77,
+        "total_ml_min": 191.04386367109888,
+        "renal_ml_min": 162.38728412043403,
+        "non_renal_ml_min": 28.656579550664844,
+        "filtration_ml_min": 84.7,
+        "secretion_ml_min": 77.68728412043403
+      },
+      "secretion_positive": true,
+      "groups": [
+        {
+          "group": "mild",
+          "n": 5,
+          "observed_auc_mean": 2767,
+          "observed_auc_sd": 1094,
+          "interval_95": [
+            1408.6416537585849,
+            4125.358346241415
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 50,
+              "filtration_ml_min": 38.5,
+              "secretion_ml_min": 35.31240187292456,
+              "renal_ml_min": 73.81240187292457,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 102.46898142358941,
+              "fe": 0.7203389830508474,
+              "auc_ng_h_ml": 4066.2711864406774,
+              "ratio_to_observed": 1.4695595180486727,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 50,
+              "filtration_ml_min": 38.5,
+              "secretion_ml_min": 77.68728412043403,
+              "renal_ml_min": 116.18728412043403,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 144.84386367109886,
+              "fe": 0.8021553773535333,
+              "auc_ng_h_ml": 2876.6608132796273,
+              "ratio_to_observed": 1.0396316636355718,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            }
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "observed_auc_mean": 6021,
+          "observed_auc_sd": 847,
+          "interval_95": [
+            5132.121732019954,
+            6909.878267980046
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 30,
+              "filtration_ml_min": 23.1,
+              "secretion_ml_min": 21.187441123754734,
+              "renal_ml_min": 44.28744112375473,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 72.94402067441958,
+              "fe": 0.607142857142857,
+              "auc_ng_h_ml": 5712.142857142857,
+              "ratio_to_observed": 0.9487033478064868,
+              "classification": "consistent",
+              "fe_observed": 0.42
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 30,
+              "filtration_ml_min": 23.1,
+              "secretion_ml_min": 77.68728412043403,
+              "renal_ml_min": 100.78728412043404,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 129.44386367109888,
+              "fe": 0.7786177054829132,
+              "auc_ng_h_ml": 3218.8985622784407,
+              "ratio_to_observed": 0.5346119518814882,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.42
+            }
+          }
+        },
+        {
+          "group": "severe_without_dialysis",
+          "n": 6,
+          "observed_auc_mean": 8191,
+          "observed_auc_sd": 1317,
+          "interval_95": [
+            6808.883495950742,
+            9573.116504049258
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 10,
+              "filtration_ml_min": 7.7,
+              "secretion_ml_min": 7.062480374584912,
+              "renal_ml_min": 14.762480374584912,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 43.419059925249755,
+              "fe": 0.3399999999999999,
+              "auc_ng_h_ml": 9596.399999999998,
+              "ratio_to_observed": 1.1715785618361614,
+              "classification": "model_over_predicts",
+              "fe_observed": 0.44
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 10,
+              "filtration_ml_min": 7.7,
+              "secretion_ml_min": 77.68728412043403,
+              "renal_ml_min": 85.38728412043403,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 114.04386367109888,
+              "fe": 0.7487231787120956,
+              "auc_ng_h_ml": 3653.5649815261286,
+              "ratio_to_observed": 0.4460462680412805,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.44
+            }
+          }
+        }
+      ]
+    },
+    {
+      "label": "fu 0.71",
+      "settings": {
+        "normal": 110,
+        "mild": 65,
+        "moderate": 40,
+        "severe_without_dialysis": 20,
+        "fu": 0.71
+      },
+      "calibration": {
+        "crcl_ml_min": 110,
+        "fu": 0.71,
+        "total_ml_min": 191.04386367109888,
+        "renal_ml_min": 162.38728412043403,
+        "non_renal_ml_min": 28.656579550664844,
+        "filtration_ml_min": 78.1,
+        "secretion_ml_min": 84.28728412043404
+      },
+      "secretion_positive": true,
+      "groups": [
+        {
+          "group": "mild",
+          "n": 5,
+          "observed_auc_mean": 2767,
+          "observed_auc_sd": 1094,
+          "interval_95": [
+            1408.6416537585849,
+            4125.358346241415
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 65,
+              "filtration_ml_min": 46.15,
+              "secretion_ml_min": 49.806122434801935,
+              "renal_ml_min": 95.95612243480193,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 124.61270198546677,
+              "fe": 0.7700348432055748,
+              "auc_ng_h_ml": 3343.693379790941,
+              "ratio_to_observed": 1.20841827964978,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 65,
+              "filtration_ml_min": 46.15,
+              "secretion_ml_min": 84.28728412043404,
+              "renal_ml_min": 130.43728412043404,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 159.0938636710989,
+              "fe": 0.8198762737329219,
+              "auc_ng_h_ml": 2618.9989799233135,
+              "ratio_to_observed": 0.9465120997193037,
+              "classification": "consistent",
+              "fe_observed": 0.69
+            }
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "observed_auc_mean": 6021,
+          "observed_auc_sd": 847,
+          "interval_95": [
+            5132.121732019954,
+            6909.878267980046
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 40,
+              "filtration_ml_min": 28.4,
+              "secretion_ml_min": 30.64992149833965,
+              "renal_ml_min": 59.04992149833965,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 87.70650104900449,
+              "fe": 0.6732673267326732,
+              "auc_ng_h_ml": 4750.693069306931,
+              "ratio_to_observed": 0.7890206060964841,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.42
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 40,
+              "filtration_ml_min": 28.4,
+              "secretion_ml_min": 84.28728412043404,
+              "renal_ml_min": 112.68728412043404,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 141.3438636710989,
+              "fe": 0.7972562882719304,
+              "auc_ng_h_ml": 2947.893568526131,
+              "ratio_to_observed": 0.48960198779706543,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.42
+            }
+          }
+        },
+        {
+          "group": "severe_without_dialysis",
+          "n": 6,
+          "observed_auc_mean": 8191,
+          "observed_auc_sd": 1317,
+          "interval_95": [
+            6808.883495950742,
+            9573.116504049258
+          ],
+          "readings": {
+            "A_intact_nephron": {
+              "crcl_ml_min": 20,
+              "filtration_ml_min": 14.2,
+              "secretion_ml_min": 15.324960749169826,
+              "renal_ml_min": 29.524960749169825,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 58.181540299834666,
+              "fe": 0.5074626865671641,
+              "auc_ng_h_ml": 7161.492537313432,
+              "ratio_to_observed": 0.874312359579225,
+              "classification": "consistent",
+              "fe_observed": 0.44
+            },
+            "B_secretion_preserved": {
+              "crcl_ml_min": 20,
+              "filtration_ml_min": 14.2,
+              "secretion_ml_min": 84.28728412043404,
+              "renal_ml_min": 98.48728412043404,
+              "non_renal_ml_min": 28.656579550664844,
+              "total_ml_min": 127.14386367109888,
+              "fe": 0.7746129563531678,
+              "auc_ng_h_ml": 3277.1276146249384,
+              "ratio_to_observed": 0.4000888309882723,
+              "classification": "model_under_predicts",
+              "fe_observed": 0.44
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "decision": {
+    "supported_readings_primary": [],
+    "finding_renal_elimination_falls_faster_than_proportional": true,
+    "classification_by_scenario": {
+      "primary": {
+        "mild": {
+          "A_intact_nephron": "consistent",
+          "B_secretion_preserved": "consistent"
+        },
+        "moderate": {
+          "A_intact_nephron": "model_under_predicts",
+          "B_secretion_preserved": "model_under_predicts"
+        },
+        "severe_without_dialysis": {
+          "A_intact_nephron": "consistent",
+          "B_secretion_preserved": "model_under_predicts"
+        }
+      },
+      "normal at 90": {
+        "mild": {
+          "A_intact_nephron": "consistent",
+          "B_secretion_preserved": "consistent"
+        },
+        "moderate": {
+          "A_intact_nephron": "model_under_predicts",
+          "B_secretion_preserved": "model_under_predicts"
+        },
+        "severe_without_dialysis": {
+          "A_intact_nephron": "model_under_predicts",
+          "B_secretion_preserved": "model_under_predicts"
+        }
+      },
+      "normal at 130": {
+        "mild": {
+          "A_intact_nephron": "consistent",
+          "B_secretion_preserved": "consistent"
+        },
+        "moderate": {
+          "A_intact_nephron": "consistent",
+          "B_secretion_preserved": "model_under_predicts"
+        },
+        "severe_without_dialysis": {
+          "A_intact_nephron": "consistent",
+          "B_secretion_preserved": "model_under_predicts"
+        }
+      },
+      "impaired groups at their upper limits": {
+        "mild": {
+          "A_intact_nephron": "consistent",
+          "B_secretion_preserved": "consistent"
+        },
+        "moderate": {
+          "A_intact_nephron": "model_under_predicts",
+          "B_secretion_preserved": "model_under_predicts"
+        },
+        "severe_without_dialysis": {
+          "A_intact_nephron": "model_under_predicts",
+          "B_secretion_preserved": "model_under_predicts"
+        }
+      },
+      "impaired groups at their lower limits": {
+        "mild": {
+          "A_intact_nephron": "consistent",
+          "B_secretion_preserved": "consistent"
+        },
+        "moderate": {
+          "A_intact_nephron": "consistent",
+          "B_secretion_preserved": "model_under_predicts"
+        },
+        "severe_without_dialysis": {
+          "A_intact_nephron": "model_over_predicts",
+          "B_secretion_preserved": "model_under_predicts"
+        }
+      },
+      "fu 0.71": {
+        "mild": {
+          "A_intact_nephron": "consistent",
+          "B_secretion_preserved": "consistent"
+        },
+        "moderate": {
+          "A_intact_nephron": "model_under_predicts",
+          "B_secretion_preserved": "model_under_predicts"
+        },
+        "severe_without_dialysis": {
+          "A_intact_nephron": "consistent",
+          "B_secretion_preserved": "model_under_predicts"
+        }
+      }
+    }
+  },
+  "not_this": [
+    "Not validation; group means only, small groups (5-7 subjects).",
+    "Not a full PBPK model: no organ volumes, tissue partitioning or transporter kinetics are used.",
+    "Not a dosing or exposure prediction for any patient."
+  ],
+  "known_differences": [
+    "Creatinine clearance was measured, but each group is summarised only by a range; representative values are assumptions.",
+    "Measured creatinine clearance overestimates GFR because creatinine is also secreted; filtration is therefore approximate.",
+    "Means of small groups; the observed fe has no reported spread.",
+    "Single dose, fasting; healthy and patient subjects not distinguished in the source pages."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "767212c7a275f0cd788e2b98ed9c962bb13cddd3f173fdce97926eb3825ad392"
+}

@@ -1,0 +1,149 @@
+{
+  "schema_version": "renal-pathway-evidence-v1",
+  "evidence_version": "lenalidomide-renal-pathways-ema-2008-v1.0",
+  "drug": "lenalidomide",
+  "recorded_on": "2026-10-16",
+  "source": {
+    "title": "Withdrawal assessment report for Lenalidomide Celgene Europe",
+    "document_reference": "EMEA/CHMP/249329/2008",
+    "local_file": "landscape_ui/data/renal_pk/ema_lenalidomide_2008.pdf",
+    "sha256": "c27c16b42062171d3146273e33abd2360dc630cd8f8f513b835010c6842b2661",
+    "pages": "PDF pages 20-21",
+    "extraction": "AI-assisted from the PDF text layer; each quote checked against the extracted text. Independent review pending."
+  },
+  "study": {
+    "id": "CC-5013-PK-001",
+    "design": "single 25 mg oral dose, fasting; renal function groups by measured creatinine clearance",
+    "dose_mg": 25
+  },
+  "physiology": {
+    "plasma_protein_binding": {
+      "myeloma_patients_percent": 23,
+      "healthy_volunteers_percent": 29,
+      "method": "in vitro ultrafiltration, 30-10000 ng/mL, no concentration dependence",
+      "quote": "The mean binding was 23 and 29% in plasma from myeloma patients and healthy volunteers, respectively.",
+      "location": "page 20, Distribution"
+    },
+    "urinary_recovery_unchanged_percent": {
+      "value": 85,
+      "quote": "the overall urinary recovery of unchanged drug being approximately 85% of the administered single oral dose",
+      "location": "page 20, Elimination"
+    },
+    "renal_clearance": {
+      "statement": "at least 190 mL/min",
+      "quote": "Renal clearance was at least 190 ml/min, suggesting that active renal secretion occurs.",
+      "location": "page 20, Elimination"
+    },
+    "secretion_transporters": {
+      "status": "not identified in this source",
+      "quote": "In vitro studies investigating which transporters are involved in the active renal secretion of lenalidomide are ongoing."
+    },
+    "metabolism": "Not metabolised via cytochrome P450; other enzymatic systems not studied (page 20)."
+  },
+  "renal_function_measure": {
+    "value": "measured creatinine clearance (CLcr)",
+    "location": "page 20, Renal Function Groups table"
+  },
+  "groups": [
+    {
+      "group": "normal",
+      "n": 7,
+      "clcr_ml_min": {
+        "lower_exclusive": 80,
+        "upper": null
+      },
+      "auc_ng_h_ml": [
+        2181,
+        703
+      ],
+      "cl_f_ml_min": [
+        207,
+        59
+      ],
+      "vz_f_l": [
+        58,
+        15
+      ],
+      "fe_percent": 85
+    },
+    {
+      "group": "mild",
+      "n": 5,
+      "clcr_ml_min": {
+        "lower_inclusive": 50,
+        "upper_inclusive": 80
+      },
+      "auc_ng_h_ml": [
+        2767,
+        1094
+      ],
+      "cl_f_ml_min": [
+        166,
+        49
+      ],
+      "vz_f_l": [
+        51,
+        13
+      ],
+      "fe_percent": 69
+    },
+    {
+      "group": "moderate",
+      "n": 6,
+      "clcr_ml_min": {
+        "lower_inclusive": 30,
+        "upper_exclusive": 50
+      },
+      "auc_ng_h_ml": [
+        6021,
+        847
+      ],
+      "cl_f_ml_min": [
+        71,
+        12
+      ],
+      "vz_f_l": [
+        62,
+        15
+      ],
+      "fe_percent": 42
+    },
+    {
+      "group": "severe_without_dialysis",
+      "n": 6,
+      "clcr_ml_min": {
+        "lower": null,
+        "upper_exclusive": 30
+      },
+      "auc_ng_h_ml": [
+        8191,
+        1317
+      ],
+      "cl_f_ml_min": [
+        52,
+        101
+      ],
+      "vz_f_l": [
+        41,
+        8
+      ],
+      "fe_percent": 44
+    }
+  ],
+  "group_value_locations": {
+    "auc_cl_vz": "page 21, Table 4 (mean (SD))",
+    "fe": "page 21, text below Table 4 (means only; no SD reported)"
+  },
+  "group_quotes": {
+    "fe": "Subjects with normal renal function had higher mean % dose excreted unchanged in urine (85%), followed by subjects with mild RI (69%), subjects with moderate RI (42%) and subjects with severe RI (44%).",
+    "cl_f_row": "CL/F (ml/min) 207 (59) 166 (49) 71 (12) 52 (101) 39 (7) 62 (9)",
+    "auc_row": "AUC∞ (ng.h/ml) 2181 (703) 2767 (1094) 6021 (847) 8191 (1317) 11121 (2133) 6830 (919)"
+  },
+  "notes": [
+    "The severe-group CL/F SD of 101 mL/min is printed as such; it may be a typographical error but is transcribed as printed and not used.",
+    "End-stage renal disease groups (with and without dialysis) are not transcribed here.",
+    "Oral bioavailability is not known (no IV data); 85% urinary recovery of unchanged drug implies F is at least about 0.85."
+  ],
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false
+}

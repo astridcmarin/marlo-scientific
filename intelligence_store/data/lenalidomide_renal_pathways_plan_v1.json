@@ -1,0 +1,60 @@
+{
+  "schema_version": "external-consistency-plan-v1",
+  "plan_version": "lenalidomide-renal-pathways-plan-v1.0",
+  "recorded_on": "2026-10-16",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before any model prediction was computed in code. Not blinded: the observed group means (AUC, CL/F, fraction excreted unchanged) were read before writing this plan, and a rough mental calculation suggested that scaling renal clearance in proportion to creatinine clearance (reading A) may over-predict renal clearance in the moderate group. This is disclosed here; the readings and the classification rule were fixed regardless.",
+  "classification": "exploratory_aggregate_consistency_check",
+  "not_this": [
+    "Not validation; group means only, small groups (5-7 subjects).",
+    "Not a full PBPK model: no organ volumes, tissue partitioning or transporter kinetics are used.",
+    "Not a dosing or exposure prediction for any patient."
+  ],
+  "question": "Calibrated only on the normal-renal-function group, does a model that splits lenalidomide elimination into filtration, tubular secretion and non-renal pathways predict exposure and urinary excretion in mild, moderate and severe renal impairment; and does secretion scale with creatinine clearance (intact nephron) or stay constant?",
+  "data": {
+    "evidence": "intelligence_store/data/lenalidomide_renal_pathways_evidence_v1.json (EMA 2008, study CC-5013-PK-001, single 25 mg oral dose, fasting)",
+    "dose_mg": 25
+  },
+  "calibration_normal_group_only": {
+    "total_clearance": "CL_n = dose / mean AUC_n (ratio of means), expressed in mL/min. This is CL/F; bioavailability is taken as 1 (at least about 0.85 from urinary recovery).",
+    "renal_clearance": "CLR_n = fe_n x CL_n, with fe_n the mean fraction of dose excreted unchanged (0.85). CLR = Ae / AUC does not depend on bioavailability.",
+    "non_renal_clearance": "CLNR = CL_n - CLR_n, held constant across renal function.",
+    "unbound_fraction": "fu = 0.77 (binding 23% in myeloma plasma); sensitivity fu = 0.71 (healthy volunteers).",
+    "filtration_and_secretion": "Filtration_n = fu x CrCl_n; Secretion_n = CLR_n - Filtration_n (must be positive; otherwise reported as inconsistent with net secretion)."
+  },
+  "readings": {
+    "A_intact_nephron": "Filtration and secretion both fall in proportion to creatinine clearance: CLR = CLR_n x CrCl / CrCl_n.",
+    "B_secretion_preserved": "Filtration falls in proportion to creatinine clearance; secretion stays at Secretion_n: CLR = fu x CrCl + Secretion_n."
+  },
+  "predictions": "For each impaired group and reading: CL = CLR + CLNR; AUC = dose / CL; fe = CLR / CL.",
+  "creatinine_clearance_scenarios": {
+    "why": "Group creatinine clearance values are reported only as ranges; the same ranges as the earlier Hughes and Kim renal-group checks are used.",
+    "primary": {"normal": 110, "mild": 65, "moderate": 40, "severe_without_dialysis": 20},
+    "sensitivity": [
+      {"label": "normal at 90", "normal": 90},
+      {"label": "normal at 130", "normal": 130},
+      {"label": "impaired groups at their upper limits", "mild": 80, "moderate": 50, "severe_without_dialysis": 30},
+      {"label": "impaired groups at their lower limits", "mild": 50, "moderate": 30, "severe_without_dialysis": 10},
+      {"label": "fu 0.71", "fu": 0.71}
+    ]
+  },
+  "endpoints": {
+    "primary": "Mean AUC of each impaired group (mild, moderate, severe without dialysis).",
+    "descriptive": ["fraction of dose excreted unchanged (fe; no SD reported, so not classified)", "predicted split of clearance into filtration, secretion and non-renal pathways"]
+  },
+  "comparison": {
+    "interval": "95% confidence interval of the observed mean AUC: mean +/- t(0.975, n - 1) x SD / sqrt(n).",
+    "classification": {"consistent": "predicted AUC inside the interval", "model_over_predicts": "above", "model_under_predicts": "below"}
+  },
+  "decision_rule": {
+    "supported": "A reading is called supported if its primary-scenario AUC is consistent for all three impaired groups.",
+    "finding_if_steeper_decline": "If reading A under-predicts AUC in the moderate or severe group in the primary scenario, record as a finding that renal elimination falls faster than proportional scaling with creatinine clearance predicts.",
+    "never": "No parameter is fitted to the impaired groups. Calibration uses the normal group and the binding value only."
+  },
+  "known_differences": [
+    "Creatinine clearance was measured, but each group is summarised only by a range; representative values are assumptions.",
+    "Measured creatinine clearance overestimates GFR because creatinine is also secreted; filtration is therefore approximate.",
+    "Means of small groups; the observed fe has no reported spread.",
+    "Single dose, fasting; healthy and patient subjects not distinguished in the source pages."
+  ]
+}
