@@ -50,6 +50,7 @@ Findings 1 and 2 were fixed after this checkpoint (branch `checkpoint-fixes-pins
 | Hughes 2019 | done | partial | not done | exploratory, group means: mild consistent; moderate and severe under-predicted |
 | Kim 2026 | done | done; CL/F form unconfirmed | done | exploratory, group means: mild and moderate consistent; severe under-predicted |
 | Lignet 2022 platelets | done | partial | done (fitting data) | not done; searched, no usable data |
+| Lignet 2022 PK component (added 16 October, 3.0f) | done | partial | not done | exploratory (Ogawa 2008): day 11 consistent; day 1 over-predicted 2.9-fold; accumulation under-predicted |
 
 No model is validated for clinical prediction. Efficacy and toxicity models: none registered.
 
@@ -60,7 +61,7 @@ No model is validated for clinical prediction. Efficacy and toxicity models: non
 - **Bortezomib:**
   - independent review of the platelet extract;
   - outside data, through a sponsor data request;
-  - a possible outside check of the PK model against Ogawa 2008 Table 3.
+  - PK model with time-dependent clearance (the Ogawa 2008 check, 3.0f, found the single clearance fits repeat-dose but not first-dose exposure).
 - **Round 9 alias review** is awaiting completion.
 - **Platform:** broader disease and drug coverage, accounts, billing and deployment remain future work. The locally reported 4,037-study cohort is not in the repository and was not verified here.
 

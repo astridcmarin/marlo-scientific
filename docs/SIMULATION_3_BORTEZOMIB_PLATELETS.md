@@ -1,6 +1,6 @@
 # Simulation 3.0 — bortezomib platelet time course (first drug-effect module)
 
-Status: **3.0a–3.0e done.** Evidence, PK engine, locked reading check, page (`/landscape/simulation-lab/bortezomib-platelets`) and a search for outside data (none usable).
+Status: **3.0a–3.0f done.** Evidence, PK engine, locked reading check, page (`/landscape/simulation-lab/bortezomib-platelets`) a search for outside platelet data (none usable) and an outside check of the PK component (Ogawa 2008).
 
 ## Why this model
 
@@ -146,4 +146,30 @@ The run record showed that the model had never been compared with data it was no
 - **Why incidences are not used.** The model gives one typical curve without between-patient spread, so it cannot predict the share of patients below a threshold.
 
 The outcome is recorded in `model_evidence_status_v2.json` (v1.1), and the platelet page lists the sources searched. A data request through the sponsor's sharing program (the YODA Project) is the remaining route. Ogawa's Table 3 (PK on days 1 and 11) could support an outside check of the PK model instead.
+
+## 3.0f — Outside check of the PK component (Ogawa 2008)
+
+**Why.** The platelet model is driven by a PK model that had never been compared with measured bortezomib exposure. Ogawa et al. (*Cancer Sci* 2008, Table 3) report day 1 and day 11 non-compartmental summaries in Japanese patients at 0.7, 1.0 and 1.3 mg/m². This study played no part in building or fitting the model.
+
+**Method** (plan `bortezomib_pk_ogawa_check_plan_v1.json`, locked in commit `a4eff92` before computation; observed values `bortezomib_pk_ogawa_2008_observed_v1.json`):
+- **The model is analysed the way the study analysed patients.** Ogawa sampled only to 48 h, but the model's terminal half-life is about 98 h, so its true AUC to infinity is not what the study measured. The model is therefore sampled at the study times and run through the same non-compartmental analysis: C0 back-extrapolated from 5 and 15 min, trapezoids to 48 h, terminal slope from the last points, extrapolation to infinity.
+- **Four analysis readings.** The source does not state its AUC rule or terminal points, so four readings are run; the primary is linear trapezoids with the last three points.
+- **Interval and classification.** Each value is compared with the 95% confidence interval of the observed mean. Body size cancels, because dose and parameters are per m².
+
+**Result** (report `docs/verification/bortezomib_pk_ogawa_check_v1.json`; every classification below holds under all four readings):
+
+| 1.3 mg/m² | Model (emulated) | Observed mean (95% CI) | Result |
+|---|---|---|---|
+| AUC, day 1 | 133 ng·h/mL | 46.5 (28–65) | 2.9-fold over-predicted |
+| AUC, day 11 | 248 ng·h/mL | 187 (125–248) | consistent, at the upper limit |
+| Rise, day 1 → day 11 | 1.9-fold | 5.1-fold (4.5–5.8) | under-predicted |
+
+- **The same direction at the other doses.** Day 1 is over-predicted 5.1-fold at 0.7 and 3.6-fold at 1.0 mg/m², and the model's rise is below the observed mean at every dose. The observed day 1 half-life is short (3–16 h within 48 h of sampling), against about 84 h for the emulated model.
+- **What this means.** The model's single clearance (9.2 L/h/m²) describes **repeat-dose** exposure reasonably and **first-dose** exposure poorly. Bortezomib's apparent clearance falls sharply after the first dose, a known property (the label and Ogawa both report it) that a linear one-clearance model cannot represent.
+- **What it does not establish.** This is a group-mean check in a small Japanese sample (5–7 patients per value), not validation.
+
+**Consequences:**
+- **For the platelet model.** Its drug-effect parameters were fitted with this PK model, so they partly absorb the first-dose error. This is one more reason to read the effect term as an empirical description of the net effect rather than a mechanism. The platelet page's run record now marks the "single clearance" assumption as contradicted by external data and links this report.
+- **For the PK component.** It is recorded in `model_evidence_status_v3.json` (v1.2) and stays a research component of the platelet tool, not patient PK.
+- **The next modelling step, if wanted.** A PK model with time-dependent or saturable clearance would fit this evidence better. That means a different published model, not a tuned version of this one.
 
