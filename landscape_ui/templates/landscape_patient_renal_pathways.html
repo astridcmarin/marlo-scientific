@@ -1,0 +1,46 @@
+{% extends "landscape_base.html" %}
+{% from "run_record_macros.html" import simulation_banner, run_record_panel %}
+{% block title %}Lenalidomide elimination pathways · Record {{ revision.id }}{% endblock %}
+{% macro organ_view(title, widths, pathways, shares, fe, crcl, idsuffix) %}
+<figure class="rp-figure"><figcaption><strong>{{ title }}</strong><br><small>creatinine clearance {{ '%.0f'|format(crcl) }} mL/min · total clearance {{ '%.0f'|format(pathways.total) }} mL/min</small></figcaption>
+<svg viewBox="0 0 380 250" role="img" aria-labelledby="rp-{{ idsuffix }}"><title id="rp-{{ idsuffix }}">{{ title }}: filtration {{ '%.0f'|format(pathways.filtration) }}, secretion {{ '%.0f'|format(pathways.secretion) }}, non-renal {{ '%.0f'|format(pathways.non_renal) }} mL/min. Arrow widths are proportional to clearance.</title>
+<rect x="8" y="78" width="86" height="70" rx="6" fill="#eef4f6" stroke="#9fb8c2"/><text x="51" y="108" text-anchor="middle" font-size="13">Blood</text><text x="51" y="126" text-anchor="middle" font-size="10" fill="#536975">plasma</text>
+<ellipse cx="200" cy="113" rx="52" ry="58" fill="#f6eef0" stroke="#c9a3ab"/><text x="200" y="60" text-anchor="middle" font-size="12">Kidney</text>
+<rect x="290" y="78" width="82" height="70" rx="6" fill="#fbf6e9" stroke="#d6c38f"/><text x="331" y="106" text-anchor="middle" font-size="13">Urine</text><text x="331" y="124" text-anchor="middle" font-size="10" fill="#536975">unchanged</text><text x="331" y="138" text-anchor="middle" font-size="10" fill="#536975">drug</text>
+<line x1="94" y1="98" x2="290" y2="98" stroke="{{ colors.filtration }}" stroke-width="{{ widths.filtration }}" stroke-opacity="0.85"/>
+<line x1="94" y1="132" x2="290" y2="132" stroke="{{ colors.secretion }}" stroke-width="{{ widths.secretion }}" stroke-opacity="0.85"/>
+<line x1="51" y1="148" x2="51" y2="205" stroke="{{ colors.non_renal }}" stroke-width="{{ widths.non_renal }}" stroke-opacity="0.85"/>
+<rect x="8" y="205" width="160" height="34" rx="6" fill="#f3f4f6" stroke="#c4c9cf"/><text x="88" y="226" text-anchor="middle" font-size="11">Other (non-renal) routes</text>
+</svg>
+<table class="rr-table rp-table"><tbody>
+<tr><td><span style="color:{{ colors.filtration }}">■</span> Filtration</td><td>{{ '%.0f'|format(pathways.filtration) }} mL/min</td><td>{{ '%.0f'|format(100*shares.filtration) }}%</td></tr>
+<tr><td><span style="color:{{ colors.secretion }}">■</span> Tubular secretion</td><td>{{ '%.0f'|format(pathways.secretion) }} mL/min</td><td>{{ '%.0f'|format(100*shares.secretion) }}%</td></tr>
+<tr><td><span style="color:{{ colors.non_renal }}">■</span> Non-renal</td><td>{{ '%.0f'|format(pathways.non_renal) }} mL/min</td><td>{{ '%.0f'|format(100*shares.non_renal) }}%</td></tr>
+<tr><td>Dose leaving unchanged in urine</td><td colspan="2">{{ '%.0f'|format(100*fe) }}%</td></tr>
+</tbody></table></figure>
+{% endmacro %}
+{% block content %}
+<h1>Where lenalidomide leaves the body: this synthetic patient</h1>
+<p><a href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id) }}">Back to patient-state record #{{ revision.id }}</a> · <a href="{{ url_for('landscape.patient_renal_pathways_page',scenario_id=scenario.id,revision_id=revision.id,format='json') }}">Download (JSON)</a></p>
+{% call simulation_banner(result_type) %}<p>Lenalidomide is not metabolised by liver enzymes; most of a dose leaves unchanged in urine, by <strong>filtration</strong> of unbound drug and by <strong>active secretion</strong> from the kidney tubules. This page shows how a model calibrated on people with normal kidney function divides elimination between those routes at this record's estimated kidney function.</p>{% endcall %}
+{% if view.status != 'completed' %}
+<section class="panel"><h2>Not enough information</h2><p role="alert">{{ view.message }} Missing: {{ view.missing_fields|join(', ') }}.</p></section>
+{% else %}
+{% for w in view.warnings %}<p role="alert" class="rp-alert">{{ w }}</p>{% endfor %}
+<section class="panel"><h2>Kidney view</h2>
+<p>Arrow widths are proportional to clearance and use the same scale in both diagrams.</p>
+<div class="rp-grid">
+{{ organ_view('This record', patient_widths, {'filtration': view.pathways_ml_min.filtration_ml_min, 'secretion': view.pathways_ml_min.secretion_ml_min, 'non_renal': view.pathways_ml_min.non_renal_ml_min, 'total': view.pathways_ml_min.total_ml_min}, view.shares, view.fraction_excreted_unchanged, view.crcl_ml_min, 'patient') }}
+{{ organ_view('Reference: normal kidney function', normal_widths, {'filtration': view.calibration.filtration_ml_min, 'secretion': view.calibration.secretion_ml_min, 'non_renal': view.calibration.non_renal_ml_min, 'total': view.calibration.total_ml_min}, view.normal_reference.shares, view.normal_reference.fe, view.normal_reference.crcl_ml_min, 'normal') }}
+</div>
+<p><strong>At the same dose, typical exposure would be about {{ '%.1f'|format(view.relative_exposure_same_dose) }} times the normal-kidney reference</strong>, because total clearance is {{ '%.0f'|format(view.pathways_ml_min.total_ml_min) }} rather than {{ '%.0f'|format(view.calibration.total_ml_min) }} mL/min. {% if 30 <= view.crcl_ml_min < 50 %}In this range the check found the real increase larger than this model predicts.{% endif %}</p>
+</section>
+<section class="panel"><h2>How to read this</h2><ul>
+<li><strong>Filtration</strong> is the unbound fraction of drug (77%) times the filtration rate. <strong>Secretion</strong> is active transport by the tubules; with normal kidney function it is almost half of renal clearance, which is why renal clearance exceeds what filtration alone could achieve.</li>
+<li>As kidney function falls, both routes shrink, and the small non-renal route, assumed constant, takes a larger share. Less of the dose then leaves in urine, and more of it stays in the body for longer.</li>
+<li>{{ view.reading_note }}</li>
+</ul></section>
+{{ run_record_panel(record) }}
+{% endif %}
+<style>.rp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.rp-figure{margin:0}.rp-figure svg{width:100%;height:auto}.rp-table td:first-child{width:auto}.rp-alert{border-left:3px solid #a84635;background:#fff3ef;padding:10px 14px}@media(max-width:800px){.rp-grid{grid-template-columns:1fr}}</style>
+{% endblock %}

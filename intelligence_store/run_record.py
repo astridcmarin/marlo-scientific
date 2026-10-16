@@ -13,8 +13,10 @@ from .covariate_estimation import _load_pinned
 from .patient_state import digest
 
 SCHEMA_VERSION = 'patient-lab-run-record-v1'
-EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v3.json'
-EVIDENCE_SHA256 = '09d83e0e614246cd4b5eae5b49c1a86329181d449116741bcf4b53198c9ebf92'
+EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v4.json'
+EVIDENCE_SHA256 = 'e559a4e4f8028ff8bd4c3caa213648c84224dbe0a1e83c60d1cc84a5260a7804'
+# Superseded, kept unchanged for traceability: model_evidence_status_v3.json
+EVIDENCE_V3_SHA256 = '09d83e0e614246cd4b5eae5b49c1a86329181d449116741bcf4b53198c9ebf92'
 # Superseded, kept unchanged for traceability: model_evidence_status_v2.json
 EVIDENCE_V2_SHA256 = '550da678fe3388da2e05f56cb87416ee8217c839274809a4f7add170a6703c4e'
 # Superseded, kept unchanged for traceability: model_evidence_status_v1.json
@@ -35,6 +37,13 @@ RESULT_TYPES = {
                    'a recommendation to give, hold or change a dose',
                    'an individual risk estimate (the observed incidences shown are the better guide)'],
     },
+}
+RESULT_TYPES['elimination_pathway_split'] = {
+    'label': 'Typical split of elimination between pathways',
+    'is': 'How a semi-physiological model divides lenalidomide clearance between filtration, tubular secretion and non-renal routes at this record\'s estimated kidney function.',
+    'is_not': ['a measurement of this patient\'s renal clearance or urine excretion',
+               'an exposure prediction for this patient',
+               'a dose recommendation'],
 }
 LAYER_ORDER = ('software_verification', 'transcription_verification', 'reproduction', 'external_consistency')
 
@@ -192,3 +201,35 @@ def record_for_patient_platelets(view, extract, evidence=None):
                   + ([{'label': 'CTCAE v5.0 grading', 'sha256': view['current_grading_sha256']}]
                      if 'current_grading_sha256' in view else []))
     return _finish(record)
+
+
+def record_for_renal_pathways(view, evidence=None):
+    """Run record for `patient_renal_pathways.patient_renal_pathways` (completed views only)."""
+    evidence = evidence or load_evidence_status()
+    estimate = view['covariate_estimate']
+    record = _base('patient_renal_pathways', 'elimination_pathway_split', 'Lenalidomide elimination pathways for this record',
+                   view['revision_id'], estimate['state_schema_version'], estimate['state_sha256'],
+                   'lenalidomide_renal_pathways_2026', evidence)
+    wb = estimate['weight_basis_evidence']
+    record.update(
+        status=view['status'], inputs_from_record=_state_inputs(estimate), derived_inputs=_derived(estimate),
+        assumptions=[
+            {'name': 'How secretion changes with kidney function', 'reading': 'intact nephron: in proportion to creatinine clearance',
+             'status': 'partly_contradicted', 'evidence': view['reading_note']},
+            {'name': 'Creatinine clearance', 'reading': f"Cockcroft-Gault, {estimate['weight_basis'].replace('_', ' ')}",
+             'status': wb['assessment_status'], 'evidence': 'The calibration study measured creatinine clearance from urine; here it is estimated from serum creatinine. ' + wb['summary']},
+            {'name': 'Unbound fraction', 'reading': f"{view['calibration']['fu']}", 'status': 'sourced',
+             'evidence': '23% plasma protein binding in myeloma patients (EMA 2008, page 20).'},
+            {'name': 'Normal-group creatinine clearance', 'reading': f"{view['calibration']['crcl_ml_min']:g} mL/min", 'status': 'assumed',
+             'evidence': 'The study reports only "> 80 mL/min"; 110 is the primary scenario of the locked plan.'},
+            {'name': 'Bioavailability', 'reading': '1', 'status': 'assumed', 'evidence': '85% urinary recovery of unchanged drug implies at least about 0.85.'}],
+        applicability=[{'item': 'creatinine_clearance', 'value': view['crcl_ml_min'], 'unit': 'mL/min',
+                        'reference': 'calibration and check groups about 10-140 mL/min', 'status': view['range_status']}],
+        warnings=list(view['warnings']), limitations=list(view['limitations']),
+        checksums=[{'label': 'View', 'sha256': view['report_sha256']},
+                   {'label': 'Covariate estimate', 'sha256': estimate['report_sha256']},
+                   {'label': 'Pathway evidence', 'sha256': view['evidence_sha256']},
+                   {'label': 'Pathway check report (file)', 'sha256': evidence['models']['lenalidomide_renal_pathways_2026']['layers']['external_consistency']['evidence_report_file_sha256']},
+                   {'label': 'Patient state', 'sha256': estimate['state_sha256']}])
+    return _finish(record)
+
