@@ -165,6 +165,23 @@ def _kim_row(result):
     return row
 
 
+def _clearance_variability(model):
+    """Between-patient SD of ln CL/F for each published model, from its pinned extract."""
+    import math
+    if model == 'lenalidomide_hughes_2019':
+        from .covariate_estimation import load_variability_extract
+        omega = load_variability_extract()['random_effects']['omega_matrix'][0][0]
+        return {'omega_cl_sd': math.sqrt(omega), 'source': 'Hughes 2019 final control stream, OMEGA(CL) = %g' % omega,
+                'assumption': None}
+    if model == 'lenalidomide_kim_2026':
+        from .kim_model import load_extract
+        re = load_extract()['random_effects']
+        return {'omega_cl_sd': re['reported']['cl_pct_cv'] / 100.0,
+                'source': 'Kim 2026, between-patient variability of CL/F %g%% CV' % re['reported']['cl_pct_cv'],
+                'assumption': re['cv_to_omega']}
+    raise ValueError('Unknown model for clearance variability.')
+
+
 def compare_published_models(revision_id, weight_basis, cl_form, request, disease_code='UNKNOWN'):
     """Hughes 2019 and Kim 2026 typical-value curves for one saved revision and one request.
 
@@ -185,7 +202,8 @@ def compare_published_models(revision_id, weight_basis, cl_form, request, diseas
         if 'typical_total_cl_f_l_h' in row:
             row['reference_exposure'] = compare_to_reference(daily_dose, row['typical_total_cl_f_l_h'])
             # Simulation 4.0a: relative odds of grade 3/4 cytopenia from the same exposure ratio (relative only).
-            row['relative_odds'] = relative_odds_for_exposure(row['reference_exposure']['ratio_to_reference'])
+            row['relative_odds'] = relative_odds_for_exposure(row['reference_exposure']['ratio_to_reference'],
+                                                              variability=_clearance_variability(row['model']))
     ratio = None
     if all('auc_0_infinity_ng_h_ml' in r for r in rows):
         ratio = {'kim_to_hughes_auc_0_infinity': rows[1]['auc_0_infinity_ng_h_ml'] / rows[0]['auc_0_infinity_ng_h_ml'],

@@ -15,9 +15,14 @@ from pathlib import Path
 
 from .covariate_estimation import _load_pinned
 
-EVIDENCE_PATH = Path(__file__).parent / 'data' / 'lenalidomide_exposure_safety_tga_v1.json'
-EVIDENCE_SHA256 = '7be5103a41a5c8f5fe2529d524951c1a94db8c4996c81299a364b84c51288b8c'
-METHOD_VERSION = 'lenalidomide-relative-odds-v1.0'
+EVIDENCE_PATH = Path(__file__).parent / 'data' / 'lenalidomide_exposure_safety_v2.json'
+EVIDENCE_SHA256 = 'a839525eb7fc0554201f14a5641ce64ad4e04f0f806e4ceec3d20c2d6171ed73'
+# Superseded, kept unchanged for traceability.
+EVIDENCE_V1_PATH = Path(__file__).parent / 'data' / 'lenalidomide_exposure_safety_tga_v1.json'
+EVIDENCE_V1_SHA256 = '7be5103a41a5c8f5fe2529d524951c1a94db8c4996c81299a364b84c51288b8c'
+METHOD_VERSION = 'lenalidomide-relative-odds-v1.1'
+Z90 = 1.6448536269514722  # standard normal 95th percentile
+
 ENDPOINTS = ('grade_3_4_thrombocytopenia', 'grade_3_4_neutropenia')
 MEANING = ('Relative odds versus the reference exposure (mean AUC after 25 mg with normal renal function), for a patient '
            'with the same disease and baseline count. Not a probability: the same relative odds can mean a small or a '
@@ -36,7 +41,25 @@ def relative_odds(auc_ratio, odds_ratio, ci95):
     return {'relative_odds': values[0], 'ci95': [min(values[1:]), max(values[1:])], 'exponent': math.log(odds_ratio)}
 
 
-def relative_odds_for_exposure(ratio_to_reference, evidence=None):
+def between_patient_range(ratio_to_reference, odds_ratio, omega_cl_sd):
+    """Middle 90% of relative odds among patients with the same covariates, from between-patient variability in clearance.
+
+    Daily AUC = dose / CL and ln CL = ln CL_typical + eta with eta ~ N(0, omega^2), so ln AUC has SD omega and
+    ln(relative odds) = ln(OR) x ln(AUC / reference) has SD ln(OR) x omega. Uses the published odds ratio only; its own
+    uncertainty is reported separately.
+    """
+    if not (math.isfinite(omega_cl_sd) and omega_cl_sd >= 0):
+        raise ValueError('Between-patient SD must be finite and not negative.')
+    b = math.log(odds_ratio)
+    centre = ratio_to_reference ** b
+    spread = math.exp(Z90 * b * omega_cl_sd)
+    return {'p05': centre / spread, 'p95': centre * spread, 'omega_cl_sd': omega_cl_sd,
+            'exposure_ratio_p05': ratio_to_reference * math.exp(-Z90 * omega_cl_sd),
+            'exposure_ratio_p95': ratio_to_reference * math.exp(Z90 * omega_cl_sd)}
+
+
+def relative_odds_for_exposure(ratio_to_reference, evidence=None, variability=None):
+    """`variability`: optional {'omega_cl_sd': float, 'source': str, 'assumption': str|None} for the PK model used."""
     evidence = evidence or load_evidence()
     out = {'method_version': METHOD_VERSION, 'evidence_version': evidence['evidence_version'],
            'evidence_sha256': EVIDENCE_SHA256, 'ratio_to_reference': ratio_to_reference, 'meaning': MEANING,
@@ -47,4 +70,11 @@ def relative_odds_for_exposure(ratio_to_reference, evidence=None):
                                       odds_ratio_per_unit_ln_auc=e['odds_ratio_per_unit_ln_auc'],
                                       source_ci95=list(e['ci95']), statistically_significant=e['statistically_significant'],
                                       adjusted_for=e['adjusted_for'])
+        if variability is not None:
+            out['endpoints'][name]['between_patient_90'] = between_patient_range(
+                ratio_to_reference, e['odds_ratio_per_unit_ln_auc'], variability['omega_cl_sd'])
+    if variability is not None:
+        out['variability'] = dict(variability)
+    out['time_window'] = evidence['time_window']['statement']
+    out['source_reconciliation'] = evidence['reconciliation']['conclusion']
     return out

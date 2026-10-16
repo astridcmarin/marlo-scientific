@@ -92,5 +92,21 @@ Example for a synthetic 65-year-old woman with myeloma (Kim 2026, 10 mg daily):
 - **Probably understated in severe impairment**, where both models under-predict exposure.
 - **No absolute or individual outputs.** No probability, monitoring advice or dose recommendation is produced.
 
-**Not done:** reconciling with the 3.34 odds ratio quoted by Chen 2017, and any external check. No outside data on cytopenia by exposure have been found.
+**Not done:** any external check. No outside data on cytopenia by exposure have been found.
+
+## 4.0b — Reconciliation and between-patient variability (16 October)
+
+**The two odds ratios are the same analysis, cut two ways.** Chen, Zhou and Palmisano (*Clin Pharmacokinet* 2017, §6.2; open access, read through the publisher page and still to be checked against the PDF) report the sponsor's exposure–safety meta-analysis. It covered six studies of myeloma, MDS and mantle cell lymphoma at 5–50 mg, adjusted for disease and baseline counts, over all cycles up to one year. That gives the **all-disease** thrombocytopenia odds ratio of 3.337 (1.183–9.415). The TGA reports the **myeloma-only** value from the same analysis, 2.972 (1.027–8.598); both cite the Blood 2013 abstract 3234 / study CC-5013-MCL-001-PK. The myeloma-only value remains the one used. The TGA's "7 studies" versus Chen's "six" is noted but unresolved.
+
+**New caveat from Chen 2017:** "These relationships were not apparent during the first treatment cycle." Relative odds therefore apply to a course of treatment, and the page now says so.
+
+**Between-patient variability.**
+- **Method:** daily AUC = dose ÷ CL, and each model publishes a between-patient SD for ln CL/F: Hughes 0.544 (ω² = 0.296, control stream) and Kim 0.189 (18.9% CV, with the CV-to-SD reading recorded as an assumption). The middle 90% of relative odds among patients with identical covariates is therefore (ratio)^ln OR × e^(±1.645 · ln OR · SD).
+- **Display:** a separate column, next to the odds-ratio CI and not combined with it, because they are different kinds of uncertainty.
+- **What it shows:** at twice the reference exposure, the middle 90% of patients range from 0.8 to 5.6 (Hughes) and from 1.5 to 3.0 (Kim) in relative odds. Variation between patients often outweighs the uncertainty in the odds ratio, so the typical value says little about any one person.
+
+Files:
+- `lenalidomide_exposure_safety_v2.json` (pinned; v1 kept unchanged and tested);
+- `lenalidomide_relative_odds.py` (method v1.1, `between_patient_range`);
+- `estimated_pk._clearance_variability`.
 
