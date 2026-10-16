@@ -1,6 +1,6 @@
 # Simulation 2.0 — lenalidomide elimination pathways (kidney-focused)
 
-Status: **2.0a done** (pathway model and locked check). 2.0b, a patient view of the pathways, is next.
+Status: **2.0a and 2.0b done**: pathway model, locked check and a patient organ view.
 
 ## Why this, and not a full PBPK model
 
@@ -49,6 +49,35 @@ A full PBPK model would also need organ volumes, tissue partition coefficients a
 
 CLI: `flask --app app/app.py lenalidomide-renal-pathways-check`.
 
+## 2.0b — Patient organ view
+
+Page `…/patient-state/revisions/<id>/renal-pathways`, linked from the patient record as "Lenalidomide elimination pathways". Module `intelligence_store/patient_renal_pathways.py`.
+
+**How it works:**
+- **Kidney function:** the record's creatinine clearance is estimated with Cockcroft–Gault, using the documented weight-basis assumption.
+- **Pathway split:** the 2.0a model divides clearance into filtration, tubular secretion and non-renal routes under the intact-nephron reading. The secretion-preserved reading was rejected in 2.0a and is not offered.
+
+**What the page shows:**
+- **A kidney diagram** (blood → kidney → urine, plus the non-renal route) for the patient and for normal kidney function. Arrow widths are proportional to clearance, on a shared scale.
+- **A table** of each pathway in mL/min and as a share of the total, and the percentage of the dose leaving unchanged in urine.
+- **Typical exposure at the same dose** relative to normal kidney function.
+- **Warnings:**
+  - in moderate impairment, the 2.0a check found renal elimination lower than this reading predicts;
+  - outside about 10–140 mL/min, the split is an extrapolation.
+- **The shared banner and run record.** The model is registered in `model_evidence_status_v4.json` (v1.3); its "secretion scales with kidney function" assumption is marked as partly contradicted.
+
+**Example** (synthetic 65-year-old woman; Cockcroft–Gault with ideal body weight):
+
+| Estimated CrCl | Filtration / secretion / non-renal (mL/min) | Leaving in urine | Exposure vs normal |
+|---|---|---|---|
+| 74 | 57 / 52 / 29 | 79% | 1.4× |
+| 37 | 29 / 26 / 29 | 66% | 2.3× (real increase probably larger) |
+| 18 | 14 / 13 / 29 | 48% | 3.5× |
+
+This is the platform's first organ-level view: it shows where the drug goes, not only how much is in plasma.
+
 ## Next
 
-**2.0b:** for a saved synthetic patient, show how elimination splits between filtration, secretion and non-renal pathways at their kidney function, under reading A and labelled with this check's finding. This is the first "organ view": where the drug goes, not just how much is in plasma.
+- **Add the end-stage renal disease and dialysis groups** of CC-5013-PK-001 (not yet transcribed). Dialysis is an extra elimination route; the off-dialysis CL/F was 39 mL/min.
+- **Test whether non-renal clearance changes with kidney function**, as the moderate group hints.
+

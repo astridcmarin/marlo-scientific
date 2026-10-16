@@ -1,6 +1,6 @@
 {# Patient Lab 2.0f: one banner and one run-record panel for every Patient Lab result page. #}
 {% macro status_badge(status) %}<span class="rr-status rr-{{ {'done':'ok','by_design':'ok','within_reported_range':'ok','at_or_above_entry_threshold':'ok','settled_by_locked_check':'ok','fixed':'ok','completed':'ok','completed_educational_calculation':'ok',
-'not_done':'gap','unresolved':'open','assumed':'open','partial':'open','done_with_open_question':'open','done_exploratory':'open'}.get(status,'flag') }}">{{ status|replace('_',' ') }}</span>{% endmacro %}
+'not_done':'gap','unresolved':'open','assumed':'open','partial':'open','done_with_open_question':'open','done_exploratory':'open','partly_contradicted':'open','sourced':'ok'}.get(status,'flag') }}">{{ status|replace('_',' ') }}</span>{% endmacro %}
 
 {% macro simulation_banner(result_type) %}
 <section class="scenario-notice rr-banner" aria-label="What this result is">
@@ -20,7 +20,7 @@
 <p class="panel-note">Where this result comes from and how far to trust it. Every value is copied from the calculation's report or from a pinned source file; nothing here is recalculated.</p>
 
 <h3>Model and source</h3>
-<p><strong>{{ record.model.name }}</strong> · {{ record.model.citation }} · <a href="https://doi.org/{{ record.model.doi }}" rel="noopener">doi:{{ record.model.doi }}</a> · status {{ status_badge(record.status) }}</p>
+<p><strong>{{ record.model.name }}</strong> · {{ record.model.citation }} {% if record.model.doi %}· <a href="https://doi.org/{{ record.model.doi }}" rel="noopener">doi:{{ record.model.doi }}</a>{% endif %} · status {{ status_badge(record.status) }}</p>
 
 <h3>Patient record used</h3>
 <p>Record #{{ record.patient_record.revision_id }} · schema {{ record.patient_record.state_schema_version }} · data: <strong>{{ record.patient_record.data }}</strong>{% if record.saved_at_utc %} · run saved {{ record.saved_at_utc }}{% endif %}</p>
