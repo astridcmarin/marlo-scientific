@@ -43,12 +43,18 @@ A group mean is not an individual observation. Marginal covariate ranges do not 
 
 ## Current checkpoint and next work
 
-Steps 104–108 provide the bortezomib target-activity equation, peak-evidence review, provisional figure review, study-regimen time-course candidate and elimination-assumption comparison. Step 109 connects these five research tools to the Drug and Model Library and Simulation Lab. They remain review-required; no efficacy or toxicity model is registered. The educational exposure-model count remains one.
+See the [repository checkpoint of 16 October 2026](REPOSITORY_CHECKPOINT.md). Since the 13 October checkpoint:
+- **Lenalidomide:** a second exposure model (Kim 2026, renal impairment).
+- **Bortezomib:** an exposure engine and the first drug-effect module (Lignet 2022 platelet model, checked against its fitting data).
+- **Patient Lab:** the platelet curve in a patient's own counts, and a run record that states the evidence behind every result.
 
-A separate observation-intake batch reused the numbers 106–108. Refer to it as **observation intake v1**, using its module/schema identifiers rather than those ambiguous numbers. It checks source archives and paired-observation completeness; its empty template reports `evidence_incomplete`. It neither supersedes the time-course work nor resolves the peak-evidence discrepancy. See [repository checkpoint](REPOSITORY_CHECKPOINT.md) for the mapping.
+No efficacy or toxicity model is registered, and no model is validated for clinical prediction.
 
-The next scientific work is to resolve the bortezomib elimination formulation and review adequately sourced, compatible observations before evaluating model reproduction. Preserve the distinction between software verification and empirical/independent scientific validation. Lenalidomide source reproduction and independent review also remain pending.
+The library inventory still counts one exposure model and omits the platelet tool; correcting it is open (checkpoint finding 2). Earlier step-number history, including the reused numbers 106–108 for **observation intake v1**, is in the [13 October checkpoint](history/REPOSITORY_CHECKPOINT_2026-10-13.md).
 
-Broader disease and drug evidence can proceed alongside that review. Biological-profile integration requires compatible, supported models. Accounts, billing and production infrastructure remain future work; deployment is deferred.
+**Next work:**
+1. Fix the checkpoint findings (checksum pins for nine reference files; inventory counts).
+2. An outside check of the bortezomib PK model against Ogawa 2008 (days 1 and 11).
+3. Simulation 4.0 (linked exposure–effect for a patient).
 
-The eventual research workflow is: disease/drug search → source investigation → supported model selection → declared biological profile → exposure and endpoint simulation → uncertainty review → saved reproducible investigation. Current tools cover only parts of this chain.
+Preserve the distinction between software verification and empirical or independent scientific validation.

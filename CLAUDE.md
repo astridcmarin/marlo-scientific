@@ -7,7 +7,7 @@ Research and educational platform: clinical-trial intelligence, drug/regulatory 
 - `docs/README.md` — index of all documentation.
 - `docs/PRODUCT_AND_SCIENCE_ROADMAP.md` — product direction and phases.
 - `docs/PATIENT_LAB_2_0.md` — current Patient Lab work: scope, non-goals, architecture, step status, and recorded scientific decisions (Hughes 2019 lenalidomide model, Cockcroft–Gault weight basis).
-- `docs/REPOSITORY_CHECKPOINT.md` — step-number history (step numbers are not unique; use module/schema versions).
+- `docs/REPOSITORY_CHECKPOINT.md` — latest verification, findings and remaining gates; step-number history is in `docs/history/REPOSITORY_CHECKPOINT_2026-10-13.md` (step numbers are not unique; use module/schema versions).
 
 ## Conventions
 

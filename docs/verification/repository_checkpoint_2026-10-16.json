@@ -1,0 +1,64 @@
+{
+  "schema_version": "repository-checkpoint-v1",
+  "checkpoint": "2026-10-16",
+  "recorded_on": "2026-10-16",
+  "verified_tree": {
+    "branch": "sim-3.0e-external-search (main edcac12 + PR #25)",
+    "commit": "f8379cd"
+  },
+  "classification": "software_and_repository_verification",
+  "not_this": [
+    "Not scientific validation of any model.",
+    "Not a clinical-readiness review."
+  ],
+  "checks": [
+    {
+      "id": "unit_tests",
+      "result": "pass",
+      "detail": "655 tests, python -m unittest discover -s tests, Python 3.13 locally; GitHub Actions runs Python 3.12 (main edcac12: success; PR #25 f8379cd: success)."
+    },
+    {
+      "id": "compile",
+      "result": "pass",
+      "detail": "compileall over intelligence_store, landscape_ui, app, scripts, tests."
+    },
+    {
+      "id": "migrations",
+      "result": "pass",
+      "detail": "9 Alembic revisions, one root (3538c7d69211), one head (585bc7cb8d18)."
+    },
+    {
+      "id": "pinned_data",
+      "result": "pass_with_finding",
+      "detail": "61 tracked data files; 36 are pinned by a file SHA-256 that matches. Every *_SHA256 constant in code matches a tracked file, except two canonical-content pins in scripts (pk_numerical_crosscheck PLAN_CANONICAL_SHA256, pk_prediction_metrics_preview DESIGN_PROTOCOL_SHA256), which are checked by their own tests.",
+      "finding": "Nine reference files are loaded without an expected checksum (schema-validated and their SHA-256 reported, but not compared to a pin): drug_aliases_v1, formatting_group_mappings_v1, drug_annotations_v1, drug_safety_v1, drug_interactions_v1, patient_scenarios_v1, bortezomib_observation_template_v1, lenalidomide_assay_extraction_v1, lenalidomide_mechanism_evidence_plan_v1. CLAUDE.md says reference data are pinned by their loader. The 14 files in data/curation/ are review working files, not loaded references."
+    },
+    {
+      "id": "validation_flags",
+      "result": "pass",
+      "detail": "No tracked JSON sets clinical_prediction_validated or ready_for_patient_simulation to true."
+    },
+    {
+      "id": "page_smoke",
+      "result": "pass",
+      "detail": "61 GET routes requested with a synthetic fixture: 50 x 200, 6 x 400 (require a cohort_id query), 5 x 404 (saved Hughes run not present in the fixture); no server errors. 7 routes with other parameters not requested."
+    },
+    {
+      "id": "hygiene",
+      "result": "pass",
+      "detail": "No source articles tracked; Articles/ ignored by [Aa]rticles/. The only tracked PDF is the public EMA lenalidomide assessment report. No credentials or instance data tracked."
+    },
+    {
+      "id": "inventory_accuracy",
+      "result": "finding",
+      "finding": "The Drug and Model Library counts omit installed work: research_tool_counts has no entry for the drug_effect_timecourse kind, so the available bortezomib platelet tool is not counted; educational_exposure_models counts only Hughes 2019, not Kim 2026 or the bortezomib three-compartment PK engine."
+    },
+    {
+      "id": "docs_currency",
+      "result": "fixed_here",
+      "detail": "Checkpoint rewritten; roadmap 'current checkpoint' section, docs index and Simulation 3.0 status updated."
+    }
+  ],
+  "model_evidence_summary_source": "intelligence_store/data/model_evidence_status_v2.json",
+  "clinical_prediction_validated": false
+}
