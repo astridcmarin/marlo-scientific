@@ -88,7 +88,7 @@ class PublishedTransitReferenceTests(unittest.TestCase):
         text=runner.invoke(args=['pk-structure-reference']);self.assertEqual(text.exit_code,0)
         self.assertIn('8 = ABS + TRANS1 through TRANS7',text.output)
         result=runner.invoke(args=['pk-structure-reference','--json']);self.assertEqual(result.exit_code,0)
-        self.assertEqual(json.loads(result.output),published_transit_reference())
+        self.assertEqual(json.loads(result.stdout),published_transit_reference())
         with tempfile.TemporaryDirectory() as tmp:
             path=Path(tmp)/'report.json'
             self.assertEqual(runner.invoke(args=['pk-structure-reference','--output',str(path)]).exit_code,0)

@@ -128,7 +128,7 @@ class PopulationBand(unittest.TestCase):
                                          '--weight-basis', 'ideal_body_weight_devine', '--treatment-file', str(request),
                                          '--disease-code', 'MM', '--subjects', '200'])
             self.assertEqual(result.exit_code, 0, result.output)
-            self.assertEqual(json.loads(result.output)['n_subjects'], 200)
+            self.assertEqual(json.loads(result.stdout)['n_subjects'], 200)
 
 
 if __name__ == '__main__':

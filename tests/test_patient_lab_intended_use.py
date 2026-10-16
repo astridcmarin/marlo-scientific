@@ -49,7 +49,7 @@ class PatientLabIntendedUseTests(unittest.TestCase):
     def test_cli_json_and_protected_export(self):
         app=Flask(__name__);register_patient_lab_intended_use_commands(app);runner=app.test_cli_runner()
         result=runner.invoke(args=['patient-lab-intended-use','--json']);self.assertEqual(result.exit_code,0,result.output)
-        self.assertEqual(json.loads(result.output),intended_use_report())
+        self.assertEqual(json.loads(result.stdout),intended_use_report())
         summary=runner.invoke(args=['patient-lab-intended-use']);self.assertEqual(summary.exit_code,0)
         self.assertIn('Governance approval: none',summary.output)
         with tempfile.TemporaryDirectory() as directory:

@@ -157,7 +157,7 @@ class EducationalPKComparisonTests(unittest.TestCase):
         a,b=self.pair();register_educational_pk_comparison_commands(self.app)
         args=['patient-pk-compare','--revision-id',str(self.revision.id),'--left',str(a.id),'--right',str(b.id)]
         runner=self.app.test_cli_runner();result=runner.invoke(args=args+['--json'])
-        self.assertEqual(result.exit_code,0,result.output);self.assertEqual(json.loads(result.output),self.compare(a,b))
+        self.assertEqual(result.exit_code,0,result.output);self.assertEqual(json.loads(result.stdout),self.compare(a,b))
         with tempfile.TemporaryDirectory() as directory:
             path=Path(directory)/'compare.json';result=runner.invoke(args=args+['--output',str(path)])
             self.assertEqual(result.exit_code,0,result.output);before=path.read_bytes()

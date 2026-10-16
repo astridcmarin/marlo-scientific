@@ -215,7 +215,7 @@ class CovariateEstimateCommand(unittest.TestCase):
     def test_example_comparison(self):
         result = self.runner.invoke(args=['covariate-estimate', '--example', '--compare-bases'])
         self.assertEqual(result.exit_code, 0, result.output)
-        self.assertEqual(len(json.loads(result.output)['rows']), 3)
+        self.assertEqual(len(json.loads(result.stdout)['rows']), 3)
 
     def test_weight_basis_is_required(self):
         result = self.runner.invoke(args=['covariate-estimate', '--example'])

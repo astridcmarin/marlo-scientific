@@ -184,7 +184,7 @@ class EducationalPKTests(unittest.TestCase):
             cov.write_text(json.dumps(model_input_example()));req.write_text(json.dumps(treatment_request_example()))
             args=['patient-pk-educational','--revision-id',str(self.revision.id),'--inputs-file',str(cov),'--treatment-file',str(req),'--disease-code','MM']
             r=runner.invoke(args=args+['--json']);self.assertEqual(r.exit_code,0,r.output)
-            self.assertEqual(json.loads(r.output),self.run_example())
+            self.assertEqual(json.loads(r.stdout),self.run_example())
             self.assertEqual(runner.invoke(args=args+['--output',str(out)]).exit_code,0)
             saved=out.read_bytes();self.assertNotEqual(runner.invoke(args=args+['--output',str(out)]).exit_code,0)
             self.assertEqual(saved,out.read_bytes())

@@ -71,7 +71,7 @@ class PKParameterReferenceTests(unittest.TestCase):
         result=runner.invoke(args=['pk-parameter-check']);self.assertEqual(result.exit_code,0,result.output)
         self.assertIn('parameter_math_passed',result.output)
         result=runner.invoke(args=['pk-parameter-check','--json']);self.assertEqual(result.exit_code,0,result.output)
-        self.assertEqual(json.loads(result.output),parameter_reference_report())
+        self.assertEqual(json.loads(result.stdout),parameter_reference_report())
         with tempfile.TemporaryDirectory() as directory:
             p=Path(directory)/'check.json';args=['pk-parameter-check','--output',str(p)]
             self.assertEqual(runner.invoke(args=args).exit_code,0);before=p.read_bytes()

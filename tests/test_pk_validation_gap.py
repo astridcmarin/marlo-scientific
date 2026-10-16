@@ -162,7 +162,7 @@ class PKValidationGapTests(unittest.TestCase):
         self.source_run();register_pk_validation_gap_commands(self.app)
         runner=self.app.test_cli_runner();args=['patient-pk-validation-gap','--id',str(self.run.id)]
         result=runner.invoke(args=args+['--json']);self.assertEqual(result.exit_code,0,result.output)
-        expected=validation_gap_report(self.run.id);self.assertEqual(json.loads(result.output),expected)
+        expected=validation_gap_report(self.run.id);self.assertEqual(json.loads(result.stdout),expected)
         summary=runner.invoke(args=args);self.assertEqual(summary.exit_code,0,summary.output)
         self.assertIn('[PASSED] Numerical implementation verification',summary.output)
         self.assertIn('[BLOCKED] External predictive validation',summary.output)

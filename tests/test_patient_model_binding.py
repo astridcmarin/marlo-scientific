@@ -170,7 +170,7 @@ class PatientModelBindingTests(unittest.TestCase):
             source.write_text(json.dumps(model_input_example()))
             args=['patient-model-bind-preview','--revision-id',str(self.revision.id),'--inputs-file',str(source)]
             result=runner.invoke(args=args+['--json']);self.assertEqual(result.exit_code,0,result.output)
-            self.assertEqual(json.loads(result.output),review_model_binding(self.revision.id,model_input_example()))
+            self.assertEqual(json.loads(result.stdout),review_model_binding(self.revision.id,model_input_example()))
             self.assertEqual(runner.invoke(args=args+['--output',str(out)]).exit_code,0)
             saved=out.read_bytes();self.assertNotEqual(runner.invoke(args=args+['--output',str(out)]).exit_code,0)
             self.assertEqual(saved,out.read_bytes())

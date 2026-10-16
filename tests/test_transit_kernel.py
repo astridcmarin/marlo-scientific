@@ -91,7 +91,7 @@ class TransitKernelTests(unittest.TestCase):
         app=Flask(__name__);register_transit_kernel_commands(app);runner=app.test_cli_runner()
         result=runner.invoke(args=['transit-demo']);self.assertEqual(result.exit_code,0,result.output)
         result=runner.invoke(args=['transit-demo','--json']);self.assertEqual(result.exit_code,0,result.output)
-        self.assertEqual(json.loads(result.output),transit_demo())
+        self.assertEqual(json.loads(result.stdout),transit_demo())
         with tempfile.TemporaryDirectory() as directory:
             p=Path(directory)/'demo.json';args=['transit-demo','--output',str(p)]
             self.assertEqual(runner.invoke(args=args).exit_code,0);original=p.read_bytes()

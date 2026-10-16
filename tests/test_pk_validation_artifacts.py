@@ -73,7 +73,7 @@ class PKValidationArtifactTests(unittest.TestCase):
             self.assertEqual(manifest.read_bytes(),original)
             args=['pk-validation-artifacts','--manifest',str(manifest),'--json']
             result=runner.invoke(args=args);self.assertEqual(result.exit_code,0,result.output)
-            self.assertEqual(json.loads(result.output)['file_status_counts'],{'not_supplied':8})
+            self.assertEqual(json.loads(result.stdout)['file_status_counts'],{'not_supplied':8})
             self.assertNotEqual(runner.invoke(args=args+['--example']).exit_code,0)
             output=root/'inventory.json';self.assertEqual(runner.invoke(args=args+['--output',str(output)]).exit_code,0)
             first=output.read_bytes();self.assertNotEqual(runner.invoke(args=args+['--output',str(output)]).exit_code,0);self.assertEqual(output.read_bytes(),first)

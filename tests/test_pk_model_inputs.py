@@ -94,7 +94,7 @@ class PKModelInputTests(unittest.TestCase):
     def test_cli_modes_json_safety_and_non_overwriting_output(self):
         app=Flask(__name__);register_pk_model_input_commands(app);runner=app.test_cli_runner()
         r=runner.invoke(args=['pk-model-inputs','--example','--json']);self.assertEqual(r.exit_code,0,r.output)
-        self.assertEqual(json.loads(r.output),preview_model_inputs(model_input_example()))
+        self.assertEqual(json.loads(r.stdout),preview_model_inputs(model_input_example()))
         self.assertNotEqual(runner.invoke(args=['pk-model-inputs']).exit_code,0)
         with tempfile.TemporaryDirectory() as tmp:
             source=Path(tmp)/'inputs.json';out=Path(tmp)/'out.json'
