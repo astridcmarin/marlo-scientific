@@ -204,7 +204,9 @@ Every Patient Lab result page now opens with the same banner and ends with the s
 |---|---|---|---|---|
 | Hughes 2019 | done | partial (control stream not retrieved) | not done | exploratory: mild consistent; moderate, severe under-predicted |
 | Kim 2026 | done | done, CL/F form open | done (Table 2 group CL/F) | exploratory: mild, moderate consistent; severe under-predicted (primary scenario) |
-| Lignet 2022 (platelets) | done | partial (independent review pending) | done (locked check, fitting data) | not done |
+| Lignet 2022 (platelets) | done | partial (independent review pending) | done (locked check, fitting data) | not done; searched, no usable outside data (see below) |
+
+**Search for outside platelet data (15 October 2026, evidence status v1.1, `model_evidence_status_v2.json`).** The only candidate found is the Japanese phase I/II study (NCT00752518; sponsor report CR009058; 0.7, 1.0 and 1.3 mg/m² on the same schedule). Its public synopsis gives no platelet counts over time; the full report, which tabulated hematology values by testing time, is not public. Incidences alone are not used, because a typical curve without between-patient spread cannot predict how many patients cross a threshold. A possible route is a data request through the sponsor's data-sharing program (YODA Project for Janssen).
 
 The table is the honest summary of the platform's evidence today: no model has external consistency at the individual level, and none is validated for clinical prediction.
 

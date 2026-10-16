@@ -18,7 +18,7 @@ from intelligence_store.estimated_pk import calculate_estimated_pk, primary_weig
 from intelligence_store.kim_pk_runs import read_kim_pk_run
 from intelligence_store.patient_state import SCHEMA_V2, digest
 from intelligence_store.patient_state_revisions import save_revision
-from intelligence_store.run_record import (EVIDENCE_PATH, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
+from intelligence_store.run_record import (EVIDENCE_PATH, EVIDENCE_V1_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
                                            record_for_estimated_pk, record_for_kim_run, record_for_patient_platelets)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,6 +34,17 @@ class EvidenceStatus(unittest.TestCase):
             path.write_bytes(EVIDENCE_PATH.read_bytes() + b' ')
             with self.assertRaises(CovariateEstimationError):
                 load_evidence_status(path)
+
+    def test_superseded_version_is_kept_unchanged(self):
+        v1 = EVIDENCE_PATH.with_name('model_evidence_status_v1.json')
+        self.assertEqual(hashlib.sha256(v1.read_bytes()).hexdigest(), EVIDENCE_V1_SHA256)
+        current = load_evidence_status()
+        self.assertEqual(current['supersedes']['status_version'], json.loads(v1.read_text())['status_version'])
+
+    def test_bortezomib_external_search_is_recorded(self):
+        layer = load_evidence_status()['models']['bortezomib_platelets_lignet_2022']['layers']['external_consistency']
+        self.assertEqual(layer['status'], 'not_done')
+        self.assertTrue(any('CR009058' in c['source'] for c in layer['search']['candidates']))
 
     def test_every_model_states_all_four_layers(self):
         evidence = load_evidence_status()
@@ -134,7 +145,7 @@ class Records(unittest.TestCase):
                   'What has been checked about this model', 'Inside the source data?')
         rev = self.platelet_revision(120)
         platelets = self.client.get(f'{base}/{rev.id}/bortezomib-platelets').get_data(as_text=True)
-        for text in shared + ('Hypothetical typical effect curve', 'settled by locked check', 'not done', 'doi:10.1002/psp4.12743'):
+        for text in shared + ('Hypothetical typical effect curve', 'settled by locked check', 'not done', 'doi:10.1002/psp4.12743', 'Sources searched', 'CR009058'):
             self.assertIn(text, platelets)
         missing = self.client.get(f'{base}/{self.revision.id}/bortezomib-platelets').get_data(as_text=True)
         self.assertIn('Not a clinical prediction', missing)
