@@ -1,5 +1,5 @@
 # Clinical Trials Intelligence Explorer
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request, url_for
 import requests
 from intelligence_store import init_storage
 from intelligence_store.snapshots import save_trial_snapshots
@@ -655,9 +655,23 @@ def calculate_analytics(studies):
 
 
 # ==================================================
-# HOME ROUTE
+# LANDING PAGE
 # ==================================================
+GITHUB_URL = "https://github.com/astridcmarin/marlo-scientific"
+
+
 @app.route("/")
+def landing():
+    # Searches used to live at "/?condition=...": send old links and bookmarks to the explorer.
+    if request.args:
+        return redirect(url_for("home", **request.args.to_dict(flat=False)), code=301)
+    return render_template("landing.html", github_url=GITHUB_URL)
+
+
+# ==================================================
+# TRIAL EXPLORER
+# ==================================================
+@app.route("/trials")
 def home():
     condition = request.args.get("condition", "")
     status_filter = request.args.get("status", "")

@@ -320,6 +320,8 @@ flask --app app/app.py db upgrade      # create or update the database schema
 flask --app app/app.py run
 ```
 
+Open http://127.0.0.1:5000 for the landing page, http://127.0.0.1:5000/trials for the trial explorer and http://127.0.0.1:5000/landscape/ for the research workspace. Older search links of the form `/?condition=…` redirect to `/trials`.
+
 By default the database is SQLite at `instance/intelligence.db`; set `DATABASE_URL` to use another database. A workspace signing key is generated in `instance/` on first use. The `instance/` folder is ignored by git.
 
 Command-line tools are registered on the same app, for example `flask --app app/app.py covariate-estimate --example --compare-bases`. Run `flask --app app/app.py --help` for the full list.

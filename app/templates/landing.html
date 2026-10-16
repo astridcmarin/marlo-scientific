@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Marlo Scientific | Clinical &amp; Pharmaceutical Intelligence</title>
+    <meta name="description" content="A research platform connecting clinical-trial evidence, drug and regulatory knowledge, and transparent pharmacology models. For research and educational use.">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+    <div class="wrap">
+        <a class="brand" href="{{ url_for('landing') }}">
+            <img src="{{ url_for('static', filename='images/favicon.png') }}" alt="">
+            <span>Marlo Scientific</span>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+            <a href="{{ url_for('home') }}">Trial explorer</a>
+            <a href="{{ url_for('landscape.index') }}">Research workspace</a>
+            <a href="{{ url_for('landscape.patient_directory') }}">Patient Lab</a>
+            <a href="#provenance">Provenance</a>
+            <a class="button button-aqua" href="{{ github_url }}">View on GitHub</a>
+        </nav>
+    </div>
+</header>
+
+<main id="main">
+
+<section class="hero">
+    <div class="wrap">
+        <div class="stack">
+            <p class="eyebrow">Clinical &amp; Pharmaceutical Intelligence</p>
+            <h1>Advancing Drug Research Through Intelligent Science</h1>
+            <p class="lede">Marlo Scientific connects clinical-trial evidence, drug and regulatory knowledge, and transparent pharmacology models in one research workspace, with every result traced to its source.</p>
+            <p class="question">The question behind it: what happens when this drug meets this biological system?</p>
+            <div class="button-row">
+                <a class="button button-aqua" href="{{ url_for('home') }}">Open the trial explorer</a>
+                <a class="button button-ghost" href="#platform">Explore the platform</a>
+            </div>
+        </div>
+
+        <figure class="record-card">
+            <figcaption>
+                <span class="label">Run record · shown with every result</span>
+                <span class="title">Lenalidomide elimination pathways</span>
+                <span class="sub">Filtration, tubular secretion and non-renal clearance for a synthetic patient</span>
+            </figcaption>
+            <div class="pills">
+                <span class="pill">Simulated</span>
+                <span class="pill">Synthetic patient record</span>
+                <span class="pill pill-flag">Not a clinical prediction</span>
+            </div>
+            <dl class="layers" aria-label="What has been checked about this model">
+                <dt>Software verification</dt><dd class="status-ok">done</dd>
+                <dt>Transcription against the source</dt><dd class="status-open">partial</dd>
+                <dt>Reproduction of fitting data</dt><dd class="status-ok">by design</dd>
+                <dt>External consistency</dt><dd class="status-open">exploratory</dd>
+            </dl>
+            <p class="finding">Finding recorded: renal elimination falls faster than in proportion to kidney function in moderate impairment, so this model under-predicts exposure there.</p>
+            <p class="mono-note">Clinical prediction validated: false</p>
+        </figure>
+    </div>
+</section>
+
+<section class="workflow" aria-labelledby="flow-heading">
+    <div class="wrap">
+        <h2 id="flow-heading">One research workflow</h2>
+        <ol>
+            <li>Search a disease</li><li class="arrow" aria-hidden="true">→</li>
+            <li>Identify medications</li><li class="arrow" aria-hidden="true">→</li>
+            <li>Review clinical evidence</li><li class="arrow" aria-hidden="true">→</li>
+            <li>Examine drug mechanisms</li><li class="arrow" aria-hidden="true">→</li>
+            <li>Explore pharmacology models</li>
+        </ol>
+    </div>
+</section>
+
+<section id="platform" class="section" aria-labelledby="platform-heading">
+    <div class="wrap">
+        <div class="intro stack">
+            <p class="eyebrow">The platform today</p>
+            <h2 id="platform-heading">Three connected workspaces</h2>
+            <p>Each workspace feeds the next, so a question that starts with a disease can end with a transparent look at how a drug behaves.</p>
+        </div>
+
+        <div class="grid-2">
+            <article class="card">
+                <span class="tag">Substantial functionality</span>
+                <h3>Clinical trial intelligence</h3>
+                <p>Search, filter and analyze clinical trial and regulatory intelligence from ClinicalTrials.gov.</p>
+                <ul class="feature-list">
+                    <li><strong>Search and filter</strong> by condition, intervention, sponsor and location; narrow by status, phase, study type and sex; sort by recency or enrollment.</li>
+                    <li><strong>Full study records</strong>, organized: identification, sponsor and leadership, design, arms and interventions, dates, eligibility, locations, contacts and outcomes.</li>
+                    <li><strong>Regulatory overview</strong> for each study: FDA-regulated drug or device, data monitoring committee, FDAAA 801 and results-reporting indicators, expanded access, and the registration-to-results timeline.</li>
+                    <li><strong>Trial and regulatory analytics</strong> across the results: phase, status, sponsor class, top sponsors, intervention types, countries, enrollment and study types.</li>
+                    <li><strong>Research layer</strong>: drug names and combination regimens normalized to consistent identities, trials grouped into cohorts and compared, evidence saved and summarized.</li>
+                </ul>
+                <div class="dataset">
+                    <p><span class="big">4,037</span> unique multiple myeloma trials in the research dataset</p>
+                    <dl class="bars">
+                        <dt>Interventional</dt><dd class="bar"><span style="width: 85.5%"></span></dd><dd class="count">3,450</dd>
+                        <dt>Observational</dt><dd class="bar"><span style="width: 13.7%"></span></dd><dd class="count">554</dd>
+                        <dt>Completed</dt><dd class="bar bar-navy"><span style="width: 45.2%"></span></dd><dd class="count">1,825</dd>
+                        <dt>Recruiting</dt><dd class="bar bar-navy"><span style="width: 14.5%"></span></dd><dd class="count">584</dd>
+                    </dl>
+                </div>
+                <p class="small-note">Results-reporting indicators describe registry status; they are not determinations of legal compliance.</p>
+                <a href="{{ url_for('home') }}">Open the trial explorer →</a>
+            </article>
+
+            <div class="stack" style="gap: 32px">
+                <article class="card">
+                    <span class="tag">Foundation in place</span>
+                    <h3>Drug and regulatory knowledge</h3>
+                    <p>Curated, versioned reference data on each drug, linked to the trials that study it.</p>
+                    <ul class="chips">
+                        <li>Mechanisms of action</li>
+                        <li>Safety information</li>
+                        <li>Drug interactions</li>
+                        <li>Names and aliases</li>
+                        <li>Regulatory evidence</li>
+                        <li>Modeling capabilities</li>
+                    </ul>
+                    <p><a href="{{ url_for('landscape.drug_knowledge') }}">Drug knowledge →</a> &nbsp; <a href="{{ url_for('landscape.regulatory') }}">Regulatory →</a></p>
+                </article>
+                <article class="card">
+                    <span class="tag tag-warn">Experimental · research use</span>
+                    <h3>Computational pharmacology lab</h3>
+                    <p>A Patient Lab of synthetic patient records and a Simulation Lab that runs published pharmacology models on them, for research and education.</p>
+                    <p><a href="#lab">What it can do today ↓</a></p>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="lab" class="section section-tint" aria-labelledby="lab-heading">
+    <div class="wrap">
+        <div class="intro stack">
+            <p class="eyebrow">Patient Lab and Simulation Lab</p>
+            <h2 id="lab-heading">See how a drug behaves across different patients</h2>
+            <p>Build a synthetic patient with age, sex, body size, kidney function and laboratory values, then run published models on that record. Each result is a typical value from a published model, never a prediction for a real person.</p>
+        </div>
+        <div class="grid-3">
+            <article class="card card-small">
+                <h3>Synthetic patient records</h3>
+                <p>Structured patient states with saved scenarios, revision history and side-by-side comparisons. Every value records where it came from.</p>
+            </article>
+            <article class="card card-small">
+                <h3>Published PK models</h3>
+                <p>Lenalidomide concentration–time curves from two population PK models (Hughes 2019, Kim 2026), with covariates estimated from the patient record and between-patient variability shown.</p>
+            </article>
+            <article class="card card-small">
+                <h3>Kidney elimination pathways</h3>
+                <p>How lenalidomide clearance splits between filtration, tubular secretion and non-renal routes as kidney function falls, checked against a published renal-impairment study.</p>
+            </article>
+            <article class="card card-small">
+                <h3>Exposure and safety signals</h3>
+                <p>Relative odds of severe low blood counts at a patient's simulated exposure, from a published exposure–safety analysis. Relative, not absolute, and labelled that way.</p>
+            </article>
+            <article class="card card-small">
+                <h3>Pharmacodynamic time courses</h3>
+                <p>The typical platelet course under bortezomib from a published model (Lignet 2022), scaled to the patient's starting count and graded against CTCAE v5.0.</p>
+            </article>
+            <article class="card card-small">
+                <h3>Mechanism building blocks</h3>
+                <p>Modules for target occupancy, binding kinetics, protein turnover, transit delays, treatment regimens and parameter sensitivity.</p>
+            </article>
+        </div>
+        <div class="button-row" style="margin-top: 32px">
+            <a class="button button-navy" href="{{ url_for('landscape.patient_directory') }}">Open the Patient Lab</a>
+            <a class="button button-outline" href="{{ url_for('landscape.simulation_lab') }}">Open the Simulation Lab</a>
+        </div>
+    </div>
+</section>
+
+<section id="provenance" class="section section-navy provenance" aria-labelledby="provenance-heading">
+    <div class="wrap">
+        <div class="intro stack">
+            <p class="eyebrow">Provenance first</p>
+            <h2 id="provenance-heading">Every result shows its evidence, including where a model falls short</h2>
+            <p>A simulated number is only as useful as what you know about it. Marlo Scientific records where each value came from and what has, and has not, been checked.</p>
+        </div>
+        <ul class="principles">
+            <li><h3>Pinned sources</h3><p>Reference data is checksum-pinned and versioned. A changed file is refused, and updates are new versions rather than silent edits.</p></li>
+            <li><h3>Four validation layers</h3><p>Software verification, transcription against the source, reproduction of published results, and consistency with outside data, reported separately for every model.</p></li>
+            <li><h3>Checks planned before they run</h3><p>Comparisons with outside data follow a plan fixed in advance, and the results are kept whichever way they go, including when they contradict a model.</p></li>
+            <li><h3>Unknown stays unknown</h3><p>No silent defaults or unit conversions. Assumptions are named, with their status: sourced, assumed, unresolved or contradicted.</p></li>
+        </ul>
+    </div>
+</section>
+
+<section id="roadmap" class="section" aria-labelledby="roadmap-heading">
+    <div class="wrap">
+        <div class="intro stack">
+            <p class="eyebrow">Where it is heading</p>
+            <h2 id="roadmap-heading">Toward a computational human, one defensible step at a time</h2>
+            <p>The long-term aim is a virtual patient where researchers can follow a drug from the whole body to the organ, tissue, cell and molecular target. Each step is built on models that have been checked first.</p>
+        </div>
+        <ol class="grid-4">
+            <li class="card card-small"><span class="tag tag-plain">Planned</span><h3>Multi-organ physiology</h3><p>Linking liver, kidney, circulation and gut compartments.</p></li>
+            <li class="card card-small"><span class="tag tag-plain">Planned</span><h3>Disease progression</h3><p>Disease states and biomarkers that change over time.</p></li>
+            <li class="card card-small"><span class="tag tag-plain">Planned</span><h3>Combination therapies</h3><p>Several drugs and mechanisms in one scenario.</p></li>
+            <li class="card card-small"><span class="tag tag-plain">Planned</span><h3>Digital human interface</h3><p>Body → organ → tissue → cell → molecular target.</p></li>
+        </ol>
+    </div>
+</section>
+
+<section class="built section-tint" aria-labelledby="built-heading">
+    <div class="wrap">
+        <div class="stack">
+            <h2 id="built-heading">Open, tested research software</h2>
+            <p>Built in Python and Flask with SQLAlchemy and Alembic, and covered by an automated test suite that runs on every change. The source is on GitHub.</p>
+        </div>
+        <div class="button-row">
+            <a class="button button-navy" href="{{ github_url }}">View the repository</a>
+            <a class="button button-outline" href="{{ url_for('landscape.index') }}">Open the research workspace</a>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="wrap">
+        <div class="brand-small">
+            <img src="{{ url_for('static', filename='images/favicon.png') }}" alt="">
+            <strong>Marlo Scientific</strong>
+            <span>© 2026</span>
+        </div>
+        <p>A research and educational platform. Simulated results are not clinical predictions and are not validated for diagnosis, prescribing or treatment selection. Patient records are synthetic. Trial data from ClinicalTrials.gov.</p>
+    </div>
+</footer>
+</body>
+</html>
