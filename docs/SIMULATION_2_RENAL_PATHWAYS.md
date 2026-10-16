@@ -64,7 +64,7 @@ Page `…/patient-state/revisions/<id>/renal-pathways`, linked from the patient 
 - **Warnings:**
   - in moderate impairment, the 2.0a check found renal elimination lower than this reading predicts;
   - outside about 10–140 mL/min, the split is an extrapolation.
-- **The shared banner and run record.** The model is registered in `model_evidence_status_v4.json` (v1.3); its "secretion scales with kidney function" assumption is marked as partly contradicted.
+- **The shared banner and run record.** The model is registered in `model_evidence_status_v4.json` (v1.3; from v1.4, `model_evidence_status_v5.json` also lists the 2.0c end-stage check as a further report); its "secretion scales with kidney function" assumption is marked as partly contradicted.
 
 **Example** (synthetic 65-year-old woman; Cockcroft–Gault with ideal body weight):
 

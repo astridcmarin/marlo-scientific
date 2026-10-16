@@ -110,3 +110,21 @@ Files:
 - `lenalidomide_relative_odds.py` (method v1.1, `between_patient_range`);
 - `estimated_pk._clearance_variability`.
 
+
+## 4.0c — Run record for relative odds (16 October)
+
+The relative-odds panel was the only Patient Lab result without a run record. It now has one.
+
+- `model_evidence_status_v5.json` (v1.4; v4 kept) adds `lenalidomide_exposure_safety_2016`, the odds-ratio source, with its four layers stated plainly:
+  - software verification: done;
+  - transcription: partial (TGA checked against the AusPAR text, Chen 2017 not yet against the PDF);
+  - reproduction: not done (intercept, baseline-count coefficients and AUC definition were not published);
+  - external consistency: not done (Chen 2017 is the same analysis, so it is not independent confirmation).
+- The same file adds the end-stage kidney disease check (2.0c) to the renal pathway model as a further report, so the renal pathway page now shows it.
+- `run_record.record_for_relative_odds` builds a record for the "Compare Hughes and Kim" result. It lists:
+  - the patient-record inputs and each model's exposure ratio;
+  - the assumptions: exposure measure, odds ratios used, time window, same baseline, and each model's clearance variability (Kim's marked as assumed because it is converted from a CV);
+  - the declared disease, flagged when it is not myeloma;
+  - checksums.
+- The panel states its own result type, because the page banner describes the concentration curve, not the odds.
+- Test fix: `tests/test_migrations.py` opened SQLite with `with sqlite3.connect(...)`, which commits but does not close. This was the source of the stray ResourceWarning; it now uses `contextlib.closing`.

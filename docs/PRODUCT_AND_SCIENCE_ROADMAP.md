@@ -53,7 +53,7 @@ No efficacy or toxicity model is registered, and no model is validated for clini
 The library inventory now counts two lenalidomide exposure models, the bortezomib PK component and the platelet tool (inventory v1.2). Earlier step-number history, including the reused numbers 106–108 for **observation intake v1**, is in the [13 October checkpoint](history/REPOSITORY_CHECKPOINT_2026-10-13.md).
 
 **Next work:**
-1. Simulation 2.0 (2.0a–2.0c) and 4.0a–4.0b are done. Next candidates: a body → organ navigation layer linking the existing organ views, or (for bortezomib) a PK model with time-dependent clearance.
+1. Simulation 2.0 (2.0a–2.0c) and 4.0a–4.0c are done; every Patient Lab result now has a run record. Next candidates: a body → organ navigation layer linking the existing organ views, or (for bortezomib) a PK model with time-dependent clearance.
 2. Strengthen 4.0a (reconcile the 2.97 and 3.34 odds ratios; carry exposure uncertainty).
 3. For bortezomib, a published PK model with time-dependent clearance.
 

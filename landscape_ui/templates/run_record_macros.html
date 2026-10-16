@@ -14,9 +14,10 @@
 
 {% macro value(v) %}{% if v is number %}{{ '%.4g'|format(v) }}{% else %}{{ v }}{% endif %}{% endmacro %}
 
-{% macro run_record_panel(record) %}
-<section class="panel rr-panel" aria-labelledby="run-record-heading">
-<h2 id="run-record-heading">Run record</h2>
+{% macro run_record_panel(record, heading_id='run-record-heading', heading='Run record') %}
+<section class="panel rr-panel" aria-labelledby="{{ heading_id }}">
+<h2 id="{{ heading_id }}">{{ heading }}</h2>
+{% if heading_id != 'run-record-heading' %}<p><strong>{{ record.result_type.label }}.</strong> {{ record.result_type.is }} It is not {{ record.result_type.is_not|join(', ') }}. Clinical prediction validated: <strong>false</strong>.</p>{% endif %}
 <p class="panel-note">Where this result comes from and how far to trust it. Every value is copied from the calculation's report or from a pinned source file; nothing here is recalculated.</p>
 
 <h3>Model and source</h3>
@@ -42,7 +43,7 @@
 
 <h3>What has been checked about this model</h3>
 <div class="table-scroll"><table class="rr-table"><thead><tr><th>Layer</th><th>Status</th><th>What was found</th></tr></thead><tbody>
-{% for layer in record.model.layers %}<tr><td>{{ layer.layer|replace('_',' ')|capitalize }}<br><small>{{ layer.description }}</small></td><td>{{ status_badge(layer.status) }}</td><td>{{ layer.summary }}{% if layer.evidence_report %}<br><small>Report: {{ layer.evidence_report }}</small>{% endif %}{% if layer.search %}<details><summary>Sources searched ({{ layer.search.searched_on }})</summary><ul>{% for c in layer.search.candidates %}<li><strong>{{ c.source }}:</strong> {{ c.result }}</li>{% endfor %}</ul><p><small>{{ layer.search.why_incidence_alone_is_not_used }} {{ layer.search.possible_route }}</small></p></details>{% endif %}</td></tr>{% endfor %}
+{% for layer in record.model.layers %}<tr><td>{{ layer.layer|replace('_',' ')|capitalize }}<br><small>{{ layer.description }}</small></td><td>{{ status_badge(layer.status) }}</td><td>{{ layer.summary }}{% if layer.evidence_report %}<br><small>Report: {{ layer.evidence_report }}</small>{% endif %}{% for extra in layer.further_reports or [] %}<br>{{ extra.summary }}<br><small>Report: {{ extra.evidence_report }}</small>{% endfor %}{% if layer.search %}<details><summary>Sources searched ({{ layer.search.searched_on }})</summary><ul>{% for c in layer.search.candidates %}<li><strong>{{ c.source }}:</strong> {{ c.result }}</li>{% endfor %}</ul><p><small>{{ layer.search.why_incidence_alone_is_not_used }} {{ layer.search.possible_route }}</small></p></details>{% endif %}</td></tr>{% endfor %}
 </tbody></table></div>
 <p class="panel-note"><strong>Not established for any model:</strong> {{ record.model.never_established }}</p>
 
