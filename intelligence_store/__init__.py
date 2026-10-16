@@ -45,6 +45,7 @@ from .kim_model import register_kim_model_commands
 from .kim_renal_group_check import register_kim_renal_group_check_commands
 from .kim_pk_runs import register_kim_pk_run_commands
 from .bortezomib_platelets import register_bortezomib_platelet_commands
+from .bortezomib_pk_ogawa_check import register_bortezomib_pk_ogawa_commands
 from .patient_model_binding import register_patient_model_binding_commands
 from .treatment_requests import register_treatment_request_commands
 from .model_coverage import register_model_coverage_commands
@@ -121,6 +122,7 @@ def init_storage(app):
     register_kim_renal_group_check_commands(app)
     register_kim_pk_run_commands(app)
     register_bortezomib_platelet_commands(app)
+    register_bortezomib_pk_ogawa_commands(app)
     register_patient_model_binding_commands(app)
     register_treatment_request_commands(app)
     register_model_coverage_commands(app)

@@ -13,8 +13,10 @@ from .covariate_estimation import _load_pinned
 from .patient_state import digest
 
 SCHEMA_VERSION = 'patient-lab-run-record-v1'
-EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v2.json'
-EVIDENCE_SHA256 = '550da678fe3388da2e05f56cb87416ee8217c839274809a4f7add170a6703c4e'
+EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v3.json'
+EVIDENCE_SHA256 = '09d83e0e614246cd4b5eae5b49c1a86329181d449116741bcf4b53198c9ebf92'
+# Superseded, kept unchanged for traceability: model_evidence_status_v2.json
+EVIDENCE_V2_SHA256 = '550da678fe3388da2e05f56cb87416ee8217c839274809a4f7add170a6703c4e'
 # Superseded, kept unchanged for traceability: model_evidence_status_v1.json
 EVIDENCE_V1_SHA256 = 'c3a15f216df830e7953ab0bbf1cf9d9046831df99e78bed8ba291fd04aefd121'
 
@@ -162,8 +164,13 @@ def record_for_patient_platelets(view, extract, evidence=None):
         reading_text = q['candidate_readings'][0].replace('_', ' ')
         for raw, shown in (('ktr', 'Ktr'), ('circ0', 'Circ0'), ('iv bolus', 'IV bolus')):
             reading_text = reading_text.replace(raw, shown)
-        assumptions.append({'name': q['question'], 'reading': reading_text,
-                            'status': 'assumed', 'evidence': q['resolution']})
+        entry = {'name': q['question'], 'reading': reading_text, 'status': 'assumed', 'evidence': q['resolution']}
+        if q['id'] == 'time_dependent_clearance':
+            # The PK component's external check tested exactly this assumption.
+            pk = evidence['models']['bortezomib_pk_lignet_2022']['layers']['external_consistency']
+            entry.update(status='contradicted_by_external_data',
+                         evidence=f"{q['resolution']} External check: {pk['summary']} ({pk['evidence_report']}).")
+        assumptions.append(entry)
     assumptions.append({'name': 'Regimen', 'reading': '1.3 mg/m² on days 1, 4, 8, 11 of 21-day cycles, no holds or reductions',
                         'status': 'fixed', 'evidence': 'The only regimen the model was fitted to.'})
     record.update(

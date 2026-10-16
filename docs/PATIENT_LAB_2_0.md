@@ -205,6 +205,7 @@ Every Patient Lab result page now opens with the same banner and ends with the s
 | Hughes 2019 | done | partial (control stream not retrieved) | not done | exploratory: mild consistent; moderate, severe under-predicted |
 | Kim 2026 | done | done, CL/F form open | done (Table 2 group CL/F) | exploratory: mild, moderate consistent; severe under-predicted (primary scenario) |
 | Lignet 2022 (platelets) | done | partial (independent review pending) | done (locked check, fitting data) | not done; searched, no usable outside data (see below) |
+| Lignet 2022 PK component (drives the platelet model) | done | partial | not done | exploratory (Ogawa 2008): day 11 exposure consistent; day 1 2.9-fold too high; day 1 → 11 rise 1.9- vs 5.1-fold |
 
 **Search for outside platelet data (15 October 2026, evidence status v1.1, `model_evidence_status_v2.json`).** The only candidate found is the Japanese phase I/II study (NCT00752518; Ogawa et al., *Cancer Sci* 2008; sponsor report CR009058; 0.7, 1.0 and 1.3 mg/m² on the same schedule). Neither the paper nor the public synopsis gives platelet counts over time (the paper reports thrombocytopenia only by grade: grade 3/4 in 11 of 25 patients at 1.3 mg/m²); the full report, which tabulated hematology values by testing time, is not public. Incidences alone are not used, because a typical curve without between-patient spread cannot predict how many patients cross a threshold. A possible route is a data request through the sponsor's data-sharing program (YODA Project for Janssen).
 

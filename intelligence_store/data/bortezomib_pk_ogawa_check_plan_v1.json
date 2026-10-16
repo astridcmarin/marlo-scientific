@@ -1,0 +1,72 @@
+{
+  "schema_version": "external-consistency-plan-v1",
+  "plan_version": "bortezomib-pk-ogawa-check-plan-v1.0",
+  "recorded_on": "2026-10-16",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before the model was evaluated at the Ogawa sampling times or any non-compartmental emulation was run. Not blinded: from the parameters alone it was already known that the model's single-dose AUC from zero to infinity at 1.3 mg/m2 is 1.3/9.2 mg.h/L (about 141 ng.h/mL), that its terminal half-life is about 98 h, and that its single clearance (about 15 L/h at 1.62 m2) lies between Ogawa's day 1 (52 L/h) and day 11 (12 L/h) values. No emulated NCA value had been computed.",
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "not_this": [
+    "Not validation or qualification of the PK model; no acceptance limits are introduced.",
+    "Not a comparison of individual concentrations; only Table 3 means and SDs are available (Figure 1a was not digitised).",
+    "Not a test of the platelet model.",
+    "Not a dosing or exposure prediction for any patient."
+  ],
+  "question": "When the Lignet 2022 PK model is sampled at the Ogawa 2008 times and analysed the way Ogawa analysed patient data, does it reproduce the reported day 1 and day 11 exposure in Japanese patients, and the rise in exposure from day 1 to day 11?",
+  "data": {
+    "observed": "intelligence_store/data/bortezomib_pk_ogawa_2008_observed_v1.json",
+    "model": "intelligence_store/bortezomib_pk.py (exact three-compartment solution; Lignet 2022 Table 1 per-m2 parameters)"
+  },
+  "simulation": {
+    "regimen": "IV bolus of the dose level (0.7, 1.0 or 1.3 mg/m2) at t = 0, 72, 168 and 240 h (days 1, 4, 8, 11).",
+    "body_size": "Not needed: dose and all volumes and clearances are per m2, so concentrations do not depend on BSA.",
+    "day1_profile": "Model total concentration at 0.0833, 0.25, 0.5, 1, 2, 4, 6, 8, 12, 24 and 48 h after t = 0.",
+    "day11_profile": "Model total concentration at the same times after t = 240 h, including drug remaining from the doses on days 1, 4 and 8 (as a measured day 11 profile would)."
+  },
+  "nca_emulation": {
+    "c0": "Log-linear back-extrapolation to the dose time from the first two samples (5 and 15 min).",
+    "auc_to_last": "Trapezoidal rule from the dose time (concentration C0) through the 48 h sample.",
+    "terminal_rate": "Log-linear least-squares slope over the last points.",
+    "auc_to_infinity": "AUC to 48 h plus C(48 h) divided by the terminal rate.",
+    "half_life": "ln 2 / terminal rate.",
+    "readings": {
+      "primary": {"auc_rule": "linear", "terminal_points": 3},
+      "sensitivity": [{"auc_rule": "linear", "terminal_points": 4},
+                      {"auc_rule": "linear_up_log_down", "terminal_points": 3},
+                      {"auc_rule": "linear_up_log_down", "terminal_points": 4}]
+    },
+    "why_readings": "Ogawa does not state the software, AUC rule or which points defined the terminal phase. The primary reading is the common default (linear trapezoidal; last three points: 12, 24 and 48 h)."
+  },
+  "endpoints": {
+    "primary": [
+      {"name": "auc_day1", "dose": "1.3", "observed": "AUC day 1 (n = 7)"},
+      {"name": "auc_day11", "dose": "1.3", "observed": "AUC day 11 (n = 5)"},
+      {"name": "auc_ratio_day11_over_day1", "dose": "1.3", "observed": "AUC ratio (n = 5)"}
+    ],
+    "secondary": [
+      {"name": "auc_day1, auc_day11, auc_ratio_day11_over_day1", "dose": "0.7 and 1.0"},
+      {"name": "c0_day1, c0_day11", "dose": "all three"}
+    ],
+    "descriptive": ["half_life_day1, half_life_day11 (emulated vs reported)", "model AUC to infinity without emulation (true model exposure), for context"]
+  },
+  "comparison": {
+    "interval": "95% confidence interval of the observed mean: mean +/- t(0.975, n - 1) x SD / sqrt(n).",
+    "classification": {
+      "consistent": "Emulated model value inside the interval.",
+      "model_over_predicts": "Above the interval.",
+      "model_under_predicts": "Below the interval."
+    },
+    "also_reported": "Ratio emulated model / observed mean for every endpoint.",
+    "robustness": "Each endpoint is classified under all four NCA readings; the result is called robust if all four agree."
+  },
+  "decision_rule": {
+    "summary": "The PK component is recorded as externally consistent at a dose level only if all three primary endpoints are consistent under the primary reading. Otherwise the endpoints that are not consistent are recorded as findings.",
+    "never": "No parameter is re-estimated or tuned. The model is not changed by this check."
+  },
+  "known_differences": [
+    "The model is a typical-value (median-like) model; the observed values are arithmetic means of skewed quantities, which tend to exceed the typical value.",
+    "Day 11 n = 5 and day 1 n = 7 at 1.3 mg/m2 are not the same patients for every value; the reported AUC ratio is a mean of per-patient ratios.",
+    "The model was built from pediatric parameters scaled to adults (Hanley 2017) and has one clearance; the label and Ogawa both report lower clearance after repeated doses.",
+    "Japanese patients may differ in body size and other covariates; per-m2 dosing removes BSA from concentrations but not other differences.",
+    "The analysis software and options of the source are not stated; the four readings bracket the usual choices."
+  ]
+}

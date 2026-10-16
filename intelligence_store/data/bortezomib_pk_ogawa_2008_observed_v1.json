@@ -1,0 +1,59 @@
+{
+  "schema_version": "observed-summary-v1",
+  "summary_version": "bortezomib-pk-ogawa-2008-v1.0",
+  "drug": "bortezomib",
+  "recorded_on": "2026-10-16",
+  "source": {
+    "citation": "Ogawa Y, Tobinai K, Ogura M, et al. Phase I and II pharmacokinetic and pharmacodynamic study of the proteasome inhibitor bortezomib in Japanese patients with relapsed or refractory multiple myeloma. Cancer Sci. 2008;99(1):140-144.",
+    "doi": "10.1111/j.1349-7006.2007.00638.x",
+    "registry": "NCT00752518 (sponsor protocol JNJ-26866138-JPN-MM-101, report CR009058)",
+    "file_reviewed": {"file": "CAS-99-140.pdf (5 pages)", "sha256": "a374b700a9e4e9420f3abb6be63299e9740ea774c49949af97375cfb63c0d3cf"},
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted from the PDF text layer; values checked against the extracted Table 3 text. Independent review pending."
+  },
+  "relationship_to_model": "Not used to build or fit the Lignet 2022 PK model (Hanley 2017 pediatric parameters scaled to adults; PD fitted to Lonial 2005). Different population (Japanese adults) and two doses the model was not fitted to. A comparison is an external consistency check of the PK component.",
+  "design": {
+    "population": "Japanese patients with relapsed or refractory multiple myeloma; phase I part (16 patients with PK)",
+    "administration": "Intravenous push over 3-5 s on days 1, 4, 8 and 11 of a 21-day cycle; at least 72 h between doses",
+    "pk_sampling": "Before each dose, and 5, 15 and 30 min and 1, 2, 4, 6, 8, 12, 24 and 48 h after the dose on days 1 and 11 (cycle 1)",
+    "sampling_times_h": [0.0833333333333, 0.25, 0.5, 1, 2, 4, 6, 8, 12, 24, 48],
+    "assay": "LC/MS/MS (Advion BioSciences)",
+    "analysis": "Non-compartmental analysis; software, AUC rule and terminal-phase point selection not stated",
+    "location": "printout page 2 (Methods: Drug administration; Pharmacokinetic and pharmacodynamic analysis)"
+  },
+  "definitions_from_footnote": {
+    "C0": "plasma concentration at the end of administration (estimated value)",
+    "AUC": "area under the concentration-time curve from time zero to infinity",
+    "location": "Table 3 footnote, printout page 4"
+  },
+  "table3": {
+    "location": "Table 3, printout page 4 (journal page 143)",
+    "statistic": "mean +/- SD",
+    "dose_levels": {
+      "0.7": {"n_day1": 3, "n_day11": 3,
+              "C0_ng_ml": {"day1": [73.75, 7.89], "day11": [130.68, 71.97]},
+              "AUC_ng_h_ml": {"day1": [14.04, 0.70], "day11": [112.01, 47.74]},
+              "half_life_h": {"day1": [3.31, 0.88], "day11": [64.59, 30.29]},
+              "clearance_l_h": {"day1": [83.35, 10.52], "day11": [11.77, 4.67]},
+              "AUC_ratio_day11_over_day1": [7.940, 3.247], "C0_ratio_day11_over_day1": [1.789, 0.973]},
+      "1.0": {"n_day1": 6, "n_day11": 6,
+              "C0_ng_ml": {"day1": [144.92, 179.31], "day11": [147.19, 72.33]},
+              "AUC_ng_h_ml": {"day1": [28.58, 24.86], "day11": [108.39, 52.32]},
+              "half_life_h": {"day1": [6.81, 8.81], "day11": [32.46, 12.91]},
+              "clearance_l_h": {"day1": [105.41, 75.66], "day11": [19.63, 14.50]},
+              "AUC_ratio_day11_over_day1": [5.363, 2.970], "C0_ratio_day11_over_day1": [1.848, 1.133]},
+      "1.3": {"n_day1": 7, "n_day11": 5, "n_note": "Table 3 footnote: day 1, n = 7; day 11, n = 5",
+              "C0_ng_ml": {"day1": [185.84, 57.65], "day11": [187.03, 54.31]},
+              "AUC_ng_h_ml": {"day1": [46.50, 19.89], "day11": [186.60, 49.79]},
+              "half_life_h": {"day1": [16.11, 20.75], "day11": [57.39, 24.92]},
+              "clearance_l_h": {"day1": [51.97, 18.99], "day11": [12.10, 3.73]},
+              "AUC_ratio_day11_over_day1": [5.142, 0.543], "C0_ratio_day11_over_day1": [1.103, 0.249]}
+    },
+    "not_used": "Vz and Vss (depend on body size and the unknown terminal-phase method); clearance in L/h (needs each patient's BSA, not reported)."
+  },
+  "author_interpretation": {
+    "quote": "It can be postulated that CL values on day 1 are apparent values observed due to rapid tissue distribution",
+    "location": "printout page 4, Discussion"
+  },
+  "not_extracted": "Figure 1a (mean concentration-time profiles on days 1 and 11) is an image; values were not digitised."
+}
