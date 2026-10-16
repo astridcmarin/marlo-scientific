@@ -18,7 +18,7 @@ from intelligence_store.estimated_pk import calculate_estimated_pk, primary_weig
 from intelligence_store.kim_pk_runs import read_kim_pk_run
 from intelligence_store.patient_state import SCHEMA_V2, digest
 from intelligence_store.patient_state_revisions import save_revision
-from intelligence_store.run_record import (EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
+from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
                                            record_for_estimated_pk, record_for_kim_run, record_for_patient_platelets)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -44,8 +44,23 @@ class EvidenceStatus(unittest.TestCase):
         v3 = EVIDENCE_PATH.with_name('model_evidence_status_v3.json')
         self.assertEqual(hashlib.sha256(v3.read_bytes()).hexdigest(), EVIDENCE_V3_SHA256)
         self.assertEqual(json.loads(v3.read_text())['supersedes']['status_version'], json.loads(v2.read_text())['status_version'])
+        v4 = EVIDENCE_PATH.with_name('model_evidence_status_v4.json')
+        self.assertEqual(hashlib.sha256(v4.read_bytes()).hexdigest(), EVIDENCE_V4_SHA256)
+        self.assertEqual(json.loads(v4.read_text())['supersedes']['status_version'], json.loads(v3.read_text())['status_version'])
         current = load_evidence_status()
-        self.assertEqual(current['supersedes']['status_version'], json.loads(v3.read_text())['status_version'])
+        self.assertEqual(current['supersedes']['status_version'], json.loads(v4.read_text())['status_version'])
+
+    def test_v5_adds_the_exposure_safety_model_without_overstating_it(self):
+        current, v4 = load_evidence_status()['models'], json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v4.json').read_text())['models']
+        self.assertEqual(set(current) - set(v4), {'lenalidomide_exposure_safety_2016'})
+        layers = current['lenalidomide_exposure_safety_2016']['layers']
+        self.assertEqual({k: v['status'] for k, v in layers.items()},
+                         {'software_verification': 'done', 'transcription_verification': 'partial',
+                          'reproduction': 'not_done', 'external_consistency': 'not_done'})
+        self.assertIn('not independent', layers['external_consistency']['summary'])
+        for model_id in v4:
+            if model_id != 'lenalidomide_renal_pathways_2026':
+                self.assertEqual(current[model_id], v4[model_id])
 
     def test_bortezomib_external_search_is_recorded(self):
         layer = load_evidence_status()['models']['bortezomib_platelets_lignet_2022']['layers']['external_consistency']
@@ -64,6 +79,11 @@ class EvidenceStatus(unittest.TestCase):
         cited = 0
         for model in load_evidence_status()['models'].values():
             for layer in model['layers'].values():
+                for extra in layer.get('further_reports', []):
+                    cited += 1
+                    raw = (ROOT / extra['evidence_report']).read_bytes()
+                    self.assertEqual(hashlib.sha256(raw).hexdigest(), extra['evidence_report_file_sha256'])
+                    self.assertEqual(json.loads(raw)['classification'], extra['classification'])
                 if 'evidence_report' not in layer:
                     continue
                 cited += 1
@@ -77,7 +97,7 @@ class EvidenceStatus(unittest.TestCase):
                     self.assertEqual({k: lead[k]['classification'] for k in layer['result_at_1_3_mg_m2']}, layer['result_at_1_3_mg_m2'])
                 if 'result_by_group' in layer:
                     self.assertEqual(report['primary_endpoint_by_group'], layer['result_by_group'])
-        self.assertEqual(cited, 6)
+        self.assertEqual(cited, 7)
 
     def test_bortezomib_reproduction_matches_the_adopted_reading(self):
         report = json.loads((ROOT / 'docs/verification/bortezomib_platelet_check_v1.json').read_text())
@@ -148,6 +168,38 @@ class Records(unittest.TestCase):
         self.assertEqual(low['applicability'][0]['status'], 'below_entry_threshold')
         self.assertTrue(low['warnings'])
 
+    def test_relative_odds_record(self):
+        from intelligence_store.estimated_pk import compare_published_models, estimate_for_revision
+        request = fixtures.request_mg(5.0)
+        basis = primary_weight_basis()
+        mm = compare_published_models(self.revision.id, basis, 'linear_multiplicative', request, 'MM')
+        # Kim runs only for myeloma; relabel a copy to check how another declared disease is flagged.
+        other = copy.deepcopy(mm)
+        other['declared_disease_code'] = 'OTHER'
+        for models, disease, expected in ((mm, 'MM', 'within_reported_range'), (other, 'OTHER', 'outside_reported_range')):
+            record = record_for_relative_odds(models, estimate_for_revision(self.revision.id, basis))
+            self.check_common(record, 'lenalidomide_exposure_safety_2016')
+            self.assertEqual(record['result_type']['id'], 'relative_odds_vs_reference')
+            self.assertEqual(record['applicability'][0]['status'], expected)
+            self.assertEqual(any('myeloma-only' in w for w in record['warnings']), disease != 'MM')
+            ratios = [d for d in record['derived_inputs'] if d['name'].startswith('exposure ratio')]
+            self.assertEqual([d['value'] for d in ratios],
+                             [r['reference_exposure']['ratio_to_reference'] for r in models['rows'] if 'relative_odds' in r])
+            names = {a['name']: a['status'] for a in record['assumptions']}
+            self.assertTrue(ratios)
+            for row in models['rows']:
+                key = f"Between-patient variability in clearance ({row['label']})"
+                if 'relative_odds' in row:
+                    self.assertEqual(names[key], 'assumed' if row['model'] == 'lenalidomide_kim_2026' else 'sourced')
+                else:
+                    self.assertNotIn(key, names)
+            self.assertIn({'label': 'Model comparison', 'sha256': models['report_sha256']}, record['checksums'])
+        blocked = copy.deepcopy(mm)
+        for row in blocked['rows']:
+            row.pop('relative_odds', None)
+        with self.assertRaises(ValueError):
+            record_for_relative_odds(blocked, estimate_for_revision(self.revision.id, basis))
+
     def test_pages_show_the_banner_and_the_run_record(self):
         base = f'/landscape/workspace/scenarios/{self.scenario.id}/patient-state/revisions'
         shared = ('Not a clinical prediction', 'Clinical prediction validated: <strong>false</strong>', 'Run record',
@@ -173,8 +225,15 @@ class Records(unittest.TestCase):
             self.assertIn(text, after)
         self.assertIn('hughes_renal_group_check_v1.json', after)
 
+        token = re.search(r'name="form_token" value="([^"]+)"', after).group(1)
+        compared = self.client.post(page, data=dict(data, form_token=token, action='models', events='0, 5')).get_data(as_text=True)
+        for text in ('Run record: relative odds', 'Relative odds versus a reference exposure', 'ro-run-record-heading',
+                     'Lenalidomide exposure-safety odds ratios', 'not independent confirmation', 'Exposure-safety evidence'):
+            self.assertIn(text, compared)
+        self.assertEqual(compared.count('id="ro-run-record-heading"'), 1)
+        self.assertNotIn('id="run-record-heading"', compared)
         data.update(action='save_kim', events='0, 5', title='Kim for record')
-        saved = self.client.post(page, data=dict(data, form_token=re.search(r'name="form_token" value="([^"]+)"', after).group(1)))
+        saved = self.client.post(page, data=dict(data, form_token=re.search(r'name="form_token" value="([^"]+)"', compared).group(1)))
         kim = self.client.get(saved.headers['Location']).get_data(as_text=True)
         for text in shared + ('Lenalidomide population PK in renal impairment', 'linear multiplicative', 'Archived treatment request'):
             self.assertIn(text, kim)

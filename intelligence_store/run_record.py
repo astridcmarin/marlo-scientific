@@ -13,8 +13,10 @@ from .covariate_estimation import _load_pinned
 from .patient_state import digest
 
 SCHEMA_VERSION = 'patient-lab-run-record-v1'
-EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v4.json'
-EVIDENCE_SHA256 = 'e559a4e4f8028ff8bd4c3caa213648c84224dbe0a1e83c60d1cc84a5260a7804'
+EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v5.json'
+EVIDENCE_SHA256 = '41837fefc5252ec16932f58ccb462448a3d6a532e1a5ec2fa46ba2fbb7a2257c'
+# Superseded, kept unchanged for traceability: model_evidence_status_v4.json
+EVIDENCE_V4_SHA256 = 'e559a4e4f8028ff8bd4c3caa213648c84224dbe0a1e83c60d1cc84a5260a7804'
 # Superseded, kept unchanged for traceability: model_evidence_status_v3.json
 EVIDENCE_V3_SHA256 = '09d83e0e614246cd4b5eae5b49c1a86329181d449116741bcf4b53198c9ebf92'
 # Superseded, kept unchanged for traceability: model_evidence_status_v2.json
@@ -44,6 +46,14 @@ RESULT_TYPES['elimination_pathway_split'] = {
     'is_not': ['a measurement of this patient\'s renal clearance or urine excretion',
                'an exposure prediction for this patient',
                'a dose recommendation'],
+}
+RESULT_TYPES['relative_odds_vs_reference'] = {
+    'label': 'Relative odds versus a reference exposure',
+    'is': ('How the odds of a grade 3/4 low blood count for a patient at this typical exposure compare with a patient at '
+           'the reference exposure with the same disease and baseline count, from a published exposure-safety odds ratio.'),
+    'is_not': ['a probability or individual risk of a low blood count',
+               'a prediction of this patient\'s blood counts',
+               'a monitoring or dose recommendation'],
 }
 LAYER_ORDER = ('software_verification', 'transcription_verification', 'reproduction', 'external_consistency')
 
@@ -233,3 +243,68 @@ def record_for_renal_pathways(view, evidence=None):
                    {'label': 'Patient state', 'sha256': estimate['state_sha256']}])
     return _finish(record)
 
+
+
+def record_for_relative_odds(models, estimate, evidence=None):
+    """Run record for the relative-odds rows of `estimated_pk.compare_published_models` (Simulation 4.0a/4.0b).
+
+    `estimate` is the covariate estimate of the same saved revision; it supplies the patient-record inputs. The PK
+    models that produce the exposure ratio keep their own records; here they appear as inputs and assumptions.
+    """
+    evidence = evidence or load_evidence_status()
+    rows = [r for r in models['rows'] if 'relative_odds' in r]
+    if not rows:
+        raise ValueError('No relative odds were computed for this comparison.')
+    first = rows[0]['relative_odds']
+    record = _base('relative_odds', 'relative_odds_vs_reference', 'Lenalidomide relative odds of grade 3/4 cytopenia',
+                   models['revision_id'], estimate['state_schema_version'], estimate['state_sha256'],
+                   'lenalidomide_exposure_safety_2016', evidence)
+    derived = _derived(estimate)
+    for row in rows:
+        ref = row['reference_exposure']
+        derived.append({'name': f"exposure ratio to reference ({row['label']})", 'value': ref['ratio_to_reference'],
+                        'unit': 'ratio', 'method': f"typical daily AUC {ref['typical_daily_auc_ng_h_ml']:.0f} ÷ measured "
+                                                   f"{ref['reference_auc_ng_h_ml']} ng·h/mL (CC-5013-PK-001, 25 mg, normal renal function)"})
+    assumptions = [
+        {'name': 'Exposure measure', 'reading': 'each PK model\'s typical daily AUC ÷ the measured reference AUC', 'status': 'assumed',
+         'evidence': 'The source\'s AUC definition was not published. Only the ratio enters, so units cancel; both models reproduce '
+                     'the reference within about 5% at normal renal function.'},
+        {'name': 'Odds ratios used', 'reading': 'myeloma-only estimates (TGA): thrombocytopenia 2.972, neutropenia 1.982',
+         'status': 'sourced', 'evidence': first['source_reconciliation']},
+        {'name': 'Time window', 'reading': 'a course of treatment (all cycles up to 1 year), not cycle 1', 'status': 'sourced',
+         'evidence': first['time_window']},
+        {'name': 'Same disease and baseline count as the reference patient', 'reading': 'implicit in relative odds',
+         'status': 'by_design', 'evidence': 'The odds ratio was adjusted for baseline count; without the intercept and the '
+                                            'baseline-count coefficient only comparisons at the same baseline follow from it.'}]
+    for row in rows:
+        v = row['relative_odds'].get('variability')
+        if v:
+            assumptions.append({'name': f"Between-patient variability in clearance ({row['label']})",
+                                'reading': f"SD of ln CL/F {v['omega_cl_sd']:.3f}", 'status': 'assumed' if v.get('assumption') else 'sourced',
+                                'evidence': v['source'] + (f" — {v['assumption']}" if v.get('assumption') else '')})
+    disease = models.get('declared_disease_code')
+    warnings = [f"{row['label']}: {w}" for row in models['rows'] for w in row.get('warnings') or []]
+    if disease != 'MM':
+        warnings.insert(0, f"Declared disease is {disease}; the odds ratios used are the myeloma-only estimates.")
+    safety = load_relative_odds_evidence()
+    record.update(
+        status='completed', inputs_from_record=_state_inputs(estimate), derived_inputs=derived, assumptions=assumptions,
+        applicability=[{'item': 'declared_disease', 'value': disease, 'unit': '',
+                        'reference': 'odds ratios estimated in multiple myeloma',
+                        'status': 'within_reported_range' if disease == 'MM' else 'outside_reported_range'}],
+        warnings=warnings,
+        limitations=[first['meaning'], safety['consequence'],
+                     'Not reported by the source: ' + '; '.join(safety['not_reported']) + '.',
+                     'In severe renal impairment both PK models probably under-predict exposure, so relative odds there are probably understated.'],
+        checksums=[{'label': 'Model comparison', 'sha256': models['report_sha256']},
+                   {'label': 'Hughes report', 'sha256': models['hughes_report_sha256']},
+                   {'label': 'Kim report', 'sha256': models['kim_report_sha256']},
+                   {'label': 'Exposure-safety evidence', 'sha256': first['evidence_sha256']},
+                   {'label': 'Covariate estimate', 'sha256': estimate['report_sha256']},
+                   {'label': 'Patient state', 'sha256': estimate['state_sha256']}])
+    return _finish(record)
+
+
+def load_relative_odds_evidence():
+    from .lenalidomide_relative_odds import load_evidence
+    return load_evidence()

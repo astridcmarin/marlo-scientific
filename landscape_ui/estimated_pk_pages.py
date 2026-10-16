@@ -2,7 +2,7 @@
 import json
 from flask import Response, abort, redirect, request, url_for
 from sqlalchemy.exc import SQLAlchemyError
-from intelligence_store.run_record import RESULT_TYPES, record_for_estimated_pk
+from intelligence_store.run_record import RESULT_TYPES, record_for_estimated_pk, record_for_relative_odds
 from intelligence_store.extensions import db
 from intelligence_store.patient_state_revisions import read_revision
 from intelligence_store.saved_scenarios import read_scenario
@@ -183,6 +183,9 @@ def register_estimated_pk_pages(bp):
                                  charts=_charts(calculation), comparison=comparison,
                                  overlay=_overlay(comparison) if comparison else [], population=population,
                                  band_chart=_band_chart(population), models=models,
+                                 ro_record=(record_for_relative_odds(models, estimate)
+                                            if models and estimate.get('status') == 'estimated'
+                                            and any('relative_odds' in r for r in models['rows']) else None),
                                  model_overlay=_model_overlay(models) if models else [], error=error)
             response.status_code = status
             response.headers['X-Content-Type-Options'] = 'nosniff'

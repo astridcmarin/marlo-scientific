@@ -1,6 +1,7 @@
 """The Alembic chain is complete and a fresh `db upgrade` builds exactly the schema the models define."""
 import ast
 from pathlib import Path
+import contextlib
 import sqlite3
 import tempfile
 import unittest
@@ -19,7 +20,8 @@ def _assignment(path, name):
 
 
 def _schema(path):
-    with sqlite3.connect(path) as connection:
+    # sqlite3's own context manager only commits; closing() also closes the connection.
+    with contextlib.closing(sqlite3.connect(path)) as connection:
         tables = [r[0] for r in connection.execute(
             "select name from sqlite_master where type='table' and name not in ('alembic_version','sqlite_sequence')")]
         return {t: sorted(c[1] for c in connection.execute(f'pragma table_info({t})')) for t in tables}
