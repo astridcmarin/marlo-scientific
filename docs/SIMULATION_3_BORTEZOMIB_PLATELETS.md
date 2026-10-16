@@ -1,6 +1,6 @@
 # Simulation 3.0 — bortezomib platelet time course (first drug-effect module)
 
-Status: **3.0a–3.0d done.** Evidence, PK engine, locked reading check and page (`/landscape/simulation-lab/bortezomib-platelets`).
+Status: **3.0a–3.0e done.** Evidence, PK engine, locked reading check, page (`/landscape/simulation-lab/bortezomib-platelets`) and a search for outside data (none usable).
 
 ## Why this model
 
@@ -137,3 +137,13 @@ Only the fitted regimen is run: 1.3 mg/m² on days 1, 4, 8 and 11 of 21-day cycl
 **What it makes visible:**
 - **The budding variant drops sharply at each dose.** This is the negative effect term briefly moving platelets back out of the circulation, as described in 3.0c.
 - **Over several cycles the variants diverge.** Myelosuppression sinks slightly each cycle (day 11: 69%, 64%, 62%). Budding rebounds above baseline (day 11: 68%, 77%, 92%; 143% at the start of cycle 4). The data they were fitted to cannot tell them apart, so the unresolved mechanism matters most beyond cycle 1.
+
+## 3.0e — Search for outside platelet data
+
+The run record showed that the model had never been compared with data it was not fitted to. The only candidate found was the Japanese phase I/II study (NCT00752518): 0.7, 1.0 and 1.3 mg/m² on the same schedule, a different population and two untested doses.
+- **Ogawa et al., *Cancer Sci* 2008;99:140–144.** Thrombocytopenia is reported only by grade (Table 2: grade 3/4 in 11 of 25 patients at 1.3 mg/m²). The only figure shows PK and proteasome inhibition.
+- **Sponsor synopsis CR009058.** It gives no platelet values. The full report tabulated hematology values by testing time, but it is not public.
+- **Why incidences are not used.** The model gives one typical curve without between-patient spread, so it cannot predict the share of patients below a threshold.
+
+The outcome is recorded in `model_evidence_status_v2.json` (v1.1), and the platelet page lists the sources searched. A data request through the sponsor's sharing program (the YODA Project) is the remaining route. Ogawa's Table 3 (PK on days 1 and 11) could support an outside check of the PK model instead.
+
