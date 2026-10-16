@@ -31,8 +31,16 @@ This is a software and repository verification. It does not validate any model s
 
 ## Findings to fix
 
-1. **Nine reference files have no checksum pin.** Their loaders validate structure and report the file's SHA-256, but do not compare it with an expected value: `drug_aliases_v1`, `formatting_group_mappings_v1`, `drug_annotations_v1`, `drug_safety_v1`, `drug_interactions_v1`, `patient_scenarios_v1`, `bortezomib_observation_template_v1`, `lenalidomide_assay_extraction_v1` and `lenalidomide_mechanism_evidence_plan_v1`. This falls short of the project rule that reference data are pinned by their loader. A silent edit to any of them would not be detected. (The 14 files in `data/curation/` are review working files and are not loaded.)
-2. **The Drug and Model Library undercounts installed work.** The research-tool counts have no entry for the `drug_effect_timecourse` kind, so the available bortezomib platelet tool is not counted. The exposure-model count is 1, covering Hughes 2019 only, not Kim 2026 or the bortezomib PK engine. Phase 1 of the roadmap requires the inventory to reflect installed assets accurately.
+Findings 1 and 2 were fixed after this checkpoint (branch `checkpoint-fixes-pins-inventory`):
+
+1. **Reference files without a checksum pin — fixed.** Eight loaders now refuse a file whose SHA-256 differs from its pin: `drug_aliases_v1`, `formatting_group_mappings_v1`, `drug_annotations_v1`, `drug_safety_v1`, `drug_interactions_v1`, `patient_scenarios_v1`, `lenalidomide_assay_extraction_v1` and `lenalidomide_mechanism_evidence_plan_v1`. `tests/test_reference_pins.py` checks every pin and the refusal of a changed file.
+   - **Corrected finding:** `bortezomib_observation_template_v1` is not a reference file. It is the default example input to the observation-intake reviewer, whose job is to check whatever document it is given, so it is deliberately not pinned.
+   - **Tests realigned:** tests that write deliberately invalid files now pin each altered file, so they still test their content rule rather than passing on the checksum.
+2. **Library undercount — fixed (inventory method v1.2).**
+   - **Exposure models:** Kim 2026 is registered as a second educational exposure model for lenalidomide, which now counts 2.
+   - **Bortezomib PK engine:** listed as a research component, used only by the platelet tool and not offered as patient PK.
+   - **Research tools:** counts include every registered kind, so the platelet tool (`drug_effect_timecourse`) is counted.
+   - **Failure handling:** a contract failure withholds only the affected model and names it in the warning.
 3. **Housekeeping.** Seven feature branches whose work is already on `main` remain on GitHub. `patient-lab-2.2b-patient-platelets` shows one unmerged commit, but its content reached `main` as a cherry-pick in #23.
 
 ## Scientific state (from `model_evidence_status_v2.json`)

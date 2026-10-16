@@ -60,5 +60,14 @@
     }
   ],
   "model_evidence_summary_source": "intelligence_store/data/model_evidence_status_v2.json",
-  "clinical_prediction_validated": false
+  "clinical_prediction_validated": false,
+  "follow_up": {
+    "branch": "checkpoint-fixes-pins-inventory",
+    "fixed": [
+      "pinned_data",
+      "inventory_accuracy"
+    ],
+    "pinned_data": "Eight reference loaders pinned; bortezomib_observation_template_v1 reclassified as an input template (not pinned by design).",
+    "inventory_accuracy": "drug-capability-inventory-v1.2: educational_exposure_models 2 (Hughes 2019, Kim 2026); research_exposure_components 1 (bortezomib PK inside the platelet tool); research_tool_counts cover every registered kind."
+  }
 }

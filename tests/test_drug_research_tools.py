@@ -12,8 +12,9 @@ class ResearchToolTests(unittest.TestCase):
     def test_inventory_has_research_tools_without_efficacy_promotion(self):
         r=capability_inventory()
         self.assertEqual(r['counts']['efficacy_models'],0);self.assertEqual(r['counts']['toxicity_models'],0)
-        self.assertEqual(r['counts']['educational_exposure_models'],1)
-        self.assertEqual(r['research_tool_counts'],{'target_activity':1,'research_timecourse':1,'assumption_experiment':1,'evidence_review':2})
+        self.assertEqual(r['counts']['educational_exposure_models'],2)
+        self.assertEqual(r['research_tool_counts'],{'target_activity':1,'research_timecourse':1,'assumption_experiment':1,'evidence_review':2,
+                                                    'drug_effect_timecourse':1})
         b=next(x for x in r['entries'] if x['entity_id']=='bortezomib')
         self.assertEqual(len(b['research_tools']),6);self.assertIsNone(b['exposure_model'])
         for t in b['research_tools']:
@@ -43,8 +44,9 @@ class ResearchToolTests(unittest.TestCase):
     def test_pd_failure_does_not_hide_lenalidomide_or_drug_references(self):
         with patch.object(registry,'load_pd',side_effect=ValueError('changed')):
             r=capability_inventory()
-            self.assertTrue(all(n==0 for n in r['research_tool_counts'].values()))
-            self.assertEqual(r['counts']['educational_exposure_models'],1)
+            # The platelet tool does not use the proteasome equation, so it stays available.
+            self.assertEqual({k:n for k,n in r['research_tool_counts'].items() if n},{'drug_effect_timecourse':1})
+            self.assertEqual(r['counts']['educational_exposure_models'],2)
             self.assertEqual(len(r['entries']),9)
     def test_evidence_failure_not_reported_as_missing_model(self):
         with patch.object(registry,'_pinned',return_value=False):

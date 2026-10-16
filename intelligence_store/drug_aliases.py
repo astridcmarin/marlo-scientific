@@ -16,7 +16,9 @@ from .summaries import CohortSummaryError, summarize_cohort
 
 ALIAS_METHOD_VERSION = "drug-aliases-v1.2"
 CATALOG_PATH = Path(__file__).parent / "data" / "drug_aliases_v1.json"
+CATALOG_SHA256 = '896a58a2a89e8a992ba85a23ea726ba5d65f8ac9f3bcd88e10444589450c2845'
 FORMATTING_MAP_PATH = Path(__file__).parent / "data" / "formatting_group_mappings_v1.json"
+FORMATTING_MAP_SHA256 = '0e251f32f4ecf7e8675fa4d14c2032bb542b5f1288b3195c400f53d58ce4f337'
 
 
 class AliasCatalogError(ValueError):
@@ -31,6 +33,8 @@ def load_formatting_group_mappings(path=FORMATTING_MAP_PATH):
     """Load only explicitly approved reviewed formatting-group mappings."""
     try:
         content = Path(path).read_bytes()
+        if hashlib.sha256(content).hexdigest() != FORMATTING_MAP_SHA256:
+            raise ValueError('File differs from its pinned checksum (formatting_group_mappings_v1.json)')
         catalog = json.loads(content)
         if (
             not isinstance(catalog, dict)
@@ -97,6 +101,8 @@ def load_alias_catalog(path=CATALOG_PATH):
     """Validate every entry before using any mappings; reject ambiguity."""
     try:
         content = Path(path).read_bytes()
+        if hashlib.sha256(content).hexdigest() != CATALOG_SHA256:
+            raise ValueError('File differs from its pinned checksum (drug_aliases_v1.json)')
         catalog = json.loads(content)
         if (
             not isinstance(catalog, dict)
