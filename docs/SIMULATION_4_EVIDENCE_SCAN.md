@@ -33,3 +33,32 @@ Simulation 4.0 links a patient's own exposure to a drug effect over time. For le
 The most promising route back to lenalidomide is the **public FDA and EMA reviews**. The pooled exposure–safety analysis (AUC against grade 3/4 thrombocytopenia and neutropenia; Chen 2017 reports an odds ratio of 3.34 for thrombocytopenia) was sponsor work submitted for approvals. Regulatory clinical pharmacology reviews often print the full logistic model: intercept, slope and AUC units. That is exactly what the published summary lacks. If found, it gives a patient-dependent link: renal function → exposure (Hughes or Kim) → probability of a grade 3/4 event. It would be a probability per treatment course, not a time course, and would be labelled as such.
 
 Searched sources for carfilzomib, kept for reference: the FDA clinical pharmacology review for NDA 202714 (2012) and an EMA variation assessment report for Kyprolis. Neither could be downloaded from this workspace.
+
+## Update (16 October): the lenalidomide exposure–safety analysis in the TGA review
+
+The Australian clinical evaluation report (AusPAR lenalidomide, February 2016, Attachment 2, section 4.2.4.1; read from the platform owner's local text copy) describes sponsor study **CC-5013-MCL-001-PK** (8 October 2012).
+
+**The study:**
+- 147 subjects with mantle cell lymphoma, myeloma or MDS, from 7 studies; 2,495 samples.
+- PK model: two compartments with a lagged, two-stage absorption. Typical CL/F was 10.2 L/h at the mean CrCl of 79.36 mL/min, and CrCl was the only significant covariate on clearance. The CL and V equations are images and did not survive in the text copy.
+
+**Exposure–safety in myeloma** (logistic regression on ln AUC):
+
+| Endpoint | Odds ratio per 1-unit increase in ln AUC | 95% CI | Adjusted for |
+|---|---|---|---|
+| Grade 3/4 thrombocytopenia | 2.972 | 1.027–8.598 | baseline platelet count |
+| Grade 3/4 neutropenia | 1.982 | 0.924–4.249 (not significant) | — |
+
+Disease type and baseline counts also contributed; in MDS, the disease was a stronger predictor than exposure.
+
+**Still not reported:**
+- the intercept and the baseline-count coefficient;
+- the exact AUC definition;
+- the number of myeloma patients.
+
+So **absolute risk cannot be computed.** The thrombocytopenia odds ratio is close to, but not the same as, the 3.34 in Chen 2017; that is probably a different analysis set and is to be reconciled.
+
+**What it allows.** An odds ratio per unit of ln AUC does not depend on AUC units. For two patients with the same baseline platelet count and disease, it gives the **relative** odds from the ratio of their exposures: OR_rel = (AUC_patient / AUC_reference)^ln(2.972) = (AUC ratio)^1.089, with the CI carried through. This would connect renal function → exposure (Hughes or Kim) → relative odds of grade 3/4 thrombocytopenia. It would be labelled as relative odds, never as a probability.
+
+The EMA reports II/0107 (2019, follicular lymphoma) and II/0056 (only 3 of 123 pages in the copy) gave nothing further.
+
