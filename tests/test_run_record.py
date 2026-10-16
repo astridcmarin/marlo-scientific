@@ -18,7 +18,7 @@ from intelligence_store.estimated_pk import calculate_estimated_pk, primary_weig
 from intelligence_store.kim_pk_runs import read_kim_pk_run
 from intelligence_store.patient_state import SCHEMA_V2, digest
 from intelligence_store.patient_state_revisions import save_revision
-from intelligence_store.run_record import (EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
+from intelligence_store.run_record import (EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
                                            record_for_estimated_pk, record_for_kim_run, record_for_patient_platelets)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,8 +41,11 @@ class EvidenceStatus(unittest.TestCase):
         self.assertEqual(hashlib.sha256(v1.read_bytes()).hexdigest(), EVIDENCE_V1_SHA256)
         self.assertEqual(hashlib.sha256(v2.read_bytes()).hexdigest(), EVIDENCE_V2_SHA256)
         self.assertEqual(json.loads(v2.read_text())['supersedes']['status_version'], json.loads(v1.read_text())['status_version'])
+        v3 = EVIDENCE_PATH.with_name('model_evidence_status_v3.json')
+        self.assertEqual(hashlib.sha256(v3.read_bytes()).hexdigest(), EVIDENCE_V3_SHA256)
+        self.assertEqual(json.loads(v3.read_text())['supersedes']['status_version'], json.loads(v2.read_text())['status_version'])
         current = load_evidence_status()
-        self.assertEqual(current['supersedes']['status_version'], json.loads(v2.read_text())['status_version'])
+        self.assertEqual(current['supersedes']['status_version'], json.loads(v3.read_text())['status_version'])
 
     def test_bortezomib_external_search_is_recorded(self):
         layer = load_evidence_status()['models']['bortezomib_platelets_lignet_2022']['layers']['external_consistency']
@@ -74,7 +77,7 @@ class EvidenceStatus(unittest.TestCase):
                     self.assertEqual({k: lead[k]['classification'] for k in layer['result_at_1_3_mg_m2']}, layer['result_at_1_3_mg_m2'])
                 if 'result_by_group' in layer:
                     self.assertEqual(report['primary_endpoint_by_group'], layer['result_by_group'])
-        self.assertEqual(cited, 5)
+        self.assertEqual(cited, 6)
 
     def test_bortezomib_reproduction_matches_the_adopted_reading(self):
         report = json.loads((ROOT / 'docs/verification/bortezomib_platelet_check_v1.json').read_text())
