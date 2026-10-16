@@ -1,0 +1,112 @@
+{
+  "schema_version": "exposure-safety-evidence-v1",
+  "evidence_version": "lenalidomide-exposure-safety-v2.0",
+  "drug": "lenalidomide",
+  "recorded_on": "2026-10-16",
+  "source": {
+    "document": "Australian Public Assessment Report for Lenalidomide (Revlimid), February 2016, Attachment 2: Extract from the Clinical Evaluation Report",
+    "url": "https://tga.gov.au/sites/default/files/auspar-lenalidomide-160205-cer.docx",
+    "location": "Section 4.2.4.1, Study CC-5013-MCL-001-PK",
+    "file_reviewed": {
+      "file": "auspar-lenalidomide-160205-cer.txt (plain-text copy saved from the .docx by the platform owner)",
+      "sha256": "252f9ab4366b838420915d5d063929741e520c818b6717e79e9e428f8834ce77",
+      "original": "auspar-lenalidomide-160205-cer.docx, 7,632,392 bytes; not hashed here (transfer failed)"
+    },
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted; every quote below is checked character for character against the text copy. Independent review pending."
+  },
+  "analysis": {
+    "study": "CC-5013-MCL-001-PK (sponsor population PK and exposure-response report dated 8 October 2012)",
+    "population_quote": "A total of 147 subjects from 7 studies contributed 2495 samples to the PPK analysis.",
+    "diseases": [
+      "mantle cell lymphoma",
+      "multiple myeloma",
+      "myelodysplastic syndromes"
+    ],
+    "treatment": "lenalidomide monotherapy",
+    "method": "logistic regression of grade 3 or 4 neutropenia or thrombocytopenia on ln AUC, with disease and baseline counts",
+    "key_variables_quote": "Type of hematological malignancy, lenalidomide exposure (lnAUC), and baseline cell counts (neutrophils or platelets) were the key variables contributing to the probability of experiencing Grade 3 or 4 neutropenia or thrombocytopenia."
+  },
+  "odds_ratios_multiple_myeloma": {
+    "grade_3_4_thrombocytopenia": {
+      "odds_ratio_per_unit_ln_auc": 2.972,
+      "ci95": [
+        1.027,
+        8.598
+      ],
+      "adjusted_for": "baseline platelet count",
+      "statistically_significant": true,
+      "quote": "In patients with MM, lenalidomide lnAUC was a significant predictor of Grade 3 or 4 thrombocytopenia after accounting for the effect of baseline platelet count (Odds Ratio for one lnAUC increase = 2.972 [95% CI: 1.027, 8.598])."
+    },
+    "grade_3_4_neutropenia": {
+      "odds_ratio_per_unit_ln_auc": 1.982,
+      "ci95": [
+        0.924,
+        4.249
+      ],
+      "adjusted_for": "not stated",
+      "statistically_significant": false,
+      "quote": "In patients with MM, the probability of experiencing Grade 3 or 4 neutropenia tended to increase with increased lenalidomide exposure (lnAUC), though this relationship did not reach statistical significance (Odds Ratio for one lnAUC increase = 1.982 [95% CI: 0.924, 4.249])."
+    }
+  },
+  "not_reported": [
+    "intercept",
+    "baseline count coefficients",
+    "exact AUC definition (time window, model used to derive it)",
+    "number of myeloma patients in the analysis",
+    "goodness of fit"
+  ],
+  "consequence": "Absolute probabilities cannot be computed. Only relative odds between two exposures, for patients with the same disease and baseline count, follow from the odds ratio.",
+  "derivation": {
+    "relative_odds": "OR_rel = OR ** (ln AUC_patient - ln AUC_reference) = (AUC_patient / AUC_reference) ** ln(OR)",
+    "units": "Independent of AUC units and of a constant AUC scale factor, because only the ratio enters.",
+    "confidence_interval": "Same formula with each CI limit of the odds ratio (monotonic in the odds ratio for a fixed AUC ratio)."
+  },
+  "reconcile": "Resolved: see reconciliation.",
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false,
+  "supersedes": {
+    "file": "intelligence_store/data/lenalidomide_exposure_safety_tga_v1.json",
+    "evidence_version": "lenalidomide-exposure-safety-tga-v1.0",
+    "change": "Adds the Chen 2017 review, reconciles its pooled odds ratio with the TGA myeloma-only value, and records that the relationships were not apparent in cycle 1."
+  },
+  "second_source": {
+    "citation": "Chen N, Zhou S, Palmisano M. Clinical Pharmacokinetics and Pharmacodynamics of Lenalidomide. Clin Pharmacokinet. 2017;56(2):139-152.",
+    "doi": "10.1007/s40262-016-0432-1",
+    "license": "CC BY-NC 4.0 (open access)",
+    "location": "Section 6.2, Exposure Response",
+    "read_via": "publisher page through the fetch tool on 2026-10-16; quotes as returned; to be checked against the PDF.",
+    "quotes": {
+      "design": "the relationship between lenalidomide AUC and grade 3/4 neutropenia or thrombocytopenia was examined in a meta-analysis ... including patients with MM, MDS, or MCL from six clinical studies over the dose range 5-50 mg",
+      "adjustment": "After adjusting for disease and baseline cell counts, and including all treatment cycles up to 1 year",
+      "thrombocytopenia": "lenalidomide AUC was a significant predictor of grade 3/4 thrombocytopenia (odds ratio [OR] 3.337, 95 % CI 1.183-9.415)",
+      "neutropenia": "and was also associated with increased grade 3/4 neutropenia (OR 1.978, 95 % CI 0.999-3.917)",
+      "cycle_1": "These relationships were not apparent during the first treatment cycle."
+    },
+    "cited_primary": "Chen N, Ette E, Zhou S, Weiss D, Palmisano M. Population pharmacokinetics and exposure-safety of lenalidomide in patients with MM, MDS, and MCL. Blood. 2013;122:3234 (meeting abstract).",
+    "odds_ratios_all_diseases": {
+      "grade_3_4_thrombocytopenia": {
+        "odds_ratio": 3.337,
+        "ci95": [
+          1.183,
+          9.415
+        ]
+      },
+      "grade_3_4_neutropenia": {
+        "odds_ratio": 1.978,
+        "ci95": [
+          0.999,
+          3.917
+        ]
+      }
+    }
+  },
+  "reconciliation": {
+    "conclusion": "Same sponsor exposure-safety analysis (CC-5013-MCL-001-PK; Blood 2013 abstract 3234), reported two ways: TGA gives the myeloma-only odds ratios (thrombocytopenia 2.972), Chen 2017 the all-disease estimate adjusted for disease (3.337). They are consistent; the myeloma-only value is used for myeloma.",
+    "remaining_difference": "TGA describes 7 studies and 147 subjects in the population PK analysis; Chen describes six studies in the exposure-safety meta-analysis. The exposure-safety set may be a subset; not resolved."
+  },
+  "time_window": {
+    "statement": "The odds ratios describe grade 3/4 events over all treatment cycles up to 1 year; the relationships were not apparent in the first cycle (Chen 2017).",
+    "consequence": "Relative odds apply to a course of treatment, not to cycle 1."
+  }
+}

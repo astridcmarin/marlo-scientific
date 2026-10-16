@@ -149,7 +149,7 @@ class EducationalPKAuditTests(unittest.TestCase):
         self.assertEqual(self.client.get(path.replace('/revisions/1/','/revisions/999/')).status_code,404)
         runner=self.app.test_cli_runner();args=['patient-pk-audit','--id',str(row.id)]
         result=runner.invoke(args=args+['--json']);self.assertEqual(result.exit_code,0,result.output)
-        self.assertEqual(json.loads(result.output),expected)
+        self.assertEqual(json.loads(result.stdout),expected)
         with tempfile.TemporaryDirectory() as directory:
             output=Path(directory)/'audit.json';result=runner.invoke(args=args+['--output',str(output)])
             self.assertEqual(result.exit_code,0,result.output);before=output.read_bytes()

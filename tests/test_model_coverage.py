@@ -158,7 +158,7 @@ class ModelCoverageTests(unittest.TestCase):
             cov.write_text(json.dumps(model_input_example()));req.write_text(json.dumps(treatment_request_example()))
             args=['patient-model-coverage','--revision-id',str(self.revision.id),'--inputs-file',str(cov),'--treatment-file',str(req),'--disease-code','MM']
             r=runner.invoke(args=args+['--json']);self.assertEqual(r.exit_code,0,r.output)
-            self.assertEqual(json.loads(r.output),review_model_coverage(self.revision.id,model_input_example(),treatment_request_example(),'MM'))
+            self.assertEqual(json.loads(r.stdout),review_model_coverage(self.revision.id,model_input_example(),treatment_request_example(),'MM'))
             self.assertEqual(runner.invoke(args=args+['--output',str(out)]).exit_code,0)
             saved=out.read_bytes();self.assertNotEqual(runner.invoke(args=args+['--output',str(out)]).exit_code,0)
             self.assertEqual(saved,out.read_bytes())

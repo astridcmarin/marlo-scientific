@@ -77,7 +77,7 @@ class TransitRegimenTests(unittest.TestCase):
         text=runner.invoke(args=['transit-regimen-demo']);self.assertEqual(text.exit_code,0)
         self.assertIn('Invented parameters',text.output)
         result=runner.invoke(args=['transit-regimen-demo','--json']);self.assertEqual(result.exit_code,0)
-        self.assertEqual(json.loads(result.output),transit_regimen_demo())
+        self.assertEqual(json.loads(result.stdout),transit_regimen_demo())
         with tempfile.TemporaryDirectory() as tmp:
             p=Path(tmp)/'example.json'
             self.assertEqual(runner.invoke(args=['transit-regimen-demo','--output',str(p)]).exit_code,0)

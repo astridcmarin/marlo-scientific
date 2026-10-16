@@ -170,7 +170,7 @@ class PatientLabCheckpointTests(unittest.TestCase):
         runner=self.app.test_cli_runner()
         args=['patient-lab-checkpoint','--cohort-id','1','--scenario-id',str(self.scenario.id),'--revision-id',str(self.revision.id),'--run-id',str(self.run.id)]
         result=runner.invoke(args=args+['--json']);self.assertEqual(result.exit_code,0,result.output)
-        self.assertEqual(json.loads(result.output),self.checkpoint())
+        self.assertEqual(json.loads(result.stdout),self.checkpoint())
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'checkpoint.json'
             self.assertEqual(runner.invoke(args=args+['--output',str(path)]).exit_code,0)

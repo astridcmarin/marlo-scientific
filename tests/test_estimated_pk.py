@@ -280,7 +280,7 @@ class EstimatedPKTests(unittest.TestCase):
             self.assertNotEqual(runner.invoke(args=base).exit_code, 0)
             result = runner.invoke(args=base + ['--weight-basis', 'ideal_body_weight_devine'])
             self.assertEqual(result.exit_code, 0, result.output)
-            self.assertEqual(json.loads(result.output)['status'], 'completed_educational_calculation')
+            self.assertEqual(json.loads(result.stdout)['status'], 'completed_educational_calculation')
 
     # ------------------------------------------------------------ pages
 

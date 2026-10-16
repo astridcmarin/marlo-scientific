@@ -75,7 +75,7 @@ class PKTranscriptionReviewTests(unittest.TestCase):
     def test_cli_exports_never_overwrite_and_mismatch_creates_no_output(self):
         app=Flask(__name__);register_pk_transcription_review_commands(app);runner=app.test_cli_runner()
         result=runner.invoke(args=['pk-transcription-review','--json'])
-        self.assertEqual(result.exit_code,0,result.output);self.assertEqual(json.loads(result.output),transcription_review_packet())
+        self.assertEqual(result.exit_code,0,result.output);self.assertEqual(json.loads(result.stdout),transcription_review_packet())
         with tempfile.TemporaryDirectory() as directory:
             path=Path(directory)/'packet.json'
             args=['pk-transcription-review','--worksheet','--output',str(path)]

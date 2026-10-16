@@ -89,7 +89,7 @@ class PatientStateTests(unittest.TestCase):
 
     def test_cli_example_needs_no_database_and_roundtrips_verified_preview(self):
         runner=self.runner();result=runner.invoke(args=['patient-state','--example'])
-        self.assertEqual(result.exit_code,0,result.output);report=json.loads(result.output)
+        self.assertEqual(result.exit_code,0,result.output);report=json.loads(result.stdout)
         self.assertEqual(report['simulation_status'],'not_run')
         self.assertEqual(report['state_sha256'],digest(report['state']))
         with tempfile.TemporaryDirectory() as tmp:

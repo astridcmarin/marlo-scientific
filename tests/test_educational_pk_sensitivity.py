@@ -178,7 +178,7 @@ class EducationalPKSensitivityTests(unittest.TestCase):
         runner=self.app.test_cli_runner()
         result=runner.invoke(args=args+['--json']);self.assertEqual(result.exit_code,0,result.output)
         expected=clearance_sensitivity(row.id,0.8,'Invented CLI example')
-        self.assertEqual(json.loads(result.output),expected)
+        self.assertEqual(json.loads(result.stdout),expected)
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'sensitivity.json'
             first=runner.invoke(args=args+['--output',str(path)]);self.assertEqual(first.exit_code,0,first.output)
