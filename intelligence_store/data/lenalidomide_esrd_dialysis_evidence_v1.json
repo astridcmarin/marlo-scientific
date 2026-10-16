@@ -1,0 +1,82 @@
+{
+  "schema_version": "renal-pathway-evidence-v1",
+  "evidence_version": "lenalidomide-esrd-dialysis-ema-2008-v1.0",
+  "drug": "lenalidomide",
+  "recorded_on": "2026-10-16",
+  "source": {
+    "title": "Withdrawal assessment report for Lenalidomide Celgene Europe",
+    "document_reference": "EMEA/CHMP/249329/2008",
+    "local_file": "landscape_ui/data/renal_pk/ema_lenalidomide_2008.pdf",
+    "sha256": "c27c16b42062171d3146273e33abd2360dc630cd8f8f513b835010c6842b2661",
+    "pages": "PDF pages 20-21",
+    "extraction": "AI-assisted from the PDF text layer; each quoted row checked against the extracted text. Independent review pending."
+  },
+  "study": {
+    "id": "CC-5013-PK-001",
+    "dose_mg": 25,
+    "esrd_design_quote": "Subjects with ESRD received 2 single 25 mg doses at least 7 days apart: 1 dose was on a non-dialysis day and one 3 hours before a 4-hour haemodialysis period",
+    "esrd_definition": "End Stage Renal Disease (ESRD) requiring dialysis (Renal Function Groups table, page 20)",
+    "location": "page 20"
+  },
+  "groups": [
+    {
+      "group": "esrd_off_dialysis",
+      "n": 6,
+      "auc_ng_h_ml": [
+        11121,
+        2133
+      ],
+      "cl_f_ml_min": [
+        39,
+        7
+      ],
+      "cmax_ng_ml": [
+        552,
+        140
+      ],
+      "t_half_h": [
+        15.6,
+        1.14
+      ]
+    },
+    {
+      "group": "esrd_on_dialysis",
+      "n": 6,
+      "auc_ng_h_ml": [
+        6830,
+        919
+      ],
+      "cl_f_ml_min": [
+        62,
+        9
+      ],
+      "cmax_ng_ml": [
+        385,
+        112
+      ],
+      "t_half_h": [
+        16.1,
+        1.73
+      ],
+      "dialysis": "single 25 mg dose 3 h before a 4-hour haemodialysis session"
+    }
+  ],
+  "row_quotes": {
+    "cmax": "Cmax (ng/ml) 605 (246) 691 (110) 592 (177) 765 (81.3) 552 (140) 385 (112)",
+    "auc": "(ng.h/ml) 2181 (703) 2767 (1094) 6021 (847) 8191 (1317) 11121 (2133) 6830 (919)",
+    "cl": "CL/F (ml/min) 207 (59) 166 (49) 71 (12) 52 (101) 39 (7) 62 (9)",
+    "t12": "t1/2,z (h) 3.34 (0.878) 3.67 (0.703) 10.6 (3.33) 9.22 (2.44) 15.6 (1.14) 16.1 (1.73)"
+  },
+  "not_reported": [
+    "residual creatinine clearance or urine output of the ESRD subjects",
+    "fraction excreted unchanged in urine for the ESRD groups",
+    "dialyser type, blood flow or session details beyond 4 hours",
+    "concentrations during the dialysis session"
+  ],
+  "notes": [
+    "The same six subjects provided both ESRD profiles (two doses at least 7 days apart), so on- and off-dialysis means are paired.",
+    "AUC row label in the PDF text layer carries an unrenderable infinity sign before (ng.h/ml); values match Table 4."
+  ],
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false
+}
