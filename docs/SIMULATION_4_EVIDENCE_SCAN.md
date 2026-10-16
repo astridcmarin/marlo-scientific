@@ -1,4 +1,4 @@
-# Simulation 4.0 — evidence scan for a patient-dependent exposure–effect model
+# Simulation 4.0 — evidence scan and 4.0a (relative odds of severe cytopenia)
 
 Recorded 16 October 2026. This is a literature check only; nothing was built.
 
@@ -61,4 +61,36 @@ So **absolute risk cannot be computed.** The thrombocytopenia odds ratio is clos
 **What it allows.** An odds ratio per unit of ln AUC does not depend on AUC units. For two patients with the same baseline platelet count and disease, it gives the **relative** odds from the ratio of their exposures: OR_rel = (AUC_patient / AUC_reference)^ln(2.972) = (AUC ratio)^1.089, with the CI carried through. This would connect renal function → exposure (Hughes or Kim) → relative odds of grade 3/4 thrombocytopenia. It would be labelled as relative odds, never as a probability.
 
 The EMA reports II/0107 (2019, follicular lymphoma) and II/0056 (only 3 of 123 pages in the copy) gave nothing further.
+
+## 4.0a — Relative odds of grade 3/4 cytopenia (built 16 October)
+
+**What it does.** On the patient's "Compare Hughes and Kim" view, each model's typical daily AUC is already divided by the measured reference: the mean after 25 mg with normal renal function, 2181 ng·h/mL (2.1e). 4.0a turns that ratio into relative odds of a grade 3/4 event, using the TGA odds ratios:
+
+relative odds = (AUC ÷ reference)^ln(OR), with the 95% CI of the published OR carried through.
+
+Grade 3/4 thrombocytopenia is the primary endpoint. Neutropenia is shown but marked not significant in the source.
+
+**Files:**
+- `intelligence_store/data/lenalidomide_exposure_safety_tga_v1.json` (pinned; every quote checked against the TGA text);
+- `intelligence_store/lenalidomide_relative_odds.py`;
+- a fenced panel on the model-comparison view.
+
+**This is the first patient-dependent exposure–effect chain on the platform:** renal function → exposure (Hughes 2019 or Kim 2026, both externally checked) → relative odds.
+
+Example for a synthetic 65-year-old woman with myeloma (Kim 2026, 10 mg daily):
+
+| Kidney function | Relative odds, thrombocytopenia (95% CI) |
+|---|---|
+| CrCl about 56 mL/min | 0.53 (0.29–0.98) |
+| CrCl about 18 mL/min | 1.13 (1.00–1.28) |
+| CrCl about 10 mL/min | 1.29 (1.01–1.65) |
+
+**Why it is labelled the way it is:**
+- **Relative, not absolute.** The intercept was not published, so the same relative odds can mean a small or a large change in risk. The page says so above the numbers.
+- **Wide uncertainty.** The lower CI limit of the OR is 1.027, so every interval nearly touches 1.
+- **The source model is not reproduced.** The odds ratio was estimated on AUC from the sponsor's own PK model; here the ratio of a different model's AUC to a measured reference stands in for it. Ratios are more robust to that swap than absolute AUC, and both models reproduce the reference within about 5% at normal renal function.
+- **Probably understated in severe impairment**, where both models under-predict exposure.
+- **No absolute or individual outputs.** No probability, monitoring advice or dose recommendation is produced.
+
+**Not done:** reconciling with the 3.34 odds ratio quoted by Chen 2017, and any external check. No outside data on cytopenia by exposure have been found.
 

@@ -180,9 +180,12 @@ def compare_published_models(revision_id, weight_basis, cl_form, request, diseas
     kim = calculate_kim_pk(revision_id, request, disease_code, cl_form)
     rows = [_hughes_row(hughes), _kim_row(kim)]
     daily_dose = average_daily_dose(validate_treatment_request(request))
+    from .lenalidomide_relative_odds import relative_odds_for_exposure
     for row in rows:
         if 'typical_total_cl_f_l_h' in row:
             row['reference_exposure'] = compare_to_reference(daily_dose, row['typical_total_cl_f_l_h'])
+            # Simulation 4.0a: relative odds of grade 3/4 cytopenia from the same exposure ratio (relative only).
+            row['relative_odds'] = relative_odds_for_exposure(row['reference_exposure']['ratio_to_reference'])
     ratio = None
     if all('auc_0_infinity_ng_h_ml' in r for r in rows):
         ratio = {'kim_to_hughes_auc_0_infinity': rows[1]['auc_0_infinity_ng_h_ml'] / rows[0]['auc_0_infinity_ng_h_ml'],
