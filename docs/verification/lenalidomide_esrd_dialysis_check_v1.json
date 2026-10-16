@@ -1,0 +1,118 @@
+{
+  "schema_version": "lenalidomide-esrd-dialysis-check-report-v1",
+  "method_version": "lenalidomide-esrd-dialysis-v1.0",
+  "plan_version": "lenalidomide-esrd-dialysis-plan-v1.0",
+  "plan_sha256": "fd75e3e96bf6cd5a6de185e11fcd055bf85c378785a55396d01cc1690b231d3b",
+  "evidence_sha256": "7769bba1cad79392919ba02a36a24617cf2aa7bec2cfebdb2f6bc5d935c1d2b6",
+  "classification": "exploratory_aggregate_consistency_check",
+  "calibration": {
+    "crcl_ml_min": 110.0,
+    "fu": 0.77,
+    "total_ml_min": 191.04386367109888,
+    "renal_ml_min": 162.38728412043403,
+    "non_renal_ml_min": 28.656579550664844
+  },
+  "primary": {
+    "observed_auc_mean": 11121,
+    "observed_auc_sd": 2133,
+    "n": 6,
+    "interval_95": [
+      8882.537962690156,
+      13359.462037309844
+    ],
+    "scenarios": [
+      {
+        "residual_crcl_ml_min": 0.0,
+        "renal_ml_min": 0.0,
+        "non_renal_ml_min": 28.656579550664844,
+        "total_ml_min": 28.656579550664844,
+        "auc_ng_h_ml": 14539.999999999995,
+        "ratio_to_observed": 1.3074363816203574,
+        "classification": "model_over_predicts"
+      },
+      {
+        "residual_crcl_ml_min": 5.0,
+        "renal_ml_min": 7.381240187292456,
+        "non_renal_ml_min": 28.656579550664844,
+        "total_ml_min": 36.0378197379573,
+        "auc_ng_h_ml": 11561.92771084337,
+        "ratio_to_observed": 1.0396482070716095,
+        "classification": "consistent"
+      },
+      {
+        "residual_crcl_ml_min": 10.0,
+        "renal_ml_min": 14.762480374584912,
+        "non_renal_ml_min": 28.656579550664844,
+        "total_ml_min": 43.419059925249755,
+        "auc_ng_h_ml": 9596.399999999998,
+        "ratio_to_observed": 0.862908011869436,
+        "classification": "consistent"
+      }
+    ]
+  },
+  "descriptive": {
+    "non_renal_by_group": [
+      {
+        "group": "normal",
+        "total_ml_min": 191.04386367109888,
+        "fe": 0.85,
+        "renal_ml_min": 162.38728412043406,
+        "non_renal_ml_min": 28.656579550664837
+      },
+      {
+        "group": "mild",
+        "total_ml_min": 150.58426695578845,
+        "fe": 0.69,
+        "renal_ml_min": 103.90314419949404,
+        "non_renal_ml_min": 46.68112275629443
+      },
+      {
+        "group": "moderate",
+        "total_ml_min": 69.20223661628744,
+        "fe": 0.42,
+        "renal_ml_min": 29.064939378840723,
+        "non_renal_ml_min": 40.13729723744672
+      },
+      {
+        "group": "severe_without_dialysis",
+        "total_ml_min": 50.868839783502224,
+        "fe": 0.44,
+        "renal_ml_min": 22.382289504740978,
+        "non_renal_ml_min": 28.48655027876125
+      },
+      {
+        "group": "esrd_off_dialysis",
+        "total_ml_min": 37.46665467733717,
+        "fe": null,
+        "renal_ml_min": null,
+        "non_renal_ml_min": null,
+        "note": "Fraction excreted not reported; total clearance is an upper bound on non-renal clearance."
+      }
+    ],
+    "dialysis": {
+      "cl_off_ml_min": 37.46665467733717,
+      "auc_on_ng_h_ml": 6830,
+      "eliminated_by_own_routes_mg": 15.353835086772772,
+      "removed_by_dialysis_mg": 9.646164913227228,
+      "removed_fraction_of_dose": 0.3858465965290891,
+      "auc_ratio_on_over_off": 0.6141534034709109,
+      "assumption": "Assuming the non-dialysis clearance applies throughout the dialysis day, drug eliminated by the body's own routes = CL_off x AUC_on, with CL_off = dose / AUC_off. Amount removed by dialysis = dose - CL_off x AUC_on; reported in mg and as a fraction of the dose. Bioavailability taken as 1."
+    }
+  },
+  "decision": {
+    "constant_non_renal_consistent_at_zero_residual": false,
+    "finding_esrd_elimination_exceeds_normal_non_renal": false
+  },
+  "not_this": [
+    "Not validation; group means of 6 subjects.",
+    "Not a dialysis model: no dialyser, blood-flow or session parameters are used.",
+    "Not a dosing or dialysis-timing recommendation."
+  ],
+  "known_differences": [
+    "ESRD subjects may have residual urine output; it is not reported.",
+    "Uraemia can change non-renal clearance and bioavailability; neither is measured here.",
+    "Group means of 6 subjects; the dialysis derivation assumes unchanged non-dialysis clearance on the dialysis day."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "e799e28716ed01508c0c6f038cfc771faeff103acf49e709757fe4e4fcfc0ee7"
+}
