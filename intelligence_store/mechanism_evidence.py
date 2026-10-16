@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 PLAN_PATH=Path(__file__).resolve().parent/'data/lenalidomide_mechanism_evidence_plan_v1.json'
+PLAN_SHA256 = 'd505cd79baa0293555a110db9654807423fe976b1f50b7d143d212b7569c656e'
 
 
 def _unique(pairs):
@@ -16,6 +17,8 @@ def _unique(pairs):
 
 def build_mechanism_map():
     raw=PLAN_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != PLAN_SHA256:
+        raise ValueError('File differs from its pinned checksum (lenalidomide_mechanism_evidence_plan_v1.json)')
     if len(raw)>100_000:raise ValueError('Evidence plan is too large.')
     def reject_constant(value):raise ValueError('Nonfinite JSON values are not supported.')
     plan=json.loads(raw,object_pairs_hook=_unique,parse_constant=reject_constant)

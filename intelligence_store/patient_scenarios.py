@@ -20,6 +20,7 @@ from .pharmacokinetics import pk_availability
 METHOD_VERSION = "synthetic-scenario-references-v1.2"
 SCHEMA_VERSION = "synthetic-patient-scenario-v1"
 PRESETS_PATH = Path(__file__).parent / "data" / "patient_scenarios_v1.json"
+PRESETS_SHA256 = 'ab4684eea8e3561d3a96e0497a801e6eb145b5bae390d2ce31268fe952dcc437'
 SEX_VALUES = ("FEMALE", "MALE", "UNSPECIFIED")
 DOSE_UNITS = ("mg", "mg/m2", "mg/kg")
 FIELDS = {
@@ -101,6 +102,8 @@ def validate_scenario(profile, alias_catalog=None):
 def load_scenario_presets(path=PRESETS_PATH, alias_catalog=None):
     try:
         content = Path(path).read_bytes()
+        if hashlib.sha256(content).hexdigest() != PRESETS_SHA256:
+            raise ValueError('File differs from its pinned checksum (patient_scenarios_v1.json)')
         data = json.loads(content)
         if not isinstance(data, dict) or data.get("schema_version") != "synthetic-scenario-presets-v1":
             raise ValueError("Unsupported preset schema")

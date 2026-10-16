@@ -42,17 +42,22 @@ class AssayReviewTests(unittest.TestCase):
             with patch.object(model,'REVIEW_PATH',source):
                 for p in variants:
                     source.write_text(json.dumps(p))
-                    with self.assertRaises(ValueError):model.build_assay_review()
+                    with patch.object(model,'REVIEW_SHA256',hashlib.sha256(source.read_bytes()).hexdigest()):
+                        with self.assertRaises(ValueError) as caught:model.build_assay_review()
+                        self.assertNotIn('pinned checksum',str(caught.exception))
                 for raw in ['{"a":1,"a":2}','[]','{']:
                     source.write_text(raw)
-                    with self.assertRaises(ValueError):model.build_assay_review()
+                    with patch.object(model,'REVIEW_SHA256',hashlib.sha256(source.read_bytes()).hexdigest()):
+                        with self.assertRaises(ValueError) as caught:model.build_assay_review()
+                        self.assertNotIn('pinned checksum',str(caught.exception))
 
     def test_zero_condition_value_is_not_converted_to_unknown(self):
         packet=json.loads(model.REVIEW_PATH.read_text())
         packet['assay']['conditions'][1]['value']=0
         with tempfile.TemporaryDirectory() as folder:
             source=Path(folder)/'packet.json';source.write_text(json.dumps(packet))
-            with patch.object(model,'REVIEW_PATH',source):
+            pin=hashlib.sha256(source.read_bytes()).hexdigest()
+            with patch.object(model,'REVIEW_PATH',source),patch.object(model,'REVIEW_SHA256',pin):
                 self.assertEqual(model.build_assay_review()['assay_extraction']['assay']['conditions'][1]['value'],0)
 
     def test_standalone_json_export_and_overwrite_protection(self):

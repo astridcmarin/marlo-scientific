@@ -12,6 +12,7 @@ from .drug_aliases import AliasCatalogError, reconcile_drug_aliases
 from .summaries import CohortSummaryError, summarize_cohort
 
 ANNOTATION_PATH = Path(__file__).parent / "data" / "drug_annotations_v1.json"
+ANNOTATION_SHA256 = 'be7cbfc716ff90a277f9f8bc009a0a2238da4f75b5a2d350b352026546a94591'
 METHOD_VERSION = "cohort-annotations-v1.0"
 FIELDS = ("mechanism", "modality", "target")
 NOT_CURATED = "No curated annotation"
@@ -24,6 +25,8 @@ class AnnotationCatalogError(ValueError):
 def load_annotation_catalog(aliases, path=ANNOTATION_PATH):
     try:
         content = Path(path).read_bytes()
+        if hashlib.sha256(content).hexdigest() != ANNOTATION_SHA256:
+            raise ValueError('File differs from its pinned checksum (drug_annotations_v1.json)')
         catalog = json.loads(content)
         if (
             not isinstance(catalog, dict)

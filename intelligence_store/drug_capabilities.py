@@ -12,8 +12,10 @@ from .educational_pk import load_execution_contract, CONTRACT_SHA256 as EXECUTIO
 from .patient_state import digest
 
 from .drug_research_tools import research_tool_registry
+from .kim_model import load_extract as load_kim_extract, load_form_assessment, EXTRACT_SHA256 as KIM_EXTRACT_SHA, FORM_ASSESSMENT_SHA256
+from .bortezomib_platelet_evidence import load_model_extract as load_bortezomib_extract, EXTRACT_SHA256 as BORTEZOMIB_EXTRACT_SHA
 
-METHOD = 'drug-capability-inventory-v1.1'
+METHOD = 'drug-capability-inventory-v1.2'
 DISEASE_LABELS = {'MM':'Multiple Myeloma', 'CLL':'Chronic Lymphocytic Leukemia',
                   'AML':'Acute Myeloid Leukemia', 'ALL':'Acute Lymphoblastic Leukemia'}
 
@@ -44,6 +46,41 @@ def _exposure_model():
     }
 
 
+def _kim_exposure_model():
+    """Kim 2026: second lenalidomide exposure model (renal impairment, unbound scale); contracts only."""
+    extract = load_kim_extract()
+    form = load_form_assessment()
+    population = extract['study_population']
+    return {
+        'model_id': 'kim-2026-educational-pk-v1', 'drug_id': 'lenalidomide',
+        'status': 'implemented_educational', 'endpoint': 'total and unbound plasma concentration and exposure',
+        'source': {'citation': extract['source']['citation'], 'doi': extract['source']['doi']},
+        'source_populations': [{'code': 'MM', 'label': DISEASE_LABELS['MM'], 'subject_count': population['n']}],
+        'covariates': sorted(extract['covariate_definitions']),
+        'contract_versions': {'extract': extract['extract_version'], 'cl_form_assessment': form.get('assessment_version')},
+        'contract_sha256': {'extract': KIM_EXTRACT_SHA, 'cl_form_assessment': FORM_ASSESSMENT_SHA256},
+        'assumptions': ['Deterministic typical parameters; random effects and observation error omitted.',
+                        'The printed CL/F equation form is unresolved; a multiplicative reading is used until the authors confirm.',
+                        'Fitted in 30 Korean patients with multiple myeloma at steady state; other populations are not represented.'],
+        'clinical_prediction_validated': False, 'ready_for_patient_simulation': False,
+    }
+
+
+def _bortezomib_pk_component():
+    """Bortezomib three-compartment PK: runs only inside the platelet research tool, not as patient PK."""
+    extract = load_bortezomib_extract()
+    return {
+        'model_id': 'bortezomib-3cmt-lignet-2022-pk-v1', 'drug_id': 'bortezomib',
+        'status': 'research_component', 'endpoint': 'plasma concentration driving the platelet model',
+        'source': {'citation': extract['source']['citation'], 'doi': extract['source']['doi']},
+        'used_by': ['bortezomib-platelet-timecourse'],
+        'contract_sha256': {'extract': BORTEZOMIB_EXTRACT_SHA},
+        'assumptions': ['Single linear clearance; first-dose exposure is overstated about 7-fold against the label.',
+                        'Not offered as a patient PK calculation.'],
+        'clinical_prediction_validated': False, 'ready_for_patient_simulation': False,
+    }
+
+
 def capability_inventory():
     catalog = load_alias_catalog()
     aliases = {'catalog_sha256': catalog['sha256'], 'catalog_version': catalog['catalog_version'],
@@ -63,7 +100,14 @@ def capability_inventory():
     try:
         model = _exposure_model()
     except ValueError:
-        warnings.append({'area':'exposure','message':'The registered lenalidomide model contracts could not be verified.'})
+        warnings.append({'area':'exposure','message':'The Hughes 2019 lenalidomide model contracts could not be verified.'})
+    extra_models = {}
+    for builder, label in [(_kim_exposure_model, 'Kim 2026 lenalidomide'), (_bortezomib_pk_component, 'bortezomib PK component')]:
+        try:
+            card = builder()
+            extra_models.setdefault(card['drug_id'], []).append(card)
+        except ValueError:
+            warnings.append({'area':'exposure','message':f'The {label} model contracts could not be verified.'})
     research_registry = research_tool_registry()
     rows = []
     for entry in sorted(catalog['entries'], key=lambda e:e['canonical_name'].casefold()):
@@ -76,28 +120,34 @@ def capability_inventory():
             capabilities[name] = {'status': 'unavailable' if index is None else
                                   'curated_reference' if present else 'not_curated'}
         registered = entry['id'] == 'lenalidomide'
-        capabilities['exposure'] = {'status': 'implemented_educational' if registered and model else
+        exposure_models = ([copy.deepcopy(model)] if registered and model else []) + copy.deepcopy(extra_models.get(entry['id'], []))
+        statuses = {m['status'] for m in exposure_models}
+        capabilities['exposure'] = {'status': 'implemented_educational' if 'implemented_educational' in statuses else
+                                    'research_component_only' if statuses else
                                     'unavailable' if registered else 'not_registered'}
         capabilities['efficacy'] = {'status':'not_registered'}
         capabilities['toxicity'] = {'status':'not_registered'}
         research_tools = copy.deepcopy(research_registry.get(entry['id'],[]))
-        for kind in ('target_activity','research_timecourse','assumption_experiment'):
+        for kind in ('target_activity','research_timecourse','assumption_experiment','drug_effect_timecourse'):
             candidates=[t for t in research_tools if t['kind']==kind]
             capabilities[kind]={'status':'available_research_tool' if any(t['availability']=='available' for t in candidates)
                                 else 'unavailable' if candidates else 'not_registered'}
         row = {'research_tools':research_tools,'entity_id':entry['id'], 'label':entry['canonical_name'], 'aliases':copy.deepcopy(entry['aliases']),
                'identity_reference':copy.deepcopy(entry['source']), 'capabilities':capabilities,
                'exposure_model':copy.deepcopy(model) if registered and model else None,
+               'exposure_models':exposure_models,
                'disease_indications':'not_assessed_by_this_inventory'}
         rows.append(row)
     report = {'schema_version':'drug-capability-inventory-v1','method_version':METHOD,
               'scope':'Installed curated drug entities and explicitly registered models only. Not a comprehensive medication library.',
               'entries':rows,'warnings':warnings,'provenance':provenance,
               'counts':{'drug_entities':len(rows),
-                        'educational_exposure_models':sum(r['capabilities']['exposure']['status']=='implemented_educational' for r in rows),
+                        'educational_exposure_models':sum(m['status']=='implemented_educational' for r in rows for m in r['exposure_models']),
+                        'research_exposure_components':sum(m['status']=='research_component' for r in rows for m in r['exposure_models']),
                         'efficacy_models':0,'toxicity_models':0},
+              # Every registered kind is counted, so a new kind cannot be silently left out.
               'research_tool_counts':{kind:sum(t['availability']=='available' and t['kind']==kind for r in rows for t in r['research_tools'])
-                                      for kind in ('target_activity','research_timecourse','assumption_experiment','evidence_review')},
+                                      for kind in sorted({t['kind'] for tools in research_registry.values() for t in tools})},
               'clinical_prediction_validated':False,'ready_for_patient_simulation':False,
               'limitation':'Catalog presence is not current-label verification, disease indication, approval, model applicability or clinical suitability. Safety references are not toxicity predictions. Generic experiments are not drug-specific models.'}
     report['report_sha256'] = digest(report)

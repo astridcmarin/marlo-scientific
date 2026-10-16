@@ -126,13 +126,17 @@ class DrugKnowledgeTests(unittest.TestCase):
         from intelligence_store.interactions import load_interaction_catalog,CATALOG_PATH as INTERACTIONS
         aliases=reconcile_drug_aliases(summarize_cohort(1))
         with tempfile.TemporaryDirectory() as tmp:
-            for loader,source in [(load_annotation_catalog,ANNOTATIONS),(load_safety_catalog,SAFETY),
-                                  (load_interaction_catalog,INTERACTIONS)]:
+            import hashlib
+            from unittest.mock import patch
+            import intelligence_store.mechanisms as m, intelligence_store.safety as sf, intelligence_store.interactions as it
+            for loader,source,module,pin in [(load_annotation_catalog,ANNOTATIONS,m,'ANNOTATION_SHA256'),(load_safety_catalog,SAFETY,sf,'CATALOG_SHA256'),
+                                  (load_interaction_catalog,INTERACTIONS,it,'CATALOG_SHA256')]:
                 old=json.loads(source.read_text())
                 old['alias_catalog_version']='myeloma-seed-v1.2'
                 old['alias_catalog_sha256']='c3bb20d4c7cef33859e2a00933117355125097ff87685a824aa0ab616136ef60'
                 p=Path(tmp)/source.name;p.write_text(json.dumps(old))
-                with self.subTest(catalog=source.name),self.assertRaisesRegex(ValueError,'incompatible'):
+                # Pin the altered file so the alias-compatibility rule, not the checksum, is what rejects it.
+                with self.subTest(catalog=source.name),patch.object(module,pin,hashlib.sha256(p.read_bytes()).hexdigest()),self.assertRaisesRegex(ValueError,'incompatible'):
                     loader(aliases,path=p)
 
     def test_new_reference_aliases_union_without_unsupported_brands(self):
@@ -189,7 +193,9 @@ class DrugKnowledgeTests(unittest.TestCase):
                 entry=next(e for e in raw['entries'] if e['entity_id']=='melphalan')
                 entry['references'][0]['sections']=[section]
                 p=Path(tmp)/'invalid.json';p.write_text(json.dumps(raw))
-                with self.subTest(section=section),self.assertRaisesRegex(ValueError,'invalid'):
+                import hashlib, intelligence_store.interactions as it
+                from unittest.mock import patch
+                with self.subTest(section=section),patch.object(it,'CATALOG_SHA256',hashlib.sha256(p.read_bytes()).hexdigest()),self.assertRaisesRegex(ValueError,'invalid'):
                     load_interaction_catalog(aliases,path=p)
 
 if __name__=='__main__':unittest.main()

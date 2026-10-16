@@ -50,11 +50,10 @@ See the [repository checkpoint of 16 October 2026](REPOSITORY_CHECKPOINT.md). Si
 
 No efficacy or toxicity model is registered, and no model is validated for clinical prediction.
 
-The library inventory still counts one exposure model and omits the platelet tool; correcting it is open (checkpoint finding 2). Earlier step-number history, including the reused numbers 106–108 for **observation intake v1**, is in the [13 October checkpoint](history/REPOSITORY_CHECKPOINT_2026-10-13.md).
+The library inventory now counts two lenalidomide exposure models, the bortezomib PK component and the platelet tool (inventory v1.2). Earlier step-number history, including the reused numbers 106–108 for **observation intake v1**, is in the [13 October checkpoint](history/REPOSITORY_CHECKPOINT_2026-10-13.md).
 
 **Next work:**
-1. Fix the checkpoint findings (checksum pins for nine reference files; inventory counts).
-2. An outside check of the bortezomib PK model against Ogawa 2008 (days 1 and 11).
-3. Simulation 4.0 (linked exposure–effect for a patient).
+1. An outside check of the bortezomib PK model against Ogawa 2008 (days 1 and 11).
+2. Simulation 4.0 (linked exposure–effect for a patient).
 
 Preserve the distinction between software verification and empirical or independent scientific validation.

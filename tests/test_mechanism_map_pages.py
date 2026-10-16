@@ -66,11 +66,18 @@ class MechanismMapTests(unittest.TestCase):
                 changed=copy.deepcopy(plan);changed['quantitative_inputs']['binary_binding_kd_nm']=10;variants.append(changed)
                 changed=copy.deepcopy(plan);changed['claims'][0]['source_id']='wrong';variants.append(changed)
                 changed=copy.deepcopy(plan);changed['claims'].append(changed['claims'][0]);variants.append(changed)
+                # Each altered plan is pinned, so its content rule (not the checksum) is what rejects it.
+                import hashlib
                 for changed in variants:
                     path.write_text(json.dumps(changed))
-                    self.assertEqual(self.client.get(self.path+'?format=json').status_code,503)
+                    with patch.object(evidence,'PLAN_SHA256',hashlib.sha256(path.read_bytes()).hexdigest()):
+                        self.assertEqual(self.client.get(self.path+'?format=json').status_code,503)
+                        with self.assertRaises(ValueError) as caught:evidence.build_mechanism_map()
+                        self.assertNotIn('pinned checksum',str(caught.exception))
                 for bad in ['{"schema_version":"x","schema_version":"y"}','{"value":NaN}','[]','{']:
-                    path.write_text(bad);self.assertEqual(self.client.get(self.path).status_code,503)
+                    path.write_text(bad)
+                    with patch.object(evidence,'PLAN_SHA256',hashlib.sha256(path.read_bytes()).hexdigest()):
+                        self.assertEqual(self.client.get(self.path).status_code,503)
 
     def test_report_is_deterministic_and_does_not_modify_plan(self):
         from intelligence_store.mechanism_evidence import PLAN_PATH,build_mechanism_map

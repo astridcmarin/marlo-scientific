@@ -5,6 +5,7 @@ import math
 from pathlib import Path
 
 REVIEW_PATH=Path(__file__).resolve().parent/'data/lenalidomide_assay_extraction_v1.json'
+REVIEW_SHA256 = 'f8be2595d16260e84ba74bd41e14dea6b37f1b8e4706eabe1a494d4eee26a4a3'
 
 
 def _unique(pairs):
@@ -17,6 +18,8 @@ def _unique(pairs):
 
 def build_assay_review():
     raw=REVIEW_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != REVIEW_SHA256:
+        raise ValueError('File differs from its pinned checksum (lenalidomide_assay_extraction_v1.json)')
     if len(raw)>100_000:raise ValueError('Extraction packet is too large.')
     def reject(value):raise ValueError('Nonfinite JSON value.')
     packet=json.loads(raw,object_pairs_hook=_unique,parse_constant=reject)
