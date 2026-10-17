@@ -37,6 +37,8 @@
 
     <div class="page-header">
 
+        <p class="home-link"><a href="{{ url_for('landing') }}">← Marlo Scientific home</a></p>
+
         <h1>
             MARLO SCIENTIFIC
         </h1>
@@ -55,7 +57,7 @@
 
     <form
         method="GET"
-        action="/"
+        action="{{ url_for('home') }}"
         class="search-form"
     >
 
@@ -345,7 +347,7 @@
         </button>
 
         <a
-            href="/"
+            href="{{ url_for('home') }}"
             class="clear-button"
         >
             Clear

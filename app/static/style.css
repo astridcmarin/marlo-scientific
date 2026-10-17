@@ -1302,3 +1302,29 @@ body {
     }
 
 }
+
+/* =========================================
+   FOOTER AND HOME LINK
+========================================= */
+
+.site-footer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    color: #667085;
+    font-size: 14px;
+}
+
+.home-link {
+    margin: 0 0 12px;
+}
+
+.home-link a {
+    color: #176b71;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.home-link a:hover {
+    text-decoration: underline;
+}
