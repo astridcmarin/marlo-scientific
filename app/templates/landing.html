@@ -1,3 +1,4 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,29 +7,13 @@
     <title>Marlo Scientific | Clinical &amp; Pharmaceutical Intelligence</title>
     <meta name="description" content="A research platform connecting clinical-trial evidence, drug and regulatory knowledge, and transparent pharmacology models. For research and educational use.">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    {{ site_head_links() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header">
-    <div class="wrap">
-        <a class="brand" href="{{ url_for('landing') }}">
-            <img src="{{ url_for('static', filename='images/favicon.png') }}" alt="">
-            <span>Marlo Scientific</span>
-        </a>
-        <nav class="site-nav" aria-label="Main">
-            <a href="{{ url_for('home') }}">Trial explorer</a>
-            <a href="{{ url_for('landscape.index') }}">Research workspace</a>
-            <a href="{{ url_for('landscape.patient_directory') }}">Patient Lab</a>
-            <a href="#provenance">Provenance</a>
-            <a class="button button-aqua" href="{{ github_url }}">View on GitHub</a>
-        </nav>
-    </div>
-</header>
+{{ site_header(cta=('View on GitHub', github_url)) }}
 
 <main id="main">
 

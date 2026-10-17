@@ -1,0 +1,25 @@
+{# Shared Marlo Scientific header for pages outside the workspace sidebar (landing page, trial explorer).
+   `active`: 'trials' | 'drugs' | 'patient' | 'simulation' | None. `cta`: optional (label, href) for the highlighted button. #}
+{% macro site_head_links() %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('landscape.static', filename='brand.css') }}">
+{% endmacro %}
+
+{% macro site_header(active=None, cta=None) %}
+<header class="ms-header">
+    <div class="ms-header-inner">
+        <a class="ms-brand" href="{{ site_home_url }}">
+            <img src="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}" alt="" width="36" height="36">
+            <span>Marlo Scientific</span>
+        </a>
+        <nav class="ms-nav" aria-label="Main">
+            {% for key, label, href in site_sections %}
+            <a href="{{ href }}"{% if key == active %} aria-current="page"{% endif %}>{{ label }}</a>
+            {% endfor %}
+            {% if cta %}<a class="ms-cta" href="{{ cta[1] }}">{{ cta[0] }}</a>{% endif %}
+        </nav>
+    </div>
+</header>
+{% endmacro %}

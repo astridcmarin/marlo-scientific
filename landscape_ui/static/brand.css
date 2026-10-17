@@ -1,0 +1,31 @@
+/* Marlo Scientific shared brand: colour tokens, type and the top header used outside the workspace sidebar.
+   Colours come from the logo (navy tile, aqua ribbon) and the workspace teal. */
+:root {
+    --ms-navy: #0b2438;
+    --ms-navy-2: #163a55;
+    --ms-ink: #12283a;
+    --ms-body: #3d5466;
+    --ms-muted: #4f6475;
+    --ms-line: #dbe5e9;
+    --ms-ground: #f3f7f8;
+    --ms-teal: #176b71;
+    --ms-teal-dark: #0f4f54;
+    --ms-aqua: #7fd6d4;
+    --ms-on-navy: #cfe0e6;
+    --ms-font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --ms-font-display: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --ms-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.ms-header { background: var(--ms-navy); color: #ffffff; }
+.ms-header-inner { max-width: 1400px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; }
+.ms-brand { display: flex; align-items: center; gap: 12px; color: #ffffff; text-decoration: none; font-family: var(--ms-font-display); font-weight: 600; font-size: 19px; letter-spacing: -0.01em; }
+.ms-brand:hover { color: #ffffff; }
+.ms-brand img { width: 36px; height: 36px; border-radius: 9px; }
+.ms-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 22px; font-family: var(--ms-font-body); font-size: 15px; }
+.ms-nav a { color: var(--ms-on-navy); text-decoration: none; padding: 12px 0; border-bottom: 2px solid transparent; }
+.ms-nav a:hover { color: #ffffff; }
+.ms-nav a[aria-current="page"] { color: #ffffff; border-bottom-color: var(--ms-aqua); }
+.ms-nav .ms-cta { background: var(--ms-aqua); color: var(--ms-navy); font-weight: 600; padding: 10px 18px; border-radius: 999px; border: 0; }
+.ms-nav .ms-cta:hover { background: #a6e3e0; color: var(--ms-navy); }
+.ms-header a:focus-visible { outline: 3px solid var(--ms-aqua); outline-offset: 3px; }

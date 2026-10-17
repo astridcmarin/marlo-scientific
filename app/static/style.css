@@ -1304,27 +1304,79 @@ body {
 }
 
 /* =========================================
-   FOOTER AND HOME LINK
+   FOOTER
 ========================================= */
 
 .site-footer {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 24px 40px;
-    color: #667085;
+    color: #4f6475;
     font-size: 14px;
 }
 
-.home-link {
-    margin: 0 0 12px;
+
+/* =========================================
+   MARLO SCIENTIFIC BRAND
+   Shared tokens and header: landscape_ui/static/brand.css
+========================================= */
+
+body {
+    font-family: var(--ms-font-body, Arial, sans-serif);
+    background-color: var(--ms-ground, #f3f7f8);
+    color: var(--ms-ink, #12283a);
 }
 
-.home-link a {
-    color: #176b71;
-    text-decoration: none;
-    font-size: 15px;
+.container {
+    padding-top: 32px;
 }
 
-.home-link a:hover {
-    text-decoration: underline;
+.eyebrow {
+    margin: 0 0 6px;
+    font-family: var(--ms-font-mono, monospace);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ms-teal, #176b71);
+}
+
+.page-header h1 {
+    font-family: var(--ms-font-display, Arial, sans-serif);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+}
+
+.subtitle {
+    color: var(--ms-body, #3d5466);
+}
+
+.search-form {
+    border-color: var(--ms-line, #dbe5e9);
+}
+
+.search-form input,
+.search-form select {
+    border-color: #9fb3bf;
+    font-family: inherit;
+    color: var(--ms-ink, #12283a);
+}
+
+.search-form input:focus,
+.search-form select:focus {
+    border-color: var(--ms-teal, #176b71);
+    outline: 3px solid rgba(23, 107, 113, 0.25);
+    outline-offset: 1px;
+}
+
+.search-form button {
+    background-color: var(--ms-navy, #0b2438);
+    font-family: inherit;
+}
+
+.search-form button:hover {
+    background-color: var(--ms-navy-2, #163a55);
+}
+
+a {
+    color: var(--ms-teal, #176b71);
 }

@@ -56,9 +56,42 @@ class LandingPageTests(unittest.TestCase):
 
     def test_explorer_links_back_and_searches_in_place(self):
         page = self.client.get('/trials').get_data(as_text=True)
-        self.assertIn('Marlo Scientific home', page)
+        self.assertIn('class="ms-brand" href="/"', page)
+        self.assertIn('href="/trials" aria-current="page">Clinical trials</a>', page)
+        self.assertIn('brand.css', page)
         self.assertIn('action="/trials"', page)
         self.assertNotIn('action="/"', page)
+
+
+    def test_one_brand_and_navigation_across_landing_explorer_and_workspace(self):
+        sections = ('>Clinical trials</a>', '>Drugs &amp; regulatory</a>', '>Patient Lab</a>', '>Simulation Lab</a>')
+        landing = self.client.get('/').get_data(as_text=True)
+        explorer = self.client.get('/trials').get_data(as_text=True)
+        for page in (landing, explorer):
+            for text in sections + ('Marlo Scientific', 'images/marlo-mark.png'):
+                self.assertIn(text, page)
+        workspace = self.client.get('/landscape/simulation-lab').get_data(as_text=True)
+        for text in ('Marlo Scientific', 'images/marlo-mark.png', 'Clinical &amp; Pharmaceutical Intelligence',
+                     '<p class="nav-label">Clinical trials</p>', '<p class="nav-label">Drugs &amp; regulatory</p>',
+                     '<p class="nav-label">Pharmacology lab</p>', '<p class="nav-label">Your work</p>',
+                     'class="brand" href="/"', 'Marlo Scientific · Pharmacology lab'):
+            self.assertIn(text, workspace)
+        self.assertNotIn('Clinical Intelligence<span', workspace)
+        self.assertNotIn('v2 ·', workspace)
+
+
+class WithoutLandingPage(unittest.TestCase):
+    def test_workspace_brand_falls_back_when_the_app_has_no_landing_page(self):
+        from flask import Flask
+        from landscape_ui import register_landscape
+        test_app = Flask(__name__)
+        test_app.add_url_rule('/', 'home', lambda: 'Home')
+        register_landscape(test_app)
+        with test_app.test_request_context('/'):
+            from landscape_ui import _site_context
+            context = _site_context()
+        self.assertEqual(context['site_home_url'], '/landscape/')
+        self.assertEqual([key for key, _, _ in context['site_sections']], ['trials', 'drugs', 'patient', 'simulation'])
 
 
 if __name__ == '__main__':

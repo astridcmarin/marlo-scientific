@@ -1,3 +1,4 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,8 +11,10 @@
     >
 
     <title>
-        MARLO SCIENTIFIC | Clinical & Pharmaceutical Intelligence
+        Clinical trial explorer | Marlo Scientific
     </title>
+
+    {{ site_head_links() }}
 
     <link
         rel="stylesheet"
@@ -28,6 +31,8 @@
 
 <body>
 
+{{ site_header(active='trials') }}
+
 <div class="container">
 
 
@@ -37,10 +42,10 @@
 
     <div class="page-header">
 
-        <p class="home-link"><a href="{{ url_for('landing') }}">← Marlo Scientific home</a></p>
+        <p class="eyebrow">Clinical trials</p>
 
         <h1>
-            MARLO SCIENTIFIC
+            Clinical trial explorer
         </h1>
 
         <p class="subtitle">
@@ -2349,7 +2354,7 @@
             FOOTER
         ========================================== -->
     <footer class="site-footer">
-        <p>© 2026 MARLO SCIENTIFIC. All rights reserved.</p>
+        <p>© 2026 Marlo Scientific. All rights reserved.</p>
         <p>Scientific research and educational use.</p>
     </footer>
 

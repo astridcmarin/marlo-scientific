@@ -47,7 +47,7 @@ class DiseaseLibraryTests(unittest.TestCase):
             self.assertIn('/landscape/drugs?cohort_id='+str(identifier),body)
             self.assertIn('/landscape/patient-lab/workspace?cohort_id='+str(identifier),body)
         self.assertEqual(body.count('class="nav-item active"'),1)
-        self.assertIn('aria-current="page"><span aria-hidden="true">▤</span> Disease Library',body)
+        self.assertIn('aria-current="page"><span aria-hidden="true">▤</span> Disease library',body)
         self.assertEqual(response.headers['Cache-Control'],'no-store')
 
     def test_partial_and_inconsistent_counts_withhold_analysis_links(self):
