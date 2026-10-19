@@ -26,7 +26,7 @@ class LandingPageTests(unittest.TestCase):
         from intelligence_store.extensions import db
         with app.app_context():
             db.engine.dispose()
-        _tmp.cleanup()
+        # The temporary folder is removed at interpreter exit: other test modules share this app instance.
 
     def setUp(self):
         app.config['TESTING'] = True

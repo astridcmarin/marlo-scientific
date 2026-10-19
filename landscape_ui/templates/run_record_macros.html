@@ -46,6 +46,8 @@
 {% for layer in record.model.layers %}<tr><td>{{ layer.layer|replace('_',' ')|capitalize }}<br><small>{{ layer.description }}</small></td><td>{{ status_badge(layer.status) }}</td><td>{{ layer.summary }}{% if layer.evidence_report %}<br><small>Report: {{ layer.evidence_report }}</small>{% endif %}{% for extra in layer.further_reports or [] %}<br>{{ extra.summary }}<br><small>Report: {{ extra.evidence_report }}</small>{% endfor %}{% if layer.search %}<details><summary>Sources searched ({{ layer.search.searched_on }})</summary><ul>{% for c in layer.search.candidates %}<li><strong>{{ c.source }}:</strong> {{ c.result }}</li>{% endfor %}</ul><p><small>{{ layer.search.why_incidence_alone_is_not_used }} {{ layer.search.possible_route }}</small></p></details>{% endif %}</td></tr>{% endfor %}
 </tbody></table></div>
 <p class="panel-note"><strong>Not established for any model:</strong> {{ record.model.never_established }}</p>
+{% if site_models_url %}<p class="panel-note"><a href="{{ site_models_url }}/{{ record.model.model_id }}">Full scorecard for this model →</a></p>{% endif %}
+{% if site_models_url %}<p class="panel-note"><a href="{{ site_models_url }}/{{ record.model.model_id }}">Open this model's public scorecard</a></p>{% endif %}
 
 <details><summary>Limitations and checksums</summary>
 {% if record.limitations %}<ul>{% for text in record.limitations %}<li>{{ text }}</li>{% endfor %}</ul>{% endif %}
