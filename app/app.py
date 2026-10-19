@@ -665,7 +665,8 @@ def landing():
     # Searches used to live at "/?condition=...": send old links and bookmarks to the explorer.
     if request.args:
         return redirect(url_for("home", **request.args.to_dict(flat=False)), code=301)
-    return render_template("landing.html", github_url=GITHUB_URL)
+    from landscape_ui.landing_examples import curve_example, kidney_example
+    return render_template("landing.html", github_url=GITHUB_URL, curve=curve_example(), kidney=kidney_example())
 
 
 # ==================================================

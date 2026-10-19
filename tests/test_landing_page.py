@@ -41,8 +41,10 @@ class LandingPageTests(unittest.TestCase):
                      'href="/trials"', 'href="/landscape/"', 'href="/landscape/patient-lab/workspace"',
                      'https://github.com/astridcmarin/marlo-scientific', 'landing.css'):
             self.assertIn(text, page)
-        for path in ('/trials', '/landscape/', '/landscape/patient-lab/workspace', '/landscape/simulation-lab',
-                     '/landscape/drugs', '/landscape/regulatory', '/static/landing.css', '/static/images/favicon.png'):
+        import re
+        links = sorted(set(re.findall(r'href="(/[^"#]*)"', page)))
+        self.assertGreaterEqual(len(links), 12)
+        for path in links:
             response = self.client.get(path)
             self.assertEqual(response.status_code, 200, path)
             response.close()
@@ -78,6 +80,33 @@ class LandingPageTests(unittest.TestCase):
             self.assertIn(text, workspace)
         self.assertNotIn('Clinical Intelligence<span', workspace)
         self.assertNotIn('v2 ·', workspace)
+
+    def test_charts_come_from_platform_code(self):
+        from landscape_ui.landing_examples import curve_example, kidney_example
+        from intelligence_store.lenalidomide_renal_pathways import calibrate, load_evidence, pathways
+        page = self.client.get('/').get_data(as_text=True)
+        curve = curve_example()
+        self.assertIn(curve['polyline'], page)
+        self.assertIn('Not a dosing illustration', page)
+        cal = calibrate(load_evidence(), 110.0, 0.77)
+        for row in kidney_example()['rows']:
+            p = pathways(cal, row['crcl'], 'A_intact_nephron')
+            self.assertEqual(row['shares'][0]['pct'], round(100 * p['filtration_ml_min'] / p['total_ml_min']))
+            self.assertIn(f"Filtration {row['shares'][0]['pct']}%", page)
+
+    def test_example_curve_file_matches_a_fresh_calculation(self):
+        import json, sys
+        from pathlib import Path
+        root = Path(__file__).resolve().parent.parent
+        sys.path.insert(0, str(root / 'scripts'))
+        try:
+            import landing_example_curve as generator
+        finally:
+            sys.path.remove(str(root / 'scripts'))
+        stored = json.loads(generator.OUT.read_text(encoding='utf-8'))
+        fresh = generator.build()
+        self.assertEqual(fresh, stored)
+        self.assertEqual(stored['request']['single_dose_mg'], 25.0)
 
 
 class WithoutLandingPage(unittest.TestCase):
