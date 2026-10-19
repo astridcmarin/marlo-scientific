@@ -1650,5 +1650,27 @@ register_binding_pulse_pages(bp)
 from .mechanism_map_pages import register_mechanism_map_pages
 register_mechanism_map_pages(bp)
 
+# Shared site navigation (landing page, trial explorer and the workspace sidebar). Endpoints that an app
+# does not define (test apps register only the blueprint and a stub home page) are left out, not guessed.
+SITE_SECTIONS = (
+    ('trials', 'Clinical trials', 'home'),
+    ('drugs', 'Drugs & regulatory', 'landscape.drug_knowledge'),
+    ('patient', 'Patient Lab', 'landscape.patient_directory'),
+    ('simulation', 'Simulation Lab', 'landscape.simulation_lab'),
+)
+
+
+def _site_context():
+    from werkzeug.routing import BuildError
+    def link(endpoint):
+        try:
+            return url_for(endpoint)
+        except BuildError:
+            return None
+    sections = [(key, label, href) for key, label, endpoint in SITE_SECTIONS if (href := link(endpoint))]
+    return {'site_home_url': link('landing') or link('landscape.index'), 'site_sections': sections}
+
+
 def register_landscape(app):
     app.register_blueprint(bp)
+    app.context_processor(_site_context)
