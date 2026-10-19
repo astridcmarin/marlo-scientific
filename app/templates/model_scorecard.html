@@ -1,0 +1,72 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ card.name }} | Model scorecard | Marlo Scientific</title>
+    <link rel="icon" type="image/png" href="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}">
+    {{ site_head_links() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{{ site_header() }}
+
+<main id="main" class="section">
+    <article class="wrap prose prose-wide">
+        <p><a href="{{ url_for('model_scorecards') }}">← All model scorecards</a></p>
+        <header class="stack" style="gap: 12px">
+            <p class="prose-eyebrow" style="margin-bottom: 0">{{ card.drug }} · {{ card.kind }}</p>
+            <h1>{{ card.name }}</h1>
+            <p class="prose-lede">{{ card.what }}</p>
+            <p>Source: {{ card.citation }}{% if card.doi %} · <a href="https://doi.org/{{ card.doi }}" rel="noopener">doi:{{ card.doi }}</a>{% endif %}</p>
+        </header>
+
+        {% if card.outside_data_disagreements or card.depends_on|selectattr('disagreements')|list %}
+        <section class="prose-callout" aria-labelledby="sc-disagree">
+            <h2 id="sc-disagree">Where outside data disagree</h2>
+            {% if card.outside_data_disagreements %}<ul>{% for r in card.outside_data_disagreements %}<li>{{ r.item }}: <strong>{{ r.outcome_label|lower }}</strong></li>{% endfor %}</ul>{% endif %}
+            {% for dep in card.depends_on if dep.disagreements %}<p>This model is driven by <a href="{{ url_for('model_scorecard', model_id=dep.model_id) }}">{{ dep.name }}</a>, which disagrees with outside data in {{ dep.disagreements }} recorded result{{ 's' if dep.disagreements > 1 }}. Its errors carry through to this model.</p>{% endfor %}
+        </section>
+        {% endif %}
+
+        <section aria-labelledby="sc-checks">
+            <h2 id="sc-checks">The four checks</h2>
+            <ol class="checks-list">
+            {% for layer in card.layers %}
+                <li>
+                    <div class="check-head"><h3>{{ layer.label }}</h3><span class="status status-{{ layer.tone }}">{{ layer.status_label }}</span></div>
+                    <p>{{ layer.summary }}</p>
+                    {% if layer.results %}
+                    <table class="result-table"><caption class="sr-only">Recorded results</caption><thead><tr><th scope="col">Compared</th><th scope="col">Result</th></tr></thead><tbody>
+                    {% for r in layer.results %}<tr><td>{{ r.item }}</td><td><span class="status status-{{ r.tone }}">{{ r.outcome_label }}</span></td></tr>{% endfor %}
+                    </tbody></table>
+                    {% endif %}
+                    {% for report in layer.reports %}
+                    <p class="report-ref">{% if report.summary %}{{ report.summary }}<br>{% endif %}Report: {% if report.intact %}<a href="{{ url_for('model_report', name=report.name) }}">{{ report.path }}</a> <span class="mono">checksum verified · SHA-256 {{ report.sha256[:16] }}…</span>{% else %}{{ report.path }} <strong>(file missing or changed; not served)</strong>{% endif %}{% if layer.classification and loop.first %} · {{ layer.classification|replace('_', ' ') }}{% endif %}</p>
+                    {% endfor %}
+                    {% if layer.search %}
+                    <details><summary>Sources searched{% if layer.search.searched_on %} ({{ layer.search.searched_on }}){% endif %}</summary><ul>{% for c in layer.search.candidates %}<li><strong>{{ c.source }}:</strong> {{ c.result }}</li>{% endfor %}</ul></details>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ol>
+        </section>
+
+        <section aria-labelledby="sc-used">
+            <h2 id="sc-used">Where the platform uses it</h2>
+            <ul>{% for label, endpoint in card.used_on %}<li><a href="{{ url_for(endpoint) }}">{{ label }}</a></li>{% endfor %}</ul>
+            <p>Every result produced with this model carries a run record citing this same evidence.</p>
+        </section>
+
+        <section class="prose-note" aria-labelledby="sc-not">
+            <h2 id="sc-not">Not established</h2>
+            <p>{{ card.never_established }} Results are typical values for synthetic records, not predictions for any person. See <a href="{{ url_for('intended_use') }}">intended use</a>.</p>
+        </section>
+    </article>
+</main>
+
+{% include "site_footer.html" %}
+</body>
+</html>

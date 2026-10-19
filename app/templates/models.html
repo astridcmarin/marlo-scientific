@@ -1,0 +1,53 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Model scorecards | Marlo Scientific</title>
+    <meta name="description" content="Every model on the platform, with what has and has not been checked about it, including recorded failures.">
+    <link rel="icon" type="image/png" href="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}">
+    {{ site_head_links() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{{ site_header() }}
+
+<main id="main" class="section">
+    <div class="wrap stack" style="gap: 32px">
+        <div class="intro stack" style="margin-bottom: 0">
+            <p class="prose-eyebrow" style="margin-bottom: 0">Model scorecards</p>
+            <h1 class="page-title">What has been checked about every model</h1>
+            <p>Each model on the platform is checked in four ways, reported separately. A failed or missing check is shown, not hidden. <strong>{{ data.never_established }}</strong></p>
+        </div>
+
+        <dl class="layer-key">
+            {% for id, label, definition in data.layers %}<div><dt>{{ label }}</dt><dd>{{ definition }}</dd></div>{% endfor %}
+        </dl>
+
+        <div class="table-box">
+            <table class="score-table">
+                <caption class="sr-only">Models and the status of their four checks</caption>
+                <thead>
+                    <tr><th scope="col">Model</th>{% for id, label, definition in data.layers %}<th scope="col">{{ label }}</th>{% endfor %}<th scope="col">Outside data disagrees</th></tr>
+                </thead>
+                <tbody>
+                {% for card in data.cards %}
+                    <tr>
+                        <th scope="row"><a href="{{ url_for('model_scorecard', model_id=card.model_id) }}">{{ card.name }}</a><span class="row-sub">{{ card.drug }} · {{ card.kind }}</span></th>
+                        {% for layer in card.layers %}<td><span class="status status-{{ layer.tone }}">{{ layer.status_label }}</span></td>{% endfor %}
+                        <td>{% if card.outside_data_disagreements %}<span class="status status-gap">{{ card.outside_data_disagreements|length }} result{{ 's' if card.outside_data_disagreements|length > 1 }}</span>{% elif card.depends_on|selectattr('disagreements')|list %}<span class="status status-part">Via {{ (card.depends_on|selectattr('disagreements')|first).name.split(' (')[0] }}</span>{% else %}<span class="status status-neutral">None recorded</span>{% endif %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <p class="small-note">From the model evidence status file {{ data.status_version }} (recorded {{ data.recorded_on }}), SHA-256 <span class="mono">{{ data.evidence_sha256 }}</span>. Every run record on the platform cites the same file.</p>
+    </div>
+</main>
+
+{% include "site_footer.html" %}
+</body>
+</html>

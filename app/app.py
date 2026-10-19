@@ -1,5 +1,5 @@
 # Clinical Trials Intelligence Explorer
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, Response, abort, redirect, render_template, request, url_for
 import requests
 from intelligence_store import init_storage
 from intelligence_store.snapshots import save_trial_snapshots
@@ -667,6 +667,32 @@ def landing():
         return redirect(url_for("home", **request.args.to_dict(flat=False)), code=301)
     from landscape_ui.landing_examples import curve_example, kidney_example
     return render_template("landing.html", github_url=GITHUB_URL, curve=curve_example(), kidney=kidney_example())
+
+
+@app.route("/models")
+def model_scorecards():
+    from intelligence_store.model_scorecards import all_scorecards
+    return render_template("models.html", data=all_scorecards())
+
+
+@app.route("/models/<model_id>")
+def model_scorecard(model_id):
+    from intelligence_store.model_scorecards import scorecard
+    try:
+        card = scorecard(model_id)
+    except KeyError:
+        abort(404)
+    return render_template("model_scorecard.html", card=card)
+
+
+@app.route("/models/reports/<name>")
+def model_report(name):
+    """Serve a verification report cited by the evidence status file, only if its checksum still matches."""
+    from intelligence_store.model_scorecards import cited_report
+    raw = cited_report(name)
+    if raw is None:
+        abort(404)
+    return Response(raw, mimetype="application/json", headers={"X-Content-Type-Options": "nosniff"})
 
 
 @app.route("/intended-use")

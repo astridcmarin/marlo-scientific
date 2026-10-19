@@ -1671,7 +1671,7 @@ def _site_context():
     landing = link('landing')
     return {'site_home_url': landing or link('landscape.index'), 'site_sections': sections,
             'site_about_url': landing + '#about' if landing else None,
-            'site_intended_use_url': link('intended_use')}
+            'site_intended_use_url': link('intended_use'), 'site_models_url': link('model_scorecards')}
 
 
 def register_landscape(app):
