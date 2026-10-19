@@ -284,3 +284,14 @@ h1 { font-weight:600; }
 .button.primary { background:var(--navy); border-color:var(--navy); }
 .button.primary:hover { background:#163a55; }
 @media (max-width:760px) { .sidebar nav { flex-wrap:wrap; } .nav-item { flex:1 1 40%; } .brand-logo { width:30px; height:30px; } }
+
+
+/* Phase 1.2 capability levels */
+.cap-level{margin:.75rem 0 1rem;padding:.8rem 1rem;border-radius:8px;background:#f3f7f8;border:1px solid #dbe5e9}
+.cap-level p{margin:0 0 .35rem}.cap-level p:last-child{margin-bottom:0}
+.cap-level-head{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem}
+.cap-level-label{font-weight:650;color:#0b2438}
+.cap-level-scale{display:inline-flex;gap:3px}.cap-step{width:22px;height:6px;border-radius:3px;background:#d3dde2}.cap-step-on{background:#176b71}
+.cap-level-meaning,.cap-level-models,.cap-level-note{font-size:.88rem;color:#3d5466}
+.cap-disagree{display:inline-block;padding:1px 7px;border-radius:999px;background:#fdeee8;color:#8a3a1c;font-size:.8rem;font-weight:600}
+.cap-legend{margin:1rem 0}.cap-legend dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem;margin:.75rem 0}.cap-legend dt{font-weight:650}.cap-legend dt span{font-weight:400;color:#53636c}.cap-legend dd{margin:.2rem 0 0;font-size:.88rem;color:#3d5466}

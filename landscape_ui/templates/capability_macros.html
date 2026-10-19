@@ -1,0 +1,13 @@
+{# Phase 1.2: the capability level shown for each drug (intelligence_store/capability_levels.py). #}
+{% macro capability_level(level) %}
+<div class="cap-level cap-level-{{ level.rank }}" role="note">
+  <p class="cap-level-head"><span class="cap-level-label">{{ level.label }}</span> <span class="cap-level-scale" aria-hidden="true">{% for i in range(1, 5) %}<span class="cap-step{% if i <= level.rank %} cap-step-on{% endif %}"></span>{% endfor %}</span></p>
+  <p class="cap-level-meaning">{{ level.meaning }}</p>
+  {% if level.models %}<p class="cap-level-models">Models: {% for m in level.models %}{% if site_models_url %}<a href="{{ site_models_url }}/{{ m.model_id }}">{{ m.name }}</a>{% else %}{{ m.name }}{% endif %}{% if m.disagreements %} <span class="cap-disagree">outside data disagree ({{ m.disagreements }})</span>{% endif %}{% if not loop.last %}; {% endif %}{% endfor %}</p>{% endif %}
+  {% if level.note %}<p class="cap-level-note">{{ level.note }}</p>{% endif %}
+</div>
+{% endmacro %}
+
+{% macro capability_legend(levels, counts) %}
+<details class="cap-legend"><summary>What the capability levels mean</summary><dl>{% for level in levels %}<div><dt>{{ level.label }}{% if counts %} <span>({{ counts[level.id] }})</span>{% endif %}</dt><dd>{{ level.meaning }}</dd></div>{% endfor %}</dl><p class="capability-note">A higher level is not a better or safer drug; it only says how much modelling evidence the platform holds. No level means clinical validation.</p></details>
+{% endmacro %}
