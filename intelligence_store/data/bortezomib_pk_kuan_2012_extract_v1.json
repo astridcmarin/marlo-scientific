@@ -1,0 +1,83 @@
+{
+  "schema_version": "published-model-extract-v1",
+  "extract_version": "bortezomib-pk-kuan-2012-v1.0",
+  "drug": "bortezomib",
+  "recorded_on": "2026-10-19",
+  "source": {
+    "citation": "Kuan HS, Gupta N, Venkatakrishnan K, Milton A, Girgis S, Poggesi I, Mould DR. Population pharmacokinetic modeling of bortezomib after bolus intravenous injection in cancer patients. Poster, 21st Population Approach Group in Europe (PAGE) meeting, Venice, 5-8 June 2012 (PAGE 21, Abstr 2308).",
+    "abstract_url": "https://www.page-meeting.org/Abstracts/population-pharmacokinetic-pk-modelling-of-bortezomib-after-bolus-intravenous-injection-in-cancer-patients/",
+    "file_reviewed": {
+      "file": "PAGE_2012_Bortezomib_PopPK_Poster.pdf (1 page)",
+      "sha256": "1732b82497e8bd87ec57e172c8e18d29c79fe93e5bac868e6ab3da44757733cb"
+    },
+    "storage": "Supplied by the platform owner; kept on her computer only, not committed.",
+    "peer_review": "Conference poster; not a peer-reviewed article.",
+    "extraction": "AI-assisted from the poster text layer and a 300 dpi rendering of Figure 1; values checked against Tables 2 and 3 as extracted. Independent review pending."
+  },
+  "data_behind_model": {
+    "population": "Adult cancer patients in 5 phase 1 studies; 142 patients, 3004 plasma concentrations (bortezomib-only treatment).",
+    "dosing": "IV bolus 1.0-2.0 mg/m2; studies 2-5 on days 1, 4, 8, 11 of 21-day cycles (study 1: days 1, 8, 15, 22 of 35-day cycles).",
+    "sampling": "Serial samples during cycles 1-3 (Table 1); includes day 1 and day 11 of cycle 1 (study 2, n = 40, 1.0 and 1.3 mg/m2).",
+    "assay": "LC-MS/MS; LLOQ 0.05-0.78 ng/mL by study.",
+    "relationship_to_ogawa": "Ogawa 2008 (Japanese patients, NCT00752518) is not among the five studies as described (all phase 1 with the listed sample sizes; none described as Japanese). The poster's reference 1 (Reece 2011) is a source study. A comparison with Ogawa is therefore an external consistency check.",
+    "location": "Methods: Data collection; Table 1; Results first bullet"
+  },
+  "structure": {
+    "compartments": "Three: Central 1 (V1), Peripheral 2 (V2), Peripheral 1 (V3).",
+    "input": "IV bolus into Central 1.",
+    "elimination": "Linear, CL from Central 1.",
+    "central_to_peripheral2": "Linear, Q2.",
+    "peripheral2_to_central": "Saturable: arrow labelled Vm/(Km + C2), C2 = concentration in Peripheral 2.",
+    "central_peripheral1": "Linear both ways, Q3 (legend calls Q3 'intercompartmental clearance for Peripheral 3'; the diagram labels that compartment 'Peripheral 1' with volume V3).",
+    "legend_quotes": [
+      "Km, Michaelis constant for clearance from Peripheral 2 to Central 1",
+      "Q2, clearance from Central 1 to Peripheral 2",
+      "Vm, maximum velocity for clearance from Peripheral 2 to Central 1"
+    ],
+    "interpretation_quote": "The final model attributes previously reported time-dependence in bortezomib disposition to saturable distribution from a peripheral compartment (Peripheral 2) to the central compartment (Central 1).",
+    "location": "Figure 1 and legend; Conclusions"
+  },
+  "parameters": {
+    "units": "Absolute (L, L/h), not per m2; dose is per m2 of body surface area.",
+    "table2_posterior_mean": {
+      "CL_l_h": 10.8, "V1_l": 14.1, "Q2_l_h": 46.3, "Q3_l_h": 51.7, "V2_l": 349, "V3_l": 895, "Km_ng_ml": 0.06
+    },
+    "table2_sd": {"CL_l_h": 0.51, "V1_l": 1.34, "Q2_l_h": 4.40, "Q3_l_h": 3.66, "V2_l": 528, "V3_l": 104, "Km_ng_ml": 0.008},
+    "table2_iiv_cv_percent": {"CL": 43, "V1": 81, "Q2": 93, "Q3": 70, "V2": 304, "V3": 114, "Km": 93},
+    "table3_posterior_median": {
+      "CL_l_h": 10.8, "V1_l": 14.0, "Q2_l_h": 46.0, "Q3_l_h": 51.5, "V2_l": 210, "V3_l": 891, "Km_ng_ml": 0.06
+    },
+    "table3_quantiles_2_5_and_97_5": {
+      "CL_l_h": [9.83, 11.8], "V1_l": [11.7, 17.0], "Q2_l_h": [38.6, 55.8], "Q3_l_h": [45.3, 59.5],
+      "V2_l": [60.8, 1490], "V3_l": [702, 1110], "Km_ng_ml": [0.05, 0.08]
+    },
+    "Vm_fixed": {"value": 0.0926, "unit_as_printed": "ng/mL/hr",
+                 "quote": "Nonconvergence of Vm, Km, and V2 was encountered during initial runs and could be best resolved by fixing Vm to 0.0926 ng/mL/hr."},
+    "residual": "Log-transform both sides; common 42% plus a shift of 20% for the most sensitive assay.",
+    "location": "Table 2 (summary of estimated population parameters), Table 3 (quantiles), Results text"
+  },
+  "open_questions": [
+    {
+      "id": "saturable_term_form",
+      "question": "How Vm/(Km + C2) enters the equations.",
+      "candidate_readings": [
+        "A_rate_constant: Vm/(Km + C2) is a first-order rate constant (1/h); amount moved per hour = Vm/(Km + C2) x A2. Units agree with Vm in ng/mL/h and Km in ng/mL.",
+        "B_clearance: Vm/(Km + C2) is a clearance (L/h); amount moved per hour = Vm/(Km + C2) x C2. Matches the legend's word 'clearance' but not the printed Vm unit."
+      ],
+      "resolution": "Not stated. Both readings are evaluated under a locked plan; the control stream is not available."
+    },
+    {
+      "id": "typical_values",
+      "question": "Which central value to use as the typical parameter set.",
+      "candidate_readings": ["Table 2 posterior means", "Table 3 posterior medians (differs mainly for V2: 349 vs 210 L)"],
+      "resolution": "Both evaluated; Table 2 means are primary because Table 2 is the stated summary of the population estimates."
+    },
+    {
+      "id": "body_size",
+      "question": "Body surface area to convert mg/m2 doses to mg.",
+      "candidate_readings": ["Not part of the model; a patient-level input."],
+      "resolution": "Ogawa does not report BSA; scenarios are fixed in the check plan."
+    }
+  ],
+  "clinical_prediction_validated": false
+}

@@ -71,6 +71,8 @@ The differentiator already exists in the code; users cannot see it yet.
 
 *Done when:* the platelet simulation rests on an exposure model that is not contradicted by the outside data, or the gap is documented and shown.
 
+**19 October 2026, first candidate (Simulation 3.0g):** the Kuan 2012 poster model (saturable return from a deep compartment) was checked against Ogawa 2008 under a plan locked beforehand. Under neither reading of its saturable term does it reproduce the day 1 → day 11 rise, so it cannot be implemented from the poster as printed. Nothing on the platform changed. Next: the authors' model code or a full paper, and the Iwasaki 2020 target-mediated PBPK model (paper requested from the authors).
+
 ### Phase 3 — Any drug, at an honest level
 
 1. **Label-based exposure engine**: a one- or two-compartment typical-value curve from label parameters (clearance, volume, half-life, bioavailability, fraction excreted unchanged), with the label's own kidney and liver guidance. Tagged *Label-based*; never presented like a population model.
