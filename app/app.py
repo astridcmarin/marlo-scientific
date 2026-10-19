@@ -669,6 +669,11 @@ def landing():
     return render_template("landing.html", github_url=GITHUB_URL, curve=curve_example(), kidney=kidney_example())
 
 
+@app.route("/intended-use")
+def intended_use():
+    return render_template("intended_use.html")
+
+
 # ==================================================
 # TRIAL EXPLORER
 # ==================================================

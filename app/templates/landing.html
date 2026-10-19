@@ -192,11 +192,11 @@
             <div class="stack">
                 <h2 id="about-heading">Built by Astrid Marin</h2>
                 <p>Marlo Scientific is designed and developed by a pharmaceutical scientist working across regulatory science, clinical pharmacology, and pharmaceutical development. Astrid holds an MSc in Pharmaceutical Sciences (Pharmaceutical Affairs) and a BS in Biomedical Sciences (Biochemistry), and is trained in ICH-GCP and clinical research coordination.</p>
+                <p>She built Marlo Scientific to help innovate and accelerate drug research and development with AI: bringing computational pharmacology and AI together with the evidence researchers already rely on, so that faster tools never lose sight of where their answers come from.</p>
                 <p>The platform reflects that background: evidence first, every value traceable to its source, and a clear line between simulation and clinical fact.</p>
                 <p class="about-links">
                     <a href="https://www.linkedin.com/in/astridcmarin/" rel="noopener">LinkedIn</a>
                     <a href="https://github.com/astridcmarin" rel="noopener">GitHub</a>
-                    <a href="mailto:amarinmassini@live.com">amarinmassini@live.com</a>
                 </p>
             </div>
         </div>
@@ -205,18 +205,6 @@
 
 </main>
 
-<footer class="site-footer">
-    <div class="wrap">
-        <div class="footer-brand stack">
-            <div class="brand-small">
-                <img src="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}" alt="" width="28" height="28">
-                <strong>Marlo Scientific</strong>
-                <span>© 2026</span>
-            </div>
-            <p>Open research software in Python and Flask, with an automated test suite. <a href="{{ github_url }}">Source on GitHub</a></p>
-        </div>
-        <p>A research and educational platform. Simulated results are not clinical predictions and are not validated for diagnosis, prescribing or treatment selection. Patient records are synthetic. Trial data from ClinicalTrials.gov.</p>
-    </div>
-</footer>
+{% include "site_footer.html" %}
 </body>
 </html>

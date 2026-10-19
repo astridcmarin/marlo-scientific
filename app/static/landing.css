@@ -165,3 +165,18 @@ h3 { font-size: 24px; letter-spacing: -0.01em; }
     .about-photo { width: 140px; height: 140px; }
     .about-links { justify-content: center; }
 }
+
+.footer-links { display: flex; flex-wrap: wrap; gap: 4px 20px; font-weight: 600; }
+.footer-links a { text-decoration: none; padding: 6px 0; }
+
+/* Text pages (intended use) */
+.prose { max-width: 760px; display: flex; flex-direction: column; gap: 32px; }
+.prose h1 { font-size: clamp(2rem, 4vw, 2.75rem); letter-spacing: -0.02em; }
+.prose h2 { font-size: 22px; margin-bottom: 10px; }
+.prose p, .prose li { font-size: 17px; color: var(--body); }
+.prose ul { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
+.prose-eyebrow { font-family: var(--ms-font-mono); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); margin-bottom: -20px; }
+.prose-lede { font-size: 19px !important; color: var(--ink) !important; }
+.prose-callout { background: var(--flag-bg); border-radius: 16px; padding: 24px 28px; }
+.prose-callout h2 { color: var(--flag); }
+.prose-callout li { color: var(--ink); }
