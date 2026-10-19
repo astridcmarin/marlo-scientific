@@ -116,6 +116,11 @@ class ScorecardPages(unittest.TestCase):
         self.assertIn('Its errors carry through to this model', page)
         self.assertIn('href="/models/bortezomib_pk_lignet_2022"', page)
 
+    def test_drug_library_links_each_level_to_its_scorecards(self):
+        page = self.client.get('/landscape/patient-lab/model-library').get_data(as_text=True)
+        for card in ms.all_scorecards()['cards']:
+            self.assertIn(f'href="/models/{card["model_id"]}"', page)
+
     def test_unknown_model_and_report_are_404(self):
         self.assertEqual(self.client.get('/models/not_a_model').status_code, 404)
         self.assertEqual(self.client.get('/models/reports/not_cited.json').status_code, 404)

@@ -33,8 +33,12 @@ def register_drug_knowledge_pages(bp,choose_cohort,complete_cohorts):
                 number=request.args.get('page',1,type=int)
                 pages=max(1,(len(rows)+49)//50)
                 if not number or number<1 or number>pages:abort(404)
+                level=None
+                if entry:
+                    from intelligence_store.capability_levels import drug_level
+                    level=drug_level(entry['label'],bool(entry.get('annotation') or entry.get('safety') or entry.get('interactions')))
                 response=Response(render_template('landscape_drug_detail.html' if entity else 'landscape_drug_knowledge.html',
-                    report=report,entry=entry,cohorts=cohorts,cohort_id=cohort_id,rows=rows[(number-1)*50:number*50],
+                    report=report,entry=entry,drug_capability_level=level,cohorts=cohorts,cohort_id=cohort_id,rows=rows[(number-1)*50:number*50],
                     filtered_count=len(rows),q=q,page=number,page_count=pages))
             response.headers['Cache-Control']='no-store';response.headers['X-Content-Type-Options']='nosniff'
             return response

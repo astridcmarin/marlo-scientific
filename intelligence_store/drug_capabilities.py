@@ -15,7 +15,7 @@ from .drug_research_tools import research_tool_registry
 from .kim_model import load_extract as load_kim_extract, load_form_assessment, EXTRACT_SHA256 as KIM_EXTRACT_SHA, FORM_ASSESSMENT_SHA256
 from .bortezomib_platelet_evidence import load_model_extract as load_bortezomib_extract, EXTRACT_SHA256 as BORTEZOMIB_EXTRACT_SHA
 
-METHOD = 'drug-capability-inventory-v1.2'
+METHOD = 'drug-capability-inventory-v1.3'
 DISEASE_LABELS = {'MM':'Multiple Myeloma', 'CLL':'Chronic Lymphocytic Leukemia',
                   'AML':'Acute Myeloid Leukemia', 'ALL':'Acute Lymphoblastic Leukemia'}
 
@@ -109,6 +109,9 @@ def capability_inventory():
         except ValueError:
             warnings.append({'area':'exposure','message':f'The {label} model contracts could not be verified.'})
     research_registry = research_tool_registry()
+    from .capability_levels import LEVELS, drug_level
+    from .model_scorecards import all_scorecards
+    scorecards = all_scorecards()
     rows = []
     for entry in sorted(catalog['entries'], key=lambda e:e['canonical_name'].casefold()):
         capabilities = {}
@@ -136,6 +139,9 @@ def capability_inventory():
                'identity_reference':copy.deepcopy(entry['source']), 'capabilities':capabilities,
                'exposure_model':copy.deepcopy(model) if registered and model else None,
                'exposure_models':exposure_models,
+               'capability_level':drug_level(entry['canonical_name'],
+                                             any(capabilities[k]['status']=='curated_reference' for k in ('mechanism','safety','interactions')),
+                                             scorecards),
                'disease_indications':'not_assessed_by_this_inventory'}
         rows.append(row)
     report = {'schema_version':'drug-capability-inventory-v1','method_version':METHOD,
@@ -145,6 +151,8 @@ def capability_inventory():
                         'educational_exposure_models':sum(m['status']=='implemented_educational' for r in rows for m in r['exposure_models']),
                         'research_exposure_components':sum(m['status']=='research_component' for r in rows for m in r['exposure_models']),
                         'efficacy_models':0,'toxicity_models':0},
+              'capability_level_counts':{level['id']:sum(r['capability_level']['id']==level['id'] for r in rows) for level in LEVELS},
+              'capability_levels':[{k:level[k] for k in ('id','label','meaning')} for level in LEVELS],
               # Every registered kind is counted, so a new kind cannot be silently left out.
               'research_tool_counts':{kind:sum(t['availability']=='available' and t['kind']==kind for r in rows for t in r['research_tools'])
                                       for kind in sorted({t['kind'] for tools in research_registry.values() for t in tools})},
