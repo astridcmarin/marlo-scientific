@@ -1,6 +1,6 @@
 # Simulation 3.0 — bortezomib platelet time course (first drug-effect module)
 
-Status: **3.0a–3.0f done.** Evidence, PK engine, locked reading check, page (`/landscape/simulation-lab/bortezomib-platelets`) a search for outside platelet data (none usable) and an outside check of the PK component (Ogawa 2008).
+Status: **3.0a–3.0g done.** Evidence, PK engine, locked reading check, page (`/landscape/simulation-lab/bortezomib-platelets`) a search for outside platelet data (none usable) and an outside check of the PK component (Ogawa 2008).
 
 ## Why this model
 
@@ -173,3 +173,30 @@ The outcome is recorded in `model_evidence_status_v2.json` (v1.1), and the plate
 - **For the PK component.** It is recorded in `model_evidence_status_v3.json` (v1.2) and stays a research component of the platelet tool, not patient PK.
 - **The next modelling step, if wanted.** A PK model with time-dependent or saturable clearance would fit this evidence better. That means a different published model, not a tuned version of this one.
 
+
+## 3.0g — A published model with saturable return (Kuan 2012) against Ogawa 2008
+
+**Why.** 3.0f showed that a single constant clearance cannot reproduce first-dose exposure or the rise from day 1 to day 11. Kuan, Mould et al. (PAGE 2012 poster, 142 adult cancer patients, 3004 concentrations) explained that time dependence with **saturable distribution**: drug moves freely into a deep peripheral compartment, but its return to plasma passes through a saturable step, `Vm/(Km + C2)`. This was the best available candidate with explicit parameters.
+
+**Method** (transcription `bortezomib_pk_kuan_2012_extract_v1.json` and plan `bortezomib_pk_kuan_check_plan_v1.json`, locked in commit `8393ded` before the model was implemented or evaluated):
+- **The poster leaves the saturable term ambiguous**, so both readings were fixed in advance. **A**: `Vm/(Km + C2)` is a rate constant (1/h), which matches the printed units. **B**: it is a clearance (L/h), which matches the legend's word "clearance" but not the units.
+- **Two typical-value sets** (Table 2 posterior means, primary; Table 3 medians, which differ mainly in V2: 349 vs 210 L) and **three body sizes** (1.60 m² primary; 1.45 and 1.75), because the parameters are absolute and Ogawa does not report BSA.
+- **The same non-compartmental emulation, interval and classification as 3.0f.**
+- **Numerical checks, all passed:** the solver matches the exact linear three-compartment solution when the return is made linear (difference about 1e-10); halving the step changes AUC by about 1e-9; the amount dosed is conserved to 1e-14.
+
+**Result** (report `docs/verification/bortezomib_pk_kuan_check_v1.json`; primary condition: reading A, Table 2 means, 1.60 m², primary NCA reading):
+
+| 1.3 mg/m² | Model (emulated) | Observed mean | Result |
+|---|---|---|---|
+| AUC, day 1 | 181 ng·h/mL | 46.5 | 3.9-fold over-predicted |
+| AUC, day 11 | 142 ng·h/mL | 187 | consistent |
+| Rise, day 1 → day 11 | 0.8-fold (exposure falls) | 5.1-fold | under-predicted |
+
+- **No condition reproduces the rise.** Across both readings, both parameter sets and all three body sizes, the model's day 11 / day 1 ratio stays between 0.4 and 1.1 at every dose, against 5–8-fold observed.
+- **Reading A runs the wrong way.** When the deep compartment is nearly empty, `Vm/Km` gives a fast return (about 1.5 per hour), so on day 1 drug comes back quickly and plasma exposure is high. As the compartment fills, the return slows and later exposure is lower. That is the opposite of the accumulation the poster set out to explain.
+- **Reading B fits day 1 but nothing else.** Almost nothing returns from the deep compartment (at most about 0.09 µg/h), so it acts as a second elimination route. Day 1 is consistent at 1.0 and 1.3 mg/m², but day 11 is under-predicted about 4–5-fold and there is no rise.
+
+**What this means.**
+- **The model cannot be implemented from the poster as printed.** A model the authors report reproduced their day 1 and later data cannot reproduce the direction of the time dependence under either reading. The most likely explanation is that the equation form or the units of `Vm` differ from what the poster shows; a population difference cannot be excluded. The authors' control stream, or a full paper, is needed.
+- **Nothing changes on the platform.** The platelet tool keeps the constant-clearance PK component, with its recorded 3.0f contradiction. The Kuan model is not registered or offered.
+- **Next.** Ask the authors (Millennium/Takeda clinical pharmacology, or D. Mould) for the model code or a full publication, and continue with the Iwasaki 2020 target-mediated PBPK model when the paper arrives.
