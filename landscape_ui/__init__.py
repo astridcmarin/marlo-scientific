@@ -1668,7 +1668,10 @@ def _site_context():
         except BuildError:
             return None
     sections = [(key, label, href) for key, label, endpoint in SITE_SECTIONS if (href := link(endpoint))]
-    return {'site_home_url': link('landing') or link('landscape.index'), 'site_sections': sections}
+    landing = link('landing')
+    return {'site_home_url': landing or link('landscape.index'), 'site_sections': sections,
+            'site_about_url': landing + '#about' if landing else None,
+            'site_intended_use_url': link('intended_use')}
 
 
 def register_landscape(app):

@@ -18,6 +18,7 @@
             {% for key, label, href in site_sections %}
             <a href="{{ href }}"{% if key == active %} aria-current="page"{% endif %}>{{ label }}</a>
             {% endfor %}
+            {% if site_about_url %}<a href="{{ site_about_url }}">About</a>{% endif %}
             {% if cta %}<a class="ms-cta" href="{{ cta[1] }}">{{ cta[0] }}</a>{% endif %}
         </nav>
     </div>

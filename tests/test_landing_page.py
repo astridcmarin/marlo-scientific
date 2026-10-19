@@ -85,9 +85,23 @@ class LandingPageTests(unittest.TestCase):
         page = self.client.get('/').get_data(as_text=True)
         for text in ('Built by Astrid Marin', 'MSc in Pharmaceutical Sciences (Pharmaceutical Affairs)',
                      'ICH-GCP', 'https://www.linkedin.com/in/astridcmarin/', 'https://github.com/astridcmarin',
-                     'mailto:amarinmassini@live.com', 'images/astrid-marin.jpg', 'alt="Astrid Marin"'):
+                     'accelerate drug research and development with AI', 'images/astrid-marin.jpg', 'alt="Astrid Marin"',
+                     'href="/#about">About</a>'):
             self.assertIn(text, page)
+        self.assertNotIn('mailto:', page)
+        self.assertNotIn('amarinmassini', page)
         self.assertLess(page.index('id="about"'), page.index('class="site-footer"'))
+
+    def test_intended_use_page_is_linked_everywhere(self):
+        page = self.client.get('/intended-use')
+        self.assertEqual(page.status_code, 200)
+        text = page.get_data(as_text=True)
+        for phrase in ('not a medical device', 'Not intended for', 'Do not enter information about real people',
+                       'No model on the platform is validated for clinical prediction', 'without warranty',
+                       'class="ms-header"', 'class="site-footer"'):
+            self.assertIn(phrase, text)
+        for path in ('/', '/trials', '/landscape/simulation-lab', '/intended-use'):
+            self.assertIn('href="/intended-use"', self.client.get(path).get_data(as_text=True), path)
 
     def test_charts_come_from_platform_code(self):
         from landscape_ui.landing_examples import curve_example, kidney_example

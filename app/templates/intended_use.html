@@ -1,0 +1,78 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Intended use | Marlo Scientific</title>
+    <meta name="description" content="What Marlo Scientific is for, who it is for, and what it must not be used for.">
+    <link rel="icon" type="image/png" href="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}">
+    {{ site_head_links() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+{{ site_header() }}
+
+<main id="main" class="section">
+    <article class="wrap prose">
+        <p class="prose-eyebrow">Intended use</p>
+        <h1>What Marlo Scientific is for</h1>
+        <p class="prose-lede">Marlo Scientific is research and educational software. It helps people explore clinical-trial evidence, drug and regulatory information, and published pharmacology models. It does not provide medical advice, and it is not a medical device.</p>
+
+        <section aria-labelledby="iu-for">
+            <h2 id="iu-for">Intended uses</h2>
+            <ul>
+                <li>Searching, organizing and comparing clinical-trial records from ClinicalTrials.gov.</li>
+                <li>Reviewing curated drug, mechanism, safety, interaction and regulatory reference information, with its sources.</li>
+                <li>Exploring how published pharmacokinetic and pharmacodynamic models behave for <strong>synthetic</strong> patient records.</li>
+                <li>Learning, teaching and method development in clinical pharmacology, regulatory science and pharmaceutical development.</li>
+            </ul>
+        </section>
+
+        <section aria-labelledby="iu-who">
+            <h2 id="iu-who">Intended users</h2>
+            <p>Researchers, clinical and pharmaceutical scientists, regulatory affairs professionals, students and educators who can judge scientific evidence and its limits.</p>
+        </section>
+
+        <section aria-labelledby="iu-not" class="prose-callout">
+            <h2 id="iu-not">Not intended for</h2>
+            <ul>
+                <li>Diagnosing, treating, preventing or monitoring any disease in a person.</li>
+                <li>Choosing, starting, stopping or adjusting a medicine, a dose or a schedule for a real patient.</li>
+                <li>Predicting how a specific person will respond to a treatment, including its benefits, side effects or risks.</li>
+                <li>Replacing the judgement of a qualified healthcare professional, the approved product labeling, or regulatory guidance.</li>
+            </ul>
+        </section>
+
+        <section aria-labelledby="iu-data">
+            <h2 id="iu-data">Synthetic records only</h2>
+            <p>Patient Lab records are invented for research and teaching. <strong>Do not enter information about real people</strong>, including names, dates of birth, medical record numbers or any detail that could identify someone. The platform is not designed to store or protect personal health information.</p>
+        </section>
+
+        <section aria-labelledby="iu-results">
+            <h2 id="iu-results">How to read simulated results</h2>
+            <ul>
+                <li>Results are <strong>typical values</strong> from published models, under the assumptions shown with each result. Real people vary widely around them.</li>
+                <li>Every result carries a run record: the model and source, the inputs used, the assumptions with their status, and what has and has not been checked about the model.</li>
+                <li>Passing software tests, or being inside a study's reported range, does not make a result clinically valid. <strong>No model on the platform is validated for clinical prediction.</strong></li>
+                <li>Relative measures, such as relative odds, are not probabilities of an event.</li>
+            </ul>
+        </section>
+
+        <section aria-labelledby="iu-sources">
+            <h2 id="iu-sources">Sources and their limits</h2>
+            <p>Trial information comes from ClinicalTrials.gov. Reference and model information comes from published literature and from regulatory documents such as FDA, EMA and TGA assessments, cited where it is used. Sources can be incomplete, out of date or change after they are recorded. Registry indicators, such as results-reporting status, describe what the registry shows and are not determinations of legal compliance.</p>
+        </section>
+
+        <section aria-labelledby="iu-status">
+            <h2 id="iu-status">Development status</h2>
+            <p>The platform is under active development. Features are labelled <em>Available</em>, <em>Foundation</em>, <em>Experimental</em> or <em>Planned</em>, and may change. The software is provided as is, without warranty.</p>
+        </section>
+    </article>
+</main>
+
+{% include "site_footer.html" %}
+</body>
+</html>
