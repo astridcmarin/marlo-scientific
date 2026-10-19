@@ -1,60 +1,132 @@
-# Product and scientific development direction
+# Product and science roadmap
 
-Product direction recorded 10 October 2026. Owner: Astrid. Repository checkpoint updated 13 October 2026: Step 109 plus the separate observation-intake workflow.
+Direction recorded 19 October 2026. Owner: Astrid Marin. The previous roadmap (10 October 2026) is kept in [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-10-10.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-10-10.md). The latest verification is in [REPOSITORY_CHECKPOINT.md](REPOSITORY_CHECKPOINT.md).
 
-## Product goal
+## Positioning
 
-A subscription research platform for individual researchers and pharmaceutical scientists. Users return to investigate diseases and drugs, compare evidence, build synthetic or hypothetical biological profiles, explore supported medication responses, and retain their investigations.
+**Marlo Scientific is the evidence reference for people designing and running drug development.** Search what has been done, see what the evidence supports, and trace every number to its source.
 
-Broad disease coverage, a substantial medication library, and exposure/efficacy/toxicity simulation are essential to the intended release. The owner is not rushing to launch. A restricted disease pilot can support development but does not replace the broad product goal. No launch deadline or deployment authorization is implied.
+In one line: *drug development evidence you can trace, reproduce and trust — every number sourced, every model checked, every limitation shown.*
 
-## Existing foundation
+- **It is** a clinical *research* reference: trials, drug and regulatory evidence, and transparent pharmacology models, for research, trial design and education.
+- **It is not** a clinical *care* reference. It does not inform the treatment of individual patients, and it is not a medical device ([intended use](../app/templates/intended_use.html), served at `/intended-use`).
+- **The long-term vision stays:** a computational human where a drug can be followed from body to organ, tissue, cell and target. The near-term product earns the credibility that vision needs.
 
-The platform has frozen trial cohorts, drug reference catalogs, saved research work, immutable synthetic patient revisions, educational lenalidomide PK archives, comparison reports, generic exposure/binding/turnover experiments, and a published renal PK group reference. Cohort 4 includes 4037 retained Multiple Myeloma studies according to the user's local reports. The current identity catalog has nine curated entities. This is a seed, not broad coverage.
+## Who it is for
 
-The existing lenalidomide model is a deterministic educational implementation. Generic Simulation Lab models do not establish drug-specific pharmacodynamics. Efficacy and toxicity prediction models are not yet registered. Software checks do not establish independent scientific review, source reproduction, predictive validity or individual applicability.
-
-## Development phases
-
-| Phase | Concrete work | Completion evidence |
+| User | Question they bring | What the platform answers with |
 |---|---|---|
-| 1. Explicit capability library | Connect each curated drug with reference coverage, model endpoints, source populations, inputs, versions and gaps. | Searchable inventory accurately reflects installed assets and withholds unavailable entries. Step 101 supplies the first view; Step 109 adds source-checked research-tool discovery. |
-| 2. Broader disease and drug evidence | Extend curated identities and disease associations; preserve formulations, components and regimens distinctly; expand source review and trial cohorts. | Reviewed source-linked entries, documented coverage and reproducible counts. No disease indication inferred from an alias or trial condition alone. |
-| 3. Drug-specific exposure models | Add suitable published PK models and formulation/route boundaries. Establish mathematical verification, independent transcription review and observed-data evaluation. | Reproducible equations, parameters and comparison results, with population and uncertainty limits. |
-| 4. Efficacy and toxicity endpoints | Select quantitative exposure-response or mechanistic models with suitable measurements. Implement each endpoint under its evidence-supported scope. | Observed endpoint reproduction/evaluation and documented assumptions; no efficacy or risk inferred solely from binding, a warning or a trial count. |
-| 5. Biological profile integration | Link compatible patient state, treatment requests, PK and endpoint models. Track uncertainties and applicability across the complete chain. | End-to-end verification and empirical evaluation against relevant profiles; unsupported inputs remain explicit. |
-| 6. Broad research workflows | Scale the library across diseases and medications; improve comparison, visualization, saved investigations and repeat use. | Representative scientists can complete the intended workflow and understand each model's limitations. |
-| 7. Subscription and operational preparation | Accounts, private workspaces, entitlements, billing, backup, monitoring, source maintenance and support. Review privacy, security and intended use. | Operational testing and user-authorized controlled release. Deployment remains deferred. |
+| Clinical trial designers and clinical operations | What have similar trials done? | Trial landscape, eligibility comparisons, designs, sites |
+| Clinical pharmacologists and pharmacometricians | What does the evidence say about this drug's exposure, and how credible is this model? | Special-population and exposure evidence, models with credibility records |
+| Regulatory affairs and medical writers | How do I justify this dose or population, and what did regulators say about similar drugs? | Sourced evidence summaries, regulatory context |
+| Educators and students | How does pharmacology actually behave? | Safe, synthetic, explained simulations |
 
-These phases overlap where useful. Scientific model coverage expands drug by drug and endpoint by endpoint. The number of catalog entries alone does not measure readiness.
+Primary users first: trial designers, clinical pharmacologists and regulatory professionals. Education is a secondary use of the same tools.
 
-## Capability representation
+## What makes it different
 
-Every drug may have identity, mechanism, safety and interaction references while lacking one or more simulation models. The library records those independently. Each new model requires:
+| Differentiator | Status in the code |
+|---|---|
+| **Shows its work.** Every value carries its source; every model shows what has and has not been checked, including failures. | In place (run records, four validation layers). Not yet visible as a public scorecard. |
+| **Checks planned before they run.** Comparisons with outside data follow a plan locked by commit before computation. | In place (Simulation 2.0a–2.0c, 3.0f, 4.0). |
+| **A regulatory reviewer's structure.** Evidence organized like a clinical pharmacology review: special populations, interactions, exposure–response, dose justification. | Partly (kidney work for lenalidomide). To generalize. |
+| **The whole chain in one place.** Trial → drug → evidence → exposure → regulatory context, with the links kept. | Partly (pages exist; the guided path does not). |
+| **Reproducible snapshots.** Frozen cohorts and checksum-pinned, versioned reference data. | In place. |
+| **AI that cites and is checked.** Extracted values link to their source page and show whether a person confirmed them. | Not started. |
+| **Built for the individual expert.** Rigorous and affordable for consultants, academics and small teams. | Product decision; pricing not set. |
 
-- Drug/component identity, formulation, route, treatment schedule and represented disease context.
-- Endpoint definition: plasma exposure, a named biomarker, a specified efficacy endpoint or a specified toxicity endpoint.
-- Equations, inputs, parameter units, source locations and version bindings.
-- Population, dose and sampling coverage; exclusions and extrapolation limits.
-- Mathematical verification, source review, empirical evaluation and uncertainty treatment.
-- A precise description of what the output supports for a synthetic or hypothetical profile.
+Not differentiating on their own, so not the lead message: trial search, dashboards, "AI-powered" claims, and the digital human while it is still distant.
 
-A group mean is not an individual observation. Marginal covariate ranges do not establish joint coverage. A generic biological demonstration cannot be relabeled as a researched drug model. Evidence currency and validation state must stay visible.
+## Where we are (19 October 2026)
 
-## Current checkpoint and next work
+| Area | Status |
+|---|---|
+| Clinical trial intelligence | Available: explorer at `/trials`, cohorts, normalization, regulatory indicators; multiple myeloma dataset of 4,037 trials |
+| Drug and regulatory knowledge | Foundation: about nine curated drug entities with mechanisms, safety, interactions, regulatory references |
+| Exposure models | Lenalidomide: Hughes 2019, Kim 2026, kidney-pathway model (2.0a–2.0c). Bortezomib: PK component contradicted by outside data (3.0f) |
+| Effect and safety models | Bortezomib platelet course (Lignet 2022); lenalidomide relative odds of grade 3/4 cytopenia (4.0a–4.0c) |
+| Provenance | Run record on every Patient Lab result; model evidence status v5 covers six models |
+| Interface | Landing page, shared brand and navigation, About, intended-use page |
+| Online | Not deployed. No accounts. |
 
-See the [repository checkpoint of 16 October 2026](REPOSITORY_CHECKPOINT.md). Since the 13 October checkpoint:
-- **Lenalidomide:** a second exposure model (Kim 2026, renal impairment).
-- **Bortezomib:** an exposure engine and the first drug-effect module (Lignet 2022 platelet model, checked against its fitting data).
-- **Patient Lab:** the platelet curve in a patient's own counts, and a run record that states the evidence behind every result.
+No model is validated for clinical prediction.
 
-No efficacy or toxicity model is registered, and no model is validated for clinical prediction.
+## Phases
 
-The library inventory now counts two lenalidomide exposure models, the bortezomib PK component and the platelet tool (inventory v1.2). Earlier step-number history, including the reused numbers 106–108 for **observation intake v1**, is in the [13 October checkpoint](history/REPOSITORY_CHECKPOINT_2026-10-13.md).
+The phases overlap. Each step keeps the existing rules: pinned and versioned sources, plans locked before checks, synthetic records only, and validation flags false unless a documented review changes them.
 
-**Next work:**
-1. Simulation 2.0 (2.0a–2.0c) and 4.0a–4.0c are done; every Patient Lab result now has a run record. Next candidates: a body → organ navigation layer linking the existing organ views, or (for bortezomib) a PK model with time-dependent clearance.
-2. Strengthen 4.0a (reconcile the 2.97 and 3.34 odds ratios; carry exposure uncertainty).
-3. For bortezomib, a published PK model with time-dependent clearance.
+### Phase 1 — Make the provenance visible
 
-Preserve the distinction between software verification and empirical or independent scientific validation.
+The differentiator already exists in the code; users cannot see it yet.
+
+1. **Model scorecards** (`/models`): one public page per registered model with its source, intended scope, the four validation layers, recorded findings and failures, and the reports behind them. Built from `model_evidence_status_v5.json`; nothing new is computed.
+2. **Capability levels per drug**: *Knowledge only*, *Label-based exposure*, *Published model*, *Published model checked against outside data*. Shown in the drug library and on every drug page.
+3. **Repository checkpoint refresh** covering the work since 16 October.
+
+*Done when:* any visitor can see, for every model, what was checked and what failed, without opening a JSON file.
+
+### Phase 2 — Fix what is known to be wrong
+
+1. **Bortezomib PK with clearance that falls over repeated doses.** Find a published model; lock a check plan; compare with Ogawa 2008 (data already in the repository). If it fits, rebuild the platelet course on it; if not, record why.
+
+*Done when:* the platelet simulation rests on an exposure model that is not contradicted by the outside data, or the gap is documented and shown.
+
+### Phase 3 — Any drug, at an honest level
+
+1. **Label-based exposure engine**: a one- or two-compartment typical-value curve from label parameters (clearance, volume, half-life, bioavailability, fraction excreted unchanged), with the label's own kidney and liver guidance. Tagged *Label-based*; never presented like a population model.
+2. **Drug catalog growth** from public sources (FDA labels via openFDA, RxNorm names, ChEMBL targets). Each entry sourced, versioned and marked reviewed or not reviewed.
+3. **First published models beyond myeloma**, chosen where outside data exist for a check.
+
+*Done when:* a user can open most approved small-molecule drugs and see at least a sourced, label-based exposure curve with its capability level.
+
+### Phase 4 — Trial design support (first focus: oncology, starting with multiple myeloma)
+
+1. **Protocol benchmarking**: compare eligibility criteria across similar trials (kidney and liver cutoffs, blood-count thresholds, prior therapy), with counts and links to each trial.
+2. **Special-population evidence summary** per drug: kidney, liver, age and body size, in the structure of a clinical pharmacology review, with every value sourced.
+3. **Dose-optimization view** (FDA Project Optimus): dose-ranging trials, published exposure–response findings and exposure comparisons between dose levels for one drug.
+4. **A guided path** for one drug through the whole chain: trials → evidence → exposure → regulatory context.
+
+*Done when:* a trial designer can benchmark a draft protocol's eligibility criteria and see the exposure evidence for a dose choice in one session.
+
+### Phase 5 — AI that cites and is checked
+
+1. **Assisted extraction** of parameters and findings from labels and FDA, EMA and TGA reviews. Each value links to its page and shows *AI-extracted* or *human-verified*. Unverified values never feed a model.
+2. **Plain-language questions** over trials and evidence, answered only from platform data, with citations. Example: "Which phase 3 myeloma trials excluded creatinine clearance below 30 mL/min?"
+3. **Cited summaries** in which every sentence links to its source.
+
+*Done when:* extraction speeds up Phase 3 and 4 curation measurably, and no unsourced statement reaches a user.
+
+### Phase 6 — Model credibility records (ICH M15)
+
+1. Export a model's run record and evidence status as a structured credibility record organized as ICH M15 describes: question of interest, context of use, model risk, verification, validation, assumptions and limitations.
+2. Later: let teams document their own models in the same structure.
+
+*Done when:* each platform model has an exportable credibility record that a reviewer can read without the code.
+
+### Phase 7 — Going online
+
+1. Production server, hosted database, fixed secrets, backups and monitoring.
+2. Accounts and private workspaces; access control before any public write access.
+3. Privacy, security and intended-use review by a qualified person before charging users.
+4. Pricing aimed at individual experts and small teams.
+
+*Done when:* invited users can use the platform online with their own private workspace.
+
+### Long term — the computational human
+
+Multi-organ physiology, disease progression, combination therapies, the body → organ → tissue → cell → target interface, and mechanistic + machine-learning hybrid models. Each builds only on models that have passed the earlier phases' checks.
+
+## Immediate next steps
+
+1. **Model scorecards** (Phase 1.1). Small, uses existing evidence files, and makes the main differentiator visible.
+2. **Bortezomib PK with falling clearance** (Phase 2.1). Fixes the one model known to be contradicted.
+3. **Label-based exposure engine: evidence and design plan** (Phase 3.1). The largest step toward "any drug".
+
+In parallel, outside the code: speak with five to ten trial designers, clinical pharmacologists or regulatory professionals about what they do by hand today, to confirm the Phase 4 focus.
+
+## Rules that do not change
+
+- Every drug may have identity, mechanism, safety and interaction references without any simulation model. These are recorded independently.
+- Each new model records: drug, formulation, route, schedule and disease context; the endpoint; equations, inputs, units, source locations and versions; population, dose and sampling coverage with extrapolation limits; verification, source review, outside-data evaluation and uncertainty; and what the output supports for a synthetic profile.
+- A group mean is not an individual observation. Marginal covariate ranges do not establish joint coverage. A generic demonstration is never relabelled as a researched drug model.
+- Software verification is kept distinct from empirical or independent scientific validation. Passing every check supports research use only.
