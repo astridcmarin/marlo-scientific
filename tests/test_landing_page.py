@@ -81,6 +81,14 @@ class LandingPageTests(unittest.TestCase):
         self.assertNotIn('Clinical Intelligence<span', workspace)
         self.assertNotIn('v2 ·', workspace)
 
+    def test_about_the_developer(self):
+        page = self.client.get('/').get_data(as_text=True)
+        for text in ('Built by Astrid Marin', 'MSc in Pharmaceutical Sciences (Pharmaceutical Affairs)',
+                     'ICH-GCP', 'https://www.linkedin.com/in/astridcmarin/', 'https://github.com/astridcmarin',
+                     'mailto:amarinmassini@live.com', 'images/astrid-marin.jpg', 'alt="Astrid Marin"'):
+            self.assertIn(text, page)
+        self.assertLess(page.index('id="about"'), page.index('class="site-footer"'))
+
     def test_charts_come_from_platform_code(self):
         from landscape_ui.landing_examples import curve_example, kidney_example
         from intelligence_store.lenalidomide_renal_pathways import calibrate, load_evidence, pathways
