@@ -152,3 +152,16 @@ h3 { font-size: 24px; letter-spacing: -0.01em; }
     .feature-visual { padding: 20px; }
     .bars { grid-template-columns: 104px 1fr 48px; }
 }
+
+/* About the developer */
+.about { background: var(--ground); }
+.about-card { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 40px; align-items: center; max-width: 920px; margin: 0 auto; background: #ffffff; border: 1px solid var(--line); border-radius: 20px; padding: 36px; }
+.about-photo { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; }
+.about-card p { font-size: 17px; color: var(--body); }
+.about-links { display: flex; flex-wrap: wrap; gap: 8px 24px; font-weight: 600; }
+.about-links a { text-decoration: none; }
+@media (max-width: 640px) {
+    .about-card { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 28px 22px; }
+    .about-photo { width: 140px; height: 140px; }
+    .about-links { justify-content: center; }
+}
