@@ -108,6 +108,24 @@ Plan `label_exposure_pomalidomide_li_check_plan_v1.json`, locked in commit `012c
 - **Volume:** the label-derived V/F (50.3 L) is just below Li's interval (51.6–66.1 L); clearance and ka are inside theirs.
 - **What this allows:** 3.1e may show the curve on the pomalidomide page at *Label-based exposure*, citing both checks, with the peak's uncertainty stated.
 
+## 3.1f result — melphalan (EVOMELA): not eligible
+
+Label: EVOMELA (melphalan) for injection, Acrotech Biopharma, DailyMed set 69f55869-dc11-408e-8fc7-47634269a52c, revised 9/2026; extract `label_pk_melphalan_evomela_v1.json`. Plan `label_exposure_consistency_plan_melphalan_v1.json`, locked in commit `322488e` before the intravenous engine existed. Engine `intelligence_store/label_exposure_iv.py` (one compartment, constant-rate infusion); report `docs/verification/label_exposure_melphalan_consistency_v1.json`; CLI `label-exposure-melphalan-consistency`. Same tolerance as pomalidomide (0.67–1.5).
+
+| 100 mg/m² over 30 min | Set A: myeloma exposure | Set B: label ranges |
+|---|---|---|
+| CL, V | 222 mL/min/m², 24.0 L/m² | 285 mL/min/m², 81.2 L/m² |
+| C1 clearance vs Dose/AUC | 1.00 (by construction) | 1.29, pass |
+| C2 half-life vs 75 min | 1.00 (by construction) | 197 min, **2.63, fail** |
+| C3 end-of-infusion Cmax vs 5.8 µg/mL | 3.64, **0.63, fail** (24 min: 0.64; 48 min: 0.58) | 1.17, **0.20, fail** |
+| C4 AUC vs 451 µg·min/mL | 1.00 (by construction) | 0.78, pass |
+
+- **Recorded as not eligible.** No set passes; melphalan stays at *Knowledge only* and no curve is shown.
+- **Why the myeloma set fails:** melphalan has a fast distribution phase. Right after a short infusion, plasma concentrations are higher than a single compartment with the terminal half-life allows, so the one-compartment curve under-predicts the peak by about 37%. The label gives one half-life and no central volume, so it cannot support a two-compartment curve.
+- **The label's ranges disagree with each other:** clearance 250–325 mL/min/m² and volume 35.5–185.7 L/m² imply a half-life of about 197 minutes, against the 75 minutes stated in the same section. The volume range is probably a steady-state or terminal volume from other studies.
+- **Numerical checks passed:** numerical AUC equals Dose/CL (about 6e-12); a 0.0036-second infusion matches a bolus (about 3e-7); the curve is continuous at the end of the infusion.
+- **The route for melphalan** is a published population model with two compartments (a *Published model*), not a label curve.
+
 ## Data model
 
 One pinned file per drug: `label_pk_<drug>_v1.json`
@@ -135,7 +153,7 @@ On a drug's page, at the *Label-based exposure* level:
 3. **3.1c — Engine and the pomalidomide consistency report** (done; see the result below). Numerical check against the exact solution and against superposition.
 4. **3.1d — Outside check against Li 2017** (done; result below) under a locked plan (typical curve against the population model's typical curve, and against any reported summaries).
 5. **3.1e — Drug page and capability level** (done): `intelligence_store/label_exposure_view.py` shows a curve only when the label extract and both check reports are intact, the internal check selected a set, the outside check is consistent and the recomputed parameters equal the reported ones; otherwise the page returns 503 and the drug falls back to its previous level. The page shows the steady-state day (with the label's Cmax and Li 2017's typical curve), the first three days, one label scenario at a time (CL/F ÷ AUC fold, with its quote and study population; the single-dose food effect is text only), both checks and the peak caveat. Linked from the capability level box, the model library and the landing page.
-6. **3.1f — Second and third drugs** (candidates: melphalan, dexamethasone), to test that the format generalises before Phase 3.2 scales the catalog.
+6. **3.1f — Second and third drugs** (melphalan done 20 October 2026: not eligible, see below; dexamethasone (HEMADY) next), to test that the format generalises before Phase 3.2 scales the catalog.
 
 ## What this does not attempt
 
