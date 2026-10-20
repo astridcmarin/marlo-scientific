@@ -36,8 +36,10 @@ OUTCOME_LABELS = {'consistent': ('Consistent', 'ok'), 'model_over_predicts': ('M
                   'model_under_predicts': ('Model too low', 'gap')}
 RESULT_ITEMS = {
     'mild': 'Mild kidney impairment', 'moderate': 'Moderate kidney impairment', 'severe': 'Severe kidney impairment',
-    'auc_day1': 'Day 1 exposure (AUC), 1.3 mg/m²', 'auc_day11': 'Day 11 exposure (AUC), 1.3 mg/m²',
-    'auc_ratio_day11_over_day1': 'Rise in exposure from day 1 to day 11, 1.3 mg/m²',
+    'auc_day1': 'Day 1 exposure (AUC), 1.3 mg/m², Ogawa 2008', 'auc_day11': 'Day 11 exposure (AUC), 1.3 mg/m², Ogawa 2008',
+    'auc_ratio_day11_over_day1': 'Rise in exposure from day 1 to day 11, 1.3 mg/m², Ogawa 2008',
+    'can1004_auc_last_day1': 'Day 1 exposure (AUC to 72 h), 1.3 mg/m², CAN-1004',
+    'can1004_auc_last_day11': 'Day 11 exposure (AUC to 72 h), 1.3 mg/m², CAN-1004',
 }
 RESULT_KEYS = ('result_by_group', 'result_at_1_3_mg_m2')
 
@@ -121,11 +123,12 @@ def _layer(name, entry, descriptions):
     for extra in entry.get('further_reports', []):
         reports.append(dict(_report(extra['evidence_report'], extra['evidence_report_file_sha256']), summary=extra['summary']))
     results = []
-    for key in RESULT_KEYS:
-        for item, outcome in (entry.get(key) or {}).items():
-            outcome_label, outcome_tone = OUTCOME_LABELS.get(outcome, (outcome.replace('_', ' '), 'neutral'))
-            results.append({'item': RESULT_ITEMS.get(item, item.replace('_', ' ')), 'outcome': outcome,
-                            'outcome_label': outcome_label, 'tone': outcome_tone})
+    recorded = [(item, outcome) for key in RESULT_KEYS for item, outcome in (entry.get(key) or {}).items()]
+    recorded += [(item, outcome) for extra in entry.get('further_reports', []) for item, outcome in (extra.get('results') or {}).items()]
+    for item, outcome in recorded:
+        outcome_label, outcome_tone = OUTCOME_LABELS.get(outcome, (outcome.replace('_', ' '), 'neutral'))
+        results.append({'item': RESULT_ITEMS.get(item, item.replace('_', ' ')), 'outcome': outcome,
+                        'outcome_label': outcome_label, 'tone': outcome_tone})
     search = entry.get('search')
     return {'id': name, 'label': LAYER_LABELS[name], 'definition': descriptions[name], 'status': entry['status'],
             'status_label': label, 'tone': tone, 'summary': entry['summary'], 'classification': entry.get('classification'),

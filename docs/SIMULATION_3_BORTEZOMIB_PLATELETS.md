@@ -1,6 +1,6 @@
 # Simulation 3.0 — bortezomib platelet time course (first drug-effect module)
 
-Status: **3.0a–3.0g done.** Evidence, PK engine, locked reading check, page (`/landscape/simulation-lab/bortezomib-platelets`) a search for outside platelet data (none usable) and an outside check of the PK component (Ogawa 2008).
+Status: **3.0a–3.0h done.** Evidence, PK engine, locked reading check, page (`/landscape/simulation-lab/bortezomib-platelets`) a search for outside platelet data (none usable) and outside checks of the PK component (Ogawa 2008, 3.0f; CAN-1004, 3.0h).
 
 ## Why this model
 
@@ -200,3 +200,34 @@ The outcome is recorded in `model_evidence_status_v2.json` (v1.1), and the plate
 - **The model cannot be implemented from the poster as printed.** A model the authors report reproduced their day 1 and later data cannot reproduce the direction of the time dependence under either reading. The most likely explanation is that the equation form or the units of `Vm` differ from what the poster shows; a population difference cannot be excluded. The authors' control stream, or a full paper, is needed.
 - **Nothing changes on the platform.** The platelet tool keeps the constant-clearance PK component, with its recorded 3.0f contradiction. The Kuan model is not registered or offered.
 - **Next.** Ask the authors (Millennium/Takeda clinical pharmacology, or D. Mould) for the model code or a full publication, and continue with the Iwasaki 2020 target-mediated PBPK model when the paper arrives.
+
+## 3.0h — The constant-clearance PK component against a second outside study (CAN-1004)
+
+**Why.** 3.0f rested on one outside study (Ogawa 2008: Japanese patients, sampling to 48 h). A second, independent study shows whether the contradiction belongs to the model or to that one study.
+
+**Source.** FDA Clinical Pharmacology review of NDA 021602 supplement S-027 (2012), Table 7: study CAN-1004, 1.3 mg/m² IV, n = 10, sampling at 2, 5, 15 and 30 min and 1, 2, 4, 6, 10, 24, 48 and 72 h after the day 1 and day 11 doses. Values are in `bortezomib_pk_can1004_observed_v1.json` with the quoted rows; the review PDF itself stays outside the repository (its SHA-256 is recorded).
+
+**Method** (plan `bortezomib_pk_can1004_check_plan_v1.json`, locked in commit `4fa17bc` before computation):
+- **The unchanged 3.0f model**, no parameter estimated or tuned; per m², so body size cancels.
+- **Dosing days 1, 4, 8 and 11.** A sample taken at the time of a dose counts as pre-dose, so the day 1 72 h sample holds only the first dose.
+- **Primary endpoints:** AUC to the last sample on day 1 and day 11. **Secondary:** AUC to infinity and back-extrapolated C0. **Descriptive:** day 11 / day 1 ratio and half-lives.
+- **The same emulation, interval and classification as 3.0f**, under all four NCA readings.
+
+**Result** (report `docs/verification/bortezomib_pk_can1004_check_v1.json`; primary reading):
+
+| 1.3 mg/m² IV | Model (emulated) | Observed mean (95% CI) | Result |
+|---|---|---|---|
+| AUClast, day 1 | 81 ng·h/mL | 104 (33–175) | consistent |
+| AUClast, day 11 | 127 ng·h/mL | 241 (182–300) | under-predicted (0.53) |
+| AUCinf, day 1 | 144 | 183 (70–296) | consistent |
+| AUCinf, day 11 | 260 | 409 (275–543) | under-predicted |
+| Rise, day 1 → day 11 | 1.6-fold | 2.3-fold | descriptive |
+| Half-life, day 1 / day 11 | 98 / 98 h | 98 / 67 h | descriptive |
+
+Every classification is the same under all four NCA readings.
+
+**What this means.**
+- **The model's level fits one study's day 1 and the other study's day 11.** Against Ogawa, day 1 was over-predicted and day 11 consistent; against CAN-1004, day 1 is consistent and day 11 under-predicted. The two studies differ in population, sampling length and assay, so the model cannot match both levels at once.
+- **Both studies agree on the shape.** Exposure rises from day 1 to day 11 more than a constant clearance allows (2.3-fold here, about 5-fold in Ogawa, 1.6-fold in the model). The time-dependent clearance remains the gap to close.
+- **The day 1 variability is wide** (C0 coefficient of variation above 200%, AUClast 95%), so "consistent" on day 1 is a weak statement.
+- **Recorded, not changed.** Evidence status v6 adds this report to the bortezomib PK component; the scorecard now lists three outside-data disagreements. The platelet tool is unchanged.

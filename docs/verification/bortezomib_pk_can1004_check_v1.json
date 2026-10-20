@@ -1,0 +1,476 @@
+{
+  "schema_version": "bortezomib-pk-external-check-report-v1",
+  "method_version": "bortezomib-pk-can1004-check-v1.0",
+  "plan_version": "bortezomib-pk-can1004-check-plan-v1.0",
+  "plan_sha256": "aff510dde860101d96ca19e94e6e0f803b7e76f589efc2759273fa379d61ffa7",
+  "observed_sha256": "60b4dbb2bba6a8a56a15080cded7dc33e187d3fa0688a9a0788c6a5b66ab80c4",
+  "model_extract_sha256": "3093fff25dbf44a75aa31b4d41d40d57eabc5cf29ce21c7718276edf8a028e84",
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "dose_mg_m2": 1.3,
+  "sampling_times_h": [
+    0.0333333333333,
+    0.0833333333333,
+    0.25,
+    0.5,
+    1,
+    2,
+    4,
+    6,
+    10,
+    24,
+    48,
+    72
+  ],
+  "model_profiles_ng_ml": {
+    "day1_ng_ml": [
+      110.31630031805898,
+      81.55436466481072,
+      32.020929845750175,
+      11.384362310390388,
+      5.583695859679048,
+      3.71618991691166,
+      1.9436636697287275,
+      1.2130914191763256,
+      0.7781972220766378,
+      0.6296185610298751,
+      0.5312892030901832,
+      0.4484295407476768
+    ],
+    "day11_ng_ml": [
+      111.12897276537309,
+      82.36675009486187,
+      32.83235928345555,
+      12.19435986852032,
+      6.390837234448499,
+      4.517649103550514,
+      2.7338782044694896,
+      1.9922190670036946,
+      1.5356155681746073,
+      1.3157084769067366,
+      1.1103768000330048,
+      0.9372028591900932
+    ]
+  },
+  "readings": [
+    {
+      "auc_rule": "linear",
+      "terminal_points": 3,
+      "role": "primary",
+      "endpoints": {
+        "auc_last_day1": {
+          "model_emulated": 81.00780915238371,
+          "observed_mean": 104,
+          "observed_sd": 99.0,
+          "n": 10,
+          "interval_95": [
+            33.17832522395422,
+            174.82167477604577
+          ],
+          "ratio_model_to_observed": 0.7789212418498435,
+          "classification": "consistent"
+        },
+        "auc_last_day11": {
+          "model_emulated": 126.95637323657655,
+          "observed_mean": 241,
+          "observed_sd": 82.0,
+          "n": 10,
+          "interval_95": [
+            182.33962291277015,
+            299.66037708722985
+          ],
+          "ratio_model_to_observed": 0.5267899304422263,
+          "classification": "model_under_predicts"
+        },
+        "auc_inf_day1": {
+          "model_emulated": 144.43441376582084,
+          "observed_mean": 183,
+          "observed_sd": 158,
+          "n": 10,
+          "interval_95": [
+            69.97146853924006,
+            296.02853146075995
+          ],
+          "ratio_model_to_observed": 0.7892590916165073,
+          "classification": "consistent"
+        },
+        "auc_inf_day11": {
+          "model_emulated": 259.56737495795437,
+          "observed_mean": 409,
+          "observed_sd": 187,
+          "n": 10,
+          "interval_95": [
+            275.22572542302464,
+            542.7742745769754
+          ],
+          "ratio_model_to_observed": 0.6346390585769055,
+          "classification": "model_under_predicts"
+        },
+        "c0_day1": {
+          "model_emulated": 134.9277696606513,
+          "observed_mean": 794,
+          "observed_sd": 1723,
+          "n": 10,
+          "interval_95": [
+            -438.5832892841099,
+            2026.58328928411
+          ],
+          "ratio_model_to_observed": 0.16993421871618553,
+          "classification": "consistent"
+        },
+        "c0_day11": {
+          "model_emulated": 135.68886596069302,
+          "observed_mean": 321,
+          "observed_sd": 181,
+          "n": 10,
+          "interval_95": [
+            191.51794813672439,
+            450.4820518632756
+          ],
+          "ratio_model_to_observed": 0.42270674754109977,
+          "classification": "model_under_predicts"
+        },
+        "ratio_of_means_auc_last_day11_over_day1": {
+          "model_emulated": 1.5672115388006487,
+          "observed": 2.3173076923076925,
+          "classification": null
+        },
+        "half_life_day1": {
+          "model_emulated": 98.03986616714016,
+          "observed_mean": 98.1,
+          "classification": null
+        },
+        "half_life_day11": {
+          "model_emulated": 98.07795724592336,
+          "observed_mean": 66.7,
+          "classification": null
+        }
+      }
+    },
+    {
+      "auc_rule": "linear",
+      "terminal_points": 4,
+      "role": "sensitivity",
+      "endpoints": {
+        "auc_last_day1": {
+          "model_emulated": 81.00780915238371,
+          "observed_mean": 104,
+          "observed_sd": 99.0,
+          "n": 10,
+          "interval_95": [
+            33.17832522395422,
+            174.82167477604577
+          ],
+          "ratio_model_to_observed": 0.7789212418498435,
+          "classification": "consistent"
+        },
+        "auc_last_day11": {
+          "model_emulated": 126.95637323657655,
+          "observed_mean": 241,
+          "observed_sd": 82.0,
+          "n": 10,
+          "interval_95": [
+            182.33962291277015,
+            299.66037708722985
+          ],
+          "ratio_model_to_observed": 0.5267899304422263,
+          "classification": "model_under_predicts"
+        },
+        "auc_inf_day1": {
+          "model_emulated": 133.701828123023,
+          "observed_mean": 183,
+          "observed_sd": 158,
+          "n": 10,
+          "interval_95": [
+            69.97146853924006,
+            296.02853146075995
+          ],
+          "ratio_model_to_observed": 0.7306110826394699,
+          "classification": "consistent"
+        },
+        "auc_inf_day11": {
+          "model_emulated": 247.47006111610216,
+          "observed_mean": 409,
+          "observed_sd": 187,
+          "n": 10,
+          "interval_95": [
+            275.22572542302464,
+            542.7742745769754
+          ],
+          "ratio_model_to_observed": 0.6050612741224992,
+          "classification": "model_under_predicts"
+        },
+        "c0_day1": {
+          "model_emulated": 134.9277696606513,
+          "observed_mean": 794,
+          "observed_sd": 1723,
+          "n": 10,
+          "interval_95": [
+            -438.5832892841099,
+            2026.58328928411
+          ],
+          "ratio_model_to_observed": 0.16993421871618553,
+          "classification": "consistent"
+        },
+        "c0_day11": {
+          "model_emulated": 135.68886596069302,
+          "observed_mean": 321,
+          "observed_sd": 181,
+          "n": 10,
+          "interval_95": [
+            191.51794813672439,
+            450.4820518632756
+          ],
+          "ratio_model_to_observed": 0.42270674754109977,
+          "classification": "model_under_predicts"
+        },
+        "ratio_of_means_auc_last_day11_over_day1": {
+          "model_emulated": 1.5672115388006487,
+          "observed": 2.3173076923076925,
+          "classification": null
+        },
+        "half_life_day1": {
+          "model_emulated": 81.45027783176911,
+          "observed_mean": 98.1,
+          "classification": null
+        },
+        "half_life_day11": {
+          "model_emulated": 89.13088788990908,
+          "observed_mean": 66.7,
+          "classification": null
+        }
+      }
+    },
+    {
+      "auc_rule": "linear_up_log_down",
+      "terminal_points": 3,
+      "role": "sensitivity",
+      "endpoints": {
+        "auc_last_day1": {
+          "model_emulated": 79.24346800676105,
+          "observed_mean": 104,
+          "observed_sd": 99.0,
+          "n": 10,
+          "interval_95": [
+            33.17832522395422,
+            174.82167477604577
+          ],
+          "ratio_model_to_observed": 0.7619564231419331,
+          "classification": "consistent"
+        },
+        "auc_last_day11": {
+          "model_emulated": 125.25933360954679,
+          "observed_mean": 241,
+          "observed_sd": 82.0,
+          "n": 10,
+          "interval_95": [
+            182.33962291277015,
+            299.66037708722985
+          ],
+          "ratio_model_to_observed": 0.5197482722387834,
+          "classification": "model_under_predicts"
+        },
+        "auc_inf_day1": {
+          "model_emulated": 142.67007262019817,
+          "observed_mean": 183,
+          "observed_sd": 158,
+          "n": 10,
+          "interval_95": [
+            69.97146853924006,
+            296.02853146075995
+          ],
+          "ratio_model_to_observed": 0.7796178831704818,
+          "classification": "consistent"
+        },
+        "auc_inf_day11": {
+          "model_emulated": 257.8703353309246,
+          "observed_mean": 409,
+          "observed_sd": 187,
+          "n": 10,
+          "interval_95": [
+            275.22572542302464,
+            542.7742745769754
+          ],
+          "ratio_model_to_observed": 0.6304898174350235,
+          "classification": "model_under_predicts"
+        },
+        "c0_day1": {
+          "model_emulated": 134.9277696606513,
+          "observed_mean": 794,
+          "observed_sd": 1723,
+          "n": 10,
+          "interval_95": [
+            -438.5832892841099,
+            2026.58328928411
+          ],
+          "ratio_model_to_observed": 0.16993421871618553,
+          "classification": "consistent"
+        },
+        "c0_day11": {
+          "model_emulated": 135.68886596069302,
+          "observed_mean": 321,
+          "observed_sd": 181,
+          "n": 10,
+          "interval_95": [
+            191.51794813672439,
+            450.4820518632756
+          ],
+          "ratio_model_to_observed": 0.42270674754109977,
+          "classification": "model_under_predicts"
+        },
+        "ratio_of_means_auc_last_day11_over_day1": {
+          "model_emulated": 1.5806896992299688,
+          "observed": 2.3173076923076925,
+          "classification": null
+        },
+        "half_life_day1": {
+          "model_emulated": 98.03986616714016,
+          "observed_mean": 98.1,
+          "classification": null
+        },
+        "half_life_day11": {
+          "model_emulated": 98.07795724592336,
+          "observed_mean": 66.7,
+          "classification": null
+        }
+      }
+    },
+    {
+      "auc_rule": "linear_up_log_down",
+      "terminal_points": 4,
+      "role": "sensitivity",
+      "endpoints": {
+        "auc_last_day1": {
+          "model_emulated": 79.24346800676105,
+          "observed_mean": 104,
+          "observed_sd": 99.0,
+          "n": 10,
+          "interval_95": [
+            33.17832522395422,
+            174.82167477604577
+          ],
+          "ratio_model_to_observed": 0.7619564231419331,
+          "classification": "consistent"
+        },
+        "auc_last_day11": {
+          "model_emulated": 125.25933360954679,
+          "observed_mean": 241,
+          "observed_sd": 82.0,
+          "n": 10,
+          "interval_95": [
+            182.33962291277015,
+            299.66037708722985
+          ],
+          "ratio_model_to_observed": 0.5197482722387834,
+          "classification": "model_under_predicts"
+        },
+        "auc_inf_day1": {
+          "model_emulated": 131.93748697740034,
+          "observed_mean": 183,
+          "observed_sd": 158,
+          "n": 10,
+          "interval_95": [
+            69.97146853924006,
+            296.02853146075995
+          ],
+          "ratio_model_to_observed": 0.7209698741934445,
+          "classification": "consistent"
+        },
+        "auc_inf_day11": {
+          "model_emulated": 245.7730214890724,
+          "observed_mean": 409,
+          "observed_sd": 187,
+          "n": 10,
+          "interval_95": [
+            275.22572542302464,
+            542.7742745769754
+          ],
+          "ratio_model_to_observed": 0.6009120329806171,
+          "classification": "model_under_predicts"
+        },
+        "c0_day1": {
+          "model_emulated": 134.9277696606513,
+          "observed_mean": 794,
+          "observed_sd": 1723,
+          "n": 10,
+          "interval_95": [
+            -438.5832892841099,
+            2026.58328928411
+          ],
+          "ratio_model_to_observed": 0.16993421871618553,
+          "classification": "consistent"
+        },
+        "c0_day11": {
+          "model_emulated": 135.68886596069302,
+          "observed_mean": 321,
+          "observed_sd": 181,
+          "n": 10,
+          "interval_95": [
+            191.51794813672439,
+            450.4820518632756
+          ],
+          "ratio_model_to_observed": 0.42270674754109977,
+          "classification": "model_under_predicts"
+        },
+        "ratio_of_means_auc_last_day11_over_day1": {
+          "model_emulated": 1.5806896992299688,
+          "observed": 2.3173076923076925,
+          "classification": null
+        },
+        "half_life_day1": {
+          "model_emulated": 81.45027783176911,
+          "observed_mean": 98.1,
+          "classification": null
+        },
+        "half_life_day11": {
+          "model_emulated": 89.13088788990908,
+          "observed_mean": 66.7,
+          "classification": null
+        }
+      }
+    }
+  ],
+  "classifications_across_readings": {
+    "auc_last_day1": [
+      "consistent"
+    ],
+    "auc_last_day11": [
+      "model_under_predicts"
+    ],
+    "auc_inf_day1": [
+      "consistent"
+    ],
+    "auc_inf_day11": [
+      "model_under_predicts"
+    ],
+    "c0_day1": [
+      "consistent"
+    ],
+    "c0_day11": [
+      "model_under_predicts"
+    ]
+  },
+  "decision": {
+    "consistent_with_can1004": false,
+    "result": {
+      "auc_last_day1": "consistent",
+      "auc_last_day11": "model_under_predicts"
+    },
+    "ogawa_day1_finding_reproduced": false,
+    "robust_primary": true,
+    "rule": "The model is recorded as consistent with CAN-1004 only if both primary endpoints are consistent under the primary reading. The 3.0f day 1 finding is recorded as reproduced in a second study if AUClast day 1 is over-predicted; as not reproduced if consistent. The rise is assessed descriptively."
+  },
+  "not_this": [
+    "Not validation or qualification of the PK model; no acceptance limits are introduced.",
+    "Not a comparison of individual concentrations; only Table 7 means and SDs are available.",
+    "Not a re-fit: no parameter is estimated or tuned.",
+    "Not a dosing or exposure prediction for any patient."
+  ],
+  "known_differences": [
+    "Typical-value model compared with arithmetic means of skewed quantities (day 1 AUClast SD 99 on a mean of 104).",
+    "n = 10; small group.",
+    "The sponsor's NCA settings are not reported; four readings bracket the usual choices.",
+    "Concomitant dexamethasone and other study conditions are not described in the review pages used."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "546de49feac5a7d5052c291c682524775f3b706570a7150400680abd810bacbe"
+}
