@@ -1,0 +1,47 @@
+{
+  "schema_version": "external-consistency-plan-v1",
+  "plan_version": "label-exposure-pomalidomide-li-check-plan-v1.0",
+  "recorded_on": "2026-10-20",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before any Li 2017 curve was computed or compared. Not blinded: the selected label set (CL/F 4.65 L/h, V/F 50.3 L, ka 1.07/h; steady-state Cmax 71.6 ng/mL, AUC 860 ng.h/mL at 4 mg) is known from 3.1c, Li Table 3 and Table 4 were read in full, and it was noted in passing that the typical values look close. The typical Li AUC (4000/5.13 = 780 ng.h/mL) follows from the table by arithmetic and was seen.",
+  "classification": "exploratory_model_to_model_consistency_check",
+  "not_this": [
+    "Not a comparison with observed concentrations: Li 2017 reports a fitted population model and simulated exposures, not observed summaries. Two models agreeing is weaker evidence than agreement with data.",
+    "Not fully independent: the label and Li 2017 both come from the sponsor's programme; Li uses studies CC-4047-MM-008 and MM-013 (patients with a wide range of kidney function), and the label does not name the studies behind its 860 ng.h/mL.",
+    "Not validation; not a dosing or exposure prediction for any patient."
+  ],
+  "question": "Does the label-based pomalidomide curve selected in 3.1c (myeloma-only set) agree with the typical curve of an independent population PK model in myeloma patients, and does the label's dialysis fold-change agree with that model's dialysis effect?",
+  "inputs": {
+    "label_engine": {"module": "intelligence_store/label_exposure.py", "consistency_report": "docs/verification/label_exposure_pomalidomide_consistency_v1.json", "selected_set": "A_exposure_derived_mm", "ka_rule": "Tmax 2.5 h, as in 3.1c"},
+    "li_extract": {"path": "intelligence_store/data/pomalidomide_popk_li_2017_extract_v1.json", "sha256": "4d9c9d27608f4ae91b5f5ee3dde3ea41019cf7b4d1a4ed918d51970e05e34f1b"},
+    "label_extract": {"path": "intelligence_store/data/label_pk_pomalidomide_v1.json", "sha256": "ce4b9afa97e1ba84b9e7cf802c5da80b8927e5db51c8506dddb0c993d6398417"}
+  },
+  "li_typical_curve": {
+    "parameters": "Table 3 estimates for normal kidney function: CL/F 5.13 L/h, V/F 58.3 L, ka 0.724/h, lag 0.154 h.",
+    "regimen": "4 mg every 24 h at steady state (closed form with the lag applied as a time shift).",
+    "why_typical": "The label engine is typical-value only, so it is compared with Li's typical curve, not with a simulated population."
+  },
+  "endpoints": {
+    "primary": {
+      "name": "steady_state_auc_0_24",
+      "compare": "Label-engine AUC over 24 h at steady state (4 mg) against the Li Table 4 simulated mean for normal kidney function, 787.8 ng.h/mL.",
+      "criterion": "consistent if inside the Table 4 90% interval of that mean (601.9-1025.9 ng.h/mL); otherwise model_over_predicts or model_under_predicts.",
+      "why": "Table 4 is the only exposure summary Li reports with an interval."
+    },
+    "secondary": [
+      {"name": "typical_curve_ratios", "compare": "Label-engine / Li typical curve for steady-state Cmax, Ctrough (24 h) and AUC 0-24.", "criterion": "pass if each ratio is within 0.8-1.25.", "why_this_tolerance": "The usual bioequivalence-style band for two typical curves of the same drug and dose; tighter than the 3.1c label tolerance because both are typical values."},
+      {"name": "dialysis_fold", "compare": "Label AUC fold in severe renal impairment requiring dialysis (1.38) against Li: 1 / CL/F ratio for group 4 (1 / 0.724) and Table 4 normalized AUC (135.8%, 90% interval 107.5-170.0%).", "criterion": "consistent if 1.38 lies inside the Table 4 normalized interval."},
+      {"name": "no_effect_moderate_severe_without_dialysis", "compare": "Label statement of no significant effect against Li CL/F ratios for groups 2 and 3.", "criterion": "consistent if both Li 90% bootstrap intervals include 1."}
+    ],
+    "descriptive": [
+      "Each label-engine parameter (CL/F, V/F, ka) against the Li bootstrap 90% interval.",
+      "Both steady-state curves at 0.25 h steps over one dosing interval.",
+      "Label-engine curve with ka from Tmax 2 h and 3 h against the Li curve."
+    ]
+  },
+  "decision_rule": {
+    "summary": "The label-based pomalidomide curve is recorded as consistent with Li 2017 if the primary endpoint is consistent and all typical-curve ratios pass. The dialysis scenario is recorded as consistent or not on its own.",
+    "consequence": "If consistent, 3.1e may show the curve on the pomalidomide page at the capability level Label-based exposure, citing this check. If not, the curve stays hidden and the disagreement is recorded.",
+    "never": "No label-engine value is changed after seeing the comparison; Li values are not used to choose or adjust the label set."
+  }
+}
