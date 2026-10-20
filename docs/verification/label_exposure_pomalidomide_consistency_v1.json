@@ -1,0 +1,234 @@
+{
+  "schema_version": "label-exposure-consistency-report-v1",
+  "method_version": "label-exposure-v1.0",
+  "plan_version": "label-exposure-consistency-plan-v1.0",
+  "plan_sha256": "146854b3471dacf4c5c578143ec99dec2e35e55a589961e5773580fc40bceb54",
+  "label_extract_sha256": "ce4b9afa97e1ba84b9e7cf802c5da80b8927e5db51c8506dddb0c993d6398417",
+  "label_source": {
+    "dailymed_set_id": "2b25ef01-5c9e-11e1-b86c-0800200c9a66",
+    "revised": "2/2025 (as printed on the label)",
+    "file_reviewed": {
+      "file": "20250510_2b25ef01-5c9e-11e1-b86c-0800200c9a66.pdf (48 pages)",
+      "sha256": "b4b0a08d15cdb70eba5e720ccef573cb9487ae407d36bbd694fc961448a69955"
+    }
+  },
+  "drug": "pomalidomide",
+  "target_population": "Multiple myeloma",
+  "regimen": {
+    "dose_mg": 4,
+    "interval_h": 24,
+    "evaluated_at": "steady state"
+  },
+  "tolerance": [
+    0.67,
+    1.5
+  ],
+  "which_checks_are_informative": "For set A, C1, C2 and C4 hold by construction (its CL/F comes from the AUC and its V/F from the half-life), so C3 (steady-state Cmax) is its only informative pass-or-fail check. For set B, all four are informative.",
+  "numerical_checks": {
+    "superposition_max_relative_difference": 1.1694715490642327e-15,
+    "superposition_passed": true,
+    "auc_trapezoid_vs_exact_max_relative_difference": 8.26593453322942e-09,
+    "auc_passed": true,
+    "tmax_grid_vs_closed_form_max_difference_h": 0.0004567763831548888,
+    "tmax_passed": true
+  },
+  "parameter_sets": {
+    "A_exposure_derived_mm": {
+      "cl_f_l_h": 4.651162790697675,
+      "v_f_l": 50.32657119380106,
+      "provenance": {
+        "cl_f_l_h": "Dose / AUC_tau,ss = 4 mg / 860 ng.h/mL (MM only)",
+        "v_f_l": "CL/F x 7.5 h / ln 2 (median half-life, MM or KS)"
+      },
+      "primary": {
+        "tmax_used_for_ka_h": 2.5,
+        "ka_per_h": 1.0732700409666616,
+        "k_per_h": 0.09241962407465937,
+        "steady_state": {
+          "cmax_ng_ml": 71.55956764705425,
+          "tmax_h_grid": 2.383,
+          "tmax_h_closed_form": 2.382543223616845,
+          "auc_tau_ng_h_ml_trapezoid": 859.9999928912963,
+          "auc_tau_ng_h_ml_exact": 860.0,
+          "ctrough_ng_ml": 10.619568782963844
+        },
+        "checks": {
+          "C1_clearance_vs_exposure": {
+            "model": 4.651162790697675,
+            "label": 4.651162790697675,
+            "ratio": 1.0,
+            "result": "pass"
+          },
+          "C2_half_life": {
+            "model": 7.5,
+            "label": 7.5,
+            "ratio": 1.0,
+            "result": "pass"
+          },
+          "C3_steady_state_cmax": {
+            "model": 71.55956764705425,
+            "label": 75,
+            "ratio": 0.95412756862739,
+            "result": "pass"
+          },
+          "C4_steady_state_auc": {
+            "model": 859.9999928912963,
+            "label": 860,
+            "ratio": 0.9999999917340655,
+            "result": "pass"
+          },
+          "C5_volume_in_stated_range": {
+            "model": 50.32657119380106,
+            "label_range": [
+              62,
+              138
+            ],
+            "inside": false,
+            "result": null
+          },
+          "C6_tmax": {
+            "model": 2.383,
+            "label_range": [
+              2,
+              3
+            ],
+            "inside": true,
+            "result": null
+          }
+        },
+        "passes_c1_to_c4": true
+      },
+      "sensitivity": [
+        {
+          "tmax_used_for_ka_h": 2,
+          "ka_per_h": 1.4787139851945104,
+          "checks": {
+            "C1_clearance_vs_exposure": "pass",
+            "C2_half_life": "pass",
+            "C3_steady_state_cmax": "pass",
+            "C4_steady_state_auc": "pass"
+          },
+          "cmax_ng_ml": 74.70636000823885,
+          "passes_c1_to_c4": true
+        },
+        {
+          "tmax_used_for_ka_h": 3,
+          "ka_per_h": 0.8201257312010134,
+          "checks": {
+            "C1_clearance_vs_exposure": "pass",
+            "C2_half_life": "pass",
+            "C3_steady_state_cmax": "pass",
+            "C4_steady_state_auc": "pass"
+          },
+          "cmax_ng_ml": 68.58656061041953,
+          "passes_c1_to_c4": true
+        }
+      ]
+    },
+    "B_stated_pooled": {
+      "cl_f_l_h": 8.366600265340756,
+      "v_f_l": 92.49864863877742,
+      "provenance": {
+        "cl_f_l_h": "geometric midpoint of 7-10 L/h (MM or KS)",
+        "v_f_l": "geometric midpoint of 62-138 L (MM or KS)"
+      },
+      "primary": {
+        "tmax_used_for_ka_h": 2.5,
+        "ka_per_h": 1.0838300718241598,
+        "k_per_h": 0.09045105402581305,
+        "steady_state": {
+          "cmax_ng_ml": 39.36550993073357,
+          "tmax_h_grid": 2.378,
+          "tmax_h_closed_form": 2.378060146017494,
+          "auc_tau_ng_h_ml_trapezoid": 478.09143982800657,
+          "auc_tau_ng_h_ml_exact": 478.09144373375744,
+          "ctrough_ng_ml": 6.0757590582571295
+        },
+        "checks": {
+          "C1_clearance_vs_exposure": {
+            "model": 8.366600265340756,
+            "label": 4.651162790697675,
+            "ratio": 1.7988190570482623,
+            "result": "fail"
+          },
+          "C2_half_life": {
+            "model": 7.663229445199543,
+            "label": 7.5,
+            "ratio": 1.0217639260266058,
+            "result": "pass"
+          },
+          "C3_steady_state_cmax": {
+            "model": 39.36550993073357,
+            "label": 75,
+            "ratio": 0.5248734657431143,
+            "result": "fail"
+          },
+          "C4_steady_state_auc": {
+            "model": 478.09143982800657,
+            "label": 860,
+            "ratio": 0.5559202788697751,
+            "result": "fail"
+          },
+          "C5_volume_in_stated_range": {
+            "model": 92.49864863877742,
+            "label_range": [
+              62,
+              138
+            ],
+            "inside": true,
+            "result": null
+          },
+          "C6_tmax": {
+            "model": 2.378,
+            "label_range": [
+              2,
+              3
+            ],
+            "inside": true,
+            "result": null
+          }
+        },
+        "passes_c1_to_c4": false
+      },
+      "sensitivity": [
+        {
+          "tmax_used_for_ka_h": 2,
+          "ka_per_h": 1.4919744493217981,
+          "checks": {
+            "C1_clearance_vs_exposure": "fail",
+            "C2_half_life": "pass",
+            "C3_steady_state_cmax": "fail",
+            "C4_steady_state_auc": "fail"
+          },
+          "cmax_ng_ml": 41.054628640211625,
+          "passes_c1_to_c4": false
+        },
+        {
+          "tmax_used_for_ka_h": 3,
+          "ka_per_h": 0.8288686755613026,
+          "checks": {
+            "C1_clearance_vs_exposure": "fail",
+            "C2_half_life": "pass",
+            "C3_steady_state_cmax": "fail",
+            "C4_steady_state_auc": "fail"
+          },
+          "cmax_ng_ml": 37.768402029364886,
+          "passes_c1_to_c4": false
+        }
+      ]
+    }
+  },
+  "decision": {
+    "selected_set": "A_exposure_derived_mm",
+    "eligible": true,
+    "selected_sensitivity_all_pass": true,
+    "rule": "The engine uses the first set in order_of_preference that passes C1 to C4 under the primary ka. A set that passes under the primary ka but fails under either sensitivity ka is still selected, and the sensitivity result is shown with it."
+  },
+  "not_this": [
+    "Not validation: a label agreeing with itself says nothing about whether the curve describes patients.",
+    "Not an outside-data check; that is Phase 3.1d, with its own locked plan.",
+    "Not a dosing recommendation or an exposure prediction for any patient."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "26045013dd113e25a67e590dd77add91c20e234154c40e2956cb7ab8bee2aa40"
+}

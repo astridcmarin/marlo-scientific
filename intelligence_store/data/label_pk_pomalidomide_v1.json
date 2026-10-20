@@ -1,0 +1,213 @@
+{
+  "schema_version": "label-pk-extract-v1",
+  "extract_version": "pomalidomide-label-pk-v1.0",
+  "drug": "pomalidomide",
+  "recorded_on": "2026-10-20",
+  "source": {
+    "document": "POMALYST (pomalidomide) capsules, for oral use. Full prescribing information. Celgene Corporation.",
+    "dailymed_set_id": "2b25ef01-5c9e-11e1-b86c-0800200c9a66",
+    "revised": "2/2025 (as printed on the label)",
+    "spl_version": "not recorded; the downloaded file name begins 20250510 and the PDF creation date is 2025-05-12",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2b25ef01-5c9e-11e1-b86c-0800200c9a66",
+    "file_reviewed": {
+      "file": "20250510_2b25ef01-5c9e-11e1-b86c-0800200c9a66.pdf (48 pages)",
+      "sha256": "b4b0a08d15cdb70eba5e720ccef573cb9487ae407d36bbd694fc961448a69955"
+    },
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted from the PDF text layer (pdftotext); every value below is copied with the sentence it comes from. Independent review pending."
+  },
+  "scope_of_use": "Multiple myeloma (MM) only. Kaposi sarcoma (KS) values are recorded because the label pools MM and KS in some statements, not for use.",
+  "regimen": {
+    "dose_mg": 4,
+    "interval_h": 24,
+    "schedule": "Days 1 through 21 of each 28-day cycle",
+    "route": "oral",
+    "food": "with or without food",
+    "quote": "The recommended dosage of POMALYST is 4 mg once daily orally with or without food on Days 1 through 21 of each 28-day cycle until disease progression.",
+    "location": "section 2.2"
+  },
+  "values": {
+    "auc_tau_ss_mm_4mg_ng_h_ml": {
+      "value": 860,
+      "cv_percent": 37,
+      "population": "MM, 4 mg daily, alone or with dexamethasone, steady state",
+      "quote": "In patients with MM who received POMALYST 4 mg daily alone or in combination with dexamethasone, pomalidomide steady-state drug exposure was characterized by AUC (CV%) of 860 (37%) ng∙h/mL and Cmax (CV%) of 75 (32%) ng/mL.",
+      "location": "section 12.3",
+      "note": "The AUC interval is not stated; read as AUC over the 24 h dosing interval at steady state."
+    },
+    "cmax_ss_mm_4mg_ng_ml": {
+      "value": 75,
+      "cv_percent": 32,
+      "population": "MM, 4 mg daily, steady state",
+      "quote": "same sentence as auc_tau_ss_mm_4mg_ng_h_ml",
+      "location": "section 12.3"
+    },
+    "auc_ss_ks_5mg_ng_h_ml": {
+      "value": 462.3,
+      "cv_percent": 82,
+      "population": "KS, 5 mg daily, steady state; recorded, not used",
+      "quote": "In patients with Kaposi sarcoma (KS) who received POMALYST 5 mg daily, pomalidomide steady-state drug exposure was characterized by AUC of 462.3 ng∙h/mL (82%) and Cmax of 53.1 ng/mL (50%).",
+      "location": "section 12.3"
+    },
+    "tmax_h": {
+      "range": [
+        2,
+        3
+      ],
+      "population": "MM or KS, single oral doses",
+      "quote": "Following administration of single oral doses of POMALYST, the maximum plasma concentration (Cmax) for pomalidomide occurs at 2 to 3 hours postdose in patients with MM or KS.",
+      "location": "section 12.3"
+    },
+    "vd_f_l": {
+      "range": [
+        62,
+        138
+      ],
+      "population": "MM or KS, steady state (pooled)",
+      "quote": "Pomalidomide has a mean apparent volume of distribution (Vd/F) between 62 and 138 L at steady state in patients with MM or KS.",
+      "location": "section 12.3"
+    },
+    "cl_f_l_h": {
+      "range": [
+        7,
+        10
+      ],
+      "population": "MM or KS (pooled)",
+      "quote": "Pomalidomide has a mean total body clearance (CL/F) of 7-10 L/h in patients with MM or KS.",
+      "location": "section 12.3"
+    },
+    "half_life_h_patients": {
+      "value": 7.5,
+      "statistic": "median",
+      "population": "MM or KS (pooled)",
+      "quote": "Pomalidomide is eliminated with a median plasma half-life of 9.5 hours in healthy subjects and 7.5 hours in patients with MM or KS.",
+      "location": "section 12.3"
+    },
+    "half_life_h_healthy": {
+      "value": 9.5,
+      "statistic": "median",
+      "population": "healthy subjects",
+      "quote": "same sentence as half_life_h_patients",
+      "location": "section 12.3"
+    },
+    "fraction_excreted_unchanged": {
+      "urine": 0.02,
+      "feces": 0.08,
+      "population": "healthy subjects, single [14C] dose",
+      "quote": "approximately 2% and 8% of the radiolabeled dose eliminated unchanged as pomalidomide in urine and feces.",
+      "location": "section 12.3"
+    },
+    "protein_binding_percent": {
+      "range": [
+        12,
+        44
+      ],
+      "quote": "Human plasma protein binding of pomalidomide ranges from 12% to 44% and is not concentration dependent.",
+      "location": "section 12.3"
+    }
+  },
+  "linearity": {
+    "stated": false,
+    "note": "The label does not state dose proportionality or time dependence. No statement of non-linear or time-dependent PK was found in sections 2, 8 or 12."
+  },
+  "scenarios": {
+    "renal_moderate_or_severe_no_dialysis": {
+      "auc_fold": 1.0,
+      "study_population": "patients (CLcr 15 to <60 mL/min)",
+      "quote": "Pomalidomide pharmacokinetic parameters were not significantly affected in patients with moderate (30 mL/min ≤ CLcr< 60 mL/min) or severe (15 mL/min ≤ CLcr< 30 mL/min) renal impairment relative to patients with normal renal function (CLcr ≥ 60 mL/min).",
+      "location": "section 12.3"
+    },
+    "renal_severe_requiring_dialysis": {
+      "auc_fold": 1.38,
+      "study_population": "patients",
+      "quote": "Mean exposure (AUC) to pomalidomide increased by 38% in patients with severe renal impairment requiring dialysis (CLcr< 30 mL/min requiring dialysis) and 40% in patients with end stage renal disease (CLcr< 15 mL/min) on non-dialysis days.",
+      "location": "section 12.3",
+      "label_dose_modification": "MM: 3 mg daily, taken after dialysis on dialysis days (section 2.7)"
+    },
+    "renal_esrd_non_dialysis_days": {
+      "auc_fold": 1.4,
+      "study_population": "patients",
+      "quote": "same sentence as renal_severe_requiring_dialysis",
+      "location": "section 12.3"
+    },
+    "hepatic_child_pugh_a": {
+      "auc_fold": 1.51,
+      "study_population": "subjects, single dose",
+      "quote": "Following single dose administration, the AUC of pomalidomide increased 51%, 58%, and 72% in subjects with mild (Child-Pugh class A), moderate (Child-Pugh class B), and severe (Child-Pugh class C) hepatic impairment, respectively compared to subjects with normal liver function.",
+      "location": "section 8.7",
+      "label_dose_modification": "MM: 3 mg daily (section 2.8)"
+    },
+    "hepatic_child_pugh_b": {
+      "auc_fold": 1.58,
+      "study_population": "subjects, single dose",
+      "quote": "same sentence as hepatic_child_pugh_a",
+      "location": "section 8.7",
+      "label_dose_modification": "MM: 3 mg daily (section 2.8)"
+    },
+    "hepatic_child_pugh_c": {
+      "auc_fold": 1.72,
+      "study_population": "subjects, single dose",
+      "quote": "same sentence as hepatic_child_pugh_a",
+      "location": "section 8.7",
+      "label_dose_modification": "MM: 2 mg daily (section 2.8)"
+    },
+    "fluvoxamine_strong_cyp1a2_inhibitor": {
+      "auc_fold": 2.25,
+      "ci90_fold": [
+        1.98,
+        2.57
+      ],
+      "study_population": "healthy subjects",
+      "quote": "Co-administration of fluvoxamine (a strong CYP1A2 inhibitor) with POMALYST increased mean [90% confidence interval] pomalidomide exposure by 125% [98% to 157%] compared to POMALYST alone in healthy subjects.",
+      "location": "section 12.3",
+      "label_dose_modification": "Avoid; if unavoidable, 2 mg (section 2.6)"
+    },
+    "fluvoxamine_with_ketoconazole": {
+      "auc_fold": 2.46,
+      "ci90_fold": [
+        2.26,
+        2.67
+      ],
+      "study_population": "healthy subjects",
+      "quote": "Co-administration of fluvoxamine in the presence of ketoconazole (a strong CYP3A4 and P-gp inhibitor) with POMALYST increased mean pomalidomide exposure by 146% [126% to 167%] compared to POMALYST administered alone in healthy subjects",
+      "location": "section 12.3"
+    },
+    "ketoconazole_strong_cyp3a4_pgp_inhibitor": {
+      "auc_fold": 1.19,
+      "study_population": "16 healthy male subjects",
+      "quote": "Co-administration of ketoconazole (a strong CYP3A4 and P-gp inhibitor) in 16 healthy male subjects increased AUC of pomalidomide by 19% compared to POMALYST administered alone.",
+      "location": "section 12.3"
+    },
+    "carbamazepine_strong_cyp3a4_inducer": {
+      "auc_fold": 0.8,
+      "ci90_fold": [
+        0.73,
+        0.87
+      ],
+      "study_population": "16 healthy male subjects",
+      "quote": "Co-administration of carbamazepine to 16 healthy male subjects decreased AUC of pomalidomide by 20% with a 90% confidence interval [13% to 27%] compared to when pomalidomide was administered alone.",
+      "location": "section 12.3"
+    },
+    "smoking_25_per_day": {
+      "auc_fold": 0.68,
+      "cmax_fold": 1.14,
+      "study_population": "healthy male subjects, single 4 mg dose (14 smokers vs 13 non-smokers)",
+      "quote": "In 14 healthy male subjects who smoked 25 cigarettes per day for a total of 10 days, after single oral dose of 4 mg POMALYST, Cmax of pomalidomide increased 14% while AUC of pomalidomide decreased 32%, compared to that in 13 healthy male subjects who were non-smokers.",
+      "location": "section 12.3"
+    },
+    "high_fat_meal": {
+      "auc_fold": 0.92,
+      "cmax_fold": 0.73,
+      "tmax_delay_h": 2.5,
+      "study_population": "healthy subjects",
+      "quote": "delays the Tmax by 2.5 hours, decreased mean plasma Cmax and AUC in healthy subjects by about 27% and 8%, respectively.",
+      "location": "section 12.3"
+    }
+  },
+  "not_stated": [
+    "The interval of the steady-state AUC (read as 0-24 h).",
+    "Absolute bioavailability; all clearance and volume values are apparent (divided by F).",
+    "Absorption rate constant and lag time.",
+    "Whether the MM-only exposure and the pooled MM-or-KS clearance and volume come from the same studies."
+  ]
+}

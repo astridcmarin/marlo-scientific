@@ -1,0 +1,88 @@
+{
+  "schema_version": "label-consistency-plan-v1",
+  "plan_version": "label-exposure-consistency-plan-v1.0",
+  "recorded_on": "2026-10-20",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before the label engine was implemented and before any model curve, Cmax or Tmax was computed. Not blinded: the label was read in full, and two hand calculations were already made and published in docs/LABEL_EXPOSURE_ENGINE.md (4 mg / 860 ng.h/mL = 4.65 L/h; V/F about 50 L from 4.65 L/h and a 7.5 h half-life). The Li 2017 parameters were also read; they are not used here.",
+  "classification": "internal_label_consistency_check",
+  "not_this": [
+    "Not validation: a label agreeing with itself says nothing about whether the curve describes patients.",
+    "Not an outside-data check; that is Phase 3.1d, with its own locked plan.",
+    "Not a dosing recommendation or an exposure prediction for any patient."
+  ],
+  "question": "Can a one-compartment, typical-value curve built from the pomalidomide label by fixed rules reproduce the label's own statements for patients with multiple myeloma, and which parameter set should the engine use?",
+  "inputs": {
+    "label_extract": {
+      "path": "intelligence_store/data/label_pk_pomalidomide_v1.json",
+      "sha256": "ce4b9afa97e1ba84b9e7cf802c5da80b8927e5db51c8506dddb0c993d6398417"
+    },
+    "target_population": "Multiple myeloma",
+    "regimen": "4 mg orally every 24 h, evaluated at steady state (superposition to steady state; the 21-of-28-day schedule does not change steady-state values within a cycle for a drug with a half-life of a few hours)."
+  },
+  "model": {
+    "structure": "One compartment, first-order absorption, no lag time, linear; apparent parameters (CL/F, V/F), so F is not needed.",
+    "steady_state_concentration": "C(t) = Dose ka / (V/F (ka - k)) [e^(-k t) / (1 - e^(-k tau)) - e^(-ka t) / (1 - e^(-ka tau))], 0 <= t <= tau, k = (CL/F)/(V/F).",
+    "ka_rule": "ka is not in the label. It is derived from the label Tmax by solving Tmax = ln(ka/k) / (ka - k) for ka > k, using the single-dose Tmax the label reports. Primary: midpoint of the stated range (2.5 h). Sensitivity: each end (2 and 3 h).",
+    "numerical": "Cmax and Tmax at steady state are found on a 0.001 h grid over one dosing interval and checked against the closed-form steady-state Tmax."
+  },
+  "parameter_sets": {
+    "order_of_preference": [
+      "A_exposure_derived_mm",
+      "B_stated_pooled"
+    ],
+    "why_this_order": "Set A uses the only quantities the label reports for MM patients alone at the labelled dose (steady-state AUC and Cmax); set B uses values pooled across MM and KS.",
+    "A_exposure_derived_mm": {
+      "cl_f": "Dose / AUC_tau,ss = 4 mg / 860 ng.h/mL (MM, 4 mg daily, steady state).",
+      "v_f": "CL/F x t1/2 / ln 2, with t1/2 = 7.5 h (median, patients with MM or KS).",
+      "ka": "ka_rule"
+    },
+    "B_stated_pooled": {
+      "cl_f": "Geometric midpoint of the stated range, sqrt(7 x 10) L/h (MM or KS).",
+      "v_f": "Geometric midpoint of the stated range, sqrt(62 x 138) L (MM or KS).",
+      "ka": "ka_rule"
+    }
+  },
+  "checks": {
+    "C1_clearance_vs_exposure": {
+      "compare": "Set CL/F against Dose / AUC_tau,ss (4.651 L/h)",
+      "pass_or_fail": true
+    },
+    "C2_half_life": {
+      "compare": "ln 2 x (V/F) / (CL/F) against 7.5 h",
+      "pass_or_fail": true
+    },
+    "C3_steady_state_cmax": {
+      "compare": "Model steady-state Cmax against 75 ng/mL",
+      "pass_or_fail": true
+    },
+    "C4_steady_state_auc": {
+      "compare": "Model AUC over 0-24 h at steady state against 860 ng.h/mL",
+      "pass_or_fail": true
+    },
+    "C5_volume_in_stated_range": {
+      "compare": "Set V/F against 62-138 L",
+      "pass_or_fail": false,
+      "role": "descriptive; the stated range is pooled with KS"
+    },
+    "C6_tmax": {
+      "compare": "Model steady-state Tmax against 2-3 h",
+      "pass_or_fail": false,
+      "role": "descriptive; the label's Tmax is single-dose and set by the ka rule"
+    },
+    "which_checks_are_informative": "For set A, C1, C2 and C4 hold by construction (its CL/F comes from the AUC and its V/F from the half-life), so C3 (steady-state Cmax) is its only informative pass-or-fail check. For set B, all four are informative."
+  },
+  "tolerance": {
+    "rule": "A pass-or-fail check passes if model / label is within 0.67 to 1.5 inclusive.",
+    "why": "Wide enough for rounding, medians against means and between-study differences in a label; narrow enough that a twofold disagreement fails."
+  },
+  "decision_rule": {
+    "selection": "The engine uses the first set in order_of_preference that passes C1 to C4 under the primary ka. A set that passes under the primary ka but fails under either sensitivity ka is still selected, and the sensitivity result is shown with it.",
+    "if_none_passes": "Pomalidomide is recorded as not eligible for a label-based curve, with the failing checks.",
+    "reporting": "Every check for both sets is reported, including for the set not selected.",
+    "never": "No value is adjusted after seeing results; KS values and Li 2017 values are not used to choose a set."
+  },
+  "scenarios": {
+    "rule": "Each label fold-change in the extract is applied as CL/F divided by the AUC fold, to the selected set only, with its quote and study population shown. Scenarios are not combined. Scenarios from healthy-subject studies are labelled as such.",
+    "not_checked_here": "Scenarios are carried into the engine, not tested; no outside data for them are in hand."
+  }
+}

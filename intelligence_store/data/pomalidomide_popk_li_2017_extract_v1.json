@@ -1,0 +1,135 @@
+{
+  "schema_version": "published-popk-extract-v1",
+  "extract_version": "pomalidomide-popk-li-2017-v1.0",
+  "drug": "pomalidomide",
+  "recorded_on": "2026-10-20",
+  "source": {
+    "citation": "Li Y, Wang X, O'Mara E, et al. Population pharmacokinetics of pomalidomide in patients with relapsed or refractory multiple myeloma with various degrees of impaired renal function. Clin Pharmacol Adv Appl. 2017;9:133-145.",
+    "doi": "10.2147/CPAA.S144606",
+    "file_reviewed": {
+      "file": "cpaa-9-133.pdf",
+      "sha256": "fc32441820ae03d541e03764d61e1e9fe4dc7a384d9d17a211a33756bd69c30f"
+    },
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted from the PDF text layer; Tables 3 and 4 are text in this file. Independent review pending."
+  },
+  "relationship_to_label_engine": "Outside reference for Phase 3.1d. Not used to build or choose any label-based parameter set.",
+  "population": {
+    "n": 63,
+    "studies": [
+      "CC-4047-MM-008",
+      "CC-4047-MM-013"
+    ],
+    "disease": "relapsed or refractory multiple myeloma",
+    "renal_groups": {
+      "normal_crcl_ge_60": 8,
+      "moderate": 15,
+      "severe_no_dialysis": 30,
+      "severe_dialysis": 10
+    },
+    "location": "Table 1",
+    "dose": "once-daily oral pomalidomide, 2 to 4 mg (pooled)"
+  },
+  "structure": {
+    "model": "one compartment, first-order absorption with lag time, apparent clearance and volume",
+    "quote": "This model featured the first-order absorption rate constant (Ka), absorption lag time, apparent central compartment volume of distribution, and apparent clearance (CL/F).",
+    "software": "NONMEM 7.2"
+  },
+  "table3_categorical_renal": {
+    "location": "Table 3, journal page 139",
+    "ka_per_h": {
+      "estimate": 0.724,
+      "bootstrap_ci90": [
+        0.533,
+        1.23
+      ]
+    },
+    "v_f_l": {
+      "estimate": 58.3,
+      "bootstrap_ci90": [
+        51.597,
+        66.055
+      ]
+    },
+    "cl_f_normal_renal_l_h": {
+      "estimate": 5.13,
+      "bootstrap_ci90": [
+        4.283,
+        6.069
+      ]
+    },
+    "cl_f_ratio_moderate": {
+      "estimate": 1.02,
+      "bootstrap_ci90": [
+        0.848,
+        1.195
+      ]
+    },
+    "cl_f_ratio_severe_no_dialysis": {
+      "estimate": 1.01,
+      "bootstrap_ci90": [
+        0.871,
+        1.169
+      ]
+    },
+    "cl_f_ratio_severe_dialysis": {
+      "estimate": 0.724,
+      "bootstrap_ci90": [
+        0.606,
+        0.844
+      ]
+    },
+    "tlag_h": {
+      "estimate": 0.154,
+      "bootstrap_ci90": [
+        0.002,
+        0.43
+      ]
+    },
+    "omega2": {
+      "ka": 0.782,
+      "v_f": 0.139,
+      "cl_f": 0.198,
+      "cov_v_cl": 0.163
+    },
+    "residual_delta2": 0.341
+  },
+  "table4_simulated_auc_0_24_ss": {
+    "location": "Table 4, journal page 139",
+    "statistic": "mean (90% CI) of 200 Monte Carlo trials of 50 patients each; simulated, not observed",
+    "dose": "not stated in the text; the group 1 mean is consistent with 4 mg daily (4000 ug / 5.13 L/h = 780 ng.h/mL)",
+    "normal": {
+      "mean": 787.8,
+      "ci90": [
+        601.9,
+        1025.9
+      ]
+    },
+    "moderate": {
+      "mean": 773.5,
+      "ci90": [
+        609.8,
+        949.9
+      ]
+    },
+    "severe_no_dialysis": {
+      "mean": 789.7,
+      "ci90": [
+        628.3,
+        1000.7
+      ]
+    },
+    "severe_dialysis": {
+      "mean": 1070.0,
+      "ci90": [
+        846.9,
+        1339.5
+      ]
+    }
+  },
+  "not_stated": [
+    "Number of concentration samples.",
+    "Sampling times.",
+    "Dose used in the Table 4 simulations."
+  ]
+}
