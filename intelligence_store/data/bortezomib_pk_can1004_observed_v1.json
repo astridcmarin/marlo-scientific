@@ -1,0 +1,46 @@
+{
+  "schema_version": "observed-summary-v1",
+  "summary_version": "bortezomib-pk-can1004-v1.0",
+  "drug": "bortezomib",
+  "recorded_on": "2026-10-20",
+  "source": {
+    "citation": "FDA Center for Drug Evaluation and Research. VELCADE (bortezomib) NDA 021602, supplement S-027 (subcutaneous administration), review documents, 2011-2012. Clinical pharmacology (QT) review of sponsor study 26866138-CAN-1004.",
+    "url": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2012/021602s027.pdf",
+    "file_reviewed": {"file": "021602s027.pdf (379 pages)", "sha256": "8f04422867a8d7e3d165960ad0054be6468f7c4da97ce2ec09f324fb4b481398"},
+    "storage": "Downloaded by the platform owner; kept on her computer only (37 MB), not committed.",
+    "extraction": "Table 7 (PDF page 293) and Table 2 (PDF page 286) are images. Read by OCR at 220 dpi and checked cell by cell against the rendered page image. Independent review pending."
+  },
+  "relationship_to_model": "Not used to build or fit the Lignet 2022 PK model (Hanley 2017 pediatric parameters scaled to adults). Not among the Ogawa 2008 patients. An external consistency check.",
+  "design": {
+    "study": "CAN-1004: randomized, open-label phase 1 study in relapsed multiple myeloma; 1.3 mg/m2 IV bolus or SC on days 1, 4, 8 and 11 of a 21-day cycle (FDA review, PDF page 228).",
+    "arm_used": "IV bolus only (n = 10 PK-evaluable). The SC arm is not used: the model has no absorption step.",
+    "pk_sampling_times_after_dose_h": [0.0333333333333, 0.0833333333333, 0.25, 0.5, 1, 2, 4, 6, 10, 24, 48, 72],
+    "pk_sampling_quote": "Table 2: +2, +5, +15, +30, +60, +120, +240, +360, +600 minutes; +24, +48, +72 hours, on Cycle 1 Day 1 and Day 11 (pre-dose sample at -30 minutes).",
+    "note_on_day1_72h": "The day 1 72 h sample falls at the time of the day 4 dose; read as a pre-dose sample.",
+    "location": "Table 2, PDF page 286 (sponsor report page 23)"
+  },
+  "table7": {
+    "location": "Table 7, PDF page 293 (sponsor report CAN-1004 page 41)",
+    "statistic": "mean (SD); tmax median (min-max)",
+    "iv_n": {"day1": 10, "day11": 10},
+    "iv": {
+      "cmax_ng_ml": {"day1": [286, 466], "day11": [162, 79.9]},
+      "c0_ng_ml": {"day1": [794, 1723], "day11": [321, 181]},
+      "auc_last_ng_h_ml": {"day1": [104, 99.0], "day11": [241, 82.0]},
+      "auc_inf_ng_h_ml": {"day1": [183, 158], "day11": [409, 187]},
+      "cl_l_h": {"day1": [17.9, 8.22], "day11": [6.60, 3.15]},
+      "vd_l": {"day1": [1636, 850], "day11": [538, 194]},
+      "vdss_l": {"day1": [1370, 757], "day11": [463, 180]},
+      "half_life_h": {"day1": [98.1, 145.0], "day11": [66.7, 40.7]},
+      "tmax_h_median_range": {"day1": [0.03, 0.03, 0.05], "day11": [0.03, 0.03, 0.50]}
+    },
+    "row_quotes": [
+      "AUClast (ng.h/mL) 104 (99.0) 92.1 (17.8) 241 (82.0) 195 (51.2)",
+      "AUC∞ (ng.h/mL) 183 (158) 151 (53.5) 409 (187) 405 (138)",
+      "CL (L/h) 17.9 (8.22) -- 6.60 (3.15) --",
+      "C0 (ng/mL) 794 (1723) -- 321 (181) --"
+    ],
+    "not_reported": ["NCA software, AUC rule and terminal-phase points", "BSA of each patient", "per-patient day 11 / day 1 ratios", "individual concentrations"]
+  },
+  "clinical_prediction_validated": false
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": "external-consistency-plan-v1",
+  "plan_version": "bortezomib-pk-can1004-check-plan-v1.0",
+  "recorded_on": "2026-10-20",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before the model was evaluated at the CAN-1004 sampling times. Not blinded: the CAN-1004 Table 7 values were read before writing this plan, and from 3.0f it was known that the model's single-dose AUC to infinity at 1.3 mg/m2 is about 141 ng.h/mL and that its emulated day 11 AUC was consistent with Ogawa 2008. No emulated value for the CAN-1004 schedule had been computed.",
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "not_this": [
+    "Not validation or qualification of the PK model; no acceptance limits are introduced.",
+    "Not a comparison of individual concentrations; only Table 7 means and SDs are available.",
+    "Not a re-fit: no parameter is estimated or tuned.",
+    "Not a dosing or exposure prediction for any patient."
+  ],
+  "question": "Does the 3.0f finding (constant-clearance model over-predicts first-dose exposure and under-predicts the rise to day 11) hold in a second, non-Japanese study with 72 h sampling (CAN-1004, IV arm)?",
+  "data": {
+    "observed": "intelligence_store/data/bortezomib_pk_can1004_observed_v1.json",
+    "model": "intelligence_store/bortezomib_pk.py (exact three-compartment solution; Lignet 2022 Table 1 per-m2 parameters), unchanged from 3.0f"
+  },
+  "simulation": {
+    "regimen": "IV bolus 1.3 mg/m2 at t = 0, 72, 168 and 240 h; no drug before t = 0.",
+    "body_size": "Not needed: dose and model parameters are per m2, so concentrations do not depend on BSA. Clearance in L/h is not compared because patient BSA is not reported.",
+    "day1_profile": "Model concentration at each CAN-1004 sampling time after t = 0; the 72 h sample is taken before the day 4 dose.",
+    "day11_profile": "Model concentration at each sampling time after t = 240 h, including drug remaining from the doses on days 1, 4 and 8."
+  },
+  "nca_emulation": {
+    "method": "Same function as 3.0f (bortezomib_pk_ogawa_check.nca): C0 by log-linear back-extrapolation from the first two samples (2 and 5 min); AUC to the last sample (72 h) by trapezoids from (0, C0); terminal slope over the last points; AUC to infinity adds C_last / slope.",
+    "readings": {
+      "primary": {"auc_rule": "linear", "terminal_points": 3},
+      "sensitivity": [{"auc_rule": "linear", "terminal_points": 4},
+                      {"auc_rule": "linear_up_log_down", "terminal_points": 3},
+                      {"auc_rule": "linear_up_log_down", "terminal_points": 4}]
+    }
+  },
+  "endpoints": {
+    "primary": [
+      {"name": "auc_last_day1", "observed": "AUClast day 1, IV, n = 10"},
+      {"name": "auc_last_day11", "observed": "AUClast day 11, IV, n = 10"}
+    ],
+    "secondary": [
+      {"name": "auc_inf_day1, auc_inf_day11", "why_secondary": "depend on the terminal-phase method, which is not reported"},
+      {"name": "c0_day1, c0_day11"}
+    ],
+    "descriptive": [
+      "ratio of means AUClast day 11 / day 1 (observed 241 / 104 = 2.32); no interval, because per-patient ratios are not reported",
+      "half_life_day1, half_life_day11 (emulated vs reported)",
+      "the same model's 3.0f results against Ogawa 2008, for side-by-side reading"
+    ]
+  },
+  "comparison": {
+    "interval": "95% confidence interval of the observed mean: mean +/- t(0.975, 9) x SD / sqrt(10), t = 2.2622.",
+    "classification": {"consistent": "inside the interval", "model_over_predicts": "above", "model_under_predicts": "below"},
+    "robustness": "Each classified endpoint under all four NCA readings; robust if all four agree."
+  },
+  "decision_rule": {
+    "summary": "The model is recorded as consistent with CAN-1004 only if both primary endpoints are consistent under the primary reading. The 3.0f day 1 finding is recorded as reproduced in a second study if AUClast day 1 is over-predicted; as not reproduced if consistent. The rise is assessed descriptively.",
+    "never": "No parameter is re-estimated or tuned. The model is not changed by this check."
+  },
+  "known_differences": [
+    "Typical-value model compared with arithmetic means of skewed quantities (day 1 AUClast SD 99 on a mean of 104).",
+    "n = 10; small group.",
+    "The sponsor's NCA settings are not reported; four readings bracket the usual choices.",
+    "Concomitant dexamethasone and other study conditions are not described in the review pages used."
+  ]
+}
