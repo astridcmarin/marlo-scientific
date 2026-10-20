@@ -1,0 +1,66 @@
+{
+  "schema_version": "label-consistency-plan-v1",
+  "plan_version": "label-exposure-consistency-plan-melphalan-v1.0",
+  "recorded_on": "2026-10-20",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before the intravenous engine was implemented and before any melphalan curve, Cmax or AUC was computed. Not blinded: the label was read in full, and one hand calculation was made before writing this plan: 100 mg/m2 / 451 ug.min/mL is about 222 mL/min/m2, below the stated 250-325 mL/min/m2. The rules mirror label-exposure-consistency-plan-v1.0 (pomalidomide) with the changes an intravenous drug needs.",
+  "classification": "internal_label_consistency_check",
+  "not_this": [
+    "Not validation: a label agreeing with itself says nothing about whether the curve describes patients.",
+    "Not an outside-data check; that would be a later step with its own locked plan.",
+    "Not a dosing recommendation or an exposure prediction for any patient; melphalan conditioning is given only under specialist care."
+  ],
+  "question": "Can a one-compartment, typical-value intravenous curve built from the EVOMELA label by fixed rules reproduce the label's own statements for patients with multiple myeloma, and which parameter set should the engine use?",
+  "inputs": {
+    "label_extract": {"path": "intelligence_store/data/label_pk_melphalan_evomela_v1.json", "sha256": "0d09f06e1e9d7d9feb887d815074dbd5e1589e449067f32078f1aa8f9dd2d968"},
+    "target_population": "Multiple myeloma, conditioning before autologous stem cell transplantation",
+    "regimen": "100 mg/m2 as a 30-minute constant-rate intravenous infusion, evaluated as a single infusion. The second infusion 24 h later is not needed for the checks: with a 75-minute half-life less than 0.001% of the first dose remains at 24 h."
+  },
+  "model": {
+    "structure": "One compartment, linear, constant-rate infusion, per m2 of body surface area; typical values.",
+    "concentration": "During the infusion (0 <= t <= T): C(t) = R / CL (1 - e^(-k t)), R = dose / T. After it: C(t) = C(T) e^(-k (t - T)). k = CL / V.",
+    "cmax": "C(T), the concentration at the end of the infusion.",
+    "auc": "Dose / CL (AUC from zero to infinity), checked against numerical integration.",
+    "why_one_compartment": "The label gives one half-life and one volume range. Melphalan has a short distribution phase (about 10 minutes in older labels), which a one-compartment curve does not show; the end-of-infusion Cmax check tests how much that matters."
+  },
+  "parameter_sets": {
+    "order_of_preference": ["A_exposure_derived_mm", "B_stated_ranges"],
+    "why_this_order": "Set A uses the only quantities the label reports for myeloma patients at the labelled dose (Cmax and AUC0-inf at 100 mg/m2); the clearance and volume ranges do not state their population.",
+    "A_exposure_derived_mm": {
+      "cl": "Dose / AUC0-inf = 100 mg/m2 / 451 ug.min/mL.",
+      "v": "CL x t1/2 / ln 2, with t1/2 = 75 minutes.",
+      "infusion": "30 minutes"
+    },
+    "B_stated_ranges": {
+      "cl": "Geometric midpoint of 250-325 mL/min/m2.",
+      "v": "Geometric midpoint of 35.5-185.7 L/m2.",
+      "infusion": "30 minutes"
+    }
+  },
+  "checks": {
+    "C1_clearance_vs_exposure": {"compare": "Set CL against Dose / AUC0-inf", "pass_or_fail": true},
+    "C2_half_life": {"compare": "ln 2 x V / CL against 75 minutes", "pass_or_fail": true},
+    "C3_cmax_end_of_infusion": {"compare": "Model concentration at the end of the 30-minute infusion against 5.8 ug/mL", "pass_or_fail": true},
+    "C4_auc_inf": {"compare": "Model AUC0-inf against 451 ug.min/mL", "pass_or_fail": true},
+    "C5_volume_in_stated_range": {"compare": "Set V against 35.5-185.7 L/m2", "pass_or_fail": false, "role": "descriptive; the type of volume is not stated"},
+    "C6_clearance_in_stated_range": {"compare": "Set CL against 250-325 mL/min/m2", "pass_or_fail": false, "role": "descriptive"},
+    "which_checks_are_informative": "For set A, C1, C2 and C4 hold by construction (its CL comes from the AUC and its V from the half-life), so C3 (end-of-infusion Cmax) is its only informative pass-or-fail check. For set B, all four are informative."
+  },
+  "sensitivity": {
+    "infusion_duration": "C3 is also computed for 24- and 48-minute infusions, the range of infusion times reported in the clinical trial (section 6.1: \"administered over ~30 minutes (range: 24-48 minutes)\"). Reported, not used for selection."
+  },
+  "tolerance": {
+    "rule": "A pass-or-fail check passes if model / label is within 0.67 to 1.5 inclusive.",
+    "why": "Same as the pomalidomide plan, so drugs are held to one standard."
+  },
+  "decision_rule": {
+    "selection": "The engine uses the first set in order_of_preference that passes C1 to C4 for a 30-minute infusion.",
+    "if_none_passes": "Melphalan is recorded as not eligible for a label-based curve, with the failing checks.",
+    "reporting": "Every check for both sets is reported, including for the set not selected.",
+    "never": "No value is adjusted after seeing results."
+  },
+  "scenarios": {
+    "rule": "Each label covariate statement is applied as CL multiplied by its stated factor (ideal body weight 45 kg x 0.72, 100 kg x 1.31; creatinine clearance 30 mL/min x 0.718), one at a time, to the selected set only, with its quote. They are stated for ideal body weight while the curve is per m2; this mismatch is shown with each scenario.",
+    "not_checked_here": "Scenarios are carried into the engine, not tested."
+  }
+}

@@ -9,6 +9,8 @@ PINS = {
     'label_pk_pomalidomide_v1.json': 'ce4b9afa97e1ba84b9e7cf802c5da80b8927e5db51c8506dddb0c993d6398417',
     'pomalidomide_popk_li_2017_extract_v1.json': '4d9c9d27608f4ae91b5f5ee3dde3ea41019cf7b4d1a4ed918d51970e05e34f1b',
     'label_exposure_consistency_plan_v1.json': '146854b3471dacf4c5c578143ec99dec2e35e55a589961e5773580fc40bceb54',
+    'label_pk_melphalan_evomela_v1.json': '0d09f06e1e9d7d9feb887d815074dbd5e1589e449067f32078f1aa8f9dd2d968',
+    'label_exposure_consistency_plan_melphalan_v1.json': 'c59e3a523a3211a319388e3a4839f9fce777f6df2d0c8496a16882638f4530f9',
 }
 
 
@@ -57,6 +59,18 @@ class LabelExtract(unittest.TestCase):
         self.assertIn('125%', s['fluvoxamine_strong_cyp1a2_inhibitor']['quote'])
         self.assertEqual(s['fluvoxamine_strong_cyp1a2_inhibitor']['auc_fold'], 2.25)
         self.assertIn('healthy', s['fluvoxamine_strong_cyp1a2_inhibitor']['study_population'])
+
+
+class MelphalanInputs(unittest.TestCase):
+    def test_plan_cites_the_extract_and_every_value_has_a_quote(self):
+        plan = load('label_exposure_consistency_plan_melphalan_v1.json')
+        self.assertEqual(plan['status'], 'locked_before_computation')
+        self.assertEqual(plan['inputs']['label_extract']['sha256'], PINS['label_pk_melphalan_evomela_v1.json'])
+        label = load('label_pk_melphalan_evomela_v1.json')
+        for group in ('values', 'scenarios'):
+            for key, entry in label[group].items():
+                self.assertTrue(entry.get('quote'), key)
+        self.assertIn('5.8 ± 1.5 mcg/mL and 451', label['values']['cmax_single_100_mg_m2_ug_ml']['quote'])
 
 
 class LiExtract(unittest.TestCase):
