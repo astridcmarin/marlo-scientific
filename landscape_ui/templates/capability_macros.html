@@ -4,6 +4,7 @@
   <p class="cap-level-head"><span class="cap-level-label">{{ level.label }}</span> <span class="cap-level-scale" aria-hidden="true">{% for i in range(1, 5) %}<span class="cap-step{% if i <= level.rank %} cap-step-on{% endif %}"></span>{% endfor %}</span></p>
   <p class="cap-level-meaning">{{ level.meaning }}</p>
   {% if level.models %}<p class="cap-level-models">Models: {% for m in level.models %}{% if site_models_url %}<a href="{{ site_models_url }}/{{ m.model_id }}">{{ m.name }}</a>{% else %}{{ m.name }}{% endif %}{% if m.disagreements %} <span class="cap-disagree">outside data disagree ({{ m.disagreements }})</span>{% endif %}{% if not loop.last %}; {% endif %}{% endfor %}</p>{% endif %}
+  {% if level.label_exposure_drug %}<p class="cap-level-models"><a href="{{ url_for('landscape.label_exposure', drug=level.label_exposure_drug) }}">Open the label-based exposure curve</a> · checked against its own label and an outside population model</p>{% endif %}
   {% if level.note %}<p class="cap-level-note">{{ level.note }}</p>{% endif %}
 </div>
 {% endmacro %}

@@ -25,7 +25,7 @@
 <!-- Published renal PK evidence v1 -->
 {% set patient_active = patient_active or request.endpoint == 'landscape.renal_pk_evidence' %}
 <!-- Drug capability library v1 -->
-{% set patient_active = patient_active or request.endpoint == 'landscape.drug_capability_library' %}
+{% set patient_active = patient_active or request.endpoint in ['landscape.drug_capability_library', 'landscape.label_exposure'] %}
 <!-- Simulation Lab navigation v1 -->
       {% set simulation_active = request.endpoint in simulation_endpoints|default([]) %}
       {% set patient_active = patient_active and not simulation_active %}

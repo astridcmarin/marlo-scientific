@@ -1,0 +1,83 @@
+{% extends "landscape_base.html" %}
+{% from "capability_macros.html" import capability_level with context %}
+{% block title %}{{ v.label }} · Label-based exposure{% endblock %}
+{% block content %}
+{% set fmt1 = '%.1f' %}{% set fmt0 = '%.0f' %}{% set fmt2 = '%.2f' %}
+<p><a href="{{ url_for('landscape.drug_capability_library', q=v.label) }}">&#8592; Drug and model library</a></p>
+<p class="eyebrow">Capability level · Label-based exposure</p>
+<h1>{{ v.label }}: typical exposure from the product label</h1>
+<section class="scenario-notice"><strong>Typical value from the label — not a population model, not a prediction for any patient</strong>
+<p>This curve is built from the numbers in the {{ v.label|lower }} prescribing information for adults with multiple myeloma at the labelled dose. It describes a typical patient only: there is no variability around it, and real patients differ widely (the label reports a 37% coefficient of variation in exposure). It gives no dosing guidance.</p>
+<p>Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong></p></section>
+
+<section class="panel"><h2>Regimen and scenario</h2>
+<p>{{ v.regimen.dose_mg|int }} mg orally once daily, {{ v.regimen.schedule }} — the labelled myeloma regimen (section 2.2). Other doses are not run.</p>
+<form method="get"><label for="scenario">Apply one label-reported change</label>
+<select id="scenario" name="scenario"><option value="">None — typical myeloma patient</option>
+{% for s in v.scenarios if s.selectable %}<option value="{{ s.id }}" {% if v.scenario and v.scenario.id == s.id %}selected{% endif %}>{{ s.label }} (exposure ×{{ '%g'|format(s.auc_fold) }})</option>{% endfor %}</select>
+<button class="button secondary">Show</button></form>
+{% if v.scenario %}<div class="cap-level" role="note"><p><strong>{{ v.scenario.label }}</strong> — label: “{{ v.scenario.quote }}” ({{ v.scenario.location }})</p>
+<p>Studied in: {{ v.scenario.study_population }}.{% if v.scenario.not_myeloma_patients %} <strong>Not studied in myeloma patients;</strong> the change is carried over unchanged.{% endif %}{% if v.scenario.label_dose_modification %} Label dose modification: {{ v.scenario.label_dose_modification }}.{% endif %}</p>
+<p>Applied as apparent clearance ÷ {{ '%g'|format(v.scenario.auc_fold) }}; volume and absorption unchanged. The label states only the change in AUC, so the scenario's peak and trough are a consequence of this model, not label values. Scenarios are never combined.</p></div>{% endif %}
+</section>
+
+<section class="panel"><h2>Steady state: one day at the labelled dose (ng/mL)</h2>
+<svg class="transit-chart" viewBox="0 0 780 290" role="img" aria-labelledby="ss-title"><title id="ss-title">Typical steady-state {{ v.label|lower }} concentration over one 24-hour dosing interval, with the label's reported peak and the Li 2017 model's typical curve{% if v.scenario %}, and the selected scenario{% endif %}.</title>
+{% for t in charts.steady.y_ticks %}<line x1="70" y1="{{ t.y }}" x2="740" y2="{{ t.y }}" stroke="#d8e0e4"/><text x="62" y="{{ t.y + 4 }}" text-anchor="end" font-size="12">{{ t.label }}</text>{% endfor %}
+{% for t in charts.steady.x_ticks %}<text x="{{ t.x }}" y="270" text-anchor="middle" font-size="12">{{ t.label }}</text>{% endfor %}
+<text x="405" y="287" text-anchor="middle" font-size="12">Hours after the daily dose</text>
+<line x1="{{ charts.steady.label_cmax.x0 }}" y1="{{ charts.steady.label_cmax.y }}" x2="{{ charts.steady.label_cmax.x1 }}" y2="{{ charts.steady.label_cmax.y }}" stroke="#263238" stroke-width="4"/>
+<polyline points="{{ charts.steady.lines.li_2017_typical }}" fill="none" stroke="#8a6d3b" stroke-width="2" stroke-dasharray="6 4"/>
+<polyline points="{{ charts.steady.lines.base }}" fill="none" stroke="#007b83" stroke-width="2.5"/>
+{% if charts.steady.lines.scenario %}<polyline points="{{ charts.steady.lines.scenario }}" fill="none" stroke="#b5651d" stroke-width="2.5"/>{% endif %}
+</svg>
+<p><span style="color:#007b83">■</span> Label-based curve · <span style="color:#263238">▬</span> Label: steady-state Cmax {{ v.label_points.cmax_ng_ml }} ng/mL, reached 2–3 h after a dose · <span style="color:#8a6d3b">- -</span> Li 2017 population model, typical patient (outside check){% if v.scenario %} · <span style="color:#b5651d">■</span> {{ v.scenario.label }}{% endif %}</p>
+<div class="table-scroll"><table><thead><tr><th></th><th>Peak</th><th>Time of peak</th><th>Trough (24 h)</th><th>AUC over 24 h</th></tr></thead><tbody>
+<tr><td>Label-based curve</td><td>{{ fmt1|format(v.steady_state.cmax_ng_ml) }} ng/mL</td><td>{{ fmt1|format(v.steady_state.tmax_h_grid) }} h</td><td>{{ fmt1|format(v.steady_state.ctrough_ng_ml) }} ng/mL</td><td>{{ fmt0|format(v.steady_state.auc_tau_ng_h_ml_exact) }} ng·h/mL</td></tr>
+<tr><td>Label, myeloma patients</td><td>{{ v.label_points.cmax_ng_ml }} ng/mL (CV 32%)</td><td>2–3 h (single dose)</td><td>not stated</td><td>{{ v.label_points.auc_ng_h_ml }} ng·h/mL (CV 37%)</td></tr>
+{% if v.scenario %}<tr><td>{{ v.scenario.label }}</td><td>{{ fmt1|format(v.scenario_steady_state.cmax_ng_ml) }} ng/mL</td><td>{{ fmt1|format(v.scenario_steady_state.tmax_h_grid) }} h</td><td>{{ fmt1|format(v.scenario_steady_state.ctrough_ng_ml) }} ng/mL</td><td>{{ fmt0|format(v.scenario_steady_state.auc_tau_ng_h_ml_exact) }} ng·h/mL</td></tr>{% endif %}
+</tbody></table></div></section>
+
+<section class="panel"><h2>The first three days (ng/mL)</h2>
+<svg class="transit-chart" viewBox="0 0 780 290" role="img" aria-labelledby="w-title"><title id="w-title">Typical concentration over the first 72 hours of daily dosing, approaching steady state within about two days.</title>
+{% for t in charts.first.y_ticks %}<line x1="70" y1="{{ t.y }}" x2="740" y2="{{ t.y }}" stroke="#d8e0e4"/><text x="62" y="{{ t.y + 4 }}" text-anchor="end" font-size="12">{{ t.label }}</text>{% endfor %}
+{% for t in charts.first.x_ticks %}<text x="{{ t.x }}" y="270" text-anchor="middle" font-size="12">{{ t.label }}</text>{% endfor %}
+{% for x in charts.first.doses %}<line x1="{{ x }}" y1="250" x2="{{ x }}" y2="256" stroke="#455a64" stroke-width="2"/>{% endfor %}
+<text x="405" y="287" text-anchor="middle" font-size="12">Hours from the first dose (ticks mark doses)</text>
+<polyline points="{{ charts.first.lines.base }}" fill="none" stroke="#007b83" stroke-width="2.5"/>
+{% if charts.first.lines.scenario %}<polyline points="{{ charts.first.lines.scenario }}" fill="none" stroke="#b5651d" stroke-width="2.5"/>{% endif %}
+</svg>
+<p>With a half-life of {{ fmt1|format(v.parameters.half_life_h) }} h, the drug accumulates only slightly with once-daily dosing and is close to steady state by the second day.</p></section>
+
+<section class="panel"><h2>How the curve is built</h2>
+<p>One compartment with first-order absorption, typical values, apparent parameters (divided by the unknown bioavailability):</p>
+<ul><li>CL/F {{ fmt2|format(v.parameters.cl_f_l_h) }} L/h — {{ v.parameters.provenance.cl_f_l_h }}</li>
+<li>V/F {{ fmt1|format(v.parameters.v_f_l) }} L — {{ v.parameters.provenance.v_f_l }}</li>
+<li>ka {{ fmt2|format(v.parameters.ka_per_h) }} per h — {{ v.parameters.ka_rule }}</li></ul>
+<p><strong>Why not the label's headline clearance?</strong> The label also gives CL/F 7–10 L/h and V/F 62–138 L, pooled across myeloma and Kaposi sarcoma. A curve from those numbers predicts {{ fmt0|format(v.checks.consistency.rejected_set.B_stated_pooled.auc) }} ng·h/mL and a peak of {{ fmt0|format(v.checks.consistency.rejected_set.B_stated_pooled.cmax) }} ng/mL — about half of what the same label reports for myeloma patients — and fails the check below.</p></section>
+
+<section class="panel"><h2>What was checked before this curve was shown</h2>
+<h3>1. Against its own label (plan locked before computation)</h3>
+<div class="table-scroll"><table><thead><tr><th>Check</th><th>Model</th><th>Label</th><th>Ratio</th><th>Result</th></tr></thead><tbody>
+{% for name, row in v.checks.consistency.rows.items() %}<tr><td>{{ {'C1_clearance_vs_exposure':'Clearance vs dose ÷ AUC','C2_half_life':'Half-life','C3_steady_state_cmax':'Steady-state peak','C4_steady_state_auc':'Steady-state AUC'}[name] }}</td><td>{{ '%.3g'|format(row.model) }}</td><td>{{ '%.3g'|format(row.label) }}</td><td>{{ fmt2|format(row.ratio) }}</td><td>{{ row.result }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="panel-note">Clearance, half-life and AUC agree by construction, because the curve's clearance comes from the label's AUC and its volume from the label's half-life. The steady-state peak is the one independent test. Tolerance 0.67–1.5.</p>
+<h3>2. Against an outside population model (plan locked before computation)</h3>
+<p>{{ v.checks.outside.source.citation }} <a href="https://doi.org/{{ v.checks.outside.source.doi }}" target="_blank" rel="noopener noreferrer">doi:{{ v.checks.outside.source.doi }}</a> — 63 myeloma patients with normal to dialysis-dependent kidney function.</p>
+<ul><li>AUC over 24 h: {{ fmt0|format(v.checks.outside.primary.label_engine_auc_0_24) }} vs Li simulated mean {{ v.checks.outside.primary.li_table4_mean }} (90% interval {{ v.checks.outside.primary.li_table4_ci90|join('–') }}): {{ v.checks.outside.primary.classification }}.</li>
+<li>Typical-curve ratios (label ÷ Li): peak {{ fmt2|format(v.checks.outside.ratios.cmax.ratio) }}, trough {{ fmt2|format(v.checks.outside.ratios.ctrough.ratio) }}, AUC {{ fmt2|format(v.checks.outside.ratios.auc_0_24.ratio) }} — all within 0.8–1.25.</li>
+<li>Dialysis: label ×{{ v.checks.outside.dialysis.label_auc_fold }} vs Li ×{{ fmt2|format(v.checks.outside.dialysis.li_inverse_cl_ratio) }}: {{ v.checks.outside.dialysis.classification }}.</li></ul>
+<p><strong>Weakest point: the peak.</strong> The label curve peaks earlier and about 20% higher than Li's typical curve, because its absorption rate comes from the label's Tmax. Taking Tmax as 2 h would raise the peak ratio to {{ fmt2|format(v.checks.outside.ka_sensitivity[0].cmax_ratio_to_li) }}, just outside the band. Daily exposure and trough are robust.</p>
+<p class="panel-note">Li 2017 reports a fitted model and simulated exposures, not observed concentrations, so this is a comparison of two models — weaker than agreement with data — and both come from the manufacturer's programme.</p></section>
+
+<section class="panel"><h2>Label-reported changes in exposure</h2>
+<div class="table-scroll"><table><thead><tr><th>Situation</th><th>AUC change</th><th>Studied in</th><th>Label dose modification</th></tr></thead><tbody>
+{% for s in v.scenarios %}<tr><td>{{ s.label }}{% if not s.selectable %}<br><span class="panel-note">{{ s.why_not_selectable }}</span>{% endif %}</td><td>×{{ '%g'|format(s.auc_fold) }}</td><td>{{ s.study_population }}</td><td>{{ s.label_dose_modification or '—' }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="panel-note">Each value is quoted from the label in the downloadable record. Changes are applied one at a time; the label does not report combined effects except fluvoxamine with ketoconazole.</p></section>
+
+<details class="panel"><summary>Sources and traceability</summary>
+<p>Label: {{ v.label_source.document }} DailyMed set {{ v.label_source.dailymed_set_id }}, revised {{ v.label_source.revised }}. <a href="{{ v.label_source.url }}" target="_blank" rel="noopener noreferrer">DailyMed &#8599;</a></p>
+<p><a href="{{ url_for('landscape.label_exposure', drug=v.drug, scenario=v.scenario.id if v.scenario else None, format='json') }}">Download this view with every value and quote (JSON)</a></p>
+<p class="catalog-digest">Label file SHA256: {{ v.label_source.file_reviewed.sha256 }}<br>Consistency report ({{ v.checks.consistency.path }}): {{ v.checks.consistency.sha256 }}<br>Outside-check report ({{ v.checks.outside.path }}): {{ v.checks.outside.sha256 }}</p></details>
+{% endblock %}

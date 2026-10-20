@@ -1,6 +1,6 @@
 # Label-based exposure engine — evidence and design plan (Phase 3.1a)
 
-Status: **3.1a–3.1d done, 20 October 2026.** Engine `intelligence_store/label_exposure.py`; pomalidomide consistency check passed with the myeloma-only parameter set (below). Roadmap Phase 3.1: give any approved small-molecule drug a sourced, typical-value exposure curve built from its label, at the capability level *Label-based exposure*.
+Status: **3.1a–3.1e done, 20 October 2026.** Pomalidomide is the first drug at *Label-based exposure*, shown at `/landscape/patient-lab/label-exposure/pomalidomide`. Engine `intelligence_store/label_exposure.py`; pomalidomide consistency check passed with the myeloma-only parameter set (below). Roadmap Phase 3.1: give any approved small-molecule drug a sourced, typical-value exposure curve built from its label, at the capability level *Label-based exposure*.
 
 ## What it is for
 
@@ -134,7 +134,7 @@ On a drug's page, at the *Label-based exposure* level:
 2. **3.1b — Pomalidomide extract and locked consistency plan** (done 20 October 2026: `label_pk_pomalidomide_v1.json`, `pomalidomide_popk_li_2017_extract_v1.json`, `label_exposure_consistency_plan_v1.json`): DailyMed SPL pinned, quotes for every value, parameter sets by population; tolerance and checks fixed before computation.
 3. **3.1c — Engine and the pomalidomide consistency report** (done; see the result below). Numerical check against the exact solution and against superposition.
 4. **3.1d — Outside check against Li 2017** (done; result below) under a locked plan (typical curve against the population model's typical curve, and against any reported summaries).
-5. **3.1e — Drug page and capability level.**
+5. **3.1e — Drug page and capability level** (done): `intelligence_store/label_exposure_view.py` shows a curve only when the label extract and both check reports are intact, the internal check selected a set, the outside check is consistent and the recomputed parameters equal the reported ones; otherwise the page returns 503 and the drug falls back to its previous level. The page shows the steady-state day (with the label's Cmax and Li 2017's typical curve), the first three days, one label scenario at a time (CL/F ÷ AUC fold, with its quote and study population; the single-dose food effect is text only), both checks and the peak caveat. Linked from the capability level box, the model library and the landing page.
 6. **3.1f — Second and third drugs** (candidates: melphalan, dexamethasone), to test that the format generalises before Phase 3.2 scales the catalog.
 
 ## What this does not attempt

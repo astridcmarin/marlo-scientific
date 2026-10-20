@@ -15,7 +15,7 @@ from .drug_research_tools import research_tool_registry
 from .kim_model import load_extract as load_kim_extract, load_form_assessment, EXTRACT_SHA256 as KIM_EXTRACT_SHA, FORM_ASSESSMENT_SHA256
 from .bortezomib_platelet_evidence import load_model_extract as load_bortezomib_extract, EXTRACT_SHA256 as BORTEZOMIB_EXTRACT_SHA
 
-METHOD = 'drug-capability-inventory-v1.3'
+METHOD = 'drug-capability-inventory-v1.4'
 DISEASE_LABELS = {'MM':'Multiple Myeloma', 'CLL':'Chronic Lymphocytic Leukemia',
                   'AML':'Acute Myeloid Leukemia', 'ALL':'Acute Lymphoblastic Leukemia'}
 

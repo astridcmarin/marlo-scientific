@@ -124,7 +124,8 @@
                 <ul class="points">
                     <li>Lenalidomide concentration curves from two population PK models (Hughes 2019, Kim 2026).</li>
                     <li>How elimination splits between kidney filtration, tubular secretion and other routes.</li>
-                    <li>Relative odds of severe low blood counts, and the bortezomib platelet course (Lignet 2022).</li>
+                    <li>Relative odds of severe low blood counts, and the bortezomib platelet course (Lignet 2022). Its exposure model disagrees with two outside studies; <a href="{{ url_for('model_scorecard', model_id='bortezomib_pk_lignet_2022') }}">see the scorecard</a>.</li>
+                    <li>Label-based exposure curves for approved drugs, each checked against its own label and outside data before it is shown. <a href="{{ url_for('landscape.label_exposure', drug='pomalidomide') }}">Pomalidomide first</a>.</li>
                     <li>Building blocks for target binding, protein turnover, delays and dosing schedules.</li>
                 </ul>
                 <p class="links"><a href="{{ url_for('landscape.patient_directory') }}">Open the Patient Lab →</a> <a href="{{ url_for('landscape.simulation_lab') }}">Simulation Lab →</a></p>
@@ -178,6 +179,7 @@
             <p>The long-term aim is to follow a drug from the whole body to the organ, tissue, cell and molecular target.</p>
         </div>
         <ol class="timeline">
+            <li><span class="tag tag-experimental">Now</span><h3>Every approved drug, at an honest level</h3><p>Label-based exposure, checked before it is shown; then trial design support.</p></li>
             <li><span class="tag tag-planned">Planned</span><h3>Multi-organ physiology</h3><p>Liver, kidney, circulation and gut compartments.</p></li>
             <li><span class="tag tag-planned">Planned</span><h3>Disease progression</h3><p>Disease states and biomarkers over time.</p></li>
             <li><span class="tag tag-planned">Planned</span><h3>Combination therapies</h3><p>Several drugs in one scenario.</p></li>
