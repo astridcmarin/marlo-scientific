@@ -68,7 +68,7 @@ US label, section 12.3, as read on 20 October 2026 from a mirror of the prescrib
 - Hepatic: AUC +51%, +58%, +72% in Child-Pugh A, B, C.
 - Interactions: fluvoxamine (strong CYP1A2 inhibitor) +125%; ketoconazole +19%; carbamazepine −20%; smoking AUC −32%.
 
-**The check already finds a mismatch.** In myeloma patients, Dose/AUCτ = 4 mg / 860 ng·h/mL = **4.65 L/h**, outside the label's CL/F of 7–10 L/h. The 7–10 L/h most likely comes from healthy volunteers, and Li 2017 reports 5.13 L/h in patients. With CL/F 4.65 L/h and t½ 7.5 h, V/F is about 50 L, below the label's 62–138 L. So the label holds at least two parameter sets, and only the patient set agrees with the patient exposure. The engine must use the patient set for a myeloma patient and show why.
+**The check already finds a mismatch.** In myeloma patients, Dose/AUCτ = 4 mg / 860 ng·h/mL = **4.65 L/h**, outside the label's CL/F of 7–10 L/h. *Correction, 20 October 2026, after reading the full label (3.1b):* the label attributes 7–10 L/h and 62–138 L to patients with myeloma **or Kaposi sarcoma**, not to healthy volunteers as first written here. The likely source of the difference is pooling across the two diseases (Kaposi sarcoma: 5 mg / 462.3 ng·h/mL = 10.8 L/h). Li 2017 reports 5.13 L/h in myeloma patients. With CL/F 4.65 L/h and t½ 7.5 h, V/F is about 50 L, below the pooled 62–138 L. So the label holds a myeloma-only exposure and pooled parameter ranges; the engine prefers the myeloma-only set and shows why.
 
 ## Data model
 
@@ -93,7 +93,7 @@ On a drug's page, at the *Label-based exposure* level:
 ## Steps
 
 1. **3.1a — this plan.**
-2. **3.1b — Pomalidomide extract and locked consistency plan:** DailyMed SPL pinned, quotes for every value, parameter sets by population; tolerance and checks fixed before computation.
+2. **3.1b — Pomalidomide extract and locked consistency plan** (done 20 October 2026: `label_pk_pomalidomide_v1.json`, `pomalidomide_popk_li_2017_extract_v1.json`, `label_exposure_consistency_plan_v1.json`): DailyMed SPL pinned, quotes for every value, parameter sets by population; tolerance and checks fixed before computation.
 3. **3.1c — Engine and the pomalidomide consistency report.** Numerical check against the exact solution and against superposition.
 4. **3.1d — Outside check against Li 2017** under a locked plan (typical curve against the population model's typical curve, and against any reported summaries).
 5. **3.1e — Drug page and capability level.**
