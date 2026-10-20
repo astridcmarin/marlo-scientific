@@ -1,6 +1,6 @@
 # Label-based exposure engine — evidence and design plan (Phase 3.1a)
 
-Status: **3.1a–3.1c done, 20 October 2026.** Engine `intelligence_store/label_exposure.py`; pomalidomide consistency check passed with the myeloma-only parameter set (below). Roadmap Phase 3.1: give any approved small-molecule drug a sourced, typical-value exposure curve built from its label, at the capability level *Label-based exposure*.
+Status: **3.1a–3.1d done, 20 October 2026.** Engine `intelligence_store/label_exposure.py`; pomalidomide consistency check passed with the myeloma-only parameter set (below). Roadmap Phase 3.1: give any approved small-molecule drug a sourced, typical-value exposure curve built from its label, at the capability level *Label-based exposure*.
 
 ## What it is for
 
@@ -90,6 +90,24 @@ Plan `label_exposure_consistency_plan_v1.json`, locked in commit `d9a0ac4` befor
 - **Not shown yet:** the curve is not on any page and the capability level is unchanged until the outside check (3.1d) and the drug page (3.1e).
 - **Seen in passing, not tested:** Li 2017's typical values (CL/F 5.13 L/h, V/F 58.3 L, ka 0.72 per h) are close to set A. The comparison belongs to 3.1d, under its own locked plan.
 
+## 3.1d result — label curve against the Li 2017 population model
+
+Plan `label_exposure_pomalidomide_li_check_plan_v1.json`, locked in commit `012c776` before any Li curve was computed. Report `docs/verification/label_exposure_pomalidomide_li_check_v1.json`; CLI `label-exposure-li-check`. Li 2017 reports a fitted model and simulated exposures, not observed concentrations, so this is a **model-to-model** check: weaker than agreement with data, and not fully independent (both come from the sponsor's programme).
+
+| 4 mg daily, steady state | Label curve (3.1c set A) | Li 2017 typical (normal kidney function) | Result |
+|---|---|---|---|
+| AUC 0–24 h (primary) | 860 ng·h/mL | simulated mean 788 (90% interval 602–1026) | consistent |
+| Peak | 71.6 ng/mL at 2.4 h | 59.4 ng/mL at 3.3 h | ratio 1.21, pass (0.8–1.25) |
+| Trough (24 h) | 10.6 ng/mL | 10.9 ng/mL | ratio 0.97, pass |
+| AUC ratio | | | 1.10, pass |
+| Dialysis AUC fold | 1.38 (label) | 1.38 (1 / CL ratio 0.724); Table 4 1.36 (1.08–1.70) | consistent |
+| Moderate or severe kidney impairment, no dialysis | no significant effect (label) | CL ratios 1.02 and 1.01, intervals include 1 | consistent |
+
+- **Recorded as consistent with Li 2017**, together with the dialysis scenario and the label's no-effect statement.
+- **The peak is the weak point.** The label curve peaks earlier and higher than Li's typical curve because its ka (1.07 per h, from the label's Tmax) is faster than Li's (0.72 per h, plus a 0.15 h lag). With ka from a 2 h Tmax the peak ratio would be 1.26, just outside the band. Daily exposure and trough are robust.
+- **Volume:** the label-derived V/F (50.3 L) is just below Li's interval (51.6–66.1 L); clearance and ka are inside theirs.
+- **What this allows:** 3.1e may show the curve on the pomalidomide page at *Label-based exposure*, citing both checks, with the peak's uncertainty stated.
+
 ## Data model
 
 One pinned file per drug: `label_pk_<drug>_v1.json`
@@ -115,7 +133,7 @@ On a drug's page, at the *Label-based exposure* level:
 1. **3.1a — this plan.**
 2. **3.1b — Pomalidomide extract and locked consistency plan** (done 20 October 2026: `label_pk_pomalidomide_v1.json`, `pomalidomide_popk_li_2017_extract_v1.json`, `label_exposure_consistency_plan_v1.json`): DailyMed SPL pinned, quotes for every value, parameter sets by population; tolerance and checks fixed before computation.
 3. **3.1c — Engine and the pomalidomide consistency report** (done; see the result below). Numerical check against the exact solution and against superposition.
-4. **3.1d — Outside check against Li 2017** under a locked plan (typical curve against the population model's typical curve, and against any reported summaries).
+4. **3.1d — Outside check against Li 2017** (done; result below) under a locked plan (typical curve against the population model's typical curve, and against any reported summaries).
 5. **3.1e — Drug page and capability level.**
 6. **3.1f — Second and third drugs** (candidates: melphalan, dexamethasone), to test that the format generalises before Phase 3.2 scales the catalog.
 
