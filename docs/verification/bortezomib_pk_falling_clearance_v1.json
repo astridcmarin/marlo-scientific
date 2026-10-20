@@ -1,0 +1,149 @@
+{
+  "schema_version": "bortezomib-pk-falling-clearance-report-v1",
+  "method_version": "bortezomib-pk-falling-clearance-v1.0",
+  "plan_version": "bortezomib-pk-falling-clearance-plan-v1.0",
+  "plan_sha256": "aa07015b93c756656bb1c30b0719cb6fa84e6c4c24c95dbc030fe2d84d7e8abf",
+  "model_extract_sha256": "3093fff25dbf44a75aa31b4d41d40d57eabc5cf29ce21c7718276edf8a028e84",
+  "can1004_observed_sha256": "60b4dbb2bba6a8a56a15080cded7dc33e187d3fa0688a9a0788c6a5b66ab80c4",
+  "ogawa_observed_sha256": "cf1bff435354dbbb6864414fac81effadea35ed1ac3d90b7b53f64d67d8bea13",
+  "classification": "summary_calibrated_model_with_external_consistency_check",
+  "parameters_per_m2": {
+    "cl1_l_h_m2": 9.2,
+    "cl_low_l_h_m2": 3.3921787709497204,
+    "clearance_ratio_from_can1004": 0.3687150837988827
+  },
+  "numerical_checks": {
+    "k0_matches_exact_solution_max_relative_difference": 2.121870605778694e-11,
+    "k0_check_passed": true,
+    "step_halving_max_relative_auc_change": 2.224211134831513e-12,
+    "step_halving_passed": true,
+    "amount_balance_relative": 3.125704823175441e-14,
+    "amount_balance_passed": true
+  },
+  "forms": {
+    "A_time": {
+      "equation": "CL(t) = CL_low + (CL1 - CL_low) x exp(-k_time x t), t in hours since the first dose",
+      "calibration": {
+        "form": "A_time",
+        "target": "CAN-1004 day 11 AUC to 72 h, linear trapezoidal",
+        "target_ng_h_ml": 241,
+        "k_units": "1/h",
+        "search_range": [
+          0.0,
+          10.0
+        ],
+        "reachable_ng_h_ml": {
+          "at_k_min": 126.95637323690556,
+          "at_k_max": 240.1893977689629,
+          "limit_k_to_infinity": 241.43202792312556
+        },
+        "calibratable": false,
+        "k": null,
+        "achieved_ng_h_ml": null,
+        "iterations": 0,
+        "reason": "The target lies outside what the form can reach in the search range."
+      },
+      "decision": {
+        "carries_rise_over_to_ogawa": false,
+        "reason": "not calibratable; not checked"
+      }
+    },
+    "B_prior_dose": {
+      "equation": "CL(t) = CL_low + (CL1 - CL_low) x exp(-k_dose x D_prior(t)), where D_prior(t) is the total dose (mg/m2) of all doses given before the most recent dose at or before t",
+      "calibration": {
+        "form": "B_prior_dose",
+        "target": "CAN-1004 day 11 AUC to 72 h, linear trapezoidal",
+        "target_ng_h_ml": 241,
+        "k_units": "m2/mg",
+        "search_range": [
+          0.0,
+          100.0
+        ],
+        "reachable_ng_h_ml": {
+          "at_k_min": 126.95637323690556,
+          "at_k_max": 229.4695459007508,
+          "limit_k_to_infinity": 229.4695459007508
+        },
+        "calibratable": false,
+        "k": null,
+        "achieved_ng_h_ml": null,
+        "iterations": 0,
+        "reason": "The target lies outside what the form can reach in the search range."
+      },
+      "decision": {
+        "carries_rise_over_to_ogawa": false,
+        "reason": "not calibratable; not checked"
+      }
+    }
+  },
+  "constant_clearance_at_1_3_mg_m2_for_comparison": {
+    "auc_day1": {
+      "model_emulated": 133.4441262942908,
+      "observed_mean": 46.5,
+      "classification": "model_over_predicts"
+    },
+    "auc_day11": {
+      "model_emulated": 247.55190367435674,
+      "observed_mean": 186.6,
+      "classification": "consistent"
+    },
+    "auc_ratio_day11_over_day1": {
+      "model_emulated": 1.8550977892306666,
+      "observed_mean": 5.142,
+      "classification": "model_under_predicts"
+    }
+  },
+  "decision": {
+    "forms_carrying_rise_over": [],
+    "rule": "A form is recorded as carrying the day 1 to day 11 rise over to Ogawa 2008 if its primary endpoint is consistent under the primary reading. Robustness across readings and the secondary endpoints are reported with it."
+  },
+  "post_hoc_not_in_plan": {
+    "status": "Descriptive, computed after the locked result; not part of the decision and not a test.",
+    "why": "To show where each form ends up at the top of its range and in the limit of large k.",
+    "can1004_at_range_top_and_limit": [
+      {
+        "form": "A_time",
+        "k": 10.0,
+        "can1004_auc_last_day1_ng_h_ml": 109.53686843445226,
+        "can1004_auc_last_day11_ng_h_ml": 240.1893977689629
+      },
+      {
+        "form": "A_time",
+        "k": 1000000.0,
+        "can1004_auc_last_day1_ng_h_ml": 113.87046903470926,
+        "can1004_auc_last_day11_ng_h_ml": 241.43202792312556
+      },
+      {
+        "form": "B_prior_dose",
+        "k": 100.0,
+        "can1004_auc_last_day1_ng_h_ml": 81.00780915269877,
+        "can1004_auc_last_day11_ng_h_ml": 229.4695459007508
+      },
+      {
+        "form": "B_prior_dose",
+        "k": 1000000.0,
+        "can1004_auc_last_day1_ng_h_ml": 81.00780915269877,
+        "can1004_auc_last_day11_ng_h_ml": 229.4695459007508
+      }
+    ],
+    "observed_can1004_auc_last_ng_h_ml": {
+      "day1": 104,
+      "day11": 241
+    }
+  },
+  "not_this": [
+    "Not a population PK model: no between-patient variability, no covariates, typical values only.",
+    "Not a mechanistic model of target binding; the falling clearance imitates the observed effect with an empirical function.",
+    "Not validation or qualification; one calibration study (n = 10) and one test study (n = 5 to 7 per dose).",
+    "Not a dosing or exposure prediction for any patient."
+  ],
+  "known_differences_and_weaknesses": [
+    "Calibration uses two summary numbers from 10 patients (a clearance ratio and a mean AUC); the falling-clearance shape is assumed, not estimated.",
+    "The CAN-1004 day 11 clearance is a non-compartmental apparent clearance; using its ratio to day 1 as the asymptote of the model's elimination clearance is an assumption.",
+    "Ogawa is Japanese patients with 48 h sampling; CAN-1004 non-Japanese with 72 h sampling; assays and NCA settings differ.",
+    "Ogawa's day 11 / day 1 ratio is a mean of per-patient ratios (n = 5); the model gives one typical-value ratio.",
+    "Two forms are checked, so one passing by chance is more likely than with one form."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "23e667db6a3878988d9f58847b52c972e0217716ac0105558d0b65f5e1dde3f6"
+}

@@ -1,6 +1,6 @@
 # Simulation 3.0 — bortezomib platelet time course (first drug-effect module)
 
-Status: **3.0a–3.0h done.** Evidence, PK engine, locked reading check, page (`/landscape/simulation-lab/bortezomib-platelets`) a search for outside platelet data (none usable) and outside checks of the PK component (Ogawa 2008, 3.0f; CAN-1004, 3.0h).
+Status: **3.0a–3.0i done.** Evidence, PK engine, locked reading check, page (`/landscape/simulation-lab/bortezomib-platelets`) a search for outside platelet data (none usable) and outside checks of the PK component (Ogawa 2008, 3.0f; CAN-1004, 3.0h).
 
 ## Why this model
 
@@ -231,3 +231,34 @@ Every classification is the same under all four NCA readings.
 - **Both studies agree on the shape.** Exposure rises from day 1 to day 11 more than a constant clearance allows (2.3-fold here, about 5-fold in Ogawa, 1.6-fold in the model). The time-dependent clearance remains the gap to close.
 - **The day 1 variability is wide** (C0 coefficient of variation above 200%, AUClast 95%), so "consistent" on day 1 is a weak statement.
 - **Recorded, not changed.** Evidence status v6 adds this report to the bortezomib PK component; the scorecard now lists three outside-data disagreements. The platelet tool is unchanged.
+
+## 3.0i — A clearance that falls over repeated doses, calibrated on CAN-1004
+
+**Why.** Both outside studies show exposure rising more from day 1 to day 11 than a constant clearance allows. The likely mechanism is target-mediated disposition: bortezomib binds the proteasome in red cells and tissues, so after the first dose much of it is taken up and apparent clearance is high; as the binding sites fill, apparent clearance falls. CAN-1004 reports apparent clearance falling from 17.9 to 6.60 L/h.
+
+**Method** (plan `bortezomib_pk_falling_clearance_plan_v1.json`, locked in commit `3f91267` before any value was computed; module `bortezomib_pk_falling_clearance.py`):
+- **The 3.0b model with one change:** elimination clearance falls from its first-dose value CL1 (9.2 L/h/m²) toward CL_low = CL1 × 6.60 / 17.9 = 3.39 L/h/m². Only the CAN-1004 ratio is used, so body size is not needed.
+- **Two empirical forms, each with one parameter k:**
+  - **A:** clearance falls with time since the first dose.
+  - **B:** clearance steps down with the dose given before each later dose.
+- **Calibration on CAN-1004 only:** k is chosen so the day 11 AUC to 72 h equals 241 ng·h/mL. If no k in the fixed range reaches it, the form is not calibratable and is not checked further.
+- **Test on Ogawa 2008 only.** The primary endpoint is the day 11 / day 1 AUC ratio at 1.3 mg/m².
+- **Numerical checks, all passed:** with k = 0 the solver matches the exact 3.0b solution (difference about 2e-11); halving the step changes AUC by about 2e-12; amount is conserved to about 3e-14.
+
+**Locked result** (report `docs/verification/bortezomib_pk_falling_clearance_v1.json`): **neither form can be calibrated**, so neither was checked against Ogawa.
+
+| Form | Day 11 AUC to 72 h at the top of the range | In the limit of large k | Target |
+|---|---|---|---|
+| A, time | 240.2 (k = 10 per hour) | 241.4 | 241 |
+| B, prior dose | 229.5 | 229.5 | 241 |
+
+- **Form B** cannot reach the target even if clearance drops all the way to CL_low at the second dose.
+- **Form A** reaches it only in the limit where clearance is already low within minutes of the first dose. At that point clearance no longer falls over the cycle; it is simply a lower constant.
+
+**Post-hoc observation (not part of the plan; a hypothesis, not a finding).** With clearance constant at CL_low, the model gives a CAN-1004 day 1 AUC to 72 h of about 110–114 ng·h/mL (observed 104) and a day 11 AUC of about 240 (observed 241). In this model structure, a 72-hour AUC hardly depends on clearance on day 1, because most of it comes from distribution. So CAN-1004's summary values are explained by a lower *constant* clearance, without any fall. Ogawa's large rise (5.1-fold) comes mostly from a short apparent day 1 half-life (16 h with 48 h sampling).
+
+**What this means.**
+- **Summary data cannot identify a clearance that falls over time.** The two studies point to different explanations: a level difference in CAN-1004 and a shape difference in Ogawa. Two means per study are not enough to separate them.
+- **A constant low clearance is not a fix either.** Lowering clearance raises day 1 exposure, and 3.0f already found day 1 over-predicted against Ogawa. Testing it would need its own locked plan, and it is likely to fail there.
+- **Nothing changes on the platform.** The platelet tool keeps the constant-clearance component and its recorded disagreements; neither form is registered.
+- **What would resolve it:** individual concentration–time data, or a mechanistic target-binding model (Iwasaki 2020) checked against both studies.
