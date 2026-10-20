@@ -47,23 +47,25 @@ class ScorecardData(unittest.TestCase):
         layers = [l for m in evidence['models'].values() for l in m['layers'].values()]
         self.assertLessEqual({l['status'] for l in layers}, set(ms.STATUS_LABELS))
         outcomes = {o for l in layers for key in ms.RESULT_KEYS for o in (l.get(key) or {}).values()}
+        outcomes |= {o for l in layers for x in l.get('further_reports', []) for o in (x.get('results') or {}).values()}
         self.assertLessEqual(outcomes, set(ms.OUTCOME_LABELS))
         items = {i for l in layers for key in ms.RESULT_KEYS for i in (l.get(key) or {})}
+        items |= {i for l in layers for x in l.get('further_reports', []) for i in (x.get('results') or {})}
         self.assertLessEqual(items, set(ms.RESULT_ITEMS))
 
     def test_recorded_disagreements_are_surfaced(self):
         cards = {c['model_id']: c for c in ms.all_scorecards()['cards']}
         self.assertEqual({r['item'] for r in cards['lenalidomide_hughes_2019']['outside_data_disagreements']},
                          {'Moderate kidney impairment', 'Severe kidney impairment'})
-        self.assertEqual(len(cards['bortezomib_pk_lignet_2022']['outside_data_disagreements']), 2)
+        self.assertEqual(len(cards['bortezomib_pk_lignet_2022']['outside_data_disagreements']), 3)
         platelet = cards['bortezomib_platelets_lignet_2022']
         self.assertEqual(platelet['outside_data_disagreements'], [])
         self.assertEqual(platelet['depends_on'][0]['model_id'], 'bortezomib_pk_lignet_2022')
-        self.assertEqual(platelet['depends_on'][0]['disagreements'], 2)
+        self.assertEqual(platelet['depends_on'][0]['disagreements'], 3)
 
     def test_cited_reports_are_found_and_intact(self):
         reports = [r for c in ms.all_scorecards()['cards'] for l in c['layers'] for r in l['reports']]
-        self.assertEqual(len(reports), 7)
+        self.assertEqual(len(reports), 8)
         self.assertTrue(all(r['intact'] for r in reports))
 
     def test_a_changed_or_uncited_report_is_not_served(self):

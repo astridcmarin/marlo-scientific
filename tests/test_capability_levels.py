@@ -34,7 +34,7 @@ class LevelRules(unittest.TestCase):
         levels = {e['label']: e['capability_level'] for e in capability_inventory()['entries']}
         self.assertEqual(levels['Lenalidomide']['id'], 'published_model_checked')
         self.assertEqual(levels['Bortezomib']['id'], 'published_model_checked')
-        self.assertEqual(levels['Bortezomib']['outside_data_disagreements'], 2)
+        self.assertEqual(levels['Bortezomib']['outside_data_disagreements'], 3)
         self.assertIn('disagreement', levels['Lenalidomide']['note'])
         self.assertTrue(all(levels[d]['id'] == 'knowledge_only' for d in levels if d not in ('Lenalidomide', 'Bortezomib')))
 

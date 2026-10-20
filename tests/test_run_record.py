@@ -18,7 +18,7 @@ from intelligence_store.estimated_pk import calculate_estimated_pk, primary_weig
 from intelligence_store.kim_pk_runs import read_kim_pk_run
 from intelligence_store.patient_state import SCHEMA_V2, digest
 from intelligence_store.patient_state_revisions import save_revision
-from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
+from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, EVIDENCE_V5_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
                                            record_for_estimated_pk, record_for_kim_run, record_for_patient_platelets)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -47,11 +47,29 @@ class EvidenceStatus(unittest.TestCase):
         v4 = EVIDENCE_PATH.with_name('model_evidence_status_v4.json')
         self.assertEqual(hashlib.sha256(v4.read_bytes()).hexdigest(), EVIDENCE_V4_SHA256)
         self.assertEqual(json.loads(v4.read_text())['supersedes']['status_version'], json.loads(v3.read_text())['status_version'])
+        v5 = EVIDENCE_PATH.with_name('model_evidence_status_v5.json')
+        self.assertEqual(hashlib.sha256(v5.read_bytes()).hexdigest(), EVIDENCE_V5_SHA256)
+        self.assertEqual(json.loads(v5.read_text())['supersedes']['status_version'], json.loads(v4.read_text())['status_version'])
         current = load_evidence_status()
-        self.assertEqual(current['supersedes']['status_version'], json.loads(v4.read_text())['status_version'])
+        self.assertEqual(current['supersedes']['status_version'], json.loads(v5.read_text())['status_version'])
+
+    def test_v6_only_adds_the_can1004_report_to_the_bortezomib_pk_component(self):
+        current = load_evidence_status()['models']
+        v5 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v5.json').read_text())['models']
+        self.assertEqual(set(current), set(v5))
+        for model_id in v5:
+            if model_id != 'bortezomib_pk_lignet_2022':
+                self.assertEqual(current[model_id], v5[model_id])
+        layer = current['bortezomib_pk_lignet_2022']['layers']['external_consistency']
+        old = v5['bortezomib_pk_lignet_2022']['layers']['external_consistency']
+        self.assertEqual({k: v for k, v in layer.items() if k != 'further_reports'}, old)
+        extra = layer['further_reports'][-1]
+        report = json.loads((ROOT / extra['evidence_report']).read_text())
+        self.assertEqual(extra['results'], {'can1004_' + k: v for k, v in report['decision']['result'].items()})
 
     def test_v5_adds_the_exposure_safety_model_without_overstating_it(self):
-        current, v4 = load_evidence_status()['models'], json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v4.json').read_text())['models']
+        current = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v5.json').read_text())['models']
+        v4 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v4.json').read_text())['models']
         self.assertEqual(set(current) - set(v4), {'lenalidomide_exposure_safety_2016'})
         layers = current['lenalidomide_exposure_safety_2016']['layers']
         self.assertEqual({k: v['status'] for k, v in layers.items()},
@@ -97,7 +115,7 @@ class EvidenceStatus(unittest.TestCase):
                     self.assertEqual({k: lead[k]['classification'] for k in layer['result_at_1_3_mg_m2']}, layer['result_at_1_3_mg_m2'])
                 if 'result_by_group' in layer:
                     self.assertEqual(report['primary_endpoint_by_group'], layer['result_by_group'])
-        self.assertEqual(cited, 7)
+        self.assertEqual(cited, 8)
 
     def test_bortezomib_reproduction_matches_the_adopted_reading(self):
         report = json.loads((ROOT / 'docs/verification/bortezomib_platelet_check_v1.json').read_text())
