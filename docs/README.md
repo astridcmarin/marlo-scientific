@@ -7,6 +7,7 @@ Several step documents describe installer scripts (`scripts/install_*.py`) from 
 ## Current direction
 
 - [Product and science roadmap](PRODUCT_AND_SCIENCE_ROADMAP.md) — positioning (evidence reference for drug development), users, differentiators, phases and next steps (19 October 2026; the 10 October version is in history/).
+- [Label-based exposure engine](LABEL_EXPOSURE_ENGINE.md) — Phase 3.1 evidence and design plan: one-compartment typical-value curves from label section 12.3, eligibility rules, internal-consistency check, pomalidomide pilot (20 October 2026).
 - [Patient Lab 2.0](PATIENT_LAB_2_0.md) — current computational-pharmacology work: scope, non-goals, architecture, step status, and the recorded scientific decisions (Hughes 2019 lenalidomide model, Cockcroft–Gault weight basis, typical value vs population band).
 - [Repository checkpoint](REPOSITORY_CHECKPOINT.md) — 16 October 2026 verification, findings and remaining gates ([record](verification/repository_checkpoint_2026-10-16.json); earlier checkpoint and step-number history in [history](history/REPOSITORY_CHECKPOINT_2026-10-13.md)).
 
