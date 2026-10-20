@@ -1,0 +1,94 @@
+{
+  "schema_version": "calibration-and-external-check-plan-v1",
+  "plan_version": "bortezomib-pk-falling-clearance-plan-v1.0",
+  "recorded_on": "2026-10-20",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before either model form was implemented, calibrated or evaluated. Not blinded: the CAN-1004 Table 7 values and the Ogawa 2008 Table 3 values were read before writing this plan, and the constant-clearance results of 3.0f (Ogawa) and 3.0h (CAN-1004) are known. No value of the falling-clearance model had been computed.",
+  "classification": "summary_calibrated_model_with_external_consistency_check",
+  "not_this": [
+    "Not a population PK model: no between-patient variability, no covariates, typical values only.",
+    "Not a mechanistic model of target binding; the falling clearance imitates the observed effect with an empirical function.",
+    "Not validation or qualification; one calibration study (n = 10) and one test study (n = 5 to 7 per dose).",
+    "Not a dosing or exposure prediction for any patient."
+  ],
+  "question": "If the constant-clearance bortezomib model is given a clearance that falls over repeated doses, calibrated only to CAN-1004, does it reproduce the rise in exposure from day 1 to day 11 reported in a different study (Ogawa 2008)?",
+  "science": {
+    "why_clearance_falls": "Bortezomib binds tightly to the proteasome, which is abundant in red cells and tissues. After the first dose much of the drug is taken up by these binding sites, so apparent clearance from plasma is high; as they fill over repeated doses, less is taken up and apparent clearance falls (target-mediated drug disposition). CAN-1004 reports apparent clearance falling from 17.9 L/h on day 1 to 6.60 L/h on day 11.",
+    "what_the_model_does": "Keeps the 3.0b three-compartment structure and all its per-m2 parameters, and lets the elimination clearance fall from its first-dose value toward a lower value. Distribution clearances and volumes do not change."
+  },
+  "model": {
+    "base": "intelligence_store/bortezomib_pk.py, Lignet 2022 Table 1 per-m2 parameters, unchanged: CL1 = clearance_l_h_m2.",
+    "lower_clearance": "CL_low = CL1 x 6.60 / 17.9 (CAN-1004 Table 7 IV mean clearance, day 11 / day 1). Only the ratio is used, so patient body surface area (not reported) is not needed.",
+    "forms": {
+      "A_time": {
+        "equation": "CL(t) = CL_low + (CL1 - CL_low) x exp(-k_time x t), t in hours since the first dose",
+        "parameter": "k_time, 1/h"
+      },
+      "B_prior_dose": {
+        "equation": "CL(t) = CL_low + (CL1 - CL_low) x exp(-k_dose x D_prior(t)), where D_prior(t) is the total dose (mg/m2) of all doses given before the most recent dose at or before t",
+        "parameter": "k_dose, m2/mg",
+        "note": "Clearance is CL1 for the whole first dosing interval and changes in steps at each later dose; it falls less at lower doses."
+      }
+    },
+    "both_forms_reported": "Each form is calibrated, checked and reported separately. Neither is chosen after seeing results."
+  },
+  "solver": {
+    "method": "Fixed-step fourth-order Runge-Kutta on the amounts in the three compartments (mg/m2), step 0.001 h, boluses applied at their times; concentration in ng/mL = 1000 x amount / V1.",
+    "numerical_checks": [
+      "With k = 0 (clearance constant at CL1), the solver matches the exact 3.0b solution within 1e-6 relative at every sampling time of both studies.",
+      "Halving the step changes every emulated AUC by less than 1e-6 relative.",
+      "Amount in the three compartments plus amount eliminated equals the amount dosed within 1e-9 relative."
+    ]
+  },
+  "calibration": {
+    "data": "CAN-1004 only: intelligence_store/data/bortezomib_pk_can1004_observed_v1.json, IV arm, 1.3 mg/m2 on days 1, 4, 8 and 11.",
+    "target": "Emulated day 11 AUC to the last sample (72 h), linear trapezoidal rule from back-extrapolated C0 (the 3.0h primary reading), equals the observed mean 241 ng.h/mL.",
+    "procedure": "Bisection on k (A: 0 to 10 1/h; B: 0 to 100 m2/mg) to relative tolerance 1e-6. If the target cannot be reached within the range, the form is recorded as not calibratable and is not checked against Ogawa.",
+    "diagnostics_not_tests": "After calibration, the CAN-1004 day 1 AUC to the last sample, AUC to infinity and half-lives are reported for information only; they are not an outside check because the model was calibrated on this study."
+  },
+  "external_check": {
+    "data": "Ogawa 2008 only: intelligence_store/data/bortezomib_pk_ogawa_2008_observed_v1.json, Table 3, doses 0.7, 1.0 and 1.3 mg/m2, days 1, 4, 8 and 11.",
+    "emulation": "Identical to 3.0f: model sampled at the Ogawa times after the day 1 and day 11 doses; the same nca() function; the same four readings (linear or linear-up-log-down x last 3 or 4 points), primary linear with 3 points.",
+    "endpoints": {
+      "primary": [
+        {
+          "name": "auc_ratio_day11_over_day1",
+          "dose": "1.3",
+          "why_primary": "Both outside studies agree that exposure rises more from day 1 to day 11 than a constant clearance allows, while their absolute levels disagree; the ratio is the property the model is meant to add."
+        }
+      ],
+      "secondary": [
+        {
+          "name": "auc_day1, auc_day11",
+          "dose": "0.7, 1.0 and 1.3"
+        },
+        {
+          "name": "auc_ratio_day11_over_day1",
+          "dose": "0.7 and 1.0"
+        },
+        {
+          "name": "c0_day1, c0_day11",
+          "dose": "1.3"
+        }
+      ],
+      "descriptive": [
+        "half_life_day1, half_life_day11 at 1.3 mg/m2",
+        "the constant-clearance results from 3.0f, side by side"
+      ]
+    },
+    "comparison": "Identical to 3.0f: 95% confidence interval of the observed mean (t distribution, n - 1 degrees of freedom); consistent, model_over_predicts or model_under_predicts; robust if all four readings agree."
+  },
+  "decision_rule": {
+    "summary": "A form is recorded as carrying the day 1 to day 11 rise over to Ogawa 2008 if its primary endpoint is consistent under the primary reading. Robustness across readings and the secondary endpoints are reported with it.",
+    "if_a_form_carries_over": "A separate step may propose offering it in the platelet tool as an option labelled 'calibrated to summary data (CAN-1004); one outside check', with its own record. The constant-clearance component stays available.",
+    "if_neither_carries_over": "Recorded with the reason; the platelet tool keeps the constant-clearance component.",
+    "never": "k is not re-estimated against Ogawa; CL_low and the forms are not changed after seeing results; Ogawa values are not used in calibration."
+  },
+  "known_differences_and_weaknesses": [
+    "Calibration uses two summary numbers from 10 patients (a clearance ratio and a mean AUC); the falling-clearance shape is assumed, not estimated.",
+    "The CAN-1004 day 11 clearance is a non-compartmental apparent clearance; using its ratio to day 1 as the asymptote of the model's elimination clearance is an assumption.",
+    "Ogawa is Japanese patients with 48 h sampling; CAN-1004 non-Japanese with 72 h sampling; assays and NCA settings differ.",
+    "Ogawa's day 11 / day 1 ratio is a mean of per-patient ratios (n = 5); the model gives one typical-value ratio.",
+    "Two forms are checked, so one passing by chance is more likely than with one form."
+  ]
+}
