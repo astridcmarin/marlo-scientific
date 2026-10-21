@@ -1,0 +1,76 @@
+{% extends "landscape_base.html" %}
+{% block title %}{{ v.label }} · Label-based exposure{% endblock %}
+{% block content %}
+{% set fmt1 = '%.1f' %}{% set fmt0 = '%.0f' %}{% set fmt2 = '%.2f' %}
+<p><a href="{{ url_for('landscape.drug_capability_library', q=v.label) }}">&#8592; Drug and model library</a></p>
+<p class="eyebrow">Capability level · Label-based exposure</p>
+<h1>{{ v.label }}: typical exposure after one dose, from the product label</h1>
+<section class="scenario-notice"><strong>Typical value from the label — not a population model, not a prediction for any patient</strong>
+<p>This curve is built from the numbers in the HEMADY (dexamethasone 20 mg tablets) prescribing information. The label reports them for a single dose “in subjects” and does not say whether those subjects had multiple myeloma. There is no variability around the curve (the label reports 31% variation in exposure), and it gives no dosing guidance.</p>
+<p><strong>In patients with myeloma, measured exposure was higher.</strong> In 6 Japanese patients given 40 mg, the average exposure was about {{ fmt1|format(1 / v.checks.outside.primary.ratio_model_to_observed) }} times this curve and their clearance was {{ fmt1|format(v.checks.outside.mm017_cl_f_l_h) }} L/h against the label's {{ fmt1|format(v.parameters.cl_f_l_h) }} L/h. Six patients cannot settle the difference, but read the curve as a lower-side typical value for patients.</p>
+<p>Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong></p></section>
+
+<section class="panel"><h2>Dose and scenario</h2>
+<p>The label's myeloma dosage is {{ v.regimen.quote|replace('The recommended dosage of HEMADY is ', '')|replace('.', '') }} (section 2.1), together with other anti-myeloma drugs. The label states that exposure is proportional to dose from 0.5 to 40 mg, so 40 mg is shown as twice the 20 mg curve.</p>
+<form method="get"><label for="dose">Dose</label>
+<select id="dose" name="dose">{% for d in v.doses_mg %}<option value="{{ d }}" {% if d == v.dose_mg %}selected{% endif %}>{{ d }} mg once</option>{% endfor %}</select>
+<label for="scenario">Apply one label-reported change</label>
+<select id="scenario" name="scenario"><option value="">None</option>
+{% for s in v.scenarios if s.selectable %}<option value="{{ s.id }}" {% if v.scenario and v.scenario.id == s.id %}selected{% endif %}>{{ s.label }} (exposure ×{{ '%g'|format(s.auc_fold) }})</option>{% endfor %}</select>
+<button class="button secondary">Show</button></form>
+{% if v.scenario %}<div class="cap-level" role="note"><p><strong>{{ v.scenario.label }}</strong> — label: “{{ v.scenario.quote }}” ({{ v.scenario.location }})</p>
+<p>Studied in: {{ v.scenario.study_population }}.{% if v.scenario.label_dose_modification %} Label: {{ v.scenario.label_dose_modification }}.{% endif %}</p>
+<p>Applied as apparent clearance ÷ {{ '%g'|format(v.scenario.auc_fold) }}; volume and absorption unchanged. The label states only the change in AUC, so the scenario's peak is a consequence of this model, not a label value.</p></div>{% endif %}
+</section>
+
+<section class="panel"><h2>One {{ v.dose_mg }} mg dose: concentration over 24 hours (ng/mL)</h2>
+<svg class="transit-chart" viewBox="0 0 780 290" role="img" aria-labelledby="sd-title"><title id="sd-title">Typical dexamethasone concentration over 24 hours after one {{ v.dose_mg }} mg oral dose, with the label's peak and the peaks measured in the outside studies{% if v.scenario %}, and the selected scenario{% endif %}.</title>
+{% for t in chart.y_ticks %}<line x1="70" y1="{{ t.y }}" x2="740" y2="{{ t.y }}" stroke="#d8e0e4"/><text x="62" y="{{ t.y + 4 }}" text-anchor="end" font-size="12">{{ t.label }}</text>{% endfor %}
+{% for t in chart.x_ticks %}<text x="{{ t.x }}" y="270" text-anchor="middle" font-size="12">{{ t.label }}</text>{% endfor %}
+<text x="405" y="287" text-anchor="middle" font-size="12">Hours after the dose</text>
+<polyline points="{{ chart.lines.base }}" fill="none" stroke="#007b83" stroke-width="2.5"/>
+{% if chart.lines.scenario %}<polyline points="{{ chart.lines.scenario }}" fill="none" stroke="#b5651d" stroke-width="2.5"/>{% endif %}
+<rect x="{{ chart.label_cmax.x - 5 }}" y="{{ chart.label_cmax.y - 5 }}" width="10" height="10" fill="#263238"/>
+{% for p in chart.observed %}<circle cx="{{ p.x }}" cy="{{ p.y }}" r="6" fill="none" stroke="#8a6d3b" stroke-width="2.5"/>{% endfor %}
+</svg>
+<p><span style="color:#007b83">■</span> Label-based curve · <span style="color:#263238">■</span> Label: peak {{ fmt0|format(v.label_points.cmax_ng_ml) }} ng/mL at a median {{ '%g'|format(v.label_points.tmax_h) }} h{% if v.label_points.scaled_from_20_mg %} (20 mg value doubled){% endif %} · <span style="color:#8a6d3b">○</span> peaks measured in the outside studies (at their median time){% if v.scenario %} · <span style="color:#b5651d">■</span> {{ v.scenario.label }}{% endif %}</p>
+<div class="table-scroll"><table><thead><tr><th></th><th>Peak</th><th>Time of peak</th><th>Total exposure (AUC)</th></tr></thead><tbody>
+<tr><td>Label-based curve</td><td>{{ fmt0|format(v.summary.cmax_ng_ml) }} ng/mL</td><td>{{ fmt1|format(v.summary.tmax_h_grid) }} h</td><td>{{ fmt0|format(v.summary.auc_inf_ng_h_ml_exact) }} ng·h/mL</td></tr>
+<tr><td>Label{% if v.label_points.scaled_from_20_mg %} (20 mg values doubled){% endif %}</td><td>{{ fmt0|format(v.label_points.cmax_ng_ml) }} ng/mL (geometric mean)</td><td>{{ '%g'|format(v.label_points.tmax_h) }} h (range {{ v.label_points.tmax_range_h|join('–') }})</td><td>{{ fmt0|format(v.label_points.auc_ng_h_ml) }} ng·h/mL</td></tr>
+{% for p in v.observed_points %}<tr><td>{{ p.source }}</td><td>{{ fmt0|format(p.cmax) }} ng/mL</td><td>{{ '%g'|format(p.tmax) }} h (median)</td><td>{{ fmt0|format(p.auc) }} ng·h/mL</td></tr>{% endfor %}
+{% if v.scenario %}<tr><td>{{ v.scenario.label }}</td><td>{{ fmt0|format(v.scenario_summary.cmax_ng_ml) }} ng/mL</td><td>{{ fmt1|format(v.scenario_summary.tmax_h_grid) }} h</td><td>{{ fmt0|format(v.scenario_summary.auc_inf_ng_h_ml_exact) }} ng·h/mL</td></tr>{% endif %}
+</tbody></table></div>
+<p>With a half-life of {{ fmt1|format(v.parameters.half_life_h) }} h, about {{ '%.1f'|format(100 * v.remaining_fraction_at_24_h) }}% of a dose remains after 24 hours, so once-daily doses hardly accumulate and each day looks like this curve.</p>
+<p><strong>The peak depends on the tablet.</strong> In healthy volunteers given 20 mg, two products with the same total exposure peaked at {{ fmt0|format(v.checks.outside.cpa.test.cmax.observed) }} and {{ fmt0|format(v.checks.outside.cpa.reference.cmax.observed) }} ng/mL. Read the curve's peak as approximate; total exposure is the more reliable number.</p></section>
+
+<section class="panel"><h2>How the curve is built</h2>
+<p>One compartment with first-order absorption, typical values, apparent parameters (divided by the unknown bioavailability):</p>
+<ul><li>CL/F {{ fmt1|format(v.parameters.cl_f_l_h) }} L/h — {{ v.parameters.provenance.cl_f_l_h }}</li>
+<li>V/F {{ fmt1|format(v.parameters.v_f_l) }} L — {{ v.parameters.provenance.v_f_l }}</li>
+<li>ka {{ fmt2|format(v.parameters.ka_per_h) }} per h — {{ v.parameters.ka_rule }}</li></ul></section>
+
+<section class="panel"><h2>What was checked before this curve was shown</h2>
+<h3>1. Against its own label (plan locked before computation)</h3>
+<div class="table-scroll"><table><thead><tr><th>Check (20 mg)</th><th>Model</th><th>Label</th><th>Ratio</th><th>Result</th></tr></thead><tbody>
+{% for name, row in v.checks.consistency.rows.items() %}<tr><td>{{ {'C1_clearance_vs_exposure':'Clearance vs dose ÷ AUC','C2_half_life':'Half-life','C3_single_dose_cmax':'Peak','C4_single_dose_auc':'AUC'}[name] }}</td><td>{{ '%.4g'|format(row.model) }}</td><td>{{ '%.4g'|format(row.label) }}</td><td>{{ fmt2|format(row.ratio) }}</td><td>{{ row.result }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="panel-note">The half-life agrees by construction (the volume comes from it); clearance, peak and AUC are independent tests. Tolerance 0.67–1.5.</p>
+<h3>2. Against outside data (plan locked before the results were read)</h3>
+<p>{{ v.checks.outside.source.citation }} — a different product and applicant.</p>
+<div class="table-scroll"><table><thead><tr><th>Study</th><th>Total exposure: curve vs measured (95% interval)</th><th>Ratio</th><th>Result</th></tr></thead><tbody>
+<tr><td>6 Japanese myeloma patients, 40 mg (primary)</td><td>{{ fmt0|format(v.checks.outside.primary.model) }} vs {{ fmt0|format(v.checks.outside.primary.observed) }} ({{ fmt0|format(v.checks.outside.primary.interval_95[0]) }}–{{ fmt0|format(v.checks.outside.primary.interval_95[1]) }})</td><td>{{ fmt2|format(v.checks.outside.primary.ratio_model_to_observed) }}</td><td>{{ v.checks.outside.primary.classification }}</td></tr>
+{% for arm, label in [('test', 'NEOFORDEX tablet'), ('reference', 'reference tablet')] %}{% set r = v.checks.outside.cpa[arm].auc_inf %}<tr><td>24 healthy volunteers, 20 mg, {{ label }}</td><td>{{ fmt0|format(r.model) }} vs {{ fmt0|format(r.observed) }} ({{ fmt0|format(r.interval_95[0]) }}–{{ fmt0|format(r.interval_95[1]) }})</td><td>{{ fmt2|format(r.ratio_model_to_observed) }}</td><td>{{ r.classification }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p>The curve matches healthy volunteers within about 10%. In the six myeloma patients it is consistent only because six patients give a wide interval; their exposure was higher. A study of 15 older patients hospitalized with pneumonia (Spoorenberg et al. 2014, shown for context only) also found slower clearance ({{ '%g'|format(v.checks.outside.spoorenberg.clearance_l_h_median) }} L/h).</p></section>
+
+<section class="panel"><h2>Label-reported changes in exposure</h2>
+<div class="table-scroll"><table><thead><tr><th>Situation</th><th>Change</th><th>Studied in</th><th>Label advice</th></tr></thead><tbody>
+{% for s in v.scenarios %}<tr><td>{{ s.label }}{% if not s.selectable %}<br><span class="panel-note">{{ s.why_not_selectable }}</span>{% endif %}</td><td>{% if s.auc_unchanged %}AUC unchanged; peak −23%{% else %}AUC ×{{ '%g'|format(s.auc_fold) }}{% endif %}</td><td>{{ s.study_population }}</td><td>{{ s.label_dose_modification or '—' }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="panel-note">The label reports no numbers for kidney or liver impairment (“has not been studied”) or for CYP3A4 inducers, so none are offered.</p></section>
+
+<details class="panel"><summary>Sources and traceability</summary>
+<p>Label: {{ v.label_source.document }} DailyMed set {{ v.label_source.dailymed_set_id }}, revised {{ v.label_source.revised }}. <a href="{{ v.label_source.url }}" target="_blank" rel="noopener noreferrer">DailyMed &#8599;</a> · Outside data: <a href="{{ v.checks.outside.source.url }}" target="_blank" rel="noopener noreferrer">NEOFORDEX EPAR &#8599;</a></p>
+<p><a href="{{ url_for('landscape.label_exposure', drug=v.drug, dose=v.dose_mg, scenario=v.scenario.id if v.scenario else None, format='json') }}">Download this view with every value and quote (JSON)</a></p>
+<p class="catalog-digest">Label file SHA256: {{ v.label_source.file_reviewed.sha256 }}<br>Consistency report ({{ v.checks.consistency.path }}): {{ v.checks.consistency.sha256 }}<br>Outside-check report ({{ v.checks.outside.path }}): {{ v.checks.outside.sha256 }}</p></details>
+{% endblock %}

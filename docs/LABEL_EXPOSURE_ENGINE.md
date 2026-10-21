@@ -1,6 +1,6 @@
 # Label-based exposure engine — evidence and design plan (Phase 3.1a)
 
-Status: **3.1a–3.1e done, 20 October 2026.** Pomalidomide is the first drug at *Label-based exposure*, shown at `/landscape/patient-lab/label-exposure/pomalidomide`. Engine `intelligence_store/label_exposure.py`; pomalidomide consistency check passed with the myeloma-only parameter set (below). Roadmap Phase 3.1: give any approved small-molecule drug a sourced, typical-value exposure curve built from its label, at the capability level *Label-based exposure*.
+Status: **3.1a–3.1h done, 21 October 2026.** Pomalidomide and dexamethasone are at *Label-based exposure*; melphalan was not eligible. Pomalidomide is shown at `/landscape/patient-lab/label-exposure/pomalidomide`. Engine `intelligence_store/label_exposure.py`; pomalidomide consistency check passed with the myeloma-only parameter set (below). Roadmap Phase 3.1: give any approved small-molecule drug a sourced, typical-value exposure curve built from its label, at the capability level *Label-based exposure*.
 
 ## What it is for
 
@@ -161,6 +161,11 @@ Source: Neofordex EPAR public assessment report (EMA/CHMP/6613/2016), a differen
 - **The peak depends on the tablet.** The two products peaked at 126 and 214 µg/L with the same AUC; the label curve (186) lies between. A peak from a label curve should not be read as product-independent.
 - **Descriptive:** MM-017 day 12 (with lenalidomide, repeated dosing) GM AUCτ 2687, clearance 14.9 L/h.
 - **What this allows:** a later step may show dexamethasone at *Label-based exposure*, citing both checks and stating that exposure in myeloma patients was about 1.4 times the curve.
+
+## 3.1h — dexamethasone shown at *Label-based exposure*
+
+`/landscape/patient-lab/label-exposure/dexamethasone` (same route and safeguards as pomalidomide; `label_exposure_view.py` now has a single-dose path and `landscape_label_exposure_single_dose.html`). The page shows one 20 or 40 mg dose (40 mg = 2 × 20 mg, by the label's dose proportionality), the label's peak and the outside studies' peaks, itraconazole and aprepitant as scenarios, the food effect as text, and three caveats in the opening notice and beside the chart: the label's subjects are unspecified, exposure in the 6 myeloma patients was about 1.4 times the curve, and the peak depends on the tablet. Withheld (503) and the level falls back if any pinned file or report changes.
+
 
 ## Data model
 

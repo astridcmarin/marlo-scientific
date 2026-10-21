@@ -1,4 +1,4 @@
-"""Phase 3.1e: label-based exposure page (typical value from the product label, checked before it is shown)."""
+"""Phase 3.1e/3.1h: label-based exposure page (typical value from the product label, checked before it is shown)."""
 import json
 import math
 from flask import Response, abort, render_template, request
@@ -40,19 +40,33 @@ def charts(v):
     return {'first': first, 'steady': steady}
 
 
+def single_dose_chart(v):
+    c = v['curves']
+    marks = [p['cmax'] for p in v['observed_points']] + [v['label_points']['cmax_ng_ml']]
+    top = _nice_top(c['base'] + c.get('scenario', []) + marks)
+    chart = _chart(c['times_h'], {k: c[k] for k in ('base', 'scenario') if k in c}, 24.0, top, 4)
+    lp = v['label_points']
+    chart['label_cmax'] = {'x': round(chart['x'](lp['tmax_h']), 2), 'y': round(chart['y'](lp['cmax_ng_ml']), 2)}
+    chart['observed'] = [{'x': round(chart['x'](p['tmax']), 2), 'y': round(chart['y'](p['cmax']), 2), 'source': p['source']}
+                         for p in v['observed_points']]
+    del chart['x'], chart['y']
+    return chart
+
+
 def register_label_exposure_pages(bp):
     @bp.get('/patient-lab/label-exposure/<drug>')
     def label_exposure(drug):
-        if set(request.args) - {'scenario', 'format'} or any(len(request.args.getlist(k)) != 1 for k in request.args):
+        if set(request.args) - {'scenario', 'format', 'dose'} or any(len(request.args.getlist(k)) != 1 for k in request.args):
             abort(400)
         fmt = request.args.get('format', 'html')
         scenario = request.args.get('scenario') or None
-        if fmt not in ('html', 'json') or (scenario and len(scenario) > 80):
+        raw_dose = request.args.get('dose')
+        if fmt not in ('html', 'json') or (scenario and len(scenario) > 80) or (raw_dose is not None and raw_dose not in ('20', '40')):
             abort(400)
         try:
-            v = view(drug, scenario)
+            v = view(drug, scenario, int(raw_dose) if raw_dose else None)
         except KeyError:
-            abort(404 if not scenario else 400)
+            abort(404 if not (scenario or raw_dose) else 400)
         except ValueError as exc:
             return Response(render_template('landscape_message.html', message=str(exc)), status=503,
                             headers={'Cache-Control': 'no-store'})
@@ -60,4 +74,6 @@ def register_label_exposure_pages(bp):
         if fmt == 'json':
             headers['Content-Disposition'] = f'attachment; filename="{drug}-label-exposure{"-" + scenario if scenario else ""}.json"'
             return Response(json.dumps(v, indent=2, ensure_ascii=False, allow_nan=False) + '\n', mimetype='application/json', headers=headers)
+        if v.get('kind') == 'single_dose_oral':
+            return Response(render_template('landscape_label_exposure_single_dose.html', v=v, chart=single_dose_chart(v)), headers=headers)
         return Response(render_template('landscape_label_exposure.html', v=v, charts=charts(v)), headers=headers)

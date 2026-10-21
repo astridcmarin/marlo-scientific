@@ -43,9 +43,9 @@ class LockedResult(unittest.TestCase):
         self.assertEqual([s['cmax_result'] for s in r['parameter_set']['tmax_sensitivity']], ['pass', 'fail'])
         self.assertIn("'subjects'", r['population_note'])
 
-    def test_not_shown_until_an_outside_check(self):
-        # 3.1e rule: a label curve is shown only after an outside check; dexamethasone has none yet.
-        self.assertEqual(drug_level('Dexamethasone', True)['id'], 'knowledge_only')
+    def test_shown_only_after_the_outside_check(self):
+        # 3.1e rule: a label curve is shown only after an outside check; dexamethasone passed one in 3.1g.
+        self.assertEqual(drug_level('Dexamethasone', True)['id'], 'label_based_exposure')
 
 
 if __name__ == '__main__':
