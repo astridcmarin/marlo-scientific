@@ -1,0 +1,70 @@
+{
+ "schema_version": "repository-checkpoint-v1",
+ "checkpoint": "2026-10-21",
+ "recorded_on": "2026-10-21",
+ "verified_tree": {
+  "branch": "phase-1.3-checkpoint-refresh (main 389b9a3 + PR #55 d823e09)",
+  "commit": "d823e09"
+ },
+ "classification": "software_and_repository_verification",
+ "not_this": [
+  "Not scientific validation of any model.",
+  "Not a clinical-readiness review."
+ ],
+ "checks": [
+  {
+   "id": "unit_tests",
+   "result": "pass",
+   "detail": "797 tests, python -m unittest discover -s tests, Python 3.13 locally; GitHub Actions Python 3.12: main 389b9a3 success, PR #55 d823e09 success."
+  },
+  {
+   "id": "compile",
+   "result": "pass",
+   "detail": "compileall over intelligence_store, landscape_ui, app, scripts, tests."
+  },
+  {
+   "id": "migrations",
+   "result": "pass",
+   "detail": "9 Alembic revisions, one root (3538c7d69211), one head (585bc7cb8d18); unchanged since 2026-10-16."
+  },
+  {
+   "id": "pinned_data",
+   "result": "pass_with_finding_fixed",
+   "detail": "72 JSON data files outside data/curation/; 69 pinned by a checksum in code. 69 *_SHA256 constants in code; 67 match a tracked file, 2 are canonical-content pins in scripts (pk_numerical_crosscheck PLAN_CANONICAL_SHA256, pk_prediction_metrics_preview DESIGN_PROTOCOL_SHA256) checked by their own tests.",
+   "finding": "lenalidomide_assay_metadata_v2.json and lenalidomide_assay_quality_review_v1.json had no checksum check; now frozen by tests/test_reference_pins.py (ReviewPacketsAreFrozen). bortezomib_observation_template_v1.json stays unpinned by design."
+  },
+  {
+   "id": "reports",
+   "result": "pass",
+   "detail": "16 reports in docs/verification/; each check module's test regenerates its report and requires an exact match."
+  },
+  {
+   "id": "validation_flags",
+   "result": "pass",
+   "detail": "No tracked JSON sets clinical_prediction_validated or ready_for_patient_simulation to true."
+  },
+  {
+   "id": "page_smoke",
+   "result": "pass",
+   "detail": "50 GET pages requested against a fresh SQLite database: 42 x 200, 8 x 400 (require cohort_id); no server errors. 26 routes with other path parameters not requested."
+  },
+  {
+   "id": "hygiene",
+   "result": "pass",
+   "detail": "No source articles tracked; the only tracked PDF is landscape_ui/data/renal_pk/ema_lenalidomide_2008.pdf (public EMA report); no credentials, databases or instance data."
+  }
+ ],
+ "model_evidence_summary_source": "intelligence_store/data/model_evidence_status_v6.json; label-engine reports docs/verification/label_exposure_*.json",
+ "label_exposure": {
+  "pomalidomide": "shown",
+  "dexamethasone": "shown (PR #55)",
+  "melphalan": "not_eligible"
+ },
+ "clinical_prediction_validated": false,
+ "follow_up": [
+  "Delete seven merged branches on GitHub.",
+  "Independent review of the three label extracts.",
+  "Bortezomib time-dependent clearance: Iwasaki 2020 or individual data.",
+  "Hughes CrCl weight basis and Kim CL/F form: author confirmation."
+ ]
+}
