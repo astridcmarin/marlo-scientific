@@ -1,0 +1,66 @@
+{
+  "schema_version": "external-consistency-plan-v1",
+  "plan_version": "label-exposure-dexamethasone-outside-check-plan-v1.0",
+  "recorded_on": "2026-10-21",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned after reading only the study-design text of the NEOFORDEX assessment report (EMA/CHMP/6613/2016, section 2.4.2) and before reading its results tables (Tables 11-14) or computing any comparison. Not blinded to Spoorenberg et al. 2014 (read in full on 21 October 2026; it is used here as descriptive context only, for the reason stated below) or to the label-based curve from 3.1f (CL/F 15.7 L/h, V/F 90.6 L, ka 3.04/h; single 20 mg dose: Cmax 186 ng/mL, AUC0-inf 1274 ng.h/mL).",
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "not_this": [
+    "Not validation; no acceptance limits for clinical use are introduced.",
+    "Not a comparison of individual concentrations; only published summaries are used.",
+    "Not a dosing or exposure prediction for any patient."
+  ],
+  "question": "Does the label-based dexamethasone curve (HEMADY, 3.1f) agree with exposure measured in patients with multiple myeloma and in healthy volunteers in studies reported by the European Medicines Agency for a different dexamethasone product?",
+  "source": {
+    "document": "Neofordex (dexamethasone) EPAR public assessment report, EMA/CHMP/6613/2016",
+    "file": "neofordex-epar-public-assessment-report_en.pdf (61 pages)",
+    "sha256": "1f2ca1da30b9a0d5e2d857acf7bd39c7bd22c0d56237c2a557e6be29069fca59",
+    "independence": "Different product and applicant (Laboratoires CTRS; the myeloma study is Celgene's CC-5013-MM-017). Whether any of the same data underlie the HEMADY label is not known."
+  },
+  "label_curve": {
+    "module": "intelligence_store/label_exposure_single_dose.py",
+    "report": "docs/verification/label_exposure_dexamethasone_consistency_v1.json",
+    "parameters": "Set A_stated_label, ka from Tmax 1 h, unchanged. Doses other than 20 mg are scaled linearly, as the label states dose proportionality from 0.5 to 40 mg.",
+    "emulation": "Model AUC over the same interval as the observed AUC (0-inf by closed form; 0-t by numerical integration to t); Cmax as the curve maximum."
+  },
+  "datasets": {
+    "primary_MM017_day2": {
+      "study": "CC-5013-MM-017-PK, cohort with dexamethasone",
+      "population": "6 Japanese patients with previously treated multiple myeloma",
+      "dose": "dexamethasone 40 mg orally, single dose on day 2 without lenalidomide that day, after an overnight fast",
+      "why_primary": "The only dexamethasone exposure data in the report from patients with multiple myeloma, the label's indication."
+    },
+    "secondary_CPA402_11": {
+      "study": "CPA-402-11 bioequivalence study",
+      "population": "healthy volunteers, fasted, n = 24 per treatment in a crossover",
+      "dose": "20 mg single oral dose: half a Neofordex 40 mg tablet (test) and 44 x Dectancyl 0.5 mg tablets (reference)",
+      "use": "Both arms are compared separately."
+    },
+    "descriptive_MM017_day12": "Day 12 of the same cohort (repeated 40 mg dosing with lenalidomide): reported against the single-dose curve without classification, because the label curve is single-dose and lenalidomide is present.",
+    "descriptive_Spoorenberg_2014": "Spoorenberg et al., Br J Clin Pharmacol 2014;78:78-83 (6 mg oral, 15 patients hospitalized with community-acquired pneumonia; file sha256 e549123b7b7af6d2f9f10951a542a94fb90c09d5052731de29cce5a9bcc3b2ad). Shown as context only: acute illness and age are expected to lower CYP3A4 activity, so it does not represent the label's population or myeloma patients, and its values were read before this plan."
+  },
+  "endpoints": {
+    "primary": "AUC (0-inf if reported, otherwise the reported interval) in MM-017 day 2.",
+    "secondary": [
+      "Cmax in MM-017 day 2.",
+      "AUC0-inf and AUC0-36 in CPA-402-11, each arm.",
+      "Cmax in CPA-402-11, each arm."
+    ],
+    "descriptive": ["Tmax and half-life in every dataset", "MM-017 day 12", "Spoorenberg 2014, scaled to 20 mg"]
+  },
+  "comparison": {
+    "interval_rule": "95% confidence interval of the observed central value, built from what the report gives: arithmetic mean and SD -> mean +/- t(0.975, n-1) SD/sqrt(n); geometric mean and CV% -> exp(ln GM +/- t(0.975, n-1) s/sqrt(n)) with s = sqrt(ln(1 + CV^2)); arithmetic mean and CV% -> SD = CV x mean, then the arithmetic rule. If only medians or ranges are given, the endpoint is descriptive.",
+    "classification": "consistent (model inside the interval), model_over_predicts (above), model_under_predicts (below).",
+    "ratio": "model / observed central value reported for every endpoint."
+  },
+  "decision_rule": {
+    "summary": "The label-based dexamethasone curve is recorded as consistent with outside data if the primary endpoint is consistent and the AUC0-inf of both CPA-402-11 arms is consistent. Cmax results are reported with their classification but do not decide, because 3.1f already recorded the peak as the weak point.",
+    "consequence": "If consistent, a later step may show dexamethasone at Label-based exposure, citing this check and the population caveats (6 Japanese patients; healthy volunteers). If not, the curve stays hidden and the disagreement is recorded.",
+    "never": "The label curve is not changed after seeing the results; no dataset is dropped or added after this plan."
+  },
+  "known_differences": [
+    "MM-017: n = 6, Japanese patients, 40 mg given as 4 mg tablets; the label curve is scaled from 20 mg.",
+    "CPA-402-11: healthy volunteers, other products; a typical-value curve is compared with summary statistics.",
+    "Assays and NCA software differ between the label's studies and these studies."
+  ]
+}
