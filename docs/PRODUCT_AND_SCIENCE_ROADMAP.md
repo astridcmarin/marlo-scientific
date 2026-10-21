@@ -87,7 +87,7 @@ The differentiator already exists in the code; users cannot see it yet.
 
 ### Phase 4 — Trial design support (first focus: oncology, starting with multiple myeloma)
 
-1. **Protocol benchmarking**: compare eligibility criteria across similar trials (kidney and liver cutoffs, blood-count thresholds, prior therapy), with counts and links to each trial.
+1. **Protocol benchmarking**: compare eligibility criteria across similar trials (kidney and liver cutoffs, blood-count thresholds, prior therapy), with counts and links to each trial. **Design plan written 21 October 2026** ([PROTOCOL_BENCHMARKING.md](PROTOCOL_BENCHMARKING.md)): eight criterion types, rule-based extraction, a hand-annotated validation sample with pass thresholds fixed before any check; export command for the local cohort.
 2. **Special-population evidence summary** per drug: kidney, liver, age and body size, in the structure of a clinical pharmacology review, with every value sourced.
 3. **Dose-optimization view** (FDA Project Optimus): dose-ranging trials, published exposure–response findings and exposure comparisons between dose levels for one drug.
 4. **A guided path** for one drug through the whole chain: trials → evidence → exposure → regulatory context.
