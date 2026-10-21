@@ -10,6 +10,8 @@ only what benchmarking needs, from the cohort's frozen snapshots (never from cur
 The file records the cohort's query, the snapshot behind every trial, and a checksum of its own content. Nothing is
 parsed or interpreted here; extraction of thresholds is a later, separately validated step.
 """
+import gzip
+import hashlib
 import json
 from pathlib import Path
 
@@ -24,6 +26,13 @@ from .patient_state import digest
 
 SCHEMA_VERSION = 'eligibility-corpus-v1'
 METHOD_VERSION = 'eligibility-corpus-export-v1.0'
+
+# Phase 4.1b: the multiple myeloma interventional cohort (cohort 3, 3,450 trials, retrieved 2026-10-05), exported on
+# 2026-10-21. Stored gzip-compressed; the pin is the SHA-256 of the decompressed export file, and the file's own
+# content checksum (corpus_sha256) is checked as well.
+CORPUS_PATH = Path(__file__).parent / 'data' / 'eligibility_corpus_mm_cohort3_v1.json.gz'
+CORPUS_SHA256 = 'bf01ddcf94e3a9fad23924fe9cae90aa13983c573fe0d48e9e2feb16368ee418'
+CORPUS_CONTENT_SHA256 = '5d1ed41339b0a16c675bbdcfc52d36ccd18768613285c24ce2fb41a1989f4b6f'
 
 
 def _list(value):
@@ -97,6 +106,16 @@ def export_corpus(cohort_id):
         'trials': trials,
     }
     corpus['corpus_sha256'] = digest(corpus)
+    return corpus
+
+
+def load_corpus(path=CORPUS_PATH, expected=CORPUS_SHA256, content=CORPUS_CONTENT_SHA256):
+    raw = gzip.decompress(Path(path).read_bytes())
+    if hashlib.sha256(raw).hexdigest() != expected:
+        raise ValueError('Eligibility corpus is missing or changed; nothing was loaded.')
+    corpus = json.loads(raw)
+    if corpus.get('corpus_sha256') != content or digest({k: v for k, v in corpus.items() if k != 'corpus_sha256'}) != content:
+        raise ValueError('Eligibility corpus content checksum does not match.')
     return corpus
 
 
