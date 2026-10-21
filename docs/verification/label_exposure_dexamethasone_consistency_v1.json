@@ -1,0 +1,113 @@
+{
+  "schema_version": "label-exposure-consistency-report-v1",
+  "method_version": "label-exposure-single-dose-v1.0",
+  "plan_version": "label-exposure-consistency-plan-dexamethasone-v1.0",
+  "plan_sha256": "a2016bac0589b65d3268523d41efce2896cc51888920e7060f929ffa5c0745c8",
+  "label_extract_sha256": "f764633f39576fd65ebc7b0a3cc3e22ddb362756b3c9c0838434cb0dab28605c",
+  "label_source": {
+    "dailymed_set_id": "6b9cf32c-6d60-4853-bbfd-2304ffc2c129",
+    "revised": "1/2026 (as printed on the label)",
+    "file_reviewed": {
+      "file": "20260125_6b9cf32c-6d60-4853-bbfd-2304ffc2c129.pdf (25 pages)",
+      "sha256": "367c287ca27cf844e1818668e8e7727e68bbb6e9ff44a3998b0c3955855765d1"
+    }
+  },
+  "drug": "dexamethasone",
+  "population_note": "Single-dose values from 'subjects'; the label does not say whether they had multiple myeloma.",
+  "regimen": {
+    "dose_mg": 20,
+    "evaluated_as": "single oral dose"
+  },
+  "tolerance": [
+    0.67,
+    1.5
+  ],
+  "which_checks_are_informative": "C2 holds by construction (V/F comes from the half-life) and the model Tmax equals 1 h by the ka rule. C1, C3 and C4 are informative.",
+  "numerical_checks": {
+    "auc_numerical_vs_exact_relative_difference": 4.385587086517262e-08,
+    "tmax_grid_vs_exact_difference_h": 1.2434497875801753e-14,
+    "passed": true
+  },
+  "parameter_set": {
+    "id": "A_stated_label",
+    "cl_f_l_h": 15.7,
+    "v_f_l": 90.6012485678269,
+    "provenance": {
+      "cl_f_l_h": "stated oral clearance after a single dose, 15.7 L/h",
+      "v_f_l": "CL/F x 4 h / ln 2 (mean terminal half-life); the label states no volume"
+    },
+    "primary": {
+      "tmax_used_for_ka_h": 1,
+      "ka_per_h": 3.036946718691925,
+      "k_per_h": 0.17328679513998632,
+      "summary": {
+        "cmax_ng_ml": 185.6257896102153,
+        "tmax_h_grid": 1.0,
+        "tmax_h_exact": 1.0000000000000124,
+        "auc_inf_ng_h_ml_numerical": 1273.88529445112,
+        "auc_inf_ng_h_ml_exact": 1273.8853503184714,
+        "remaining_fraction_at_24_h": 0.015625000000000007
+      },
+      "checks": {
+        "C1_clearance_vs_exposure": {
+          "model": 15.7,
+          "label": 15.735641227380016,
+          "ratio": 0.9977349999999999,
+          "result": "pass"
+        },
+        "C2_half_life": {
+          "model": 4.0,
+          "label": 4,
+          "ratio": 1.0,
+          "result": "pass"
+        },
+        "C3_single_dose_cmax": {
+          "model": 185.6257896102153,
+          "label": 247,
+          "ratio": 0.7515214154259728,
+          "result": "pass"
+        },
+        "C4_single_dose_auc": {
+          "model": 1273.88529445112,
+          "label": 1271,
+          "ratio": 1.0022700979159087,
+          "result": "pass"
+        },
+        "C6_tmax": {
+          "model": 1.0,
+          "label": 1,
+          "result": null
+        }
+      },
+      "passes_c1_to_c4": true
+    },
+    "tmax_sensitivity": [
+      {
+        "tmax_used_for_ka_h": 0.5,
+        "ka_per_h": 7.782710769449158,
+        "cmax_ng_ml": 202.42635895203392,
+        "cmax_ratio": 0.8195399147855624,
+        "cmax_result": "pass"
+      },
+      {
+        "tmax_used_for_ka_h": 4,
+        "ka_per_h": 0.3465735902799628,
+        "cmax_ng_ml": 110.37375486623212,
+        "cmax_ratio": 0.44685730715073735,
+        "cmax_result": "fail"
+      }
+    ]
+  },
+  "decision": {
+    "selected_set": "A_stated_label",
+    "eligible": true,
+    "rule": "The engine may use set A if it passes C1 to C4 with ka from Tmax 1 h."
+  },
+  "not_this": [
+    "Not validation: a label agreeing with itself says nothing about whether the curve describes patients.",
+    "Not an outside-data check; that would be a later step with its own locked plan.",
+    "Not a dosing recommendation or an exposure prediction for any patient."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "4633d8c0574dba2199ddef2ad7394cbbdbba2d3ef43d354178a946c5d1556b5a"
+}
