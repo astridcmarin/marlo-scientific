@@ -52,6 +52,7 @@ from .bortezomib_pk_falling_clearance import register_bortezomib_pk_falling_clea
 from .label_exposure import register_label_exposure_commands
 from .label_exposure_li_check import register_label_exposure_li_commands
 from .label_exposure_iv import register_label_exposure_iv_commands
+from .label_exposure_single_dose import register_label_exposure_single_dose_commands
 from .lenalidomide_renal_pathways import register_renal_pathway_commands
 from .lenalidomide_esrd_dialysis import register_esrd_dialysis_commands
 from .patient_model_binding import register_patient_model_binding_commands
@@ -137,6 +138,7 @@ def init_storage(app):
     register_label_exposure_commands(app)
     register_label_exposure_li_commands(app)
     register_label_exposure_iv_commands(app)
+    register_label_exposure_single_dose_commands(app)
     register_esrd_dialysis_commands(app)
     register_patient_model_binding_commands(app)
     register_treatment_request_commands(app)

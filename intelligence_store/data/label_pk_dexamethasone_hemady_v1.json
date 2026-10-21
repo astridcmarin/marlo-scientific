@@ -1,0 +1,119 @@
+{
+  "schema_version": "label-pk-extract-v1",
+  "extract_version": "dexamethasone-hemady-label-pk-v1.0",
+  "drug": "dexamethasone",
+  "recorded_on": "2026-10-21",
+  "source": {
+    "document": "HEMADY (dexamethasone tablets), for oral use. Full prescribing information. Edenbridge Pharmaceuticals LLC.",
+    "dailymed_set_id": "6b9cf32c-6d60-4853-bbfd-2304ffc2c129",
+    "revised": "1/2026 (as printed on the label)",
+    "spl_version": "not recorded; the downloaded file name begins 20260125 and the PDF creation date is 2026-01-27",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6b9cf32c-6d60-4853-bbfd-2304ffc2c129",
+    "file_reviewed": {
+      "file": "20260125_6b9cf32c-6d60-4853-bbfd-2304ffc2c129.pdf (25 pages)",
+      "sha256": "367c287ca27cf844e1818668e8e7727e68bbb6e9ff44a3998b0c3955855765d1"
+    },
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted from the PDF text layer (pdftotext); every value below is copied with the sentence it comes from. Independent review pending."
+  },
+  "scope_of_use": "Multiple myeloma, in combination with other anti-myeloma products (HEMADY indication). The PK values describe single doses in 'subjects'; the label does not say whether these were patients or healthy volunteers.",
+  "regimen": {
+    "dose_mg": 20,
+    "alternative_dose_mg": 40,
+    "route": "oral",
+    "food": "with or without food",
+    "schedule": "once daily on specific days depending on the treatment regimen",
+    "quote": "The recommended dosage of HEMADY is 20 mg or 40 mg, orally, once daily, on specific days depending on the treatment regimen.",
+    "location": "section 2.1"
+  },
+  "values": {
+    "cmax_single_20mg_ng_ml": {
+      "value": 247,
+      "cv_percent": 31,
+      "statistic": "geometric mean",
+      "population": "subjects (not further specified), single 20 mg dose",
+      "quote": "Following a single HEMADY dose of 20 mg, the geometric mean (coefficient of variation, %CV) dexamethasone peak concentrations (Cmax) was 247 ng/mL (31%) and area under the curve over time to infinity (AUCinf) was 1271 ng.hr/mL (31%) in subjects.",
+      "location": "section 12.3"
+    },
+    "auc_inf_single_20mg_ng_h_ml": {
+      "value": 1271,
+      "cv_percent": 31,
+      "statistic": "geometric mean",
+      "population": "subjects (not further specified), single 20 mg dose",
+      "quote": "same sentence as cmax_single_20mg_ng_ml",
+      "location": "section 12.3"
+    },
+    "tmax_h": {
+      "value": 1,
+      "range": [
+        0.5,
+        4
+      ],
+      "statistic": "median (range)",
+      "population": "single 20 mg dose",
+      "quote": "Following 20 mg dose of HEMADY, dexamethasone median time to peak concentrations (Tmax) was 1 hour (range: 0.5 to 4 hours).",
+      "location": "section 12.3"
+    },
+    "half_life_h": {
+      "value": 4,
+      "cv_percent": 18,
+      "statistic": "mean",
+      "population": "single dose",
+      "quote": "The mean terminal half-life (coefficient of variation) of dexamethasone is 4 hours (18%) and oral clearance (CL/F) was 15.7 L/hr following a single dose of HEMADY.",
+      "location": "section 12.3"
+    },
+    "cl_f_l_h": {
+      "value": 15.7,
+      "population": "single dose",
+      "quote": "same sentence as half_life_h",
+      "location": "section 12.3"
+    },
+    "protein_binding_percent": {
+      "value": 77,
+      "quote": "Dexamethasone is about 77% bound to human plasma proteins in vitro.",
+      "location": "section 12.3"
+    },
+    "renal_fraction": {
+      "value": "less than 10% of total body clearance",
+      "quote": "Renal excretion of dexamethasone is less than 10% of total body clearance.",
+      "location": "section 12.3"
+    }
+  },
+  "linearity": {
+    "stated": true,
+    "range_mg": [
+      0.5,
+      40
+    ],
+    "quote": "The pharmacokinetics of oral dexamethasone were dose proportional between single dose of 0.5 to 40 mg.",
+    "location": "section 12.3"
+  },
+  "scenarios": {
+    "itraconazole_strong_cyp3a4_inhibitor": {
+      "auc_fold": 3.7,
+      "study_population": "not stated; single 4.5 mg dexamethasone dose",
+      "quote": "Coadministration of itraconazole (strong CYP3A4 inhibitor: 200 mg once daily x 4 days) with a single dose of oral dexamethasone (4.5 mg) increased dexamethasone AUCinf by 3.7-fold",
+      "location": "section 12.3",
+      "label_dose_modification": "Avoid; if unavoidable, monitor closely for adverse reactions (section 7.1)"
+    },
+    "aprepitant_moderate_cyp3a4_inhibitor": {
+      "auc_fold": 2.2,
+      "study_population": "not stated; dexamethasone 20 mg Day 1 and 8 mg Days 2-5",
+      "quote": "Coadministration of aprepitant (moderate CYP3A4 inhibitor: 125 mg on Day 1, and 80 mg once daily on Days 2 to 5) with oral dexamethasone (20 mg on Day 1, and 8 mg once daily on Day 2-5) increased dexamethasone AUCinf by 2.2 -fold on Day 1 and 5",
+      "location": "section 12.3"
+    },
+    "high_fat_meal": {
+      "auc_fold": 1.0,
+      "cmax_fold": 0.77,
+      "study_population": "single 20 mg dose",
+      "quote": "A high-fat, high-calorie (total 800-1000 calories: approximately 60% from fat, 25% from carbohydrate and 15% from protein) meal had no effect on AUCinf and decreased Cmax by 23% of a single 20 mg dose of HEMADY.",
+      "location": "section 12.3"
+    }
+  },
+  "not_stated": [
+    "Whether the 'subjects' were patients with multiple myeloma or healthy volunteers, and how many.",
+    "Volume of distribution, absorption rate constant and absolute bioavailability.",
+    "Repeated-dose exposure; effects of renal or hepatic impairment (\"has not been studied\").",
+    "A quantified effect of CYP3A4 inducers."
+  ]
+}

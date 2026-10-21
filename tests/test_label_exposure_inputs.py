@@ -11,6 +11,8 @@ PINS = {
     'label_exposure_consistency_plan_v1.json': '146854b3471dacf4c5c578143ec99dec2e35e55a589961e5773580fc40bceb54',
     'label_pk_melphalan_evomela_v1.json': '0d09f06e1e9d7d9feb887d815074dbd5e1589e449067f32078f1aa8f9dd2d968',
     'label_exposure_consistency_plan_melphalan_v1.json': 'c59e3a523a3211a319388e3a4839f9fce777f6df2d0c8496a16882638f4530f9',
+    'label_pk_dexamethasone_hemady_v1.json': 'f764633f39576fd65ebc7b0a3cc3e22ddb362756b3c9c0838434cb0dab28605c',
+    'label_exposure_consistency_plan_dexamethasone_v1.json': 'a2016bac0589b65d3268523d41efce2896cc51888920e7060f929ffa5c0745c8',
 }
 
 
@@ -71,6 +73,19 @@ class MelphalanInputs(unittest.TestCase):
             for key, entry in label[group].items():
                 self.assertTrue(entry.get('quote'), key)
         self.assertIn('5.8 ± 1.5 mcg/mL and 451', label['values']['cmax_single_100_mg_m2_ug_ml']['quote'])
+
+
+class DexamethasoneInputs(unittest.TestCase):
+    def test_plan_cites_the_extract_and_values_are_quoted(self):
+        plan = load('label_exposure_consistency_plan_dexamethasone_v1.json')
+        self.assertEqual(plan['status'], 'locked_before_computation')
+        self.assertEqual(plan['inputs']['label_extract']['sha256'], PINS['label_pk_dexamethasone_hemady_v1.json'])
+        label = load('label_pk_dexamethasone_hemady_v1.json')
+        for group in ('values', 'scenarios'):
+            for key, entry in label[group].items():
+                self.assertTrue(entry.get('quote'), key)
+        self.assertIn('247 ng/mL (31%)', label['values']['cmax_single_20mg_ng_ml']['quote'])
+        self.assertIn('in subjects', label['values']['cmax_single_20mg_ng_ml']['quote'])
 
 
 class LiExtract(unittest.TestCase):

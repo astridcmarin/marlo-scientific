@@ -1,0 +1,52 @@
+{
+  "schema_version": "label-consistency-plan-v1",
+  "plan_version": "label-exposure-consistency-plan-dexamethasone-v1.0",
+  "recorded_on": "2026-10-21",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before any dexamethasone curve, Cmax or AUC was computed. Not blinded: the label was read in full and one hand calculation was made: 20 mg / 1271 ng.h/mL = 15.7 L/h, equal to the stated CL/F. The rules mirror the pomalidomide plan (label-exposure-consistency-plan-v1.0), adapted to a label that reports single-dose values only.",
+  "classification": "internal_label_consistency_check",
+  "not_this": [
+    "Not validation: a label agreeing with itself says nothing about whether the curve describes patients.",
+    "Not an outside-data check; that would be a later step with its own locked plan.",
+    "Not a dosing recommendation or an exposure prediction for any patient."
+  ],
+  "question": "Can a one-compartment, typical-value oral curve built from the HEMADY label by fixed rules reproduce the label's own single-dose statements, and may the engine use it?",
+  "inputs": {
+    "label_extract": {"path": "intelligence_store/data/label_pk_dexamethasone_hemady_v1.json", "sha256": "f764633f39576fd65ebc7b0a3cc3e22ddb362756b3c9c0838434cb0dab28605c"},
+    "population": "The label's single-dose values are from 'subjects', not stated to be myeloma patients; every output says so.",
+    "regimen": "One 20 mg oral dose. 40 mg is the same curve doubled (dose proportional 0.5-40 mg per the label). Once-daily dosing barely accumulates (about 1.6% of a dose remains at 24 h with a 4 h half-life), so the single-dose curve is the unit shown."
+  },
+  "model": {
+    "structure": "One compartment, first-order absorption, no lag time, linear; apparent parameters (CL/F, V/F).",
+    "single_dose_concentration": "C(t) = Dose ka / (V/F (ka - k)) (e^(-k t) - e^(-ka t)), k = (CL/F)/(V/F).",
+    "ka_rule": "Derived from Tmax = ln(ka/k) / (ka - k), using the label's median Tmax of 1 h. Sensitivity: the label's Tmax range ends, 0.5 h and 4 h (individual extremes, reported only).",
+    "numerical": "Cmax and Tmax on a 0.001 h grid over 48 h; AUC0-inf by trapezoids to 48 h plus C(48)/k, checked against Dose/CL."
+  },
+  "parameter_set": {
+    "id": "A_stated_label",
+    "cl_f": "15.7 L/h, the stated oral clearance after a single dose.",
+    "v_f": "CL/F x t1/2 / ln 2, with t1/2 = 4 h (the label states no volume).",
+    "why_one_set": "The label gives one clearance and one half-life, both from single doses; there is no second set to choose between. The stated clearance is used (not Dose/AUC) so that C1 and C4 are informative checks."
+  },
+  "checks": {
+    "C1_clearance_vs_exposure": {"compare": "CL/F 15.7 L/h against Dose / AUCinf (20 mg / 1271 ng.h/mL)", "pass_or_fail": true},
+    "C2_half_life": {"compare": "ln 2 x V/F / CL/F against 4 h", "pass_or_fail": true},
+    "C3_single_dose_cmax": {"compare": "Model Cmax after 20 mg against the geometric mean 247 ng/mL", "pass_or_fail": true},
+    "C4_single_dose_auc": {"compare": "Model AUC0-inf after 20 mg against the geometric mean 1271 ng.h/mL", "pass_or_fail": true},
+    "C6_tmax": {"compare": "Model Tmax against 1 h", "pass_or_fail": false, "role": "descriptive; set by the ka rule"},
+    "which_checks_are_informative": "C2 holds by construction (V/F comes from the half-life) and the model Tmax equals 1 h by the ka rule. C1, C3 and C4 are informative."
+  },
+  "tolerance": {
+    "rule": "A pass-or-fail check passes if model / label is within 0.67 to 1.5 inclusive.",
+    "why": "Same as the pomalidomide and melphalan plans. Comparing a typical-value curve with geometric means is appropriate: both describe a central value on the log scale."
+  },
+  "decision_rule": {
+    "selection": "The engine may use set A if it passes C1 to C4 with ka from Tmax 1 h.",
+    "if_it_fails": "Dexamethasone is recorded as not eligible for a label-based curve, with the failing checks.",
+    "never": "No value is adjusted after seeing results."
+  },
+  "scenarios": {
+    "rule": "Itraconazole (AUC x 3.7) and aprepitant (AUC x 2.2) are applied as CL/F divided by the fold, one at a time, with the dose and population each was studied at shown. The food effect changes Cmax but not AUC and is text only. No renal, hepatic or inducer scenario is offered: the label gives no numbers.",
+    "not_checked_here": "Scenarios are carried into the engine, not tested."
+  }
+}
