@@ -1,0 +1,179 @@
+{
+  "schema_version": "observed-summary-v1",
+  "summary_version": "dexamethasone-neofordex-epar-pk-v1.0",
+  "drug": "dexamethasone",
+  "recorded_on": "2026-10-21",
+  "source": {
+    "document": "Neofordex (dexamethasone) EPAR public assessment report, EMA/CHMP/6613/2016",
+    "file_reviewed": {
+      "file": "neofordex-epar-public-assessment-report_en.pdf (61 pages)",
+      "sha256": "1f2ca1da30b9a0d5e2d857acf7bd39c7bd22c0d56237c2a557e6be29069fca59"
+    },
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "Table 11 from the PDF text layer; Table 14 is an image and was read from the rendered page (page 32, 130 dpi) and checked visually. AI-assisted; independent review pending."
+  },
+  "CPA_402_11": {
+    "location": "section 2.4.2, Table 11, page 29",
+    "design": "Single 20 mg oral dose, fasted, healthy volunteers, two-period crossover; test = half a Neofordex 40 mg tablet, reference = 44 x Dectancyl 0.5 mg; sampling to 36 h; WinNonlin NCA.",
+    "statistic": "arithmetic mean, SD (CV%); Tmax median (range)",
+    "test": {
+      "n": 24,
+      "auc_0_36_ug_h_l": [
+        1116.86,
+        346.2
+      ],
+      "auc_inf_ug_h_l": [
+        1140.3,
+        366.43
+      ],
+      "cmax_ug_l": [
+        125.93,
+        23.06
+      ],
+      "tmax_h_median_range": [
+        3.0,
+        1.8,
+        8.0
+      ],
+      "half_life_h": [
+        4.6,
+        1.26
+      ]
+    },
+    "reference": {
+      "n": 24,
+      "auc_0_36_ug_h_l": [
+        1191.91,
+        403.78
+      ],
+      "auc_inf_ug_h_l": [
+        1213.52,
+        423.72
+      ],
+      "cmax_ug_l": [
+        213.57,
+        54.04
+      ],
+      "tmax_h_median_range": [
+        0.9,
+        0.5,
+        5.0
+      ],
+      "half_life_h": [
+        3.97,
+        1.17
+      ]
+    }
+  },
+  "MM_017": {
+    "location": "section 2.4.2, 'Pharmacokinetics in target population', Table 14, page 32 (image)",
+    "design": "CC-5013-MM-017-PK: 6 Japanese patients with previously treated multiple myeloma; dexamethasone 40 mg (as 4 mg tablets) once daily on Days 2-4 and 9-12, lenalidomide 25 mg on Days 1 and 3-12; serial sampling after an overnight fast on Day 2 (dexamethasone alone, first dose) and Day 12.",
+    "statistic": "geometric mean (CV%); Tmax median (min-max)",
+    "day2_dex_alone": {
+      "n": 6,
+      "tmax_h_median_range": [
+        2.49,
+        1.0,
+        4.0
+      ],
+      "cmax_ng_ml": [
+        499,
+        33.0
+      ],
+      "auc_t_ng_h_ml": [
+        3528,
+        38.4
+      ],
+      "auc_tau_ng_h_ml": [
+        3526,
+        38.3
+      ],
+      "auc_inf_ng_h_ml": [
+        3661,
+        43.8
+      ],
+      "half_life_h": [
+        4.24,
+        31.9
+      ],
+      "cl_f_ml_min": [
+        182,
+        43.8
+      ],
+      "vz_f_l": [
+        66.9,
+        23.3
+      ]
+    },
+    "day12_with_lenalidomide": {
+      "n": 6,
+      "tmax_h_median_range": [
+        1.75,
+        0.47,
+        3.07
+      ],
+      "cmax_ng_ml": [
+        523,
+        33.9
+      ],
+      "auc_t_ng_h_ml": [
+        2633,
+        44.5
+      ],
+      "auc_tau_ng_h_ml": [
+        2687,
+        43.0
+      ],
+      "half_life_h": [
+        3.85,
+        32.3
+      ],
+      "cl_f_ml_min": [
+        248,
+        43.0
+      ],
+      "vz_f_l": [
+        82.7,
+        21.3
+      ],
+      "accumulation_ratio_cmax": [
+        1.05,
+        18.7
+      ],
+      "accumulation_ratio_auc_tau": [
+        0.762,
+        16.2
+      ]
+    }
+  },
+  "spoorenberg_2014_context": {
+    "citation": "Spoorenberg SMC, et al. Pharmacokinetics of oral vs. intravenous dexamethasone in patients hospitalized with community-acquired pneumonia. Br J Clin Pharmacol. 2014;78(1):78-83. doi:10.1111/bcp.12295",
+    "file_sha256": "e549123b7b7af6d2f9f10951a542a94fb90c09d5052731de29cce5a9bcc3b2ad",
+    "oral_6mg": {
+      "n": 15,
+      "statistic": "median (IQR)",
+      "auc_inf_ug_l_h": 774,
+      "auc_inf_iqr_abstract": [
+        618,
+        1146
+      ],
+      "cmax_ug_l": [
+        64.4,
+        38.7,
+        77.8
+      ],
+      "tmax_h": 2,
+      "half_life_h": [
+        6.9,
+        6.4,
+        8.6
+      ],
+      "clearance_l_h": [
+        7.7,
+        5.2,
+        9.7
+      ]
+    },
+    "note": "Table 2 prints the oral AUC as '774 [146]' while the abstract gives IQR 618-1146. Context only (see plan)."
+  }
+}

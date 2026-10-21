@@ -13,6 +13,8 @@ PINS = {
     'label_exposure_consistency_plan_melphalan_v1.json': 'c59e3a523a3211a319388e3a4839f9fce777f6df2d0c8496a16882638f4530f9',
     'label_pk_dexamethasone_hemady_v1.json': 'f764633f39576fd65ebc7b0a3cc3e22ddb362756b3c9c0838434cb0dab28605c',
     'label_exposure_consistency_plan_dexamethasone_v1.json': 'a2016bac0589b65d3268523d41efce2896cc51888920e7060f929ffa5c0745c8',
+    'label_exposure_dexamethasone_outside_check_plan_v1.json': '22312b7708384850b8b182cc13c6e86744df6f99d35ae36620484a09374f4ad4',
+    'dexamethasone_outside_pk_v1.json': 'a3d7de4528207684525885a6524c5b3e552664959b01e13ce6ba186eb163a774',
 }
 
 
