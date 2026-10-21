@@ -22,7 +22,7 @@ def client():
 
 class View(unittest.TestCase):
     def test_shown_only_with_intact_sources_and_passing_checks(self):
-        self.assertEqual(lv.available(), {'pomalidomide': 'Pomalidomide'})
+        self.assertEqual(lv.available(), {'pomalidomide': 'Pomalidomide', 'dexamethasone': 'Dexamethasone'})
         v = lv.view('pomalidomide')
         self.assertIs(v['clinical_prediction_validated'], False)
         self.assertEqual(v['selected_set'], 'A_exposure_derived_mm')
@@ -31,7 +31,7 @@ class View(unittest.TestCase):
     def test_a_changed_report_withholds_the_curve_and_the_level(self):
         broken = dict(lv.REGISTRY['pomalidomide'], outside_report=(lv.REGISTRY['pomalidomide']['outside_report'][0], '0' * 64))
         with mock.patch.dict(lv.REGISTRY, {'pomalidomide': broken}):
-            self.assertEqual(lv.available(), {})
+            self.assertEqual(lv.available(), {'dexamethasone': 'Dexamethasone'})
             with self.assertRaises(ValueError):
                 lv.view('pomalidomide')
             self.assertEqual(cl.drug_level('Pomalidomide', True)['id'], 'knowledge_only')
@@ -80,3 +80,42 @@ class Page(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class DexamethasonePage(unittest.TestCase):
+    URL = '/landscape/patient-lab/label-exposure/dexamethasone'
+
+    def setUp(self):
+        self.client = client()
+
+    def test_view_doses_and_scenarios(self):
+        v20 = lv.view('dexamethasone')
+        v40 = lv.view('dexamethasone', dose=40)
+        self.assertEqual(v20['kind'], 'single_dose_oral')
+        self.assertAlmostEqual(v40['summary']['auc_inf_ng_h_ml_exact'] / v20['summary']['auc_inf_ng_h_ml_exact'], 2.0)
+        self.assertIn('MM-017', v40['observed_points'][0]['source'])
+        self.assertEqual(len(v20['observed_points']), 2)
+        itra = lv.view('dexamethasone', 'itraconazole_strong_cyp3a4_inhibitor', 20)
+        self.assertAlmostEqual(itra['scenario_summary']['auc_inf_ng_h_ml_exact'] / v20['summary']['auc_inf_ng_h_ml_exact'], 3.7)
+        for bad in (('high_fat_meal', None), (None, 30)):
+            with self.assertRaises(KeyError):
+                lv.view('dexamethasone', *bad)
+        with self.assertRaises(KeyError):
+            lv.view('pomalidomide', dose=20)
+
+    def test_page_carries_the_population_caveats(self):
+        page = self.client.get(self.URL + '?dose=40').get_data(as_text=True)
+        for text in ('“in subjects”', 'In patients with myeloma, measured exposure was higher', '10.9 L/h',
+                     'The peak depends on the tablet', 'Spoorenberg', 'has not been studied', 'NEOFORDEX EPAR',
+                     '931d8ee532deda19ee242e9a13658cad156e73aae598a8f32008a81a13e84add'):
+            self.assertIn(text, page)
+        self.assertEqual(self.client.get(self.URL + '?dose=30').status_code, 400)
+        self.assertEqual(self.client.get(self.URL + '?scenario=high_fat_meal').status_code, 400)
+        data = json.loads(self.client.get(self.URL + '?format=json').data)
+        self.assertIs(data['clinical_prediction_validated'], False)
+
+    def test_a_changed_report_withholds_dexamethasone(self):
+        broken = dict(lv.REGISTRY['dexamethasone'], consistency_report=(lv.REGISTRY['dexamethasone']['consistency_report'][0], '0' * 64))
+        with mock.patch.dict(lv.REGISTRY, {'dexamethasone': broken}):
+            self.assertEqual(self.client.get(self.URL).status_code, 503)
+            self.assertEqual(cl.drug_level('Dexamethasone', True)['id'], 'knowledge_only')

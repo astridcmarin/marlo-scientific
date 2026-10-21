@@ -125,7 +125,7 @@
                     <li>Lenalidomide concentration curves from two population PK models (Hughes 2019, Kim 2026).</li>
                     <li>How elimination splits between kidney filtration, tubular secretion and other routes.</li>
                     <li>Relative odds of severe low blood counts, and the bortezomib platelet course (Lignet 2022). Its exposure model disagrees with two outside studies; <a href="{{ url_for('model_scorecard', model_id='bortezomib_pk_lignet_2022') }}">see the scorecard</a>.</li>
-                    <li>Label-based exposure curves for approved drugs, each checked against its own label and outside data before it is shown. <a href="{{ url_for('landscape.label_exposure', drug='pomalidomide') }}">Pomalidomide first</a>.</li>
+                    <li>Label-based exposure curves for approved drugs, each checked against its own label and outside data before it is shown. So far: <a href="{{ url_for('landscape.label_exposure', drug='pomalidomide') }}">pomalidomide</a> and <a href="{{ url_for('landscape.label_exposure', drug='dexamethasone') }}">dexamethasone</a>.</li>
                     <li>Building blocks for target binding, protein turnover, delays and dosing schedules.</li>
                 </ul>
                 <p class="links"><a href="{{ url_for('landscape.patient_directory') }}">Open the Patient Lab →</a> <a href="{{ url_for('landscape.simulation_lab') }}">Simulation Lab →</a></p>

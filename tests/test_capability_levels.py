@@ -12,7 +12,7 @@ class LevelRules(unittest.TestCase):
     def test_levels_are_ordered_and_label_based_is_assigned_only_after_its_checks(self):
         self.assertEqual([l['rank'] for l in cl.LEVELS], list(range(len(cl.LEVELS))))
         inventory = capability_inventory()
-        self.assertEqual(inventory['capability_level_counts']['label_based_exposure'], 1)
+        self.assertEqual(inventory['capability_level_counts']['label_based_exposure'], 2)
         self.assertEqual(sum(inventory['capability_level_counts'].values()), inventory['counts']['drug_entities'])
 
     def test_level_follows_the_scorecards(self):
@@ -39,7 +39,10 @@ class LevelRules(unittest.TestCase):
         self.assertIn('disagreement', levels['Lenalidomide']['note'])
         self.assertEqual(levels['Pomalidomide']['id'], 'label_based_exposure')
         self.assertEqual(levels['Pomalidomide']['label_exposure_drug'], 'pomalidomide')
-        self.assertTrue(all(levels[d]['id'] == 'knowledge_only' for d in levels if d not in ('Lenalidomide', 'Bortezomib', 'Pomalidomide')))
+        self.assertEqual(levels['Dexamethasone']['id'], 'label_based_exposure')
+        self.assertEqual(levels['Melphalan']['id'], 'knowledge_only')          # not eligible (3.1f)
+        self.assertTrue(all(levels[d]['id'] == 'knowledge_only' for d in levels
+                            if d not in ('Lenalidomide', 'Bortezomib', 'Pomalidomide', 'Dexamethasone')))
 
 
 class LevelPages(unittest.TestCase):
