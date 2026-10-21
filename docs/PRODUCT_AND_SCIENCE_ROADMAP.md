@@ -27,8 +27,8 @@ Primary users first: trial designers, clinical pharmacologists and regulatory pr
 
 | Differentiator | Status in the code |
 |---|---|
-| **Shows its work.** Every value carries its source; every model shows what has and has not been checked, including failures. | In place (run records, four validation layers). Not yet visible as a public scorecard. |
-| **Checks planned before they run.** Comparisons with outside data follow a plan locked by commit before computation. | In place (Simulation 2.0a–2.0c, 3.0f, 4.0). |
+| **Shows its work.** Every value carries its source; every model shows what has and has not been checked, including failures. | In place and visible: run records, four validation layers, public scorecards at `/models`, a capability level on every drug (Phase 1.1–1.2). |
+| **Checks planned before they run.** Comparisons with outside data follow a plan locked by commit before computation. | In place (Simulation 2.0a–2.0c, 3.0f–3.0i, 4.0; label engine 3.1b–3.1g). Negative results are recorded and shown. |
 | **A regulatory reviewer's structure.** Evidence organized like a clinical pharmacology review: special populations, interactions, exposure–response, dose justification. | Partly (kidney work for lenalidomide). To generalize. |
 | **The whole chain in one place.** Trial → drug → evidence → exposure → regulatory context, with the links kept. | Partly (pages exist; the guided path does not). |
 | **Reproducible snapshots.** Frozen cohorts and checksum-pinned, versioned reference data. | In place. |
@@ -37,19 +37,20 @@ Primary users first: trial designers, clinical pharmacologists and regulatory pr
 
 Not differentiating on their own, so not the lead message: trial search, dashboards, "AI-powered" claims, and the digital human while it is still distant.
 
-## Where we are (19 October 2026)
+## Where we are (21 October 2026)
 
 | Area | Status |
 |---|---|
-| Clinical trial intelligence | Available: explorer at `/trials`, cohorts, normalization, regulatory indicators; multiple myeloma dataset of 4,037 trials |
-| Drug and regulatory knowledge | Foundation: about nine curated drug entities with mechanisms, safety, interactions, regulatory references |
-| Exposure models | Lenalidomide: Hughes 2019, Kim 2026, kidney-pathway model (2.0a–2.0c). Bortezomib: PK component contradicted by outside data (3.0f) |
+| Clinical trial intelligence | Available: explorer at `/trials`, cohorts, normalization, regulatory indicators. The 4,037-trial myeloma dataset is local and not in the repository. |
+| Drug and regulatory knowledge | Foundation: nine curated drug entities with mechanisms, safety, interactions and regulatory references |
+| Exposure models | Lenalidomide: Hughes 2019, Kim 2026, kidney-pathway model (2.0a–2.0c). Bortezomib: PK component disagrees with two outside studies (3.0f, 3.0h); two candidate fixes failed (3.0g, 3.0i) |
+| Label-based exposure (Phase 3.1) | Pomalidomide and dexamethasone shown, each after a locked label check and outside check; melphalan not eligible |
 | Effect and safety models | Bortezomib platelet course (Lignet 2022); lenalidomide relative odds of grade 3/4 cytopenia (4.0a–4.0c) |
-| Provenance | Run record on every Patient Lab result; model evidence status v5 covers six models |
+| Provenance | Run record on every Patient Lab result; evidence status v6 covers six models; public scorecards and capability levels |
 | Interface | Landing page, shared brand and navigation, About, intended-use page |
 | Online | Not deployed. No accounts. |
 
-No model is validated for clinical prediction.
+Latest verification: [repository checkpoint, 21 October 2026](REPOSITORY_CHECKPOINT.md). No model is validated for clinical prediction.
 
 ## Phases
 
@@ -61,7 +62,7 @@ The differentiator already exists in the code; users cannot see it yet.
 
 1. **Model scorecards** (`/models`): one public page per registered model with its source, intended scope, the four validation layers, recorded findings and failures, and the reports behind them. Built from `model_evidence_status_v5.json`; nothing new is computed. **Built 19 October 2026:** `/models` and `/models/<id>`, with recorded outside-data disagreements, inherited warnings (the platelet model through the bortezomib PK model), cited reports served only while their checksums match, and links from the landing page, the footer and every run record.
 2. **Capability levels per drug**: *Knowledge only*, *Label-based exposure*, *Published model*, *Published model checked against outside data*. Shown in the drug library and on every drug page. **Built 19 October 2026** (inventory v1.3): derived from the curated catalogs and the scorecards; lenalidomide and bortezomib are at *Published model, checked against outside data* with their recorded disagreements, the other seven curated drugs at *Knowledge only*; *Label-based exposure* was first assigned on 20 October 2026, to pomalidomide (Phase 3.1e).
-3. **Repository checkpoint refresh** covering the work since 16 October.
+3. **Repository checkpoint refresh** covering the work since 16 October. **Done 21 October 2026** ([checkpoint](REPOSITORY_CHECKPOINT.md)): all checks pass; two unpinned review packets now frozen by a test.
 
 *Done when:* any visitor can see, for every model, what was checked and what failed, without opening a JSON file.
 
@@ -124,9 +125,11 @@ Multi-organ physiology, disease progression, combination therapies, the body →
 
 ## Immediate next steps
 
-1. **Model scorecards** (Phase 1.1). Small, uses existing evidence files, and makes the main differentiator visible.
-2. **Bortezomib PK with falling clearance** (Phase 2.1). Fixes the one model known to be contradicted.
-3. **Label-based exposure engine: evidence and design plan** (Phase 3.1). The largest step toward "any drug".
+Updated 21 October 2026. Done since 19 October: scorecards (1.1), capability levels (1.2), checkpoint (1.3), bortezomib PK candidates (2.1, gap documented), label engine with two drugs shown (3.1).
+
+1. **Drug catalog growth** (Phase 3.2). More approved drugs from public sources (labels, RxNorm, ChEMBL), each sourced and marked reviewed or not, so the label engine has more to work on.
+2. **Protocol benchmarking for multiple myeloma** (Phase 4.1). Compare eligibility criteria across similar trials using the trial data already in the platform; the first trial-design tool.
+3. **Bortezomib PK** (Phase 2.1), when the Iwasaki 2020 paper or individual data arrive.
 
 In parallel, outside the code: speak with five to ten trial designers, clinical pharmacologists or regulatory professionals about what they do by hand today, to confirm the Phase 4 focus.
 

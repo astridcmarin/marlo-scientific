@@ -54,3 +54,16 @@ class ReferencePins(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class ReviewPacketsAreFrozen(unittest.TestCase):
+    """Checkpoint 2026-10-21: two review packets are not loaded as reference data (one is read by a review script that
+    reports its checksum, one is documentation), so they have no loader pin; this test still refuses a silent edit."""
+    FROZEN = {
+        'lenalidomide_assay_metadata_v2.json': 'af1970a3109070f552474064d2df7a0be4c86f9ff449cff6ebca8c16f928a644',
+        'lenalidomide_assay_quality_review_v1.json': '0bdd76d923cfb02bf817f4e00f7aa088fdf6ea270d6e13de90488b5ae0b8efac',
+    }
+
+    def test_review_packets_unchanged(self):
+        for name, sha in self.FROZEN.items():
+            self.assertEqual(hashlib.sha256((DATA / name).read_bytes()).hexdigest(), sha, name)
