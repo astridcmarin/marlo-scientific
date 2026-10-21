@@ -1,0 +1,205 @@
+{
+  "schema_version": "label-exposure-consistency-report-v1",
+  "method_version": "label-exposure-iv-v1.0",
+  "plan_version": "label-exposure-consistency-plan-melphalan-v1.0",
+  "plan_sha256": "c59e3a523a3211a319388e3a4839f9fce777f6df2d0c8496a16882638f4530f9",
+  "label_extract_sha256": "0d09f06e1e9d7d9feb887d815074dbd5e1589e449067f32078f1aa8f9dd2d968",
+  "label_source": {
+    "dailymed_set_id": "69f55869-dc11-408e-8fc7-47634269a52c",
+    "revised": "9/2026 (as printed on the label)",
+    "file_reviewed": {
+      "file": "20260923_69f55869-dc11-408e-8fc7-47634269a52c.pdf (19 pages)",
+      "sha256": "aaafcb69f7d187ca0fa646520b92d339f9e138cad7f40072534b22efd4546967"
+    }
+  },
+  "drug": "melphalan",
+  "target_population": "Multiple myeloma, conditioning before autologous stem cell transplantation",
+  "regimen": {
+    "dose_mg_m2": 100,
+    "infusion_h": 0.5,
+    "evaluated_as": "single infusion"
+  },
+  "tolerance": [
+    0.67,
+    1.5
+  ],
+  "which_checks_are_informative": "For set A, C1, C2 and C4 hold by construction (its CL comes from the AUC and its V from the half-life), so C3 (end-of-infusion Cmax) is its only informative pass-or-fail check. For set B, all four are informative.",
+  "numerical_checks": {
+    "auc_numerical_vs_exact_max_relative_difference": 6.2147717876971655e-12,
+    "auc_passed": true,
+    "short_infusion_vs_bolus_max_relative_difference": 2.77314703910332e-07,
+    "bolus_limit_passed": true,
+    "end_of_infusion_continuity_max_relative_difference": 1.6858871412101617e-09,
+    "continuity_passed": true
+  },
+  "parameter_sets": {
+    "A_exposure_derived_mm": {
+      "cl_l_h_m2": 13.303769401330378,
+      "cl_ml_min_m2": 221.72949002217294,
+      "v_l_m2": 23.99160267553709,
+      "provenance": {
+        "cl": "Dose / AUC0-inf = 100 mg/m2 / 451 ug.min/mL (myeloma patients)",
+        "v": "CL x 75 min / ln 2 (label terminal half-life)"
+      },
+      "primary": {
+        "infusion_h": 0.5,
+        "summary": {
+          "cmax_ug_ml": 3.6401971417301735,
+          "tmax_h_grid": 0.5,
+          "auc_inf_ug_min_ml_numerical": 450.9999999999945,
+          "auc_inf_ug_min_ml_exact": 451.0,
+          "remaining_fraction_at_24_h": 1.6604434266970202e-06
+        },
+        "checks": {
+          "C1_clearance_vs_exposure": {
+            "model": 221.72949002217294,
+            "label": 221.72949002217294,
+            "ratio": 1.0,
+            "result": "pass"
+          },
+          "C2_half_life": {
+            "model": 75.00000000000001,
+            "label": 75,
+            "ratio": 1.0000000000000002,
+            "result": "pass"
+          },
+          "C3_cmax_end_of_infusion": {
+            "model": 3.6401971417301735,
+            "label": 5.8,
+            "ratio": 0.6276201968500299,
+            "result": "fail"
+          },
+          "C4_auc_inf": {
+            "model": 450.9999999999945,
+            "label": 451,
+            "ratio": 0.9999999999999878,
+            "result": "pass"
+          },
+          "C5_volume_in_stated_range": {
+            "model": 23.99160267553709,
+            "label_range": [
+              35.5,
+              185.7
+            ],
+            "inside": false,
+            "result": null
+          },
+          "C6_clearance_in_stated_range": {
+            "model": 221.72949002217294,
+            "label_range": [
+              250,
+              325
+            ],
+            "inside": false,
+            "result": null
+          }
+        },
+        "passes_c1_to_c4": false
+      },
+      "infusion_sensitivity": [
+        {
+          "infusion_min": 24,
+          "cmax_ug_ml": 3.7382285502950174,
+          "cmax_ratio": 0.6445221638439685,
+          "cmax_result": "fail"
+        },
+        {
+          "infusion_min": 48,
+          "cmax_ug_ml": 3.366405418740939,
+          "cmax_ratio": 0.5804147273691275,
+          "cmax_result": "fail"
+        }
+      ]
+    },
+    "B_stated_ranges": {
+      "cl_l_h_m2": 17.10263137648707,
+      "cl_ml_min_m2": 285.04385627478456,
+      "v_l_m2": 81.19328789992433,
+      "provenance": {
+        "cl": "geometric midpoint of 250-325 mL/min/m2",
+        "v": "geometric midpoint of 35.5-185.7 L/m2"
+      },
+      "primary": {
+        "infusion_h": 0.5,
+        "summary": {
+          "cmax_ug_ml": 1.1689892733726515,
+          "tmax_h_grid": 0.5,
+          "auc_inf_ug_min_ml_numerical": 350.8232077206314,
+          "auc_inf_ug_min_ml_exact": 350.8232077228117,
+          "remaining_fraction_at_24_h": 0.00637492582349213
+        },
+        "checks": {
+          "C1_clearance_vs_exposure": {
+            "model": 285.04385627478456,
+            "label": 221.72949002217294,
+            "ratio": 1.2855477917992784,
+            "result": "pass"
+          },
+          "C2_half_life": {
+            "model": 197.43943729827726,
+            "label": 75,
+            "ratio": 2.6325258306436967,
+            "result": "fail"
+          },
+          "C3_cmax_end_of_infusion": {
+            "model": 1.1689892733726515,
+            "label": 5.8,
+            "ratio": 0.20154987471942268,
+            "result": "fail"
+          },
+          "C4_auc_inf": {
+            "model": 350.8232077206314,
+            "label": 451,
+            "ratio": 0.7778785093583844,
+            "result": "pass"
+          },
+          "C5_volume_in_stated_range": {
+            "model": 81.19328789992433,
+            "label_range": [
+              35.5,
+              185.7
+            ],
+            "inside": true,
+            "result": null
+          },
+          "C6_clearance_in_stated_range": {
+            "model": 285.04385627478456,
+            "label_range": [
+              250,
+              325
+            ],
+            "inside": true,
+            "result": null
+          }
+        },
+        "passes_c1_to_c4": false
+      },
+      "infusion_sensitivity": [
+        {
+          "infusion_min": 24,
+          "cmax_ug_ml": 1.181169669994814,
+          "cmax_ratio": 0.20364994310255413,
+          "cmax_result": "fail"
+        },
+        {
+          "infusion_min": 48,
+          "cmax_ug_ml": 1.1334477944083625,
+          "cmax_ratio": 0.1954220335186832,
+          "cmax_result": "fail"
+        }
+      ]
+    }
+  },
+  "decision": {
+    "selected_set": null,
+    "eligible": false,
+    "rule": "The engine uses the first set in order_of_preference that passes C1 to C4 for a 30-minute infusion."
+  },
+  "not_this": [
+    "Not validation: a label agreeing with itself says nothing about whether the curve describes patients.",
+    "Not an outside-data check; that would be a later step with its own locked plan.",
+    "Not a dosing recommendation or an exposure prediction for any patient; melphalan conditioning is given only under specialist care."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "312c529365fffb9a09157ba1a6e3594f5a049b60439f4e1c480c84022b19d61e"
+}

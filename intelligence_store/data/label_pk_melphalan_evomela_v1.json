@@ -1,0 +1,129 @@
+{
+  "schema_version": "label-pk-extract-v1",
+  "extract_version": "melphalan-evomela-label-pk-v1.0",
+  "drug": "melphalan",
+  "recorded_on": "2026-10-20",
+  "source": {
+    "document": "EVOMELA (melphalan) for injection, for intravenous use. Full prescribing information. Acrotech Biopharma Inc.",
+    "dailymed_set_id": "69f55869-dc11-408e-8fc7-47634269a52c",
+    "revised": "9/2026 (as printed on the label)",
+    "spl_version": "not recorded; the downloaded file name begins 20260923 and the PDF creation date is 2026-09-23",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=69f55869-dc11-408e-8fc7-47634269a52c",
+    "file_reviewed": {
+      "file": "20260923_69f55869-dc11-408e-8fc7-47634269a52c.pdf (19 pages)",
+      "sha256": "aaafcb69f7d187ca0fa646520b92d339f9e138cad7f40072534b22efd4546967"
+    },
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted from the PDF text layer (pdftotext); every value below is copied with the sentence it comes from. Independent review pending."
+  },
+  "scope_of_use": "Multiple myeloma, high-dose conditioning before autologous stem cell transplantation, adults.",
+  "regimen": {
+    "dose_mg_m2": 100,
+    "infusion_h": 0.5,
+    "doses": 2,
+    "interval_h": 24,
+    "route": "intravenous infusion",
+    "schedule": "Day -3 and Day -2 before autologous stem cell transplantation",
+    "quote": "The recommended dose of Evomela for conditioning treatment is 100 mg/m2/day administered over 30 minutes by intravenous infusion for 2 consecutive days (Day -3 and Day -2) prior to autologous stem cell transplantation (ASCT, Day 0).",
+    "location": "section 2.1"
+  },
+  "values": {
+    "cmax_single_100_mg_m2_ug_ml": {
+      "value": 5.8,
+      "sd": 1.5,
+      "statistic": "mean (SD)",
+      "population": "patients with multiple myeloma, 100 mg/m2",
+      "quote": "Mean (± SD) peak plasma concentrations and AUC0-inf were 5.8 ± 1.5 mcg/mL and 451 ± 109 mcg*min/mL, respectively, following administration of melphalan 100 mg/m2 in multiple myeloma patients.",
+      "location": "section 12.3",
+      "note": "Which dose of the two (Day -3 or Day -2) is not stated; read as one 30-minute infusion with no drug present before it."
+    },
+    "auc_inf_single_100_mg_m2_ug_min_ml": {
+      "value": 451,
+      "sd": 109,
+      "statistic": "mean (SD)",
+      "population": "patients with multiple myeloma, 100 mg/m2",
+      "quote": "same sentence as cmax_single_100_mg_m2_ug_ml",
+      "location": "section 12.3"
+    },
+    "volume_of_distribution_l_m2": {
+      "range": [
+        35.5,
+        185.7
+      ],
+      "population": "not stated",
+      "quote": "The volume of distribution of melphalan ranges from approximately 35.5 to 185.7 L/m2.",
+      "location": "section 12.3",
+      "note": "The type of volume (steady state, terminal or central) is not stated."
+    },
+    "terminal_half_life_min": {
+      "value": 75,
+      "population": "not stated",
+      "quote": "Melphalan terminal elimination half-life is approximately 75 minutes.",
+      "location": "section 12.3"
+    },
+    "clearance_ml_min_m2": {
+      "range": [
+        250,
+        325
+      ],
+      "population": "not stated",
+      "quote": "Average total body clearance (CL) ranges from approximately 250 to 325 mL/min/m2.",
+      "location": "section 12.3"
+    },
+    "fraction_excreted_urine": {
+      "range": [
+        0.058,
+        0.213
+      ],
+      "quote": "Mean values of melphalan excreted in urine range from 5.8% to 21.3%.",
+      "location": "section 12.3"
+    },
+    "elimination_route": {
+      "value": "chemical hydrolysis",
+      "quote": "Melphalan primarily undergoes chemical hydrolysis to inactive metabolites.",
+      "location": "section 12.3"
+    },
+    "protein_binding_percent": {
+      "range": [
+        50,
+        90
+      ],
+      "quote": "Protein binding of melphalan ranges from approximately 50% to 90%, primarily to serum albumin (40% to 60%) and to a lesser extent to α1-acid glycoprotein (20%).",
+      "location": "section 12.3"
+    }
+  },
+  "linearity": {
+    "stated": false,
+    "note": "Only the 100 mg/m2 dose is reported; dose proportionality is not stated."
+  },
+  "scenarios": {
+    "ideal_body_weight_45_kg": {
+      "cl_factor": 0.72,
+      "relative_to": "IBW 70 kg",
+      "study_population": "not stated (covariate effect; likely from a population PK analysis)",
+      "quote": "Melphalan clearance changes with ideal body weight (IBW), which decreased by 28% and increased by 31% with IBW of 45 kg and 100 kg compared to 70 kg IBW, respectively.",
+      "location": "section 12.3"
+    },
+    "ideal_body_weight_100_kg": {
+      "cl_factor": 1.31,
+      "relative_to": "IBW 70 kg",
+      "study_population": "not stated (covariate effect; likely from a population PK analysis)",
+      "quote": "same sentence as ideal_body_weight_45_kg",
+      "location": "section 12.3"
+    },
+    "creatinine_clearance_30_ml_min": {
+      "cl_factor": 0.718,
+      "relative_to": "estimated creatinine clearance 100 mL/min, IBW 70 kg",
+      "study_population": "not stated (covariate effect; likely from a population PK analysis)",
+      "quote": "A decrease in estimated creatinine CL from 100 mL/min to 30 mL/min results in 28.2% reduction in CL for a typical person with an IBW of 70 kg.",
+      "location": "section 12.3"
+    }
+  },
+  "scenario_note": "Melphalan scenarios state a change in clearance (not in AUC), so they are applied as CL multiplied by the factor. The clearance in the label is per m2 of body surface area while the covariate effects are stated for ideal body weight; the label does not say how the two combine, so the factors are applied to the typical per-m2 curve and labelled as such.",
+  "not_stated": [
+    "Which of the two conditioning doses the Cmax and AUC describe, and the sampling schedule.",
+    "Whether the volume range is steady-state, terminal or central volume.",
+    "The population behind the clearance, volume and half-life ranges.",
+    "Hepatic impairment and drug interaction effects on exposure."
+  ]
+}
