@@ -1,0 +1,187 @@
+{
+  "schema_version": "label-exposure-outside-check-report-v1",
+  "method_version": "label-exposure-dexamethasone-check-v1.0",
+  "plan_version": "label-exposure-dexamethasone-outside-check-plan-v1.0",
+  "plan_sha256": "22312b7708384850b8b182cc13c6e86744df6f99d35ae36620484a09374f4ad4",
+  "observed_sha256": "a3d7de4528207684525885a6524c5b3e552664959b01e13ce6ba186eb163a774",
+  "label_extract_sha256": "f764633f39576fd65ebc7b0a3cc3e22ddb362756b3c9c0838434cb0dab28605c",
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "label_curve_parameters": {
+    "cl_f_l_h": 15.7,
+    "v_f_l": 90.6012485678269,
+    "ka_per_h": 3.036946718691925
+  },
+  "primary_mm017_auc_inf_40mg": {
+    "model": 2547.770700636943,
+    "observed": 3661,
+    "statistic": "geometric mean",
+    "n": 6,
+    "interval_95": [
+      2358.6607477776774,
+      5682.428476680331
+    ],
+    "ratio_model_to_observed": 0.695922070646529,
+    "classification": "consistent"
+  },
+  "secondary": {
+    "mm017_cmax_40mg": {
+      "model": 371.2515792204306,
+      "observed": 499,
+      "statistic": "geometric mean",
+      "n": 6,
+      "interval_95": [
+        356.0958367942211,
+        699.2527692591123
+      ],
+      "ratio_model_to_observed": 0.7439911407223058,
+      "classification": "consistent"
+    },
+    "cpa_402_11_20mg": {
+      "test": {
+        "auc_inf": {
+          "model": 1273.8853503184714,
+          "observed": 1140.3,
+          "statistic": "arithmetic mean",
+          "n": 24,
+          "interval_95": [
+            985.5670105614115,
+            1295.0329894385884
+          ],
+          "ratio_model_to_observed": 1.117149303094336,
+          "classification": "consistent"
+        },
+        "auc_0_36": {
+          "model": 1271.2466789217433,
+          "observed": 1116.86,
+          "statistic": "arithmetic mean",
+          "n": 24,
+          "interval_95": [
+            970.669565418663,
+            1263.050434581337
+          ],
+          "ratio_model_to_observed": 1.1382327945505644,
+          "classification": "model_over_predicts"
+        },
+        "cmax": {
+          "model": 185.6257896102153,
+          "observed": 125.93,
+          "statistic": "arithmetic mean",
+          "n": 24,
+          "interval_95": [
+            116.1924164602957,
+            135.6675835397043
+          ],
+          "ratio_model_to_observed": 1.4740394632749565,
+          "classification": "model_over_predicts"
+        },
+        "tmax_observed_median_range_h": [
+          3.0,
+          1.8,
+          8.0
+        ],
+        "half_life_observed_h": [
+          4.6,
+          1.26
+        ]
+      },
+      "reference": {
+        "auc_inf": {
+          "model": 1273.8853503184714,
+          "observed": 1213.52,
+          "statistic": "arithmetic mean",
+          "n": 24,
+          "interval_95": [
+            1034.5950694950777,
+            1392.4449305049222
+          ],
+          "ratio_model_to_observed": 1.0497440094258614,
+          "classification": "consistent"
+        },
+        "auc_0_36": {
+          "model": 1271.2466789217433,
+          "observed": 1191.91,
+          "statistic": "arithmetic mean",
+          "n": 24,
+          "interval_95": [
+            1021.4051655827493,
+            1362.4148344172509
+          ],
+          "ratio_model_to_observed": 1.0665626422479408,
+          "classification": "consistent"
+        },
+        "cmax": {
+          "model": 185.6257896102153,
+          "observed": 213.57,
+          "statistic": "arithmetic mean",
+          "n": 24,
+          "interval_95": [
+            190.7504416962003,
+            236.38955830379967
+          ],
+          "ratio_model_to_observed": 0.8691566681191895,
+          "classification": "model_under_predicts"
+        },
+        "tmax_observed_median_range_h": [
+          0.9,
+          0.5,
+          5.0
+        ],
+        "half_life_observed_h": [
+          3.97,
+          1.17
+        ]
+      }
+    }
+  },
+  "descriptive": {
+    "model_half_life_h": 4.0,
+    "model_tmax_h": 1.0,
+    "model_cl_f_l_h": 15.7,
+    "mm017_day2": {
+      "tmax_h_median_range": [
+        2.49,
+        1.0,
+        4.0
+      ],
+      "half_life_h_gm": 4.24,
+      "cl_f_l_h_gm": 10.92,
+      "vz_f_l_gm": 66.9
+    },
+    "mm017_day12_with_lenalidomide": {
+      "cmax_ng_ml_gm": 523,
+      "auc_tau_ng_h_ml_gm": 2687,
+      "cl_f_l_h_gm": 14.88,
+      "model_single_dose_auc_inf_40mg": 2547.770700636943,
+      "classification": null
+    },
+    "spoorenberg_2014_scaled_to_20mg": {
+      "auc_inf_ug_l_h_median": 2580.0,
+      "cmax_ug_l_median": 214.66666666666666,
+      "clearance_l_h_median": 7.7,
+      "half_life_h_median": 6.9,
+      "population": "hospitalized with community-acquired pneumonia; context only",
+      "classification": null
+    }
+  },
+  "decision": {
+    "curve_consistent_with_outside_data": true,
+    "cmax_classifications": {
+      "mm017": "consistent",
+      "cpa_test": "model_over_predicts",
+      "cpa_reference": "model_under_predicts"
+    },
+    "rule": "The label-based dexamethasone curve is recorded as consistent with outside data if the primary endpoint is consistent and the AUC0-inf of both CPA-402-11 arms is consistent. Cmax results are reported with their classification but do not decide, because 3.1f already recorded the peak as the weak point."
+  },
+  "not_this": [
+    "Not validation; no acceptance limits for clinical use are introduced.",
+    "Not a comparison of individual concentrations; only published summaries are used.",
+    "Not a dosing or exposure prediction for any patient."
+  ],
+  "known_differences": [
+    "MM-017: n = 6, Japanese patients, 40 mg given as 4 mg tablets; the label curve is scaled from 20 mg.",
+    "CPA-402-11: healthy volunteers, other products; a typical-value curve is compared with summary statistics.",
+    "Assays and NCA software differ between the label's studies and these studies."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "2b1d74d1f19812ce3b9a3c2d8be418ebc8885e81e40f5efcd6e5669204dbb6a3"
+}

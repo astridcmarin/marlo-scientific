@@ -140,8 +140,27 @@ The label reports single-dose values "in subjects" and does not say whether they
 | C4 AUC | 1274 ng·h/mL | 1271 (geometric mean) | 1.00, pass |
 
 - **Eligible**, with the peak as the weak point. With ka from the fastest Tmax (0.5 h) the peak ratio is 0.82; from the slowest (4 h) it is 0.45. A typical curve has a lower peak than the average of individual peaks when individuals peak at different times (0.5–4 h), so some shortfall is expected.
-- **Not shown yet.** Under the 3.1e rule a label curve appears only after an outside check, as pomalidomide had with Li 2017. Dexamethasone stays at *Knowledge only* until one is done (next step: find a published dexamethasone population PK model or study with exposure summaries).
+- **Not shown yet.** Under the 3.1e rule a label curve appears only after an outside check. That check is 3.1g below.
 - **Scenarios carried, not shown:** itraconazole ×3.7 (studied with a 4.5 mg dose), aprepitant ×2.2; food lowers the peak by 23% without changing AUC (text only). No kidney, liver or inducer numbers in the label.
+
+## 3.1g result — dexamethasone against the NEOFORDEX EPAR: consistent
+
+Source: Neofordex EPAR public assessment report (EMA/CHMP/6613/2016), a different product and applicant. Plan `label_exposure_dexamethasone_outside_check_plan_v1.json`, locked in commit `6770ed8` after reading only the study designs and before the results tables. Extract `dexamethasone_outside_pk_v1.json` (Table 11 from text; Table 14 is an image and was read from the rendered page). Module `label_exposure_dexamethasone_check.py`; report `docs/verification/label_exposure_dexamethasone_outside_check_v1.json`; CLI `label-exposure-dexamethasone-outside-check`.
+
+| Dataset | Endpoint | Label curve | Observed (95% interval) | Ratio | Result |
+|---|---|---|---|---|---|
+| **MM-017: 6 Japanese myeloma patients, 40 mg (primary)** | AUC0-inf | 2548 | GM 3661 (2359–5682) | 0.70 | consistent |
+| | Cmax | 371 | GM 499 (356–699) | 0.74 | consistent |
+| CPA-402-11: 24 healthy volunteers, 20 mg, NEOFORDEX | AUC0-inf | 1274 | 1140 (986–1295) | 1.12 | consistent |
+| | Cmax | 186 | 126 (116–136) | 1.47 | over |
+| CPA-402-11, reference (Dectancyl) | AUC0-inf | 1274 | 1214 (1035–1392) | 1.05 | consistent |
+| | Cmax | 186 | 214 (191–236) | 0.87 | under |
+
+- **Recorded as consistent with outside data** (primary and both healthy-volunteer AUCs).
+- **The pattern matters more than the classification.** In healthy volunteers the label curve matches total exposure within about 10%. In the 6 myeloma patients it gives 70% of the measured exposure: their apparent clearance was 10.9 L/h against the label's 15.7. With six patients the interval is wide enough to include the curve, but the direction agrees with Spoorenberg 2014 (acutely ill older patients, clearance 7.7 L/h; context only). Patients may clear dexamethasone more slowly than the label's subjects; this platform cannot settle that.
+- **The peak depends on the tablet.** The two products peaked at 126 and 214 µg/L with the same AUC; the label curve (186) lies between. A peak from a label curve should not be read as product-independent.
+- **Descriptive:** MM-017 day 12 (with lenalidomide, repeated dosing) GM AUCτ 2687, clearance 14.9 L/h.
+- **What this allows:** a later step may show dexamethasone at *Label-based exposure*, citing both checks and stating that exposure in myeloma patients was about 1.4 times the curve.
 
 ## Data model
 
