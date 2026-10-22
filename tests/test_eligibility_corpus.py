@@ -90,3 +90,27 @@ class Export(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class PinnedCorpus(unittest.TestCase):
+    """Phase 4.1b: the exported myeloma cohort, pinned."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.corpus = ec.load_corpus()
+
+    def test_identity_and_counts(self):
+        c = self.corpus
+        self.assertEqual(c['schema_version'], 'eligibility-corpus-v1')
+        self.assertEqual((c['cohort']['id'], c['cohort']['condition'], c['cohort']['scope']), (3, 'Multiple Myeloma', 'all-interventional'))
+        self.assertEqual(c['cohort']['expected_count'], c['cohort']['retrieved_count'])
+        self.assertEqual(c['counts'], {'trials': 3450, 'with_eligibility_text': 3449, 'interventional': 3450})
+        self.assertEqual(len({t['nct_id'] for t in c['trials']}), 3450)
+
+    def test_a_changed_file_is_refused(self):
+        import gzip
+        with tempfile.TemporaryDirectory() as tmp:
+            changed = Path(tmp) / 'c.json.gz'
+            changed.write_bytes(gzip.compress(gzip.decompress(ec.CORPUS_PATH.read_bytes()) + b' '))
+            with self.assertRaises(ValueError):
+                ec.load_corpus(changed)
