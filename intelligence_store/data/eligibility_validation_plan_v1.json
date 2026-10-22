@@ -1,0 +1,39 @@
+{
+  "schema_version": "extraction-validation-plan-v1",
+  "plan_version": "eligibility-validation-plan-v1.0",
+  "recorded_on": "2026-10-22",
+  "status": "locked_before_annotation_and_extraction",
+  "prespecification_note": "Written and checksum-pinned before any trial in the validation sample was annotated and before any extraction rule was written. The sample was drawn by fixed rules (eligibility_sample.py); its criteria text has not been read. Corpus statistics (phase and decade counts, text lengths) were seen when the corpus was pinned.",
+  "classification": "information_extraction_validation",
+  "question": "How accurately does the rule-based extractor (Phase 4.1d) read eight eligibility-threshold types from registered criteria text of multiple myeloma trials, judged against a hand annotation made without seeing its output?",
+  "inputs": {
+    "corpus": {"path": "intelligence_store/data/eligibility_corpus_mm_cohort3_v1.json.gz", "decompressed_sha256": "bf01ddcf94e3a9fad23924fe9cae90aa13983c573fe0d48e9e2feb16368ee418"},
+    "sample": {"path": "intelligence_store/data/eligibility_validation_sample_v1.json", "sha256": "b49e505c3d9004de5047e3fc56920bc012df606d24517e8fbbae79db39f8b93d", "size": 120, "development_set_size": 200},
+    "annotation_guide": {"path": "docs/ELIGIBILITY_ANNOTATION_GUIDE.md", "sha256": "3818133ea58d172bad0369fbe4b33f08018e169e7f86182eabe313b888f29a45"}
+  },
+  "criterion_types": ["kidney_function_min", "creatinine_max", "anc_min", "platelets_min", "hemoglobin_min", "bilirubin_max", "ast_alt_max", "ecog_max"],
+  "procedure": {
+    "annotation": "One annotator (the platform owner: MSc pharmaceutical sciences, ICH-GCP and clinical research coordination training) annotates all 120 trials in the fixed annotation order, following the guide, using the annotation page, before the extractor is run on any sample trial. The annotation file is then exported and pinned.",
+    "independence": "The extractor is written and tuned only on the 200-trial development set and other non-sample trials. Its author does not read the sample trials' criteria text before the locked check runs.",
+    "second_annotation": "Not in version 1. A second annotator for 20 randomly chosen sample trials is recommended later to measure agreement; until then, accuracy is measured against one person's reading, which is stated wherever results are shown."
+  },
+  "scoring": {
+    "unit_of_scoring": "One (trial, criterion type) pair.",
+    "excluded": "Pairs annotated 'unclear' are excluded from precision and recall and counted separately.",
+    "match": "An extracted value matches an annotated value when the criterion type, the eligible-side comparator, the unit (as listed in the guide) and the numerical value agree. Allowed exact equivalences: /mm3 = /uL = cells/uL; 10^9/L x 1000 = /mm3; creatinine and bilirubin mg/dL <-> umol/L by the exact factors 88.42 and 17.1 only when one side is in each unit; g/dL x 10 = g/L. Equation (Cockcroft-Gault, eGFR) is reported but not required for a match.",
+    "true_positive": "A stated or multiple pair where every annotated value is extracted and matches, and nothing else is extracted for that type.",
+    "false_positive": "Any extracted value for a pair that is not_stated, or an extracted value that matches no annotated value.",
+    "false_negative": "A stated or multiple pair where at least one annotated value is not extracted.",
+    "note": "A wrong value therefore counts as both a false positive and a false negative.",
+    "precision": "TP / (TP + FP), per criterion type.",
+    "recall": "TP / (TP + FN), per criterion type.",
+    "intervals": "Wilson score 95% intervals.",
+    "also_reported": "Counts of stated, multiple, not_stated and unclear per type; errors listed with the sentence."
+  },
+  "decision_rule": {
+    "pass": "A criterion type passes if precision >= 0.95 with a Wilson lower bound >= 0.90, and recall >= 0.85 with a Wilson lower bound >= 0.75.",
+    "too_few": "A type with fewer than 20 annotated stated or multiple pairs cannot pass; it is reported as insufficient data.",
+    "consequence": "Only passing types are shown on the benchmarking page (4.1f), each with its accuracy. Failing types are hidden with their result shown; a new extractor version needs a new locked check on a new sample.",
+    "never": "No extractor rule is changed after it has seen the sample; no annotation is changed after the extractor has run, except corrections logged with the time and reason, reported with the result."
+  }
+}
