@@ -25,6 +25,8 @@ def register_protein_turnover_pages(bp):
     register_drug_capability_pages(bp)
     from .label_exposure_pages import register_label_exposure_pages
     register_label_exposure_pages(bp)
+    from .eligibility_annotation_pages import register_eligibility_annotation_pages
+    register_eligibility_annotation_pages(bp)
     from .renal_pk_evidence_pages import register_renal_pk_evidence_pages
     register_renal_pk_evidence_pages(bp)
     from .simulation_lab_pages import register_simulation_lab_pages
