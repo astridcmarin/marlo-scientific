@@ -88,6 +88,34 @@ The file (`eligibility-corpus-v1`) holds, for each trial in the cohort, the iden
 2. **4.1b — corpus pinned** (done 21 October 2026): `intelligence_store/data/eligibility_corpus_mm_cohort3_v1.json.gz`, loaded by `eligibility_corpus.load_corpus()`, which checks the SHA-256 of the decompressed export (`bf01ddcf…`) and the file's own content checksum (`5d1ed413…`). Cohort 3: multiple myeloma, all interventional studies, retrieved 5 October 2026; **3,450 trials, 3,449 with criteria text** (the locally reported figure of 3,450 interventional studies is confirmed; the 4,037 total includes observational and expanded-access records not in this cohort). Phases: phase 2 1,209; phase 1 806; phase 1/2 478; not applicable 378; phase 3 375; early phase 1 103; phase 4 63; phase 2/3 37. Start decades: 1990s 140, 2000s 860, 2010s 1,292, 2020s 1,140. Median criteria text 2,708 characters.
 3. **4.1c — annotation guide and locked validation plan** (locked 22 October 2026): [annotation guide](ELIGIBILITY_ANNOTATION_GUIDE.md), plan `eligibility_validation_plan_v1.json`, sample `eligibility_validation_sample_v1.json` (120 trials, proportional across five phase groups: phase 1 32, phase 1/2 17, phase 2 42, phase 2/3 or 3 14, other 15; seed 20261022; fixed shuffled annotation order) and a disjoint 200-trial development set for building the extractor. Scoring per (trial, criterion type) pair with Wilson 95% intervals; types with fewer than 20 annotated values cannot pass.
    - **Annotation page** (`landscape_ui/eligibility_annotation_pages.py`): `/landscape/benchmarking/annotate`, one trial at a time in the fixed order, showing only the registered criteria text. Every value must quote a sentence found in that text; each trial is saved on submit to `instance/eligibility_annotations_v1.json` (local, not committed); a re-save needs a reason and is logged. Export with `eligibility-annotations-export` when all 120 are done.
-4. **4.1d — extractor** (rules), developed on trials *outside* the validation sample.
+4. **4.1d — extractor** (`intelligence_store/eligibility_extractor.py`, version `eligibility-extractor-v1.0`): rules written and tuned only on the 200-trial development set; the validation sample's text has not been read. In order, it:
+   - cleans the registry text (markdown escapes such as `\>=`, Unicode ≥/≤, spelled-out comparators such as "at least", "no greater than", "< or =");
+   - splits it into clauses and tracks the inclusion and exclusion sections;
+   - takes the first comparator, number and unit after each measure's keyword;
+   - turns exclusion criteria (and inclusion criteria starting "No …") into the eligible side;
+   - records the kidney-function equation when one is named.
+
+   Exceptions written as conditions ("≥ 30,000 if marrow plasma cells ≥ 50%", "except Gilbert's syndrome", "unless …") are treated as qualifiers. A second value for the same measure in one clause is usually the same value in another unit, and is counted once. A minimum type keeps only lower bounds and a maximum type only upper bounds, so disease definitions ("Renal insufficiency: CrCl < 40") are not read as thresholds. The extractor never answers "unclear".
+
+   **Development set (200 trials), not a measure of accuracy:**
+
+   | Type | Trials with a value found (of 200) |
+   |---|---|
+   | ECOG | 134 |
+   | Bilirubin | 95 |
+   | AST/ALT | 95 |
+   | Platelets | 90 |
+   | ANC | 82 |
+   | Kidney function | 70 |
+   | Haemoglobin | 62 |
+   | Creatinine | 52 |
+
+   **Known misses seen there:**
+   - thresholds written before the measure ("> 1.5 × ULN total bilirubin");
+   - second-cohort values ("≥ 100 for run-in and 75 for phase II");
+   - adequate values listed under the exclusion heading;
+   - trials of impaired kidney function whose eligible range is an upper bound ("eGFR < 40").
+
+   Accuracy is only measured by the locked check (4.1e). The rules are frozen once the sample is scored; changes after that need a new version and a new locked check.
 5. **4.1e — reference annotation** of the sample (by hand), then the locked accuracy check.
 6. **4.1f — benchmarking page** showing only the criterion types that passed.
