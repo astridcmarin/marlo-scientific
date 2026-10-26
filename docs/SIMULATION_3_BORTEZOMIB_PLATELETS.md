@@ -262,3 +262,37 @@ Every classification is the same under all four NCA readings.
 - **A constant low clearance is not a fix either.** Lowering clearance raises day 1 exposure, and 3.0f already found day 1 over-predicted against Ogawa. Testing it would need its own locked plan, and it is likely to fail there.
 - **Nothing changes on the platform.** The platelet tool keeps the constant-clearance component and its recorded disagreements; neither form is registered.
 - **What would resolve it:** individual concentration–time data, or a mechanistic target-binding model (Iwasaki 2020) checked against both studies.
+
+## 3.0j — The Iwasaki 2020 target-binding PBPK model: transcription (`bortezomib_pbpk_iwasaki.py`)
+
+**Source.** The model is from Iwasaki et al., *AAPS J* 2020;22:66. The article's Table 2 gives the parameters but does not print the equations. On 24 October 2026, an author of the article sent equations (1)–(7) on request, as a personal communication. The attribution wording is pending his agreement. The correspondence is kept by the platform owner and is not committed. The transcription is pinned in `bortezomib_pbpk_iwasaki_2020_extract_v1.json` (`9bfb9ac2…`).
+
+**Structure.**
+- **Compartments:** systemic plasma, systemic red cells, peripheral, hepatic plasma, hepatic red cells and liver.
+- **Units:** concentrations are in ng/mL (inferred from the C/MW × 1000 conversion to nM); volumes and flows are per kg.
+- **Elimination:** the only route is hepatic metabolism of unbound liver drug, fu,liver × Σfm × CLint × Ch.
+- **Red cells:** drug is present only as bound to the 20S proteasome, through saturable binding:
+  - the binding capacity Bmax × Vrbc is 27.9 nmol/kg, or 10.7 µg/kg, about a third of a 1.3 mg/m² dose;
+  - Kd is 0.55 nM.
+- **Not included:** proteasome turnover and red-cell turnover.
+- **What can change exposure between doses:**
+  - **The intrinsic clearance cannot.** It is constant.
+  - **Saturable red-cell binding and slow peripheral accumulation can.** Peripheral volume is 22.3 L/kg.
+
+**Checks of the transcription (no dosing, no clinical data):**
+- the fm values sum to 0.999;
+- the hepatic plasma fraction equals 1 − Hct;
+- in a mass balance, every flow and binding term cancels and only metabolism removes drug (50 random states);
+- when the binding sites are full, plasma drug cannot bind further;
+- the liver–plasma equilibrium ratio is fu,p / fu,liver.
+
+**Limitations recorded:**
+- **Vsys is an apparent volume, not plasma volume.** It is 0.418 L/kg, scaled from monkeys, about ten times plasma volume, so the model is partly empirical.
+- **Three things are not in the communication:** the dose input, the initial conditions and the proteasome-inhibition equation.
+
+**Next.**
+1. Confirm from the article's Methods that neither Ogawa 2008 nor CAN-1004 was used to build or evaluate the model. The abstract describes a bottom-up build from preclinical data.
+2. Lock a check plan against both studies, with the dose input and the conversion from mg/m² to per kg as stated assumptions.
+3. Only then simulate.
+
+Nothing on the platform changes in this step.
