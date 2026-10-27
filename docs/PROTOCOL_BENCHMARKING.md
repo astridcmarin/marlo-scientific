@@ -92,6 +92,7 @@ The file (`eligibility-corpus-v1`) holds, for each trial in the cohort, the iden
      - a bound on the wrong side for the type;
      - a section that does not match the heading the sentence sits under;
      - an exclusion value that keeps the sentence's own comparator;
+     - ≥ recorded where the sentence says > (or ≤ vs <), allowing for the switch to the eligible side in exclusion;
      - a value not found in its sentence;
      - a measure named in the text but marked not stated.
 

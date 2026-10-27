@@ -86,6 +86,43 @@ def _written_as_in_sentence(value):
     return re.search(token, sentence) is not None
 
 
+_FLIP = {'>=': '<', '>': '<=', '<=': '>', '<': '>='}
+_TOKEN = {'>=': r'>=|=>|≥|=\s*>', '<=': r'<=|=<|≤|=\s*<', '>': r'>(?!\s*=)', '<': r'<(?!\s*=)'}
+
+
+def _symbols_in(sentence):
+    s = (sentence or '').replace('\\', '')
+    s = re.sub(r'(?<![<>=])=(?!\s*[<>])', ' ', s)          # a lone '=' is not a comparator
+    found = set()
+    for comp in ('>=', '<=', '>', '<'):
+        if re.search(_TOKEN[comp], s):
+            found.add(comp)
+    if '>=' in found:
+        found.discard('>') if not re.search(r'>(?!\s*=)', s.replace('=>', '')) else None
+    if '<=' in found:
+        found.discard('<') if not re.search(r'<(?!\s*=)', s.replace('=<', '')) else None
+    return found
+
+
+def _strictness_mismatch(value):
+    """Recorded ≥ where the sentence (after turning exclusion into the eligible side) says >, or ≤ vs <."""
+    symbols = _symbols_in(value.get('sentence'))
+    if not symbols:
+        return None            # written in words ("at least"); nothing to compare
+    recorded = value['comparator']
+    expected = _FLIP[recorded] if value['section'] == 'exclusion' else recorded
+    if expected in symbols:
+        return None
+    same_direction = {'>=': '>', '>': '>=', '<=': '<', '<': '<='}[expected]
+    if same_direction in symbols:
+        shown = _SYMBOL[recorded]
+        should = _SYMBOL[_FLIP[same_direction]] if value['section'] == 'exclusion' else _SYMBOL[same_direction]
+        return (f"recorded {shown}, but the sentence uses {_SYMBOL[same_direction]}"
+                + (" (in exclusion, the eligible side of that is " + should + ")" if value['section'] == 'exclusion' else '')
+                + f". Should it be {should}?")
+    return None
+
+
 def prompts(text, annotation):
     """Questions worth a second look, per criterion type; drawn only from the annotation and the text."""
     found = {}
@@ -102,6 +139,9 @@ def prompts(text, annotation):
             if span and section_at(text, span[0]) != value['section']:
                 notes.append(f"{label} is recorded as {value['section']}, but its sentence is under the "
                              f"{section_at(text, span[0])} heading.")
+            strictness = _strictness_mismatch(value)
+            if strictness:
+                notes.append(f"{label}: {strictness}")
             if value['section'] == 'exclusion' and _written_as_in_sentence(value):
                 notes.append(f"{label} is from the exclusion section and uses the same comparator as the sentence "
                              f"({_SYMBOL[value['comparator']]}). The guide records the eligible side, which is usually the opposite.")

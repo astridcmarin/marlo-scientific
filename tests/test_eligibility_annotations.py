@@ -149,6 +149,17 @@ class Review(unittest.TestCase):
         a = self.annotation(**{'ecog_max__v1__value': '3'})
         self.assertTrue(any('does not appear' in q for q in review.prompts(TEXT, a)['ecog_max']))
 
+    def test_strictness_prompt(self):
+        from intelligence_store import eligibility_annotation_review as review
+        f = review._strictness_mismatch
+        self.assertIn('Should it be ≥', f({'comparator': '>', 'value': '30', 'section': 'inclusion', 'sentence': 'CrCl \\>= 30 mL/min'}))
+        self.assertIsNone(f({'comparator': '>=', 'value': '30', 'section': 'inclusion', 'sentence': 'CrCl ≥ 30 mL/min'}))
+        self.assertIsNone(f({'comparator': '>=', 'value': '30', 'section': 'exclusion', 'sentence': 'CrCl < 30 mL/min'}))
+        self.assertIn('Should it be ≥', f({'comparator': '>', 'value': '30', 'section': 'exclusion', 'sentence': 'CrCl < 30 mL/min'}))
+        self.assertIsNone(f({'comparator': '>', 'value': '30', 'section': 'exclusion', 'sentence': 'CrCl <= 30 mL/min'}))
+        self.assertIsNone(f({'comparator': '<=', 'value': '2', 'section': 'inclusion', 'sentence': 'ECOG 0-2'}))
+        self.assertIsNone(f({'comparator': '>=', 'value': '30', 'section': 'inclusion', 'sentence': 'CrCl at least 30 mL/min'}))
+
     def test_review_mark_follows_the_saved_version(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / 'a.json'
