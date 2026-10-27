@@ -1,0 +1,91 @@
+{
+ "schema_version": "published-model-extract-v1",
+ "extract_version": "bortezomib-pbpk-iwasaki-2020-v1.0",
+ "drug": "bortezomib",
+ "recorded_on": "2026-10-26",
+ "source": {
+  "citation": "Iwasaki S, Zhu A, Hanley M, et al. A translational physiologically based pharmacokinetics/pharmacodynamics framework of target-mediated disposition, target inhibition and drug-drug interactions of bortezomib. AAPS J. 2020;22:66. doi:10.1208/s12248-020-00448-x",
+  "article_status": "Subscription article; the platform has not read the full text. The abstract states the model was built bottom-up from preclinical data and human physiological parameters. Which human studies were used to evaluate it is not yet confirmed.",
+  "equations_source": "Equations (1)-(7) are not printed in the article. They were provided on request by an author of the article (personal communication, 24 October 2026) together with Table 2 of the article. Attribution wording is pending the author's agreement.",
+  "file_reviewed": {
+   "file": "Email reply, 5-page PDF export (equations as images on page 1; Table 2 as text)",
+   "sha256": "4978d08bd6d573e05997c0d6f56f2c436eef5f46f4712190e388ce289c1e4efe"
+  },
+  "storage": "Kept by the platform owner only; not committed and not published (private correspondence).",
+  "extraction": "AI-assisted: equations read from a 220 dpi rendering of page 1; Table 2 from the text layer and checked against the rendered table. Independent review pending."
+ },
+ "structure": {
+  "compartments": {
+   "Cp": "systemic plasma (volume Vsys)",
+   "Crbc": "systemic red blood cells (Vrbc); drug present only as bound to 20S proteasome",
+   "Cperi": "peripheral (Vperi)",
+   "Chp": "hepatic plasma (Vhp)",
+   "Chrbc": "hepatic red blood cells (Vhrbc); bound drug only",
+   "Ch": "liver tissue (Vh)",
+   "Cb": "systemic whole blood (derived, equation 7)"
+  },
+  "concentration_unit": "ng/mL (inferred: C/MW x 1000 is used as nM against Bmax in nM; stated nowhere explicitly)",
+  "volumes_and_flows": "Per kg body weight (Table 2 units L/kg and L/h/kg).",
+  "elimination": "Hepatic metabolism of unbound liver drug only: fu,liver x (sum of fm) x CLint x Ch (equation 6). No renal or other clearance.",
+  "target_binding": "Second-order binding of unbound plasma drug (fu,p x C) to free proteasome sites (Bmax x V - bound) in systemic and hepatic RBC, first-order dissociation. No proteasome turnover and no RBC turnover in the equations.",
+  "not_in_communication": [
+   "Dose input (route, compartment, bolus or infusion).",
+   "Initial conditions.",
+   "The pharmacodynamic equation for blood proteasome inhibition.",
+   "Conversion from a dose in mg/m2 to the per-kg model (body weight and body surface area)."
+  ]
+ },
+ "equations": [
+  {"number": 1, "text": "Vsys*dCp/dt = -Qh*(1-Hct)*Cp + Qh*(1-Hct)*Chp - CLperi*Cp + CLperi*Cperi - Kon*(Bmax*Vrbc - Vrbc*Crbc/MW*1000)*fu,p*Cp + Koff*Vrbc*Crbc"},
+  {"number": 2, "text": "Vrbc*dCrbc/dt = -Qh*Hct*Crbc + Qh*Hct*Chrbc + Kon*(Bmax*Vrbc - Vrbc*Crbc/MW*1000)*fu,p*Cp - Koff*Vrbc*Crbc"},
+  {"number": 3, "text": "Vperi*dCperi/dt = CLperi*Cp - CLperi*Cperi"},
+  {"number": 4, "text": "Vhp*dChp/dt = Qh*(1-Hct)*Cp - Qh*(1-Hct)*Chp - PSliv*fu,p*Chp + PSliv*fu,liver*Ch - Kon*(Bmax*Vhrbc - Vhrbc*Chrbc/MW*1000)*fu,p*Chp + Koff*Vhrbc*Chrbc"},
+  {"number": 5, "text": "Vhrbc*dChrbc/dt = Qh*Hct*Crbc - Qh*Hct*Chrbc + Kon*(Bmax*Vhrbc - Vhrbc*Chrbc/MW*1000)*fu,p*Chp - Koff*Vhrbc*Chrbc"},
+  {"number": 6, "text": "Vh*dCh/dt = PSliv*fu,p*Chp - PSliv*fu,liver*Ch - fu,liver*(fm,1A2 + fm,2C9 + fm,2C19 + fm,2D6 + fm,3A4)*CLint*Ch"},
+  {"number": 7, "text": "Cb = Cp*(1-Hct) + Crbc*Hct"}
+ ],
+ "parameters": {
+  "MW": {"value": 384.24, "unit": "g/mol", "note": null},
+  "Vh": {"value": 0.0189, "unit": "L/kg", "note": "a"},
+  "Vhp": {"value": 0.00138, "unit": "L/kg", "note": "a"},
+  "Vhrbc": {"value": 0.00108, "unit": "L/kg", "note": "a"},
+  "Vrbc": {"value": 0.0327, "unit": "L/kg", "note": "b"},
+  "Vsys": {"value": 0.418, "unit": "L/kg", "note": "c"},
+  "Vperi": {"value": 22.3, "unit": "L/kg", "note": "c"},
+  "fu_p": {"value": 0.17, "unit": "fraction", "note": "d"},
+  "fu_liver": {"value": 0.00487, "unit": "fraction", "note": "e"},
+  "Qh": {"value": 1.243, "unit": "L/h/kg", "note": "b"},
+  "Hct": {"value": 0.44, "unit": "fraction", "note": "b"},
+  "CLint": {"value": 1.78, "unit": "L/h/kg", "note": "f"},
+  "fm_1A2": {"value": 0.136, "unit": "fraction", "note": "g"},
+  "fm_2C9": {"value": 0.041, "unit": "fraction", "note": "g"},
+  "fm_2C19": {"value": 0.174, "unit": "fraction", "note": "g"},
+  "fm_2D6": {"value": 0.050, "unit": "fraction", "note": "g"},
+  "fm_3A4": {"value": 0.598, "unit": "fraction", "note": "g"},
+  "PSliv": {"value": 50, "unit": "L/h/kg", "note": "h"},
+  "CLperi": {"value": 0.310, "unit": "L/h/kg", "note": "c"},
+  "Bmax": {"value": 854, "unit": "nM", "note": "i"},
+  "Kon": {"value": 0.69, "unit": "1/h/nM", "note": "j"},
+  "Koff": {"value": 0.38, "unit": "1/h", "note": "j"}
+ },
+ "table_notes": {
+  "a": "Calculated based on total liver volume (17), vascular fraction (16) and hematocrit.",
+  "b": "Referred to Davies and Morris, 1993 (15).",
+  "c": "Scaled from monkey by simple allometry.",
+  "d": "Referred to Bross et al., 2004 (31).",
+  "e": "Estimated from fu,p and liver-to-plasma concentration ratio in monkeys.",
+  "f": "Estimated from metabolic clearance in human liver microsomes.",
+  "g": "Estimated based on the inhibitory effect of P450-specific inhibitory monoclonal antibodies on bortezomib metabolism in human liver microsomes.",
+  "h": "Assumed rapid equilibrium between hepatic plasma and liver compartments.",
+  "i": "Referred to Majetschak and Sorell, 2008 (14).",
+  "j": "Referred to Kupperman et al., 2010 (13)."
+ },
+ "observations_on_transcription": [
+  "Vsys (0.418 L/kg, scaled from monkey) is about ten times physiological plasma volume (about 0.04 L/kg); it acts as an apparent central volume, so the model is partly empirical.",
+  "The fm values sum to 0.999, so total metabolic clearance of unbound liver drug is 0.999 x CLint.",
+  "Vhp / (Vhp + Vhrbc) = 0.561 = 1 - Hct (0.44), consistent with note a.",
+  "Koff / Kon = 0.55 nM (equilibrium dissociation constant).",
+  "RBC binding capacity Bmax x Vrbc = 27.9 nmol/kg (10.7 ug/kg)."
+ ],
+ "not_this": "A transcription of a published research model for checking against independent data. Not validated for any patient; no output of this model is shown on the platform until a locked check is run and reported."
+}
