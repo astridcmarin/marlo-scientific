@@ -3,6 +3,7 @@ from pathlib import Path
 
 from flask import abort, current_app, redirect, request, url_for
 
+from intelligence_store import eligibility_annotation_review as review
 from intelligence_store import eligibility_annotations as ea
 from .workspace_pages import COOKIE, TTL, _form_token, _response, _validate_token
 
@@ -65,6 +66,59 @@ def register_eligibility_annotation_pages(bp):
             return redirect(url_for('landscape.eligibility_annotation_trial', nct_id=following) if following
                             else url_for('landscape.eligibility_annotation_overview'), code=303)
         return _with_token('landscape_eligibility_annotation.html', errors=[], form=_form_from_saved(saved), **context)
+
+    register_eligibility_review_pages(bp)
+
+
+def register_eligibility_review_pages(bp):
+    @bp.get('/benchmarking/review')
+    def eligibility_review_overview():
+        try:
+            trials = ea.sample_trials()
+            store = ea.load_store(_store_path())
+        except (ValueError, OSError) as exc:
+            abort(503, str(exc))
+        rows = []
+        for i, t in enumerate(trials):
+            saved = store['annotations'].get(t['nct_id'])
+            if not saved:
+                continue
+            criteria = saved['criteria']
+            rows.append({'position': i + 1, 'nct_id': t['nct_id'], 'reviewed': ea.review_is_current(store, t['nct_id']),
+                         'cells': {k: review.describe(criteria[k]) for k in ea.TYPES},
+                         'prompts': sum(len(v) for v in review.prompts(t['criteria_text'], criteria).values())})
+        next_row = next((r for r in rows if not r['reviewed']), None)
+        counts = {k: {s: sum(1 for t in trials if store['annotations'].get(t['nct_id'], {}).get('criteria', {}).get(k, {}).get('status') == s)
+                      for s in ea.STATUSES} for k in ea.TYPES}
+        return _response('landscape_eligibility_review_overview.html', rows=rows, next_row=next_row, types=ea.TYPES, counts=counts,
+                         reviewed=sum(1 for r in rows if r['reviewed']), saved=len(rows), total=len(trials), statuses=ea.STATUSES)
+
+    @bp.route('/benchmarking/review/<nct_id>', methods=['GET', 'POST'])
+    def eligibility_review_trial(nct_id):
+        try:
+            trials = ea.sample_trials()
+            store = ea.load_store(_store_path())
+        except (ValueError, OSError) as exc:
+            abort(503, str(exc))
+        position = next((i for i, t in enumerate(trials) if t['nct_id'] == nct_id), None)
+        if position is None or nct_id not in store['annotations']:
+            abort(404)
+        if request.method == 'POST':
+            _validate_token()
+            ea.mark_reviewed(_store_path(), nct_id)
+            store = ea.load_store(_store_path())
+            following = next((t['nct_id'] for t in trials[position + 1:] + trials[:position]
+                              if t['nct_id'] in store['annotations'] and not ea.review_is_current(store, t['nct_id'])), None)
+            return redirect(url_for('landscape.eligibility_review_trial', nct_id=following) if following
+                            else url_for('landscape.eligibility_review_overview'), code=303)
+        trial = trials[position]
+        saved = store['annotations'][nct_id]
+        criteria = saved['criteria']
+        return _with_token('landscape_eligibility_review.html', trial=trial, position=position + 1, total=len(trials), types=ea.TYPES,
+                           saved=saved, criteria=criteria, pieces=review.pieces_with_mentions(trial['criteria_text'], criteria),
+                           prompts=review.prompts(trial['criteria_text'], criteria), reviewed=ea.review_is_current(store, nct_id),
+                           describe=review.describe, unlocated={k: [v for v in e['values'] if not review.locate(trial['criteria_text'], v['sentence'])]
+                                                                for k, e in criteria.items()})
 
 
 def _form_from_saved(saved):

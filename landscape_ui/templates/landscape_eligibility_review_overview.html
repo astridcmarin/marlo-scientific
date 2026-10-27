@@ -1,0 +1,27 @@
+{% extends "landscape_base.html" %}
+{% block title %}Review annotations · Protocol benchmarking{% endblock %}
+{% block content %}
+<style>
+.rev-table td,.rev-table th{font-size:13px;vertical-align:top}
+.rev-table td.cell-ns{color:#7a8a91}
+.rev-ok{color:#1e7d4f;font-weight:650}
+.rev-flag{color:#a35200;font-weight:650}
+</style>
+<p><a href="{{ url_for('landscape.eligibility_annotation_overview') }}">&#8592; Annotation</a></p>
+<p class="eyebrow">Protocol benchmarking · Self-review before export</p>
+<h1>Review your annotations</h1>
+<section class="panel">
+<p><strong>{{ reviewed }} of {{ saved }}</strong> saved trials reviewed ({{ total }} in the sample).</p>
+<p>Read each trial again with your recorded sentences highlighted. Prompts point at things worth a second look; they come only from your annotation and the text, never from the extractor. If something is wrong, use <em>Correct this trial</em> (the reason is logged). A trial corrected after review needs reviewing again.</p>
+{% if next_row %}<p><a class="button primary" href="{{ url_for('landscape.eligibility_review_trial', nct_id=next_row.nct_id) }}">Review trial {{ next_row.position }}</a></p>
+{% elif saved %}<p><strong>Every saved trial is reviewed.</strong></p>{% endif %}
+</section>
+<section class="panel"><h2>Status counts</h2><div class="table-scroll"><table class="rev-table"><thead><tr><th>Criterion</th>{% for s in statuses %}<th>{{ s|replace('_',' ') }}</th>{% endfor %}</tr></thead><tbody>
+{% for key, spec in types.items() %}<tr><td>{{ spec.label }}</td>{% for s in statuses %}<td>{{ counts[key][s] }}</td>{% endfor %}</tr>{% endfor %}
+</tbody></table></div></section>
+<section class="panel"><h2>What you recorded</h2><div class="table-scroll"><table class="rev-table"><thead><tr><th>#</th><th>Trial</th>{% for key, spec in types.items() %}<th>{{ key.split('_')[0]|upper if key != 'ast_alt_max' else 'AST/ALT' }}</th>{% endfor %}<th>Prompts</th><th>Reviewed</th></tr></thead><tbody>
+{% for r in rows %}<tr><td>{{ r.position }}</td><td><a href="{{ url_for('landscape.eligibility_review_trial', nct_id=r.nct_id) }}">{{ r.nct_id }}</a></td>
+{% for key in types %}<td class="{{ 'cell-ns' if r.cells[key] == 'not stated' }}">{{ r.cells[key] }}</td>{% endfor %}
+<td>{% if r.prompts %}<span class="rev-flag">{{ r.prompts }}</span>{% else %}—{% endif %}</td><td>{% if r.reviewed %}<span class="rev-ok">&#10003;</span>{% else %}—{% endif %}</td></tr>{% endfor %}
+</tbody></table></div></section>
+{% endblock %}
