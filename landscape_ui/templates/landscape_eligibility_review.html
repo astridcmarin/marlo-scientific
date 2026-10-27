@@ -1,0 +1,39 @@
+{% extends "landscape_base.html" %}
+{% block title %}Review {{ trial.nct_id }} · Eligibility annotation{% endblock %}
+{% block content %}
+<style>
+.rev-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.rev-text{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto;white-space:pre-wrap;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;background:#fff;border:1px solid #dbe5e9;border-radius:8px;padding:14px}
+.rev-text mark{background:#fff1b8;border-radius:3px;padding:0 1px}
+.rev-text .mention{background:#e7ecef;border-bottom:2px solid #9fb0b8}
+.rev-type{border:1px solid #dbe5e9;border-radius:8px;padding:10px 12px;margin:0 0 10px;background:#fff}
+.rev-type h3{font-size:15px;margin:0 0 4px}
+.rev-type ul{margin:4px 0 0 18px;padding:0}
+.rev-prompt{border-left:3px solid #d98a2b;background:#fff6ea;padding:4px 8px;margin:6px 0;font-size:13px}
+.rev-ns{color:#7a8a91}
+@media (max-width:900px){.rev-grid{grid-template-columns:1fr}.rev-text{position:static;max-height:50vh}}
+</style>
+<p><a href="{{ url_for('landscape.eligibility_review_overview') }}">&#8592; Review overview</a></p>
+<p class="eyebrow">Self-review · Trial {{ position }} of {{ total }}{% if reviewed %} · reviewed{% endif %}</p>
+<h1>{{ trial.nct_id }}</h1>
+<p class="panel-note">Saved {{ saved.saved_at_utc }} UTC. Yellow: sentences you recorded (hover to see which criterion). Grey: names of measures you marked not stated.</p>
+<div class="rev-grid">
+<div class="rev-text" aria-label="Registered eligibility criteria" tabindex="0">{% for p in pieces %}{% if p.types %}<mark title="{% for k in p.types %}{{ types[k].label }}{% if not loop.last %}; {% endif %}{% endfor %}">{{ p.text }}</mark>{% elif p.mention %}<span class="mention">{{ p.text }}</span>{% else %}{{ p.text }}{% endif %}{% endfor %}</div>
+<div>
+{% for key, spec in types.items() %}{% set entry = criteria[key] %}
+<div class="rev-type"><h3>{{ spec.label }}</h3>
+<p class="{{ 'rev-ns' if entry.status == 'not_stated' }}"><strong>{{ entry.status|replace('_',' ') }}</strong>{% if entry['values'] %} · {{ describe(entry) }}{% endif %}{% if entry.equation %} · method: {{ entry.equation|replace('_',' ') }}{% endif %}</p>
+{% if entry['values'] %}<ul>{% for v in entry['values'] %}<li>{{ v.section }}: “{{ v.sentence }}”{% if v.qualifier %}<br><em>Qualifier:</em> {{ v.qualifier }}{% endif %}</li>{% endfor %}</ul>{% endif %}
+{% if entry.note %}<p class="panel-note">Note: {{ entry.note }}</p>{% endif %}
+{% for v in unlocated[key] %}<div class="rev-prompt">Could not highlight “{{ v.sentence[:80] }}” in the text.</div>{% endfor %}
+{% for q in prompts.get(key, []) %}<div class="rev-prompt">{{ q }}</div>{% endfor %}
+</div>
+{% endfor %}
+<form method="post" style="display:inline">
+<input type="hidden" name="form_token" value="{{ form_token }}">
+<button class="button primary" type="submit">Looks right: mark reviewed and go to the next</button>
+</form>
+<a class="button" href="{{ url_for('landscape.eligibility_annotation_trial', nct_id=trial.nct_id) }}">Correct this trial</a>
+</div>
+</div>
+{% endblock %}

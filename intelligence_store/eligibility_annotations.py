@@ -138,12 +138,33 @@ def save_annotation(path, nct_id, annotation, reason=None):
             raise ValueError(['This trial is already saved. Give a reason to correct it.'])
         store['corrections'].append({'nct_id': nct_id, 'corrected_at_utc': _now(), 'reason': reason.strip()[:300], 'previous': previous})
     store['annotations'][nct_id] = {'criteria': annotation, 'saved_at_utc': _now()}
+    _write(path, store)
+    return store
+
+
+def mark_reviewed(path, nct_id):
+    """Record that the annotator re-read a saved trial before export (the self-review pass)."""
+    path = Path(path)
+    store = load_store(path)
+    if nct_id not in store['annotations']:
+        raise ValueError(['Save this trial before marking it reviewed.'])
+    store.setdefault('reviews', {})[nct_id] = {'reviewed_at_utc': _now(), 'of_version_saved_at_utc': store['annotations'][nct_id]['saved_at_utc']}
+    _write(path, store)
+    return store
+
+
+def review_is_current(store, nct_id):
+    review = store.get('reviews', {}).get(nct_id)
+    saved = store['annotations'].get(nct_id)
+    return bool(review and saved and review['of_version_saved_at_utc'] == saved['saved_at_utc'])
+
+
+def _write(path, store):
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp = tempfile.mkstemp(dir=path.parent, prefix='.annotations-', suffix='.json')
     with os.fdopen(fd, 'w', encoding='utf-8') as handle:
         json.dump(store, handle, ensure_ascii=False, indent=1)
     os.replace(tmp, path)
-    return store
 
 
 def export(path):
