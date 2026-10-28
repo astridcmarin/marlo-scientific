@@ -87,3 +87,26 @@ class PostHoc(unittest.TestCase):
         self.assertIsNone(ph.min_errors_allowed(21))      # 21/21 has a lower bound below 0.90
         self.assertEqual(ph.min_errors_allowed(48), 0)
         self.assertEqual(ph.min_errors_allowed(69), 2)
+
+
+class Version2Scoring(unittest.TestCase):
+    def test_equivalences(self):
+        from intelligence_store import eligibility_validation_v2 as v2
+        self.assertTrue(v2.values_match('platelets_min', v('>=', '75', 'x 10^3/uL (K/uL)'), v('>=', '75000', '/mm3 (= /uL)')))
+        self.assertTrue(v2.values_match('anc_min', v('>=', '1.0', 'x 10^3/uL (K/uL)'), v('>=', '1.0', 'x 10^9/L')))
+        self.assertTrue(v2.values_match('ecog_max', v('<', '2', 'score'), v('<=', '1', 'score')))
+        self.assertTrue(v2.values_match('ecog_max', v('>', '2', 'score'), v('>=', '3', 'score')))
+        self.assertFalse(v2.values_match('ecog_max', v('<', '2', 'score'), v('<=', '2', 'score')))
+
+    def test_pass_rule_and_refusal_before_pinning(self):
+        from intelligence_store import eligibility_validation_v2 as v2
+        pairs = [dict(type='ecog_max', annotated_status='stated', outcome='tp', tp=True, fp=False, fn=False) for _ in range(60)]
+        pairs += [dict(type='ecog_max', annotated_status='stated', outcome='fp+fn', tp=False, fp=True, fn=True) for _ in range(4)]
+        self.assertEqual(v2.summarise(pairs)['ecog_max']['decision'], 'pass')
+        self.assertEqual(ev.summarise(pairs)['ecog_max']['decision'], 'fail')        # v1 rule unchanged
+        few = [dict(type='anc_min', annotated_status='stated', outcome='tp', tp=True, fp=False, fn=False) for _ in range(29)]
+        self.assertEqual(v2.summarise(few)['anc_min']['decision'], 'insufficient_data')
+        v2.check_extractor_frozen()
+        if v2.ANNOTATIONS_SHA256 is None:
+            with self.assertRaises(ValueError):
+                v2.run_check()

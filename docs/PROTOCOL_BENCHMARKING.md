@@ -184,6 +184,17 @@ Version 2 responds to the v1 result and its post-hoc analysis.
 
      At the counts expected from v1 rates (about 35–115 pairs per type), this allows about 10% errors.
    - **Annotation page:** `/landscape/benchmarking/annotate` now serves v2, which is stored in `instance/eligibility_annotations_v2.json`. The review page works as before. Export with `eligibility-annotations-v2-export`.
-2. **4.2b: extractor v1.1.** It is developed on the v1 development set and the (now unblinded) v1 sample, without reading v2 text, and is frozen before scoring.
+2. **4.2b: extractor v1.1** (`eligibility_extractor_v1_1.py`, frozen 28 October 2026, `bfc57df7…`). Version 1.0 stays unchanged, so the v1 report still reproduces.
+   - **Development material:** only the v1 development set and the v1 sample. No v2 text was read.
+   - **Changes:**
+     - wordings: "< or equal to", "twice", "three times", "X or more";
+     - keywords: Creatinine-Clearance, Crea, ASAT/ALAT;
+     - units: K/µL, bare mcL, IULN, "1.5 upper limit of normal", mls/min;
+     - "within normal institutional limits" read as 1 × ULN;
+     - time values ("for ≥ 1 week") skipped;
+     - disease definitions (CRAB/SLiM) skipped;
+     - kidney thresholds in the other direction kept for trials of impaired kidney function.
+   - **Against the v1 annotation:** precision is 0.82–0.97 and recall 0.84–0.96 per type, after converting the v1 annotation to the eligible side. These figures are **optimistic and not a validation**: the rules were tuned on these trials, and the v1 annotation follows the v1 guide.
+   - **Scoring module:** `eligibility_validation_v2.py` pins plan v2 and extractor v1.1 now. It refuses to run until the v2 annotation export is pinned in its own commit.
 3. **4.2c: the locked check** on the v2 sample, after the annotation is exported and pinned.
 4. **4.1f: the benchmarking page,** for passing types only.
