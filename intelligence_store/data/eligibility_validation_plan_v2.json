@@ -1,0 +1,58 @@
+{
+ "schema_version": "extraction-validation-plan-v2",
+ "plan_version": "eligibility-validation-plan-v2.0",
+ "recorded_on": "2026-10-28",
+ "status": "locked_before_annotation_and_before_extractor_v1_1",
+ "prespecification_note": "Written and checksum-pinned after the v1 check (all types failed; docs/verification/eligibility_validation_v1.json and its post-hoc analysis) and before any trial in the v2 sample was annotated or read, and before extractor v1.1 was written. The v2 sample was drawn by fixed rules (eligibility_sample.draw_v2); its criteria text has not been read. The pass rule was set from the v1 attainability analysis and the v1 positive rates, not from v2 data.",
+ "classification": "information_extraction_validation",
+ "question": "How accurately does the rule-based extractor (version 1.1 or later, frozen before scoring) read eight eligibility-threshold types from registered criteria text of multiple myeloma trials, judged against a hand annotation made without seeing its output?",
+ "inputs": {
+  "corpus": {
+   "path": "intelligence_store/data/eligibility_corpus_mm_cohort3_v1.json.gz",
+   "decompressed_sha256": "bf01ddcf94e3a9fad23924fe9cae90aa13983c573fe0d48e9e2feb16368ee418"
+  },
+  "sample": {
+   "path": "intelligence_store/data/eligibility_validation_sample_v2.json",
+   "sha256": "5b7b4718957f03cd3cffd99886f39add228135517b0dbcac474899edf996c20f",
+   "size": 200,
+   "excludes": "the v1 validation sample (120) and v1 development set (200)"
+  },
+  "annotation_guide": {
+   "path": "docs/ELIGIBILITY_ANNOTATION_GUIDE_V2.md",
+   "sha256": "96fdfefe45ba54933d07a2befe728b21ad40b4f9227183e48dfc4ca4c3987b8f"
+  }
+ },
+ "criterion_types": [
+  "kidney_function_min",
+  "creatinine_max",
+  "anc_min",
+  "platelets_min",
+  "hemoglobin_min",
+  "bilirubin_max",
+  "ast_alt_max",
+  "ecog_max"
+ ],
+ "criterion_type_note": "Keys are kept from v1 for continuity; in v2 each type is a threshold for that measure in either direction (guide v2, change 3).",
+ "procedure": {
+  "annotation": "One annotator (the platform owner) annotates all 200 trials in the fixed order with the v2 annotation page, which records comparators as written plus whether the sentence describes eligible or excluded patients, and derives the eligible-side comparator. A self-review of every trial on the review page precedes export. The export is pinned before the extractor is run on any sample trial.",
+  "development": "Extractor v1.1 is developed on the v1 development set and the v1 validation sample (both unblinded). Its author does not read v2 sample text. The extractor file is pinned by checksum in the scoring module before it is run on the sample.",
+  "second_annotation": "Not in version 2; recommended for 30 randomly chosen trials when a second annotator is available."
+ },
+ "scoring": {
+  "unit_of_scoring": "One (trial, criterion type) pair; pairs annotated unclear are excluded and counted.",
+  "true_positive": "Annotated stated/multiple, every annotated value matched, and every extracted value matches an annotated value.",
+  "false_positive": "The pair has an extracted value that matches no annotated value (including any value for a not_stated pair).",
+  "false_negative": "Annotated stated/multiple and at least one annotated value not matched.",
+  "match": "Same eligible-side comparator, same unit, same number, with these equivalences: /mm3 = /uL = cells/uL; x 10^9/L = x 10^3/uL = 1000 x /uL; g/dL x 10 = g/L; creatinine mg/dL x 88.42 = umol/L and bilirubin mg/dL x 17.1 = umol/L, within 0.5% only for the mg/dL-umol/L pairs; ECOG < k = <= k-1 and > k = >= k+1. Equation is reported, not required.",
+  "precision": "TP / (TP + FP) per type.",
+  "recall": "TP / (TP + FN) per type.",
+  "intervals": "Wilson score 95%."
+ },
+ "decision_rule": {
+  "pass": "A type passes if precision >= 0.90 with Wilson lower bound >= 0.80, and recall >= 0.80 with Wilson lower bound >= 0.70.",
+  "too_few": "A type with fewer than 30 annotated stated or multiple pairs is reported as insufficient data and cannot pass.",
+  "rationale": "v1 required precision lower bound >= 0.90, which no type could meet at 20-70 pairs unless perfect (creatinine and haemoglobin not even then). At the expected v2 counts (about 35-115 pairs per type, from v1 rates), the v2 rule allows roughly 10% errors. The benchmarking page is descriptive, shows each type's measured accuracy, and links every count to its sentences, so a user can check any value.",
+  "consequence": "Only passing types are shown on the benchmarking page, each with its accuracy and this plan's limits. A failing type stays hidden with its result shown.",
+  "never": "No extractor rule is changed after it has seen the v2 sample; no annotation is changed after the extractor has run, except corrections logged with time and reason and reported with the result, with the uncorrected result reported first."
+ }
+}

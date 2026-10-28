@@ -56,3 +56,30 @@ def draw(corpus=None):
     return {'seed': SEED, 'corpus_content_sha256': corpus['corpus_sha256'], 'eligible_trials': len(eligible),
             'group_sizes': {g: len(ids) for g, ids in groups.items()}, 'allocation': alloc,
             'validation_sample': sample, 'annotation_order': order, 'development_set': development}
+
+
+# ---------------------------------------------------------------- version 2 (Phase 4.2a)
+SEED_V2 = 20261028
+SAMPLE_SIZE_V2 = 200
+
+
+def draw_v2(corpus=None, v1=None):
+    """A fresh 200-trial validation sample, disjoint from the v1 sample and v1 development set (both of which are now
+    development material), stratified by phase group as in v1."""
+    corpus = corpus or load_corpus()
+    v1 = v1 or draw(corpus)
+    used = set(v1['validation_sample']) | set(v1['development_set'])
+    eligible = sorted((t for t in corpus['trials'] if t['eligibility']['criteria_text'] and t['nct_id'] not in used),
+                      key=lambda t: t['nct_id'])
+    groups = {name: [t['nct_id'] for t in eligible if phase_group(t['phases']) == name] for name, _ in PHASE_GROUPS}
+    alloc = allocation({g: len(ids) for g, ids in groups.items()}, SAMPLE_SIZE_V2)
+    rng = random.Random(SEED_V2)
+    sample = []
+    for name, _ in PHASE_GROUPS:
+        sample += sorted(rng.sample(groups[name], alloc[name]))
+    order = list(sample)
+    random.Random(SEED_V2 + 1).shuffle(order)
+    return {'seed': SEED_V2, 'corpus_content_sha256': corpus['corpus_sha256'], 'excluded_as_used_in_v1': len(used),
+            'eligible_trials': len(eligible), 'group_sizes': {g: len(ids) for g, ids in groups.items()}, 'allocation': alloc,
+            'validation_sample': sample, 'annotation_order': order,
+            'development_material': {'v1_development_set': len(v1['development_set']), 'v1_validation_sample': len(v1['validation_sample'])}}

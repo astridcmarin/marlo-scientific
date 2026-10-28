@@ -8,7 +8,7 @@ the time of the mark; a correction after that is logged as usual by eligibility_
 import re
 import unicodedata
 
-from . import eligibility_annotations as ea
+from . import eligibility_annotations as ea      # TYPES keys and equations are the same in v1 and v2
 
 # Measure names only (no numbers), to point at criteria that may have been missed when a type is marked not stated.
 MEASURE_WORDS = {
@@ -110,15 +110,16 @@ def _strictness_mismatch(value):
     if not symbols:
         return None            # written in words ("at least"); nothing to compare
     recorded = value['comparator']
-    expected = _FLIP[recorded] if value['section'] == 'exclusion' else recorded
+    excluded = value.get('describes', 'excluded' if value['section'] == 'exclusion' else 'eligible') == 'excluded'
+    expected = _FLIP[recorded] if excluded else recorded
     if expected in symbols:
         return None
     same_direction = {'>=': '>', '>': '>=', '<=': '<', '<': '<='}[expected]
     if same_direction in symbols:
         shown = _SYMBOL[recorded]
-        should = _SYMBOL[_FLIP[same_direction]] if value['section'] == 'exclusion' else _SYMBOL[same_direction]
+        should = _SYMBOL[_FLIP[same_direction]] if excluded else _SYMBOL[same_direction]
         return (f"recorded {shown}, but the sentence uses {_SYMBOL[same_direction]}"
-                + (" (in exclusion, the eligible side of that is " + should + ")" if value['section'] == 'exclusion' else '')
+                + (" (for excluded patients, the eligible side of that is " + should + ")" if excluded else '')
                 + f". Should it be {should}?")
     return None
 
@@ -133,8 +134,8 @@ def prompts(text, annotation):
         for n, value in enumerate(entry.get('values', []), start=1):
             label = f'Value {n}' if len(entry['values']) > 1 else 'The value'
             if (value['comparator'] in _LOWER_BOUND) != lower_type:
-                notes.append(f"{label} is {'an upper' if lower_type else 'a lower'} bound ({_SYMBOL[value['comparator']]} {value['value']}) "
-                             f"for a {'minimum' if lower_type else 'maximum'}. Is that the eligible side?")
+                notes.append(f"{label} gives eligible patients {'an upper' if lower_type else 'a lower'} limit ({_SYMBOL[value['comparator']]} {value['value']}); "
+                             f"most trials set {'a lower' if lower_type else 'an upper'} limit for this measure. Is that right?")
             span = locate(text, value.get('sentence'))
             if span and section_at(text, span[0]) != value['section']:
                 notes.append(f"{label} is recorded as {value['section']}, but its sentence is under the "
@@ -142,7 +143,7 @@ def prompts(text, annotation):
             strictness = _strictness_mismatch(value)
             if strictness:
                 notes.append(f"{label}: {strictness}")
-            if value['section'] == 'exclusion' and _written_as_in_sentence(value):
+            if value.get('describes', value['section'] == 'exclusion' and 'excluded') == 'excluded' and _written_as_in_sentence(value):
                 notes.append(f"{label} is from the exclusion section and uses the same comparator as the sentence "
                              f"({_SYMBOL[value['comparator']]}). The guide records the eligible side, which is usually the opposite.")
             if value['unit'] == 'other' and not entry.get('note'):

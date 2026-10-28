@@ -1,12 +1,12 @@
 {% extends "landscape_base.html" %}
 {% block title %}Eligibility annotation · Protocol benchmarking{% endblock %}
 {% block content %}
-<p class="eyebrow">Protocol benchmarking · Reference annotation (Phase 4.1c)</p>
+<p class="eyebrow">Protocol benchmarking · Reference annotation, version 2 (Phase 4.2)</p>
 <h1>Eligibility annotation</h1>
 <section class="panel"><p><strong>{{ done }} of {{ total }}</strong> trials annotated{% if corrections %} · {{ corrections }} correction{{ 's' if corrections != 1 }} logged{% endif %}.</p>
-<p>Annotate in the order given, following the <a href="https://github.com/astridcmarin/marlo-scientific/blob/main/docs/ELIGIBILITY_ANNOTATION_GUIDE.md" target="_blank" rel="noopener noreferrer">annotation guide</a>. Each trial is saved as soon as you submit it, so you can stop at any time.</p>
+<p>Annotate in the order given, following the <a href="https://github.com/astridcmarin/marlo-scientific/blob/main/docs/ELIGIBILITY_ANNOTATION_GUIDE_V2.md" target="_blank" rel="noopener noreferrer">annotation guide (version 2)</a>. New in version 2: record each comparator <strong>as written</strong>; the page works out the eligible side. Each trial is saved as soon as you submit it, so you can stop at any time.</p>
 {% if next_row %}<p><a class="button primary" href="{{ url_for('landscape.eligibility_annotation_trial', nct_id=next_row.nct_id) }}">{% if done %}Continue with trial {{ next_row.position }}{% else %}Start with trial 1{% endif %}</a></p>
-{% else %}<p><strong>All trials are annotated.</strong> Export the file for pinning: <code>PYTHONPATH=. flask --app app/app.py eligibility-annotations-export --output Articles/eligibility_annotations_v1.json</code></p>{% endif %}
+{% else %}<p><strong>All trials are annotated.</strong> Export the file for pinning: <code>PYTHONPATH=. flask --app app/app.py eligibility-annotations-v2-export --output Articles/eligibility_annotations_v2.json</code></p>{% endif %}
 {% if done %}<p><a href="{{ url_for('landscape.eligibility_review_overview') }}">Review your annotations</a> (recommended once all trials are done, before export).</p>{% endif %}
 <p class="panel-note">This page never shows extraction results; the extractor is judged against this annotation later.</p></section>
 <section class="panel"><h2>Progress</h2><div class="table-scroll"><table><thead><tr><th>#</th><th>Trial</th><th>Saved (UTC)</th></tr></thead><tbody>

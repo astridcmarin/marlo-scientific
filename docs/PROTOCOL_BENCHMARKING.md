@@ -162,3 +162,28 @@ The file (`eligibility-corpus-v1`) holds, for each trial in the cohort, the iden
      4. **A pass rule sized to the sample:** a larger fresh sample, or a lower bound that is reachable at the expected number of pairs.
      5. **A new locked check on a fresh sample**, drawn without overlap with this one.
 6. **4.1f — benchmarking page:** not started, because no type passed.
+
+## Version 2 (Phase 4.2)
+
+Version 2 responds to the v1 result and its post-hoc analysis.
+
+1. **4.2a: plan, sample, guide and annotation page** (locked 28 October 2026).
+   - **Plan:** `eligibility_validation_plan_v2.json` (`8a543d7d…`).
+   - **Sample:** `eligibility_validation_sample_v2.json` (`5b7b4718…`). It holds 200 trials, phase-stratified (phase 1 52, phase 1/2 28, phase 2 70, phase 2/3 or 3 24, other 26). It was drawn with seed 20261028 from the 3,129 trials outside the v1 sample and v1 development set.
+   - **Guide:** [annotation guide v2](ELIGIBILITY_ANNOTATION_GUIDE_V2.md) (`96fdfefe…`).
+   - **Changes from v1:**
+     - **Comparators are recorded as written.** The annotator says whether a sentence describes eligible or excluded patients; this defaults from the section. The page derives the eligible side.
+     - **"Multiple" is only for parts of the study.** Exceptions for some patients are qualifiers.
+     - **Thresholds can go either direction.** Disease definitions (CRAB, SLiM) are left out.
+     - **Units:** K/µL is accepted.
+     - **Scoring treats ECOG < k as ≤ k − 1.**
+   - **Pass rule:**
+     - precision ≥ 0.90 with a Wilson lower bound ≥ 0.80;
+     - recall ≥ 0.80 with a lower bound ≥ 0.70;
+     - at least 30 annotated pairs per type.
+
+     At the counts expected from v1 rates (about 35–115 pairs per type), this allows about 10% errors.
+   - **Annotation page:** `/landscape/benchmarking/annotate` now serves v2, which is stored in `instance/eligibility_annotations_v2.json`. The review page works as before. Export with `eligibility-annotations-v2-export`.
+2. **4.2b: extractor v1.1.** It is developed on the v1 development set and the (now unblinded) v1 sample, without reading v2 text, and is frozen before scoring.
+3. **4.2c: the locked check** on the v2 sample, after the annotation is exported and pinned.
+4. **4.1f: the benchmarking page,** for passing types only.
