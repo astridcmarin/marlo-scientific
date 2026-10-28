@@ -126,5 +126,39 @@ The file (`eligibility-corpus-v1`) holds, for each trial in the cohort, the iden
    - trials of impaired kidney function whose eligible range is an upper bound ("eGFR < 40").
 
    Accuracy is only measured by the locked check (4.1e). The rules are frozen once the sample is scored; changes after that need a new version and a new locked check.
-5. **4.1e — reference annotation** of the sample (by hand), then the locked accuracy check.
-6. **4.1f — benchmarking page** showing only the criterion types that passed.
+5. **4.1e — reference annotation and locked accuracy check** (done 28 October 2026).
+   - **Annotation:** 120 trials annotated by the platform owner, all self-reviewed before export. The 13 corrections were all made in that review round, before the extractor ran. The export is pinned as `eligibility_annotations_v1.json` (`8111b4c3…`). The scoring rules (`eligibility_validation.py`) and the pin were committed before the extractor was run on the sample. The extractor is unchanged since 22 October (`54781353…`).
+   - **Locked result** (`docs/verification/eligibility_validation_v1.json`): **all eight types fail. Nothing is shown on the platform.**
+
+     | Type | Annotated pairs (stated + multiple) | Precision (95% lower bound) | Recall (95% lower bound) |
+     |---|---|---|---|
+     | Kidney function | 48 | 0.73 (0.58) | 0.67 (0.53) |
+     | Creatinine | 33 | 0.78 (0.59) | 0.64 (0.47) |
+     | ANC | 37 | 0.73 (0.57) | 0.75 (0.59) |
+     | Platelets | 43 | 0.81 (0.66) | 0.70 (0.55) |
+     | Haemoglobin | 21 | 0.73 (0.52) | 0.80 (0.58) |
+     | Bilirubin | 62 | 0.76 (0.63) | 0.66 (0.54) |
+     | AST/ALT | 61 | 0.78 (0.65) | 0.66 (0.53) |
+     | ECOG | 69 | 0.83 (0.72) | 0.78 (0.67) |
+
+     Kidney equation agreed in 23 of the 32 kidney true positives (reported, not scored).
+   - **Post hoc, not a pass** (`docs/verification/eligibility_validation_v1_posthoc.json`). This was written after the result was known and changes nothing.
+     - **The largest source of disagreement is a convention, not the extractor.** Many exclusion criteria were annotated as written ("CrCl < 30" recorded as < 30), while the guide and the extractor use the eligible side (≥ 30).
+     - **Re-scoring with the guide's rule changes the picture but not the decision.** Applying the rule mechanically to 52 annotation entries, and reading ECOG < 2 as ≤ 1, raises precision to 0.77–0.95 and recall to 0.75–0.90. Every type still fails.
+     - **The remaining 77 disagreements fall into six groups:**
+       - nothing extracted: 28;
+       - a second cohort or exception value recorded as "multiple" where the extractor gave one value: 15;
+       - a different value or comparator: 15;
+       - the same number with a different unit label: 10;
+       - a value extracted where the annotation says not stated: 7;
+       - an extra value: 2.
+   - **The pass rule was too strict for this sample size.** This is a design finding of the plan, and the plan was written on this platform.
+     - **Two types could never pass.** For creatinine (33 annotated pairs) and haemoglobin (21), even a perfect extractor cannot reach a Wilson lower bound of 0.90 on precision.
+     - **The other types allowed at most two errors.** For kidney function, ANC and platelets, precision had to be perfect. Bilirubin and AST/ALT allowed one error, and ECOG two.
+   - **What a version 2 needs:**
+     1. **Annotators record comparators as written, and code works out the eligible side.** This removes the mental conversion that caused the largest group of disagreements.
+     2. **Clearer guide rules** on cohort values versus exceptions, Zubrod/SWOG as ECOG, and ECOG < k = ≤ k − 1.
+     3. **Extractor v1.1.** It is developed on the development set; this sample is now unblinded and can be used too.
+     4. **A pass rule sized to the sample:** a larger fresh sample, or a lower bound that is reachable at the expected number of pairs.
+     5. **A new locked check on a fresh sample**, drawn without overlap with this one.
+6. **4.1f — benchmarking page:** not started, because no type passed.

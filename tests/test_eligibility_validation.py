@@ -67,3 +67,23 @@ class Pins(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class PostHoc(unittest.TestCase):
+    def test_eligible_side_rule_and_ecog_integers(self):
+        from intelligence_store import eligibility_validation_posthoc as ph
+        e = {'status': 'multiple', 'values': [v('>=', '30', 'mL/min', section='inclusion', sentence='CrCl >= 30'),
+                                              v('<', '30', 'mL/min', section='exclusion', sentence='CrCl \\< 30')]}
+        out = ph.eligible_side('kidney_function_min', e)
+        self.assertEqual((out['status'], [x['comparator'] for x in out['values']]), ('stated', ['>=']))
+        words = {'status': 'stated', 'values': [v('<', '30', 'mL/min', section='exclusion', sentence='CrCl less than 30')]}
+        self.assertEqual(ph.eligible_side('kidney_function_min', words)['values'][0]['comparator'], '<')
+        ecog = {'status': 'stated', 'values': [v('<', '2', 'score', section='inclusion', sentence='ECOG <2')]}
+        first = ph.eligible_side('ecog_max', ecog)['values'][0]
+        self.assertEqual((first['comparator'], first['value']), ('<=', '1'))
+
+    def test_attainability(self):
+        from intelligence_store import eligibility_validation_posthoc as ph
+        self.assertIsNone(ph.min_errors_allowed(21))      # 21/21 has a lower bound below 0.90
+        self.assertEqual(ph.min_errors_allowed(48), 0)
+        self.assertEqual(ph.min_errors_allowed(69), 2)

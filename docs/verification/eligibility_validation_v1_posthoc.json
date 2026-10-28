@@ -1,0 +1,506 @@
+{
+ "schema_version": "extraction-validation-posthoc-v1",
+ "status": "post_hoc_not_a_pass",
+ "locked_report": "docs/verification/eligibility_validation_v1.json",
+ "annotations_sha256_file": "8111b4c3e70ce58c441ea223d460ee1a4a435bee7154362a6567d8a220b8c953",
+ "extractor_sha256": "54781353e752411a2f9dc27ae62e49b03390c92940180572ef18aad3d8a744ac",
+ "method": "1. Convention. The guide asks the annotator to write exclusion criteria as the eligible side (\"CrCl < 30\" in\n   exclusion -> >= 30). A re-scoring applies that rule mechanically to every annotated exclusion value whose\n   comparator appears as a symbol in its own sentence (so it was recorded as written), whatever the extractor said,\n   and reads ECOG '< k' as '<= k-1' on both sides (an integer scale). Values written in words are left as they are.\n2. Categories of the disagreements that remain after that re-scoring.\n3. Attainability of the pass rule: the smallest number of errors that still allows the Wilson lower bounds required\n   by the plan, given each type's number of annotated pairs.",
+ "annotation_entries_changed_by_rule_1": 52,
+ "rescored_per_type": {
+  "kidney_function_min": {
+   "annotated": {
+    "stated": 45,
+    "multiple": 3,
+    "not_stated": 72,
+    "unclear": 0
+   },
+   "tp": 41,
+   "fp_pairs": 2,
+   "fn_pairs": 7,
+   "true_negative_pairs": 72,
+   "precision": 0.9534883720930233,
+   "precision_95ci": [
+    0.8454450199593603,
+    0.9871507399056197
+   ],
+   "recall": 0.8541666666666666,
+   "recall_95ci": [
+    0.7283282347525372,
+    0.9275175067339628
+   ],
+   "decision": "fail"
+  },
+  "creatinine_max": {
+   "annotated": {
+    "stated": 31,
+    "multiple": 2,
+    "not_stated": 87,
+    "unclear": 0
+   },
+   "tp": 25,
+   "fp_pairs": 2,
+   "fn_pairs": 8,
+   "true_negative_pairs": 87,
+   "precision": 0.9259259259259259,
+   "precision_95ci": [
+    0.7663040731697686,
+    0.9794453459390113
+   ],
+   "recall": 0.7575757575757576,
+   "recall_95ci": [
+    0.5897538017044264,
+    0.8716828662282499
+   ],
+   "decision": "fail"
+  },
+  "anc_min": {
+   "annotated": {
+    "stated": 34,
+    "multiple": 3,
+    "not_stated": 82,
+    "unclear": 1
+   },
+   "tp": 31,
+   "fp_pairs": 6,
+   "fn_pairs": 5,
+   "true_negative_pairs": 80,
+   "precision": 0.8378378378378378,
+   "precision_95ci": [
+    0.6886351629906503,
+    0.9234879276598885
+   ],
+   "recall": 0.8611111111111112,
+   "recall_95ci": [
+    0.713404696106438,
+    0.9391818499086717
+   ],
+   "decision": "fail"
+  },
+  "platelets_min": {
+   "annotated": {
+    "stated": 37,
+    "multiple": 6,
+    "not_stated": 76,
+    "unclear": 1
+   },
+   "tp": 34,
+   "fp_pairs": 4,
+   "fn_pairs": 9,
+   "true_negative_pairs": 76,
+   "precision": 0.8947368421052632,
+   "precision_95ci": [
+    0.7586947827711269,
+    0.9582974265244647
+   ],
+   "recall": 0.7906976744186046,
+   "recall_95ci": [
+    0.6479435728926356,
+    0.885771657790044
+   ],
+   "decision": "fail"
+  },
+  "hemoglobin_min": {
+   "annotated": {
+    "stated": 21,
+    "multiple": 0,
+    "not_stated": 99,
+    "unclear": 0
+   },
+   "tp": 17,
+   "fp_pairs": 5,
+   "fn_pairs": 3,
+   "true_negative_pairs": 98,
+   "precision": 0.7727272727272727,
+   "precision_95ci": [
+    0.5656004682477829,
+    0.8987696001475147
+   ],
+   "recall": 0.85,
+   "recall_95ci": [
+    0.6395811352592431,
+    0.9476312541037835
+   ],
+   "decision": "fail"
+  },
+  "bilirubin_max": {
+   "annotated": {
+    "stated": 59,
+    "multiple": 3,
+    "not_stated": 58,
+    "unclear": 0
+   },
+   "tp": 48,
+   "fp_pairs": 6,
+   "fn_pairs": 14,
+   "true_negative_pairs": 58,
+   "precision": 0.8888888888888888,
+   "precision_95ci": [
+    0.7780529897881872,
+    0.9480697750300044
+   ],
+   "recall": 0.7741935483870968,
+   "recall_95ci": [
+    0.6559437908464204,
+    0.8604481696141172
+   ],
+   "decision": "fail"
+  },
+  "ast_alt_max": {
+   "annotated": {
+    "stated": 57,
+    "multiple": 4,
+    "not_stated": 59,
+    "unclear": 0
+   },
+   "tp": 46,
+   "fp_pairs": 5,
+   "fn_pairs": 15,
+   "true_negative_pairs": 59,
+   "precision": 0.9019607843137255,
+   "precision_95ci": [
+    0.7902176531891913,
+    0.9573919268923814
+   ],
+   "recall": 0.7540983606557377,
+   "recall_95ci": [
+    0.6331557589001072,
+    0.8449334229877371
+   ],
+   "decision": "fail"
+  },
+  "ecog_max": {
+   "annotated": {
+    "stated": 67,
+    "multiple": 2,
+    "not_stated": 50,
+    "unclear": 1
+   },
+   "tp": 62,
+   "fp_pairs": 4,
+   "fn_pairs": 7,
+   "true_negative_pairs": 46,
+   "precision": 0.9393939393939394,
+   "precision_95ci": [
+    0.8542709132143579,
+    0.9761813851676816
+   ],
+   "recall": 0.8985507246376812,
+   "recall_95ci": [
+    0.8050811424505202,
+    0.9499833618915401
+   ],
+   "decision": "fail"
+  }
+ },
+ "remaining_disagreement_categories": {
+  "ecog_max": {
+   "extracted where annotated not stated": 4,
+   "missed (nothing extracted)": 5,
+   "annotated multiple (cohort or exception), fewer extracted": 2
+  },
+  "platelets_min": {
+   "annotated multiple (cohort or exception), fewer extracted": 5,
+   "different value or comparator": 3,
+   "same number, different unit label": 1
+  },
+  "kidney_function_min": {
+   "same number, different unit label": 2,
+   "missed (nothing extracted)": 4,
+   "annotated multiple (cohort or exception), fewer extracted": 1
+  },
+  "anc_min": {
+   "different value or comparator": 2,
+   "extracted where annotated not stated": 2,
+   "same number, different unit label": 1,
+   "annotated multiple (cohort or exception), fewer extracted": 1,
+   "missed (nothing extracted)": 1,
+   "extra value extracted": 1
+  },
+  "ast_alt_max": {
+   "missed (nothing extracted)": 7,
+   "different value or comparator": 3,
+   "same number, different unit label": 2,
+   "annotated multiple (cohort or exception), fewer extracted": 3
+  },
+  "creatinine_max": {
+   "same number, different unit label": 1,
+   "missed (nothing extracted)": 5,
+   "different value or comparator": 1,
+   "annotated multiple (cohort or exception), fewer extracted": 1
+  },
+  "bilirubin_max": {
+   "missed (nothing extracted)": 6,
+   "different value or comparator": 5,
+   "annotated multiple (cohort or exception), fewer extracted": 2,
+   "same number, different unit label": 1
+  },
+  "hemoglobin_min": {
+   "extra value extracted": 1,
+   "different value or comparator": 1,
+   "same number, different unit label": 2,
+   "extracted where annotated not stated": 1
+  }
+ },
+ "remaining_disagreement_totals": {
+  "extracted where annotated not stated": 7,
+  "missed (nothing extracted)": 28,
+  "annotated multiple (cohort or exception), fewer extracted": 15,
+  "different value or comparator": 15,
+  "same number, different unit label": 10,
+  "extra value extracted": 2
+ },
+ "examples": {
+  "extracted where annotated not stated": [
+   {
+    "nct_id": "NCT00002849",
+    "type": "ecog_max"
+   },
+   {
+    "nct_id": "NCT00002907",
+    "type": "ecog_max"
+   },
+   {
+    "nct_id": "NCT00005834",
+    "type": "anc_min"
+   },
+   {
+    "nct_id": "NCT00005834",
+    "type": "ecog_max"
+   },
+   {
+    "nct_id": "NCT00839956",
+    "type": "anc_min"
+   },
+   {
+    "nct_id": "NCT00644228",
+    "type": "ecog_max"
+   },
+   {
+    "nct_id": "NCT03622788",
+    "type": "hemoglobin_min"
+   }
+  ],
+  "annotated multiple (cohort or exception), fewer extracted": [
+   {
+    "nct_id": "NCT05363111",
+    "type": "platelets_min"
+   },
+   {
+    "nct_id": "NCT00083460",
+    "type": "platelets_min"
+   },
+   {
+    "nct_id": "NCT04009109",
+    "type": "platelets_min"
+   },
+   {
+    "nct_id": "NCT00148317",
+    "type": "anc_min"
+   },
+   {
+    "nct_id": "NCT00148317",
+    "type": "platelets_min"
+   },
+   {
+    "nct_id": "NCT04798586",
+    "type": "ecog_max"
+   },
+   {
+    "nct_id": "NCT06138275",
+    "type": "bilirubin_max"
+   },
+   {
+    "nct_id": "NCT01371227",
+    "type": "ecog_max"
+   },
+   {
+    "nct_id": "NCT01711671",
+    "type": "ast_alt_max"
+   },
+   {
+    "nct_id": "NCT00536575",
+    "type": "ast_alt_max"
+   }
+  ],
+  "same number, different unit label": [
+   {
+    "nct_id": "NCT00083460",
+    "type": "kidney_function_min"
+   },
+   {
+    "nct_id": "NCT00165347",
+    "type": "creatinine_max"
+   },
+   {
+    "nct_id": "NCT01686386",
+    "type": "ast_alt_max"
+   },
+   {
+    "nct_id": "NCT07085728",
+    "type": "anc_min"
+   },
+   {
+    "nct_id": "NCT07085728",
+    "type": "platelets_min"
+   },
+   {
+    "nct_id": "NCT01711671",
+    "type": "hemoglobin_min"
+   },
+   {
+    "nct_id": "NCT01110135",
+    "type": "kidney_function_min"
+   },
+   {
+    "nct_id": "NCT07510100",
+    "type": "hemoglobin_min"
+   },
+   {
+    "nct_id": "NCT07200089",
+    "type": "bilirubin_max"
+   },
+   {
+    "nct_id": "NCT07200089",
+    "type": "ast_alt_max"
+   }
+  ],
+  "different value or comparator": [
+   {
+    "nct_id": "NCT00083460",
+    "type": "anc_min"
+   },
+   {
+    "nct_id": "NCT00304720",
+    "type": "ast_alt_max"
+   },
+   {
+    "nct_id": "NCT01686386",
+    "type": "platelets_min"
+   },
+   {
+    "nct_id": "NCT01342289",
+    "type": "bilirubin_max"
+   },
+   {
+    "nct_id": "NCT01342289",
+    "type": "ast_alt_max"
+   },
+   {
+    "nct_id": "NCT05497804",
+    "type": "hemoglobin_min"
+   },
+   {
+    "nct_id": "NCT01244906",
+    "type": "creatinine_max"
+   },
+   {
+    "nct_id": "NCT01244906",
+    "type": "bilirubin_max"
+   },
+   {
+    "nct_id": "NCT00839956",
+    "type": "bilirubin_max"
+   },
+   {
+    "nct_id": "NCT03233776",
+    "type": "bilirubin_max"
+   }
+  ],
+  "missed (nothing extracted)": [
+   {
+    "nct_id": "NCT01428492",
+    "type": "ast_alt_max"
+   },
+   {
+    "nct_id": "NCT00368121",
+    "type": "kidney_function_min"
+   },
+   {
+    "nct_id": "NCT00368121",
+    "type": "creatinine_max"
+   },
+   {
+    "nct_id": "NCT00368121",
+    "type": "ast_alt_max"
+   },
+   {
+    "nct_id": "NCT00972712",
+    "type": "bilirubin_max"
+   },
+   {
+    "nct_id": "NCT00972712",
+    "type": "ecog_max"
+   },
+   {
+    "nct_id": "NCT07085728",
+    "type": "kidney_function_min"
+   },
+   {
+    "nct_id": "NCT07085728",
+    "type": "creatinine_max"
+   },
+   {
+    "nct_id": "NCT02078102",
+    "type": "bilirubin_max"
+   },
+   {
+    "nct_id": "NCT02078102",
+    "type": "ast_alt_max"
+   }
+  ],
+  "extra value extracted": [
+   {
+    "nct_id": "NCT04009109",
+    "type": "hemoglobin_min"
+   },
+   {
+    "nct_id": "NCT03140943",
+    "type": "anc_min"
+   }
+  ]
+ },
+ "pass_rule_attainability": {
+  "kidney_function_min": {
+   "annotated_positive_pairs": 48,
+   "errors_allowed_for_recall_lower_bound_0.75": 6,
+   "errors_allowed_for_precision_lower_bound_0.90_if_all_found": 0
+  },
+  "creatinine_max": {
+   "annotated_positive_pairs": 33,
+   "errors_allowed_for_recall_lower_bound_0.75": 3,
+   "errors_allowed_for_precision_lower_bound_0.90_if_all_found": null
+  },
+  "anc_min": {
+   "annotated_positive_pairs": 37,
+   "errors_allowed_for_recall_lower_bound_0.75": 4,
+   "errors_allowed_for_precision_lower_bound_0.90_if_all_found": 0
+  },
+  "platelets_min": {
+   "annotated_positive_pairs": 43,
+   "errors_allowed_for_recall_lower_bound_0.75": 5,
+   "errors_allowed_for_precision_lower_bound_0.90_if_all_found": 0
+  },
+  "hemoglobin_min": {
+   "annotated_positive_pairs": 21,
+   "errors_allowed_for_recall_lower_bound_0.75": 1,
+   "errors_allowed_for_precision_lower_bound_0.90_if_all_found": null
+  },
+  "bilirubin_max": {
+   "annotated_positive_pairs": 62,
+   "errors_allowed_for_recall_lower_bound_0.75": 8,
+   "errors_allowed_for_precision_lower_bound_0.90_if_all_found": 1
+  },
+  "ast_alt_max": {
+   "annotated_positive_pairs": 61,
+   "errors_allowed_for_recall_lower_bound_0.75": 8,
+   "errors_allowed_for_precision_lower_bound_0.90_if_all_found": 1
+  },
+  "ecog_max": {
+   "annotated_positive_pairs": 69,
+   "errors_allowed_for_recall_lower_bound_0.75": 10,
+   "errors_allowed_for_precision_lower_bound_0.90_if_all_found": 2
+  }
+ },
+ "note": "Every type still fails after the re-scoring. Nothing is shown on the platform.",
+ "report_sha256": "698507508c366ad814dcdcb2031d3e4452d926b3eb1f2b417879da3f826b28c0"
+}

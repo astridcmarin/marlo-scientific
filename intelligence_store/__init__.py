@@ -57,6 +57,7 @@ from .label_exposure_dexamethasone_check import register_label_exposure_dexameth
 from .eligibility_corpus import register_eligibility_corpus_commands
 from .eligibility_annotations import register_eligibility_annotation_commands
 from .eligibility_validation import register_eligibility_validation_commands
+from .eligibility_validation_posthoc import register_eligibility_validation_posthoc_commands
 from .lenalidomide_renal_pathways import register_renal_pathway_commands
 from .lenalidomide_esrd_dialysis import register_esrd_dialysis_commands
 from .patient_model_binding import register_patient_model_binding_commands
@@ -147,6 +148,7 @@ def init_storage(app):
     register_eligibility_corpus_commands(app)
     register_eligibility_annotation_commands(app)
     register_eligibility_validation_commands(app)
+    register_eligibility_validation_posthoc_commands(app)
     register_esrd_dialysis_commands(app)
     register_patient_model_binding_commands(app)
     register_treatment_request_commands(app)
