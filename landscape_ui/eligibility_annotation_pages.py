@@ -1,17 +1,15 @@
 """Phase 4.1c: annotation page for the eligibility validation sample (one trial at a time; saves after each)."""
-from pathlib import Path
-
 from flask import abort, current_app, redirect, request, url_for
 
 from intelligence_store import eligibility_annotation_review as review
-from intelligence_store import eligibility_annotations as ea
+from intelligence_store import eligibility_annotations_v2 as ea      # the round being annotated (v1 is pinned)
 from .workspace_pages import COOKIE, TTL, _form_token, _response, _validate_token
 
 COOKIE_PATH = '/landscape/benchmarking'
 
 
 def _store_path():
-    return Path(current_app.config.get('ELIGIBILITY_ANNOTATIONS_PATH') or Path(current_app.instance_path) / 'eligibility_annotations_v1.json')
+    return ea.store_path(current_app)
 
 
 def _with_token(template, status=200, **context):
@@ -50,7 +48,7 @@ def register_eligibility_annotation_pages(bp):
         trial = trials[position]
         saved = store['annotations'].get(nct_id)
         context = dict(trial=trial, position=position + 1, total=len(trials), types=ea.TYPES, statuses=ea.STATUSES,
-                       comparators=ea.COMPARATORS, sections=ea.SECTIONS, max_values=ea.MAX_VALUES, saved=saved)
+                       comparators=ea.COMPARATORS, sections=ea.SECTIONS, describes=ea.DESCRIBES, max_values=ea.MAX_VALUES, saved=saved)
         if request.method == 'POST':
             if request.content_length and request.content_length > 200_000:
                 abort(413)
@@ -132,6 +130,7 @@ def _form_from_saved(saved):
         if 'equation' in entry:
             form[f'{key}__equation'] = entry['equation']
         for i, value in enumerate(entry['values'], start=1):
-            for field, text in value.items():
-                form[f'{key}__v{i}__{field}'] = text
+            for field in ('comparator_as_written', 'value', 'unit', 'section', 'sentence', 'qualifier'):
+                form[f'{key}__v{i}__{field}'] = value.get(field, '')
+            form[f'{key}__v{i}__describes'] = '' if value.get('describes_from_section') else value.get('describes', '')
     return form

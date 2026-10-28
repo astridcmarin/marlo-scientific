@@ -23,7 +23,7 @@
 {% for key, spec in types.items() %}{% set entry = criteria[key] %}
 <div class="rev-type"><h3>{{ spec.label }}</h3>
 <p class="{{ 'rev-ns' if entry.status == 'not_stated' }}"><strong>{{ entry.status|replace('_',' ') }}</strong>{% if entry['values'] %} · {{ describe(entry) }}{% endif %}{% if entry.equation %} · method: {{ entry.equation|replace('_',' ') }}{% endif %}</p>
-{% if entry['values'] %}<ul>{% for v in entry['values'] %}<li>{{ v.section }}: “{{ v.sentence }}”{% if v.qualifier %}<br><em>Qualifier:</em> {{ v.qualifier }}{% endif %}</li>{% endfor %}</ul>{% endif %}
+{% if entry['values'] %}<ul>{% for v in entry['values'] %}<li>{{ v.section }}{% if v.comparator_as_written %} · written {{ v.comparator_as_written|replace('>=','≥')|replace('<=','≤') }} {{ v.value }}, describes {{ v.describes }} patients{% endif %}: “{{ v.sentence }}”{% if v.qualifier %}<br><em>Qualifier:</em> {{ v.qualifier }}{% endif %}</li>{% endfor %}</ul>{% endif %}
 {% if entry.note %}<p class="panel-note">Note: {{ entry.note }}</p>{% endif %}
 {% for v in unlocated[key] %}<div class="rev-prompt">Could not highlight “{{ v.sentence[:80] }}” in the text.</div>{% endfor %}
 {% for q in prompts.get(key, []) %}<div class="rev-prompt">{{ q }}</div>{% endfor %}

@@ -7,7 +7,7 @@
 .ann-type{border:1px solid #dbe5e9;border-radius:8px;padding:10px 12px;margin:0 0 10px;background:#fff}
 .ann-type legend{font-weight:650;padding:0 4px}
 .ann-status{display:flex;flex-wrap:wrap;gap:4px 14px;margin:2px 0 6px}
-.ann-row{display:grid;grid-template-columns:70px 90px minmax(0,1fr) 110px;gap:6px;margin:6px 0}
+.ann-row{display:grid;grid-template-columns:96px 90px minmax(0,1fr) 110px;gap:6px;margin:6px 0}
 .ann-row textarea,.ann-row input,.ann-row select,.ann-type textarea,.ann-type input:not([type=radio]),.ann-type select{width:100%;box-sizing:border-box;font:inherit;font-size:13px}
 .ann-status label{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .ann-status input[type=radio]{width:auto;margin:0}
@@ -30,10 +30,11 @@
 {% for i in range(1, max_values + 1) %}{% set p = key ~ '__v' ~ i ~ '__' %}
 {% if i == 2 %}<details{% if form.get(key ~ '__v2__value') or form.get(key ~ '__v2__sentence') %} open{% endif %}><summary class="panel-note">More values (for “multiple”)</summary>{% endif %}
 <div class="ann-row">
-<select name="{{ p }}comparator" aria-label="Comparator, value {{ i }}"><option value=""></option>{% for c in comparators %}<option value="{{ c }}" {% if form.get(p ~ 'comparator') == c %}selected{% endif %}>{{ c|replace('>=','≥')|replace('<=','≤') }}</option>{% endfor %}</select>
+<select name="{{ p }}comparator_as_written" aria-label="Comparator as written, value {{ i }}" title="Comparator exactly as written"><option value="">as written</option>{% for c in comparators %}<option value="{{ c }}" {% if form.get(p ~ 'comparator_as_written') == c %}selected{% endif %}>{{ c|replace('>=','≥')|replace('<=','≤') }}</option>{% endfor %}</select>
 <input name="{{ p }}value" inputmode="decimal" placeholder="value" aria-label="Value {{ i }}" value="{{ form.get(p ~ 'value', '') }}">
 <select name="{{ p }}unit" aria-label="Unit, value {{ i }}"><option value="">unit</option>{% for u in spec.units %}<option value="{{ u }}" {% if form.get(p ~ 'unit') == u %}selected{% endif %}>{{ u }}</option>{% endfor %}</select>
 <select name="{{ p }}section" aria-label="Section, value {{ i }}"><option value="">section</option>{% for s in sections %}<option value="{{ s }}" {% if form.get(p ~ 'section') == s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select>
+<select class="wide" name="{{ p }}describes" aria-label="The sentence describes, value {{ i }}"><option value="">Describes: same as section (inclusion = eligible, exclusion = excluded)</option>{% for d in describes %}<option value="{{ d }}" {% if form.get(p ~ 'describes') == d %}selected{% endif %}>Describes {{ d }} patients</option>{% endfor %}</select>
 <textarea class="wide" name="{{ p }}sentence" rows="2" placeholder="Paste the exact sentence" aria-label="Sentence, value {{ i }}">{{ form.get(p ~ 'sentence', '') }}</textarea>
 <input class="wide" name="{{ p }}qualifier" placeholder="Qualifier (optional), e.g. unless due to myeloma" aria-label="Qualifier, value {{ i }}" value="{{ form.get(p ~ 'qualifier', '') }}">
 </div>
