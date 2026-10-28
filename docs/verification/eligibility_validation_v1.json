@@ -1,0 +1,3556 @@
+{
+ "schema_version": "extraction-validation-report-v1",
+ "plan_version": "eligibility-validation-plan-v1.0",
+ "plan_sha256": "2061c0a0a9a4ee94fd9331a47d6ca5692d23ef3cffac3081ebfacf63eb4c0b8c",
+ "extractor_version": "eligibility-extractor-v1.0",
+ "extractor_sha256": "54781353e752411a2f9dc27ae62e49b03390c92940180572ef18aad3d8a744ac",
+ "annotations_sha256_file": "8111b4c3e70ce58c441ea223d460ee1a4a435bee7154362a6567d8a220b8c953",
+ "annotations_content_sha256": "1c36b46011687674fa94c84d167ad7418c03fc270c2fc21fe8b0e88b6ace1840",
+ "sample_sha256": "b49e505c3d9004de5047e3fc56920bc012df606d24517e8fbbae79db39f8b93d",
+ "annotation": {
+  "annotator": "One annotator (the platform owner: MSc pharmaceutical sciences, ICH-GCP and clinical research coordination training) annotates all 120 trials in the fixed annotation order, following the guide, using the annotation page, before the extractor is run on any sample trial. The annotation file is then exported and pinned.",
+  "trials": 120,
+  "self_review": "120 trials reviewed before export",
+  "corrections_before_extraction": 13,
+  "corrections_note": "All corrections were made during the annotator's own review round, before the extractor was run on any sample trial; none was prompted by extractor output."
+ },
+ "prespecification_note": "The extractor (eligibility-extractor-v1.0, sha256 above) was committed on 22 October 2026, 14:56 UTC, before any sample text was seen by its author, and has not changed since. During annotation the annotator asked about three short wordings from sample trials (an ECOG 0-2 line, a \"\\>= 40\" escape and a \"0\\~2 points\" ECOG line); no rule was changed. This scoring module and the pinned annotation file were committed before the extractor was run on the sample.",
+ "scoring_interpretation": "- Scoring is per (trial, criterion type) pair. Pairs annotated 'unclear' are excluded and counted separately.\n- A pair is a true positive when it is annotated stated/multiple, every annotated value is matched by an extracted\n  value, and every extracted value matches an annotated value.\n- A pair is a false positive when it has any extracted value that matches no annotated value (this includes any\n  value extracted for a not_stated pair). A pair is a false negative when it is annotated stated/multiple and at\n  least one annotated value is not matched. A wrong value therefore makes the pair both FP and FN; a pair with all\n  annotated values plus an extra value is FP only.\n- Match: same comparator, same unit (guide labels), and the same number, with the plan's equivalences:\n  /mm3 = /uL = cells/uL; x 10^9/L x 1000 = /mm3; g/dL x 10 = g/L; creatinine mg/dL x 88.42 = umol/L and bilirubin\n  mg/dL x 17.1 = umol/L. Values must be equal after the exact factors (x 1000, x 10); only a mg/dL <-> umol/L pair may differ, by up\n  to 0.5% (published conversions are rounded, e.g. 2 mg/dL written as 176.8 umol/L). 'other' matches only 'other' with an equal number.\n- Equation (kidney) is reported but not required for a match.\n- Precision = TP / (TP + FP pairs); recall = TP / (TP + FN pairs); Wilson 95% intervals.\n- A type passes when precision >= 0.95 with lower bound >= 0.90 and recall >= 0.85 with lower bound >= 0.75, and it\n  has at least 20 annotated stated/multiple pairs.",
+ "pass_rule": {
+  "precision": 0.95,
+  "precision_lower": 0.9,
+  "recall": 0.85,
+  "recall_lower": 0.75,
+  "min_pairs": 20
+ },
+ "per_type": {
+  "kidney_function_min": {
+   "annotated": {
+    "stated": 45,
+    "multiple": 3,
+    "not_stated": 72,
+    "unclear": 0
+   },
+   "tp": 32,
+   "fp_pairs": 12,
+   "fn_pairs": 16,
+   "true_negative_pairs": 72,
+   "precision": 0.7272727272727273,
+   "precision_95ci": [
+    0.5815112690754881,
+    0.8365361837615662
+   ],
+   "recall": 0.6666666666666666,
+   "recall_95ci": [
+    0.5254010970594798,
+    0.7832321930518142
+   ],
+   "decision": "fail"
+  },
+  "creatinine_max": {
+   "annotated": {
+    "stated": 31,
+    "multiple": 2,
+    "not_stated": 87,
+    "unclear": 0
+   },
+   "tp": 21,
+   "fp_pairs": 6,
+   "fn_pairs": 12,
+   "true_negative_pairs": 87,
+   "precision": 0.7777777777777778,
+   "precision_95ci": [
+    0.5924307113336742,
+    0.8939276054763996
+   ],
+   "recall": 0.6363636363636364,
+   "recall_95ci": [
+    0.466161783022664,
+    0.7781282176475764
+   ],
+   "decision": "fail"
+  },
+  "anc_min": {
+   "annotated": {
+    "stated": 34,
+    "multiple": 3,
+    "not_stated": 82,
+    "unclear": 1
+   },
+   "tp": 27,
+   "fp_pairs": 10,
+   "fn_pairs": 9,
+   "true_negative_pairs": 80,
+   "precision": 0.7297297297297297,
+   "precision_95ci": [
+    0.5702183167528573,
+    0.8460253848895091
+   ],
+   "recall": 0.75,
+   "recall_95ci": [
+    0.5892954623327166,
+    0.8624952233700517
+   ],
+   "decision": "fail"
+  },
+  "platelets_min": {
+   "annotated": {
+    "stated": 36,
+    "multiple": 7,
+    "not_stated": 76,
+    "unclear": 1
+   },
+   "tp": 30,
+   "fp_pairs": 7,
+   "fn_pairs": 13,
+   "true_negative_pairs": 76,
+   "precision": 0.8108108108108109,
+   "precision_95ci": [
+    0.6579530307016159,
+    0.9052002126968799
+   ],
+   "recall": 0.6976744186046512,
+   "recall_95ci": [
+    0.5489463582227039,
+    0.8139799986415182
+   ],
+   "decision": "fail"
+  },
+  "hemoglobin_min": {
+   "annotated": {
+    "stated": 21,
+    "multiple": 0,
+    "not_stated": 99,
+    "unclear": 0
+   },
+   "tp": 16,
+   "fp_pairs": 6,
+   "fn_pairs": 4,
+   "true_negative_pairs": 98,
+   "precision": 0.7272727272727273,
+   "precision_95ci": [
+    0.5184826598759762,
+    0.8684923971201053
+   ],
+   "recall": 0.8,
+   "recall_95ci": [
+    0.5839825677481064,
+    0.919342337420202
+   ],
+   "decision": "fail"
+  },
+  "bilirubin_max": {
+   "annotated": {
+    "stated": 59,
+    "multiple": 3,
+    "not_stated": 58,
+    "unclear": 0
+   },
+   "tp": 41,
+   "fp_pairs": 13,
+   "fn_pairs": 21,
+   "true_negative_pairs": 58,
+   "precision": 0.7592592592592593,
+   "precision_95ci": [
+    0.6305247581649721,
+    0.8535570850471558
+   ],
+   "recall": 0.6612903225806451,
+   "recall_95ci": [
+    0.5371769954935818,
+    0.7665829812479109
+   ],
+   "decision": "fail"
+  },
+  "ast_alt_max": {
+   "annotated": {
+    "stated": 57,
+    "multiple": 4,
+    "not_stated": 59,
+    "unclear": 0
+   },
+   "tp": 40,
+   "fp_pairs": 11,
+   "fn_pairs": 21,
+   "true_negative_pairs": 59,
+   "precision": 0.7843137254901961,
+   "precision_95ci": [
+    0.6537364041400255,
+    0.8750606159176724
+   ],
+   "recall": 0.6557377049180327,
+   "recall_95ci": [
+    0.5304974914056818,
+    0.7625249103965454
+   ],
+   "decision": "fail"
+  },
+  "ecog_max": {
+   "annotated": {
+    "stated": 65,
+    "multiple": 4,
+    "not_stated": 50,
+    "unclear": 1
+   },
+   "tp": 54,
+   "fp_pairs": 11,
+   "fn_pairs": 15,
+   "true_negative_pairs": 46,
+   "precision": 0.8307692307692308,
+   "precision_95ci": [
+    0.7218357836377647,
+    0.9027878187178839
+   ],
+   "recall": 0.782608695652174,
+   "recall_95ci": [
+    0.6718170359123908,
+    0.8635923398937974
+   ],
+   "decision": "fail"
+  }
+ },
+ "kidney_equation_agreement_among_true_positives": {
+  "agree": 23,
+  "of": 32
+ },
+ "passing_types": [],
+ "errors": [
+  {
+   "nct_id": "NCT00002849",
+   "type": "ecog_max",
+   "annotated_status": "not_stated",
+   "outcome": "fp",
+   "tp": false,
+   "fp": true,
+   "fn": false,
+   "annotated_values": [],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "4",
+     "unit": "score",
+     "section": "inclusion",
+     "segment": "* SWOG 0-4"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT05363111",
+   "type": "platelets_min",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "75000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "* Platelets \\>= 75,000/mm\\^3 (\\>= 50,000/mm\\^3 if \\>= 50% marrow involvement) (within 14 days prior to day 1 of protocol therapy)",
+     "qualifier": null
+    },
+    {
+     "comparator": ">=",
+     "value": "50000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "* Platelets \\>= 75,000/mm\\^3 (\\>= 50,000/mm\\^3 if \\>= 50% marrow involvement) (within 14 days prior to day 1 of protocol therapy)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "75000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "segment": "* Platelets  >=  75,000/mm^3 ( >=  50,000/mm^3 if  >=  50% marrow involvement) (within 14 days prior to day 1 of protocol therapy)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00083460",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "20",
+     "unit": "other",
+     "section": "exclusion",
+     "sentence": "* Severe renal dysfunction defined as a creatinine clearance \\< 20 cc/min.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "20",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "equation": "not_stated",
+     "segment": "* Severe renal dysfunction defined as a creatinine clearance < 20 cc/min."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00083460",
+   "type": "anc_min",
+   "annotated_status": "multiple",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "750",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "* Patients must have an absolute neutrophil count \\> 750/mm3, and a platelet count greater than or equal to 25,000/mm3",
+     "qualifier": null
+    },
+    {
+     "comparator": "<",
+     "value": "750",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "sentence": "* Patients must have an absolute neutrophil count \\> 750/mm3, and a platelet count greater than or equal to 25,000/mm3",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">",
+     "value": "750",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "segment": "* Patients must have an absolute neutrophil count > 750/mm3, and a platelet count  >=  25,000/mm3"
+    },
+    {
+     "comparator": ">=",
+     "value": "750",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "segment": "* Absolute neutrophil count < 750/mm3, and a platelet count < 25,000/mm3"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00083460",
+   "type": "platelets_min",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "25000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "* Patients must have an absolute neutrophil count \\> 750/mm3, and a platelet count greater than or equal to 25,000/mm3",
+     "qualifier": null
+    },
+    {
+     "comparator": "<",
+     "value": "25000",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "sentence": "* Patients must have an absolute neutrophil count \\> 750/mm3, and a platelet count greater than or equal to 25,000/mm3",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "25000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "segment": "* Patients must have an absolute neutrophil count > 750/mm3, and a platelet count  >=  25,000/mm3"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00083460",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "3",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "Clinically significant hepatic dysfunction in the absence of liver metastases as noted by bilirubin or AST \\>3 times the upper normal limit or",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "3",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "* Clinically significant hepatic dysfunction in the absence of liver metastases as noted by bilirubin or AST >3 times the upper normal limit or clinically significant concurrent hepatitis"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00083460",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "3",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "* Clinically significant hepatic dysfunction in the absence of liver metastases as noted by bilirubin or AST \\>3 times the upper normal limit or clinically significant concurrent hepatitis",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "3",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "* Clinically significant hepatic dysfunction in the absence of liver metastases as noted by bilirubin or AST >3 times the upper normal limit or clinically significant concurrent hepatitis"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT03792763",
+   "type": "ecog_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "3",
+     "unit": "score",
+     "section": "exclusion",
+     "sentence": "* ECOG \\>3",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "3",
+     "unit": "score",
+     "section": "exclusion",
+     "segment": "* ECOG >3"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT02573935",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "10",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "sentence": "* Severe renal dysfunction (estimated creatinine clearance \\<10 mL/min)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "10",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "equation": "not_stated",
+     "segment": "* Severe renal dysfunction (estimated creatinine clearance <10 mL/min)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01428492",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "1",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "* History of \"active\" Hepatitis B (HBV) infection. Hepatitis B carriers are eligible only if antiviral therapy is administered as outlined in the guidelines in the protocol. Hepatitis B carrier is defined as HBsAg and HBcAb positive by liver enzymes (AST and ALT) are normal.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00304720",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "60",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "sentence": "5. Creatinine clearance \\< 60 ml/min.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "60",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "equation": "not_stated",
+     "segment": "5. Creatinine clearance < 60 ml/min."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00304720",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "3. Liver function tests: total bilirubin \\>2x the upper limit of normal, and/or transaminases \\>4x the upper limit of normal.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "3. Liver function tests: total bilirubin >2x the upper limit of normal, and/or transaminases >4x the upper limit of normal."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00304720",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "Liver function tests: total bilirubin \\>2x the upper limit of normal, and/or transaminases \\>4x the upper limit of normal.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "4",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "3. Liver function tests: total bilirubin >2x the upper limit of normal, and/or transaminases >4x the upper limit of normal."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00165347",
+   "type": "creatinine_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "* Serum creatinine \\< 1.5 upper limit of normal (ULN)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<",
+     "value": "1.5",
+     "unit": "other",
+     "section": "inclusion",
+     "segment": "* Serum creatinine < 1.5 upper limit of normal (ULN)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01686386",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "30",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "sentence": "Absolute neutrophil count (ANC) \\<1,000 /μl (1x109 /L) Untransfused platelet count \\< 50,0000cell/μl (50x109 /L) Serum SGOT/AST or SGPT/ALT \\> 2.0 upper limit of normal (ULN) Total bilirubin \\> 2.0 mg/dL Renal insufficiently (serum creatinine level \\> 2.5 mg/dl or Creatinine clearance \\< 30 mL/min calculated by Cockcroft-Gault estimation)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "30",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "equation": "cockcroft_gault",
+     "segment": "Absolute neutrophil count (ANC) <1,000 /ul (1x109 /L) Untransfused platelet count < 50,0000cell/ul (50x109 /L) Serum SGOT/AST or SGPT/ALT > 2.0 upper limit of normal (ULN) Total bilirubin > 2.0 mg/dL Renal insufficiently (serum creatinine level > 2.5 mg/dl or Creatinine clearance < 30 mL/min calculated by Cockcroft-Gault estimation)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01686386",
+   "type": "creatinine_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2.5",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "sentence": "Absolute neutrophil count (ANC) \\<1,000 /μl (1x109 /L) Untransfused platelet count \\< 50,0000cell/μl (50x109 /L) Serum SGOT/AST or SGPT/ALT \\> 2.0 upper limit of normal (ULN) Total bilirubin \\> 2.0 mg/dL Renal insufficiently (serum creatinine level \\> 2.5 mg/dl or Creatinine clearance \\< 30 mL/min calculated by Cockcroft-Gault estimation)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2.5",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "segment": "Absolute neutrophil count (ANC) <1,000 /ul (1x109 /L) Untransfused platelet count < 50,0000cell/ul (50x109 /L) Serum SGOT/AST or SGPT/ALT > 2.0 upper limit of normal (ULN) Total bilirubin > 2.0 mg/dL Renal insufficiently (serum creatinine level > 2.5 mg/dl or Creatinine clearance < 30 mL/min calculated by Cockcroft-Gault estimation)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01686386",
+   "type": "anc_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "1000",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "sentence": "Absolute neutrophil count (ANC) \\<1,000 /μl (1x109 /L) Untransfused platelet count \\< 50,0000cell/μl (50x109 /L) Serum SGOT/AST or SGPT/ALT \\> 2.0 upper limit of normal (ULN) Total bilirubin \\> 2.0 mg/dL Renal insufficiently (serum creatinine level \\> 2.5 mg/dl or Creatinine clearance \\< 30 mL/min calculated by Cockcroft-Gault estimation)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "1000",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "segment": "Absolute neutrophil count (ANC) <1,000 /ul (1x109 /L) Untransfused platelet count < 50,0000cell/ul (50x109 /L) Serum SGOT/AST or SGPT/ALT > 2.0 upper limit of normal (ULN) Total bilirubin > 2.0 mg/dL Renal insufficiently (serum creatinine level > 2.5 mg/dl or Creatinine clearance < 30 mL/min calculated by Cockcroft-Gault estimation)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01686386",
+   "type": "platelets_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "50000",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "sentence": "Absolute neutrophil count (ANC) \\<1,000 /μl (1x109 /L) Untransfused platelet count \\< 50,0000cell/μl (50x109 /L) Serum SGOT/AST or SGPT/ALT \\> 2.0 upper limit of normal (ULN) Total bilirubin \\> 2.0 mg/dL Renal insufficiently (serum creatinine level \\> 2.5 mg/dl or Creatinine clearance \\< 30 mL/min calculated by Cockcroft-Gault estimation)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "50",
+     "unit": "other",
+     "section": "exclusion",
+     "segment": "Absolute neutrophil count (ANC) <1,000 /ul (1x109 /L) Untransfused platelet count < 50,0000cell/ul (50x109 /L) Serum SGOT/AST or SGPT/ALT > 2.0 upper limit of normal (ULN) Total bilirubin > 2.0 mg/dL Renal insufficiently (serum creatinine level > 2.5 mg/dl or Creatinine clearance < 30 mL/min calculated by Cockcroft-Gault estimation)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01686386",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2.0",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "sentence": "Absolute neutrophil count (ANC) \\<1,000 /μl (1x109 /L) Untransfused platelet count \\< 50,0000cell/μl (50x109 /L) Serum SGOT/AST or SGPT/ALT \\> 2.0 upper limit of normal (ULN) Total bilirubin \\> 2.0 mg/dL Renal insufficiently (serum creatinine level \\> 2.5 mg/dl or Creatinine clearance \\< 30 mL/min calculated by Cockcroft-Gault estimation)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2.0",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "segment": "Absolute neutrophil count (ANC) <1,000 /ul (1x109 /L) Untransfused platelet count < 50,0000cell/ul (50x109 /L) Serum SGOT/AST or SGPT/ALT > 2.0 upper limit of normal (ULN) Total bilirubin > 2.0 mg/dL Renal insufficiently (serum creatinine level > 2.5 mg/dl or Creatinine clearance < 30 mL/min calculated by Cockcroft-Gault estimation)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01686386",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2.0",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "Absolute neutrophil count (ANC) \\<1,000 /μl (1x109 /L) Untransfused platelet count \\< 50,0000cell/μl (50x109 /L) Serum SGOT/AST or SGPT/ALT \\> 2.0 upper limit of normal (ULN) Total bilirubin \\> 2.0 mg/dL Renal insufficiently (serum creatinine level \\> 2.5 mg/dl or Creatinine clearance \\< 30 mL/min calculated by Cockcroft-Gault estimation)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2.0",
+     "unit": "other",
+     "section": "exclusion",
+     "segment": "Absolute neutrophil count (ANC) <1,000 /ul (1x109 /L) Untransfused platelet count < 50,0000cell/ul (50x109 /L) Serum SGOT/AST or SGPT/ALT > 2.0 upper limit of normal (ULN) Total bilirubin > 2.0 mg/dL Renal insufficiently (serum creatinine level > 2.5 mg/dl or Creatinine clearance < 30 mL/min calculated by Cockcroft-Gault estimation)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01686386",
+   "type": "ecog_max",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "* ECOG Performance Status 0 - 2",
+     "qualifier": null
+    },
+    {
+     "comparator": ">",
+     "value": "2",
+     "unit": "score",
+     "section": "exclusion",
+     "sentence": "* Patients with an ECOG performance status of \\> 2 are ineligible.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "segment": "* ECOG Performance Status 0 - 2"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00002907",
+   "type": "ecog_max",
+   "annotated_status": "not_stated",
+   "outcome": "fp",
+   "tp": false,
+   "fp": true,
+   "fn": false,
+   "annotated_values": [],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "segment": "Age: 18 and over Performance status: Zubrod 0-2 Life expectancy:  >=  12 weeks"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00005834",
+   "type": "anc_min",
+   "annotated_status": "not_stated",
+   "outcome": "fp",
+   "tp": false,
+   "fp": true,
+   "fn": false,
+   "annotated_values": [],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "1000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "segment": "Hematopoietic: Absolute granulocyte count  >=  1,000/mm3 Platelet count  >=  50,000/mm3 ( >=  50% plasma cells in bone marrow)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00005834",
+   "type": "ecog_max",
+   "annotated_status": "not_stated",
+   "outcome": "fp",
+   "tp": false,
+   "fp": true,
+   "fn": false,
+   "annotated_values": [],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "segment": "Age: 18 and over Performance status: Zubrod 0-2 (3-4 allowed if due solely to bone pain) Life expectancy:  >=  3 months"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00368121",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "30",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "sentence": "* Creatinine-Clearance \\< 30 ml/min or Crea \\> 3.0 mg/dl",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00368121",
+   "type": "creatinine_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "3.0",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "sentence": "* Creatinine-Clearance \\< 30 ml/min or Crea \\> 3.0 mg/dl",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00368121",
+   "type": "platelets_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "50000",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "sentence": "* Insufficient bone marrow reserve (Leucocytes \\< 1500/µl; Thrombocytes \\< 50000/µl)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "50000",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "segment": "Thrombocytes < 50000/ul)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00368121",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "sentence": "* Bilirubin \\> 2 mg/dl; ASAT, ALAT \\> 100 U/l",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "segment": "* Bilirubin > 2 mg/dl"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00368121",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "100",
+     "unit": "U/L",
+     "section": "exclusion",
+     "sentence": "* Bilirubin \\> 2 mg/dl; ASAT, ALAT \\> 100 U/l",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00972712",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "1",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Total bilirubin within normal institutional limits",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00972712",
+   "type": "ecog_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "Eastern Cooperative Oncology Group (ECOG) performance status ≥ 2 (Karnofsky ≥ 60%, see Appendix A).",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT07085728",
+   "type": "kidney_function_min",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "40",
+     "unit": "mL/min/1.73 m2",
+     "section": "inclusion",
+     "sentence": "* Any serum creatinine who have an eGFR of \\<40 ml/min/1.73 m2 calculated with the Modification of Diet in Renal Disease (MDRD) formula",
+     "qualifier": null
+    },
+    {
+     "comparator": "<",
+     "value": "50",
+     "unit": "mL/min/1.73 m2",
+     "section": "inclusion",
+     "sentence": "On dialysis NOTE: eGFR must be \\< 50 ml/min/1.73 m2 if eligible based on serum creatinine level and/or dialysis.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT07085728",
+   "type": "creatinine_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2",
+     "unit": "mg/dL",
+     "section": "inclusion",
+     "sentence": "Serum creatinine \\>2 mg/dL",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT07085728",
+   "type": "anc_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "1000",
+     "unit": "cells/uL",
+     "section": "inclusion",
+     "sentence": "Absolute Neutrophil Count (ANC) \\> 1000 mcL",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">",
+     "value": "1000",
+     "unit": "other",
+     "section": "inclusion",
+     "segment": "Hgb: __________ Date of Test:__________ Absolute Neutrophil Count (ANC) > 1000 mcL ANC:__________ Date of Test:__________ Platelets > 75,000 mcL. Prior platelet transfusion is permitted"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT07085728",
+   "type": "platelets_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "75000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "Platelets \\> 75,000 mcL. Prior platelet transfusion is permitted.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">",
+     "value": "75000",
+     "unit": "other",
+     "section": "inclusion",
+     "segment": "Hgb: __________ Date of Test:__________ Absolute Neutrophil Count (ANC) > 1000 mcL ANC:__________ Date of Test:__________ Platelets > 75,000 mcL. Prior platelet transfusion is permitted"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01965353",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "60",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "sentence": "* Renal insufficiency, defined as creatinine clearance \\< 60 mL/min (either actual or calculated value), within 21 days of initiation of protocol therapy. The Cockcroft-Gault formula should be used for calculating creatinine clearance values: 140-age) x Body mass (kg) x 0.85 (female) or 1.0 (male)/serum creat. (mg/dL) x 72",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "60",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "equation": "not_stated",
+     "segment": "* Renal insufficiency, defined as creatinine clearance < 60 mL/min (either actual or calculated value), within 21 days of initiation of protocol therapy"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01965353",
+   "type": "anc_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "1500",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "sentence": "Participants with an absolute neutrophil count (ANC) \\< 1500 cells/mm3 at time of screening evaluation. Growth factor may not be used to meet ANC eligibility criteria within 7 days of obtaining screening evaluation.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "1500",
+     "unit": "cells/uL",
+     "section": "exclusion",
+     "segment": "* Participants with an absolute neutrophil count (ANC) < 1500 cells/mm3 at time of screening evaluation"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01965353",
+   "type": "platelets_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "75000",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "sentence": "Platelet count \\<75,000cells/mm3at time of screening evaluation. Transfusion may not be used to meet platelet eligibility criteria within 7 days of obtaining screening evaluation.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "75000",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "segment": "* Platelet count <75,000cells/mm3at time of screening evaluation"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01965353",
+   "type": "hemoglobin_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "8.0",
+     "unit": "g/dL",
+     "section": "exclusion",
+     "sentence": "Participants with hemoglobin level \\< 8.0 g/dL, at time of screening. Transfusion may not be used to meet eligibility criteria within 7 days of obtaining screening evaluation.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "8.0",
+     "unit": "g/dL",
+     "section": "exclusion",
+     "segment": "* Participants with hemoglobin level < 8.0 g/dL, at time of screening"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01965353",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "Participants with hepatic impairment, defined as bilirubin \\> 1.5 x institutional upper limit of normal (ULN) or AST (SGOT), ALT (SGPT), or alkaline phosphatase \\> 2x institutional ULN, within 21 days of initiation of protocol therapy. Patients with benign hyperbilirubinemia (e.g., Gilbert's syndrome) are eligible",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "* Participants with hepatic impairment, defined as bilirubin > 1.5 x institutional upper limit of normal (ULN) or AST (SGOT), ALT (SGPT), or alkaline phosphatase > 2x institutional ULN, within 21 days of initiation of protocol therapy"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01965353",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "Participants with hepatic impairment, defined as bilirubin \\> 1.5 x institutional upper limit of normal (ULN) or AST (SGOT), ALT (SGPT), or alkaline phosphatase \\> 2x institutional ULN, within 21 days of initiation of protocol therapy. Patients with benign hyperbilirubinemia (e.g., Gilbert's syndrome) are eligible",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "* Participants with hepatic impairment, defined as bilirubin > 1.5 x institutional upper limit of normal (ULN) or AST (SGOT), ALT (SGPT), or alkaline phosphatase > 2x institutional ULN, within 21 days of initiation of protocol therapy"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01965353",
+   "type": "ecog_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "ECOG performance status \\<2 (Karnofsky \\>60%)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "1",
+     "unit": "score",
+     "section": "inclusion",
+     "segment": "* ECOG performance status <2 (Karnofsky >60%)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00002787",
+   "type": "creatinine_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "3.0",
+     "unit": "other",
+     "section": "exclusion",
+     "sentence": "Serum creatinine \\> 3.0",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "3.0",
+     "unit": "other",
+     "section": "exclusion",
+     "segment": "* Serum creatinine > 3.0"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01342289",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "3.0",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "sentence": "Bilirubin greater than or equal to 3.0 mg/dL (unless due to Gilbert's syndrome or hemolysis), and ALT and AST greater than or equal to 5 x ULN",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<",
+     "value": "3.0",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "segment": "2. Bilirubin  >=  3.0 mg/dL (unless due to Gilbert's syndrome or hemolysis), and ALT and AST  >=  5 x ULN"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01342289",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "5",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "Bilirubin greater than or equal to 3.0 mg/dL (unless due to Gilbert's syndrome or hemolysis), and ALT and AST greater than or equal to 5 x ULN",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<",
+     "value": "5",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "2. Bilirubin  >=  3.0 mg/dL (unless due to Gilbert's syndrome or hemolysis), and ALT and AST  >=  5 x ULN"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT04009109",
+   "type": "platelets_min",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "75",
+     "unit": "x 10^9/L",
+     "section": "inclusion",
+     "sentence": "Platelet count ≥75x109/L for patients in whom \\<50% of bone marrow nucleated cells are plasma cells; otherwise, platelet count \\>50×109/L (transfusions are not permitted to achieve this minimum platelet count).",
+     "qualifier": null
+    },
+    {
+     "comparator": ">",
+     "value": "50",
+     "unit": "x 10^9/L",
+     "section": "inclusion",
+     "sentence": "Platelet count ≥75x109/L for patients in whom \\<50% of bone marrow nucleated cells are plasma cells; otherwise, platelet count \\>50×109/L (transfusions are not permitted to achieve this minimum platelet count).",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "75",
+     "unit": "x 10^9/L",
+     "section": "inclusion",
+     "segment": "* Platelet count   >=  75x109/L for patients in whom <50% of bone marrow nucleated cells are plasma cells"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT04009109",
+   "type": "hemoglobin_min",
+   "annotated_status": "stated",
+   "outcome": "fp",
+   "tp": false,
+   "fp": true,
+   "fn": false,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "7.5",
+     "unit": "g/dL",
+     "section": "inclusion",
+     "sentence": "Hemoglobin ≥7.5 g/dL (prior red blood cell transfusion or recombinant human erythropoietin use is permitted).",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">",
+     "value": "2",
+     "unit": "g/dL",
+     "section": "inclusion",
+     "segment": "Anemia: hemoglobin value of >2 g/dL  <  the lowest limit of normal, or a hemoglobin value <100 g/L OR"
+    },
+    {
+     "comparator": ">=",
+     "value": "7.5",
+     "unit": "g/dL",
+     "section": "inclusion",
+     "segment": "* Hemoglobin   >=  7.5 g/dL (prior red blood cell transfusion or recombinant human erythropoietin use is permitted)."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00148317",
+   "type": "anc_min",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "1500",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "Absolute neutrophil count (ANC)\\> or = 1500 cells/mm3 (\\> or = 1000 for patients with bone marrow biopsy displaying \\> 50% involvement by myeloma)",
+     "qualifier": "ANC: ≥1,000 cells/mm³ if bone marrow biopsy shows >50% involvement by myeloma; otherwise ≥1,500."
+    },
+    {
+     "comparator": ">=",
+     "value": "1000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "Absolute neutrophil count (ANC)\\> or = 1500 cells/mm3 (\\> or = 1000 for patients with bone marrow biopsy displaying \\> 50% involvement by myeloma)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "1500",
+     "unit": "cells/uL",
+     "section": "inclusion",
+     "segment": "* Absolute neutrophil count (ANC)  >=   1500 cells/mm3 (  >=   1000 for patients with bone marrow biopsy displaying > 50% involvement by myeloma)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00148317",
+   "type": "platelets_min",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "50000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "Platelets count \\> or = 50,000/mm3 (\\> or = 30,000 for patients with bone marrow biopsy displaying \\> 50% involvement by myeloma)",
+     "qualifier": null
+    },
+    {
+     "comparator": ">=",
+     "value": "30000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "Platelets count \\> or = 50,000/mm3 (\\> or = 30,000 for patients with bone marrow biopsy displaying \\> 50% involvement by myeloma)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "50000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "segment": "* Platelets count   >=   50,000/mm3 (  >=   30,000 for patients with bone marrow biopsy displaying > 50% involvement by myeloma)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00065351",
+   "type": "creatinine_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2.5",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "sentence": "C) Serum creatinine \\>2.5 mg/dL (221 umol/L)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2.5",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "segment": "A) Absolute neutrophil count (ANC) <1,000 cells/mm^3 (1.0 x 10^9/L) B) Platelet count <75,000/mm^3 (75 x 10^9/L) C) Serum creatinine >2.5 mg/dL (221 umol/L) D) Serum SGOT/AST or SGPT/ALT >3.0 x upper limit of normal (ULN) E) Serum total bilirubin >2.0 mg/dL (34 umol/L)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00065351",
+   "type": "anc_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "1000",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "sentence": "A) Absolute neutrophil count (ANC) \\<1,000 cells/mm\\^3 (1.0 x 10\\^9/L)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "1000",
+     "unit": "cells/uL",
+     "section": "exclusion",
+     "segment": "A) Absolute neutrophil count (ANC) <1,000 cells/mm^3 (1.0 x 10^9/L) B) Platelet count <75,000/mm^3 (75 x 10^9/L) C) Serum creatinine >2.5 mg/dL (221 umol/L) D) Serum SGOT/AST or SGPT/ALT >3.0 x upper limit of normal (ULN) E) Serum total bilirubin >2.0 mg/dL (34 umol/L)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00065351",
+   "type": "platelets_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "75000",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "sentence": "B) Platelet count \\<75,000/mm\\^3 (75 x 10\\^9/L)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "75000",
+     "unit": "/mm3 (= /uL)",
+     "section": "exclusion",
+     "segment": "A) Absolute neutrophil count (ANC) <1,000 cells/mm^3 (1.0 x 10^9/L) B) Platelet count <75,000/mm^3 (75 x 10^9/L) C) Serum creatinine >2.5 mg/dL (221 umol/L) D) Serum SGOT/AST or SGPT/ALT >3.0 x upper limit of normal (ULN) E) Serum total bilirubin >2.0 mg/dL (34 umol/L)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00065351",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2.0",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "sentence": "E) Serum total bilirubin \\>2.0 mg/dL (34 umol/L)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2.0",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "segment": "A) Absolute neutrophil count (ANC) <1,000 cells/mm^3 (1.0 x 10^9/L) B) Platelet count <75,000/mm^3 (75 x 10^9/L) C) Serum creatinine >2.5 mg/dL (221 umol/L) D) Serum SGOT/AST or SGPT/ALT >3.0 x upper limit of normal (ULN) E) Serum total bilirubin >2.0 mg/dL (34 umol/L)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00065351",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "3.0",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "D) Serum SGOT/AST or SGPT/ALT \\>3.0 x upper limit of normal (ULN)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "3.0",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "A) Absolute neutrophil count (ANC) <1,000 cells/mm^3 (1.0 x 10^9/L) B) Platelet count <75,000/mm^3 (75 x 10^9/L) C) Serum creatinine >2.5 mg/dL (221 umol/L) D) Serum SGOT/AST or SGPT/ALT >3.0 x upper limit of normal (ULN) E) Serum total bilirubin >2.0 mg/dL (34 umol/L)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT02078102",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Serum bilirubin, AST (aspartate aminotransferase) and ALT(alanine aminotransferase) ≤ twice the upper limit of normal",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT02078102",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Serum bilirubin, AST (aspartate aminotransferase) and ALT(alanine aminotransferase) ≤ twice the upper limit of normal",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT05497804",
+   "type": "hemoglobin_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "9.0",
+     "unit": "g/dL",
+     "section": "inclusion",
+     "sentence": "Hemoglobin \\>= 8.0 g/dL.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "8.0",
+     "unit": "g/dL",
+     "section": "inclusion",
+     "segment": "* Hemoglobin  >=  8.0 g/dL."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01244906",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "40",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "sentence": "Poor renal function (creatinine \\>/= 2 mg/dl or creatinine clearance \\<40mL/min)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "40",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "equation": "not_stated",
+     "segment": "* Poor renal function (creatinine   >=   2 mg/dl or creatinine clearance <40mL/min)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01244906",
+   "type": "creatinine_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "2",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "sentence": "Poor renal function (creatinine \\>/= 2 mg/dl or creatinine clearance \\<40mL/min)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<",
+     "value": "2",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "segment": "* Poor renal function (creatinine   >=   2 mg/dl or creatinine clearance <40mL/min)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01244906",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "2",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "sentence": "Poor liver function (bilirubin \\>/= 2 mg/dl not due to hemolysis, Gilbert's or primary malignancy)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<",
+     "value": "2",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "segment": "* Poor liver function (bilirubin   >=   2 mg/dl not due to hemolysis, Gilbert's or primary malignancy)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00984828",
+   "type": "creatinine_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "400",
+     "unit": "umol/L",
+     "section": "exclusion",
+     "sentence": "Serum creatinine \\> 400 Micromol/l after initial resuscitation patients with previous Grade 2-4 peripheral neuropathy",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "400",
+     "unit": "umol/L",
+     "section": "exclusion",
+     "segment": "* Serum creatinine > 400 Micromol/l after initial resuscitation patients with previous Grade 2-4 peripheral neuropathy"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT04798586",
+   "type": "ecog_max",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "ECOG PS 0, 1 or 2. PS 3 is permitted if PS is due solely to bone pain",
+     "qualifier": null
+    },
+    {
+     "comparator": "<=",
+     "value": "3",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "ECOG PS 0, 1 or 2. PS 3 is permitted if PS is due solely to bone pain",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "segment": "* ECOG PS 0, 1 or 2. PS 3 is permitted if PS is due solely to bone pain"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00839956",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "20",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "sentence": "Creatinine clearance \\< 20 ml/minute, calculated by Cockroft-Gault formula or measured urine",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "20",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "equation": "not_stated",
+     "segment": "* Creatinine clearance < 20 ml/minute, calculated by Cockroft-Gault formula or measured urine"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00839956",
+   "type": "anc_min",
+   "annotated_status": "not_stated",
+   "outcome": "fp",
+   "tp": false,
+   "fp": true,
+   "fn": false,
+   "annotated_values": [],
+   "extracted_values": [
+    {
+     "comparator": ">",
+     "value": "1500",
+     "unit": "cells/uL",
+     "section": "inclusion",
+     "segment": "* Platelet count (transfusion independent) > 75,000 cells/mm^3 and absolute granulocyte count > 1500 cells/mm^3 for 5 calendar days after recovery from high dose therapy"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00839956",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2",
+     "unit": "other",
+     "section": "exclusion",
+     "sentence": "Total bilirubin greater than 2 mg/ml (unless history of Gilbert's disease)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "other",
+     "section": "exclusion",
+     "segment": "* Total bilirubin  >  2 mg/ml (unless history of Gilbert's disease)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00839956",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2.5",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "Serum glutamic oxaloacetic transaminase (SGOT) or serum glutamic pyruvic transaminase (SGPT) \\> 2.5 x upper limit of normal (ULN)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2.5",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "* Serum glutamic oxaloacetic transaminase (SGOT) or serum glutamic pyruvic transaminase (SGPT) > 2.5 x upper limit of normal (ULN)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00839956",
+   "type": "ecog_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "2",
+     "unit": "score",
+     "section": "exclusion",
+     "sentence": "Eastern Cooperative Oncology Group (ECOG) performance status \\>= 2",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<",
+     "value": "2",
+     "unit": "score",
+     "section": "exclusion",
+     "segment": "* Eastern Cooperative Oncology Group (ECOG) performance status  >=  2"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT06138275",
+   "type": "bilirubin_max",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "2",
+     "unit": "mg/dL",
+     "section": "inclusion",
+     "sentence": "Serum total bilirubin \\<2 mg/dL; and",
+     "qualifier": null
+    },
+    {
+     "comparator": "<",
+     "value": "3",
+     "unit": "mg/dL",
+     "section": "inclusion",
+     "sentence": "Serum total bilirubin \\<2 mg/dL; and",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<",
+     "value": "2",
+     "unit": "mg/dL",
+     "section": "inclusion",
+     "segment": "* Serum total bilirubin <2 mg/dL"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01371227",
+   "type": "ecog_max",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "1",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "Patients with Eastern Cooperative Oncology Group (ECOG) performance status score of 0 or 1. ECOG performance status score 2 due to pain associated with bone disorder is eligible.",
+     "qualifier": null
+    },
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "Patients with Eastern Cooperative Oncology Group (ECOG) performance status score of 0 or 1. ECOG performance status score 2 due to pain associated with bone disorder is eligible.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "1",
+     "unit": "score",
+     "section": "inclusion",
+     "segment": "* Patients with Eastern Cooperative Oncology Group (ECOG) performance status score of 0 or 1. ECOG performance status score 2 due to pain associated with bone disorder is eligible."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01711671",
+   "type": "hemoglobin_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "8.0",
+     "unit": "g/L",
+     "section": "inclusion",
+     "sentence": "Hemoglobin (Hgb) ≥ 8.0 g/dL",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "8.0",
+     "unit": "g/dL",
+     "section": "inclusion",
+     "segment": "3. Hemoglobin (Hgb)   >=   8.0 g/dL"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01711671",
+   "type": "ast_alt_max",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Alanine Transaminase (ALT) and Aspartate Transaminase (AST) ≤ 2.5 x ULN (if liver metastases are present, then ≤ 5 x ULN is allowed)",
+     "qualifier": null
+    },
+    {
+     "comparator": "<=",
+     "value": "5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Alanine Transaminase (ALT) and Aspartate Transaminase (AST) ≤ 2.5 x ULN (if liver metastases are present, then ≤ 5 x ULN is allowed)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "segment": "2. Alanine Transaminase (ALT) and Aspartate Transaminase (AST)   <=   2.5 x ULN (if liver metastases are present, then   <=   5 x ULN is allowed)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT03233776",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "40",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "sentence": "Impaired renal function with eGFR \\<40 ml/min",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "40",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "equation": "not_stated",
+     "segment": "* Impaired renal function with eGFR <40 ml/min"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT03233776",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2.0",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "Bilirubin levels greater than 2.0 x upper limit of normal (ULN) of the local Laboratories values, except for benign non-malignant indirect hyperbilirubinemia such as Gilbert syndrome",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2.0",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "* Bilirubin levels  >  2.0 x upper limit of normal (ULN) of the local Laboratories values, except for benign non-malignant indirect hyperbilirubinemia such as Gilbert syndrome"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT03233776",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2.0",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "ALT or AST greater than 2.0 x upper limit of normal (ULN) of the local laboratories values.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2.0",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "* ALT or AST  >  2.0 x upper limit of normal (ULN) of the local laboratories values."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00644228",
+   "type": "anc_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "1000",
+     "unit": "cells/uL",
+     "section": "inclusion",
+     "sentence": "Absolute neutrophil count (ANC) \\>= 1 x 10\\^3/mcL; must be obtained within 28 days prior to registration",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "1",
+     "unit": "other",
+     "section": "inclusion",
+     "segment": "* Absolute neutrophil count (ANC)  >=  1 x 10^3/mcL"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00644228",
+   "type": "platelets_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "80000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "Platelet count \\>= 80 x 10\\^3/mcL; must be obtained within 28 days prior to registration",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "80",
+     "unit": "other",
+     "section": "inclusion",
+     "segment": "* Platelet count  >=  80 x 10^3/mcL"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00644228",
+   "type": "ecog_max",
+   "annotated_status": "not_stated",
+   "outcome": "fp",
+   "tp": false,
+   "fp": true,
+   "fn": false,
+   "annotated_values": [],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "3",
+     "unit": "score",
+     "section": "inclusion",
+     "segment": "* Patients must have a Zubrod performance status (PS) of 0 - 3"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00536575",
+   "type": "ast_alt_max",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "2.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "ALT and AST \\< 2.5 x the ULN ( \\< 5 x ULN for patients with liver involvement)",
+     "qualifier": null
+    },
+    {
+     "comparator": "<",
+     "value": "5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "ALT and AST \\< 2.5 x the ULN ( \\< 5 x ULN for patients with liver involvement)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<",
+     "value": "2.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "segment": "* ALT and AST < 2.5 x the ULN ( < 5 x ULN for patients with liver involvement)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00003805",
+   "type": "creatinine_max",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2.25",
+     "unit": "mg/dL",
+     "section": "inclusion",
+     "sentence": "Adults: No renal failure requiring hemodialysis or peritoneal dialysis OR Creatinine no greater than 2.25 mg/dL OR Creatinine clearance at least 40 mL/min",
+     "qualifier": null
+    },
+    {
+     "comparator": "<=",
+     "value": "1",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Children: No renal impairment (i.e., creatinine greater than upper limit of normal)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2.25",
+     "unit": "mg/dL",
+     "section": "inclusion",
+     "segment": "Adults: No renal failure requiring hemodialysis or peritoneal dialysis OR Creatinine  <=  2.25 mg/dL OR Creatinine clearance  >=  40 mL/min"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01110135",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "50",
+     "unit": "mL/min",
+     "section": "inclusion",
+     "sentence": "Creatinine clearance (CrCl) greater than 50/ml per minute (all tests must be performed within 28 days prior to registration)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">",
+     "value": "50",
+     "unit": "other",
+     "section": "inclusion",
+     "equation": "not_stated",
+     "segment": "* Creatinine clearance (CrCl)  >  50/ml per minute (all tests must be performed within 28 days prior to registration)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01110135",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "2.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Total bilirubin \\< 1.5 times upper limit of normal",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "segment": "* Total bilirubin < 1.5 times upper limit of normal"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00516152",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2.0",
+     "unit": "mg/dL",
+     "section": "inclusion",
+     "sentence": "Total bilirubin must be \\< or equal to 2.0 mg/dl.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00516152",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "3",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Alkaline phosphatase and AST must be less than three times the upper limit of normal.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00516152",
+   "type": "ecog_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "ECOG PS \\< or equal to 2",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00983346",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "30",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "sentence": "Creatinine clearance of \\<30 mL/minute within 14 days before enrollment.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "30",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "equation": "not_stated",
+     "segment": "* Creatinine clearance of <30 mL/minute within 14 days before enrollment."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00983346",
+   "type": "anc_min",
+   "annotated_status": "multiple",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "1.5",
+     "unit": "x 10^9/L",
+     "section": "inclusion",
+     "sentence": "ANC ≥ 1.5 x 109 /L",
+     "qualifier": null
+    },
+    {
+     "comparator": "<",
+     "value": "1.0",
+     "unit": "x 10^9/L",
+     "section": "exclusion",
+     "sentence": "Absolute neutrophil count of \\<1.0 109/L within 14 days before enrollment.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "1.5",
+     "unit": "x 10^9/L",
+     "section": "inclusion",
+     "segment": "* ANC   >=   1.5 x 109 /L"
+    },
+    {
+     "comparator": ">=",
+     "value": "1.0",
+     "unit": "x 10^9/L",
+     "section": "exclusion",
+     "segment": "* Absolute neutrophil count of <1.0 109/L within 14 days before enrollment."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00983346",
+   "type": "platelets_min",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "100",
+     "unit": "x 10^9/L",
+     "section": "inclusion",
+     "sentence": "Platelets ≥ 100 x 109 /L",
+     "qualifier": null
+    },
+    {
+     "comparator": "<",
+     "value": "100",
+     "unit": "x 10^9/L",
+     "section": "exclusion",
+     "sentence": "Platelet count of \\<100 109/L within 14 days before enrollment.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "100",
+     "unit": "x 10^9/L",
+     "section": "inclusion",
+     "segment": "* Platelets   >=   100 x 109 /L"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00113919",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "30",
+     "unit": "mL/min",
+     "section": "inclusion",
+     "sentence": "Patients must be \\> or = 65 years of age or diagnosed with renal insufficiency, defined as having a creatinine \\> 3 mg/dl or a creatinine clearance \\< 30 ml/minute",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00113919",
+   "type": "creatinine_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "3",
+     "unit": "mg/dL",
+     "section": "inclusion",
+     "sentence": "Patients must be \\> or = 65 years of age or diagnosed with renal insufficiency, defined as having a creatinine \\> 3 mg/dl or a creatinine clearance \\< 30 ml/minute",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00113919",
+   "type": "bilirubin_max",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Bilirubin, SGOT, SGPT must be less than 1.5 times the upper limit of normal",
+     "qualifier": null
+    },
+    {
+     "comparator": ">",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "Serum transaminases \\> 1.5 x ULN and direct bilirubin \\> 1.5 mg/dl",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "segment": "* Bilirubin, SGOT, SGPT must be  <  1.5 times the upper limit of normal"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00113919",
+   "type": "ast_alt_max",
+   "annotated_status": "multiple",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Bilirubin, SGOT, SGPT must be less than 1.5 times the upper limit of normal",
+     "qualifier": null
+    },
+    {
+     "comparator": ">",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "Serum transaminases \\> 1.5 x ULN and direct bilirubin \\> 1.5 mg/dl",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "segment": "* Bilirubin, SGOT, SGPT must be  <  1.5 times the upper limit of normal"
+    },
+    {
+     "comparator": "<=",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "* Serum transaminases > 1.5 x ULN and direct bilirubin > 1.5 mg/dl"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00482846",
+   "type": "creatinine_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "1",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Creatinine normal (stratum 1 only)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT02356159",
+   "type": "ast_alt_max",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Serum total bilirubin less than 2.5 mg/dl, and serum alanine aminotransferase (ALT) and aspartate transferase (AST) values less than or equal to 2.5 times the upper limit of normal.",
+     "qualifier": null
+    },
+    {
+     "comparator": "<=",
+     "value": "10",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Patients with elevations of serum total bilirubin up to 10 mg/dl and/or ALT or AST up to 10 times the upper limit of normal may be considered for participation if such elevations are thought to be due to liver involvement by malignancy.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "segment": "* Serum total bilirubin  <  2.5 mg/dl, and serum alanine aminotransferase (ALT) and aspartate transferase (AST) values  <=  2.5 times the upper limit of normal"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT06484829",
+   "type": "platelets_min",
+   "annotated_status": "multiple",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "75",
+     "unit": "x 10^9/L",
+     "section": "inclusion",
+     "sentence": "PLT ≥75 × 109/L (no platelet transfusion or use of thrombopoietin within 7 days), and platelets ≥50 × 109/L were eligible for enrollment when ≥50% of plasma cells were present in the bone marrow;",
+     "qualifier": null
+    },
+    {
+     "comparator": ">=",
+     "value": "50",
+     "unit": "x 10^9/L",
+     "section": "inclusion",
+     "sentence": "PLT ≥75 × 109/L (no platelet transfusion or use of thrombopoietin within 7 days), and platelets ≥50 × 109/L were eligible for enrollment when ≥50% of plasma cells were present in the bone marrow;",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "75",
+     "unit": "x 10^9/L",
+     "section": "inclusion",
+     "segment": "2) PLT   >=  75  x  109/L (no platelet transfusion or use of thrombopoietin within 7 days), and platelets   >=  50  x  109/L were eligible for enrollment when   >=  50% of plasma cells were present in the bone marrow"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT06484829",
+   "type": "ecog_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "An ECOG (Appendix 2) score of 0-2 and an expected survival of ≥12 weeks;",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT07025005",
+   "type": "ecog_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "Patients with performance status \\<2 according to Eastern Cooperative Oncology Group (ECOG) score.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "1",
+     "unit": "score",
+     "section": "inclusion",
+     "segment": "* Patients with performance status <2 according to Eastern Cooperative Oncology Group (ECOG) score."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT06980480",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "30",
+     "unit": "mL/min/1.73 m2",
+     "section": "exclusion",
+     "sentence": "The participant has moderate to severe renal dysfunction based on an estimated glomerular filtration rate less than (\\<) 30 milliliters per minute per 1.73 square meters (mL/min/1.73 m\\^2), as defined by kidney disease: Improving Global Outcomes Clinical Practice Guideline for the Management of Glomerular Diseases, 2021 at the time of screening.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "30",
+     "unit": "mL/min/1.73 m2",
+     "section": "exclusion",
+     "equation": "not_stated",
+     "segment": "16. The participant has moderate to severe renal dysfunction based on an estimated glomerular filtration rate  <    30 mL/min per 1.73 square meters (mL/min/1.73 m^2), as defined by kidney disease: Improving Global Outcomes Clinical Practice Guideline for the Management of Glomerular Diseases, 2021 at the time of screening."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT06980480",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "3.0",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "sentence": "The participant has a persistent serum aspartate aminotransferase and alanine aminotransferase \\>3.0 times the upper limit of normal (ULN) at screening (may be repeated once to determine if it is persistent).",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "3.0",
+     "unit": "x ULN",
+     "section": "exclusion",
+     "segment": "19. The participant has a persistent serum aspartate aminotransferase and alanine aminotransferase >3.0 times the upper limit of normal (ULN) at screening (may be repeated once to determine if it is persistent)."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT06980480",
+   "type": "ecog_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "2",
+     "unit": "score",
+     "section": "exclusion",
+     "sentence": "The participant has an Eastern Cooperative Oncology Group performance status score of \\>2.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "exclusion",
+     "segment": "7. The participant has an Eastern Cooperative Oncology Group performance status score of >2."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00367185",
+   "type": "creatinine_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "5.0",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "sentence": "Significant renal insufficiency with creatinine serum levels of 5.0 mg per deciliter or more",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT07510100",
+   "type": "hemoglobin_min",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "60",
+     "unit": "g/dL",
+     "section": "inclusion",
+     "sentence": "Hemoglobin ≥ 60 g/L (Red blood cell \\[RBC\\] transfusions must not have been administered within 7 days prior to the laboratory test, but recombinant human erythropoietin is permitted)",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "60",
+     "unit": "g/L",
+     "section": "inclusion",
+     "segment": "* Hemoglobin   >=   60 g/L (Red blood cell [RBC] transfusions must not have been administered within 7 days prior to the laboratory test, but recombinant human erythropoietin is permitted)"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT00167180",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "liver function tests \\< 5 x normal",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00167180",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "liver function tests \\< 5 x normal",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT02991898",
+   "type": "anc_min",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "0.8",
+     "unit": "other",
+     "section": "inclusion",
+     "sentence": "Severe Cytopenias: ANC \\< 0.8",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00606437",
+   "type": "kidney_function_min",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "30",
+     "unit": "mL/min",
+     "section": "inclusion",
+     "sentence": "Creatinine clearance (by Cockcroft Gault equation) \\> or equal to 30 ml/min. Hepatic transaminases (ALT/AST) \\< or equal to 4 x normal, bilirubin \\< or equal to 2.0 mg/dl",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00606437",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2.0",
+     "unit": "mg/dL",
+     "section": "inclusion",
+     "sentence": "Creatinine clearance (by Cockcroft Gault equation) \\> or equal to 30 ml/min. Hepatic transaminases (ALT/AST) \\< or equal to 4 x normal, bilirubin \\< or equal to 2.0 mg/dl",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00606437",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "4",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Creatinine clearance (by Cockcroft Gault equation) \\> or equal to 30 ml/min. Hepatic transaminases (ALT/AST) \\< or equal to 4 x normal, bilirubin \\< or equal to 2.0 mg/dl",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00606437",
+   "type": "ecog_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "ECOG performance status \\< or equal to 2.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00516191",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2.0",
+     "unit": "mg/dL",
+     "section": "inclusion",
+     "sentence": "Bilirubin \\< or equal to 2.0 mg/dL",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00516191",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "4",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "AST \\< or equal to 4 x upper limit of normal",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00516191",
+   "type": "ecog_max",
+   "annotated_status": "stated",
+   "outcome": "fn",
+   "tp": false,
+   "fp": false,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "ECOG performance Status of \\< or equal to 2.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": []
+  },
+  {
+   "nct_id": "NCT00049504",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">",
+     "value": "3",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "sentence": "Liver abnormalities: fulminant liver failure, cirrhosis of the liver with evidence of portal hypertension, alcoholic hepatitis, esophageal varices, hepatic encephalopathy, uncorrectable hepatic synthetic dysfunction as evidenced by prolongation of the prothrombin time, ascites related to portal hypertension, bacterial or fungal liver abscess, biliary obstruction, chronic viral hepatitis with total serum bilirubin \\> 3 mg/dL or symptomatic biliary disease",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "3",
+     "unit": "mg/dL",
+     "section": "exclusion",
+     "segment": "* Liver abnormalities: fulminant liver failure, cirrhosis of the liver with evidence of portal hypertension, alcoholic hepatitis, esophageal varices, hepatic encephalopathy, uncorrectable hepatic synthetic dysfunction as evidenced by prolongation of the prothrombin time, ascites related to portal hypertension, bacterial or fungal liver abscess, biliary obstruction, chronic viral hepatitis with total serum bilirubin > 3 mg/dL or symptomatic biliary disease"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT03638206",
+   "type": "ecog_max",
+   "annotated_status": "multiple",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "ECOG score ≤2",
+     "qualifier": null
+    },
+    {
+     "comparator": ">=",
+     "value": "3",
+     "unit": "score",
+     "section": "exclusion",
+     "sentence": "ECOG \\>= 3",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "segment": "11. ECOG score   <=  2"
+    },
+    {
+     "comparator": "<",
+     "value": "3",
+     "unit": "score",
+     "section": "exclusion",
+     "segment": "1. ECOG  >=  3"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT03140943",
+   "type": "anc_min",
+   "annotated_status": "stated",
+   "outcome": "fp",
+   "tp": false,
+   "fp": true,
+   "fn": false,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "1000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "Absolute neutrophil count (ANC) ≥ 1000/mm3 (or 1000 cells/L) within 21 days prior to registration. Screening ANC should be independent of growth factor support for ≥ 1 week.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "1000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "segment": "8. Absolute neutrophil count (ANC)   >=   1000/mm3 (or 1000 cells/L) within 21 days prior to registration"
+    },
+    {
+     "comparator": ">=",
+     "value": "1",
+     "unit": "other",
+     "section": "inclusion",
+     "segment": "Screening ANC should be independent of growth factor support for   >=   1 week."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT03140943",
+   "type": "platelets_min",
+   "annotated_status": "multiple",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "50000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "Platelet count ≥ 50,000 cells/mm3 (≥ 30,000 cells/mm3 if myeloma involvement in the bone marrow is \\> 50%) within 21 days prior to registration. Patients should not have received platelet transfusions for at least 1 week prior to obtaining the screening platelet count.",
+     "qualifier": null
+    },
+    {
+     "comparator": ">=",
+     "value": "30000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "sentence": "Platelet count ≥ 50,000 cells/mm3 (≥ 30,000 cells/mm3 if myeloma involvement in the bone marrow is \\> 50%) within 21 days prior to registration. Patients should not have received platelet transfusions for at least 1 week prior to obtaining the screening platelet count.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">=",
+     "value": "50000",
+     "unit": "/mm3 (= /uL)",
+     "section": "inclusion",
+     "segment": "9. Platelet count   >=   50,000 cells/mm3 (  >=   30,000 cells/mm3 if myeloma involvement in the bone marrow is > 50%) within 21 days prior to registration"
+    },
+    {
+     "comparator": ">=",
+     "value": "1",
+     "unit": "other",
+     "section": "inclusion",
+     "segment": "Patients should not have received platelet transfusions for  >=  1 week prior to obtaining the screening platelet count."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT07200089",
+   "type": "bilirubin_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "1.5",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "Total bilirubin ≤ 1.5 x IULN",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "1.5",
+     "unit": "other",
+     "section": "inclusion",
+     "segment": "* Total bilirubin   <=   1.5 x IULN"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT07200089",
+   "type": "ast_alt_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<=",
+     "value": "3.0",
+     "unit": "x ULN",
+     "section": "inclusion",
+     "sentence": "AST(SGOT)/ALT(SGPT) ≤ 3.0 x IULN",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "3.0",
+     "unit": "other",
+     "section": "inclusion",
+     "segment": "* AST(SGOT)/ALT(SGPT)   <=   3.0 x IULN"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT03622788",
+   "type": "hemoglobin_min",
+   "annotated_status": "not_stated",
+   "outcome": "fp",
+   "tp": false,
+   "fp": true,
+   "fn": false,
+   "annotated_values": [],
+   "extracted_values": [
+    {
+     "comparator": ">",
+     "value": "12.0",
+     "unit": "g/dL",
+     "section": "inclusion",
+     "segment": "* Hemoglobin > 12.0 g/dL [female] or > 13.0 g/dL [male] or > 11.0 g/dL for females of childbearing potential with documented iron deficiency anemia"
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01220375",
+   "type": "kidney_function_min",
+   "annotated_status": "multiple",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": ">=",
+     "value": "50",
+     "unit": "mL/min",
+     "section": "inclusion",
+     "sentence": "Creatinin-clearance \\>= 50 ml/min.",
+     "qualifier": null
+    },
+    {
+     "comparator": "<=",
+     "value": "50",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "sentence": "Compromised renal function as evidenced by measured or calculated creatinine clearance \\<= 50 ml/min.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": ">",
+     "value": "50",
+     "unit": "mL/min",
+     "section": "exclusion",
+     "equation": "measured",
+     "segment": "* Compromised renal function as evidenced by measured or calculated creatinine clearance  <=  50 ml/min."
+    }
+   ]
+  },
+  {
+   "nct_id": "NCT01220375",
+   "type": "ecog_max",
+   "annotated_status": "stated",
+   "outcome": "fp+fn",
+   "tp": false,
+   "fp": true,
+   "fn": true,
+   "annotated_values": [
+    {
+     "comparator": "<",
+     "value": "2",
+     "unit": "score",
+     "section": "inclusion",
+     "sentence": "Patient must be aged 18-70 years, with an ECOG \\< 2 and has given voluntary written informed consent.",
+     "qualifier": null
+    }
+   ],
+   "extracted_values": [
+    {
+     "comparator": "<=",
+     "value": "1",
+     "unit": "score",
+     "section": "inclusion",
+     "segment": "* Patient must be aged 18-70 years, with an ECOG < 2 and has given voluntary written informed consent."
+    }
+   ]
+  }
+ ],
+ "excluded_unclear": [
+  {
+   "nct_id": "NCT02289222",
+   "type": "ecog_max"
+  },
+  {
+   "nct_id": "NCT01220375",
+   "type": "anc_min"
+  },
+  {
+   "nct_id": "NCT01220375",
+   "type": "platelets_min"
+  }
+ ],
+ "limitations": [
+  "One annotator; accuracy is measured against one person's reading. A second annotation of 20 trials is recommended.",
+  "Multiple myeloma interventional trials registered on ClinicalTrials.gov only."
+ ],
+ "report_sha256": "92cec4d996a58f937ab4097a1132b6419898424a4ace581179c2ba5c6e265d52"
+}
