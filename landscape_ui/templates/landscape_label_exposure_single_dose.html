@@ -5,6 +5,7 @@
 <p><a href="{{ url_for('landscape.drug_capability_library', q=v.label) }}">&#8592; Drug and model library</a></p>
 <p class="eyebrow">Capability level · Label-based exposure</p>
 <h1>{{ v.label }}: typical exposure after one dose, from the product label</h1>
+<p><a href="{{ url_for('credibility_record', model_id=request.view_args.drug ~ '_label_exposure') }}">Credibility record (ICH M15 structure)</a></p>
 <section class="scenario-notice"><strong>Typical value from the label — not a population model, not a prediction for any patient</strong>
 <p>This curve is built from the numbers in the HEMADY (dexamethasone 20 mg tablets) prescribing information. The label reports them for a single dose “in subjects” and does not say whether those subjects had multiple myeloma. There is no variability around the curve (the label reports 31% variation in exposure), and it gives no dosing guidance.</p>
 <p><strong>In patients with myeloma, measured exposure was higher.</strong> In 6 Japanese patients given 40 mg, the average exposure was about {{ fmt1|format(1 / v.checks.outside.primary.ratio_model_to_observed) }} times this curve and their clearance was {{ fmt1|format(v.checks.outside.mm017_cl_f_l_h) }} L/h against the label's {{ fmt1|format(v.parameters.cl_f_l_h) }} L/h. Six patients cannot settle the difference, but read the curve as a lower-side typical value for patients.</p>

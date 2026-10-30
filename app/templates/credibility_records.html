@@ -1,0 +1,27 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Credibility records | Marlo Scientific</title>
+    <link rel="icon" type="image/png" href="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}">
+    {{ site_head_links() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{{ site_header() }}
+<main id="main" class="section">
+<article class="wrap prose prose-wide">
+    <p><a href="{{ url_for('model_scorecards') }}">← Model scorecards</a></p>
+    <p class="prose-eyebrow">Model credibility</p>
+    <h1>Credibility records</h1>
+    <p class="prose-lede">One record per model, in the structure of ICH M15 (General Principles for Model-Informed Drug Development): question of interest, context of use, model influence, consequence of a wrong decision, model risk and impact, the locked analysis plans, verification, validation and applicability, assumptions and limitations. Each record is built only from pinned files and can be downloaded as JSON.</p>
+    <ul>{% for r in records %}<li><a href="{{ url_for('credibility_record', model_id=r.model_id) }}">{{ r.name }}</a> · {{ r.drug|capitalize }} · {{ r.kind|replace('_',' ') }}</li>{% endfor %}</ul>
+    <p class="prose-note">{{ never }}</p>
+</article>
+</main>
+{% include "site_footer.html" %}
+</body>
+</html>

@@ -1,0 +1,78 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ rec.name }} | Credibility record | Marlo Scientific</title>
+    <link rel="icon" type="image/png" href="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}">
+    {{ site_head_links() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <style>
+    .cr-table{width:100%;border-collapse:collapse;margin:8px 0 16px}
+    .cr-table th,.cr-table td{border-top:1px solid #dbe5e9;padding:8px 10px;text-align:left;vertical-align:top;font-size:15px}
+    .cr-table th{width:28%;font-weight:600}
+    .cr-pre{white-space:pre-wrap;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:#f5f8f9;border:1px solid #dbe5e9;border-radius:6px;padding:10px;overflow:auto}
+    .cr-level{display:inline-block;font-weight:600}
+    @media print{.site-header,.site-footer,.skip-link,.cr-noprint{display:none}}
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{{ site_header() }}
+<main id="main" class="section">
+<article class="wrap prose prose-wide">
+    <p class="cr-noprint"><a href="{{ url_for('credibility_records') }}">← All credibility records</a>{% if has_scorecard %} · <a href="{{ url_for('model_scorecard', model_id=rec.model_id) }}">Model scorecard</a>{% endif %} · <a href="{{ url_for('credibility_record_json', model_id=rec.model_id) }}">Download JSON</a> · <a href="javascript:window.print()">Print</a></p>
+    <header class="stack" style="gap:10px">
+        <p class="prose-eyebrow" style="margin-bottom:0">Credibility record · ICH M15 structure</p>
+        <h1>{{ rec.name }}</h1>
+        {% if rec.citation %}<p>Source: {{ rec.citation }}{% if rec.doi %} · <a href="https://doi.org/{{ rec.doi }}" rel="noopener">doi:{{ rec.doi }}</a>{% endif %}</p>{% endif %}
+        <p class="prose-lede">{{ rec.framework.note }}</p>
+    </header>
+
+    <section aria-labelledby="cr-assess"><h2 id="cr-assess">MIDD evidence assessment</h2>
+    <table class="cr-table"><tbody>
+        <tr><th scope="row">Question of interest</th><td>{{ rec.assessment.question_of_interest }}</td></tr>
+        <tr><th scope="row">Context of use</th><td>{{ rec.assessment.context_of_use.role }}<br><strong>Outputs:</strong> {{ rec.assessment.context_of_use.outputs|join('; ') }}<br><strong>Users:</strong> {{ rec.assessment.context_of_use.users|join(', ') }}<br><strong>Excluded uses:</strong> {{ rec.assessment.context_of_use.excluded_uses|join(' ') }}</td></tr>
+        {% for key, title in [('model_influence','Model influence'), ('consequence_of_wrong_decision','Consequence of a wrong decision'), ('model_risk','Model risk'), ('model_impact','Model impact')] %}
+        <tr><th scope="row">{{ title }}</th><td><span class="cr-level">{{ level_label(rec.assessment[key].level) }}</span>. {{ rec.assessment[key].justification }}</td></tr>
+        {% endfor %}
+    </tbody></table></section>
+
+    <section aria-labelledby="cr-map"><h2 id="cr-map">Model analysis plans (locked before computation)</h2>
+    {% if rec.model_analysis_plans %}<table class="cr-table"><thead><tr><th scope="col">Plan</th><th scope="col">Question</th></tr></thead><tbody>
+    {% for p in rec.model_analysis_plans %}<tr><td>{{ p.plan_version }}<br><span class="mono">{{ p.recorded_on }} · SHA-256 {{ p.sha256[:16] }}…{% if p.pinned_in_code %} · pinned in code{% endif %}</span></td><td>{{ p.question }}</td></tr>{% endfor %}
+    </tbody></table>{% else %}<p>No locked outside-data plan exists for this model yet.</p>{% endif %}</section>
+
+    <section aria-labelledby="cr-eval"><h2 id="cr-eval">Model evaluation: verification, validation and applicability</h2>
+    <table class="cr-table"><thead><tr><th scope="col">Check</th><th scope="col">Status and result</th></tr></thead><tbody>
+    {% for l in rec.evaluation.verification_and_validation %}<tr><td>{{ l.label }}</td><td><strong>{{ l.status_label }}</strong>. {{ l.summary }}{% for r in l.reports %}<br><span class="mono">{{ r.file }} · SHA-256 {{ r.sha256[:16] }}…</span>{% if r.summary %}<br>{{ r.summary }}{% endif %}{% endfor %}</td></tr>{% endfor %}
+    </tbody></table>
+    <p class="mono">Source: {{ rec.evaluation.source }}</p>
+    {% for a in rec.applicability %}<h3>Applicability: data behind the model ({{ a.field|replace('_',' ') }})</h3><div class="cr-pre">{{ a.content|tojson(indent=1) if a.content is mapping or (a.content is iterable and a.content is not string) else a.content }}</div><p class="mono">{{ a.source }}</p>{% endfor %}
+    </section>
+
+    <section aria-labelledby="cr-assum"><h2 id="cr-assum">Assumptions</h2>
+    <table class="cr-table"><thead><tr><th scope="col">Assumption</th><th scope="col">Status</th><th scope="col">Basis</th></tr></thead><tbody>
+    {% for a in rec.assumptions %}<tr><td>{{ a.assumption }}</td><td>{{ a.status }}</td><td class="mono">{{ a.basis }}</td></tr>{% endfor %}
+    </tbody></table></section>
+
+    {% if rec.limitations %}<section aria-labelledby="cr-lim"><h2 id="cr-lim">Limitations (from the pinned sources)</h2>
+    {% for l in rec.limitations %}{% if l.content is string %}<p>{{ l.content }}</p>{% else %}<ul>{% for item in l.content %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}<p class="mono">{{ l.source }} · {{ l.field }}</p>{% endfor %}</section>{% endif %}
+
+    {% if rec.alternatives_considered_and_rejected %}<section aria-labelledby="cr-alt"><h2 id="cr-alt">Alternatives considered and rejected</h2>
+    <table class="cr-table"><thead><tr><th scope="col">Alternative</th><th scope="col">Outcome</th></tr></thead><tbody>
+    {% for a in rec.alternatives_considered_and_rejected %}<tr><td>{{ a.name }}<br><span class="mono">{{ a.plan.plan_version }} · {{ a.plan.recorded_on }}</span></td><td>{{ a.outcome }}<br><span class="mono">{{ a.report.file }}</span></td></tr>{% endfor %}
+    </tbody></table></section>{% endif %}
+
+    <section aria-labelledby="cr-src"><h2 id="cr-src">Source extracts and checksums</h2>
+    <ul>{% for e in rec.source_extracts %}<li class="mono">{{ e.file }} · SHA-256 {{ e.sha256[:16] }}…{% if e.pinned_in_code %} · pinned in code{% endif %}</li>{% endfor %}</ul>
+    <p class="mono">Record SHA-256 {{ rec.record_sha256 }} · context SHA-256 {{ rec.context_sha256[:16] }}…</p></section>
+
+    <section class="prose-note" aria-labelledby="cr-not"><h2 id="cr-not">Not established</h2>
+    <p>{{ rec.never_established }} See <a href="{{ url_for('intended_use') }}">intended use</a>.</p></section>
+</article>
+</main>
+{% include "site_footer.html" %}
+</body>
+</html>
