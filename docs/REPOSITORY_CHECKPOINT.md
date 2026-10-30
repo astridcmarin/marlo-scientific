@@ -54,7 +54,7 @@ No model is validated for clinical prediction.
 - **Protocol benchmarking:** the v2 annotation is in progress. Then: pin it, run the locked check, and build the benchmarking page with passing types only.
 - **Bortezomib:**
   - individual concentration data, or a mechanism that changes clearance between doses;
-  - for Iwasaki 2020: the author's answer on the dose input and evaluation datasets, and attribution consent.
+  - for Iwasaki 2020: which human data evaluated the model (the dose input and attribution were settled on 30 October, 3.0l).
 - **Hughes:** independent transcription review and the Cockcroft–Gault weight basis.
 - **Kim:** confirmation of the CL/F equation form.
 - **Label engine:** independent review of the label extracts, an observed-data outside check for pomalidomide, and a two-compartment model for melphalan.

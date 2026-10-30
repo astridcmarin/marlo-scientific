@@ -1,0 +1,27 @@
+{
+  "schema_version": "author-answers-v1",
+  "answers_version": "bortezomib-pbpk-iwasaki-2020-author-answers-v1.0",
+  "drug": "bortezomib",
+  "recorded_on": "2026-10-30",
+  "applies_to": {
+    "extract": {"file": "intelligence_store/data/bortezomib_pbpk_iwasaki_2020_extract_v1.json", "sha256": "9bfb9ac21012b2910f59c451d1e802a9282401469875241bd96126fae24b745c"},
+    "check_plan": {"file": "intelligence_store/data/bortezomib_pbpk_iwasaki_check_plan_v1.json", "sha256": "185b1417b40eee9499338c9d20f85279dde0a9121c30b7853cfe88c0c4b60b73"}
+  },
+  "source": "Reply from an author of Iwasaki et al., AAPS J 2020;22:66, to the platform owner (personal communication, 30 October 2026). Kept by the platform owner only; not committed (private correspondence).",
+  "answers": [
+    {
+      "question": "How should the equations provided on request be credited?",
+      "answer": "Citing the article is sufficient.",
+      "consequence": "The model is credited as Iwasaki et al., AAPS J 2020;22:66 (doi:10.1208/s12248-020-00448-x). The extract's note that attribution wording is pending is resolved; no individual is named as the source of the equations."
+    },
+    {
+      "question": "How does an intravenous dose enter the model?",
+      "answer": "As a bolus into the central compartment.",
+      "consequence": "Confirms the dose-input assumption of the locked 3.0k check (IV bolus into systemic plasma, Cp). Initial conditions (all compartments at zero before the first dose) were not asked; they remain the plan's standard reading. The 3.0k result (not consistent with Ogawa 2008 or CAN-1004, robust) no longer rests on an assumed dose input. The locked plan and report are unchanged."
+    }
+  ],
+  "still_open": [
+    "Which human data were used to evaluate the model (independence of Ogawa 2008 and CAN-1004 for the 3.0k comparison).",
+    "The pharmacodynamic equation for blood proteasome inhibition (not needed for the PK check)."
+  ]
+}

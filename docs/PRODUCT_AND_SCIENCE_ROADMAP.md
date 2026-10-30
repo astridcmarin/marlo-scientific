@@ -83,7 +83,7 @@ The differentiator already exists in the code; users cannot see it yet.
 - **Transcription (3.0j):** the author sent the model equations on request; they are transcribed and pinned.
 - **Locked check (3.0k):** the model is **not consistent with either study, and the result is robust**. It over-predicts Ogawa day 1 (107 vs 46.5 ng·h/mL) and under-predicts the day 11 / day 1 ratio (2.0 vs 5.1) and CAN-1004 day 11 (135 vs 241).
 - **Why:** the model reproduces the constant-clearance pattern. Red-cell binding fills only partly (24% → 38%) and drug dissociates within hours, so it does not change exposure much between doses.
-- **Open assumptions:** the dose input is assumed and independence is pending (the article does not cite either study).
+- **Open assumptions:** independence is pending (the article does not cite either study). The dose input was confirmed by the author on 30 October 2026 (an IV bolus into the central compartment, as assumed), and citing the article is the agreed attribution (3.0l).
 - **Where Phase 2 stands:** three candidates have now failed. What remains is individual concentration data, or a mechanism that changes clearance between doses.
 
 ### Phase 3 — Any drug, at an honest level

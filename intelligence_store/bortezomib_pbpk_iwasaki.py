@@ -15,9 +15,17 @@ from .covariate_estimation import _load_pinned
 DATA = Path(__file__).parent / 'data'
 EXTRACT_PATH = DATA / 'bortezomib_pbpk_iwasaki_2020_extract_v1.json'
 EXTRACT_SHA256 = '9bfb9ac21012b2910f59c451d1e802a9282401469875241bd96126fae24b745c'
+AUTHOR_ANSWERS_PATH = DATA / 'bortezomib_pbpk_iwasaki_2020_author_answers_v1.json'
+AUTHOR_ANSWERS_SHA256 = '01b2c9172a277fbb5403180bec0c9815b8da70128bd963d3a94b6709aea4724e'
 STATE = ('Cp', 'Crbc', 'Cperi', 'Chp', 'Chrbc', 'Ch')
 VOLUME_OF = {'Cp': 'Vsys', 'Crbc': 'Vrbc', 'Cperi': 'Vperi', 'Chp': 'Vhp', 'Chrbc': 'Vhrbc', 'Ch': 'Vh'}
 FM = ('fm_1A2', 'fm_2C9', 'fm_2C19', 'fm_2D6', 'fm_3A4')
+
+
+def load_author_answers(path=AUTHOR_ANSWERS_PATH):
+    """The author's answers (30 October 2026): attribution by citing the article; IV dose as a bolus into the
+    central compartment. Kept separate so the extract and the locked 3.0k check stay unchanged."""
+    return _load_pinned(path, AUTHOR_ANSWERS_SHA256, 'author-answers-v1', 'Iwasaki 2020 author answers')
 
 
 def load_extract(path=EXTRACT_PATH):
