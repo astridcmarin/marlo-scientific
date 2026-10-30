@@ -45,7 +45,15 @@ def register_kim_pk_run_pages(bp):
                                 headers={'Content-Disposition': f'attachment; filename="saved-kim-run-{run_id}.json"',
                                          'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'})
             report = row.payload['report']
+            # Phase 2.5b: runs saved before the model scope existed carry no scope; evaluate the current scope for
+            # display only (the archived run is not changed or re-run).
+            if 'model_scope' in report:
+                scope, scope_saved = report['model_scope'], True
+            else:
+                from intelligence_store.lenalidomide_scope import kim_scope
+                scope, scope_saved = kim_scope(revision.payload['state'], report['declared_disease_code']), False
             response = _response('landscape_saved_kim_run.html', scenario=scenario, revision=revision, run=row,
+                                 scope=dict(scope['scope_evaluation'], observed=scope['observed']), scope_saved=scope_saved,
                                  report=report, estimate=report['covariate_estimate'], chart=_kim_chart(report),
                                  request_json=json.dumps(report['treatment_request'], indent=2),
                                  result_type=RESULT_TYPES['typical_value_pk'], record=record_for_kim_run(row))

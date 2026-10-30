@@ -245,6 +245,12 @@ def calculate_kim_pk(revision_id, request, disease_code, cl_form):
         blockers.append({'code': 'disease_context_outside_study', 'message': 'Kim 2026 enrolled only patients with multiple myeloma; declare MM to run this model.'})
     if estimate['status'] != 'estimated':
         blockers.append({'code': 'missing_estimator_inputs', 'message': 'Missing: ' + ', '.join(estimate['missing_fields'])})
+    from .lenalidomide_scope import kim_scope
+    scope = kim_scope(copy.deepcopy(revision.payload['state']), disease_code)
+    outside = [r for r in scope['scope_evaluation']['rules'] if r['status'] == 'out_of_scope' and r['id'] != 'disease']
+    if outside:
+        blockers.append({'code': 'outside_model_scope',
+                         'message': 'Outside the Kim 2026 model scope: ' + '; '.join(f"{r['id']}: {r['reason']}" for r in outside)})
     report = {'schema_version': RUN_SCHEMA, 'method_version': METHOD_VERSION, 'model': 'lenalidomide_kim_2026',
               'revision_id': revision_id, 'cl_form': cl_form,
               'cl_form_evidence': {'assessment_status': assessment['status'],
@@ -252,7 +258,7 @@ def calculate_kim_pk(revision_id, request, disease_code, cl_form):
                                    **copy.deepcopy(assessment['form_evidence'][cl_form])},
               'prediction_type': PREDICTION_TYPE, 'covariate_estimate': estimate,
               'covariate_estimate_sha256': estimate['report_sha256'], 'treatment_request': canonical,
-              'declared_disease_code': disease_code, 'execution_blockers': blockers,
+              'declared_disease_code': disease_code, 'execution_blockers': blockers, 'model_scope': scope,
               'parameters': None, 'times_h': None, 'unbound_concentration_ng_ml': None, 'total_concentration_ng_ml': None,
               'clinical_prediction_validated': False, 'ready_for_patient_simulation': False,
               'limitations': ['Typical-value curve: random effects are zero; patients with identical covariates vary around it.',

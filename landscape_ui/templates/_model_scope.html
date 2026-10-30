@@ -1,0 +1,20 @@
+{# Phase 2.5b: shared model-scope display. `s` has status, weakest_rule_tier, flags, rules and observed. #}
+{% macro scope_panel(s, model_label) %}
+{% set tiers = {'externally_checked': 'checked against outside data', 'inside_model_data': "inside the model's own data only", 'external_check_disagrees': 'outside check disagrees'} %}
+<div class="cap-level" role="note">
+<p><strong>{{ model_label }} scope:</strong>
+{% if s.status == 'in_scope' %}inside the model's scope · weakest evidence: <strong>{{ tiers[s.weakest_rule_tier] }}</strong>
+{% elif s.status == 'out_of_scope' %}<strong>outside the model's scope — no model value is computed</strong>
+{% else %}<strong>cannot determine — an input the scope needs is unknown; no model value is computed</strong>{% endif %}</p>
+{% if s.flags %}<p><strong>Flagged:</strong> a locked outside check found this model inconsistent for records like this one. The value is still shown; read it with the observed data below.</p>{% endif %}
+<details><summary>Scope rules ({{ s.rules|length }})</summary><div class="table-scroll"><table style="min-width:640px;table-layout:fixed"><thead><tr><th style="width:17%">Rule</th><th style="width:14%">Value</th><th style="width:17%">Result</th><th style="width:52%">Why</th></tr></thead><tbody>
+{% for r in s.rules %}<tr><td>{{ r.id|replace('_', ' ') }}</td><td style="white-space:nowrap">{% if r.value is none %}unknown{% elif r.value is number %}{{ '%.3g'|format(r.value) }} {{ r.unit or '' }}{% else %}{{ r.value }}{% endif %}</td>
+<td>{% if r.status == 'in_scope' %}{{ tiers[r.tier] }}{% elif r.status == 'out_of_scope' %}<strong>out of scope</strong>{% elif r.status == 'not_assessed' %}not assessed{% else %}cannot determine{% endif %}</td>
+<td>{{ r.band_note or r.reason or r.basis or '' }}</td></tr>{% endfor %}
+</tbody></table></div></details>
+{% for obs in s.observed %}<p><strong>Observed in {{ obs.study }} ({{ obs.design }}; other subjects, not this record):</strong> reference group creatinine clearance {{ obs.reference_creatinine_clearance }}, mean AUC to infinity {{ obs.reference_auc_infinity_mean }} ng·h/mL.</p>
+<div class="table-scroll"><table><thead><tr><th>Group (creatinine clearance)</th><th>n</th><th>Mean AUC to infinity (SD)</th><th>Ratio to reference</th></tr></thead><tbody>
+{% for g in obs.groups %}<tr><td>{{ g.creatinine_clearance }}</td><td>{{ g.n }}</td><td>{{ g.auc_infinity_mean }} ({{ g.auc_infinity_sd }}) ng·h/mL</td><td>{{ '%.2f'|format(g.ratio_to_reference_mean) }}</td></tr>{% endfor %}
+</tbody></table></div><p class="panel-note">{{ obs.source }}. {{ obs.not_this }}</p>{% endfor %}
+</div>
+{% endmacro %}

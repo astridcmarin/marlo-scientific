@@ -162,7 +162,7 @@ def calculate_population_pk(revision_id, weight_basis, request, disease_code='UN
         report['status'] = typical['status']
         report['simulation_status'] = 'not_run'
         report['typical_status_detail'] = ([b['code'] for b in calc['execution_blockers']] if calc else
-                                           ['missing_estimator_inputs'])
+                                           [b['code'] for b in typical.get('scope_blockers', [])] or ['missing_estimator_inputs'])
         report['report_sha256'] = digest(report)
         return report
 

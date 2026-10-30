@@ -66,8 +66,57 @@ Written from the locked check `docs/verification/ixazomib_pk_gupta_check_v1.json
 - **Command line:** `flask --app app/app.py ixazomib-exposure --state-file … --request-file …`
 - **Page:** `/landscape/patient-lab/ixazomib-exposure`. A form for the synthetic record; the rule table with the reason for each rule; the outputs or the observed groups; the list of what is not computed; a JSON download with checksums.
 
+## Lenalidomide: Hughes 2019 and Kim 2026 (Phase 2.5b)
+
+**Policy, chosen by the platform owner on 30 October 2026:**
+- **Where the model was fitted on such patients but a locked outside check found it inconsistent:** compute, flag, and show the observed data. This keeps the 14 October decision that Kim's results in severe renal impairment are calculated and warned, not hidden.
+- **Beyond the model's own data:** refuse.
+
+This adds a third tier, `external_check_disagrees`. It is in scope but flagged, and its band names the observed groups to show.
+
+The bands follow each locked check's **primary** result (the exposure ratio to normal renal function), as the 14 October Kim finding did. Secondary results are described in the band notes but do not set tiers.
+
+**Hughes 2019** (`lenalidomide_hughes_scope_v1.json`). Covariates come from the Hughes estimator, with the declared weight basis.
+
+| Creatinine clearance (C–G) | Tier | Evidence |
+|---|---|---|
+| 50–211 mL/min | checked | Normal and mild groups consistent in all 4 scenarios |
+| 36–50 mL/min | **outside check disagrees** | Moderate group under-predicted about 2.1-fold in all 4 scenarios; observed group shown |
+| < 36 or > 211 | refused | Beyond the model's data; moderate and severe observed groups shown below 36 |
+
+Other rules:
+- **Fat-free mass, age, weight, height and serum creatinine:** must be inside the model's data ranges.
+- **Disease:** MM, CLL, AML or ALL. These are in the model's data; the outside study's disease context is unknown, so this rule is "model data only".
+
+**Kim 2026** (`lenalidomide_kim_scope_v1.json`). Covariates are CKD-EPI 2021 eGFR and Du Bois BSA from the Kim estimator.
+
+| eGFR (mL/min/1.73 m²) | Tier | Evidence |
+|---|---|---|
+| 50–94.7 | checked | Mild group's ratio consistent in all 7 scenarios |
+| 30–50 | model data only | Moderate group consistent in the primary scenario only; absolute exposure about 1.3-fold low in 6 of 7 (secondary) |
+| 11.1–30 | **outside check disagrees** | Severe group under-predicted about 1.3-fold (primary); observed group shown |
+| < 11.1 or > 94.7 | refused | Beyond the model's data. Above 94.7 Kim had no patients, so records with normal kidney function above that are refused for Kim (Hughes covers them). |
+
+Other rules:
+- **BSA, age, weight and height:** must be inside Kim's ranges.
+- **Disease:** MM only.
+- **Albumin:** an optional rule (30–52 g/L). If unknown, it is not assessed.
+
+Doses and schedules are still checked by each model's existing execution blockers.
+
+**Where the scope applies:**
+- **`calculate_estimated_pk` (Hughes).** Used by calculate, save, the weight-basis comparison and the population band. Out of scope means status `outside_model_scope` and nothing is run.
+- **`calculate_kim_pk`.** Used by save and the model comparison. Out of scope adds an `outside_model_scope` execution blocker.
+- **Pages.** Every new report carries the scope result, shown with the shared `_model_scope.html` panel on the estimated-PK page (calculation and model comparison) and on saved Kim runs.
+- **Saved Kim runs from before the scope.** They are frozen. The page evaluates the current scope for display and says so; the archived run is not changed.
+
+**Behaviour changes:**
+- **Hughes:** records outside its reported ranges (including creatinine clearance below 36 mL/min) were already blocked inside the calculation (`outside_context_range`). They are now refused by the scope first (`outside_model_scope`), with the reason for each rule and, below 36 mL/min, the observed groups.
+- **Kim:** records outside its Table 1 ranges (eGFR, BSA, age, weight, height) previously ran with an "extrapolation" warning. They are now refused.
+- **Both:** severe renal impairment for Kim and the moderate band for Hughes still run, now flagged with the observed data.
+
 ## Next
 
-- **Move the existing per-model versions to this format.** These are the Hughes coverage contract and the Kim applicability findings.
+- ~~Move the Hughes and Kim per-model versions to this format~~: done in 2.5b. The coverage contract and applicability findings remain as the evidence the scopes cite.
 - **Write daratumumab's scope** from 3.2b–3.2c. Candidates: peaks at 8 and 16 mg/kg; AUC at 8 mg/kg as model data only, given the opposite-direction misses.
 - **Show each model's scope** on its scorecard and credibility record (PR #69).
