@@ -49,6 +49,7 @@ from .bortezomib_pk_ogawa_check import register_bortezomib_pk_ogawa_commands
 from .bortezomib_pk_kuan_check import register_bortezomib_pk_kuan_commands
 from .bortezomib_pbpk_iwasaki_check import register_bortezomib_pbpk_iwasaki_check_commands
 from .ixazomib_pk_gupta_check import register_ixazomib_pk_gupta_check_commands
+from .ixazomib_exposure import register_ixazomib_exposure_commands
 from .daratumumab_pk_luo_check import register_daratumumab_pk_luo_check_commands
 from .daratumumab_pk_luo_check_v2 import register_daratumumab_pk_luo_check_v2_commands
 from .bortezomib_pk_can1004_check import register_bortezomib_pk_can1004_commands
@@ -146,6 +147,7 @@ def init_storage(app):
     register_bortezomib_pk_kuan_commands(app)
     register_bortezomib_pbpk_iwasaki_check_commands(app)
     register_ixazomib_pk_gupta_check_commands(app)
+    register_ixazomib_exposure_commands(app)
     register_daratumumab_pk_luo_check_commands(app)
     register_daratumumab_pk_luo_check_v2_commands(app)
     register_bortezomib_pk_can1004_commands(app)

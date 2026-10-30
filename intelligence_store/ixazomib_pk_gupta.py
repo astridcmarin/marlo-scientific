@@ -90,6 +90,18 @@ def auc_infinity(dose_mg, p):
     return p['f'] * dose_mg * 1000.0 / p['cl']
 
 
+def auc_to(t_end_h, dose_mg, p):
+    """Exact AUC (h.ng/mL) from the dose to t_end_h after one oral dose (closed-form integral)."""
+    tau = t_end_h - p['tlag']
+    if tau <= 0:
+        return 0.0
+    rates = disposition_rates(p)
+    coef = impulse_coefficients(p, rates)
+    ka = p['ka']
+    return p['f'] * dose_mg * 1000.0 * ka * math.fsum(
+        a / (ka - lam) * ((1 - math.exp(-lam * tau)) / lam - (1 - math.exp(-ka * tau)) / ka) for a, lam in zip(coef, rates))
+
+
 def derivatives(a, p):
     """dA/dt for amounts (ug) in depot, central, peripheral 1, peripheral 2; also returns the elimination rate."""
     a1, a2, a3, a4 = a

@@ -1,0 +1,68 @@
+{
+  "schema_version": "model-scope-v1",
+  "scope_version": "ixazomib-pk-gupta-2017-scope-v1.0",
+  "model_id": "ixazomib_pk_gupta_2017",
+  "recorded_on": "2026-10-30",
+  "purpose": "The ICH M15 context of use of this model on the platform, made enforceable: which outputs the platform will compute, for which synthetic patients, and what it shows instead outside that domain. Every rule cites the pinned source or locked report that justifies it. Written from results already on record; no new computation.",
+  "evidence": {
+    "model_extract": {"file": "intelligence_store/data/ixazomib_pk_gupta_2017_extract_v1.json", "sha256": "d4fe97e4a8659b993541c9bd960ff6d6c519b4fe913b3ad27de84ce894b233bf"},
+    "observed": {"file": "intelligence_store/data/ixazomib_impairment_observed_v1.json", "sha256": "95fbf4c6f1269c7d77c44e08bb00b4b58095fc1ee8b8b5c0dd4ae2d640153f14"},
+    "external_check_report": {"file": "docs/verification/ixazomib_pk_gupta_check_v1.json", "sha256": "087966b6535d0082c5acf7e7f018eca258b74037a671a3febabae5c523f80506"}
+  },
+  "evidence_tiers": {
+    "externally_checked": "Inside the domain of a locked external check whose result was consistent and robust.",
+    "inside_model_data": "Inside the range of the data the model was built on (its Table 1-2), not checked against outside data on this platform.",
+    "outside": "Outside the model's data, or a locked check found the model inconsistent there."
+  },
+  "outputs": {
+    "supported": [
+      {"id": "typical_total_auc_single_dose_0_336h", "label": "Typical total AUC from 0 to 336 h after one oral dose",
+       "tier": "externally_checked", "evidence": "external_check_report: renal.normal.auc_last consistent in all six scenarios (observed 575 vs model median 596 h.ng/mL, 3 mg, MM, normal renal function)."},
+      {"id": "typical_total_auc_tau_steady_state", "label": "Typical total AUC over one dosing interval at steady state",
+       "tier": "inside_model_data", "evidence": "For a linear model, AUC over an interval at steady state equals F x dose / CL. The model was fitted to repeated weekly and twice-weekly dosing (model_extract data_used_to_build); not checked against outside data here."}
+    ],
+    "not_supported": [
+      {"id": "cmax", "label": "Peak concentration", "reason": "Under-predicted 2-4x in five of six externally checked groups, robust (external_check_report *.cmax). The model's residual error at the time of the peak is about 1.1 on the log scale (model_extract parameters.residual_error)."},
+      {"id": "concentration_time_curve", "label": "Concentration-time curve", "reason": "A curve shows the absorption peak, which is not supported."},
+      {"id": "unbound_exposure", "label": "Unbound exposure", "reason": "The model gives total concentrations only."},
+      {"id": "individual_prediction", "label": "This patient's exposure", "reason": "Typical values only; between-patient variability is large (CL 44%, F 73%) and no measured concentrations are used."}
+    ]
+  },
+  "request_rules": [
+    {"id": "disease", "kind": "category", "input": "disease_code", "in_scope": ["MM"],
+     "tier": "externally_checked",
+     "outside_reason": {"default": "The external check covered MM (renal study) and solid tumours (hepatic study); in solid tumours the model under-predicted AUC about 1.4-fold even with normal liver function (external_check_report hepatic.normal.auc_last, robust). Other diseases were not checked.",
+                        "UNKNOWN": "Disease not declared; cannot determine whether the request is inside the checked domain."}},
+    {"id": "route", "kind": "category", "input": "route", "in_scope": ["oral"], "tier": "externally_checked",
+     "outside_reason": {"default": "Only oral dosing is in scope (the external check was oral only)."}},
+    {"id": "dose", "kind": "range", "input": "dose_mg", "unit": "mg", "range": [1.5, 4.0], "tier": "externally_checked",
+     "outside_reason": {"default": "Outside the oral doses covered by the external check (1.5, 2.3, 3 and 4 mg)."}}
+  ],
+  "state_rules": [
+    {"id": "creatinine_clearance", "kind": "range", "field": "creatinine_clearance", "unit": "mL/min", "range": [30, 297],
+     "tier_by_band": [{"range": [90, 297], "tier": "externally_checked"}, {"range": [30, 90], "tier": "inside_model_data"}],
+     "basis": "Model data: Cockcroft-Gault creatinine clearance 25.8-297 mL/min (model_extract covariates.renal_function_covariate); the authors and the label place no adjustment above 30 mL/min. The external check covered >= 90 (consistent) and < 30 (see outside).",
+     "outside_reason": {"below": "Severe renal impairment or ESRD: outside the model's data. The dedicated study observed higher exposure than with normal renal function (shown below); the model has no renal covariate.",
+                        "above": "Above the model's data."},
+     "observed_when_below": {"study": "renal", "groups": ["severe_ri", "esrd"], "reference_group": "normal"},
+     "assumption": "The state field is taken as a Cockcroft-Gault estimate, as in the model and the renal study."},
+    {"id": "total_bilirubin_ratio", "kind": "ratio_max", "field": "total_bilirubin", "unit": "umol/L",
+     "reference_input": "bilirubin_uln_umol_l", "max_ratio": 1.5, "tier": "inside_model_data",
+     "basis": "NCI-ODWG categories: normal or mild hepatic impairment (total bilirubin <= 1.5 x ULN) were in the model's data; moderate (> 1.5-3 x ULN) and severe (> 3 x ULN) were not (model_extract covariates.hepatic_function_covariate). ULN is laboratory-specific and must be given with the request.",
+     "outside_reason": {"above": "Moderate or severe hepatic impairment: outside the model's data. The dedicated study (solid tumours) observed higher dose-normalised exposure than with normal liver function (shown below)."},
+     "observed_when_above": {"study": "hepatic", "groups": ["moderate", "severe"], "reference_group": "normal"}},
+    {"id": "bsa", "kind": "range", "derived": "bsa_du_bois", "unit": "m2", "range": [1.23, 2.67], "tier": "inside_model_data",
+     "basis": "Model data BSA 1.23-2.67 m2 (model_extract Table 2 values). BSA enters V4 only. The article does not state its BSA formula; Du Bois is used here (assumption).",
+     "outside_reason": {"default": "Body surface area outside the model's data."}},
+    {"id": "age", "kind": "range", "field": "age_years", "unit": "year", "range": [23, 91], "tier": "inside_model_data",
+     "basis": "Model data age 23-91 years; age was tested and not retained.",
+     "outside_reason": {"default": "Age outside the model's data."}}
+  ],
+  "unknown_policy": "A rule whose input is unknown cannot be evaluated; the request is then 'cannot_determine' and no output is computed. Unknown stays unknown: no value is assumed.",
+  "never_claimed": [
+    "A prediction for a real patient, a dose recommendation or a judgement of treatment suitability.",
+    "Effects of interacting drugs (strong CYP3A inducers lower exposure per the label); concomitant medicines are not part of the synthetic state and are not assessed.",
+    "Validation of the model; validation flags stay false."
+  ],
+  "clinical_prediction_validated": false
+}
