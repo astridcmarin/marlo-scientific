@@ -1,0 +1,582 @@
+{
+ "schema_version": "model-credibility-context-v1",
+ "context_version": "model-credibility-context-v1.0",
+ "recorded_on": "2026-10-30",
+ "framework": {
+  "name": "ICH M15 General Principles for Model-Informed Drug Development",
+  "status": "ICH Step 4, January 2026; FDA guidance June 2026",
+  "elements_used": [
+   "Question of Interest (2.1.1)",
+   "Context of Use (2.1.2)",
+   "Model Influence (2.1.3)",
+   "Consequence of Wrong Decision (2.1.4)",
+   "Model Risk (2.1.5)",
+   "Model Impact (2.1.6)",
+   "Verification",
+   "Validation and applicability assessment",
+   "Model Analysis Plan (locked plans)",
+   "Model Analysis Report (locked reports)"
+  ],
+  "note": "The platform is not a regulatory submission. These records follow the M15 structure so that a reader can assess each model the way a reviewer would; the ratings are the platform's own, for its intended use."
+ },
+ "models": {
+  "lenalidomide_hughes_2019": {
+   "kind": "published_population_pk",
+   "drug": "lenalidomide",
+   "question_of_interest": "What typical plasma exposure does the Hughes 2019 population PK model give for a synthetic patient profile (age, sex, body size, kidney function) and a stated lenalidomide regimen?",
+   "context_of_use": {
+    "role": "Educational and research exposure curve in the Patient Lab and in published-model comparisons; typical values with a population variability band.",
+    "outputs": [
+     "concentration-time curve (typical value)",
+     "AUC, Cmax, trough",
+     "population band from published variability"
+    ],
+    "users": [
+     "researchers",
+     "clinical pharmacologists",
+     "educators"
+    ],
+    "excluded_uses": [
+     "Dosing, dose adjustment or treatment selection for any individual patient.",
+     "Diagnosis or clinical decision support.",
+     "Regulatory submission without independent re-evaluation by the sponsor."
+    ]
+   },
+   "sources": {
+    "extracts": [
+     "hughes_parameter_extract_v1.json",
+     "hughes_variability_extract_v1.json"
+    ],
+    "plans": [
+     "hughes_renal_group_check_plan_v1.json"
+    ]
+   },
+   "applicability_from": [],
+   "limitations_from": [
+    [
+     "hughes_parameter_extract_v1.json",
+     "limitations"
+    ]
+   ],
+   "assumptions": [
+    {
+     "assumption": "Cockcroft-Gault creatinine clearance computed with the weight basis inferred by population reconstruction (ideal body weight, Devine); adjusted and total body weight are sensitivity branches.",
+     "status": "unresolved; author confirmation pending",
+     "basis": "docs/PATIENT_LAB_2_0.md (recorded scientific decisions)"
+    },
+    {
+     "assumption": "Random effects set to zero for the typical curve.",
+     "status": "by design",
+     "basis": "hughes_parameter_extract_v1.json limitations"
+    }
+   ],
+   "model_influence": {
+    "level": "low",
+    "justification": "Outputs are descriptive, for research and education. No decision on the platform is made from them: the platform gives no dose, eligibility or treatment recommendation (intended-use page)."
+   },
+   "consequence_of_wrong_decision": {
+    "level": "low_within_intended_use",
+    "justification": "Within the intended use (research, trial design context, education) a wrong output misinforms a reader but does not change care. Used outside that scope, for an individual patient's dosing, the consequence could be serious; the platform states that this use is excluded on every result."
+   },
+   "model_risk": {
+    "level": "low_within_intended_use",
+    "justification": "Low influence combined with low consequence within the intended use. Not assessed for any other use."
+   },
+   "model_impact": {
+    "level": "not_applicable",
+    "justification": "Not part of a regulatory submission; no regulatory standard is replaced or departed from."
+   }
+  },
+  "lenalidomide_kim_2026": {
+   "kind": "published_population_pk",
+   "drug": "lenalidomide",
+   "question_of_interest": "What typical total and unbound lenalidomide exposure does the Kim 2026 model give for a synthetic multiple myeloma patient with a stated eGFR and body surface area?",
+   "context_of_use": {
+    "role": "Published-model comparison with Hughes 2019 in the Patient Lab, and saved Kim 2026 runs.",
+    "outputs": [
+     "total and unbound concentration-time curves (typical value)",
+     "AUC, Cmax"
+    ],
+    "users": [
+     "researchers",
+     "clinical pharmacologists",
+     "educators"
+    ],
+    "excluded_uses": [
+     "Dosing, dose adjustment or treatment selection for any individual patient.",
+     "Diagnosis or clinical decision support.",
+     "Regulatory submission without independent re-evaluation by the sponsor."
+    ]
+   },
+   "sources": {
+    "extracts": [
+     "kim_2026_model_extract_v1.json"
+    ],
+    "plans": [
+     "kim_renal_group_check_plan_v1.json"
+    ]
+   },
+   "applicability_from": [
+    [
+     "kim_2026_model_extract_v1.json",
+     "study_population"
+    ]
+   ],
+   "limitations_from": [
+    [
+     "kim_2026_model_extract_v1.json",
+     "transcription_notes"
+    ]
+   ],
+   "assumptions": [
+    {
+     "assumption": "The CL/F equation is read in linear multiplicative form (primary, inferred from the paper's reported simulation results); the exponential and the additive form as printed are sensitivity readings.",
+     "status": "unresolved; author confirmation pending",
+     "basis": "kim_cl_equation_form_assessment_v1.json decision"
+    }
+   ],
+   "model_influence": {
+    "level": "low",
+    "justification": "Outputs are descriptive, for research and education. No decision on the platform is made from them: the platform gives no dose, eligibility or treatment recommendation (intended-use page)."
+   },
+   "consequence_of_wrong_decision": {
+    "level": "low_within_intended_use",
+    "justification": "Within the intended use (research, trial design context, education) a wrong output misinforms a reader but does not change care. Used outside that scope, for an individual patient's dosing, the consequence could be serious; the platform states that this use is excluded on every result."
+   },
+   "model_risk": {
+    "level": "low_within_intended_use",
+    "justification": "Low influence combined with low consequence within the intended use. Not assessed for any other use."
+   },
+   "model_impact": {
+    "level": "not_applicable",
+    "justification": "Not part of a regulatory submission; no regulatory standard is replaced or departed from."
+   }
+  },
+  "lenalidomide_renal_pathways_2026": {
+   "kind": "platform_model",
+   "drug": "lenalidomide",
+   "question_of_interest": "How is lenalidomide clearance divided between glomerular filtration, tubular secretion and non-renal routes as kidney function changes, for a synthetic patient profile?",
+   "context_of_use": {
+    "role": "Educational view of elimination pathways for a patient record and alongside the published renal PK evidence.",
+    "outputs": [
+     "clearance by pathway",
+     "fraction excreted unchanged"
+    ],
+    "users": [
+     "researchers",
+     "educators"
+    ],
+    "excluded_uses": [
+     "Dosing, dose adjustment or treatment selection for any individual patient.",
+     "Diagnosis or clinical decision support.",
+     "Regulatory submission without independent re-evaluation by the sponsor."
+    ]
+   },
+   "sources": {
+    "extracts": [],
+    "plans": [
+     "lenalidomide_renal_pathways_plan_v1.json",
+     "lenalidomide_esrd_dialysis_plan_v1.json"
+    ]
+   },
+   "applicability_from": [
+    [
+     "lenalidomide_renal_pathways_plan_v1.json",
+     "question"
+    ]
+   ],
+   "limitations_from": [
+    [
+     "lenalidomide_renal_pathways_plan_v1.json",
+     "not_this"
+    ],
+    [
+     "lenalidomide_renal_pathways_plan_v1.json",
+     "known_differences"
+    ]
+   ],
+   "assumptions": [
+    {
+     "assumption": "Calibrated on the normal-kidney-function group only. Two readings of tubular secretion (scaling with creatinine clearance, or preserved) were tested; neither is supported across all groups (both under-predict the moderate group), and renal elimination falls faster than proportional to creatinine clearance.",
+     "status": "unresolved; recorded by a locked check (exploratory)",
+     "basis": "docs/verification/lenalidomide_renal_pathways_check_v1.json"
+    }
+   ],
+   "model_influence": {
+    "level": "low",
+    "justification": "Outputs are descriptive, for research and education. No decision on the platform is made from them: the platform gives no dose, eligibility or treatment recommendation (intended-use page)."
+   },
+   "consequence_of_wrong_decision": {
+    "level": "low_within_intended_use",
+    "justification": "Within the intended use (research, trial design context, education) a wrong output misinforms a reader but does not change care. Used outside that scope, for an individual patient's dosing, the consequence could be serious; the platform states that this use is excluded on every result."
+   },
+   "model_risk": {
+    "level": "low_within_intended_use",
+    "justification": "Low influence combined with low consequence within the intended use. Not assessed for any other use."
+   },
+   "model_impact": {
+    "level": "not_applicable",
+    "justification": "Not part of a regulatory submission; no regulatory standard is replaced or departed from."
+   }
+  },
+  "lenalidomide_exposure_safety_2016": {
+   "kind": "published_exposure_response",
+   "drug": "lenalidomide",
+   "question_of_interest": "At a simulated exposure, what are the published relative odds of grade 3/4 thrombocytopenia and neutropenia compared with a reference exposure?",
+   "context_of_use": {
+    "role": "Relative odds shown in the Patient Lab published-model comparison; relative, never a probability for a patient.",
+    "outputs": [
+     "odds ratio relative to the reference exposure, with interval"
+    ],
+    "users": [
+     "researchers",
+     "clinical pharmacologists"
+    ],
+    "excluded_uses": [
+     "Dosing, dose adjustment or treatment selection for any individual patient.",
+     "Diagnosis or clinical decision support.",
+     "Regulatory submission without independent re-evaluation by the sponsor."
+    ]
+   },
+   "sources": {
+    "extracts": [
+     "lenalidomide_exposure_safety_v2.json",
+     "lenalidomide_exposure_safety_tga_v1.json",
+     "lenalidomide_reference_exposure_v1.json"
+    ],
+    "plans": []
+   },
+   "applicability_from": [
+    [
+     "lenalidomide_exposure_safety_v2.json",
+     "analysis"
+    ]
+   ],
+   "limitations_from": [
+    [
+     "lenalidomide_exposure_safety_v2.json",
+     "not_reported"
+    ]
+   ],
+   "assumptions": [
+    {
+     "assumption": "The published odds ratios are per unit of ln AUC, so relative odds = (AUC / AUC_reference) ** ln(OR); the result does not depend on AUC units.",
+     "status": "by derivation",
+     "basis": "lenalidomide_exposure_safety_v2.json derivation"
+    },
+    {
+     "assumption": "The sponsor analysis pooled mantle cell lymphoma, multiple myeloma and myelodysplastic syndromes on lenalidomide monotherapy; the platform uses the multiple myeloma odds ratios.",
+     "status": "stated by the source",
+     "basis": "lenalidomide_exposure_safety_v2.json analysis"
+    }
+   ],
+   "model_influence": {
+    "level": "low",
+    "justification": "Outputs are descriptive, for research and education. No decision on the platform is made from them: the platform gives no dose, eligibility or treatment recommendation (intended-use page)."
+   },
+   "consequence_of_wrong_decision": {
+    "level": "low_within_intended_use",
+    "justification": "Within the intended use (research, trial design context, education) a wrong output misinforms a reader but does not change care. Used outside that scope, for an individual patient's dosing, the consequence could be serious; the platform states that this use is excluded on every result."
+   },
+   "model_risk": {
+    "level": "low_within_intended_use",
+    "justification": "Low influence combined with low consequence within the intended use. Not assessed for any other use."
+   },
+   "model_impact": {
+    "level": "not_applicable",
+    "justification": "Not part of a regulatory submission; no regulatory standard is replaced or departed from."
+   }
+  },
+  "bortezomib_pk_lignet_2022": {
+   "kind": "published_pk_component",
+   "drug": "bortezomib",
+   "question_of_interest": "What typical plasma bortezomib concentration over a 21-day cycle drives the platelet model for a stated dose per m2?",
+   "context_of_use": {
+    "role": "Drives the platelet time-course model; not offered as patient PK.",
+    "outputs": [
+     "plasma concentration-time curve (typical value) used internally"
+    ],
+    "users": [
+     "researchers",
+     "educators"
+    ],
+    "excluded_uses": [
+     "Dosing, dose adjustment or treatment selection for any individual patient.",
+     "Diagnosis or clinical decision support.",
+     "Regulatory submission without independent re-evaluation by the sponsor."
+    ]
+   },
+   "sources": {
+    "extracts": [
+     "bortezomib_platelet_model_extract_v1.json"
+    ],
+    "plans": [
+     "bortezomib_pk_ogawa_check_plan_v1.json",
+     "bortezomib_pk_can1004_check_plan_v1.json"
+    ]
+   },
+   "applicability_from": [
+    [
+     "bortezomib_platelet_model_extract_v1.json",
+     "data_behind_the_model"
+    ]
+   ],
+   "limitations_from": [
+    [
+     "bortezomib_platelet_model_extract_v1.json",
+     "limits"
+    ]
+   ],
+   "assumptions": [
+    {
+     "assumption": "A single constant clearance; pediatric parameters scaled to adults by body surface area (exponent 1).",
+     "status": "fixed by the source; contradicted by two outside studies",
+     "basis": "bortezomib_platelet_model_extract_v1.json pk_model"
+    }
+   ],
+   "alternatives_rejected": [
+    {
+     "name": "Kuan 2012 (saturable return from a deep compartment)",
+     "plan": "bortezomib_pk_kuan_check_plan_v1.json",
+     "report": "docs/verification/bortezomib_pk_kuan_check_v1.json",
+     "outcome": "Did not reproduce the day 1 to day 11 rise in Ogawa 2008 under either reading."
+    },
+    {
+     "name": "Empirical clearance falling over repeated doses (two forms)",
+     "plan": "bortezomib_pk_falling_clearance_plan_v1.json",
+     "report": "docs/verification/bortezomib_pk_falling_clearance_v1.json",
+     "outcome": "Could not be calibrated to CAN-1004 day 11 exposure."
+    },
+    {
+     "name": "Iwasaki 2020 target-binding PBPK",
+     "plan": "bortezomib_pbpk_iwasaki_check_plan_v1.json",
+     "report": "docs/verification/bortezomib_pbpk_iwasaki_check_v1.json",
+     "outcome": "Not consistent with Ogawa 2008 or CAN-1004; robust; same pattern as the constant-clearance model."
+    }
+   ],
+   "model_influence": {
+    "level": "low",
+    "justification": "Outputs are descriptive, for research and education. No decision on the platform is made from them: the platform gives no dose, eligibility or treatment recommendation (intended-use page)."
+   },
+   "consequence_of_wrong_decision": {
+    "level": "low_within_intended_use",
+    "justification": "Within the intended use (research, trial design context, education) a wrong output misinforms a reader but does not change care. Used outside that scope, for an individual patient's dosing, the consequence could be serious; the platform states that this use is excluded on every result."
+   },
+   "model_risk": {
+    "level": "low_within_intended_use",
+    "justification": "Low influence combined with low consequence within the intended use. Not assessed for any other use."
+   },
+   "model_impact": {
+    "level": "not_applicable",
+    "justification": "Not part of a regulatory submission; no regulatory standard is replaced or departed from."
+   }
+  },
+  "bortezomib_platelets_lignet_2022": {
+   "kind": "published_pd_model",
+   "drug": "bortezomib",
+   "question_of_interest": "What typical platelet-count course does the Lignet 2022 model give over bortezomib cycles for a stated starting count?",
+   "context_of_use": {
+    "role": "Simulation Lab platelet course and a platelet curve for a patient record; typical values only.",
+    "outputs": [
+     "platelet count over time (typical value)",
+     "nadir and recovery timing"
+    ],
+    "users": [
+     "researchers",
+     "educators"
+    ],
+    "excluded_uses": [
+     "Dosing, dose adjustment or treatment selection for any individual patient.",
+     "Diagnosis or clinical decision support.",
+     "Regulatory submission without independent re-evaluation by the sponsor."
+    ]
+   },
+   "sources": {
+    "extracts": [
+     "bortezomib_platelet_model_extract_v1.json"
+    ],
+    "plans": [
+     "bortezomib_platelet_check_plan_v1.json"
+    ]
+   },
+   "applicability_from": [
+    [
+     "bortezomib_platelet_model_extract_v1.json",
+     "data_behind_the_model"
+    ]
+   ],
+   "limitations_from": [
+    [
+     "bortezomib_platelet_model_extract_v1.json",
+     "limits"
+    ]
+   ],
+   "assumptions": [
+    {
+     "assumption": "Concentration unit in the drug-effect term read as ng/mL.",
+     "status": "settled by a locked reproduction check",
+     "basis": "docs/verification/bortezomib_platelet_check_v1.json"
+    },
+    {
+     "assumption": "Driven by the constant-clearance PK component, which disagrees with two outside studies.",
+     "status": "inherited limitation",
+     "basis": "model_evidence_status_v6.json"
+    }
+   ],
+   "model_influence": {
+    "level": "low",
+    "justification": "Outputs are descriptive, for research and education. No decision on the platform is made from them: the platform gives no dose, eligibility or treatment recommendation (intended-use page)."
+   },
+   "consequence_of_wrong_decision": {
+    "level": "low_within_intended_use",
+    "justification": "Within the intended use (research, trial design context, education) a wrong output misinforms a reader but does not change care. Used outside that scope, for an individual patient's dosing, the consequence could be serious; the platform states that this use is excluded on every result."
+   },
+   "model_risk": {
+    "level": "low_within_intended_use",
+    "justification": "Low influence combined with low consequence within the intended use. Not assessed for any other use."
+   },
+   "model_impact": {
+    "level": "not_applicable",
+    "justification": "Not part of a regulatory submission; no regulatory standard is replaced or departed from."
+   }
+  },
+  "pomalidomide_label_exposure": {
+   "kind": "label_based_exposure",
+   "drug": "pomalidomide",
+   "question_of_interest": "What typical steady-state plasma pomalidomide curve follows from the values stated on the US label, for the labelled regimen?",
+   "context_of_use": {
+    "role": "Label-based exposure curve on the pomalidomide page, with label fold-change scenarios one at a time; tagged as label-based, never as a population model.",
+    "outputs": [
+     "steady-state concentration-time curve (typical value)",
+     "label scenarios as fold changes"
+    ],
+    "users": [
+     "researchers",
+     "regulatory professionals",
+     "educators"
+    ],
+    "excluded_uses": [
+     "Dosing, dose adjustment or treatment selection for any individual patient.",
+     "Diagnosis or clinical decision support.",
+     "Regulatory submission without independent re-evaluation by the sponsor."
+    ]
+   },
+   "sources": {
+    "extracts": [
+     "label_pk_pomalidomide_v1.json",
+     "pomalidomide_popk_li_2017_extract_v1.json"
+    ],
+    "plans": [
+     "label_exposure_consistency_plan_v1.json",
+     "label_exposure_pomalidomide_li_check_plan_v1.json"
+    ],
+    "reports": [
+     "docs/verification/label_exposure_pomalidomide_consistency_v1.json",
+     "docs/verification/label_exposure_pomalidomide_li_check_v1.json"
+    ]
+   },
+   "applicability_from": [
+    [
+     "label_pk_pomalidomide_v1.json",
+     "scope_of_use"
+    ]
+   ],
+   "limitations_from": [
+    [
+     "label_pk_pomalidomide_v1.json",
+     "not_stated"
+    ]
+   ],
+   "assumptions": [
+    {
+     "assumption": "One compartment; absorption rate derived from the label Tmax; the myeloma-only parameter set selected by the locked label check.",
+     "status": "settled by a locked check",
+     "basis": "docs/verification/label_exposure_pomalidomide_consistency_v1.json"
+    }
+   ],
+   "model_influence": {
+    "level": "low",
+    "justification": "Outputs are descriptive, for research and education. No decision on the platform is made from them: the platform gives no dose, eligibility or treatment recommendation (intended-use page)."
+   },
+   "consequence_of_wrong_decision": {
+    "level": "low_within_intended_use",
+    "justification": "Within the intended use (research, trial design context, education) a wrong output misinforms a reader but does not change care. Used outside that scope, for an individual patient's dosing, the consequence could be serious; the platform states that this use is excluded on every result."
+   },
+   "model_risk": {
+    "level": "low_within_intended_use",
+    "justification": "Low influence combined with low consequence within the intended use. Not assessed for any other use."
+   },
+   "model_impact": {
+    "level": "not_applicable",
+    "justification": "Not part of a regulatory submission; no regulatory standard is replaced or departed from."
+   },
+   "external_consistency_summary": "Locked check against the Li 2017 population PK model (model-to-model, not observed data): AUC 860 vs simulated 788 ng.h/mL (90% interval 602-1026), peak ratio 1.21, trough 0.97; consistent."
+  },
+  "dexamethasone_label_exposure": {
+   "kind": "label_based_exposure",
+   "drug": "dexamethasone",
+   "question_of_interest": "What typical single-dose plasma dexamethasone curve follows from the values stated on the HEMADY label?",
+   "context_of_use": {
+    "role": "Label-based exposure curve on the dexamethasone page (20 and 40 mg), with the caveat that myeloma patients had about 1.4-fold the curve's exposure in the outside check.",
+    "outputs": [
+     "single-dose concentration-time curve (typical value)"
+    ],
+    "users": [
+     "researchers",
+     "regulatory professionals",
+     "educators"
+    ],
+    "excluded_uses": [
+     "Dosing, dose adjustment or treatment selection for any individual patient.",
+     "Diagnosis or clinical decision support.",
+     "Regulatory submission without independent re-evaluation by the sponsor."
+    ]
+   },
+   "sources": {
+    "extracts": [
+     "label_pk_dexamethasone_hemady_v1.json",
+     "dexamethasone_outside_pk_v1.json"
+    ],
+    "plans": [
+     "label_exposure_consistency_plan_dexamethasone_v1.json",
+     "label_exposure_dexamethasone_outside_check_plan_v1.json"
+    ],
+    "reports": [
+     "docs/verification/label_exposure_dexamethasone_consistency_v1.json",
+     "docs/verification/label_exposure_dexamethasone_outside_check_v1.json"
+    ]
+   },
+   "applicability_from": [
+    [
+     "label_pk_dexamethasone_hemady_v1.json",
+     "scope_of_use"
+    ]
+   ],
+   "limitations_from": [],
+   "assumptions": [
+    {
+     "assumption": "One compartment; volume from clearance and the stated half-life (the label states no volume).",
+     "status": "settled by a locked check",
+     "basis": "docs/verification/label_exposure_dexamethasone_consistency_v1.json"
+    }
+   ],
+   "model_influence": {
+    "level": "low",
+    "justification": "Outputs are descriptive, for research and education. No decision on the platform is made from them: the platform gives no dose, eligibility or treatment recommendation (intended-use page)."
+   },
+   "consequence_of_wrong_decision": {
+    "level": "low_within_intended_use",
+    "justification": "Within the intended use (research, trial design context, education) a wrong output misinforms a reader but does not change care. Used outside that scope, for an individual patient's dosing, the consequence could be serious; the platform states that this use is excluded on every result."
+   },
+   "model_risk": {
+    "level": "low_within_intended_use",
+    "justification": "Low influence combined with low consequence within the intended use. Not assessed for any other use."
+   },
+   "model_impact": {
+    "level": "not_applicable",
+    "justification": "Not part of a regulatory submission; no regulatory standard is replaced or departed from."
+   },
+   "external_consistency_summary": "Locked check against the NEOFORDEX EPAR studies (observed data): consistent; myeloma patients' AUC ratio 0.70 inside a wide 6-patient interval, healthy volunteers 1.05-1.12. Patients' apparent clearance was lower than the label's, so myeloma exposure is about 1.4-fold the curve."
+  }
+ }
+}

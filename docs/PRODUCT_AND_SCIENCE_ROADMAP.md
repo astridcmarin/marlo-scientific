@@ -116,7 +116,7 @@ The differentiator already exists in the code; users cannot see it yet.
 
 ### Phase 6 — Model credibility records (ICH M15)
 
-1. Export a model's run record and evidence status as a structured credibility record organized as ICH M15 describes: question of interest, context of use, model risk, verification, validation, assumptions and limitations.
+1. Export a model's run record and evidence status as a structured credibility record organized as ICH M15 describes: question of interest, context of use, model risk, verification, validation, assumptions and limitations. **Built 30 October 2026** ([CREDIBILITY_RECORDS.md](CREDIBILITY_RECORDS.md)): eight records (six registered models, two label curves) at `/models/credibility`, each downloadable as JSON with its checksum.
 2. Later: let teams document their own models in the same structure.
 
 *Done when:* each platform model has an exportable credibility record that a reviewer can read without the code.

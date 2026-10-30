@@ -1,0 +1,66 @@
+{
+  "schema_version": "observed-summary-v1",
+  "summary_version": "daratumumab-iv-clemens-2017-v1.0",
+  "drug": "daratumumab",
+  "recorded_on": "2026-10-30",
+  "source": {
+    "citation": "Clemens PL, Yan X, Lokhorst HM, Lonial S, Losic N, Khan I, Jansson R, Ahmadi T, Lantz K, Zhou H, Puchalski T, Xu XS. Pharmacokinetics of daratumumab following intravenous infusion in relapsed or refractory multiple myeloma after prior proteasome inhibitor and immunomodulatory drug treatment. Clin Pharmacokinet. 2017;56(8):915-924.",
+    "doi": "10.1007/s40262-016-0477-1",
+    "licence": "Open access (stated on the article's first page).",
+    "registry": {"GEN501": "NCT00574288", "SIRIUS": "NCT01985126"},
+    "file_reviewed": {"file": "s40262-016-0477-1.pdf (10 pages)", "sha256": "502176ddae876311d8a6152d23605ec01abee3e57ae0a0c129751da976957eeb"},
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted. Tables 1-3 read from the rendered page images (article pages 921-922); text values from the text layer. Independent review pending."
+  },
+  "relationship_to_model": "GEN501 and SIRIUS are not among the four studies whose data estimated the Luo 2021 parameters. They were the data of the earlier intravenous model (Xu et al. 2017) from which Luo took the structure and covariates, so the comparison is independent for parameter values but not for model form.",
+  "design": {
+    "population": "Relapsed or refractory MM after a proteasome inhibitor and an IMiD; GEN501 >= 2 prior lines, SIRIUS >= 3 prior lines or double-refractory",
+    "administration": "Intravenous infusion. GEN501 Part 1 infusions over 6-8 h. The 16 mg/kg regimen: weekly for 8 weeks, every 2 weeks for 16 weeks, every 4 weeks thereafter. SIRIUS 8 mg/kg: every 4 weeks.",
+    "pre_dose": "GEN501 Part 1 sampled 'before and after the first pre-dose' and then the 'first full infusion'. Whether GEN501 Part 2 cohorts received a pre-dose before the first full infusion is not stated in this article (Part 2 designs are in electronic supplementary Fig. 1a, not reviewed). SIRIUS: no pre-dose mentioned.",
+    "sampling": {
+      "gen501_part2": "Generally at screening, before the first full infusion, end of infusion (EOI) and EOI + 2 h; pre-infusion and EOI at weekly visits; 1, 2, 4 and 6 weeks after the last infusion; varied by cohort. Fig. 3 (16 mg/kg, first full infusion) shows samples at EOI, EOI + 2 h, 24 h, 72 h, 1 week, 2 weeks and 3 weeks (pre-dose).",
+      "sirius_8": "More intense sampling after the first full infusion (times not listed)",
+      "sirius_16": "Pre-dose and EOI only"
+    },
+    "assay": "ELISA; lower limit of quantification x minimum required dilution = 200 ng/mL (0.2 ug/mL)",
+    "analysis": "Non-compartmental (Phoenix WinNonlin). GEN501: linear trapezoidal, linear interpolation. SIRIUS: linear and logarithmic trapezoids; terminal phase by regression.",
+    "location": "Methods 2.1-2.3, article pages 916-917"
+  },
+  "gen501_part2_first_full_infusion": {
+    "location": "Table 2, article page 922 (rendered page checked); text page 918",
+    "statistic": "arithmetic mean, SD",
+    "16_mg_kg": {"n_group": 42,
+                 "cmax_ug_ml": {"n": 40, "mean": 263.4, "sd": 92.0},
+                 "auc_0_7d_ug_h_ml": {"n": 20, "mean": 25123.3, "sd": 10851.5},
+                 "half_life_h": {"n": 19, "mean": 216.1, "sd": 104.0},
+                 "cl_ml_h_kg": {"n": 19, "mean": 0.4, "sd": 0.4},
+                 "vz_ml_kg": {"n": 19, "mean": 90.2, "sd": 43.4}},
+    "8_mg_kg": {"n_group": 30, "cmax_ug_ml": {"n": 28, "mean": 133.5, "sd": 32.5}}
+  },
+  "sirius_8_mg_kg_first_full_infusion": {
+    "location": "Table 3, article page 922 (rendered page checked)",
+    "statistic": "arithmetic mean, SD",
+    "n_group": 18,
+    "cmax_ug_ml": {"n": 18, "mean": 138.7, "sd": 34.9},
+    "auc_inf_ug_h_ml": {"n": 15, "mean": 21070.0, "sd": 13514.3},
+    "half_life_h": {"n": 15, "mean": 120.7, "sd": 105.8},
+    "cl_ml_h_kg": {"n": 15, "mean": 0.5, "sd": 0.3},
+    "vz_ml_kg": {"n": 15, "mean": 62.0, "sd": 18.4}
+  },
+  "sirius_16_mg_kg_text": {
+    "location": "Results 3.2, article page 918 (text layer)",
+    "statistic": "arithmetic mean, SD; n not stated",
+    "eoi_first_infusion_ug_ml": {"mean": 312.54, "sd": 106.65},
+    "trough_end_of_weekly_dosing_ug_ml": {"mean": 573.49, "sd": 331.49, "definition": "read as the trough before the ninth planned infusion (day 57, after 8 weekly doses on days 1-50); the article says only \"at the end of weekly dosing\""},
+    "eoi_ninth_infusion_ug_ml": {"mean": 914.86, "sd": 410.34},
+    "later": "Mean troughs maintained above 400 ug/mL through cycle 6."
+  },
+  "gen501_part1_16_mg_kg": {
+    "location": "Table 1, article page 921 (rendered page checked)",
+    "statistic": "arithmetic mean, SD",
+    "first_full_infusion": {"cmax_ug_ml": {"n": 3, "mean": 405.8, "sd": 72.5}, "auc_inf_ug_h_ml": {"n": 3, "mean": 56893.6, "sd": 22030.4}},
+    "last_seventh_infusion": {"cmax_ug_ml": {"n": 2, "mean": 993.7, "sd": 127.0}, "auc_inf_ug_h_ml": {"n": 1, "mean": 371159.3}},
+    "note": "Part 1 had a pre-dose and a different schedule; n = 1-3. Descriptive only."
+  },
+  "clinical_prediction_validated": false
+}
