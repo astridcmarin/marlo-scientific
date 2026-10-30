@@ -110,3 +110,12 @@ class Version2Scoring(unittest.TestCase):
         if v2.ANNOTATIONS_SHA256 is None:
             with self.assertRaises(ValueError):
                 v2.run_check()
+
+
+class ReportsReproduce(unittest.TestCase):
+    """Checkpoint 2026-10-30: the committed v1 and post-hoc reports are regenerated exactly."""
+    def test_v1_and_posthoc_reports(self):
+        import json
+        from intelligence_store import eligibility_validation_posthoc as ph
+        self.assertEqual(ev.run_check()['report_sha256'], json.loads(ev.REPORT_PATH.read_text())['report_sha256'])
+        self.assertEqual(ph.run()['report_sha256'], json.loads(ph.REPORT_PATH.read_text())['report_sha256'])
