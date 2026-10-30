@@ -1,0 +1,96 @@
+{
+  "schema_version": "published-model-extract-v1",
+  "extract_version": "daratumumab-pk-luo-2021-v1.0",
+  "drug": "daratumumab",
+  "recorded_on": "2026-10-30",
+  "source": {
+    "citation": "Luo MM, Usmani SZ, Mateos MV, Nahi H, Chari A, San-Miguel J, Touzeau C, Suzuki K, Kaiser M, Carson R, Heuck C, Qi M, Zhou H, Sun YN, Parasrampuria DA. Exposure-response and population pharmacokinetic analyses of a novel subcutaneous formulation of daratumumab administered to multiple myeloma patients. J Clin Pharmacol. 2021;61(5):614-627.",
+    "doi": "10.1002/jcph.1771",
+    "licence": "Open access, CC BY-NC (stated on the article's first page).",
+    "files_reviewed": [
+      {"file": "JCPH-61-614.pdf (14 pages)", "sha256": "18157ed6db5d1c3654b6043be9733a2dc3d49574d5f03a3a5045e829a4e55efe"},
+      {"file": "JCPH-61-614-s002.docx (Supplemental Methods)", "sha256": "2d3debb8ab1b904cc7ed9789a402d878741bf9afc85fc4a421470eeae75ba8c0"},
+      {"file": "JCPH-61-614-s003.docx (Table S1)", "sha256": "89c48633b71917d4e45b431fc62baa0b91da0eefad01ec7dcfbcd52217db6155"}
+    ],
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted from the article text layer and the Word document XML of Table S1. Independent review pending."
+  },
+  "structure": {
+    "description": "Two-compartment model with parallel linear and Michaelis-Menten (saturable, target-mediated) elimination from the central compartment; the maximum rate of the saturable pathway decreases over time; subcutaneous doses enter through a depot with first-order absorption and bioavailability F1 (Introduction and Methods, PopPK Analyses, article pages 615-616).",
+    "compartments": {"depot": "subcutaneous dose x F1", "central": "volume V1; linear clearance CL; saturable elimination Vmax, Km", "peripheral": "volume V2; exchange Q"},
+    "equations": [
+      "dAdepot/dt = -Ka Adepot (subcutaneous only)",
+      "dA1/dt = R_iv(t) + Ka Adepot - CL C - Vmax(t) C / (Km + C) - Q (C - A2/V2),  C = A1 / V1",
+      "dA2/dt = Q (C - A2/V2)",
+      "Vmax(t) = Vmax exp(-KDES t), t = time since the first dose"
+    ],
+    "equations_basis": "Not printed in the article or supplement. The text describes the structure (2 compartments, parallel linear and Michaelis-Menten elimination, a decrease of total target over time) and Table S1 names KDES 'first-order rate for decrease of Vmax'; the exponential form is the standard reading of that definition and is an assumption here. The earlier intravenous model (Xu et al., ref 24) was not reviewed.",
+    "units": "Amounts mg, volumes L, clearances L/h, Vmax mg/h, Km ug/mL (= mg/L); concentration mg/L = ug/mL."
+  },
+  "parameters": {
+    "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'",
+    "fixed_effects": {
+      "cl_l_h": {"value": 0.00496, "rse_percent": 8.4},
+      "alb_exponent_on_cl": {"value": -1.85, "rse_percent": 12.1},
+      "wt_exponent_on_cl": {"value": 1.24, "rse_percent": 10.6},
+      "igg_shift_on_cl": {"value": 1.26, "rse_percent": 14.4},
+      "v1_l": {"value": 5.25, "rse_percent": 4.1},
+      "wt_exponent_on_v1": {"value": 0.91, "rse_percent": 11.5},
+      "sex_shift_on_v1": {"value": -0.105, "rse_percent": 45.4},
+      "v2_l": {"value": 3.78, "rse_percent": 7.0},
+      "q_l_h": {"value": 0.00955, "rse_percent": 8.0},
+      "vmax_mg_h": {"value": 1.15, "rse_percent": 9.7},
+      "kdes_per_h": {"value": 0.0000783, "rse_percent": 33.3},
+      "km_ug_ml": {"value": 2.56, "rse_percent": 16.0},
+      "ka_per_h": {"value": 0.0117, "rse_percent": 5.8},
+      "f_sc": {"value": 0.689, "rse_percent": 2.7}
+    },
+    "covariate_equations_as_printed": "TVCLj=0.00496*Bwj78.61.24*ALBj37-1.85*TPMMCL, where TPMMCL is a shift factor of 1 for non-IgG subjects with multiple myeloma and 1+1.26 for IgG subjects with multiple myeloma. TVV1j=5.25*BWj78.60.91*SEXV1, where SEXV1 is a shift factor of 1 for female and 1 to 0.105 for male. (Table S1 note; superscripts and the operator lost in the document text.)",
+    "covariate_equations_read": {
+      "cl": "CL = 0.00496 x (WT / 78.6 kg)^1.24 x (ALB / 37 g/L)^-1.85 x (2.26 if IgG myeloma else 1)",
+      "v1": "V1 = 5.25 x (WT / 78.6 kg)^0.91 x (1 - 0.105 if male else 1)",
+      "notes": [
+        "Albumin in g/L (Table 2 reports albumin in g/L, median 38-41).",
+        "The IgG shift is stated as '1+1.26', i.e. IgG myeloma clearance 2.26 times non-IgG.",
+        "The sex factor for males is printed as '1 to 0.105'; read as 1 - 0.105 (= 0.895) from the estimate -0.105. The direction (which sex is the reference) rests on this reading of a garbled line; open."
+      ]
+    },
+    "random_effects": {
+      "form": "Table S1 column 'IIV (%CV)'; correlations between random effects not reported (none assumed).",
+      "iiv_cl_cv_percent": 58.7, "iiv_v1_cv_percent": 36.9, "iiv_vmax_cv_percent": 67.4,
+      "iiv_kdes_cv_percent": 145.9, "iiv_ka_cv_percent": 36.1,
+      "no_iiv_on": ["v2", "q", "km", "f_sc"]
+    },
+    "residual_error": {"additive_log_scale_cv_percent": 34.8, "note": "Not used by the platform (measurement and misspecification noise)."}
+  },
+  "data_used_to_build": {
+    "location": "Abstract; Methods, PopPK Analyses (article page 616); Table 1 (page 617)",
+    "patients": 742,
+    "samples": 5159,
+    "studies": [
+      {"study": "PAVO Part 2 (MMY1004)", "registry": "NCT02519452", "route": "SC 1800 mg", "n": 25},
+      {"study": "MMY1008", "registry": "NCT03242889", "route": "SC 1800 mg", "n": 6},
+      {"study": "COLUMBA (MMY3012)", "registry": "NCT03277105", "route": "SC 1800 mg (n = 257) and IV 16 mg/kg (n = 255)", "n": 512},
+      {"study": "PLEIADES (MMY2040)", "registry": "NCT03412565", "route": "SC 1800 mg with combination therapy", "n": 199}
+    ],
+    "earlier_model": "Structure and covariates were carried over from the earlier intravenous population model (Xu et al., ref 24; Clin Pharmacokinet 2017), which was built on GEN501 and SIRIUS. Luo re-estimated all parameters on the four studies above. GEN501 and SIRIUS data are therefore not in this model's parameter estimates but did inform its form."
+  },
+  "population": {
+    "weight_range_kg": [28.6, 147.6],
+    "reference_weight_kg": 78.6,
+    "reference_albumin_g_l": 37,
+    "igg_myeloma_fraction": {"PAVO Part 2": [13, 25], "MMY1008": [3, 6], "COLUMBA": [301, 512], "PLEIADES": [110, 199]},
+    "male_fraction": {"PAVO Part 2": [14, 25], "MMY1008": [2, 6], "COLUMBA": [281, 512], "PLEIADES": [124, 199]},
+    "albumin_median_range_g_l": {"PAVO Part 2": [41, 26, 47], "MMY1008": [40, 34, 44], "COLUMBA": [39.5, 19, 53], "PLEIADES": [38, 22, 51]},
+    "location": "Table 2, article page 619 (weight distribution not tabulated; abstract gives the range)"
+  },
+  "assay": {"lloq_ug_ml": 0.2, "method": "ELISA", "location": "Methods, article page 616"},
+  "summary_values_stated": {"linear_half_life_days_gm": 20.4, "f_sc_percent": 70, "steady_state": "about 5 months after the first dose of the every-4-week schedule", "location": "Results, Model Parameters, article page 618"},
+  "limitations": [
+    "The time course of Vmax (KDES) is read as exponential decay; the form is not printed.",
+    "The sex factor on V1 is read from a garbled line; the reference sex is uncertain.",
+    "No correlations between random effects are reported.",
+    "Renal and hepatic function were tested and not retained; the population had eGFR down to about 20 mL/min/1.73 m2 and mostly normal liver function (Table 2)."
+  ],
+  "clinical_prediction_validated": false
+}
