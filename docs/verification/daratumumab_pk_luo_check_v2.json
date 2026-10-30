@@ -1,0 +1,817 @@
+{
+ "schema_version": "daratumumab-pk-luo-check-report-v2",
+ "method_version": "daratumumab-pk-luo-check-v2.0",
+ "model_version": "daratumumab-pk-luo-2021-v1.0",
+ "plan_version": "daratumumab-pk-luo-check-plan-v2.0",
+ "plan_sha256": "52952fd5d3347d22a2d1b5691be0c63c51ef1f5fd47cc1fda28ab3aba55d73db",
+ "plan_locked_in_commit": "cae3463",
+ "v1_plan_sha256": "de2682e493f8012975d568dbf0999cb09085fb64d82e08356f31e40092effc30",
+ "model_extract_sha256": "8c68ddb7a849ce00a6340e0a7b4ec58ecf9e720491be8b55f1a47c774293d4f6",
+ "observed_sha256": "2872913fd369aea906fc4a11623755d8ff3722c75de0d1fbe55e567992632ed0",
+ "supplement_sha256": "4bf5724fe66bb10d921ce8c8a70eb0bf4f52498f7a5e30272e458a1ce0b6a6cb",
+ "trials": 1000,
+ "seed": 20261102,
+ "study_covariates": {
+  "SIRIUS": {
+   "weight": 76,
+   "albumin": 34,
+   "albumin_range": [
+    15,
+    47
+   ],
+   "p_igg": 0.4878048780487805,
+   "p_male": 0.5203252032520326
+  },
+  "GEN501": {
+   "weight": 80.5,
+   "albumin": 39.5,
+   "albumin_range": [
+    20,
+    51
+   ],
+   "p_igg": 0.49,
+   "p_male": 0.68
+  }
+ },
+ "classification": "exploratory_aggregate_external_consistency_check",
+ "independence": "Partial. GEN501 and SIRIUS are not among the four studies that estimated the Luo 2021 parameters, but the model's structure and covariates come from the earlier intravenous model built on GEN501 and SIRIUS (Xu et al. 2017). A consistent result shows that parameters estimated on newer studies reproduce the older studies; it does not test the choice of structure.",
+ "not_this": [
+  "Not validation or qualification of the model; no acceptance limits are introduced.",
+  "Not a comparison of individual concentrations; only published arithmetic means, SDs and group sizes are used.",
+  "Not a re-fit: no parameter is estimated or tuned.",
+  "Not a dosing recommendation or exposure prediction for any patient; not a comparison of subcutaneous and intravenous dosing."
+ ],
+ "numerical_checks": {
+  "mass_balance_max_relative_error": 5.423990349313742e-16,
+  "mass_balance_pass": true,
+  "step_halving_max_relative_change": 2.3504005141332882e-08,
+  "step_halving_pass": true,
+  "linear_auc_inf_over_dose_over_cl": 1.0000000000000004,
+  "linear_auc_pass": true
+ },
+ "classification_by_endpoint": {
+  "sirius_8.cmax": {
+   "kind": "primary",
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent"
+   ],
+   "robust": true,
+   "by_scenario": {
+    "primary": "consistent",
+    "omega_equals_cv": "consistent",
+    "igg_0_40": "consistent",
+    "igg_0_75": "consistent",
+    "covariate_spread": "consistent",
+    "sex_factor_on_females": "consistent",
+    "infusion_3h": "consistent",
+    "kdes_zero": "consistent"
+   }
+  },
+  "sirius_8.auc_inf": {
+   "kind": "primary",
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent",
+    "model_under_predicts"
+   ],
+   "robust": false,
+   "by_scenario": {
+    "primary": "consistent",
+    "omega_equals_cv": "consistent",
+    "igg_0_40": "consistent",
+    "igg_0_75": "model_under_predicts",
+    "covariate_spread": "consistent",
+    "sex_factor_on_females": "consistent",
+    "infusion_3h": "consistent",
+    "kdes_zero": "consistent"
+   }
+  },
+  "gen501_16.cmax": {
+   "kind": "primary",
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent"
+   ],
+   "robust": true,
+   "by_scenario": {
+    "primary": "consistent",
+    "omega_equals_cv": "consistent",
+    "igg_0_40": "consistent",
+    "igg_0_75": "consistent",
+    "covariate_spread": "consistent",
+    "sex_factor_on_females": "consistent",
+    "infusion_3h": "consistent",
+    "kdes_zero": "consistent"
+   }
+  },
+  "gen501_16.auc_0_7d": {
+   "kind": "primary",
+   "primary": "model_over_predicts",
+   "across_scenarios": [
+    "model_over_predicts"
+   ],
+   "robust": true,
+   "by_scenario": {
+    "primary": "model_over_predicts",
+    "omega_equals_cv": "model_over_predicts",
+    "igg_0_40": "model_over_predicts",
+    "igg_0_75": "model_over_predicts",
+    "covariate_spread": "model_over_predicts",
+    "sex_factor_on_females": "model_over_predicts",
+    "infusion_3h": "model_over_predicts",
+    "kdes_zero": "model_over_predicts"
+   }
+  },
+  "gen501_8.cmax": {
+   "kind": "secondary",
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent"
+   ],
+   "robust": true,
+   "by_scenario": {
+    "primary": "consistent",
+    "omega_equals_cv": "consistent",
+    "igg_0_40": "consistent",
+    "igg_0_75": "consistent",
+    "covariate_spread": "consistent",
+    "sex_factor_on_females": "consistent",
+    "infusion_3h": "consistent",
+    "kdes_zero": "consistent"
+   }
+  }
+ },
+ "decision": {
+  "consistent_with_first_dose_iv_exposure": false,
+  "robust": false,
+  "registration_may_be_proposed": false
+ },
+ "scenarios": {
+  "primary": {
+   "settings": {},
+   "endpoints": [
+    {
+     "endpoint": "sirius_8.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 18,
+     "observed_mean": 138.7,
+     "observed_sd": 34.9,
+     "simulated_group_mean": {
+      "p05": 113.01689465967542,
+      "p50": 129.522435755211,
+      "p95": 148.8160081797728
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.0708569460671198
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 15,
+     "observed_mean": 21070.0,
+     "observed_sd": 13514.3,
+     "simulated_group_mean": {
+      "p05": 14386.727601317692,
+      "p50": 17783.791429254474,
+      "p95": 21833.56980536136
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.1847867246879475
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 40,
+     "observed_mean": 263.4,
+     "observed_sd": 92.0,
+     "simulated_group_mean": {
+      "p05": 247.0228285335134,
+      "p50": 270.4075613041274,
+      "p95": 298.46740766965945
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.974085187299012
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 20,
+     "observed_mean": 25123.3,
+     "observed_sd": 10851.5,
+     "simulated_group_mean": {
+      "p05": 27189.62148315968,
+      "p50": 30264.926188672573,
+      "p95": 33784.405579828504
+     },
+     "classification": "model_over_predicts",
+     "observed_over_median": 0.8301127134221474
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "kind": "secondary",
+     "dose_mg_kg": 8.0,
+     "n": 28,
+     "observed_mean": 133.5,
+     "observed_sd": 32.5,
+     "simulated_group_mean": {
+      "p05": 118.90667810063694,
+      "p50": 133.7561564349184,
+      "p95": 148.6503459118691
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.9980848998524935
+    }
+   ]
+  },
+  "omega_equals_cv": {
+   "settings": {
+    "omega": "cv"
+   },
+   "endpoints": [
+    {
+     "endpoint": "sirius_8.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 18,
+     "observed_mean": 138.7,
+     "observed_sd": 34.9,
+     "simulated_group_mean": {
+      "p05": 111.77269358960531,
+      "p50": 129.93246706607428,
+      "p95": 150.86954528379718
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.0674776145785578
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 15,
+     "observed_mean": 21070.0,
+     "observed_sd": 13514.3,
+     "simulated_group_mean": {
+      "p05": 14340.700093960695,
+      "p50": 18169.9786849148,
+      "p95": 23919.58764955982
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.1596051027562775
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 40,
+     "observed_mean": 263.4,
+     "observed_sd": 92.0,
+     "simulated_group_mean": {
+      "p05": 245.19313528574762,
+      "p50": 269.69913364358547,
+      "p95": 296.96859356500005
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.9766438491719074
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 20,
+     "observed_mean": 25123.3,
+     "observed_sd": 10851.5,
+     "simulated_group_mean": {
+      "p05": 26836.913631804327,
+      "p50": 30037.91897583779,
+      "p95": 33452.44790486806
+     },
+     "classification": "model_over_predicts",
+     "observed_over_median": 0.8363861697679169
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "kind": "secondary",
+     "dose_mg_kg": 8.0,
+     "n": 28,
+     "observed_mean": 133.5,
+     "observed_sd": 32.5,
+     "simulated_group_mean": {
+      "p05": 119.89997036508247,
+      "p50": 133.85253291252218,
+      "p95": 150.37878192842243
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.9973662589354766
+    }
+   ]
+  },
+  "igg_0_40": {
+   "settings": {
+    "p_igg": 0.4
+   },
+   "endpoints": [
+    {
+     "endpoint": "sirius_8.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 18,
+     "observed_mean": 138.7,
+     "observed_sd": 34.9,
+     "simulated_group_mean": {
+      "p05": 113.00264251213979,
+      "p50": 131.0827627154116,
+      "p95": 149.94836976419361
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.05811013688448
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 15,
+     "observed_mean": 21070.0,
+     "observed_sd": 13514.3,
+     "simulated_group_mean": {
+      "p05": 15006.138100549786,
+      "p50": 18209.065372388402,
+      "p95": 22438.935405046366
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.1571159512640237
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 40,
+     "observed_mean": 263.4,
+     "observed_sd": 92.0,
+     "simulated_group_mean": {
+      "p05": 246.05672661776435,
+      "p50": 270.14295753501415,
+      "p95": 295.63284358684996
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.9750392992046065
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 20,
+     "observed_mean": 25123.3,
+     "observed_sd": 10851.5,
+     "simulated_group_mean": {
+      "p05": 27500.07354235429,
+      "p50": 30563.44932878595,
+      "p95": 34085.33361812295
+     },
+     "classification": "model_over_predicts",
+     "observed_over_median": 0.82200473283419
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "kind": "secondary",
+     "dose_mg_kg": 8.0,
+     "n": 28,
+     "observed_mean": 133.5,
+     "observed_sd": 32.5,
+     "simulated_group_mean": {
+      "p05": 119.31917952549576,
+      "p50": 134.13512832430553,
+      "p95": 150.4743202384621
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.9952650112447058
+    }
+   ]
+  },
+  "igg_0_75": {
+   "settings": {
+    "p_igg": 0.75
+   },
+   "endpoints": [
+    {
+     "endpoint": "sirius_8.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 18,
+     "observed_mean": 138.7,
+     "observed_sd": 34.9,
+     "simulated_group_mean": {
+      "p05": 112.96433361745135,
+      "p50": 129.63355196895617,
+      "p95": 150.7385460067005
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.0699390543060565
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 15,
+     "observed_mean": 21070.0,
+     "observed_sd": 13514.3,
+     "simulated_group_mean": {
+      "p05": 13600.360929277966,
+      "p50": 16516.823062758434,
+      "p95": 20354.37644734222
+     },
+     "classification": "model_under_predicts",
+     "observed_over_median": 1.2756690508786712
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 40,
+     "observed_mean": 263.4,
+     "observed_sd": 92.0,
+     "simulated_group_mean": {
+      "p05": 244.43938083768091,
+      "p50": 269.33043816723915,
+      "p95": 295.84177905017424
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.9779808097161424
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 20,
+     "observed_mean": 25123.3,
+     "observed_sd": 10851.5,
+     "simulated_group_mean": {
+      "p05": 26329.44716466236,
+      "p50": 29338.75177164747,
+      "p95": 32797.19398109547
+     },
+     "classification": "model_over_predicts",
+     "observed_over_median": 0.8563179577489313
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "kind": "secondary",
+     "dose_mg_kg": 8.0,
+     "n": 28,
+     "observed_mean": 133.5,
+     "observed_sd": 32.5,
+     "simulated_group_mean": {
+      "p05": 120.42237038003113,
+      "p50": 134.00507161027673,
+      "p95": 149.4269539698179
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.9962309515288674
+    }
+   ]
+  },
+  "covariate_spread": {
+   "settings": {
+    "spread": true
+   },
+   "endpoints": [
+    {
+     "endpoint": "sirius_8.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 18,
+     "observed_mean": 138.7,
+     "observed_sd": 34.9,
+     "simulated_group_mean": {
+      "p05": 112.66582115027637,
+      "p50": 129.67561589974798,
+      "p95": 149.88301785740003
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.0695919895011623
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 15,
+     "observed_mean": 21070.0,
+     "observed_sd": 13514.3,
+     "simulated_group_mean": {
+      "p05": 14047.995679440428,
+      "p50": 17727.617481476133,
+      "p95": 22120.640038249607
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.188540988207602
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 40,
+     "observed_mean": 263.4,
+     "observed_sd": 92.0,
+     "simulated_group_mean": {
+      "p05": 244.2218979796572,
+      "p50": 270.3342812858639,
+      "p95": 296.74994675848046
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.9743492343890663
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 20,
+     "observed_mean": 25123.3,
+     "observed_sd": 10851.5,
+     "simulated_group_mean": {
+      "p05": 26866.13786836951,
+      "p50": 30089.801834786595,
+      "p95": 33413.95590119353
+     },
+     "classification": "model_over_predicts",
+     "observed_over_median": 0.8349440165124364
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "kind": "secondary",
+     "dose_mg_kg": 8.0,
+     "n": 28,
+     "observed_mean": 133.5,
+     "observed_sd": 32.5,
+     "simulated_group_mean": {
+      "p05": 118.91361715385719,
+      "p50": 133.39732729579293,
+      "p95": 150.7502651076741
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.0007696758719866
+    }
+   ]
+  },
+  "sex_factor_on_females": {
+   "settings": {
+    "sex_factor_on": "female"
+   },
+   "endpoints": [
+    {
+     "endpoint": "sirius_8.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 18,
+     "observed_mean": 138.7,
+     "observed_sd": 34.9,
+     "simulated_group_mean": {
+      "p05": 113.31841260248564,
+      "p50": 130.04366176089877,
+      "p95": 149.12398514345955
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.0665648607697387
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 15,
+     "observed_mean": 21070.0,
+     "observed_sd": 13514.3,
+     "simulated_group_mean": {
+      "p05": 14484.127184966477,
+      "p50": 17843.941276935722,
+      "p95": 22064.807637002134
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.1807929466364102
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 40,
+     "observed_mean": 263.4,
+     "observed_sd": 92.0,
+     "simulated_group_mean": {
+      "p05": 236.93561388041326,
+      "p50": 259.58024368847543,
+      "p95": 284.4591388466436
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.014715127227127
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 20,
+     "observed_mean": 25123.3,
+     "observed_sd": 10851.5,
+     "simulated_group_mean": {
+      "p05": 26264.9486984122,
+      "p50": 29420.894791708684,
+      "p95": 32717.17694346339
+     },
+     "classification": "model_over_predicts",
+     "observed_over_median": 0.8539271214511184
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "kind": "secondary",
+     "dose_mg_kg": 8.0,
+     "n": 28,
+     "observed_mean": 133.5,
+     "observed_sd": 32.5,
+     "simulated_group_mean": {
+      "p05": 114.92272799621918,
+      "p50": 129.14280751377015,
+      "p95": 146.05045651979717
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.0337393353150175
+    }
+   ]
+  },
+  "infusion_3h": {
+   "settings": {
+    "first_h": 3.0,
+    "later_h": 3.0
+   },
+   "endpoints": [
+    {
+     "endpoint": "sirius_8.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 18,
+     "observed_mean": 138.7,
+     "observed_sd": 34.9,
+     "simulated_group_mean": {
+      "p05": 114.14829230843559,
+      "p50": 132.29747505312764,
+      "p95": 152.45592431833552
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.0483949141455742
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 15,
+     "observed_mean": 21070.0,
+     "observed_sd": 13514.3,
+     "simulated_group_mean": {
+      "p05": 14532.039577000089,
+      "p50": 17743.971337150942,
+      "p95": 22478.57437130056
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.1874455610670018
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 40,
+     "observed_mean": 263.4,
+     "observed_sd": 92.0,
+     "simulated_group_mean": {
+      "p05": 247.59164495014323,
+      "p50": 273.27392756371387,
+      "p95": 300.58546258475747
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.9638680219084867
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 20,
+     "observed_mean": 25123.3,
+     "observed_sd": 10851.5,
+     "simulated_group_mean": {
+      "p05": 27297.22020588752,
+      "p50": 30591.662015517824,
+      "p95": 34207.59485348572
+     },
+     "classification": "model_over_predicts",
+     "observed_over_median": 0.8212466516940478
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "kind": "secondary",
+     "dose_mg_kg": 8.0,
+     "n": 28,
+     "observed_mean": 133.5,
+     "observed_sd": 32.5,
+     "simulated_group_mean": {
+      "p05": 120.41142020525719,
+      "p50": 135.75916511109952,
+      "p95": 152.29828236098936
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.9833590232434715
+    }
+   ]
+  },
+  "kdes_zero": {
+   "settings": {
+    "kdes_zero": true
+   },
+   "endpoints": [
+    {
+     "endpoint": "sirius_8.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 18,
+     "observed_mean": 138.7,
+     "observed_sd": 34.9,
+     "simulated_group_mean": {
+      "p05": 113.34860090450631,
+      "p50": 130.68778972261413,
+      "p95": 149.97169942012727
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.0613080249837559
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "kind": "primary",
+     "dose_mg_kg": 8.0,
+     "n": 15,
+     "observed_mean": 21070.0,
+     "observed_sd": 13514.3,
+     "simulated_group_mean": {
+      "p05": 14337.013387660782,
+      "p50": 17513.743098126364,
+      "p95": 21278.896222903895
+     },
+     "classification": "consistent",
+     "observed_over_median": 1.203055216805943
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 40,
+     "observed_mean": 263.4,
+     "observed_sd": 92.0,
+     "simulated_group_mean": {
+      "p05": 247.78421438057146,
+      "p50": 269.62710634100915,
+      "p95": 296.93027363322443
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.9769047466127776
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "kind": "primary",
+     "dose_mg_kg": 16.0,
+     "n": 20,
+     "observed_mean": 25123.3,
+     "observed_sd": 10851.5,
+     "simulated_group_mean": {
+      "p05": 27313.5702181714,
+      "p50": 30274.45701669331,
+      "p95": 33626.023119237296
+     },
+     "classification": "model_over_predicts",
+     "observed_over_median": 0.8298513821782842
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "kind": "secondary",
+     "dose_mg_kg": 8.0,
+     "n": 28,
+     "observed_mean": 133.5,
+     "observed_sd": 32.5,
+     "simulated_group_mean": {
+      "p05": 119.33156998701499,
+      "p50": 133.96552848620755,
+      "p95": 151.2342798405445
+     },
+     "classification": "consistent",
+     "observed_over_median": 0.996525012878552
+    }
+   ]
+  }
+ },
+ "known_differences": [
+  "Infusion durations are assumed.",
+  "Arithmetic means of small groups with large variability (CV 24-64%) are compared; residual error (34.8% on the log scale) is not simulated, which lowers simulated arithmetic means by about 6% relative to noisy measurements.",
+  "AUC to infinity in SIRIUS was estimated by NCA with terminal extrapolation; the simulation uses the exact integral.",
+  "The model was estimated mainly on COLUMBA (2017-2019) and PLEIADES; GEN501 and SIRIUS (2008-2015) enrolled more heavily pretreated patients.",
+  "Covariates are study-level (all dose groups combined), not by dose group; only medians and ranges are reported.",
+  "GEN501 Part 2 16 mg/kg: no pre-dose (ESM Fig. 1), as simulated."
+ ],
+ "clinical_prediction_validated": false,
+ "report_sha256": "24b12ab84f930775f8550374d58286f201828483001de71a116534c2cf9c86e9"
+}

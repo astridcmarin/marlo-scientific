@@ -59,8 +59,41 @@ Nothing yet. The model is not registered. If a later, separately planned step pr
 - the first-week 16 mg/kg exposure as over-predicted by 13% in GEN501;
 - the partial independence.
 
+## 3.2c — Second locked check with the studies' own demographics
+
+Clemens 2017's supplementary material arrived after the first check had run. It is pinned in `daratumumab_iv_clemens_2017_supplement_v1.json` (`7195efd9…` source file). It settles three things:
+- **No pre-dose at 16 mg/kg.** GEN501 Part 2 cohorts D and E had a single first infusion and a 3-week washout, as simulated. Only the 8 mg/kg cohorts A and B had a pre-dose.
+- **Demographics by study:**
+  - GEN501: 80.5 kg, albumin 39.5 g/L, IgG 49%, men 68%.
+  - SIRIUS: 76 kg, albumin 34 g/L, IgG 49%, men 52%.
+- **The reference values.** The two studies' combined medians (78.6 kg, 37 g/L) are exactly the reference values in Luo's covariate equations.
+
+**The second plan** (`daratumumab_pk_luo_check_plan_v2.json`, locked in commit `cae3463`) keeps every rule of v1 and changes only the covariates. Before running it stated the expected direction: GEN501's higher albumin and lower IgG share lower the predicted clearance, so the GEN501 over-prediction should persist or widen. The v1 plan and report are unchanged.
+
+**Result** (report `docs/verification/daratumumab_pk_luo_check_v2.json`, 1,000 trials, 8 scenarios):
+
+| First infusion | Observed | Model 5th–95th (v2) | Observed / median, v1 → v2 | v2 result |
+|---|---|---|---|---|
+| SIRIUS 8 mg/kg Cmax | 138.7 | 113.0–148.8 | 1.05 → 1.07 | consistent, robust |
+| SIRIUS 8 mg/kg AUC to infinity | 21,070 | 14,387–21,834 | 1.11 → 1.18 | consistent; under-predicts with 75% IgG |
+| GEN501 16 mg/kg Cmax | 263.4 | 247.0–298.5 | 1.00 → 0.97 | consistent, robust |
+| GEN501 16 mg/kg AUC 0–7 days | 25,123 | 27,190–33,784 | 0.87 → 0.83 | **over-predicts, robust** |
+| GEN501 8 mg/kg Cmax (secondary) | 133.5 | 118.9–148.7 | 1.02 → 1.00 | consistent, robust |
+
+Decision: not consistent, not registered. As expected, the GEN501 gap widened.
+
+**What the two checks together show:**
+- **Peaks are right** in both studies at both doses, so the volume model transfers.
+- **Exposure over time goes wrong in opposite directions** once each study's own patients are used:
+  - In GEN501, the drug is cleared faster than predicted: observed exposure is 0.83 of the model.
+  - In SIRIUS, it is cleared slower: 1.18 of the model, at the edge of the range.
+
+  The covariate that separates the two studies most is albumin (39.5 vs 34 g/L). The model's albumin effect (CL ∝ albumin^−1.85) predicts SIRIUS patients should clear the drug about 30% faster than GEN501 patients. The observations go the other way.
+- **So the albumin effect may not transfer to these older studies.** Either Luo's estimate (from COLUMBA and PLEIADES) does not hold here, or another study difference cancels it. Candidates are tumour burden (CD38), which is not a covariate, and the AUC calculations.
+- **Summary data cannot separate these explanations.** Individual concentrations with covariates would.
+
 ## Open items
 
 - **Independent review** of both transcriptions, especially the garbled sex-on-V1 line.
 - **The earlier intravenous model** (Xu 2017, ref 24 in Luo) would confirm the KDES form.
-- **Clemens' electronic supplementary material** (Table 2, demographics; Fig. 1, dosing schedules) would replace the covariate assumptions and settle the pre-dose question.
+- ~~Clemens' supplementary material~~: received and used in 3.2c.
