@@ -1,4 +1,5 @@
 # Clinical Trials Intelligence Explorer
+import json
 from flask import Flask, Response, abort, redirect, render_template, request, url_for
 import requests
 from intelligence_store import init_storage
@@ -683,6 +684,37 @@ def model_scorecard(model_id):
     except KeyError:
         abort(404)
     return render_template("model_scorecard.html", card=card)
+
+
+@app.route("/models/credibility")
+def credibility_records():
+    from intelligence_store.credibility_records import NOT_ESTABLISHED, all_records
+    return render_template("credibility_records.html", records=all_records(), never=NOT_ESTABLISHED)
+
+
+@app.route("/models/<model_id>/credibility")
+def credibility_record(model_id):
+    from intelligence_store.credibility_records import level_label, record
+    from intelligence_store.run_record import load_evidence_status
+    try:
+        rec = record(model_id)
+    except KeyError:
+        abort(404)
+    return render_template("credibility_record.html", rec=rec, level_label=level_label,
+                           has_scorecard=model_id in load_evidence_status()["models"])
+
+
+@app.route("/models/<model_id>/credibility.json")
+def credibility_record_json(model_id):
+    from intelligence_store.credibility_records import record
+    try:
+        rec = record(model_id)
+    except KeyError:
+        abort(404)
+    payload = json.dumps(rec, indent=1, ensure_ascii=False) + "\n"
+    return Response(payload, mimetype="application/json",
+                    headers={"Content-Disposition": f'attachment; filename="credibility_record_{model_id}.json"',
+                             "X-Content-Type-Options": "nosniff"})
 
 
 @app.route("/models/reports/<name>")
