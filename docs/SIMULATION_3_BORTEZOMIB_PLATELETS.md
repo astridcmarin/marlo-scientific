@@ -265,7 +265,7 @@ Every classification is the same under all four NCA readings.
 
 ## 3.0j — The Iwasaki 2020 target-binding PBPK model: transcription (`bortezomib_pbpk_iwasaki.py`)
 
-**Source.** The model is from Iwasaki et al., *AAPS J* 2020;22:66. The article's Table 2 gives the parameters but does not print the equations. On 24 October 2026, an author of the article sent equations (1)–(7) on request, as a personal communication. The attribution wording is pending his agreement. The correspondence is kept by the platform owner and is not committed. The transcription is pinned in `bortezomib_pbpk_iwasaki_2020_extract_v1.json` (`9bfb9ac2…`).
+**Source.** The model is from Iwasaki et al., *AAPS J* 2020;22:66. The article's Table 2 gives the parameters but does not print the equations. On 24 October 2026, an author of the article sent equations (1)–(7) on request, as a personal communication. The author has since agreed that citing the article is sufficient (3.0l). The correspondence is kept by the platform owner and is not committed. The transcription is pinned in `bortezomib_pbpk_iwasaki_2020_extract_v1.json` (`9bfb9ac2…`).
 
 **Structure.**
 - **Compartments:** systemic plasma, systemic red cells, peripheral, hepatic plasma, hepatic red cells and liver.
@@ -300,7 +300,7 @@ Nothing on the platform changes in this step.
 ## 3.0k — The Iwasaki 2020 model against Ogawa 2008 and CAN-1004 (`bortezomib_pbpk_iwasaki_check.py`)
 
 **Plan.** The plan `bortezomib_pbpk_iwasaki_check_plan_v1.json` (`185b1417…`) was locked in commit 2b39d8f before the model was simulated with any dose.
-- **Dose input (assumption):** an IV bolus into systemic plasma. The question to the author is pending.
+- **Dose input (assumption at the time):** an IV bolus into systemic plasma. Confirmed by the author on 30 October 2026 (3.0l).
 - **Body size (assumed typical adults):** 58 kg and 160 cm for Ogawa; 75 kg and 170 cm for CAN-1004.
 - **Sensitivities:** dose per kg × 0.9 and × 1.1; red-cell proteasome capacity (Bmax) × 1.4, as in the article's supplement.
 - **Independence: pending.** The article was built bottom-up and does not cite Ogawa 2008 or the CAN-1004 publication. Its Methods have not been read.
@@ -334,5 +334,20 @@ At 1.3 mg/m², ng·h/mL:
 - **Nothing changes on the platform.** The platelet tool keeps its constant-clearance component and the recorded disagreements.
 - **What would still help:**
   - individual concentration data;
-  - the article's own comparisons and its dose input;
+  - the article's own comparisons (which human data evaluated the model);
   - a mechanism that changes clearance between doses, such as proteasome turnover or enzyme changes, which neither model has.
+
+## 3.0l — Author answers on the Iwasaki 2020 model
+
+On 30 October 2026, an author of the article answered two of the open questions. The answers are pinned in `bortezomib_pbpk_iwasaki_2020_author_answers_v1.json` (`01b2c917…`, loaded by `bortezomib_pbpk_iwasaki.load_author_answers`). The correspondence itself is not committed.
+
+- **Attribution:** citing the article is sufficient. The model is credited as Iwasaki et al., *AAPS J* 2020;22:66, with no individual named as the source of the equations.
+- **Dose input:** an IV dose enters as a bolus into the central compartment, which is the reading the locked 3.0k check used.
+
+**Effect on 3.0k.** The result (not consistent with Ogawa 2008 or CAN-1004, robust) no longer rests on an assumed dose input. The locked plan, the extract and the report are unchanged; this record sits beside them.
+
+**Still open:**
+- which human data were used to evaluate the model, which decides whether Ogawa 2008 and CAN-1004 are independent of it;
+- the proteasome-inhibition equation (not needed for the PK check).
+
+Body size remains an assumption in 3.0k, but the result was robust to ±10% dose per kg.
