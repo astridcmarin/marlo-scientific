@@ -1,0 +1,112 @@
+{
+ "schema_version": "external-consistency-plan-v1",
+ "plan_version": "bortezomib-pbpk-iwasaki-check-plan-v1.0",
+ "recorded_on": "2026-10-29",
+ "status": "locked_before_computation",
+ "prespecification_note": "Written and checksum-pinned before the Iwasaki 2020 model was simulated with any dose. Not blinded: the Ogawa 2008 Table 3 and CAN-1004 Table 7 values were read before, as were the results of 3.0f-3.0i (the constant-clearance model over-predicts day 1 in Ogawa and under-predicts day 11 in CAN-1004; Kuan 2012 and two falling-clearance forms failed). From the transcription alone (3.0j) it was noted that the red-cell binding capacity (27.9 nmol/kg, about 10.7 ug/kg) is about a third of a 1.3 mg/m2 dose and that intrinsic clearance is constant. No concentration of this model had been computed.",
+ "classification": "exploratory_aggregate_external_consistency_check",
+ "independence": "Pending. The article states a bottom-up build from preclinical data and human physiological parameters. Its reference list (Springer page, read 29 October 2026) does not cite Ogawa 2008 or the CAN-1004 publication; the only clinical study code visible is CAN-1001 (Supplemental Fig. 2). The Methods have not been read and the author has not yet answered which clinical data were used. If either study was used to evaluate the model, a consistent result partly repeats the authors' evaluation; the report must say so.",
+ "not_this": [
+  "Not validation or qualification of the model; no acceptance limits are introduced.",
+  "Not a comparison of individual concentrations; only published means and SDs are used.",
+  "Not a re-fit: no parameter is estimated or tuned.",
+  "Not a dosing or exposure prediction for any patient."
+ ],
+ "question": "Does the Iwasaki 2020 PBPK model (target binding in red blood cells, constant hepatic clearance), as transcribed in 3.0j, reproduce day 1 and day 11 exposure after repeated IV bortezomib in Ogawa 2008 and CAN-1004, which the constant-clearance model did not?",
+ "data": {
+  "model_extract": {
+   "path": "intelligence_store/data/bortezomib_pbpk_iwasaki_2020_extract_v1.json",
+   "sha256": "9bfb9ac21012b2910f59c451d1e802a9282401469875241bd96126fae24b745c"
+  },
+  "ogawa": {
+   "path": "intelligence_store/data/bortezomib_pk_ogawa_2008_observed_v1.json",
+   "sha256": "cf1bff435354dbbb6864414fac81effadea35ed1ac3d90b7b53f64d67d8bea13"
+  },
+  "can1004": {
+   "path": "intelligence_store/data/bortezomib_pk_can1004_observed_v1.json",
+   "sha256": "60b4dbb2bba6a8a56a15080cded7dc33e187d3fa0688a9a0788c6a5b66ab80c4"
+  }
+ },
+ "model": {
+  "equations": "Equations (1)-(6) of the extract (bortezomib_pbpk_iwasaki.derivatives), Table 2 parameters; output plasma concentration Cp (ng/mL).",
+  "dose_input": "Assumption (not in the communication; question to the author pending): IV bolus added to the systemic plasma compartment, Cp increases by dose (ug/kg) / Vsys (L/kg); all compartments start at zero.",
+  "parameter_sets": {
+   "primary": "Table 2 as transcribed (Bmax 854 nM).",
+   "sensitivity": "Bmax x 1.4 (1195.6 nM), the alternative shown in the article's Supplemental Fig. 2 against CAN-1001; all else unchanged."
+  },
+  "body_size": {
+   "why": "The model is per kg; doses are per m2, so dose (ug/kg) = dose (mg/m2) x 1000 x BSA / weight. Neither study reports body size in the extracts used.",
+   "ogawa_primary": {
+    "weight_kg": 58,
+    "height_cm": 160,
+    "bsa_m2_du_bois": 1.599,
+    "dose_ug_kg_at_1_3": 35.84
+   },
+   "can1004_primary": {
+    "weight_kg": 75,
+    "height_cm": 170,
+    "bsa_m2_du_bois": 1.864,
+    "dose_ug_kg_at_1_3": 32.3
+   },
+   "sensitivity": "Dose per kg x 0.9 and x 1.1 for each study.",
+   "basis": "Assumed typical adults (Japanese and North American/European); not taken from the studies."
+  }
+ },
+ "simulation": {
+  "regimen": "IV bolus at t = 0, 72, 168 and 240 h (days 1, 4, 8 and 11); no drug before t = 0.",
+  "sampling": "Ogawa: its sampling times after t = 0 (day 1) and after t = 240 h (day 11). CAN-1004: its sampling times; the day 1 72 h sample is taken before the day 4 dose.",
+  "solver": "Fixed-step fourth-order Runge-Kutta, step 0.00025 h (the fastest rate in the system is about 6,200 per h, hepatic plasma to liver), restarted at each dose.",
+  "numerical_checks": [
+   "Mass balance: amount in the six compartments plus amount metabolised equals the amount dosed within 1e-6 relative.",
+   "Halving the step changes every emulated AUC by less than 0.1%.",
+   "With Kon = 0 (no binding), the simulated plasma AUC from 0 to 2,000 h after one dose matches the closed-form AUC to infinity of the linear system within 0.5% (the remaining tail is reported)."
+  ]
+ },
+ "nca_emulation": "As in 3.0f (Ogawa: AUC to infinity from 48 h sampling, primary reading linear trapezoid with the last three points; three sensitivity readings) and 3.0h (CAN-1004: AUC to the last sample at 72 h primary; AUC to infinity secondary); functions bortezomib_pk_ogawa_check.nca, unchanged.",
+ "endpoints": {
+  "primary": [
+   {
+    "study": "Ogawa 2008",
+    "dose": "1.3 mg/m2",
+    "names": [
+     "auc_day1",
+     "auc_day11",
+     "auc_ratio_day11_over_day1"
+    ]
+   },
+   {
+    "study": "CAN-1004 IV",
+    "dose": "1.3 mg/m2",
+    "names": [
+     "auc_last_day1",
+     "auc_last_day11"
+    ]
+   }
+  ],
+  "secondary": [
+   "Ogawa 0.7 and 1.0 mg/m2: the same three endpoints",
+   "C0 day 1 and day 11 in both studies",
+   "CAN-1004 AUC to infinity, day 1 and day 11"
+  ],
+  "descriptive": [
+   "half-lives (emulated vs reported)",
+   "CAN-1004 ratio of mean AUClast day 11 / day 1 (observed 2.32)",
+   "fraction of red-cell binding sites occupied at the end of each dosing day",
+   "model AUC from each dose to the next, without emulation"
+  ]
+ },
+ "comparison": "95% confidence interval of the observed mean (t distribution, n - 1 degrees of freedom); consistent, model_over_predicts or model_under_predicts; ratio model / observed mean. Robustness: each primary endpoint under the four NCA readings, the two body-size sensitivities and the Bmax sensitivity; robust if all agree.",
+ "decision_rule": {
+  "primary_condition": "Table 2 parameters, primary body size, primary NCA reading.",
+  "summary": "The model is recorded as consistent with a study only if all of that study's primary endpoints are consistent under the primary condition. It is recorded as resolving the 3.0f and 3.0h findings only if it is consistent with both studies. A classification that changes across the sensitivity analyses is reported as not robust.",
+  "consequence": "If it resolves the findings, a separate step (with its own record) may propose it as the exposure model behind the platelet tool, with the dose-input assumption and pending independence shown. This check changes nothing on the platform by itself.",
+  "never": "No parameter is re-estimated or tuned; the Bmax value and body sizes are not chosen after seeing results (all are reported)."
+ },
+ "known_differences": [
+  "Typical-value model compared with arithmetic means of skewed quantities.",
+  "Small groups (Ogawa 1.3 mg/m2: n = 7 day 1, n = 5 day 11; CAN-1004 IV: n = 10).",
+  "Body size and dose input are assumptions.",
+  "Vsys (0.418 L/kg) was scaled from monkeys and is not physiological plasma volume.",
+  "No proteasome or red-cell turnover in the model; binding sites do not regenerate over the 11 days except by dissociation."
+ ]
+}

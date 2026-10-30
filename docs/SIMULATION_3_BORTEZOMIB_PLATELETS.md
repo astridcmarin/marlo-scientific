@@ -296,3 +296,43 @@ Every classification is the same under all four NCA readings.
 3. Only then simulate.
 
 Nothing on the platform changes in this step.
+
+## 3.0k — The Iwasaki 2020 model against Ogawa 2008 and CAN-1004 (`bortezomib_pbpk_iwasaki_check.py`)
+
+**Plan.** The plan `bortezomib_pbpk_iwasaki_check_plan_v1.json` (`185b1417…`) was locked in commit 2b39d8f before the model was simulated with any dose.
+- **Dose input (assumption):** an IV bolus into systemic plasma. The question to the author is pending.
+- **Body size (assumed typical adults):** 58 kg and 160 cm for Ogawa; 75 kg and 170 cm for CAN-1004.
+- **Sensitivities:** dose per kg × 0.9 and × 1.1; red-cell proteasome capacity (Bmax) × 1.4, as in the article's supplement.
+- **Independence: pending.** The article was built bottom-up and does not cite Ogawa 2008 or the CAN-1004 publication. Its Methods have not been read.
+
+**Numerical checks, all passed:**
+- Mass balance holds to 5e-14.
+- Halving the step changes AUC by 2e-10.
+- Without binding, the solver's plasma AUC matches the closed form to 1e-5.
+- A first version of the closed-form check integrated a 0.5 h grid by trapezoids and failed at 2.3%. That was quadrature error in the check itself; it was replaced before the report was committed, and the correction is recorded in the report.
+
+**Locked result** (report `docs/verification/bortezomib_pbpk_iwasaki_check_v1.json`): **not consistent with either study, and robust** across the four NCA readings, both body sizes and the Bmax sensitivity.
+
+At 1.3 mg/m², ng·h/mL:
+
+| Study | Endpoint | Iwasaki 2020 | Constant-clearance model (3.0f/3.0h) | Observed mean (95% CI) | Iwasaki result |
+|---|---|---|---|---|---|
+| Ogawa 2008 | AUC day 1 | 107 | 133 | 46.5 (28–65) | over-predicts |
+| Ogawa 2008 | AUC day 11 | 215 | 248 | 187 (125–248) | consistent |
+| Ogawa 2008 | Day 11 / day 1 ratio | 2.0 | 1.9 | 5.1 (4.5–5.8) | under-predicts |
+| CAN-1004 IV | AUClast day 1 | 88 | 81 | 104 (33–175) | consistent |
+| CAN-1004 IV | AUClast day 11 | 135 | 127 | 241 (182–300) | under-predicts |
+
+**What it shows:**
+- **The target-binding model reproduces the same pattern as the constant-clearance model.** Exposure rises about 1.5–2-fold from day 1 to day 11, against 2.3-fold in CAN-1004 and 5.1-fold in Ogawa.
+- **In the model, the rise comes from accumulation.** Peripheral drug builds up, and red-cell binding sites fill gradually: 24% occupied before the day 4 dose and 38% before day 11. Because the sites only fill partway and the drug dissociates within hours (Koff 0.38 per h), binding does not produce a large change between doses.
+- **The model's C0 is well below the observed values** (65 vs 186 ng/mL in Ogawa). Its apparent central volume (0.418 L/kg) is about ten times plasma volume.
+
+**What it means:**
+- **Within this check, the model does not explain the time-dependent rise in these two studies.** This holds under the stated dose-input and body-size assumptions.
+- **This is not a judgement on the article.** It describes other data (CAN-1001, interaction studies), and we compare typical values with small-group means.
+- **Nothing changes on the platform.** The platelet tool keeps its constant-clearance component and the recorded disagreements.
+- **What would still help:**
+  - individual concentration data;
+  - the article's own comparisons and its dose input;
+  - a mechanism that changes clearance between doses, such as proteasome turnover or enzyme changes, which neither model has.
