@@ -133,8 +133,9 @@ def wilson(successes, n, z=1.959963984540054):
     return max(0.0, centre - half), min(1.0, centre + half)
 
 
-def summarise(pairs):
+def summarise(pairs, rule=None):
     """Per-type counts, precision, recall, intervals and the pass decision."""
+    rule = rule or PASS
     out = {}
     for ctype in TYPES:
         rows = [p for p in pairs if p['type'] == ctype]
@@ -146,10 +147,10 @@ def summarise(pairs):
         recall = tp / (tp + fn) if tp + fn else None
         p_lo, p_hi = wilson(tp, tp + fp)
         r_lo, r_hi = wilson(tp, tp + fn)
-        if annotated_positive < PASS['min_pairs']:
+        if annotated_positive < rule['min_pairs']:
             decision = 'insufficient_data'
-        elif (precision is not None and recall is not None and precision >= PASS['precision'] and p_lo >= PASS['precision_lower']
-              and recall >= PASS['recall'] and r_lo >= PASS['recall_lower']):
+        elif (precision is not None and recall is not None and precision >= rule['precision'] and p_lo >= rule['precision_lower']
+              and recall >= rule['recall'] and r_lo >= rule['recall_lower']):
             decision = 'pass'
         else:
             decision = 'fail'
