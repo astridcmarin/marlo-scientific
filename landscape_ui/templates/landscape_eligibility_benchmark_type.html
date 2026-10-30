@@ -1,0 +1,42 @@
+{% extends "landscape_base.html" %}
+{% import "_eligibility_benchmark_common.html" as bm %}
+{% block title %}{{ dist.label }} · Eligibility benchmarking{% endblock %}
+{% block content %}
+{{ bm.styles() }}
+<p><a href="{{ url_for('landscape.eligibility_benchmark', **filters) }}">&#8592; All criteria</a></p>
+<p class="eyebrow">Eligibility benchmarking · Multiple myeloma interventional trials</p>
+<h1>{{ dist.label }}</h1>
+{{ bm.preview_banner(preview) }}
+{% if accuracy %}<section class="panel"><p><strong>Measured accuracy</strong> on 200 hand-annotated trials: precision {{ "%.2f"|format(accuracy.precision) }} (95% CI {{ "%.2f"|format(accuracy.precision_95ci[0]) }}–{{ "%.2f"|format(accuracy.precision_95ci[1]) }}), recall {{ "%.2f"|format(accuracy.recall) }} ({{ "%.2f"|format(accuracy.recall_95ci[0]) }}–{{ "%.2f"|format(accuracy.recall_95ci[1]) }}). Roughly one value in {{ (1 / (1 - accuracy.precision))|round|int if accuracy.precision < 1 else 'many' }} may be misread: check the clause before relying on a count.</p></section>{% endif %}
+<section class="panel">{{ bm.filter_form(url_for('landscape.eligibility_benchmark_type', ctype=ctype), filters, phase_labels, statuses) }}
+<p class="bm-meta">{{ "{:,}".format(dist.trials_in_selection) }} trials in this selection · threshold stated in {{ "{:,}".format(dist.stated) }} · not stated in {{ "{:,}".format(dist.not_stated) }}{% if dist.multiple %} · {{ dist.multiple }} with several values (cohorts or parts){% endif %}</p></section>
+
+<section class="panel"><h2>Compare a draft threshold</h2>
+<form class="bm-draft" method="get" action="{{ url_for('landscape.eligibility_benchmark_type', ctype=ctype) }}">
+{% for k, v in filters.items() %}{% if v %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endif %}{% endfor %}
+<label>Comparator <select name="draft_comparator">{% for c in ['>=', '>', '<=', '<'] %}<option value="{{ c }}" {% if request.args.get('draft_comparator') == c %}selected{% endif %}>{{ symbol[c] }}</option>{% endfor %}</select></label>
+<label>Value <input name="draft_value" inputmode="decimal" size="8" value="{{ request.args.get('draft_value', '') }}"></label>
+<label>Unit <select name="draft_unit">{% for u in units %}<option value="{{ u }}" {% if request.args.get('draft_unit') == u %}selected{% endif %}>{{ u }}</option>{% endfor %}</select></label>
+<button class="button primary" type="submit">Compare</button></form>
+{% if draft_error %}<p role="alert">{{ draft_error }}</p>{% endif %}
+{% if draft %}<p class="bm-meta">Draft {{ draft.draft_label }} · {{ draft.comparable_trials }} trials state a comparable threshold. {{ draft.note }}</p>
+<div class="bm-result"><div><span>Stricter than the draft</span><strong>{{ draft.stricter|length }}</strong></div><div><span>Same</span><strong>{{ draft.equal|length }}</strong></div><div><span>More permissive</span><strong>{{ draft.more_permissive|length }}</strong></div></div>{% endif %}
+</section>
+
+{% for g in dist.groups %}
+<section class="panel"><h2>{{ g.unit or 'Score' }}{% if g.direction != 'usual' %} · other direction (for example, trials of impaired kidney function){% endif %}</h2>
+<p class="bm-meta">{{ g.trials }} trials. Each threshold opens its trials and clauses.</p>
+<div class="table-scroll"><table class="bm-table"><thead><tr><th>Threshold</th><th class="numeric">Trials</th><th>Trials and clauses</th></tr></thead><tbody>
+{% for b in g.bins %}<tr><td>{{ b.label }}</td><td class="numeric">{{ b.n }}</td><td><details><summary>Show {{ b.n }} trial{{ 's' if b.n != 1 }}</summary><ul class="bm-trials">{% for t in b.trials %}<li><a href="https://clinicaltrials.gov/study/{{ t.nct_id }}" target="_blank" rel="noopener noreferrer">{{ t.nct_id }}</a> · {{ t.title[:110] }}{% if t.title|length > 110 %}…{% endif %}<span class="bm-clause">{{ t.section|capitalize }}: “{{ t.segment[:260] }}{% if t.segment|length > 260 %}…{% endif %}”</span></li>{% endfor %}</ul></details></td></tr>{% endfor %}
+</tbody></table></div></section>
+{% else %}<section class="panel"><p>No trial in this selection states a threshold for this measure.</p></section>{% endfor %}
+<details class="panel source-method"><summary>Method and limits</summary>
+<ul>
+<li>Source: registered eligibility criteria of {{ "{:,}".format(data.trials|length) }} multiple myeloma interventional trials (ClinicalTrials.gov, retrieved 5 October 2026; corpus content SHA256 {{ data.corpus_content_sha256[:12] }}…).</li>
+<li>Reader: {{ data.extractor_version }} (SHA256 {{ data.extractor_sha256[:12] }}…), rule-based; frozen before its accuracy check.</li>
+<li>Values are counted as the condition for eligibility; exclusion criteria are turned into the eligible side. Exceptions for some patients (for example, marrow involvement or Gilbert's syndrome) are not counted as separate thresholds.</li>
+<li>Units are grouped only by exact factors: /µL, cells/µL, × 10⁹/L and K/µL; g/dL and g/L; mg/dL and µmol/L. × ULN, creatinine clearance (mL/min) and eGFR (mL/min/1.73 m²) stay separate.</li>
+<li>A trial with several values (cohorts or parts) appears under each value; the draft comparison uses its first value.</li>
+<li>Descriptive only: it does not recommend criteria or judge any protocol.</li>
+</ul></details>
+{% endblock %}

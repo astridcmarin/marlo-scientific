@@ -1,0 +1,32 @@
+{% extends "landscape_base.html" %}
+{% import "_eligibility_benchmark_common.html" as bm %}
+{% block title %}Eligibility benchmarking · Protocols{% endblock %}
+{% block content %}
+{{ bm.styles() }}
+<p class="eyebrow">Protocols · Multiple myeloma interventional trials</p>
+<h1>Eligibility benchmarking</h1>
+<p class="intro">Which kidney, liver, blood-count and performance-status thresholds similar trials used, read from their registered eligibility criteria. Every count opens the trials and the clause it came from.</p>
+{{ bm.preview_banner(preview) }}
+<section class="panel"><h2>What is shown, and why</h2>
+{% if status.available %}
+<p>A criterion type is shown only after the rule-based reader passed a locked accuracy check against a hand annotation of 200 trials. Passing: {% for t in status.passing_types %}{{ labels[t] }}{% if not loop.last %}, {% endif %}{% else %}none yet{% endfor %}.</p>
+{% else %}
+<p><strong>No criterion type is shown yet.</strong> {{ status.reason }} Each type will appear only if it passes the locked check (precision ≥ 0.90 and recall ≥ 0.80, with 95% lower bounds ≥ 0.80 and ≥ 0.70).</p>
+{% endif %}
+<p class="panel-note">Registered criteria are summaries of the protocol, not the protocol itself. A trial that does not state a threshold in the registry may still have one. Thresholds are counted as the condition a patient must meet to be eligible.</p>
+</section>
+{% if summaries %}
+<section class="panel">{{ bm.filter_form(url_for('landscape.eligibility_benchmark'), filters, phase_labels, statuses) }}
+<p class="bm-meta">{{ "{:,}".format(selection) }} trials with criteria text in this selection · corpus of {{ "{:,}".format(data.trials|length) }} trials · {{ data.extractor_version }}</p></section>
+<div class="bm-grid">
+{% for s in summaries %}
+<article class="bm-card"><h3><a href="{{ url_for('landscape.eligibility_benchmark_type', ctype=s.type, **filters) }}">{{ s.label }}</a></h3>
+<p class="bm-meta">Stated in {{ "{:,}".format(s.stated) }} of {{ "{:,}".format(s.trials_in_selection) }} trials ({{ "%.0f"|format(100 * s.stated / s.trials_in_selection if s.trials_in_selection else 0) }}%){% if s.multiple %} · {{ s.multiple }} with several values{% endif %}</p>
+{% if s.groups %}{% set g = s.groups[0] %}{% set top = (g.bins|sort(attribute='n', reverse=True))[:5] %}{% set mx = (top|map(attribute='n')|max) if top else 1 %}
+{% for b in top|sort(attribute='value') %}<div class="bm-bar"><span>{{ b.label }}</span><span class="track"><span class="fill" style="display:block;width:{{ (100 * b.n / mx)|round(1) }}%"></span></span><span>{{ b.n }}</span></div>{% endfor %}
+<p class="bm-meta">Most common values in the largest unit group ({{ g.trials }} trials){% if s.groups|length > 1 %}; {{ s.groups|length - 1 }} other group{{ 's' if s.groups|length > 2 }}{% endif %}.</p>{% endif %}
+</article>
+{% endfor %}
+</div>
+{% endif %}
+{% endblock %}
