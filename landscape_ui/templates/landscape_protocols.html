@@ -1,7 +1,7 @@
 {% extends "landscape_base.html" %}
 {% block title %}Protocol Intelligence{% endblock %}
 {% block content %}
-<div class="heading-row"><div><p class="eyebrow">Saved study structure</p><h1>Protocol Intelligence</h1><p class="intro">Inspect reported design features, structural thresholds and data coverage.</p></div></div>
+<div class="heading-row"><div><p class="eyebrow">Saved study structure</p><h1>Protocol Intelligence</h1><p class="intro">Inspect reported design features, structural thresholds and data coverage.</p><p><a href="{{ url_for('landscape.eligibility_benchmark') }}">Eligibility benchmarking</a>: kidney, liver, blood-count and performance-status thresholds across myeloma trials.</p></div></div>
 <form class="analysis-picker" method="get" action="{{ url_for('landscape.protocols') }}"><label for="protocol-cohort">Saved analysis</label><select id="protocol-cohort" name="cohort_id" required>{% for cohort in cohorts %}<option value="{{ cohort.id }}" {% if summary and summary.cohort.id == cohort.id %}selected{% endif %}>#{{ cohort.id }} · {{ cohort.condition }} · {{ cohort.scope }}</option>{% endfor %}</select>{% if cohorts %}<button class="button primary" type="submit">Open protocols</button>{% endif %}</form>
 {% if summary %}
 <section class="cohort-banner"><div><h2>{{ summary.cohort.condition }}</h2><div class="badges"><span class="badge complete">Complete cohort</span><span class="badge">{{ summary.cohort.scope }}</span><span class="badge">{{ "{:,}".format(summary.total_trials) }} retained studies</span></div></div><div class="cohort-meta">Cohort #{{ summary.cohort.id }}<br>Saved {{ summary.cohort.finished_at_utc[:10] }} · UTC</div></section>
