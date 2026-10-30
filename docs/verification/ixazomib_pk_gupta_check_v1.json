@@ -1,0 +1,2067 @@
+{
+ "schema_version": "ixazomib-pk-gupta-check-report-v1",
+ "method_version": "ixazomib-pk-gupta-check-v1.0",
+ "model_version": "ixazomib-pk-gupta-2017-v1.0",
+ "plan_version": "ixazomib-pk-gupta-check-plan-v1.1",
+ "plan_sha256": "2c91074731f5cecefa6c84fea915aa7aff28e5f8fb58e0e3e37f857e1dc9e4c4",
+ "plan_commits": {
+  "v1.0": "982044c",
+  "amendment_1": "63c97f1"
+ },
+ "amendments": [
+  {
+   "amendment": "1",
+   "recorded_on": "2026-10-30",
+   "supersedes": "ixazomib-pk-gupta-check-plan-v1.0 (intelligence_store/data/ixazomib_pk_gupta_check_plan_v1.json, sha256 9b8ef3d87dc78b5242f1008c41f4fe0fab39c97aa098786304e5d8de703bae51, locked in commit 982044c)",
+   "reason": "Plan v1.0 did not say what to do with a simulated patient whose sampled concentrations are all below the LLOQ. The first run under v1.0 stopped with an error on such a patient (very low individual F at 1.5 mg) inside the first virtual trial of the primary scenario; no group geometric mean, ratio or classification had been computed or seen. The numerical checks had run and passed (they compute only the typical patient).",
+   "rule": "Both studies report a PK-evaluable population (patients with enough concentration data for non-compartmental analysis). A simulated patient with fewer than 3 samples at or above the LLOQ is treated as not PK-evaluable and replaced by a new draw from the same random stream, until the group has its reported size. The number of replaced patients is reported per scenario and group. Nothing else changes."
+  }
+ ],
+ "model_extract_sha256": "d4fe97e4a8659b993541c9bd960ff6d6c519b4fe913b3ad27de84ce894b233bf",
+ "observed_sha256": "95fbf4c6f1269c7d77c44e08bb00b4b58095fc1ee8b8b5c0dd4ae2d640153f14",
+ "trials": 2000,
+ "seed": 20261030,
+ "classification": "exploratory_aggregate_external_consistency_check",
+ "not_this": [
+  "Not validation or qualification of the model; no acceptance limits are introduced.",
+  "Not a comparison of individual concentrations; only published geometric means, % CV and group sizes are used.",
+  "Not a re-fit: no parameter is estimated or tuned, and no renal or hepatic covariate is added in this step.",
+  "Not a dosing recommendation or exposure prediction for any patient; the label's dose reductions are reported, not evaluated."
+ ],
+ "numerical_checks": {
+  "closed_form_vs_runge_kutta_max_relative_difference": 4.5579713915517906e-12,
+  "closed_form_vs_runge_kutta_pass": true,
+  "auc_0_20000_h_over_f_dose_over_cl": 1.000000000001145,
+  "auc_pass": true,
+  "mass_balance_max_relative_error": 1.1630032824395205e-14,
+  "mass_balance_pass": true,
+  "disposition_rates_per_h": [
+   2.5227632575358885,
+   0.03720872606162817,
+   0.0030869458083035983
+  ],
+  "half_lives_h": [
+   0.2747571253423825,
+   18.628618980716983,
+   224.54141523814366
+  ]
+ },
+ "descriptive": {
+  "typical_patient_3_mg": {
+   "auc_infinity_ng_h_ml": 935.4838709677417,
+   "auc_last_ng_h_ml": 654.9218970968806,
+   "cmax_ng_ml": 13.349628965529694,
+   "fraction_of_auc_infinity_in_auc_last": 0.7000889244828725,
+   "terminal_half_life_days": 9.35589230158932
+  }
+ },
+ "classification_by_endpoint": {
+  "renal.normal.auc_last": {
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent"
+   ],
+   "robust": true
+  },
+  "renal.normal.cmax": {
+   "primary": "model_under_predicts",
+   "across_scenarios": [
+    "model_under_predicts"
+   ],
+   "robust": true
+  },
+  "renal.severe_ri.auc_last": {
+   "primary": "model_under_predicts",
+   "across_scenarios": [
+    "consistent",
+    "model_under_predicts"
+   ],
+   "robust": false
+  },
+  "renal.severe_ri.cmax": {
+   "primary": "model_under_predicts",
+   "across_scenarios": [
+    "model_under_predicts"
+   ],
+   "robust": true
+  },
+  "renal.esrd.auc_last": {
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent",
+    "model_under_predicts"
+   ],
+   "robust": false
+  },
+  "renal.esrd.cmax": {
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent",
+    "model_under_predicts"
+   ],
+   "robust": false
+  },
+  "hepatic.normal.auc_last": {
+   "primary": "model_under_predicts",
+   "across_scenarios": [
+    "model_under_predicts"
+   ],
+   "robust": true
+  },
+  "hepatic.normal.cmax": {
+   "primary": "model_under_predicts",
+   "across_scenarios": [
+    "model_under_predicts"
+   ],
+   "robust": true
+  },
+  "hepatic.moderate.auc_last": {
+   "primary": "model_under_predicts",
+   "across_scenarios": [
+    "model_under_predicts"
+   ],
+   "robust": true
+  },
+  "hepatic.moderate.cmax": {
+   "primary": "model_under_predicts",
+   "across_scenarios": [
+    "model_under_predicts"
+   ],
+   "robust": true
+  },
+  "hepatic.severe.auc_last": {
+   "primary": "model_under_predicts",
+   "across_scenarios": [
+    "model_under_predicts"
+   ],
+   "robust": true
+  },
+  "hepatic.severe.cmax": {
+   "primary": "model_under_predicts",
+   "across_scenarios": [
+    "model_under_predicts"
+   ],
+   "robust": true
+  },
+  "renal.severe_ri_vs_normal.auc_last": {
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent"
+   ],
+   "robust": true
+  },
+  "renal.severe_ri_vs_normal.cmax": {
+   "primary": "model_under_predicts",
+   "across_scenarios": [
+    "model_under_predicts"
+   ],
+   "robust": true
+  },
+  "renal.esrd_vs_normal.auc_last": {
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent"
+   ],
+   "robust": true
+  },
+  "renal.esrd_vs_normal.cmax": {
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent"
+   ],
+   "robust": true
+  },
+  "hepatic.moderate_vs_normal.auc_last": {
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent"
+   ],
+   "robust": true
+  },
+  "hepatic.moderate_vs_normal.cmax": {
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent"
+   ],
+   "robust": true
+  },
+  "hepatic.severe_vs_normal.auc_last": {
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent"
+   ],
+   "robust": true
+  },
+  "hepatic.severe_vs_normal.cmax": {
+   "primary": "consistent",
+   "across_scenarios": [
+    "consistent"
+   ],
+   "robust": true
+  }
+ },
+ "decision": {
+  "normal_function": "consistent_with_one_normal_group",
+  "normal_function_robust": true,
+  "impairment_auc_ratio": {
+   "renal.severe_ri": "not_distinguishable_from_no_effect_at_this_group_size",
+   "renal.esrd": "not_distinguishable_from_no_effect_at_this_group_size",
+   "hepatic.moderate": "not_distinguishable_from_no_effect_at_this_group_size",
+   "hepatic.severe": "not_distinguishable_from_no_effect_at_this_group_size"
+  },
+  "registration_may_be_proposed": false
+ },
+ "scenarios": {
+  "primary": {
+   "groups": [
+    {
+     "study": "renal",
+     "group": "normal",
+     "dose_mg": 3.0,
+     "n_cmax": 18,
+     "n_auc": 15,
+     "auc_last": {
+      "observed_gm": 575,
+      "simulated_group_gm": {
+       "p05": 445.0794293131884,
+       "p50": 595.5728778877244,
+       "p95": 755.3363191690288
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.9654569933394402,
+      "simulated_geometric_cv_percent_median": 60.195067034394356,
+      "observed_cv_percent": 38
+     },
+     "cmax": {
+      "observed_gm": 25.8,
+      "simulated_group_gm": {
+       "p05": 10.537371016252727,
+       "p50": 13.534624840246563,
+       "p95": 17.01668125593406
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.9062220271729378
+     }
+    },
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "dose_mg": 3.0,
+     "n_cmax": 14,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 813,
+      "simulated_group_gm": {
+       "p05": 402.39001559658686,
+       "p50": 590.2831088351511,
+       "p95": 800.3678355593198
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.3773052080117156,
+      "simulated_geometric_cv_percent_median": 56.36892508685091,
+      "observed_cv_percent": 51
+     },
+     "cmax": {
+      "observed_gm": 45.3,
+      "simulated_group_gm": {
+       "p05": 10.155281903458693,
+       "p50": 13.43171692717543,
+       "p95": 17.723606387398466
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.3726142566590096
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "dose_mg": 3.0,
+     "n_cmax": 6,
+     "n_auc": 6,
+     "auc_last": {
+      "observed_gm": 783,
+      "simulated_group_gm": {
+       "p05": 359.93035580998014,
+       "p50": 608.801038525789,
+       "p95": 854.5084716686266
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.2861344683248794,
+      "simulated_geometric_cv_percent_median": 53.69368140027849,
+      "observed_cv_percent": 35
+     },
+     "cmax": {
+      "observed_gm": 18.7,
+      "simulated_group_gm": {
+       "p05": 8.703082040375284,
+       "p50": 13.666235671003887,
+       "p95": 20.76952372735033
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3683358351324513
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "normal",
+     "dose_mg": 4.0,
+     "n_cmax": 12,
+     "n_auc": 12,
+     "auc_last": {
+      "observed_gm": 1160,
+      "simulated_group_gm": {
+       "p05": 610.1779321548926,
+       "p50": 815.3550629888005,
+       "p95": 1036.6006293647183
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.4226930728164664,
+      "simulated_geometric_cv_percent_median": 53.874917647238554,
+      "observed_cv_percent": 41
+     },
+     "cmax": {
+      "observed_gm": 61.0,
+      "simulated_group_gm": {
+       "p05": 13.3411091213765,
+       "p50": 18.119738069900563,
+       "p95": 24.39420641524447
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.366494579815676
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "dose_mg": 2.3,
+     "n_cmax": 13,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 846,
+      "simulated_group_gm": {
+       "p05": 278.3178727086359,
+       "p50": 429.62561681156797,
+       "p95": 601.680587060851
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.9691563233089338,
+      "simulated_geometric_cv_percent_median": 67.63349270047584,
+      "observed_cv_percent": 49
+     },
+     "cmax": {
+      "observed_gm": 42.5,
+      "simulated_group_gm": {
+       "p05": 7.790890768773781,
+       "p50": 10.313325084274258,
+       "p95": 13.862700438843794
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 4.120882416942711
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "dose_mg": 1.5,
+     "n_cmax": 18,
+     "n_auc": 11,
+     "auc_last": {
+      "observed_gm": 489,
+      "simulated_group_gm": {
+       "p05": 116.94962647355116,
+       "p50": 215.67240032823028,
+       "p95": 335.4725578031583
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.267327665736526,
+      "simulated_geometric_cv_percent_median": 124.99676267196543,
+      "observed_cv_percent": 50
+     },
+     "cmax": {
+      "observed_gm": 26.1,
+      "simulated_group_gm": {
+       "p05": 5.241756692579186,
+       "p50": 6.757525450612281,
+       "p95": 8.477186326417256
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.8623605920174744
+     }
+    }
+   ],
+   "ratios": [
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.413913043478261,
+      "simulated_ratio": {
+       "p05": 0.6341595622929499,
+       "p50": 1.0013527818575638,
+       "p95": 1.5158374291077095
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.41200291155668
+     },
+     "cmax": {
+      "observed_ratio": 1.755813953488372,
+      "simulated_ratio": {
+       "p05": 0.687392945652968,
+       "p50": 0.9940320816637183,
+       "p95": 1.4320230575775734
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.7663554183781014
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.3617391304347828,
+      "simulated_ratio": {
+       "p05": 0.5853018802197911,
+       "p50": 1.0187902605136485,
+       "p95": 1.6121168667200385
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3366236243250187
+     },
+     "cmax": {
+      "observed_ratio": 0.7248062015503877,
+      "simulated_ratio": {
+       "p05": 0.6136261035905657,
+       "p50": 1.0106966767710668,
+       "p95": 1.6061856751101866
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.7171352377114462
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.2683658170914542,
+      "simulated_ratio": {
+       "p05": 0.5676527070625854,
+       "p50": 0.9093009966825669,
+       "p95": 1.4161902263853858
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3948800471118754
+     },
+     "cmax": {
+      "observed_ratio": 1.2116892373485388,
+      "simulated_ratio": {
+       "p05": 0.6574720990148828,
+       "p50": 0.996367922630653,
+       "p95": 1.53082786031746
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.2161062292625653
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.1241379310344828,
+      "simulated_ratio": {
+       "p05": 0.370282875290256,
+       "p50": 0.7090020147231815,
+       "p95": 1.2129958782793169
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.5855214903350938
+     },
+     "cmax": {
+      "observed_ratio": 1.1409836065573773,
+      "simulated_ratio": {
+       "p05": 0.687094368470652,
+       "p50": 0.986808901881782,
+       "p95": 1.4629484007488816
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.1562356241229623
+     }
+    }
+   ],
+   "between_study_normal_groups": {
+    "endpoint": "dose-normalised AUC0-last, hepatic-study normal / renal-study normal",
+    "observed_ratio": 1.5130434782608697,
+    "simulated_ratio": {
+     "p05": 0.704095379378292,
+     "p50": 1.0306229464174699,
+     "p95": 1.4972533413820317
+    },
+    "classification": "model_under_predicts"
+   },
+   "settings": {},
+   "share_f_above_1": 0.19956420560113083,
+   "patients_drawn": 162003,
+   "replaced_not_pk_evaluable": {
+    "renal.normal": 0,
+    "renal.severe_ri": 0,
+    "renal.esrd": 0,
+    "hepatic.normal": 0,
+    "hepatic.moderate": 0,
+    "hepatic.severe": 3
+   }
+  },
+  "omega_equals_cv": {
+   "groups": [
+    {
+     "study": "renal",
+     "group": "normal",
+     "dose_mg": 3.0,
+     "n_cmax": 18,
+     "n_auc": 15,
+     "auc_last": {
+      "observed_gm": 575,
+      "simulated_group_gm": {
+       "p05": 392.75470862028465,
+       "p50": 571.8816065156477,
+       "p95": 764.2284174163208
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.0054528655036694,
+      "simulated_geometric_cv_percent_median": 75.34476765084938,
+      "observed_cv_percent": 38
+     },
+     "cmax": {
+      "observed_gm": 25.8,
+      "simulated_group_gm": {
+       "p05": 10.459103550761213,
+       "p50": 13.596405890253,
+       "p95": 17.94091793354062
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.8975602970558214
+     }
+    },
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "dose_mg": 3.0,
+     "n_cmax": 14,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 813,
+      "simulated_group_gm": {
+       "p05": 356.08023746461015,
+       "p50": 577.7784689171283,
+       "p95": 810.3669006705827
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.4071137014221446,
+      "simulated_geometric_cv_percent_median": 70.06471506456731,
+      "observed_cv_percent": 51
+     },
+     "cmax": {
+      "observed_gm": 45.3,
+      "simulated_group_gm": {
+       "p05": 10.045909512573706,
+       "p50": 13.56591698847169,
+       "p95": 18.708512953741618
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.339250862178791
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "dose_mg": 3.0,
+     "n_cmax": 6,
+     "n_auc": 6,
+     "auc_last": {
+      "observed_gm": 783,
+      "simulated_group_gm": {
+       "p05": 316.8474019846533,
+       "p50": 584.5433872941096,
+       "p95": 899.1247060187428
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3395070699962228,
+      "simulated_geometric_cv_percent_median": 63.19540969485175,
+      "observed_cv_percent": 35
+     },
+     "cmax": {
+      "observed_gm": 18.7,
+      "simulated_group_gm": {
+       "p05": 8.361139541384613,
+       "p50": 13.57844436858834,
+       "p95": 21.903964254583908
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3771827974093702
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "normal",
+     "dose_mg": 4.0,
+     "n_cmax": 12,
+     "n_auc": 12,
+     "auc_last": {
+      "observed_gm": 1160,
+      "simulated_group_gm": {
+       "p05": 545.3105585532628,
+       "p50": 800.0160386062755,
+       "p95": 1057.9733100159924
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.4499709306089164,
+      "simulated_geometric_cv_percent_median": 64.05237522888751,
+      "observed_cv_percent": 41
+     },
+     "cmax": {
+      "observed_gm": 61.0,
+      "simulated_group_gm": {
+       "p05": 12.985978714132845,
+       "p50": 18.14788588795817,
+       "p95": 25.349272544748253
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.3612730637939414
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "dose_mg": 2.3,
+     "n_cmax": 13,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 846,
+      "simulated_group_gm": {
+       "p05": 227.9186772219172,
+       "p50": 407.05701745881294,
+       "p95": 605.4511650995056
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.0783329207329055,
+      "simulated_geometric_cv_percent_median": 91.48521293503444,
+      "observed_cv_percent": 49
+     },
+     "cmax": {
+      "observed_gm": 42.5,
+      "simulated_group_gm": {
+       "p05": 7.341667432432396,
+       "p50": 10.338301870377343,
+       "p95": 14.3531289777159
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 4.110926584739857
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "dose_mg": 1.5,
+     "n_cmax": 18,
+     "n_auc": 11,
+     "auc_last": {
+      "observed_gm": 489,
+      "simulated_group_gm": {
+       "p05": 108.36373120260788,
+       "p50": 204.65370133118853,
+       "p95": 341.9491550460317
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.3894021794829765,
+      "simulated_geometric_cv_percent_median": 160.78631657631,
+      "observed_cv_percent": 50
+     },
+     "cmax": {
+      "observed_gm": 26.1,
+      "simulated_group_gm": {
+       "p05": 5.2012485923913685,
+       "p50": 6.7965975187630026,
+       "p95": 9.016982585865993
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.8401567737308455
+     }
+    }
+   ],
+   "ratios": [
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.413913043478261,
+      "simulated_ratio": {
+       "p05": 0.5816815056795457,
+       "p50": 1.014085978404386,
+       "p95": 1.6823162796106275
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3942733393306384
+     },
+     "cmax": {
+      "observed_ratio": 1.755813953488372,
+      "simulated_ratio": {
+       "p05": 0.6619715852502965,
+       "p50": 0.9987988986058705,
+       "p95": 1.5162753098342792
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.7579254001372526
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.3617391304347828,
+      "simulated_ratio": {
+       "p05": 0.5195879170191006,
+       "p50": 1.0113570753607355,
+       "p95": 1.8242424971771853
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3464474255535033
+     },
+     "cmax": {
+      "observed_ratio": 0.7248062015503877,
+      "simulated_ratio": {
+       "p05": 0.5807508153290963,
+       "p50": 0.9968942845324661,
+       "p95": 1.7431247678118607
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.7270642562569358
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.2683658170914542,
+      "simulated_ratio": {
+       "p05": 0.46047039081954694,
+       "p50": 0.882112926726514,
+       "p95": 1.5212546061206287
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.437872384206305
+     },
+     "cmax": {
+      "observed_ratio": 1.2116892373485388,
+      "simulated_ratio": {
+       "p05": 0.6165140475047398,
+       "p50": 0.994753623690803,
+       "p95": 1.5907137475026298
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.2180797420499425
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.1241379310344828,
+      "simulated_ratio": {
+       "p05": 0.33268165101812874,
+       "p50": 0.6899508314833824,
+       "p95": 1.2969982284809758
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.6293015092359633
+     },
+     "cmax": {
+      "observed_ratio": 1.1409836065573773,
+      "simulated_ratio": {
+       "p05": 0.6515387755579143,
+       "p50": 0.9949477384174658,
+       "p95": 1.5360212351111322
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.146777426090934
+     }
+    }
+   ],
+   "between_study_normal_groups": {
+    "endpoint": "dose-normalised AUC0-last, hepatic-study normal / renal-study normal",
+    "observed_ratio": 1.5130434782608697,
+    "simulated_ratio": {
+     "p05": 0.6604014249900662,
+     "p50": 1.0446370982549953,
+     "p95": 1.667410821081909
+    },
+    "classification": "consistent"
+   },
+   "settings": {
+    "omega": "cv"
+   },
+   "share_f_above_1": 0.22774660666999982,
+   "patients_drawn": 162009,
+   "replaced_not_pk_evaluable": {
+    "renal.normal": 0,
+    "renal.severe_ri": 0,
+    "renal.esrd": 0,
+    "hepatic.normal": 0,
+    "hepatic.moderate": 1,
+    "hepatic.severe": 8
+   }
+  },
+  "f_capped_at_1": {
+   "groups": [
+    {
+     "study": "renal",
+     "group": "normal",
+     "dose_mg": 3.0,
+     "n_cmax": 18,
+     "n_auc": 15,
+     "auc_last": {
+      "observed_gm": 575,
+      "simulated_group_gm": {
+       "p05": 408.5219776976857,
+       "p50": 552.625723852018,
+       "p95": 673.673583807123
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.0404872143700161,
+      "simulated_geometric_cv_percent_median": 48.769378275022234,
+      "observed_cv_percent": 38
+     },
+     "cmax": {
+      "observed_gm": 25.8,
+      "simulated_group_gm": {
+       "p05": 10.195080497943827,
+       "p50": 12.621726695088922,
+       "p95": 15.207502474438735
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.0440943321993106
+     }
+    },
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "dose_mg": 3.0,
+     "n_cmax": 14,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 813,
+      "simulated_group_gm": {
+       "p05": 391.77712256369665,
+       "p50": 558.1792077965313,
+       "p95": 700.8122786497538
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.4565214695283966,
+      "simulated_geometric_cv_percent_median": 46.47817072327999,
+      "observed_cv_percent": 51
+     },
+     "cmax": {
+      "observed_gm": 45.3,
+      "simulated_group_gm": {
+       "p05": 9.914258225633088,
+       "p50": 12.698806444544749,
+       "p95": 15.690978015819672
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.5672643880213104
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "dose_mg": 3.0,
+     "n_cmax": 6,
+     "n_auc": 6,
+     "auc_last": {
+      "observed_gm": 783,
+      "simulated_group_gm": {
+       "p05": 341.7056167855782,
+       "p50": 565.8761305751473,
+       "p95": 752.9204648787105
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.3836950486039614,
+      "simulated_geometric_cv_percent_median": 42.519456067694406,
+      "observed_cv_percent": 35
+     },
+     "cmax": {
+      "observed_gm": 18.7,
+      "simulated_group_gm": {
+       "p05": 8.383586986259782,
+       "p50": 12.7705343598266,
+       "p95": 17.850276364499184
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.4643083424000052
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "normal",
+     "dose_mg": 4.0,
+     "n_cmax": 12,
+     "n_auc": 12,
+     "auc_last": {
+      "observed_gm": 1160,
+      "simulated_group_gm": {
+       "p05": 580.3335698953472,
+       "p50": 759.3083867348535,
+       "p95": 924.7037063606288
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.5277060286245276,
+      "simulated_geometric_cv_percent_median": 44.103411100840496,
+      "observed_cv_percent": 41
+     },
+     "cmax": {
+      "observed_gm": 61.0,
+      "simulated_group_gm": {
+       "p05": 12.8467227836766,
+       "p50": 16.87752493202197,
+       "p95": 21.36916961361255
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.6142740268902713
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "dose_mg": 2.3,
+     "n_cmax": 13,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 846,
+      "simulated_group_gm": {
+       "p05": 255.61626501625068,
+       "p50": 400.6684173987944,
+       "p95": 528.3513430915091
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.1114716390484976,
+      "simulated_geometric_cv_percent_median": 59.8873968985765,
+      "observed_cv_percent": 49
+     },
+     "cmax": {
+      "observed_gm": 42.5,
+      "simulated_group_gm": {
+       "p05": 7.514884846562622,
+       "p50": 9.65609106285492,
+       "p95": 12.041746591331794
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 4.401366942725834
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "dose_mg": 1.5,
+     "n_cmax": 18,
+     "n_auc": 11,
+     "auc_last": {
+      "observed_gm": 489,
+      "simulated_group_gm": {
+       "p05": 116.58034043357914,
+       "p50": 200.48943967464817,
+       "p95": 297.2270486591739
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.439031206798439,
+      "simulated_geometric_cv_percent_median": 108.07114336079988,
+      "observed_cv_percent": 50
+     },
+     "cmax": {
+      "observed_gm": 26.1,
+      "simulated_group_gm": {
+       "p05": 5.110794246703056,
+       "p50": 6.30188047538655,
+       "p95": 7.654519108489771
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 4.141620918063993
+     }
+    }
+   ],
+   "ratios": [
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.413913043478261,
+      "simulated_ratio": {
+       "p05": 0.6865829547991684,
+       "p50": 1.002940078059554,
+       "p95": 1.4531003062267833
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.4097682148806336
+     },
+     "cmax": {
+      "observed_ratio": 1.755813953488372,
+      "simulated_ratio": {
+       "p05": 0.7411420848160529,
+       "p50": 1.0011314446655168,
+       "p95": 1.3576359279839023
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.75382959235188
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.3617391304347828,
+      "simulated_ratio": {
+       "p05": 0.6085786291826953,
+       "p50": 1.0141826819676674,
+       "p95": 1.528289825344436
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.342696098687865
+     },
+     "cmax": {
+      "observed_ratio": 0.7248062015503877,
+      "simulated_ratio": {
+       "p05": 0.6535903883179652,
+       "p50": 1.0019652776048396,
+       "p95": 1.4956587745580643
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.7233845500944002
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.2683658170914542,
+      "simulated_ratio": {
+       "p05": 0.5650807475739492,
+       "p50": 0.9129468771457343,
+       "p95": 1.337201495672881
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3893095522237973
+     },
+     "cmax": {
+      "observed_ratio": 1.2116892373485388,
+      "simulated_ratio": {
+       "p05": 0.7208854451287194,
+       "p50": 0.9915127881919067,
+       "p95": 1.4224346592708286
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.2220611289927379
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.1241379310344828,
+      "simulated_ratio": {
+       "p05": 0.4034516965568919,
+       "p50": 0.7109777203343974,
+       "p95": 1.1513731147055868
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.581115552405442
+     },
+     "cmax": {
+      "observed_ratio": 1.1409836065573773,
+      "simulated_ratio": {
+       "p05": 0.7233534064689757,
+       "p50": 0.9923387496906375,
+       "p95": 1.392691675377241
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.1497924543539995
+     }
+    }
+   ],
+   "between_study_normal_groups": {
+    "endpoint": "dose-normalised AUC0-last, hepatic-study normal / renal-study normal",
+    "observed_ratio": 1.5130434782608697,
+    "simulated_ratio": {
+     "p05": 0.7365437208666502,
+     "p50": 1.0317294624780375,
+     "p95": 1.4619072782066225
+    },
+    "classification": "model_under_predicts"
+   },
+   "settings": {
+    "cap_f": true
+   },
+   "share_f_above_1": 0.2045924508502824,
+   "patients_drawn": 162005,
+   "replaced_not_pk_evaluable": {
+    "renal.normal": 0,
+    "renal.severe_ri": 0,
+    "renal.esrd": 0,
+    "hepatic.normal": 0,
+    "hepatic.moderate": 0,
+    "hepatic.severe": 5
+   }
+  },
+  "bsa_1_5": {
+   "groups": [
+    {
+     "study": "renal",
+     "group": "normal",
+     "dose_mg": 3.0,
+     "n_cmax": 18,
+     "n_auc": 15,
+     "auc_last": {
+      "observed_gm": 575,
+      "simulated_group_gm": {
+       "p05": 503.97799308360186,
+       "p50": 654.6686098391503,
+       "p95": 808.5091845711504
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.8783069653229217,
+      "simulated_geometric_cv_percent_median": 54.059595060652995,
+      "observed_cv_percent": 38
+     },
+     "cmax": {
+      "observed_gm": 25.8,
+      "simulated_group_gm": {
+       "p05": 11.096011087547055,
+       "p50": 14.163269416562596,
+       "p95": 18.165516874101368
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.8216133041873337
+     }
+    },
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "dose_mg": 3.0,
+     "n_cmax": 14,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 813,
+      "simulated_group_gm": {
+       "p05": 475.2662727523685,
+       "p50": 649.3784541488018,
+       "p95": 860.2826604239875
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.251966391563871,
+      "simulated_geometric_cv_percent_median": 52.71923224219189,
+      "observed_cv_percent": 51
+     },
+     "cmax": {
+      "observed_gm": 45.3,
+      "simulated_group_gm": {
+       "p05": 10.619474613953992,
+       "p50": 14.04718994957492,
+       "p95": 18.49058840597627
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.2248442686838454
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "dose_mg": 3.0,
+     "n_cmax": 6,
+     "n_auc": 6,
+     "auc_last": {
+      "observed_gm": 783,
+      "simulated_group_gm": {
+       "p05": 425.9466952072029,
+       "p50": 655.2444910074915,
+       "p95": 917.1739528444344
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.194973800994609,
+      "simulated_geometric_cv_percent_median": 51.02797216954349,
+      "observed_cv_percent": 35
+     },
+     "cmax": {
+      "observed_gm": 18.7,
+      "simulated_group_gm": {
+       "p05": 9.112158479080051,
+       "p50": 14.120845453989183,
+       "p95": 21.62337680203262
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3242833129879763
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "normal",
+     "dose_mg": 4.0,
+     "n_cmax": 12,
+     "n_auc": 12,
+     "auc_last": {
+      "observed_gm": 1160,
+      "simulated_group_gm": {
+       "p05": 684.9483719866938,
+       "p50": 884.9750060874482,
+       "p95": 1114.2846208715218
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.3107714817037166,
+      "simulated_geometric_cv_percent_median": 51.367685567594805,
+      "observed_cv_percent": 41
+     },
+     "cmax": {
+      "observed_gm": 61.0,
+      "simulated_group_gm": {
+       "p05": 13.723139026402496,
+       "p50": 18.801852174569166,
+       "p95": 25.53808913214583
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.244361216843669
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "dose_mg": 2.3,
+     "n_cmax": 13,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 846,
+      "simulated_group_gm": {
+       "p05": 322.0620570106662,
+       "p50": 478.6230779899508,
+       "p95": 638.7762528334174
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.767570430479248,
+      "simulated_geometric_cv_percent_median": 61.09912408024358,
+      "observed_cv_percent": 49
+     },
+     "cmax": {
+      "observed_gm": 42.5,
+      "simulated_group_gm": {
+       "p05": 8.207289558572322,
+       "p50": 10.794743236718205,
+       "p95": 14.482129653851725
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.9371015195096724
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "dose_mg": 1.5,
+     "n_cmax": 18,
+     "n_auc": 11,
+     "auc_last": {
+      "observed_gm": 489,
+      "simulated_group_gm": {
+       "p05": 150.82834420555517,
+       "p50": 253.10890440975672,
+       "p95": 371.156567016096
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.9319747013260362,
+      "simulated_geometric_cv_percent_median": 93.06995113905745,
+      "observed_cv_percent": 50
+     },
+     "cmax": {
+      "observed_gm": 26.1,
+      "simulated_group_gm": {
+       "p05": 5.505536830708368,
+       "p50": 7.084834460925647,
+       "p95": 8.99417499628182
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.6839251705804834
+     }
+    }
+   ],
+   "ratios": [
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.413913043478261,
+      "simulated_ratio": {
+       "p05": 0.6732635898771687,
+       "p50": 0.9994394688252684,
+       "p95": 1.454780438314585
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.4147060303113312
+     },
+     "cmax": {
+      "observed_ratio": 1.755813953488372,
+      "simulated_ratio": {
+       "p05": 0.6762835904387883,
+       "p50": 0.9888068406491899,
+       "p95": 1.4363666552128425
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.7756895293479285
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.3617391304347828,
+      "simulated_ratio": {
+       "p05": 0.6288235914488319,
+       "p50": 1.0063574386283913,
+       "p95": 1.5411681211908816
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.353136647244101
+     },
+     "cmax": {
+      "observed_ratio": 0.7248062015503877,
+      "simulated_ratio": {
+       "p05": 0.6120066966771261,
+       "p50": 0.9942125699712968,
+       "p95": 1.6397234205275188
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.7290253849549629
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.2683658170914542,
+      "simulated_ratio": {
+       "p05": 0.6005922220702336,
+       "p50": 0.933466526016653,
+       "p95": 1.392517253428273
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3587694702925284
+     },
+     "cmax": {
+      "observed_ratio": 1.2116892373485388,
+      "simulated_ratio": {
+       "p05": 0.6638137943276973,
+       "p50": 0.9974529966819199,
+       "p95": 1.5301219847298884
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.2147832944302008
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.1241379310344828,
+      "simulated_ratio": {
+       "p05": 0.4358407510693013,
+       "p50": 0.7627847347946802,
+       "p95": 1.2110272145799819
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.4737289300067973
+     },
+     "cmax": {
+      "observed_ratio": 1.1409836065573773,
+      "simulated_ratio": {
+       "p05": 0.6691354273618193,
+       "p50": 1.004035781927549,
+       "p95": 1.4848369387137532
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.1363973546509625
+     }
+    }
+   ],
+   "between_study_normal_groups": {
+    "endpoint": "dose-normalised AUC0-last, hepatic-study normal / renal-study normal",
+    "observed_ratio": 1.5130434782608697,
+    "simulated_ratio": {
+     "p05": 0.7235654563630245,
+     "p50": 1.0179164807043812,
+     "p95": 1.456829691788703
+    },
+    "classification": "model_under_predicts"
+   },
+   "settings": {
+    "bsa": 1.5
+   },
+   "share_f_above_1": 0.20254688213725758,
+   "patients_drawn": 162002,
+   "replaced_not_pk_evaluable": {
+    "renal.normal": 0,
+    "renal.severe_ri": 0,
+    "renal.esrd": 0,
+    "hepatic.normal": 0,
+    "hepatic.moderate": 0,
+    "hepatic.severe": 2
+   }
+  },
+  "bsa_2_25": {
+   "groups": [
+    {
+     "study": "renal",
+     "group": "normal",
+     "dose_mg": 3.0,
+     "n_cmax": 18,
+     "n_auc": 15,
+     "auc_last": {
+      "observed_gm": 575,
+      "simulated_group_gm": {
+       "p05": 368.87973784794286,
+       "p50": 534.7001528201681,
+       "p95": 689.1159917625071
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.0753690586533002,
+      "simulated_geometric_cv_percent_median": 67.13114326787148,
+      "observed_cv_percent": 38
+     },
+     "cmax": {
+      "observed_gm": 25.8,
+      "simulated_group_gm": {
+       "p05": 10.245097176777776,
+       "p50": 13.307485579570933,
+       "p95": 16.880313554314267
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.938758441309681
+     }
+    },
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "dose_mg": 3.0,
+     "n_cmax": 14,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 813,
+      "simulated_group_gm": {
+       "p05": 347.05883989675266,
+       "p50": 545.4538137842832,
+       "p95": 731.6761613831903
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.490501999352646,
+      "simulated_geometric_cv_percent_median": 62.06934869392032,
+      "observed_cv_percent": 51
+     },
+     "cmax": {
+      "observed_gm": 45.3,
+      "simulated_group_gm": {
+       "p05": 9.955715496605208,
+       "p50": 13.278099799827167,
+       "p95": 17.50686288255759
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.411632739843516
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "dose_mg": 3.0,
+     "n_cmax": 6,
+     "n_auc": 6,
+     "auc_last": {
+      "observed_gm": 783,
+      "simulated_group_gm": {
+       "p05": 290.02015466594986,
+       "p50": 541.5296409636114,
+       "p95": 788.8028862027606
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.4459042326966816,
+      "simulated_geometric_cv_percent_median": 58.57751271653915,
+      "observed_cv_percent": 35
+     },
+     "cmax": {
+      "observed_gm": 18.7,
+      "simulated_group_gm": {
+       "p05": 8.29134987741209,
+       "p50": 13.19141492763513,
+       "p95": 20.168188168988614
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.4175886440221628
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "normal",
+     "dose_mg": 4.0,
+     "n_cmax": 12,
+     "n_auc": 12,
+     "auc_last": {
+      "observed_gm": 1160,
+      "simulated_group_gm": {
+       "p05": 530.0791010434407,
+       "p50": 738.9462436201276,
+       "p95": 973.4366119719145
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.5698029593020366,
+      "simulated_geometric_cv_percent_median": 57.73252982485947,
+      "observed_cv_percent": 41
+     },
+     "cmax": {
+      "observed_gm": 61.0,
+      "simulated_group_gm": {
+       "p05": 12.901523096253245,
+       "p50": 17.69189591004197,
+       "p95": 23.903831651684246
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.4479063357690354
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "dose_mg": 2.3,
+     "n_cmax": 13,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 846,
+      "simulated_group_gm": {
+       "p05": 223.8620265203607,
+       "p50": 374.1823581645036,
+       "p95": 542.9499291063714
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.26092968185333,
+      "simulated_geometric_cv_percent_median": 84.03550427480474,
+      "observed_cv_percent": 49
+     },
+     "cmax": {
+      "observed_gm": 42.5,
+      "simulated_group_gm": {
+       "p05": 7.5203410407436895,
+       "p50": 10.072961379523562,
+       "p95": 13.297325133959976
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 4.2192160178827365
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "dose_mg": 1.5,
+     "n_cmax": 18,
+     "n_auc": 11,
+     "auc_last": {
+      "observed_gm": 489,
+      "simulated_group_gm": {
+       "p05": 93.75655841104268,
+       "p50": 181.60622545560466,
+       "p95": 305.78308659537277
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.692638970790903,
+      "simulated_geometric_cv_percent_median": 162.11342947380928,
+      "observed_cv_percent": 50
+     },
+     "cmax": {
+      "observed_gm": 26.1,
+      "simulated_group_gm": {
+       "p05": 5.214241311687816,
+       "p50": 6.617870921180154,
+       "p95": 8.492667019528911
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.9438665865283498
+     }
+    }
+   ],
+   "ratios": [
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.413913043478261,
+      "simulated_ratio": {
+       "p05": 0.5999839856298969,
+       "p50": 1.0186633602056263,
+       "p95": 1.6085883202806506
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3880081474539832
+     },
+     "cmax": {
+      "observed_ratio": 1.755813953488372,
+      "simulated_ratio": {
+       "p05": 0.6870110818567642,
+       "p50": 0.9974145926673017,
+       "p95": 1.4469330392485016
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.7603652146224842
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.3617391304347828,
+      "simulated_ratio": {
+       "p05": 0.532236650533923,
+       "p50": 1.0159824110731936,
+       "p95": 1.7194116208751618
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3403176232119633
+     },
+     "cmax": {
+      "observed_ratio": 0.7248062015503877,
+      "simulated_ratio": {
+       "p05": 0.6064053373570096,
+       "p50": 0.9903771986354082,
+       "p95": 1.6220429769102742
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.7318486355997113
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.2683658170914542,
+      "simulated_ratio": {
+       "p05": 0.48736962547683327,
+       "p50": 0.8818326198138905,
+       "p95": 1.4836866881881376
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.4383294387081542
+     },
+     "cmax": {
+      "observed_ratio": 1.2116892373485388,
+      "simulated_ratio": {
+       "p05": 0.6499551083345095,
+       "p50": 0.9867447305988295,
+       "p95": 1.5531601790999832
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.227966260953019
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.1241379310344828,
+      "simulated_ratio": {
+       "p05": 0.3152731021509852,
+       "p50": 0.654928938480608,
+       "p95": 1.216054360814703
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.7164273327766044
+     },
+     "cmax": {
+      "observed_ratio": 1.1409836065573773,
+      "simulated_ratio": {
+       "p05": 0.6709538765309608,
+       "p50": 1.0035595679754103,
+       "p95": 1.483974903018
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.1369366034337227
+     }
+    }
+   ],
+   "between_study_normal_groups": {
+    "endpoint": "dose-normalised AUC0-last, hepatic-study normal / renal-study normal",
+    "observed_ratio": 1.5130434782608697,
+    "simulated_ratio": {
+     "p05": 0.6698930204935488,
+     "p50": 1.0441477085266477,
+     "p95": 1.6535393373670078
+    },
+    "classification": "consistent"
+   },
+   "settings": {
+    "bsa": 2.25
+   },
+   "share_f_above_1": 0.20209751791655606,
+   "patients_drawn": 162001,
+   "replaced_not_pk_evaluable": {
+    "renal.normal": 0,
+    "renal.severe_ri": 0,
+    "renal.esrd": 0,
+    "hepatic.normal": 0,
+    "hepatic.moderate": 1,
+    "hepatic.severe": 0
+   }
+  },
+  "auc_linear_up_log_down": {
+   "groups": [
+    {
+     "study": "renal",
+     "group": "normal",
+     "dose_mg": 3.0,
+     "n_cmax": 18,
+     "n_auc": 15,
+     "auc_last": {
+      "observed_gm": 575,
+      "simulated_group_gm": {
+       "p05": 430.8851420338491,
+       "p50": 593.1094333520674,
+       "p95": 755.8379590463823
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.9694669611816514,
+      "simulated_geometric_cv_percent_median": 59.55924350780914,
+      "observed_cv_percent": 38
+     },
+     "cmax": {
+      "observed_gm": 25.8,
+      "simulated_group_gm": {
+       "p05": 10.580189141133424,
+       "p50": 13.558735782781614,
+       "p95": 17.41471425968968
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.902832270893847
+     }
+    },
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "dose_mg": 3.0,
+     "n_cmax": 14,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 813,
+      "simulated_group_gm": {
+       "p05": 404.9167956945939,
+       "p50": 602.3605232185922,
+       "p95": 787.9155863360829
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.3496900421958233,
+      "simulated_geometric_cv_percent_median": 55.768506470982686,
+      "observed_cv_percent": 51
+     },
+     "cmax": {
+      "observed_gm": 45.3,
+      "simulated_group_gm": {
+       "p05": 10.215771229678452,
+       "p50": 13.669168068750825,
+       "p95": 18.03230417263625
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.3140275817926788
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "dose_mg": 3.0,
+     "n_cmax": 6,
+     "n_auc": 6,
+     "auc_last": {
+      "observed_gm": 783,
+      "simulated_group_gm": {
+       "p05": 358.50465046335063,
+       "p50": 601.1482026247777,
+       "p95": 853.6000957885433
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3025074292515681,
+      "simulated_geometric_cv_percent_median": 53.277585708568836,
+      "observed_cv_percent": 35
+     },
+     "cmax": {
+      "observed_gm": 18.7,
+      "simulated_group_gm": {
+       "p05": 8.737653933100114,
+       "p50": 13.593348184882474,
+       "p95": 20.73161560975966
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3756728471648192
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "normal",
+     "dose_mg": 4.0,
+     "n_cmax": 12,
+     "n_auc": 12,
+     "auc_last": {
+      "observed_gm": 1160,
+      "simulated_group_gm": {
+       "p05": 613.4068811045706,
+       "p50": 814.5442558795988,
+       "p95": 1037.2228461768896
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.4241092385426686,
+      "simulated_geometric_cv_percent_median": 53.18113070452738,
+      "observed_cv_percent": 41
+     },
+     "cmax": {
+      "observed_gm": 61.0,
+      "simulated_group_gm": {
+       "p05": 13.407646602552369,
+       "p50": 18.133645466485838,
+       "p95": 24.67353661211138
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.363912684448293
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "dose_mg": 2.3,
+     "n_cmax": 13,
+     "n_auc": 10,
+     "auc_last": {
+      "observed_gm": 846,
+      "simulated_group_gm": {
+       "p05": 273.0049574488403,
+       "p50": 431.2664156954668,
+       "p95": 586.5138463252446
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.9616644589301662,
+      "simulated_geometric_cv_percent_median": 68.34999735284106,
+      "observed_cv_percent": 49
+     },
+     "cmax": {
+      "observed_gm": 42.5,
+      "simulated_group_gm": {
+       "p05": 7.749802510042103,
+       "p50": 10.289854080354882,
+       "p95": 13.65728131687688
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 4.1302820883670135
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "dose_mg": 1.5,
+     "n_cmax": 18,
+     "n_auc": 11,
+     "auc_last": {
+      "observed_gm": 489,
+      "simulated_group_gm": {
+       "p05": 120.86024463707815,
+       "p50": 215.57522580303475,
+       "p95": 335.33178446183547
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.2683497056697326,
+      "simulated_geometric_cv_percent_median": 123.27304533454222,
+      "observed_cv_percent": 50
+     },
+     "cmax": {
+      "observed_gm": 26.1,
+      "simulated_group_gm": {
+       "p05": 5.308763821639095,
+       "p50": 6.724224644924478,
+       "p95": 8.588165554199145
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 3.881488406206146
+     }
+    }
+   ],
+   "ratios": [
+    {
+     "study": "renal",
+     "group": "severe_ri",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.413913043478261,
+      "simulated_ratio": {
+       "p05": 0.6446031104410135,
+       "p50": 1.0067085308013968,
+       "p95": 1.533660126153955
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.404490972528768
+     },
+     "cmax": {
+      "observed_ratio": 1.755813953488372,
+      "simulated_ratio": {
+       "p05": 0.6979796149980112,
+       "p50": 1.0025499971253193,
+       "p95": 1.4573950779764149
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.7513480210692118
+     }
+    },
+    {
+     "study": "renal",
+     "group": "esrd",
+     "versus": "normal",
+     "dose_normalised": false,
+     "auc_last": {
+      "observed_ratio": 1.3617391304347828,
+      "simulated_ratio": {
+       "p05": 0.576186938170841,
+       "p50": 1.0116272315151869,
+       "p95": 1.627074562676822
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.346087855301412
+     },
+     "cmax": {
+      "observed_ratio": 0.7248062015503877,
+      "simulated_ratio": {
+       "p05": 0.5992630882773284,
+       "p50": 0.9967000162349089,
+       "p95": 1.6256705672688443
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.7272059694434283
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "moderate",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.2683658170914542,
+      "simulated_ratio": {
+       "p05": 0.5465498400694909,
+       "p50": 0.9149806005030054,
+       "p95": 1.420079632256259
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.386221539991315
+     },
+     "cmax": {
+      "observed_ratio": 1.2116892373485388,
+      "simulated_ratio": {
+       "p05": 0.6465557692443039,
+       "p50": 0.9892758856782982,
+       "p95": 1.520351431387523
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.2248243941756882
+     }
+    },
+    {
+     "study": "hepatic",
+     "group": "severe",
+     "versus": "normal",
+     "dose_normalised": true,
+     "auc_last": {
+      "observed_ratio": 1.1241379310344828,
+      "simulated_ratio": {
+       "p05": 0.3831967496872901,
+       "p50": 0.7070487025933414,
+       "p95": 1.2267477377310632
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.5899016954720726
+     },
+     "cmax": {
+      "observed_ratio": 1.1409836065573773,
+      "simulated_ratio": {
+       "p05": 0.6713700664830007,
+       "p50": 0.9905627811933453,
+       "p95": 1.4640373396197701
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.1518539038816074
+     }
+    }
+   ],
+   "between_study_normal_groups": {
+    "endpoint": "dose-normalised AUC0-last, hepatic-study normal / renal-study normal",
+    "observed_ratio": 1.5130434782608697,
+    "simulated_ratio": {
+     "p05": 0.7087054392254319,
+     "p50": 1.030268224627135,
+     "p95": 1.5445061682946035
+    },
+    "classification": "consistent"
+   },
+   "settings": {
+    "auc_rule": "linear_up_log_down"
+   },
+   "share_f_above_1": 0.20319376801664166,
+   "patients_drawn": 162003,
+   "replaced_not_pk_evaluable": {
+    "renal.normal": 0,
+    "renal.severe_ri": 0,
+    "renal.esrd": 0,
+    "hepatic.normal": 0,
+    "hepatic.moderate": 1,
+    "hepatic.severe": 2
+   }
+  }
+ },
+ "known_differences": [
+  "Group geometric means from small groups (6 to 18 patients) are compared with simulated group geometric means of the same size; the simulated range reflects only the model's between-patient variability, not between-study differences.",
+  "Body size is unknown in both studies; the renal severe RI group's median weight (54 kg) is much lower than the other groups' (82-87 kg). BSA affects only V4 in the model.",
+  "The renal study enrolled MM patients (37 of 41); the hepatic study only solid-tumour patients. The model's data are mostly MM (and 80 solid-tumour patients given IV ixazomib).",
+  "The two normal-function groups differ: dose-normalised AUC0-last 192 vs 289 h.ng/mL per mg.",
+  "Residual error is not simulated, so simulated Cmax is noise-free; geometric means are little affected by log-scale noise but group % CV is understated.",
+  "The model gives total concentrations; unbound values (about 1% unbound, similar across groups) are not compared.",
+  "The BSA covariate form and the meaning of the % CV are inferred (extract limitations)."
+ ],
+ "clinical_prediction_validated": false,
+ "report_sha256": "dcaae11ca5d33b4d55651c6020c58fc0a758b125167530f440f1306fa52bbee3"
+}
