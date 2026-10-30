@@ -1,6 +1,6 @@
 # Product and science roadmap
 
-Direction recorded 19 October 2026. Owner: Astrid Marin. The previous roadmap (10 October 2026) is kept in [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-10-10.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-10-10.md). The latest verification is in [REPOSITORY_CHECKPOINT.md](REPOSITORY_CHECKPOINT.md).
+Direction recorded 19 October 2026; status updated 30 October 2026. Owner: Astrid Marin. The previous roadmap (10 October 2026) is kept in [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-10-10.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-10-10.md). The latest verification is in [REPOSITORY_CHECKPOINT.md](REPOSITORY_CHECKPOINT.md).
 
 ## Positioning
 
@@ -37,20 +37,21 @@ Primary users first: trial designers, clinical pharmacologists and regulatory pr
 
 Not differentiating on their own, so not the lead message: trial search, dashboards, "AI-powered" claims, and the digital human while it is still distant.
 
-## Where we are (21 October 2026)
+## Where we are (30 October 2026)
 
 | Area | Status |
 |---|---|
-| Clinical trial intelligence | Available: explorer at `/trials`, cohorts, normalization, regulatory indicators. The 4,037-trial myeloma dataset is local and not in the repository. |
-| Drug and regulatory knowledge | Foundation: nine curated drug entities with mechanisms, safety, interactions and regulatory references |
-| Exposure models | Lenalidomide: Hughes 2019, Kim 2026, kidney-pathway model (2.0a–2.0c). Bortezomib: PK component disagrees with two outside studies (3.0f, 3.0h); two candidate fixes failed (3.0g, 3.0i) |
-| Label-based exposure (Phase 3.1) | Pomalidomide and dexamethasone shown, each after a locked label check and outside check; melphalan not eligible |
-| Effect and safety models | Bortezomib platelet course (Lignet 2022); lenalidomide relative odds of grade 3/4 cytopenia (4.0a–4.0c) |
-| Provenance | Run record on every Patient Lab result; evidence status v6 covers six models; public scorecards and capability levels |
-| Interface | Landing page, shared brand and navigation, About, intended-use page |
+| Clinical trial intelligence | **Available:** explorer at `/trials`, cohorts, normalization and regulatory indicators. The myeloma interventional cohort (3,450 trials) is pinned as an eligibility corpus. |
+| Drug and regulatory knowledge | **Foundation:** nine curated drug entities with mechanisms, safety, interactions and regulatory references. |
+| Exposure models | **Lenalidomide:** Hughes 2019, Kim 2026, and a kidney-pathway model (2.0a–2.0c). **Bortezomib:** the PK component disagrees with two outside studies (3.0f, 3.0h). Three candidate fixes failed under locked plans: Kuan 2012 (3.0g), an empirical falling clearance (3.0i) and Iwasaki 2020 (3.0k). |
+| Label-based exposure (Phase 3.1) | Pomalidomide and dexamethasone are shown, each after a locked label check and an outside check. Melphalan is not eligible. |
+| Effect and safety models | Bortezomib platelet course (Lignet 2022); lenalidomide relative odds of grade 3/4 cytopenia (4.0a–4.0c). |
+| Protocol benchmarking (Phase 4.1) | **v1:** all eight criterion types failed the locked accuracy check (4.1e). **v2:** locked, with 200 new trials and extractor v1.1 frozen; annotation is in progress. |
+| Provenance | Every Patient Lab result has a run record. Evidence status v6 covers six models. There are public scorecards and capability levels. |
+| Interface | Landing page, shared brand and navigation, About and intended-use pages, eligibility annotation and review pages. |
 | Online | Not deployed. No accounts. |
 
-Latest verification: [repository checkpoint, 21 October 2026](REPOSITORY_CHECKPOINT.md). No model is validated for clinical prediction.
+Latest verification: [repository checkpoint, 30 October 2026](REPOSITORY_CHECKPOINT.md). No model is validated for clinical prediction.
 
 ## Phases
 
@@ -78,6 +79,13 @@ The differentiator already exists in the code; users cannot see it yet.
 
 **20 October 2026, empirical falling clearance (Simulation 3.0i):** two one-parameter forms of a clearance that falls over repeated doses, calibrated on CAN-1004 under a locked plan, could not reach the CAN-1004 day 11 exposure, so neither was tested against Ogawa. Post hoc, a constant lower clearance reproduces CAN-1004's summary values, while Ogawa's rise comes from its short day 1 half-life: summary means cannot identify the time course. The remaining routes are individual concentration data or the Iwasaki 2020 target-binding model.
 
+**26–29 October 2026, Iwasaki 2020 (Simulation 3.0j–3.0k):**
+- **Transcription (3.0j):** the author sent the model equations on request; they are transcribed and pinned.
+- **Locked check (3.0k):** the model is **not consistent with either study, and the result is robust**. It over-predicts Ogawa day 1 (107 vs 46.5 ng·h/mL) and under-predicts the day 11 / day 1 ratio (2.0 vs 5.1) and CAN-1004 day 11 (135 vs 241).
+- **Why:** the model reproduces the constant-clearance pattern. Red-cell binding fills only partly (24% → 38%) and drug dissociates within hours, so it does not change exposure much between doses.
+- **Open assumptions:** the dose input is assumed and independence is pending (the article does not cite either study).
+- **Where Phase 2 stands:** three candidates have now failed. What remains is individual concentration data, or a mechanism that changes clearance between doses.
+
 ### Phase 3 — Any drug, at an honest level
 
 1. **Label-based exposure engine**: a one- or two-compartment typical-value curve from label parameters (clearance, volume, half-life, bioavailability, fraction excreted unchanged), with the label's own kidney and liver guidance. Tagged *Label-based*; never presented like a population model. **Design plan written 20 October 2026** ([LABEL_EXPOSURE_ENGINE.md](LABEL_EXPOSURE_ENGINE.md)): one compartment, label fold-changes as scenarios only, eligibility rules, and an internal-consistency check before any curve is drawn. Pilot: pomalidomide. **20 October 2026 (3.1b–3.1c):** label and Li 2017 extracts pinned; engine built; under a locked plan the myeloma-only parameter set reproduces the label's steady-state Cmax (71.6 vs 75 ng/mL), while the label's pooled clearance and volume ranges would predict about half the myeloma exposure and fail. **3.1d:** the selected curve is consistent with the Li 2017 population model (AUC 860 vs simulated 788, 90% interval 602–1026; peak ratio 1.21, trough 0.97), and the label's dialysis fold (1.38) matches Li's (1.38); a model-to-model check, not observed data. **3.1e:** pomalidomide is the first drug at *Label-based exposure*, with a page showing the curve, one label scenario at a time, both checks and the peak caveat; the landing page links to it and now flags the bortezomib exposure model's disagreements. **3.1f, melphalan (EVOMELA):** not eligible under a locked plan; a one-compartment infusion curve under-predicts the label's peak (3.64 vs 5.8 µg/mL) because of melphalan's distribution phase, and the label's clearance and volume ranges imply a 197-minute half-life against the stated 75. Melphalan needs a published two-compartment model instead. **3.1f, dexamethasone (HEMADY):** passes its label check under a locked plan (clearance and AUC within 1%, peak 186 vs 247 ng/mL, ratio 0.75); not shown until an outside check, as the 3.1e rule requires. **3.1g:** consistent with the NEOFORDEX EPAR studies under a locked plan (myeloma patients: AUC ratio 0.70 inside a wide 6-patient interval; healthy volunteers: 1.05–1.12); patients' apparent clearance was lower than the label's, a caveat any display must carry. **3.1h:** dexamethasone shown at *Label-based exposure* with those caveats; two drugs now at that level.
@@ -88,7 +96,10 @@ The differentiator already exists in the code; users cannot see it yet.
 
 ### Phase 4 — Trial design support (first focus: oncology, starting with multiple myeloma)
 
-1. **Protocol benchmarking**: compare eligibility criteria across similar trials (kidney and liver cutoffs, blood-count thresholds, prior therapy), with counts and links to each trial. **Design plan written 21 October 2026** ([PROTOCOL_BENCHMARKING.md](PROTOCOL_BENCHMARKING.md)): eight criterion types, rule-based extraction, a hand-annotated validation sample with pass thresholds fixed before any check; export command for the local cohort.
+1. **Protocol benchmarking**: compare eligibility criteria across similar trials (kidney and liver cutoffs, blood-count thresholds, prior therapy), with counts and links to each trial. **Design plan written 21 October 2026** ([PROTOCOL_BENCHMARKING.md](PROTOCOL_BENCHMARKING.md)): eight criterion types, rule-based extraction, and a hand-annotated validation sample with pass thresholds fixed before any check.
+   - **v1 (4.1a–4.1e, 21–28 October):** corpus pinned (3,450 trials), 120 trials annotated by hand. In the locked check, **all eight types failed**: precision 0.73–0.83, recall 0.64–0.80. In a post-hoc analysis, the largest cause was a convention: exclusion criteria were annotated as written, not as the eligible side. The pass rule was also unreachable at that sample size.
+   - **v2 (4.2a–4.2b, 28 October):** a fresh 200-trial sample. Comparators are recorded as written and the eligible side is derived. The pass rule is sized to the sample (precision ≥ 0.90 with lower bound ≥ 0.80; recall ≥ 0.80 with lower bound ≥ 0.70). Extractor v1.1 is frozen before scoring.
+   - **Next:** the annotation, which is in progress; then the locked check, then the benchmarking page with passing types only.
 2. **Special-population evidence summary** per drug: kidney, liver, age and body size, in the structure of a clinical pharmacology review, with every value sourced.
 3. **Dose-optimization view** (FDA Project Optimus): dose-ranging trials, published exposure–response findings and exposure comparisons between dose levels for one drug.
 4. **A guided path** for one drug through the whole chain: trials → evidence → exposure → regulatory context.
@@ -125,11 +136,16 @@ Multi-organ physiology, disease progression, combination therapies, the body →
 
 ## Immediate next steps
 
-Updated 21 October 2026. Done since 19 October: scorecards (1.1), capability levels (1.2), checkpoint (1.3), bortezomib PK candidates (2.1, gap documented), label engine with two drugs shown (3.1).
+Updated 30 October 2026. Done since 21 October: protocol benchmarking v1 (failed and documented) and v2 (locked), Iwasaki 2020 transcription and check (failed and documented), checkpoint (30 October).
 
-1. **Drug catalog growth** (Phase 3.2). More approved drugs from public sources (labels, RxNorm, ChEMBL), each sourced and marked reviewed or not, so the label engine has more to work on.
-2. **Protocol benchmarking for multiple myeloma** (Phase 4.1). Compare eligibility criteria across similar trials using the trial data already in the platform; the first trial-design tool.
-3. **Bortezomib PK** (Phase 2.1), when the Iwasaki 2020 paper or individual data arrive.
+1. **Benchmarking page (4.1f).** Built now on the full corpus with extractor v1.1, with each criterion type hidden until it passes the v2 check. Includes a draft-protocol comparison.
+2. **v2 annotation and locked check (4.2c).** The 200-trial annotation is in progress, by the platform owner.
+3. **ICH M15 credibility records (Phase 6.1).** One exportable record per model, built from existing run records, scorecards and locked reports.
+4. **Special-population summaries (4.2)** for the four drugs with pinned label extracts: lenalidomide, pomalidomide, dexamethasone and bortezomib.
+
+Blocked or waiting:
+- **Drug catalog growth (3.2):** the public sources cannot be reached from the development environment.
+- **Bortezomib PK:** needs individual concentration data or the Iwasaki author's answers.
 
 In parallel, outside the code: speak with five to ten trial designers, clinical pharmacologists or regulatory professionals about what they do by hand today, to confirm the Phase 4 focus.
 
