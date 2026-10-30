@@ -1,0 +1,104 @@
+{
+  "schema_version": "published-model-extract-v1",
+  "extract_version": "ixazomib-pk-gupta-2017-v1.0",
+  "drug": "ixazomib",
+  "recorded_on": "2026-10-30",
+  "source": {
+    "citation": "Gupta N, Diderichsen PM, Hanley MJ, Berg D, van de Velde H, Harvey RD, Venkatakrishnan K. Population pharmacokinetic analysis of ixazomib, an oral proteasome inhibitor, including data from the phase III TOURMALINE-MM1 study to inform labelling. Clin Pharmacokinet. 2017;56(11):1355-1368.",
+    "doi": "10.1007/s40262-017-0526-4",
+    "licence": "Open access (stated on the article's first page).",
+    "file_reviewed": {"file": "s40262-017-0526-4.pdf (14 pages)", "sha256": "6100c8616805f0b6b0d2ab2def02963a4978d954d3dc6590e460f505784760d3"},
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted. Table 3 read from the rendered page image (article page 1361), not only the text layer; every untransformed value cross-checked against the exponential of its log-scale estimate. Independent review pending."
+  },
+  "structure": {
+    "description": "Three-compartment model with linear distribution and elimination; first-order linear absorption with a lag time for oral doses (Abstract; Results 3.1; Fig. 2).",
+    "compartments": {
+      "1": "absorption (depot); oral dose x F enters here at time = dose time + lag",
+      "2": "central, volume V2; elimination CL",
+      "3": "peripheral 1, volume V3; exchange Q3",
+      "4": "peripheral 2, volume V4; exchange Q4"
+    },
+    "output": "Total (bound plus unbound) plasma ixazomib concentration = amount in compartment 2 / V2.",
+    "equations": [
+      "dA1/dt = -Ka A1",
+      "dA2/dt = Ka A1 - (CL/V2) A2 - (Q3/V2) A2 + (Q3/V3) A3 - (Q4/V2) A2 + (Q4/V4) A4",
+      "dA3/dt = (Q3/V2) A2 - (Q3/V3) A3",
+      "dA4/dt = (Q4/V2) A2 - (Q4/V4) A4"
+    ],
+    "equations_basis": "Standard form of the structure drawn in Fig. 2 (compartments 1-4, KA, CL, Q3, Q4, F, ALAG1); the article does not print the differential equations.",
+    "location": "Fig. 2 and Results section 3.1, article page 1360"
+  },
+  "parameters": {
+    "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)",
+    "fixed_effects": {
+      "ka_per_h": {"value": 0.34, "log_estimate": -1.09, "rse_percent": 8, "stated": "0.34/h ~ t1/2 = 124 min"},
+      "cl_l_h": {"value": 1.86, "log_estimate": 0.62, "rse_percent": 7, "stated": "1.86 L/h (systemic clearance)"},
+      "v2_l": {"value": 13.7, "log_estimate": 2.62, "rse_percent": 4, "stated": "13.7 L"},
+      "f": {"value": 0.58, "log_estimate": -0.55, "rse_percent": 9, "stated": "58% (absolute bioavailability)"},
+      "q3_l_h": {"value": 5.18, "log_estimate": 1.65, "rse_percent": 7, "stated": "5.18 L/h"},
+      "v3_l": {"value": 309, "log_estimate": 5.73, "rse_percent": 1, "stated": "309 L"},
+      "q4_l_h": {"value": 26.1, "log_estimate": 3.26, "rse_percent": 2, "stated": "26.1 L/h"},
+      "v4_l": {"value": 205, "log_estimate": 5.32, "rse_percent": 1, "stated": "205 L"},
+      "tlag_h": {"value": 0.216666666667, "log_estimate": -1.52, "rse_percent": 0, "stated": "13 min"},
+      "bsa_exponent_on_v4": {"value": 2.06, "rse_percent": 18, "stated": "-37 and +46% at the 5th and 95th percentile (1.5 and 2.25 m2) on V4 relative to median BSA (1.87 m2)"}
+    },
+    "values_used": "The untransformed column (three significant figures). The log-scale estimates are printed to two decimals only; their exponentials agree with the untransformed values within that rounding (largest difference Q3: exp(1.65) = 5.21 vs 5.18; lag: exp(-1.52) h = 13.1 min vs 13 min).",
+    "random_effects": {
+      "iiv_cl_cv_percent": {"value": 44, "rse_percent": 11, "shrinkage_percent": 21},
+      "iiv_f_cv_percent": {"value": 73, "rse_percent": 8, "shrinkage_percent": 13},
+      "correlation_log_cl_log_f": {"value": 0.82, "rse_percent": 11},
+      "iiv_v4_cv_percent": {"value": 79, "rse_percent": 12, "shrinkage_percent": 37},
+      "form": "Exponential: individual value = typical value x exp(eta), eta ~ N(0, omega^2) (equation 1, article page 1358). Table 3 footnote: 'Inter-individual variability shown as % CV'. The conversion from omega to the stated % CV is not given (sqrt(exp(omega^2) - 1) or omega x 100); unknown.",
+      "no_iiv_on": ["ka", "v2", "q3", "v3", "q4", "tlag"]
+    },
+    "residual_error": {
+      "initial_sd": 1.90, "steady_state_sd": 0.46, "time_constant_sd_per_h": 0.84,
+      "note": "Time-varying residual error on the log scale (article page 1360-1361). Not used by the platform: it describes measurement and model misspecification noise, not between-patient differences."
+    }
+  },
+  "covariates": {
+    "final_model": "BSA on V4 only (Abstract; Results 3.2). No other covariate met the selection criteria.",
+    "bsa_on_v4": {
+      "form": "V4_typical = 205 L x (BSA / 1.87 m2)^2.06",
+      "form_basis": "Inferred, not printed. Covariate equation (2) on article page 1358 is a power function of the continuous covariate; its typeset text did not survive extraction and the reference value is not named there. Table 3 states the effects relative to a median BSA of 1.87 m2. Check: (1.5/1.87)^2.06 = 0.635 (-37%) and (2.25/1.87)^2.06 = 1.464 (+46%), matching both stated values.",
+      "reference_note": "Table 2 gives the analysis-population median BSA as 1.88 m2 (range 1.23-2.67); Table 3 uses 1.87 m2. The Table 3 value is used because it reproduces the stated effects."
+    },
+    "tested_not_retained": "Age (23-91 years), race, sex, body weight (correlated with BSA; BSA chosen), mild or moderate renal impairment (creatinine clearance), mild hepatic impairment, smoking status, concomitant CYP-modulating drugs (Abstract; Results 3.2; Supplementary Tables 2-3 not reviewed).",
+    "renal_function_covariate": "None. The analysis population's Cockcroft-Gault creatinine clearance was median 86.8 mL/min, range 25.8-297 (Table 2).",
+    "hepatic_function_covariate": "None. Total bilirubin median 7 umol/L, range 1.71-39.3 (0.1-2.3 mg/dL); AST median 22 U/L, range 4-127 (Table 2). Patients with moderate or severe hepatic impairment were not in the analysis (they were studied separately)."
+  },
+  "data_used_to_build": {
+    "location": "Table 1, article page 1357",
+    "patients": 755,
+    "samples": "10,199 available; 172 excluded for recording errors; 354 below LLOQ, of which 124 excluded and 230 imputed as LLOQ/2",
+    "studies": [
+      {"study": "C16001", "registry": "NCT00830869", "population": "advanced non-haematologic malignancies", "route": "IV", "n": 80},
+      {"study": "C16002", "registry": "NCT00893464", "population": "lymphoma", "route": "IV", "n": 28},
+      {"study": "C16003", "registry": "NCT00932698", "population": "relapsed/refractory MM", "route": "oral", "n": 52},
+      {"study": "C16004", "registry": "NCT00963820", "population": "relapsed/refractory MM", "route": "oral", "n": 51},
+      {"study": "C16005", "registry": "NCT01217957", "population": "newly diagnosed MM", "route": "oral", "n": 62},
+      {"study": "C16007", "registry": "NCT01318902", "population": "relapsed/refractory light-chain amyloidosis", "route": "oral", "n": 15},
+      {"study": "C16008", "registry": "NCT01383928", "population": "newly diagnosed MM", "route": "oral", "n": 63},
+      {"study": "C16010 (TOURMALINE-MM1)", "registry": "NCT01564537", "population": "relapsed/refractory MM", "route": "oral", "n": 347},
+      {"study": "C16013", "registry": "NCT01645930", "population": "East Asian relapsed/refractory MM", "route": "oral", "n": 43},
+      {"study": "TB-MC010034", "registry": "not applicable", "population": "Japanese relapsed/refractory MM", "route": "oral", "n": 14}
+    ],
+    "not_included": "The dedicated renal impairment study (NCT01830816) and hepatic impairment study (NCT01912222) are not in Table 1."
+  },
+  "assay": {"lloq_ng_ml": 0.5, "location": "Methods 2.2, article page 1357-1358 ('LLOQ/2 (0.25 ng/mL)')"},
+  "summary_values_stated": {
+    "terminal_half_life_days": 9.5, "steady_state_volume_l": 543, "systemic_clearance_l_h": 1.86, "bioavailability_percent": 58,
+    "location": "Abstract",
+    "note": "543 L = V2 + V3 + V4 at the typical BSA (13.7 + 309 + 205 = 527.7 L at 1.87 m2); the 15 L difference is not explained in the article (a geometric-mean or different-BSA basis is possible). Recorded, not resolved."
+  },
+  "applicability_stated_by_authors": "Patients with cancer (MM, lymphoma, light-chain amyloidosis, solid tumours), oral or IV ixazomib, once or twice weekly; creatinine clearance down to about 30 mL/min and mild hepatic impairment. Severe renal impairment, ESRD and moderate or severe hepatic impairment were studied separately (Discussion).",
+  "limitations": [
+    "No renal or hepatic function covariate; the model gives the same exposure whatever the kidney or liver function.",
+    "The BSA covariate form and the 1.87 m2 reference are inferred from the stated effects (see covariates.bsa_on_v4).",
+    "The meaning of the stated % CV for between-patient variability (exact log-normal CV or omega) is not given.",
+    "Individual bioavailability is log-normal as published and can exceed 1 for some simulated patients; the article does not say whether it was bounded.",
+    "Total concentrations only; protein binding about 99% (dedicated studies) is not modelled."
+  ],
+  "clinical_prediction_validated": false
+}

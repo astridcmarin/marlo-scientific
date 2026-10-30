@@ -1,0 +1,139 @@
+{
+  "schema_version": "observed-summary-v1",
+  "summary_version": "ixazomib-impairment-observed-v1.0",
+  "drug": "ixazomib",
+  "recorded_on": "2026-10-30",
+  "extraction": "AI-assisted. Tables read from the rendered page images (the renal article's text layer drops decimal points, e.g. '258' for 25.8); every number below was read from the image. Independent review pending.",
+  "relationship_to_model": "Neither study is among the ten studies used to build the Gupta 2017 population model (its Table 1; ixazomib_pk_gupta_2017_extract_v1.json, data_used_to_build). Same sponsor and first author; same assay range.",
+  "studies": {
+    "renal": {
+      "citation": "Gupta N, Hanley MJ, Harvey RD, Badros A, Lipe B, Kukreti V, Berdeja J, Yang H, Hui AM, Qian M, Zhang X, Venkatakrishnan K, Chari A. A pharmacokinetics and safety phase 1/1b study of oral ixazomib in patients with multiple myeloma and severe renal impairment or end-stage renal disease requiring haemodialysis. Br J Haematol. 2016;174(5):748-759.",
+      "doi": "10.1111/bjh.14125",
+      "registry": "NCT01830816",
+      "file_reviewed": {"file": "BJH-174-748.pdf (12 pages)", "sha256": "af607b2c6b8a163a875fa2c0a20e2113febae44c22cdb8ec69aa1dd755d84453"},
+      "storage": "Kept on the platform owner's computer only; not committed.",
+      "design": {
+        "population": "Relapsed/refractory MM (37 of 41) or advanced solid tumours (4 of 41)",
+        "dose": "Single oral 3 mg dose (Part A), on an empty stomach (at least 1 h before or 2 h after food)",
+        "groups": {
+          "normal": "Cockcroft-Gault creatinine clearance >= 90 mL/min",
+          "severe_ri": "Cockcroft-Gault creatinine clearance < 30 mL/min, not requiring dialysis",
+          "esrd": "End-stage renal disease requiring haemodialysis; dialysis session about 24-28 h after the dose"
+        },
+        "sampling_times_h": [0.5, 1, 1.5, 2, 3, 4, 8, 24, 48, 72, 96, 120, 144, 168, 240, 264, 336],
+        "extra_sampling_times_esrd_h": [29, 30],
+        "assay": "LC-MS/MS, dynamic range 0.5-500 ng/mL",
+        "analysis": "Non-compartmental (Phoenix WinNonlin); AUC0-last to the last quantifiable concentration; AUC rule not stated",
+        "location": "Methods (Patients; Study design; Assessments; PK analysis), article pages 749-751"
+      },
+      "demographics_safety_population": {
+        "location": "Table I, article page 752",
+        "median_weight_kg": {"normal": [87.3, 62, 147], "severe_ri": [54.3, 46, 100], "esrd": [82.3, 48, 128]},
+        "median_age_years": {"normal": 55.0, "severe_ri": 74.5, "esrd": 61.0},
+        "n_safety": {"normal": 20, "severe_ri": 14, "esrd": 7},
+        "note": "Weight as [median, min, max]. Height and BSA not reported."
+      },
+      "table2": {
+        "location": "Table II, article page 753 (rendered page checked)",
+        "statistic": "geometric mean (% CV); Tmax median (range)",
+        "groups": {
+          "normal": {"n_pk": 18,
+                     "tmax_h": {"median": 1.04, "range": [0.467, 4]},
+                     "cmax_ng_ml": {"gm": 25.8, "cv_percent": 56, "n": 18},
+                     "auc_last_ng_h_ml": {"gm": 575, "cv_percent": 38, "n": 15},
+                     "unbound_cmax_ng_ml": {"gm": 0.300, "cv_percent": 66, "n": 18},
+                     "unbound_auc_last_ng_h_ml": {"gm": 6.64, "cv_percent": 61, "n": 15}},
+          "severe_ri": {"n_pk": 14,
+                        "tmax_h": {"median": 1.00, "range": [0.45, 1.5]},
+                        "cmax_ng_ml": {"gm": 45.3, "cv_percent": 81, "n": 14},
+                        "auc_last_ng_h_ml": {"gm": 813, "cv_percent": 51, "n": 10},
+                        "unbound_cmax_ng_ml": {"gm": 0.478, "cv_percent": 86, "n": 14},
+                        "unbound_auc_last_ng_h_ml": {"gm": 9.25, "cv_percent": 55, "n": 10}},
+          "esrd": {"n_pk": 6,
+                   "tmax_h": {"median": 1.25, "range": [0.983, 7]},
+                   "cmax_ng_ml": {"gm": 18.7, "cv_percent": 82, "n": 6},
+                   "auc_last_ng_h_ml": {"gm": 783, "cv_percent": 35, "n": 6},
+                   "unbound_cmax_ng_ml": {"gm": 0.213, "cv_percent": 57, "n": 6},
+                   "unbound_auc_last_ng_h_ml": {"gm": 8.93, "cv_percent": 55, "n": 6}}
+        },
+        "footnotes": "AUC n = 15 (normal) and n = 10 (severe RI) per footnotes double-dagger and section sign."
+      },
+      "table3": {
+        "location": "Table III, article page 754 (rendered page checked)",
+        "statistic": "geometric least-squares mean ratio (90% CI)",
+        "unbound_cmax": {"severe_ri_vs_normal": [1.60, 0.99, 2.58], "esrd_vs_normal": [0.71, 0.38, 1.34], "combined_vs_normal": [1.25, 0.79, 1.98]},
+        "unbound_auc_last": {"severe_ri_vs_normal": [1.39, 0.88, 2.20], "esrd_vs_normal": [1.34, 0.78, 2.31], "combined_vs_normal": [1.38, 0.93, 2.04]},
+        "total_combined_vs_normal_text": {"cmax": [1.35, 0.86, 2.10], "auc_last": [1.39, 1.04, 1.86], "location": "Results text, article page 754"}
+      },
+      "other_findings": "Plasma protein binding about 99% in all groups. Haemodialysis clearance < 2 mL/min in all ESRD patients; pre- and post-dialyser concentrations similar (Fig. 4).",
+      "label_consequence": "Reduced starting dose of 3 mg for severe renal impairment or ESRD requiring dialysis (article Discussion; NINLARO product information)."
+    },
+    "hepatic": {
+      "citation": "Gupta N, Hanley MJ, Venkatakrishnan K, Perez R, Norris RE, Nemunaitis J, Yang H, Qian MG, Falchook G, Labotka R, Fu S. Pharmacokinetics of ixazomib, an oral proteasome inhibitor, in solid tumour patients with moderate or severe hepatic impairment. Br J Clin Pharmacol. 2016;82(3):728-738.",
+      "doi": "10.1111/bcp.12991",
+      "registry": "NCT01912222",
+      "file_reviewed": {"file": "Br J Clin Pharmacol - 2016 - Gupta - Pharmacokinetics of ixazomib an oral proteasome inhibitor in solid tumour patients.pdf (11 pages)", "sha256": "221ca93332bdd7c2ba7b5606cbbc28234fe447894f906b9c737d2cbed96b74e1"},
+      "storage": "Kept on the platform owner's computer only; not committed.",
+      "design": {
+        "population": "Advanced solid tumours (no MM)",
+        "dose": "Single oral dose, fasted (no food 2 h before and 1 h after): normal 4 mg, moderate 2.3 mg, severe 1.5 mg",
+        "groups": {
+          "normal": "NCI-ODWG: total bilirubin and AST <= ULN",
+          "moderate": "NCI-ODWG: total bilirubin > 1.5-3 x ULN, any AST",
+          "severe": "NCI-ODWG: total bilirubin > 3 x ULN, any AST"
+        },
+        "sampling_times_h": [0.5, 1, 1.5, 2, 3, 4, 8, 24, 48, 72, 96, 120, 144, 168, 240, 264, 336],
+        "assay": "LC-MS/MS, 0.5-500 ng/mL",
+        "analysis": "Non-compartmental (WinNonlin 6.2); AUC0-last to the last quantifiable concentration; AUC rule not stated",
+        "location": "Methods, article pages 729-731"
+      },
+      "demographics": {
+        "location": "Table 1, article page 732",
+        "mean_total_bilirubin_umol_l": {"normal": 7.43, "moderate": 40.25, "severe": 108.61},
+        "note": "Weight, height and BSA not reported."
+      },
+      "table2": {
+        "location": "Table 2, article page 733 (rendered page checked)",
+        "statistic": "geometric mean (% CV); Tmax median (range)",
+        "groups": {
+          "normal": {"dose_mg": 4, "n_pk": 12,
+                     "tmax_h": {"median": 0.95, "range": [0.48, 4]},
+                     "cmax_ng_ml": {"gm": 61.0, "cv_percent": 54, "n": 12},
+                     "auc_last_ng_h_ml": {"gm": 1160, "cv_percent": 41, "n": 12},
+                     "dose_normalised_cmax": {"gm": 15.3, "cv_percent": 54},
+                     "dose_normalised_auc_last": {"gm": 289, "cv_percent": 41},
+                     "unbound_cmax_ng_ml": {"gm": 0.509, "cv_percent": 47},
+                     "unbound_auc_last_ng_h_ml": {"gm": 9.65, "cv_percent": 50}},
+          "moderate": {"dose_mg": 2.3, "n_pk": 13,
+                       "tmax_h": {"median": 1.50, "range": [0.5, 2.5]},
+                       "cmax_ng_ml": {"gm": 42.5, "cv_percent": 63, "n": 13},
+                       "auc_last_ng_h_ml": {"gm": 846, "cv_percent": 49, "n": 10},
+                       "dose_normalised_cmax": {"gm": 18.5, "cv_percent": 63},
+                       "dose_normalised_auc_last": {"gm": 368, "cv_percent": 49},
+                       "unbound_cmax_ng_ml": {"gm": 0.372, "cv_percent": 80},
+                       "unbound_auc_last_ng_h_ml": {"gm": 7.33, "cv_percent": 61}},
+          "severe": {"dose_mg": 1.5, "n_pk": 18,
+                     "tmax_h": {"median": 1.21, "range": [0.5, 4]},
+                     "cmax_ng_ml": {"gm": 26.1, "cv_percent": 70, "n": 18},
+                     "auc_last_ng_h_ml": {"gm": 489, "cv_percent": 50, "n": 11},
+                     "dose_normalised_cmax": {"gm": 17.4, "cv_percent": 70},
+                     "dose_normalised_auc_last": {"gm": 326, "cv_percent": 49},
+                     "unbound_cmax_ng_ml": {"gm": 0.232, "cv_percent": 84},
+                     "unbound_auc_last_ng_h_ml": {"gm": 4.44, "cv_percent": 63}}
+        },
+        "footnotes": "AUC0-last, dose-normalised and unbound AUC0-last n = 10 (moderate, footnote *) and n = 11 (severe, footnote dagger)."
+      },
+      "table3": {
+        "location": "Table 3, article page 734 (rendered page checked)",
+        "statistic": "geometric least-squares mean ratio (90% CI), dose-normalised",
+        "total_cmax": {"moderate_vs_normal": [1.21, 0.74, 2.00], "severe_vs_normal": [1.14, 0.72, 1.82], "combined_vs_normal": [1.17, 0.77, 1.78]},
+        "total_auc_last": {"moderate_vs_normal": [1.27, 0.77, 2.11], "severe_vs_normal": [1.13, 0.69, 1.84], "combined_vs_normal": [1.20, 0.79, 1.82]},
+        "unbound_cmax": {"moderate_vs_normal": [1.27, 0.74, 2.18], "severe_vs_normal": [1.21, 0.74, 2.01], "combined_vs_normal": [1.24, 0.79, 1.95]},
+        "unbound_auc_last": {"moderate_vs_normal": [1.32, 0.70, 2.50], "severe_vs_normal": [1.23, 0.66, 2.29], "combined_vs_normal": [1.27, 0.75, 2.16]}
+      },
+      "label_consequence": "Reduced starting dose of 3 mg for moderate or severe hepatic impairment (article Discussion; NINLARO product information)."
+    }
+  },
+  "cross_study_note": "Dose-normalised total AUC0-last in the two normal-function groups differs: 575 / 3 = 192 (renal study, mostly MM) vs 289 (hepatic study, solid tumours) h.ng/mL per mg. Recorded as observed; not explained by either article.",
+  "clinical_prediction_validated": false
+}
