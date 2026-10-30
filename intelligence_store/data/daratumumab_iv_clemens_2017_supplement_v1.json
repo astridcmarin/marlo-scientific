@@ -1,0 +1,41 @@
+{
+  "schema_version": "observed-summary-v1",
+  "summary_version": "daratumumab-iv-clemens-2017-supplement-v1.0",
+  "drug": "daratumumab",
+  "recorded_on": "2026-10-30",
+  "source": {
+    "citation": "Clemens PL, et al. Clin Pharmacokinet. 2017;56(8):915-924, electronic supplementary material 1.",
+    "doi": "10.1007/s40262-016-0477-1",
+    "file_reviewed": {"file": "40262_2016_477_MOESM1_ESM.docx", "sha256": "7195efd9a49758d6ecb4e639e679697fb4c33b9240960caff217d160a2168d26"},
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted from the Word document XML (tables) and the embedded figure image (Supplemental Fig. 1, viewed). Independent review pending."
+  },
+  "design_supplemental_figure_1": {
+    "gen501_part1": "0.005-24 mg/kg; first infusion followed by a 3-week washout, then weekly for up to 7 full infusions (n = 32). All Part 1 patients received a pre-dose 1 day before the first two full infusions.",
+    "gen501_part2_8_mg_kg": "Cohorts A, B, C: weekly for 8 weeks, every 2 weeks for 16 weeks, every 4 weeks (n = 30). Cohorts A and B received 1 pre-dose infusion 1 day before the first full infusion; cohort C did not (pre-dose amount not stated).",
+    "gen501_part2_16_mg_kg": "Cohorts D, E: first infusion followed by a 3-week washout; then weekly for 7 weeks, every 2 weeks for 14 weeks, every 4 weeks (n = 42). No pre-dose.",
+    "sirius_part1": "Randomised: 8 mg/kg every 4 weeks (n = 18); 16 mg/kg weekly for 8 weeks, every 2 weeks for 16 weeks, every 4 weeks (n = 16).",
+    "sirius_part2": "16 mg/kg as in Part 1 (n = 106 including 90 additional patients)."
+  },
+  "patients_with_pk_samples_supplemental_table_1": {
+    "GEN501": {"0.1": 4, "0.5": 3, "1": 6, "2": 3, "4": 3, "8": 33, "16": 45, "24": 3, "all": 100},
+    "SIRIUS (MMY2002)": {"8": 18, "16": 105, "all": 123},
+    "note": "Patients with measurable samples, all parts and dose groups combined."
+  },
+  "baseline_supplemental_table_2": {
+    "population": "Patients with measurable PK concentrations; all doses and parts of each study combined (not by dose group).",
+    "SIRIUS": {"n": 123, "weight_kg": {"median": 76, "range": [38.4, 160.2]}, "albumin_g_l": {"median": 34, "range": [15, 47]},
+               "male": [64, 123], "igg_myeloma": [60, 123], "age_median": 64,
+               "refractory_to_pi_and_imid": [123, 123], "more_than_3_prior_lines": [99, 123]},
+    "GEN501": {"n": 100, "weight_kg": {"median": 80.5, "range": [43, 141.8]}, "albumin_g_l": {"median": 39.5, "range": [20, 51]},
+               "male": [68, 100], "igg_myeloma": [49, 100], "age_median": 61,
+               "refractory_to_pi_and_imid": [57, 100], "more_than_3_prior_lines": [77, 100]},
+    "combined": {"n": 223, "weight_kg_median": 78.6, "albumin_g_l_median": 37, "igg_myeloma": [109, 223]},
+    "notes": [
+      "The table's row label reads 'Type of melanoma at baseline by immunofixation'; the IgG/non-IgG split is read as the myeloma type.",
+      "The combined medians (78.6 kg, 37 g/L) equal the reference values in the Luo 2021 covariate equations, consistent with Luo carrying over the earlier GEN501/SIRIUS model's covariate model.",
+      "Some printed counts are internally inconsistent (e.g. combined creatinine clearance >= 90 mL/min '17 (32)' while the study counts sum to 71; GEN501 'IMiD only 12 (14)' summing to 14 combined). Not used here."
+    ]
+  },
+  "clinical_prediction_validated": false
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "external-consistency-plan-v1",
+  "plan_version": "daratumumab-pk-luo-check-plan-v1.0",
+  "recorded_on": "2026-10-30",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before any daratumumab concentration was computed with the Luo 2021 model. Not blinded: all Clemens 2017 values in the observed extract were read while transcribing. The analyst also noted, from the parameters alone, that a dose divided by V1 (for example 8 mg/kg x 78.6 kg / 5.25 L, about 120 ug/mL) is the order of the end-of-infusion concentration; no simulated value had been computed.",
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "independence": "Partial. GEN501 and SIRIUS are not among the four studies that estimated the Luo 2021 parameters, but the model's structure and covariates come from the earlier intravenous model built on GEN501 and SIRIUS (Xu et al. 2017). A consistent result shows that parameters estimated on newer studies reproduce the older studies; it does not test the choice of structure.",
+  "not_this": [
+    "Not validation or qualification of the model; no acceptance limits are introduced.",
+    "Not a comparison of individual concentrations; only published arithmetic means, SDs and group sizes are used.",
+    "Not a re-fit: no parameter is estimated or tuned.",
+    "Not a dosing recommendation or exposure prediction for any patient; not a comparison of subcutaneous and intravenous dosing."
+  ],
+  "question": "Do the Luo 2021 daratumumab population PK parameters (estimated on PAVO, MMY1008, COLUMBA and PLEIADES) reproduce first-dose intravenous exposure observed in SIRIUS (8 mg/kg) and GEN501 Part 2 (16 mg/kg)?",
+  "data": {
+    "model_extract": {"path": "intelligence_store/data/daratumumab_pk_luo_2021_extract_v1.json", "sha256": "8c68ddb7a849ce00a6340e0a7b4ec58ecf9e720491be8b55f1a47c774293d4f6"},
+    "observed": {"path": "intelligence_store/data/daratumumab_iv_clemens_2017_observed_v1.json", "sha256": "2872913fd369aea906fc4a11623755d8ff3722c75de0d1fbe55e567992632ed0"}
+  },
+  "model": {
+    "equations": "Extract structure.equations with the covariate equations as read (extract parameters.covariate_equations_read); intravenous input only (no depot). Vmax(t) = Vmax exp(-KDES t), t from the first dose.",
+    "variability": "Independent log-normal random effects on CL, V1, Vmax and KDES (Ka unused for IV). Individual value = typical x exp(eta).",
+    "omega_from_cv": {"primary": "omega^2 = ln(1 + CV^2)", "sensitivity": "omega = CV"},
+    "covariates": {
+      "primary": "Weight 78.6 kg and albumin 37 g/L for every patient (the model's reference values); IgG myeloma drawn with probability 427/742 and male sex with probability 421/742 (the model population, extract population).",
+      "sensitivity": ["IgG probability 0.40", "IgG probability 0.75", "Weight log-normal (median 78.6 kg, CV 20%) and albumin normal (mean 37, SD 5 g/L, truncated to 20-55) drawn independently", "Sex factor 0.895 applied to females instead of males"],
+      "basis": "Clemens 2017 does not report the GEN501 and SIRIUS covariate distributions in the main text (electronic supplementary Table 2 not reviewed)."
+    },
+    "dose": "mg/kg x weight; constant-rate infusion.",
+    "infusion_duration": {"primary": "7 h for the first infusion, 4 h for later infusions", "sensitivity": "3 h for every infusion", "basis": "GEN501 Part 1 states 6-8 h; later infusions are shorter in practice; durations are not given for Part 2 or SIRIUS."}
+  },
+  "simulation": {
+    "virtual_trials": 1000,
+    "seed": 20261031,
+    "random_generator": "Python random.Random(seed + scenario index); scenarios in the order listed under comparison.scenarios.",
+    "design": "Each virtual trial draws SIRIUS 8 mg/kg (18 patients; the first 15 for AUC to infinity) and GEN501 Part 2 16 mg/kg (40 patients; the first 20 for AUC 0-7 days). Single infusion at t = 0; no further dose within the compared window (GEN501 Part 2 Fig. 3 shows the next dose at 3 weeks; SIRIUS 8 mg/kg is every 4 weeks and AUC to infinity is single-dose by definition).",
+    "solver": "Fixed-step fourth-order Runge-Kutta: step 0.05 h until 24 h after the end of infusion, then 1 h. AUC to infinity: integrate until the central concentration falls below 0.1% of its maximum, then add C / k, with k the log-linear slope over the last 24 h.",
+    "numerical_checks": [
+      "Mass balance: amounts in both compartments plus amounts removed by the linear and saturable pathways equal the dose within 1e-6 relative (typical patient, 8 and 16 mg/kg, at 168 and 1,000 h).",
+      "Halving both steps changes each primary endpoint of the typical patient by less than 0.1%.",
+      "With Vmax = 0, the AUC to infinity equals dose / CL within 0.5%."
+    ]
+  },
+  "endpoint_emulation": {
+    "cmax": "Largest of the concentrations at the end of infusion and 2 h later.",
+    "auc_0_7d": "Exact integral of the simulated concentration from the start of infusion to 168 h. (The GEN501 linear-trapezoid sampling is not reproduced: the sample times differed by cohort.)",
+    "auc_inf": "Exact integral to infinity as in simulation.solver."
+  },
+  "endpoints": {
+    "primary": [
+      "SIRIUS 8 mg/kg: Cmax (n = 18) and AUC to infinity (n = 15), first infusion",
+      "GEN501 Part 2 16 mg/kg: Cmax (n = 40) and AUC 0-7 days (n = 20), first full infusion"
+    ],
+    "secondary": ["GEN501 Part 2 8 mg/kg: Cmax (n = 28)"],
+    "descriptive": [
+      "SIRIUS 16 mg/kg (n not stated; no classification): end-of-infusion concentration after the first infusion; trough before the ninth infusion (day 57) and end-of-infusion concentration of the ninth infusion, under the labelled weekly schedule. Reported as observed / simulated population mean, with the simulated population SD, from 2,000 simulated patients (primary scenario only).",
+      "GEN501 Part 1 16 mg/kg (n = 3): first full infusion Cmax and AUC to infinity, same reporting.",
+      "Share of the typical patient's elimination over the first week that goes through the saturable pathway, at 8 and 16 mg/kg."
+    ]
+  },
+  "comparison": {
+    "rule": "For each primary and secondary endpoint, the observed arithmetic mean is compared with the 5th-95th percentile of the simulated group means (group size as observed): consistent, model_over_predicts (observed below the 5th) or model_under_predicts (observed above the 95th). Also reported: observed / simulated median.",
+    "scenarios": ["primary", "omega_equals_cv", "igg_0_40", "igg_0_75", "covariate_spread", "sex_factor_on_females", "infusion_3h", "kdes_zero"],
+    "kdes_zero": "KDES = 0 (no decline of Vmax), included because the exponential form is assumed.",
+    "robustness": "An endpoint's classification is robust if it is the same in all eight scenarios."
+  },
+  "decision_rule": {
+    "primary_condition": "Scenario 'primary'.",
+    "summary": "The model is recorded as consistent with first-dose intravenous exposure only if all four primary endpoints are consistent under the primary condition. A classification that changes across scenarios is reported as not robust.",
+    "consequence": "If consistent and robust, a separate step (with its own record) may register the model on the platform for intravenous and subcutaneous daratumumab exposure in MM, with the partial independence, the assumed KDES form and the sex-factor reading shown. Otherwise it is not registered. This check changes nothing on the platform by itself.",
+    "never": "No parameter, scenario or reading is chosen after seeing results; all scenarios are reported."
+  },
+  "known_differences": [
+    "GEN501 and SIRIUS covariate distributions (weight, albumin, IgG type, sex) are unknown; they enter only through the scenarios.",
+    "Whether GEN501 Part 2 patients received a pre-dose before the first full infusion is not stated in the article; none is simulated. A pre-dose would raise the observed values relative to the simulation.",
+    "Infusion durations are assumed.",
+    "Arithmetic means of small groups with large variability (CV 24-64%) are compared; residual error (34.8% on the log scale) is not simulated, which lowers simulated arithmetic means by about 6% relative to noisy measurements.",
+    "AUC to infinity in SIRIUS was estimated by NCA with terminal extrapolation; the simulation uses the exact integral.",
+    "The model was estimated mainly on COLUMBA (2017-2019) and PLEIADES; GEN501 and SIRIUS (2008-2015) enrolled more heavily pretreated patients."
+  ]
+}
