@@ -1,0 +1,70 @@
+{
+ "schema_version": "repository-checkpoint-v1",
+ "checkpoint": "2026-10-30",
+ "recorded_on": "2026-10-30",
+ "verified_tree": {
+  "branch": "checkpoint-2026-10-30 (main 4ba876a + PR #66 afb6151)",
+  "commit": "afb6151"
+ },
+ "classification": "software_and_repository_verification",
+ "not_this": [
+  "Not scientific validation of any model.",
+  "Not a clinical-readiness review."
+ ],
+ "checks": [
+  {
+   "id": "unit_tests",
+   "result": "pass",
+   "detail": "895 tests, python -m unittest discover -s tests, Python 3.13 locally; CI Python 3.12 passed on merged PRs #56-#65."
+  },
+  {
+   "id": "compile",
+   "result": "pass",
+   "detail": "compileall over intelligence_store, landscape_ui, app, scripts, tests."
+  },
+  {
+   "id": "migrations",
+   "result": "pass",
+   "detail": "9 Alembic revisions in intelligence_migrations/versions, one root (3538c7d69211), one head (585bc7cb8d18); unchanged since 2026-10-16."
+  },
+  {
+   "id": "pinned_data",
+   "result": "pass",
+   "detail": "80 tracked data files in intelligence_store/data/ outside curation/; 78 match a SHA-256 in code; eligibility_corpus_mm_cohort3_v1.json.gz is pinned by its decompressed checksum; bortezomib_observation_template_v1.json unpinned by design."
+  },
+  {
+   "id": "reports",
+   "result": "pass_with_finding_fixed",
+   "detail": "20 files in docs/verification/ (18 check reports, 2 checkpoint records). All check reports regenerate exactly.",
+   "finding": "eligibility_validation_v1.json and eligibility_validation_v1_posthoc.json had no regeneration test; added to tests/test_eligibility_validation.py. bortezomib_pbpk_iwasaki_check_v1.json (about 2 minutes) regenerated for this checkpoint: report_sha256 529772d9... matches."
+  },
+  {
+   "id": "validation_flags",
+   "result": "pass",
+   "detail": "No tracked JSON sets clinical_prediction_validated or ready_for_patient_simulation to true."
+  },
+  {
+   "id": "page_smoke",
+   "result": "pass",
+   "detail": "49 GET pages without path parameters against a freshly migrated SQLite database: 41 x 200, 8 x 400 (require cohort_id); no server errors; 32 parameterised routes covered by their own tests."
+  },
+  {
+   "id": "hygiene",
+   "result": "pass",
+   "detail": "No source articles or private correspondence tracked; Iwasaki extract contains no email address (tested); only tracked PDF is the public EMA lenalidomide report."
+  }
+ ],
+ "delivered_since_previous": [
+  "#56 checkpoint 2026-10-21",
+  "#57-#60, #62-#63 protocol benchmarking v1 (all eight types failed the locked check)",
+  "#64-#65 protocol benchmarking v2 locked, extractor v1.1 frozen",
+  "#61, #66 Iwasaki 2020 transcription and locked check (not consistent)"
+ ],
+ "remaining_gates": [
+  "v2 eligibility annotation (in progress), then pin, locked check, benchmarking page",
+  "bortezomib: individual data or a clearance mechanism that changes between doses; Iwasaki author answers",
+  "Hughes transcription review and CG weight basis; Kim CL/F form",
+  "label engine reviews",
+  "catalog growth, special-population summaries, ICH M15 records, deployment"
+ ]
+}

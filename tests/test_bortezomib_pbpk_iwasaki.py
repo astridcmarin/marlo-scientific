@@ -32,6 +32,21 @@ class Extract(unittest.TestCase):
         self.assertNotIn('gmail', text)
 
 
+class AuthorAnswers(unittest.TestCase):
+    def test_pinned_and_refer_to_the_locked_files(self):
+        import hashlib
+        a = m.load_author_answers()
+        root = m.EXTRACT_PATH.parent.parent.parent
+        for ref in a['applies_to'].values():
+            self.assertEqual(hashlib.sha256((root / ref['file']).read_bytes()).hexdigest(), ref['sha256'])
+        self.assertIn('bolus into the central compartment', a['answers'][1]['answer'])
+
+    def test_no_private_contact_details(self):
+        text = m.AUTHOR_ANSWERS_PATH.read_text()
+        self.assertNotIn('@', text)
+        self.assertNotIn('Shinji', text)
+
+
 class Structure(unittest.TestCase):
     def setUp(self):
         self.p = m.parameters()

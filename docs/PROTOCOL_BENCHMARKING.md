@@ -197,4 +197,13 @@ Version 2 responds to the v1 result and its post-hoc analysis.
    - **Against the v1 annotation:** precision is 0.82–0.97 and recall 0.84–0.96 per type, after converting the v1 annotation to the eligible side. These figures are **optimistic and not a validation**: the rules were tuned on these trials, and the v1 annotation follows the v1 guide.
    - **Scoring module:** `eligibility_validation_v2.py` pins plan v2 and extractor v1.1 now. It refuses to run until the v2 annotation export is pinned in its own commit.
 3. **4.2c: the locked check** on the v2 sample, after the annotation is exported and pinned.
-4. **4.1f: the benchmarking page,** for passing types only.
+4. **4.1f: the benchmarking page** (`eligibility_benchmark.py`, `/landscape/benchmarking`, built 30 October 2026). It runs extractor v1.1 over the 3,449 corpus trials with criteria text (about 20 s, cached per process).
+   - **What it shows, per criterion type:**
+     - how many trials state a threshold;
+     - the distribution of thresholds by unit group and direction;
+     - every count linked to its trials and clauses;
+     - filters for phase, status and start year;
+     - a draft-protocol comparison: stricter, same or more permissive than each trial's first comparable threshold.
+   - **Gating.** A type appears only if `docs/verification/eligibility_validation_v2.json` exists, carries the pinned plan and extractor checksums, and lists the type as passing. Until then the page says that nothing is shown and why. The page also shows each type's measured precision and recall.
+   - **Unit grouping:** only by exact factors. × ULN, CrCl and eGFR stay separate, and thresholds in the other direction (impaired-kidney trials) are a separate group.
+   - **Local preview.** The setting `ELIGIBILITY_BENCHMARK_PREVIEW` shows unvalidated types with a warning on every view. It is off by default.

@@ -1,0 +1,122 @@
+{
+  "schema_version": "external-consistency-plan-v1",
+  "plan_version": "ixazomib-pk-gupta-check-plan-v1.1",
+  "recorded_on": "2026-10-30",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written and checksum-pinned before any ixazomib concentration was computed with the Gupta 2017 model. Not blinded: every observed value in ixazomib_impairment_observed_v1.json was read while transcribing, including the impaired/normal ratios (renal unbound AUC about 1.4; hepatic dose-normalised total AUC 1.27 and 1.13) and the 1.5-fold difference between the two normal-function groups. The analyst also noted, from the parameters alone, the typical closed-form AUC to infinity F x dose / CL (about 935 h.ng/mL for 3 mg), which is not the compared endpoint (AUC0-last over 336 h). No AUC0-last, Cmax or simulated group value had been computed.",
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "independence": "Independent data: neither the renal study (NCT01830816) nor the hepatic study (NCT01912222) is among the ten studies in the model's Table 1. Same sponsor, first author and assay range.",
+  "not_this": [
+    "Not validation or qualification of the model; no acceptance limits are introduced.",
+    "Not a comparison of individual concentrations; only published geometric means, % CV and group sizes are used.",
+    "Not a re-fit: no parameter is estimated or tuned, and no renal or hepatic covariate is added in this step.",
+    "Not a dosing recommendation or exposure prediction for any patient; the label's dose reductions are reported, not evaluated."
+  ],
+  "question": "Does the Gupta 2017 ixazomib population PK model, which has no renal or hepatic covariate, reproduce single-dose total ixazomib exposure in two independent dedicated studies: (a) in the normal-function groups, and (b) for the impaired/normal exposure ratios (severe renal impairment and ESRD at 3 mg; moderate and severe hepatic impairment at 2.3 and 1.5 mg vs 4 mg, dose-normalised)?",
+  "data": {
+    "model_extract": {
+      "path": "intelligence_store/data/ixazomib_pk_gupta_2017_extract_v1.json",
+      "sha256": "d4fe97e4a8659b993541c9bd960ff6d6c519b4fe913b3ad27de84ce894b233bf"
+    },
+    "observed": {
+      "path": "intelligence_store/data/ixazomib_impairment_observed_v1.json",
+      "sha256": "95fbf4c6f1269c7d77c44e08bb00b4b58095fc1ee8b8b5c0dd4ae2d640153f14"
+    }
+  },
+  "model": {
+    "equations": "Extract structure.equations; untransformed Table 3 values; output total plasma concentration A2 / V2 (ng/mL with dose in ug and volume in L).",
+    "solution": "Closed form: sum of the three disposition exponentials (roots of the characteristic cubic of the central/peripheral system) convolved with first-order absorption after the lag. Checked against numerical integration (see simulation.numerical_checks).",
+    "bsa_on_v4": "V4 = 205 x (BSA / 1.87)^2.06 (extract covariates.bsa_on_v4, inferred form).",
+    "variability": "Per simulated patient: eta_CL and eta_F bivariate normal with correlation 0.82; eta_V4 independent. Individual CL, F, V4 = typical x exp(eta). No variability on Ka, V2, Q3, V3, Q4, lag. No residual error.",
+    "omega_from_cv": {
+      "primary": "omega^2 = ln(1 + CV^2) (exact log-normal CV)",
+      "sensitivity": "omega = CV (CV 0.44, 0.73, 0.79 used directly as SD of eta)"
+    },
+    "bioavailability": {
+      "primary": "As published (log-normal, unbounded).",
+      "sensitivity": "Individual F capped at 1."
+    },
+    "body_size": {
+      "primary": "BSA 1.87 m2 for every simulated patient (neither study reports height or BSA).",
+      "sensitivity": [
+        "BSA 1.5 m2 for every patient",
+        "BSA 2.25 m2 for every patient"
+      ],
+      "basis": "The model's stated 5th and 95th percentiles; not taken from the studies."
+    }
+  },
+  "simulation": {
+    "virtual_trials": 2000,
+    "seed": 20261030,
+    "random_generator": "Python random.Random(seed + scenario index); scenarios in the order listed under comparison.scenarios.",
+    "design": "Each virtual trial simulates both studies with the reported group sizes: renal normal 18 (first 15 for AUC), severe RI 14 (first 10 for AUC), ESRD 6; hepatic normal 12, moderate 13 (first 10 for AUC), severe 18 (first 11 for AUC). Single oral dose at t = 0: 3 mg (renal), 4, 2.3 and 1.5 mg (hepatic). Each group draws its own patients.",
+    "sampling": "The studies' sampling times (observed extract design.sampling_times_h; ESRD adds 29 and 30 h).",
+    "dialysis": "Not modelled (haemodialysis clearance < 2 mL/min reported, against a typical CL of 31 mL/min).",
+    "numerical_checks": [
+      "Typical patient, 3 mg: closed-form concentrations at the sampling times agree with fourth-order Runge-Kutta integration (step 0.001 h) within 1e-6 relative.",
+      "Typical patient: the closed-form AUC from 0 to 20,000 h equals F x dose / CL within 0.1%.",
+      "Typical patient: amount in compartments 1-4 plus amount eliminated equals F x dose within 1e-9 relative at 24, 168 and 336 h (Runge-Kutta)."
+    ]
+  },
+  "nca_emulation": {
+    "cmax": "Largest sampled concentration (sampling times above).",
+    "auc_last": {
+      "primary": "Linear trapezoids from (0, 0) through the sampled concentrations to the last sample at or above the LLOQ (0.5 ng/mL); later samples dropped.",
+      "sensitivity": "Linear while rising, log-linear while falling, same points."
+    },
+    "basis": "Both studies: non-compartmental, WinNonlin, AUC0-last to the last quantifiable concentration; AUC rule not stated; LLOQ 0.5 ng/mL in both."
+  },
+  "endpoints": {
+    "primary": [
+      "Group geometric mean of total AUC0-last: renal normal, severe RI, ESRD; hepatic normal, moderate, severe (6)",
+      "Ratio of group geometric means of total AUC0-last, impaired / normal within each study: severe RI, ESRD (renal); moderate, severe (hepatic, dose-normalised) (4)"
+    ],
+    "secondary": [
+      "Group geometric mean of total Cmax (6) and the same four Cmax ratios"
+    ],
+    "descriptive": [
+      "Typical-patient AUC to infinity and the fraction of it inside AUC0-last",
+      "Share of simulated patients with F > 1 (primary condition)",
+      "Simulated vs observed % CV of AUC0-last per group (median over trials)",
+      "Observed dose-normalised AUC0-last, renal normal vs hepatic normal, against the simulated distribution of that ratio (between-study difference)"
+    ],
+    "observed_ratios": "Computed from the reported group geometric means (Table II renal; Table 2 hepatic dose-normalised), which is what the simulation computes. The articles' least-squares ratios are listed for reference."
+  },
+  "comparison": {
+    "rule": "For each endpoint, the observed value is compared with the 5th-95th percentile of the simulated values across virtual trials: consistent (inside), model_over_predicts (observed below the 5th), model_under_predicts (observed above the 95th). Also reported: observed / simulated median.",
+    "scenarios": [
+      "primary",
+      "omega_equals_cv",
+      "f_capped_at_1",
+      "bsa_1_5",
+      "bsa_2_25",
+      "auc_linear_up_log_down"
+    ],
+    "robustness": "An endpoint's classification is robust if it is the same in all six scenarios."
+  },
+  "decision_rule": {
+    "primary_condition": "Scenario 'primary'.",
+    "normal_function": "The model is recorded as consistent with normal-function exposure only if both normal groups' AUC0-last are consistent under the primary condition. If one is and the other is not, that is recorded as such, with the between-study difference (descriptive) shown.",
+    "impairment": "An impaired group whose AUC0-last ratio is above the 95th percentile is recorded as 'exposure increase beyond the model's between-patient variability'; inside the range, as 'not distinguishable from no effect at this group size' (which is not evidence of no effect).",
+    "consequence": "If the normal-function result is consistent and robust, a separate step (with its own record) may register the model on the platform for patients inside its stated applicability (creatinine clearance down to about 30 mL/min, mild hepatic impairment), with severe renal impairment, ESRD and moderate or severe hepatic impairment shown as outside applicability and the observed ratios displayed. Otherwise the model is not registered. This check changes nothing on the platform by itself.",
+    "never": "No parameter, scenario or reading is chosen after seeing results; all scenarios are reported."
+  },
+  "known_differences": [
+    "Group geometric means from small groups (6 to 18 patients) are compared with simulated group geometric means of the same size; the simulated range reflects only the model's between-patient variability, not between-study differences.",
+    "Body size is unknown in both studies; the renal severe RI group's median weight (54 kg) is much lower than the other groups' (82-87 kg). BSA affects only V4 in the model.",
+    "The renal study enrolled MM patients (37 of 41); the hepatic study only solid-tumour patients. The model's data are mostly MM (and 80 solid-tumour patients given IV ixazomib).",
+    "The two normal-function groups differ: dose-normalised AUC0-last 192 vs 289 h.ng/mL per mg.",
+    "Residual error is not simulated, so simulated Cmax is noise-free; geometric means are little affected by log-scale noise but group % CV is understated.",
+    "The model gives total concentrations; unbound values (about 1% unbound, similar across groups) are not compared.",
+    "The BSA covariate form and the meaning of the % CV are inferred (extract limitations)."
+  ],
+  "amendments": [
+    {
+      "amendment": "1",
+      "recorded_on": "2026-10-30",
+      "supersedes": "ixazomib-pk-gupta-check-plan-v1.0 (intelligence_store/data/ixazomib_pk_gupta_check_plan_v1.json, sha256 9b8ef3d87dc78b5242f1008c41f4fe0fab39c97aa098786304e5d8de703bae51, locked in commit 982044c)",
+      "reason": "Plan v1.0 did not say what to do with a simulated patient whose sampled concentrations are all below the LLOQ. The first run under v1.0 stopped with an error on such a patient (very low individual F at 1.5 mg) inside the first virtual trial of the primary scenario; no group geometric mean, ratio or classification had been computed or seen. The numerical checks had run and passed (they compute only the typical patient).",
+      "rule": "Both studies report a PK-evaluable population (patients with enough concentration data for non-compartmental analysis). A simulated patient with fewer than 3 samples at or above the LLOQ is treated as not PK-evaluable and replaced by a new draw from the same random stream, until the group has its reported size. The number of replaced patients is reported per scenario and group. Nothing else changes."
+    }
+  ]
+}
