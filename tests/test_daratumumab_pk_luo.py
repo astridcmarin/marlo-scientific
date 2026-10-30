@@ -92,5 +92,46 @@ class Check(unittest.TestCase):
         self.assertEqual(digest(body), claimed)
 
 
+class CheckV2(unittest.TestCase):
+    def test_plan_v2_keeps_v1_rules_and_adds_the_supplement(self):
+        from intelligence_store import daratumumab_pk_luo_check_v2 as c2
+        p1, p2 = c.load_plan(), c2.load_plan()
+        for key in ('endpoint_emulation', 'comparison', 'decision_rule', 'not_this', 'independence'):
+            self.assertEqual(p1[key], p2[key], key)
+        self.assertEqual(p2['data']['model_extract'], p1['data']['model_extract'])
+        self.assertIn('817f8e2', p2['relationship_to_v1'])
+
+    def test_study_covariates_and_combined_medians_equal_model_reference(self):
+        from intelligence_store import daratumumab_pk_luo_check_v2 as c2
+        _, _, sup = c2.load_inputs(c2.load_plan())
+        cov = c2.study_covariates(sup)
+        self.assertEqual((cov['GEN501']['weight'], cov['GEN501']['albumin']), (80.5, 39.5))
+        self.assertEqual((cov['SIRIUS']['weight'], cov['SIRIUS']['albumin']), (76, 34))
+        combined = sup['baseline_supplemental_table_2']['combined']
+        self.assertEqual((combined['weight_kg_median'], combined['albumin_g_l_median']),
+                         (model.REFERENCE_WEIGHT_KG, model.REFERENCE_ALBUMIN_G_L))
+
+    def test_same_random_numbers_as_v1(self):
+        from intelligence_store import daratumumab_pk_luo_check_v2 as c2
+        extract = model.load_extract()
+        om = c._omegas(extract, 'exact')
+        ref = {'weight': model.REFERENCE_WEIGHT_KG, 'albumin': model.REFERENCE_ALBUMIN_G_L, 'albumin_range': [20, 55],
+               'p_igg': c.P_IGG, 'p_male': c.P_MALE}
+        a = c.draw_patient(random.Random(9), extract, {}, om)[0]
+        b = c2.draw_patient(random.Random(9), extract, {}, om, ref)[0]
+        self.assertEqual(a, b)
+
+    def test_committed_report_v2(self):
+        from intelligence_store import daratumumab_pk_luo_check_v2 as c2
+        from intelligence_store.patient_state import digest
+        r = json.loads(c2.REPORT_PATH.read_text())
+        self.assertEqual(r['plan_sha256'], c2.PLAN_SHA256)
+        self.assertEqual(r['v1_plan_sha256'], c.PLAN_SHA256)
+        self.assertFalse(r['clinical_prediction_validated'])
+        body = dict(r)
+        claimed = body.pop('report_sha256')
+        self.assertEqual(digest(body), claimed)
+
+
 if __name__ == '__main__':
     unittest.main()
