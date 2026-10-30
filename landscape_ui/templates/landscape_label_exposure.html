@@ -6,7 +6,7 @@
 <p><a href="{{ url_for('landscape.drug_capability_library', q=v.label) }}">&#8592; Drug and model library</a></p>
 <p class="eyebrow">Capability level · Label-based exposure</p>
 <h1>{{ v.label }}: typical exposure from the product label</h1>
-<p><a href="{{ url_for('credibility_record', model_id=request.view_args.drug ~ '_label_exposure') }}">Credibility record (ICH M15 structure)</a></p>
+<p><a href="/models/{{ request.view_args.drug }}_label_exposure/credibility">Credibility record (ICH M15 structure)</a></p>
 <section class="scenario-notice"><strong>Typical value from the label — not a population model, not a prediction for any patient</strong>
 <p>This curve is built from the numbers in the {{ v.label|lower }} prescribing information for adults with multiple myeloma at the labelled dose. It describes a typical patient only: there is no variability around it, and real patients differ widely (the label reports a 37% coefficient of variation in exposure). It gives no dosing guidance.</p>
 <p>Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong></p></section>
