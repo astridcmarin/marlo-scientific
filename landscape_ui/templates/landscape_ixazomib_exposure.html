@@ -1,0 +1,50 @@
+{% extends "landscape_base.html" %}
+{% block title %}Ixazomib · Typical exposure inside the model's scope{% endblock %}
+{% block content %}
+{% set ev = r.scope_evaluation %}{% set out = r.model_outputs %}
+<p><a href="{{ url_for('landscape.drug_capability_library', q='ixazomib') }}">&#8592; Drug and model library</a></p>
+<p class="eyebrow">Published model · used only inside its declared scope</p>
+<h1>Ixazomib: typical total exposure (Gupta 2017 population model)</h1>
+<section class="scenario-notice"><strong>A typical value for a synthetic record, not a prediction for any patient</strong>
+<p>The platform computes this model's output only where its scope allows: myeloma, oral 1.5–4 mg, creatinine clearance 30–297 mL/min, total bilirubin up to 1.5 × the upper limit of normal, and body size and age inside the model's data. Only total exposure (AUC) is shown. Peak concentrations are not: a locked outside check found them under-predicted two- to four-fold.</p>
+<p>Clinical prediction validated: <strong>false</strong></p></section>
+
+<section class="panel"><h2>Synthetic record and request</h2>
+<form method="get"><div class="workspace-form-grid">
+<div><label for="disease">Disease</label><select id="disease" name="disease">{% for k, v in diseases.items() %}<option value="{{ k }}" {% if form.disease == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></div>
+{% for key, label in [('dose', 'Oral dose (mg)'), ('weight', 'Weight (kg)'), ('height', 'Height (cm)'), ('age', 'Age (years)'), ('crcl', 'Creatinine clearance, Cockcroft–Gault (mL/min)'), ('bilirubin', 'Total bilirubin (µmol/L)'), ('bilirubin_uln', 'Laboratory upper limit of normal for bilirubin (µmol/L)')] %}
+<div><label for="{{ key }}">{{ label }}</label><input id="{{ key }}" name="{{ key }}" inputmode="decimal" value="{{ form[key] }}"></div>{% endfor %}
+</div><button class="button secondary">Evaluate</button></form>
+<p class="panel-note">Leave a field empty to mark it unknown. Unknown inputs are not filled in: if a rule needs them, no value is computed.</p>
+</section>
+
+<section class="panel"><h2>{% if ev.status == 'in_scope' %}Inside the model's scope{% elif ev.status == 'out_of_scope' %}Outside the model's scope: no model value{% else %}Cannot determine: no model value{% endif %}</h2>
+<div class="table-scroll"><table style="min-width:680px"><thead><tr><th style="width:16%">Rule</th><th style="width:16%;white-space:nowrap">Value</th><th style="width:20%">Result</th><th>Why</th></tr></thead><tbody>
+{% for rule in ev.rules %}<tr><td>{{ rule.id|replace('_', ' ') }}</td>
+<td style="white-space:nowrap">{% if rule.value is none %}unknown{% elif rule.ratio is defined %}{{ '%g'|format(rule.value) }} {{ rule.unit }} ({{ '%.2f'|format(rule.ratio) }} × ULN){% elif rule.value is number %}{{ '%.3g'|format(rule.value) }} {{ rule.unit or '' }}{% else %}{{ rule.value }}{% endif %}</td>
+<td>{% if rule.status == 'in_scope' %}in scope · {{ tiers[rule.tier] }}{% elif rule.status == 'out_of_scope' %}<strong>out of scope</strong>{% else %}cannot determine{% endif %}</td>
+<td>{{ rule.reason or rule.basis or '' }}</td></tr>{% endfor %}
+</tbody></table></div>
+</section>
+
+{% if out %}<section class="panel"><h2>Typical total exposure</h2>
+<div class="table-scroll"><table><thead><tr><th>Output</th><th>Value</th><th>Evidence</th></tr></thead><tbody>
+<tr><td>AUC 0–336 h after one {{ '%g'|format(r.request.dose_mg) }} mg dose</td><td>{{ '%.0f'|format(out.typical_total_auc_single_dose_0_336h.value) }} h·ng/mL</td><td>{{ tiers[out.typical_total_auc_single_dose_0_336h.tier] }}</td></tr>
+<tr><td>AUC over one dosing interval at steady state</td><td>{{ '%.0f'|format(out.typical_total_auc_tau_steady_state.value) }} h·ng/mL</td><td>{{ tiers[out.typical_total_auc_tau_steady_state.tier] }}</td></tr>
+</tbody></table></div>
+<p>Body surface area {{ '%.2f'|format(out.bsa_m2_du_bois) }} m² (Du Bois; the article does not name its formula). Weakest evidence among the rules that admitted this record: <strong>{{ tiers[out.weakest_rule_tier] }}</strong>.</p>
+<p class="panel-note">{{ out.not_this }} Between-patient variability in the model is large (clearance 44%, bioavailability 73%).</p>
+</section>{% endif %}
+
+{% for obs in r.observed_instead %}<section class="panel"><h2>Observed in a dedicated study (other patients)</h2>
+<p>{{ obs.not_this }} {{ obs.population }}. Reference group: {{ obs.reference_definition }}.</p>
+<div class="table-scroll"><table><thead><tr><th>Group</th><th>Dose</th><th>AUC 0–last, geometric mean (CV)</th><th>n</th><th>Ratio to reference (dose-normalised)</th></tr></thead><tbody>
+{% for g in obs.groups %}<tr><td>{{ g.definition }}</td><td>{{ '%g'|format(g.dose_mg) }} mg</td><td>{{ g.auc_0_last_gm_ng_h_ml }} h·ng/mL ({{ g.auc_cv_percent }}%)</td><td>{{ g.auc_n }}</td><td>{{ '%.2f'|format(g.ratio_to_reference_dose_normalised) }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="panel-note">{{ obs.citation }}</p></section>{% endfor %}
+
+<section class="panel"><h2>Not computed for this model</h2><ul>
+{% for o in ev.outputs_not_supported %}<li><strong>{{ o.label }}</strong>: {{ o.reason }}</li>{% endfor %}</ul>
+<p>Never claimed: {% for n in ev.never_claimed %}{{ n }} {% endfor %}</p>
+<p><a href="?{{ request.query_string.decode() }}{% if request.query_string %}&amp;{% endif %}format=json">Download this result (JSON, with checksums)</a></p></section>
+{% endblock %}
