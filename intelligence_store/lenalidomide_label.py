@@ -20,8 +20,10 @@ def load_label_extract(path=EXTRACT_PATH):
     return data
 
 
-RECONCILIATION_PATH = Path(__file__).parent / 'data' / 'lenalidomide_renal_source_reconciliation_v1.json'
-RECONCILIATION_SHA256 = '79b7aa02273a2c34e23190450b092a26baf7e27826591036d70e563bea9fb3d5'
+RECONCILIATION_PATH = Path(__file__).parent / 'data' / 'lenalidomide_renal_source_reconciliation_v2.json'
+RECONCILIATION_SHA256 = '29017ad460e56d8c2fa550e5824e914612aa4699d2e9434e96c6201ef6b3598f'
+# Superseded, kept unchanged for traceability: lenalidomide_renal_source_reconciliation_v1.json
+RECONCILIATION_V1_SHA256 = '79b7aa02273a2c34e23190450b092a26baf7e27826591036d70e563bea9fb3d5'
 
 
 def load_renal_reconciliation(path=RECONCILIATION_PATH):
