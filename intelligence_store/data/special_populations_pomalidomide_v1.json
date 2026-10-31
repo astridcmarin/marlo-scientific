@@ -1,0 +1,198 @@
+{
+ "schema_version": "special-population-summary-v1",
+ "summary_version": "special-populations-pomalidomide-v1.0",
+ "drug": "pomalidomide",
+ "label": "Pomalidomide",
+ "recorded_on": "2026-10-30",
+ "intro": "Pomalidomide special-population evidence on the platform comes from the POMALYST label (renal and hepatic findings and dose modifications) and the Li 2017 population PK analysis of myeloma patients with renal impairment. The label-based exposure page applies the label fold changes as scenarios.",
+ "sources": {
+  "label": {
+   "file": "intelligence_store/data/label_pk_pomalidomide_v1.json",
+   "sha256": "ce4b9afa97e1ba84b9e7cf802c5da80b8927e5db51c8506dddb0c993d6398417",
+   "title": "POMALYST (pomalidomide) prescribing information, revised 2/2025"
+  },
+  "li": {
+   "file": "intelligence_store/data/pomalidomide_popk_li_2017_extract_v1.json",
+   "sha256": "4d9c9d27608f4ae91b5f5ee3dde3ea41019cf7b4d1a4ed918d51970e05e34f1b",
+   "title": "Li 2017 pomalidomide population PK in renal impairment (Clin Pharmacol Adv Appl 9:133)"
+  }
+ },
+ "domains": {
+  "kidney": [
+   {
+    "kind": "label_statement",
+    "text": "Moderate (CLcr 30 to <60 mL/min) or severe (15 to <30 mL/min) renal impairment without dialysis.",
+    "value": "Pomalidomide pharmacokinetic parameters were not significantly affected in patients with moderate (30 mL/min ≤ CLcr< 60 mL/min) or severe (15 mL/min ≤ CLcr< 30 mL/min) renal impairment relative to patients with normal renal function (CLcr ≥ 60 mL/min).",
+    "source": {
+     "ref": "label",
+     "pointer": "/scenarios/renal_moderate_or_severe_no_dialysis/quote",
+     "location": "Section 12.3"
+    },
+    "population": "Patients"
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "AUC fold change, severe renal impairment requiring dialysis (label).",
+    "value": 1.38,
+    "source": {
+     "ref": "label",
+     "pointer": "/scenarios/renal_severe_requiring_dialysis/auc_fold",
+     "location": "Section 12.3"
+    },
+    "population": "Patients"
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "AUC fold change, end-stage renal disease (CLcr <15 mL/min) on non-dialysis days (label).",
+    "value": 1.4,
+    "source": {
+     "ref": "label",
+     "pointer": "/scenarios/renal_esrd_non_dialysis_days/auc_fold",
+     "location": "Section 12.3"
+    },
+    "population": "Patients"
+   },
+   {
+    "kind": "label_action",
+    "text": "Label dose modification on dialysis.",
+    "value": "MM: 3 mg daily, taken after dialysis on dialysis days (section 2.7)",
+    "source": {
+     "ref": "label",
+     "pointer": "/scenarios/renal_severe_requiring_dialysis/label_dose_modification",
+     "location": "Section 2.7"
+    }
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Li 2017: CL/F ratio for severe renal impairment requiring dialysis vs normal (estimate, bootstrap 90% CI).",
+    "value": {
+     "estimate": 0.724,
+     "bootstrap_ci90": [
+      0.606,
+      0.844
+     ]
+    },
+    "source": {
+     "ref": "li",
+     "pointer": "/table3_categorical_renal/cl_f_ratio_severe_dialysis",
+     "location": "Li 2017 Table 3"
+    },
+    "population": "63 patients with relapsed/refractory MM (studies MM-008, MM-013)"
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Li 2017: CL/F ratio, moderate renal impairment vs normal.",
+    "value": {
+     "estimate": 1.02,
+     "bootstrap_ci90": [
+      0.848,
+      1.195
+     ]
+    },
+    "source": {
+     "ref": "li",
+     "pointer": "/table3_categorical_renal/cl_f_ratio_moderate",
+     "location": "Li 2017 Table 3"
+    }
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Li 2017: CL/F ratio, severe renal impairment without dialysis vs normal.",
+    "value": {
+     "estimate": 1.01,
+     "bootstrap_ci90": [
+      0.871,
+      1.169
+     ]
+    },
+    "source": {
+     "ref": "li",
+     "pointer": "/table3_categorical_renal/cl_f_ratio_severe_no_dialysis",
+     "location": "Li 2017 Table 3"
+    }
+   }
+  ],
+  "liver": [
+   {
+    "kind": "label_statement",
+    "text": "Hepatic impairment, single dose (label).",
+    "value": "Following single dose administration, the AUC of pomalidomide increased 51%, 58%, and 72% in subjects with mild (Child-Pugh class A), moderate (Child-Pugh class B), and severe (Child-Pugh class C) hepatic impairment, respectively compared to subjects with normal liver function.",
+    "source": {
+     "ref": "label",
+     "pointer": "/scenarios/hepatic_child_pugh_a/quote",
+     "location": "Section 8.7"
+    },
+    "population": "Subjects, single dose (disease status not stated)"
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "AUC fold change, mild hepatic impairment (Child-Pugh A).",
+    "value": 1.51,
+    "source": {
+     "ref": "label",
+     "pointer": "/scenarios/hepatic_child_pugh_a/auc_fold",
+     "location": "Section 8.7"
+    }
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "AUC fold change, moderate hepatic impairment (Child-Pugh B).",
+    "value": 1.58,
+    "source": {
+     "ref": "label",
+     "pointer": "/scenarios/hepatic_child_pugh_b/auc_fold",
+     "location": "Section 8.7"
+    }
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "AUC fold change, severe hepatic impairment (Child-Pugh C).",
+    "value": 1.72,
+    "source": {
+     "ref": "label",
+     "pointer": "/scenarios/hepatic_child_pugh_c/auc_fold",
+     "location": "Section 8.7"
+    }
+   },
+   {
+    "kind": "label_action",
+    "text": "Label dose modification, mild or moderate hepatic impairment.",
+    "value": "MM: 3 mg daily (section 2.8)",
+    "source": {
+     "ref": "label",
+     "pointer": "/scenarios/hepatic_child_pugh_b/label_dose_modification",
+     "location": "Section 2.8"
+    }
+   },
+   {
+    "kind": "label_action",
+    "text": "Label dose modification, severe hepatic impairment.",
+    "value": "MM: 2 mg daily (section 2.8)",
+    "source": {
+     "ref": "label",
+     "pointer": "/scenarios/hepatic_child_pugh_c/label_dose_modification",
+     "location": "Section 2.8"
+    }
+   }
+  ],
+  "age": [
+   {
+    "kind": "gap",
+    "text": "The label's geriatric-use section (8.5) and age findings are not extracted on the platform; Li 2017 covariates other than renal groups are not extracted."
+   }
+  ],
+  "body_size": [
+   {
+    "kind": "gap",
+    "text": "Body-size findings are not extracted on the platform."
+   }
+  ],
+  "other_covariates": [
+   {
+    "kind": "gap",
+    "text": "Sex and race findings are not extracted on the platform. Smoking (an extrinsic factor) is recorded in the label extract and belongs to the interactions summary."
+   }
+  ]
+ },
+ "not_this": "A research summary of sourced findings. Not dosing guidance; doses are quoted from the label only as the label states them."
+}

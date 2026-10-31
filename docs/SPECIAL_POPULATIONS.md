@@ -61,3 +61,13 @@ Gaps found along the way are listed in each summary and in this document.
 ## Not in scope
 
 Drug interactions and food (extrinsic factors) are a later, separate summary. Pregnancy, lactation and paediatrics are not covered: the myeloma drugs here have no paediatric indication, and their reproductive risks belong to the safety catalog.
+
+## Status
+
+| Drug | Summary | Gaps |
+|---|---|---|
+| Ixazomib | Built 30 October 2026 (`special_populations_ixazomib_v1.json`) | The product information itself is not extracted; the label actions are quoted as reported by the study articles |
+| Pomalidomide | Built 30 October 2026 (`special_populations_pomalidomide_v1.json`) | Age, body size, sex and race (label sections 8.5 and 12.3 not extracted for these) |
+| Lenalidomide, daratumumab, dexamethasone, bortezomib | Not yet | See "Order of work" |
+
+Pages: `/landscape/drugs/ixazomib/special-populations` and `/landscape/drugs/pomalidomide/special-populations`. The drug and model library links each drug that has a summary; ixazomib is not in the curated catalog, so its exposure page links its summary instead.
