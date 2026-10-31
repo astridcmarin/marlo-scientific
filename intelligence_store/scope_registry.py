@@ -27,6 +27,11 @@ def _kim():
     return load_kim_scope()
 
 
+def _bortezomib_platelets():
+    from .bortezomib_patient_platelets import load_platelet_scope
+    return load_platelet_scope()
+
+
 def _daratumumab():
     return load_scope(DARATUMUMAB_SCOPE_PATH, DARATUMUMAB_SCOPE_SHA256)
 
@@ -38,6 +43,8 @@ REGISTRY = {
                               'runtime': 'Patient Lab: Kim runs and model comparison'},
     'ixazomib_pk_gupta_2017': {'label': 'Ixazomib, Gupta 2017 population PK', 'load': _ixazomib,
                                'runtime': 'Ixazomib exposure page (/landscape/patient-lab/ixazomib-exposure)'},
+    'bortezomib_platelets_lignet_2022': {'label': 'Bortezomib, Lignet 2022 platelet model', 'load': _bortezomib_platelets,
+                                         'runtime': 'Patient Lab: bortezomib platelet curve for a saved synthetic patient'},
     'daratumumab_pk_luo_2021': {'label': 'Daratumumab, Luo 2021 population PK', 'load': _daratumumab, 'runtime': None},
 }
 

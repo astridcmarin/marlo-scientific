@@ -1,15 +1,23 @@
 {% extends "landscape_base.html" %}
 {% from "run_record_macros.html" import simulation_banner, run_record_panel %}
+{% from "_model_scope.html" import scope_panel %}
 {% block title %}Bortezomib platelets · Record {{ revision.id }}{% endblock %}
 {% block content %}
 <h1>Bortezomib and platelets for this synthetic patient</h1>
 <p><a href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id) }}">Back to patient-state record #{{ revision.id }}</a> · <a href="{{ url_for('landscape.bortezomib_platelets') }}">How the model works</a></p>
 {% call simulation_banner(result_type) %}<p>If this synthetic patient received bortezomib 1.3 mg/m² on days 1, 4, 8 and 11 of 21-day cycles, this is the <em>typical</em> platelet course a published model (Lignet et al. 2022) gives for their starting count. Real patients vary widely around it and usually dip further.</p>{% endcall %}
-{% if view.status != 'completed' %}
+{% if view.status == 'outside_model_scope' %}
+<section class="panel"><h2>Outside the model's scope</h2><p role="alert">{{ view.message }}</p>
+<p>Baseline platelet count {{ '%g'|format(view.baseline_1e9_per_l) }} ×10⁹/L.</p>
+{{ scope_panel(view.scope_evaluation, 'Lignet 2022 platelet model') }}
+<p><a href="{{ url_for('model_scope', model_id='bortezomib_platelets_lignet_2022') }}">Model scope</a></p></section>
+{% elif view.status != 'completed' %}
 <section class="panel"><h2>No baseline platelet count</h2><p role="alert">{{ view.message }}</p><p><a class="button primary" href="{{ url_for('landscape.patient_state_edit',scenario_id=scenario.id) }}">Add a platelet count in a new revision</a></p></section>
 {% else %}
 <section class="panel"><h2>Starting point</h2><p>Baseline platelet count <strong>{{ '%g'|format(view.baseline_1e9_per_l) }} ×10⁹/L</strong> · origin {{ view.baseline_provenance.origin|replace('_',' ') }}{% if view.baseline_provenance.source_ref %} · source: {{ view.baseline_provenance.source_ref }}{% endif %}</p>
 {% for w in view.eligibility_warnings %}<p role="alert">{{ w }}</p>{% endfor %}
+{{ scope_panel(view.scope_evaluation, 'Lignet 2022 platelet model') }}
+<p class="panel-note">The curve is driven by a PK component that disagrees with outside concentration data; it is run only for the studied regimen. <a href="{{ url_for('model_scope', model_id='bortezomib_platelets_lignet_2022') }}">Model scope</a></p>
 <form method="get"><label for="cycles">Number of cycles</label> <select id="cycles" name="cycles">{% for n in range(1, max_cycles + 1) %}<option value="{{ n }}" {% if n == view.cycles %}selected{% endif %}>{{ n }}</option>{% endfor %}</select> <button class="button secondary">Show</button></form></section>
 <section class="panel"><h2>Typical platelet count (×10⁹/L)</h2>
 <svg class="transit-chart" viewBox="0 0 780 290" role="img" aria-labelledby="pp-title"><title id="pp-title">Typical platelet count for this patient's baseline under both model variants, with grade reference lines and the average individual lowest count from the source study.</title>

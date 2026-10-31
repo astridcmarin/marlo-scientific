@@ -75,7 +75,9 @@ def _bortezomib_pk_component():
         'source': {'citation': extract['source']['citation'], 'doi': extract['source']['doi']},
         'used_by': ['bortezomib-platelet-timecourse'],
         'contract_sha256': {'extract': BORTEZOMIB_EXTRACT_SHA},
-        'assumptions': ['Single linear clearance; first-dose exposure is overstated about 7-fold against the label.',
+        'assumptions': ['Single linear clearance: about 7-fold below the label first-dose clearance; against measured '
+                        'exposure, first-dose AUC is 2-3-fold too high in two studies and consistent in one, and the rise '
+                        'over repeated doses is too small.',
                         'Not offered as a patient PK calculation.'],
         'clinical_prediction_validated': False, 'ready_for_patient_simulation': False,
     }

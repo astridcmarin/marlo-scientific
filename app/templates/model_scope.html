@@ -24,7 +24,7 @@
 {{ site_header() }}
 <main id="main" class="section">
 <article class="wrap prose prose-wide">
-{% set s = entry.scope %}{% set tl = {'externally_checked': 'Checked against outside data', 'inside_model_data': "Inside the model's own data only", 'external_check_disagrees': 'Outside check disagrees', 'per_rules': 'Weakest tier of the rules that admit the record'} %}
+{% macro rng(x) %}{% if x[1] is none %}{{ x[0] }} or more{% elif x[0] is none %}up to {{ x[1] }}{% else %}{{ x[0] }}–{{ x[1] }}{% endif %}{% endmacro %}{% set s = entry.scope %}{% set tl = {'externally_checked': 'Checked against outside data', 'inside_model_data': "Inside the model's own data only", 'external_check_disagrees': 'Outside check disagrees', 'per_rules': 'Weakest tier of the rules that admit the record'} %}
     <p><a href="{{ url_for('model_scorecards') }}">← Models</a>{% if has_scorecard %} · <a href="{{ url_for('model_scorecard', model_id=entry.model_id) }}">Model scorecard</a>{% endif %}{% if has_record %} · <a href="{{ url_for('credibility_record', model_id=entry.model_id) }}">Credibility record</a>{% endif %}</p>
     <header class="stack" style="gap:10px">
         <p class="prose-eyebrow" style="margin-bottom:0">Model scope · context of use as rules</p>
@@ -39,7 +39,7 @@
 
     <section aria-labelledby="sc-out"><h2 id="sc-out">Outputs</h2>
     <table class="cr-table"><thead><tr><th scope="col">Output</th><th scope="col">Tier</th><th scope="col">Evidence</th></tr></thead><tbody>
-    {% for o in s.outputs.supported %}<tr><td>{{ o.label }}</td><td><span class="tier tier-{{ o.tier }}">{{ tl.get(o.tier, o.tier) }}</span></td><td>{{ o.evidence }}</td></tr>{% endfor %}
+    {% for o in s.outputs.supported %}<tr><td>{{ o.label }}</td><td><span class="tier tier-{{ o.tier }}">{{ tl.get(o.tier, o.tier) }}</span></td><td>{{ o.evidence }}{% if o.inherited_caveat %}<br><strong>Inherited caveat:</strong> {{ o.inherited_caveat }}{% endif %}</td></tr>{% endfor %}
     {% for o in s.outputs.not_supported %}<tr><td>{{ o.label }}</td><td><span class="tier tier-outside">Not computed</span></td><td>{{ o.reason }}</td></tr>{% endfor %}
     </tbody></table></section>
 
@@ -48,10 +48,11 @@
     {% for r in s.request_rules + s.state_rules %}<tr><td>{{ r.id|replace('_',' ') }}{% if r.optional %} (optional){% endif %}</td>
     <td>{% if r.kind == 'category' %}{% for v in r.in_scope %}{{ v }}{% if r.tier_by_value %} <span class="tier tier-{{ r.tier_by_value[v] }}">{{ tl[r.tier_by_value[v]] }}</span>{% endif %}{% if not loop.last %}; {% endif %}{% endfor %}{% if not r.tier_by_value %} <span class="tier tier-{{ r.tier }}">{{ tl[r.tier] }}</span>{% endif %}
     {% elif r.kind == 'ratio_max' %}≤ {{ r.max_ratio }} × {{ r.reference_input|replace('_',' ') }} <span class="tier tier-{{ r.tier }}">{{ tl[r.tier] }}</span>
-    {% else %}{{ r.range[0] }}–{{ r.range[1] }} {{ r.unit }}{% if r.tier_by_band %}<ul>{% for b in r.tier_by_band %}<li>{{ b.range[0] }}–{{ b.range[1] }}: <span class="tier tier-{{ b.tier }}">{{ tl[b.tier] }}</span></li>{% endfor %}</ul>{% else %} <span class="tier tier-{{ r.tier }}">{{ tl[r.tier] }}</span>{% endif %}{% endif %}</td>
-    <td>{% if r.basis %}{{ r.basis }}{% endif %}{% for b in r.tier_by_band or [] %}{% if b.band_note %}<br><em>{{ b.range[0] }}–{{ b.range[1] }}:</em> {{ b.band_note }}{% endif %}{% endfor %}
+    {% else %}{{ rng(r.range) }} {{ r.unit }}{% if r.tier_by_band %}<ul>{% for b in r.tier_by_band %}<li>{{ rng(b.range) }}: <span class="tier tier-{{ b.tier }}">{{ tl[b.tier] }}</span></li>{% endfor %}</ul>{% else %} <span class="tier tier-{{ r.tier }}">{{ tl[r.tier] }}</span>{% endif %}{% endif %}</td>
+    <td>{% if r.basis %}{{ r.basis }}{% endif %}{% for b in r.tier_by_band or [] %}{% if b.band_note %}<br><em>{{ rng(b.range) }}:</em> {{ b.band_note }}{% endif %}{% endfor %}
     {% for k, v in r.outside_reason.items() %}<br><strong>Outside{% if k not in ('default',) %} ({{ k|lower }}){% endif %}:</strong> {{ v }}{% endfor %}</td></tr>{% endfor %}
     </tbody></table></div>
+    {% if s.model_population %}<p><strong>Population the model was fitted on:</strong> {{ s.model_population }}</p>{% endif %}
     {% if s.enforced_elsewhere %}<p>{{ s.enforced_elsewhere }}</p>{% endif %}
     <p>{{ s.unknown_policy }}</p></section>
 

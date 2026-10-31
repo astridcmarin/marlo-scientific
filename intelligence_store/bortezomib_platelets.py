@@ -244,7 +244,9 @@ def platelet_timecourse(cycles=1):
            'limitations': [
                'Typical curve fitted to mean platelet counts; patients vary widely around it and no between-patient spread is available.',
                'The effect term (1 - slope x C) is used as printed: it goes negative for a few hours after each dose, so it describes the net effect on mean counts, not a literal mechanism.',
-               'The PK model has one clearance and overstates first-dose exposure about 7-fold; early cycle 1 is affected most.',
+               ('The driving PK model has one clearance. Against measured exposure, the first dose is about 2-3-fold too high in two '
+                'studies (Ogawa 2008, Reece 2011) and consistent in a third (CAN-1004), and the rise over repeated doses is too small '
+                'in every study that sampled both days; early cycle 1 is affected most.'),
                'Only the studied regimen (1.3 mg/m2, days 1, 4, 8, 11 of 21-day cycles) is run; no dose holds, reductions or other schedules.',
                'Later-cycle mean counts in the source may rise partly because patients with low counts stopped treatment.',
                'Myeloma-related low platelets before treatment are not modelled.',

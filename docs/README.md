@@ -29,6 +29,7 @@ Several step documents describe installer scripts (`scripts/install_*.py`) from 
 - [Lenalidomide renal recheck with study-matched subjects (2.1e)](verification/lenalidomide_renal_recheck_v1.json) — both models, virtual subjects drawn from Chen et al. 2007 Table I; plan locked in `intelligence_store/data/lenalidomide_renal_recheck_plan_v1.json`. Kim moderate changes to under-predicts.
 - [Kim applicability findings v2 (2.1f)](../intelligence_store/data/kim_applicability_findings_v2.json) — under-prediction warning extended to eGFR 30–50; Kim scope v2 flags that band.
 - [Renal study evidence v2 (2.1g)](../landscape_ui/data/renal_pk/renal_pk_group_evidence_v2.json) — CC-5013-PK-001 population recorded (non-malignant renal impairment; healthy controls); Hughes scope v2, Kim scope v3 and lenalidomide special-population summary v3 follow.
+- [Bortezomib platelet model scope (2.5d)](MODEL_SCOPE.md#bortezomib-platelet-model-phase-25d-31-october-2026) — baselines below 30 ×10⁹/L refused; the curve's tier and the inherited PK caveat; corrected first-dose exposure text.
 - Lenalidomide reference exposure — `intelligence_store/data/lenalidomide_reference_exposure_v1.json` (measured 25 mg AUC, normal renal function; context ratio only).
 - Lenalidomide dose proportionality — `intelligence_store/data/lenalidomide_dose_proportionality_evidence_v1.json` (EMA assessment p.20, checked against the pinned PDF).
 

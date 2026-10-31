@@ -13,6 +13,7 @@ out_of_scope or cannot_determine (input unknown), and an overall status:
 The overall evidence tier of an in-scope request is the weakest tier among its rules. The weakest tier,
 external_check_disagrees, is still in scope: the model was fitted on such patients but a locked outside check found
 it inconsistent there, so the output is computed, flagged and shown with the observed data the band names.
+A range end may be null (open): the source states a minimum but no maximum, and none is invented.
 Rules may read covariates derived by the model's own estimator (passed as `derived`); an `optional` rule whose input
 is unknown is reported as not_assessed and does not block. Nothing is converted or
 assumed: a unit that differs from the rule's is an error, and an unknown value stays unknown.
@@ -23,7 +24,7 @@ import math
 from pathlib import Path
 
 SCHEMA_VERSION = 'model-scope-v1'
-EVALUATION_VERSION = 'model-scope-evaluation-v1.0'
+EVALUATION_VERSION = 'model-scope-evaluation-v1.1'  # v1.1: open range ends (null) allowed
 TIER_ORDER = ('externally_checked', 'inside_model_data', 'external_check_disagrees')
 
 
@@ -75,13 +76,14 @@ def _range_rule(rule, value):
         if rule.get('optional'):
             return {'status': 'not_assessed', 'value': None, 'reason': 'Input unknown; this rule is optional.'}
         return {'status': 'cannot_determine', 'value': None, 'reason': 'Input unknown.'}
-    if value < lo:
+    if lo is not None and value < lo:
         return {'status': 'out_of_scope', 'value': value, 'side': 'below', 'reason': _reason(rule, 'below')}
-    if value > hi:
+    if hi is not None and value > hi:
         return {'status': 'out_of_scope', 'value': value, 'side': 'above', 'reason': _reason(rule, 'above')}
     row = {'status': 'in_scope', 'value': value, 'tier': rule.get('tier')}
     for band in rule.get('tier_by_band', []):
-        if band['range'][0] <= value <= band['range'][1]:
+        b_lo, b_hi = band['range']
+        if (b_lo is None or b_lo <= value) and (b_hi is None or value <= b_hi):
             row['tier'] = band['tier']
             for key in ('band_note', 'observed'):
                 if key in band:
