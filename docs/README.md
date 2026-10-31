@@ -28,6 +28,7 @@ Several step documents describe installer scripts (`scripts/install_*.py`) from 
 - [Kim renal-group consistency check (2.1c)](verification/kim_renal_group_check_v1.json) — the same study and design for the Kim 2026 model, with eGFR built from assumed demographics; plan locked in `intelligence_store/data/kim_renal_group_check_plan_v1.json`. Finding recorded in `intelligence_store/data/kim_applicability_findings_v1.json`.
 - [Lenalidomide renal recheck with study-matched subjects (2.1e)](verification/lenalidomide_renal_recheck_v1.json) — both models, virtual subjects drawn from Chen et al. 2007 Table I; plan locked in `intelligence_store/data/lenalidomide_renal_recheck_plan_v1.json`. Kim moderate changes to under-predicts.
 - [Kim applicability findings v2 (2.1f)](../intelligence_store/data/kim_applicability_findings_v2.json) — under-prediction warning extended to eGFR 30–50; Kim scope v2 flags that band.
+- [Renal study evidence v2 (2.1g)](../landscape_ui/data/renal_pk/renal_pk_group_evidence_v2.json) — CC-5013-PK-001 population recorded (non-malignant renal impairment; healthy controls); Hughes scope v2, Kim scope v3 and lenalidomide special-population summary v3 follow.
 - Lenalidomide reference exposure — `intelligence_store/data/lenalidomide_reference_exposure_v1.json` (measured 25 mg AUC, normal renal function; context ratio only).
 - Lenalidomide dose proportionality — `intelligence_store/data/lenalidomide_dose_proportionality_evidence_v1.json` (EMA assessment p.20, checked against the pinned PDF).
 

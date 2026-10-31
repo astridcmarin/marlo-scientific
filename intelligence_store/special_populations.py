@@ -32,7 +32,7 @@ KINDS = {
 SUMMARIES = {
     'ixazomib': ('special_populations_ixazomib_v2.json', 'ef50d5ee0ab4e2a0f04d2cd93b01704ea5ad314295dc5606cee33fe32d58aa83'),
     'pomalidomide': ('special_populations_pomalidomide_v1.json', '1679f31955b42f86b4246e9a99c236e0800a0007cbd131a6c39e44d36390813f'),
-    'lenalidomide': ('special_populations_lenalidomide_v2.json', '7236f8899c71ff7268db5edffe062dd7a3aa49a0499f3436767f10dcca2e84b3'),
+    'lenalidomide': ('special_populations_lenalidomide_v3.json', 'e7cd05d521c4585369d893f383f7f29b89b9b3e5fca236d3b0f01401f73d58ed'),
     'daratumumab': ('special_populations_daratumumab_v1.json', 'c5fde7d9f8ccd730c1bb5f66aeb8823b00935f914fd1a23bef4cd48d3a46c73d'),
     'dexamethasone': ('special_populations_dexamethasone_v1.json', 'bdf9f6da7204f48f8d10827653c0cecefe038b37f8bc1b0b0d3b14aa818d6d3d'),
     'bortezomib': ('special_populations_bortezomib_v1.json', 'ba438c49bd4f4ab9e7f34f1215ea29376521688821cb41a9c2a9761a226ce388'),
@@ -40,6 +40,7 @@ SUMMARIES = {
 # Superseded summaries, kept unchanged for traceability.
 SUPERSEDED = {
     'special_populations_lenalidomide_v1.json': '406618748fe544594f44d8b7e6c8cf7c0677138842f4c3715138a0c22ea4e1c8',
+    'special_populations_lenalidomide_v2.json': '7236f8899c71ff7268db5edffe062dd7a3aa49a0499f3436767f10dcca2e84b3',
     'special_populations_ixazomib_v1.json': 'cd3b68f8ec285160dadd81140b0d3aae9748971e6176bfef8032564ecc9bf423',
 }
 

@@ -17,15 +17,23 @@ from .patient_state import digest
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = Path(__file__).parent / 'data'
-HUGHES_SCOPE_PATH = DATA / 'lenalidomide_hughes_scope_v1.json'
-HUGHES_SCOPE_SHA256 = 'e89c34106bee1a0187bbcb02c72f0b1faffdc246b388a5f3a2908d2736977b93'
-KIM_SCOPE_PATH = DATA / 'lenalidomide_kim_scope_v2.json'
-KIM_SCOPE_SHA256 = 'afaf3890ed225b6e5d2dae6a6998a90d79d0e650a171103979b7a1a829d9406a'
-# Superseded on 2026-10-31 (moderate band flagged after the 2.1e recheck); kept unchanged and pinned.
-SUPERSEDED_KIM_SCOPE_PATH = DATA / 'lenalidomide_kim_scope_v1.json'
-SUPERSEDED_KIM_SCOPE_SHA256 = 'a2d510ba6b16926e436ee644828dce41d3bfa7b3c8abd868d303e0ce8491bb01'
-RENAL_EVIDENCE_PATH = ROOT / 'landscape_ui' / 'data' / 'renal_pk' / 'renal_pk_group_evidence_v1.json'
-RENAL_EVIDENCE_SHA256 = 'bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89'
+HUGHES_SCOPE_PATH = DATA / 'lenalidomide_hughes_scope_v2.json'
+HUGHES_SCOPE_SHA256 = 'acc86c652649d09db0bd90a19ed3ceeae2728eb22c9bc733f185767ccffbd149'
+KIM_SCOPE_PATH = DATA / 'lenalidomide_kim_scope_v3.json'
+KIM_SCOPE_SHA256 = 'b2c1b49511d6132cae5d6cb27c52f8fe747247218ecac94d0f387abac0ab2b3c'
+# Superseded scopes, kept unchanged and pinned for traceability (file name -> SHA-256).
+#   Kim v1: moderate band not flagged; Kim v2: moderate band flagged (2.1f); Hughes v1: outside study population not recorded.
+SUPERSEDED_SCOPES = {
+    'lenalidomide_kim_scope_v1.json': 'a2d510ba6b16926e436ee644828dce41d3bfa7b3c8abd868d303e0ce8491bb01',
+    'lenalidomide_kim_scope_v2.json': 'afaf3890ed225b6e5d2dae6a6998a90d79d0e650a171103979b7a1a829d9406a',
+    'lenalidomide_hughes_scope_v1.json': 'e89c34106bee1a0187bbcb02c72f0b1faffdc246b388a5f3a2908d2736977b93',
+}
+RENAL_EVIDENCE_PATH = ROOT / 'landscape_ui' / 'data' / 'renal_pk' / 'renal_pk_group_evidence_v2.json'
+RENAL_EVIDENCE_SHA256 = '38d164869ff2a4cf43c9b4b437efc0eb172fab29dc80451e3e794b7d7c2c8832'
+# Renal evidence v1 (population "not established") is superseded by v2 and kept unchanged: locked plans, reports and
+# extraction review queue v1 cite it. Its groups and values are identical to v2's (tests/test_renal_pk_evidence_pages.py).
+SUPERSEDED_RENAL_EVIDENCE_PATH = ROOT / 'landscape_ui' / 'data' / 'renal_pk' / 'renal_pk_group_evidence_v1.json'
+SUPERSEDED_RENAL_EVIDENCE_SHA256 = 'bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89'
 SCHEMA_VERSION = 'lenalidomide-scope-evaluation-v1'
 
 
@@ -69,6 +77,7 @@ def observed_groups(spec):
     return {'kind': 'observed_group_values_from_other_subjects', 'study': evidence['study_id'],
             'source': evidence['source']['title'] + ' (' + evidence['source']['document_reference'] + ')',
             'design': f'Single {evidence["design"]["dose_mg"]} mg oral dose, {evidence["design"]["food_state"]}',
+            'population': evidence['population']['summary'],
             'reference_group': spec['reference_group'],
             'reference_creatinine_clearance': _crcl_text(groups[spec['reference_group']]['crcl_range']),
             'reference_auc_infinity_mean': ref['mean'], 'groups': rows,

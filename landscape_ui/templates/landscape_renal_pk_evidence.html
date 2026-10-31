@@ -17,7 +17,12 @@
 <p>AUC summarizes exposure over time. Here AUC∞ includes extrapolation beyond the sampling period. It is not the same endpoint as a saved AUC from 0 to 24 hours.</p>
 <p>The ratio column divides each group's reported arithmetic mean AUC by the normal group's mean. It is not an individual exposure ratio, an adjusted causal effect or a comparison with your model. No confidence interval was calculated; SD describes dispersion.</p>
 <h3>Why there is no patient overlay</h3><ul>{% for limitation in evidence.limitations %}<li>{{ limitation }}</li>{% endfor %}</ul>
-<p>Representative CrCl, fat-free mass and disease context are not established from this extraction. Study category boundaries do not supply the individual covariates needed to evaluate a patient model.</p></section>
+{% if evidence.population %}<h3>Who the subjects were</h3>
+<p>{{ evidence.population.summary }}</p>
+<ul><li>Impaired groups: “{{ evidence.population.impaired_groups.quote }}” ({{ evidence.population.impaired_groups.source }}, {{ evidence.population.impaired_groups.location }}).</li>
+<li>Normal group: “{{ evidence.population.normal_group.quote }}” ({{ evidence.population.normal_group.source }}, {{ evidence.population.normal_group.location }}).</li></ul>
+<p class="panel-note">{{ evidence.population.consequence }}</p>{% endif %}
+<p>Representative CrCl and fat-free mass are not established from this extraction. Study category boundaries do not supply the individual covariates needed to evaluate a patient model.</p></section>
 <section class="panel"><h2>Source and review</h2>
 <p>{{ evidence.source.title }} · {{ evidence.source.document_reference }} · {{ evidence.source.date }}. Page 20: design and groups. Page 21, Table 4: selected measurements.</p>
 <p>This is a historical withdrawal assessment, not current labeling. Twelve mean/SD pairs were checked against rendered source pages by the assistant. Independent human review remains pending.</p>

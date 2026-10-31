@@ -1,0 +1,226 @@
+{
+  "schema_version": "model-scope-v1",
+  "scope_version": "lenalidomide-pk-kim-2026-scope-v3.0",
+  "model_id": "lenalidomide_kim_2026",
+  "recorded_on": "2026-10-31",
+  "purpose": "The context of use of the Kim 2026 lenalidomide model on the platform, as enforceable rules. Written from results already on record; no new computation. Policy chosen by the platform owner on 30 October 2026: where the model was fitted on such patients but a locked outside check found it inconsistent, compute, flag and show the observed data (this keeps the 14 October decision that severe renal impairment is calculated and warned, not hidden); beyond the model's own data, refuse.",
+  "evidence": {
+    "model_extract": {
+      "file": "intelligence_store/data/kim_2026_model_extract_v1.json",
+      "sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af"
+    },
+    "applicability_findings": {
+      "file": "intelligence_store/data/kim_applicability_findings_v2.json",
+      "sha256": "702bd01dd94178cf80af0648c15e86a41d172bd15fc84a204f090e49abf16450"
+    },
+    "external_check_report": {
+      "file": "docs/verification/kim_renal_group_check_v1.json",
+      "sha256": "e53f62db6506346a3d5027388b0c9165de51b8fab0c5f9efc1ad7b29d34da4bb"
+    },
+    "observed": {
+      "file": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v2.json",
+      "sha256": "38d164869ff2a4cf43c9b4b437efc0eb172fab29dc80451e3e794b7d7c2c8832"
+    },
+    "recheck_report": {
+      "file": "docs/verification/lenalidomide_renal_recheck_v1.json",
+      "sha256": "c98e29919cd9e90981439a37d03883a8cfd834f397b8c0383e723b1f923e2991"
+    },
+    "study_population": {
+      "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v3.json",
+      "sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292"
+    }
+  },
+  "evidence_tiers": {
+    "externally_checked": "Inside a locked outside check whose primary result was consistent in every scenario.",
+    "inside_model_data": "Inside the data the model was built on; the outside check's primary result here was not consistent in every scenario, or there was no check.",
+    "external_check_disagrees": "Inside the model's data, but a locked outside check's primary result found the model inconsistent here: computed, flagged and shown with the observed data.",
+    "outside": "Beyond the model's data: refused."
+  },
+  "outputs": {
+    "supported": [
+      {
+        "id": "typical_value_concentration_curves",
+        "label": "Typical-value unbound and total concentration curves and exposure",
+        "tier": "per_rules",
+        "evidence": "The model's own output for the record's estimated covariates; its evidence is the weakest tier among the rules that admitted the record."
+      }
+    ],
+    "not_supported": [
+      {
+        "id": "individual_prediction",
+        "label": "This patient's concentrations",
+        "reason": "Typical values only; between-patient variability is not shown and no measured concentrations are used."
+      }
+    ]
+  },
+  "request_rules": [
+    {
+      "id": "disease",
+      "kind": "category",
+      "input": "disease_code",
+      "in_scope": [
+        "MM"
+      ],
+      "tier": "inside_model_data",
+      "basis": "Kim 2026 enrolled 30 Korean patients with multiple myeloma (model_extract study_population). The outside study (CC-5013-PK-001) enrolled subjects with renal impairment due to non-malignant conditions, mostly cardiovascular or endocrine, with healthy subjects of similar age as controls (observed population; study_population). Its comparisons therefore test how the model extrapolates to a non-cancer population; that difference is one possible contributor to the disagreements and has not been tested.",
+      "outside_reason": {
+        "default": "Kim 2026 enrolled only patients with multiple myeloma.",
+        "UNKNOWN": "Disease not declared; cannot determine whether the record is inside the model's data."
+      }
+    }
+  ],
+  "state_rules": [
+    {
+      "id": "egfr",
+      "kind": "range",
+      "derived_input": "egfr_indexed",
+      "unit": "mL/min/1.73m2",
+      "range": [
+        11.1,
+        94.7
+      ],
+      "tier_by_band": [
+        {
+          "range": [
+            50,
+            94.7
+          ],
+          "tier": "externally_checked",
+          "band_note": "Mild group (creatinine clearance 50-80 mL/min): ratio to normal consistent in all seven scenarios; normal-group exposure consistent in six of seven (external_check_report). The study groups are defined by creatinine clearance; Kim's covariate is indexed eGFR, so band edges are approximate."
+        },
+        {
+          "range": [
+            30,
+            50
+          ],
+          "tier": "external_check_disagrees",
+          "band_note": "Moderate group (creatinine clearance 30-50 mL/min): ratio to normal under-predicted about 1.3-fold in the primary scenario of the 2.1e recheck and in all four of its scenarios (recheck_report; applicability_findings renal-under-prediction-moderate); the first check (2.1c) had found it consistent in the primary scenario only. Most of the group’s constructed eGFR values fell below 30, so this band edge is approximate. Read the curve as possibly somewhat low.",
+          "observed": {
+            "source": "renal_pk_group_evidence",
+            "groups": [
+              "moderate"
+            ],
+            "reference_group": "normal"
+          }
+        },
+        {
+          "range": [
+            11.1,
+            30
+          ],
+          "tier": "external_check_disagrees",
+          "band_note": "Severe group (< 30 mL/min): ratio to normal under-predicted about 1.3-fold in the primary scenario (five of seven scenarios in 2.1c; all four in the 2.1e recheck); half-life reproduced (applicability_findings renal-under-prediction-severe). Read the curve as possibly somewhat low.",
+          "observed": {
+            "source": "renal_pk_group_evidence",
+            "groups": [
+              "severe_without_dialysis"
+            ],
+            "reference_group": "normal"
+          }
+        }
+      ],
+      "basis": "Kim's covariate is CKD-EPI 2021 indexed eGFR estimated from the record; model data 11.1-94.7 mL/min/1.73 m2 (model_extract ranges_table1).",
+      "outside_reason": {
+        "below": "Below the model's data (eGFR 11.1). The outside study observed much higher exposure in severe renal impairment (shown below).",
+        "above": "Above the model's data (eGFR 94.7): Kim 2026 enrolled no patients with higher kidney function."
+      },
+      "observed_when_below": {
+        "source": "renal_pk_group_evidence",
+        "groups": [
+          "severe_without_dialysis"
+        ],
+        "reference_group": "normal"
+      }
+    },
+    {
+      "id": "bsa",
+      "kind": "range",
+      "derived_input": "body_surface_area",
+      "unit": "m2",
+      "range": [
+        1.41,
+        2.01
+      ],
+      "tier": "inside_model_data",
+      "basis": "Du Bois BSA; model data 1.41-2.01 m2 (model_extract ranges_table1).",
+      "outside_reason": {
+        "default": "Body surface area outside the model's data."
+      }
+    },
+    {
+      "id": "age",
+      "kind": "range",
+      "field": "age_years",
+      "unit": "year",
+      "range": [
+        47,
+        84
+      ],
+      "tier": "inside_model_data",
+      "basis": "Model data 47-84 years.",
+      "outside_reason": {
+        "default": "Age outside the model's data."
+      }
+    },
+    {
+      "id": "weight",
+      "kind": "range",
+      "field": "weight",
+      "unit": "kg",
+      "range": [
+        47,
+        86
+      ],
+      "tier": "inside_model_data",
+      "basis": "Model data 47-86 kg.",
+      "outside_reason": {
+        "default": "Weight outside the model's data."
+      }
+    },
+    {
+      "id": "height",
+      "kind": "range",
+      "field": "height",
+      "unit": "cm",
+      "range": [
+        140,
+        179
+      ],
+      "tier": "inside_model_data",
+      "basis": "Model data 140-179 cm.",
+      "outside_reason": {
+        "default": "Height outside the model's data."
+      }
+    },
+    {
+      "id": "albumin",
+      "kind": "range",
+      "field": "albumin",
+      "unit": "g/L",
+      "range": [
+        30,
+        52
+      ],
+      "tier": "inside_model_data",
+      "optional": true,
+      "basis": "Model data 3.0-5.2 g/dL (= 30-52 g/L); albumin is not a model input, so an unknown value is not assessed rather than blocking.",
+      "outside_reason": {
+        "default": "Albumin outside the model's data (protein binding may differ; the model assumes a constant unbound fraction)."
+      }
+    }
+  ],
+  "enforced_elsewhere": "Doses (5, 7.5 or 10 mg), schedule (24 h intervals, at most four doses) and horizon are checked by the existing calculation (execution blockers).",
+  "unknown_policy": "A rule whose input is unknown cannot be evaluated; the record is then 'cannot_determine' and no output is computed, except rules marked optional, which are reported as not assessed. Unknown stays unknown.",
+  "never_claimed": [
+    "A prediction for a real patient, a dose recommendation or a judgement of treatment suitability.",
+    "Validation of the model; validation flags stay false."
+  ],
+  "clinical_prediction_validated": false,
+  "supersedes": {
+    "file": "intelligence_store/data/lenalidomide_kim_scope_v2.json",
+    "sha256": "afaf3890ed225b6e5d2dae6a6998a90d79d0e650a171103979b7a1a829d9406a",
+    "scope_version": "lenalidomide-pk-kim-2026-scope-v2.0"
+  },
+  "revision": "2026-10-31: the outside study population is recorded (renal impairment due to non-malignant conditions; healthy controls), replacing \"disease context not established\". The observed data move to renal_pk_group_evidence v2, whose groups and values are unchanged. No rule, range or tier changes. The v2 revision (moderate band flagged) is kept.",
+  "outside_study_population": "The outside study (CC-5013-PK-001) enrolled subjects with renal impairment due to non-malignant conditions, mostly cardiovascular or endocrine, with healthy subjects of similar age as controls (observed population; study_population). Its comparisons therefore test how the model extrapolates to a non-cancer population; that difference is one possible contributor to the disagreements and has not been tested."
+}
