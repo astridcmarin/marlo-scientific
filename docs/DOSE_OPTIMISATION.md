@@ -67,3 +67,15 @@ Lenalidomide is the only drug for which the platform holds all three parts:
 - **No new pinned file was needed.** The dose levels, the reference, the odds ratios, the scopes and the corpus are all read from files the platform already pins. The gap list is in the module.
 - **Assumptions are fixed to each model's primary reading:** Hughes uses the recorded primary Cockcroft–Gault weight basis, Kim the primary CL/F equation form. Both are shown on the page.
 - **Trials:** 380 of 3,450 corpus trials have an intervention named exactly Lenalidomide or Revlimid. Another 78 mention it only inside a longer name and are counted separately, not matched. Phase 1 and early phase 1 trials are listed with links.
+
+## Evidence search: lenalidomide exposure–efficacy (31 October 2026)
+
+Done to find out whether the efficacy gap is a gap in the platform or in the published evidence. Nothing found here is pinned or used in a calculation. The quotes were returned by a web-reading tool and have not been checked against an original copy.
+
+| Source | What it says on efficacy | Status |
+|---|---|---|
+| FDA clinical pharmacology and biopharmaceutics review, NDA 21-880 (Revlimid, del 5q MDS; submission 2005), sections 2.2.4.1 and 2.2.4.4 | "Clinical studies assessing the relationship between exposure and efficacy were not performed." "The relationship between dose—concentration and response is largely unknown." "The efficacy of lower doses is unknown." | Read from a third-party OCR copy (docketalarm.com), not an FDA-hosted file; text truncated after section 2.2.5.8 |
+| Chen N, Zhou S, Palmisano M. Clin Pharmacokinet 2017;56:139–152 (review by sponsor authors), "Exposure Response" | In a phase II study of 38 myeloma patients with renal impairment, on lenalidomide with dexamethasone: "no apparent pattern was observed between lenalidomide Cmax and the grade of hematologic AEs or efficacy." The renal dose reductions are described as AUC-matched to the full dose at CrCl ≥ 50 mL/min. | Secondary review, read on PubMed Central through a web tool |
+| Guglieri-López et al., PAGE 24 (2015), abstract 3317: M-protein tumour growth inhibition model, 39 myeloma patients | The drug effect is a function of time on treatment (KD0·e^(−λt)). No dose, concentration or AUC term is reported. | Abstract only; no parameter estimates on the page |
+
+**Conclusion:** no published exposure–efficacy relationship for lenalidomide in myeloma was found that the platform could use. The FDA review of the first approval states that none was studied. The renal dose reductions rest on matching AUC to the full dose, not on an exposure–efficacy model. The efficacy side of the dose view therefore stays a gap. Filling it would need a sponsor exposure–response analysis from a later regulatory review (for example the EMA or FDA reviews for newly diagnosed myeloma or maintenance), checked against an original copy.

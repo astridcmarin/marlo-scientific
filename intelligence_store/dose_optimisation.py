@@ -34,7 +34,7 @@ DOSE_STATUS = {
     'not_a_study_dose': "Not a dose in the model's study: no value",
 }
 GAPS = [
-    {'id': 'exposure_efficacy', 'text': 'Exposure–efficacy: no pinned source. Without it the view cannot show a trade-off between dose levels.'},
+    {'id': 'exposure_efficacy', 'text': 'Exposure–efficacy: no pinned source. A literature search on 31 October 2026 found no published lenalidomide exposure–efficacy relationship in myeloma that could be used (see docs/DOSE_OPTIMISATION.md). Without one, the view cannot show a trade-off between dose levels.'},
     {'id': 'label_dose_reductions', 'text': 'Label dose levels and renal dose reductions: not extracted.'},
     {'id': 'combination_regimens', 'text': 'Exposure–safety in combination regimens (with dexamethasone, bortezomib or daratumumab): the odds ratios come from monotherapy only.'},
     {'id': 'trial_dose_levels', 'text': 'Dose levels used in the trials: the pinned corpus holds intervention names, not arm descriptions or doses (owner decision, 30 October 2026).'},
