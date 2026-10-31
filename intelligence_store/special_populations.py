@@ -34,6 +34,7 @@ SUMMARIES = {
     'pomalidomide': ('special_populations_pomalidomide_v1.json', '1679f31955b42f86b4246e9a99c236e0800a0007cbd131a6c39e44d36390813f'),
     'lenalidomide': ('special_populations_lenalidomide_v1.json', '406618748fe544594f44d8b7e6c8cf7c0677138842f4c3715138a0c22ea4e1c8'),
     'daratumumab': ('special_populations_daratumumab_v1.json', 'c5fde7d9f8ccd730c1bb5f66aeb8823b00935f914fd1a23bef4cd48d3a46c73d'),
+    'dexamethasone': ('special_populations_dexamethasone_v1.json', 'bdf9f6da7204f48f8d10827653c0cecefe038b37f8bc1b0b0d3b14aa818d6d3d'),
 }
 
 
@@ -90,7 +91,7 @@ def build(drug):
         for st in summary['domains'].get(domain, []):
             if st['kind'] not in KINDS:
                 raise SummaryError(f'Unknown statement kind {st["kind"]!r}.')
-            if st.get('display') not in (None, 'mean_sd', 'range', 'ratio_ci', 'bands'):
+            if st.get('display') not in (None, 'mean_sd', 'gm_cv', 'range', 'ratio_ci', 'bands'):
                 raise SummaryError(f'Unknown display hint {st.get("display")!r}.')
             out = {'kind': st['kind'], 'kind_label': KINDS[st['kind']], 'text': st['text'],
                    'population': st.get('population'), 'link': st.get('link'), 'display': st.get('display')}

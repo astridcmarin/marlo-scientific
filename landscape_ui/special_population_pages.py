@@ -12,6 +12,8 @@ def fmt_value(value, display=None):
     numbers = isinstance(value, list) and all(isinstance(v, (int, float)) for v in value)
     if display == 'mean_sd' and numbers and len(value) == 2:
         return f'{value[0]:g} (SD {value[1]:g})'
+    if display == 'gm_cv' and numbers and len(value) == 2:
+        return f'{value[0]:g} (CV {value[1]:g}%)'
     if display == 'bands' and isinstance(value, list):
         tiers = {'externally_checked': 'checked against outside data', 'inside_model_data': "model's own data only",
                  'external_check_disagrees': 'outside check disagrees'}
