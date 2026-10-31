@@ -369,3 +369,23 @@ Body size remains an assumption in 3.0k, but the result was robust to ±10% dose
 Under the locked rule the day 11 exposure is recorded as **consistent but not robust**: the CAN-1004 day 11 under-prediction (127 vs 241) is not clearly reproduced. The two studies' own day 11 means differ 1.6-fold (241 vs 151), so day 11 evidence across Ogawa, CAN-1004 and MMY-3021 is mixed.
 
 **What does not change.** MMY-3021 has no day 1 profile, so it cannot test the model's main problem: the rise from day 1 to day 11 is too small (Ogawa, CAN-1004). The model stays recorded as disagreeing with outside data, and the platelet model built on it keeps its inherited warning. Evidence status v10 adds this report.
+
+## 3.0n — Reproduction check against Reece 2011 (`bortezomib_pk_reece_reproduction.py`)
+
+**Source.** Reece et al., *Cancer Chemother Pharmacol* 2011;67:57–67 (author manuscript NIHMS551706): 1.0 or 1.3 mg/m² IV, PK on days 1 and 11 of cycles 1 and 3, 12 evaluable patients per dose. Pinned as `bortezomib_pk_reece_2011_observed_v1.json` (Table 2). **This is not an outside check.** Lignet 2022 compared its PK graphically with this study, and Kuan 2012 lists it as a source. It fills the scorecard's "reproduces the data it was built on" layer, which had never been run.
+
+**Plan.** `bortezomib_pk_reece_reproduction_plan_v1.json`, locked at commit `1c3591f` before computation. Not blinded: a day 1 over-prediction and a too-small rise were expected from 3.0f, 3.0h and 3.0m.
+
+**Result** (`docs/verification/bortezomib_pk_reece_reproduction_v1.json`; AUC to 48 h, ng·h/mL):
+
+| Occasion | Dose (mg/m²) | Model | Observed mean (95% CI) | Classification |
+|---|---|---|---|---|
+| Cycle 1 day 1 | 1.3 | 68.8 | 34.6 (22.0–47.2) | too high, both AUC rules |
+| Cycle 1 day 11 | 1.3 | 101.9 | 82.4 (63.2–101.6) | too high (primary rule), consistent with the other; not robust |
+| Cycle 1 day 1 | 1.0 | 52.9 | 26.5 (18.2–34.8) | too high, both AUC rules |
+| Cycle 1 day 11 | 1.0 | 78.4 | 82.8 (58.7–106.9) | consistent |
+| Rise from day 1 to day 11 | 1.3 / 1.0 | 1.5 / 1.5 | 2.4 / 3.1 | too small (descriptive) |
+
+Cycle 3 is mostly consistent; the exception is day 11 at 1.3 mg/m², which is too high (1.22-fold).
+
+**Conclusion.** The platform's implementation does **not** reproduce the study its source used for comparison. It shows the same pattern as the outside studies: too much first-dose exposure and too small a rise. This supports the view that the problem lies in the model's constant clearance, not in the platform's implementation or in one outside study. Evidence status v11 records the reproduction layer as done. The scorecard now lists reproduction failures separately from outside-data disagreements: the outside-data count is unchanged at 4.

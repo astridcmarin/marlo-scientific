@@ -1,0 +1,89 @@
+{
+ "schema_version": "reproduction-check-plan-v1",
+ "plan_version": "bortezomib-pk-reece-reproduction-plan-v1.0",
+ "recorded_on": "2026-10-31",
+ "status": "locked_before_computation",
+ "prespecification_note": "Written and checksum-pinned before the model was evaluated at the Reece sampling times. Not blinded: Table 2 was read before writing, and from 3.0f, 3.0h and 3.0m it is expected that the constant-clearance model over-predicts first-dose exposure and under-predicts the rise from day 1 to day 11. No value on the Reece schedule had been computed.",
+ "classification": "exploratory_aggregate_reproduction_check",
+ "layer": "reproduction: the model's source compared its PK with this study's mean profiles; the comparison was graphical only and has not been run on the platform.",
+ "not_this": [
+  "Not an outside check: the study informed the model's source.",
+  "Not validation; no acceptance limits are introduced.",
+  "Not a re-fit: no parameter is estimated or tuned.",
+  "Not a prediction for any patient."
+ ],
+ "question": "Does the platform's implementation of the Lignet 2022 PK component reproduce the mean exposure reported by Reece 2011, the study its authors compared it with?",
+ "data": {
+  "observed": "intelligence_store/data/bortezomib_pk_reece_2011_observed_v1.json",
+  "observed_sha256": "83f6ee4cb444ce049ab004131e04283b317cf536c8de6ab07411d180c01a3c7e",
+  "model": "intelligence_store/bortezomib_pk.py, unchanged from 3.0f, 3.0h and 3.0m"
+ },
+ "simulation": {
+  "regimen": "IV bolus at 1.0 or 1.3 mg/m2 on days 1, 4, 8 and 11 (t = 0, 72, 168, 240 h) of 21-day cycles; cycles 1 to 3 (cycle 3 starts at t = 1008 h).",
+  "body_size": "Not needed: dose and parameters are per m2.",
+  "profiles": "Model concentrations at each Reece sampling time after the dose on cycle 1 day 1, cycle 1 day 11, cycle 3 day 1 and cycle 3 day 11, including drug remaining from earlier doses."
+ },
+ "nca_emulation": {
+  "method": "Same function as 3.0f (bortezomib_pk_ogawa_check.nca): C0 by log-linear back-extrapolation from the 5 and 15 min samples; AUC from (0, C0) to 48 h by trapezoids (AUC48h is AUC to the last sample).",
+  "readings": {
+   "primary": {
+    "auc_rule": "linear",
+    "terminal_points": 3
+   },
+   "sensitivity": [
+    {
+     "auc_rule": "linear_up_log_down",
+     "terminal_points": 3
+    }
+   ]
+  }
+ },
+ "endpoints": {
+  "primary": [
+   {
+    "name": "auc48_c1d1_1.3"
+   },
+   {
+    "name": "auc48_c1d11_1.3"
+   }
+  ],
+  "secondary": [
+   {
+    "name": "auc48_c1d1_1.0"
+   },
+   {
+    "name": "auc48_c1d11_1.0"
+   },
+   {
+    "name": "auc48_c3d1 and auc48_c3d11, both doses"
+   },
+   {
+    "name": "cmax at each occasion and dose",
+    "emulation": "highest model concentration among the sampled times"
+   }
+  ],
+  "descriptive": [
+   "Ratio of means AUC48h cycle 1 day 11 / day 1, each dose (observed 1.3: 82.4/34.6 = 2.38; 1.0: 82.8/26.5 = 3.12).",
+   "Reported mean clearance (L/h) by occasion, for reading alongside."
+  ]
+ },
+ "comparison": {
+  "interval": "95% confidence interval of the observed mean: mean +/- t(0.975, n-1) x SD / sqrt(n), with n per cell from Table 2 (t = 2.2010 for n = 12, 2.2281 for n = 11, 2.3060 for n = 9).",
+  "classification": {
+   "consistent": "inside the interval",
+   "model_over_predicts": "above",
+   "model_under_predicts": "below"
+  },
+  "robustness": "Each classified endpoint under both AUC rules; robust if both agree."
+ },
+ "decision_rule": {
+  "summary": "The implementation is recorded as reproducing Reece 2011 at 1.3 mg/m2 only if both primary endpoints are consistent under the primary reading. Otherwise the reproduction layer is recorded as done, with the source study not reproduced, and the specific failures listed.",
+  "what_changes": "Evidence status records the reproduction layer of the bortezomib PK component as done (exploratory), whatever the result. No model, page or platelet result changes."
+ },
+ "known_differences": [
+  "Evaluable patients completed cycle 3 day 11 without dose modification (a selected subset); the model is a typical-value curve.",
+  "The source shows the comparison only graphically, so no published reproduction figures exist to match.",
+  "Two outlying patients were excluded from two cells by the study authors (footnote a)."
+ ],
+ "clinical_prediction_validated": false
+}

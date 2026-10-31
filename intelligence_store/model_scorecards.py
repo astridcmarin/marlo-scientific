@@ -42,6 +42,11 @@ RESULT_ITEMS = {
     'can1004_auc_last_day11': 'Day 11 exposure (AUC to 72 h), 1.3 mg/m², CAN-1004',
     'mmy3021_auc_last_day11': 'Day 11 exposure (AUC to 72 h), 1.3 mg/m², MMY-3021 (not robust to the AUC rule)',
     'mmy3021_cmax_day11': 'Day 11 peak concentration, 1.3 mg/m², MMY-3021',
+    'reece_auc48_c1d1_1.3': 'Day 1 exposure (AUC to 48 h), 1.3 mg/m², Reece 2011',
+    'reece_auc48_c1d11_1.3': 'Day 11 exposure (AUC to 48 h), 1.3 mg/m², Reece 2011 (not robust to the AUC rule)',
+    'reece_auc48_c1d1_1.0': 'Day 1 exposure (AUC to 48 h), 1.0 mg/m², Reece 2011',
+    'reece_auc48_c1d11_1.0': 'Day 11 exposure (AUC to 48 h), 1.0 mg/m², Reece 2011',
+    'reece_cmax_c1d11_1.0': 'Day 11 peak concentration, 1.0 mg/m², Reece 2011',
 }
 RESULT_ITEMS.update({
     'renal.normal.auc_last': 'Exposure (AUC), MM with normal kidney function, 3 mg',
@@ -173,7 +178,8 @@ def scorecard(model_id, evidence=None):
     return {'model_id': model_id, 'name': entry['name'], 'citation': entry['citation'], 'doi': entry['doi'],
             'drug': profile['drug'], 'kind': profile['kind'], 'what': profile['what'], 'used_on': profile['used_on'],
             'layers': layers,
-            'outside_data_disagreements': [r for layer in layers for r in layer['results'] if r['tone'] == 'gap'],
+            'outside_data_disagreements': [r for layer in layers if layer['id'] == 'external_consistency' for r in layer['results'] if r['tone'] == 'gap'],
+            'reproduction_failures': [r for layer in layers if layer['id'] == 'reproduction' for r in layer['results'] if r['tone'] == 'gap'],
             'counts': {tone: sum(1 for layer in layers if layer['tone'] == tone) for tone in ('ok', 'part', 'gap', 'neutral')},
             'depends_on': [{'model_id': d, 'name': evidence['models'][d]['name'],
                             'disagreements': len(scorecard(d, evidence)['outside_data_disagreements'])}

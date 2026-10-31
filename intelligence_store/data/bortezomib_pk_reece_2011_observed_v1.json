@@ -1,0 +1,169 @@
+{
+ "schema_version": "observed-summary-v1",
+ "summary_version": "bortezomib-pk-reece-2011-v1.0",
+ "drug": "bortezomib",
+ "recorded_on": "2026-10-31",
+ "source": {
+  "citation": "Reece DE, Sullivan D, Lonial S, et al. Pharmacokinetic and pharmacodynamic study of two doses of bortezomib in patients with relapsed multiple myeloma. Cancer Chemother Pharmacol 2011;67(1):57-67. doi:10.1007/s00280-010-1283-3 (author manuscript NIHMS551706, PMC3951913)",
+  "file_reviewed": {
+   "file": "nihms551706.pdf (18 pages, text layer; author manuscript)",
+   "sha256": "4a9dc75e2853dd69549fd485b7634b481812df8be36e6fb2941d0d6339fd9bf6"
+  },
+  "storage": "Supplied by the platform owner; kept on her computer only, not committed.",
+  "extraction": "AI-assisted. Table 2 values transcribed from the layout text and checked against the rendered page; n per cell from the column headers and footnotes a-g. Independent review pending."
+ },
+ "relationship_to_model": "Not independent: Lignet 2022 compared its PK graphically with mean profiles from this study, and Kuan 2012 lists it as a source study. A comparison is a reproduction check (the data the model's authors used), not an outside check.",
+ "design": {
+  "study": "Randomized phase 1/2 study, bortezomib 1.0 or 1.3 mg/m2 IV on days 1, 4, 8 and 11 of 21-day cycles, relapsed myeloma (n = 21 per dose; 12 per dose evaluable for PK).",
+  "pk_sampling_times_after_dose_h": [
+   0.0833333333333,
+   0.25,
+   0.5,
+   1,
+   2,
+   4,
+   6,
+   8,
+   12,
+   24,
+   48
+  ],
+  "quotes": {
+   "sampling": {
+    "quote": "prior to, and at 5, 15, and 30 min, and 1, 2, 4, 6, 8, 12, 24, and 48 h following dosing on days 1 and 11, cycles 1 and 3",
+    "location": "Methods, Pharmacokinetic and pharmacodynamic assessments, PDF page 4"
+   },
+   "auc48": {
+    "quote": "area under the curve (AUC) from time 0 to 48 h (AUC48h)",
+    "location": "Methods, PDF page 4"
+   },
+   "evaluable": {
+    "quote": "Patients who completed bortezomib dosing through day 11, cycle 3, without a dose modification, and who had sufficient samples for non-compartmental estimation of pharmacokinetic parameters were considered evaluable for these analyses.",
+    "location": "Statistical methods, PDF page 5"
+   }
+  }
+ },
+ "table2": {
+  "location": "Table 2, PDF pages 15-16",
+  "format": "mean (SD); n from column header and footnotes",
+  "1.0": {
+   "c1d1": {
+    "auc48": [
+     26.5,
+     12.4,
+     11
+    ],
+    "cmax": [
+     56.7,
+     36.3,
+     11
+    ]
+   },
+   "c1d11": {
+    "auc48": [
+     82.8,
+     35.9,
+     11
+    ],
+    "cmax": [
+     106.2,
+     46.7,
+     12
+    ]
+   },
+   "c3d1": {
+    "auc48": [
+     66.4,
+     24.1,
+     12
+    ],
+    "cmax": [
+     66.5,
+     42.6,
+     12
+    ]
+   },
+   "c3d11": {
+    "auc48": [
+     101.6,
+     58.2,
+     11
+    ],
+    "cmax": [
+     83.9,
+     69.3,
+     12
+    ]
+   }
+  },
+  "1.3": {
+   "c1d1": {
+    "auc48": [
+     34.6,
+     19.8,
+     12
+    ],
+    "cmax": [
+     112,
+     122,
+     12
+    ]
+   },
+   "c1d11": {
+    "auc48": [
+     82.4,
+     28.6,
+     11
+    ],
+    "cmax": [
+     88.6,
+     47.6,
+     12
+    ]
+   },
+   "c3d1": {
+    "auc48": [
+     79.4,
+     24.5,
+     11
+    ],
+    "cmax": [
+     120.3,
+     70.7,
+     12
+    ]
+   },
+   "c3d11": {
+    "auc48": [
+     85.2,
+     18.7,
+     9
+    ],
+    "cmax": [
+     114.9,
+     98.3,
+     11
+    ]
+   }
+  },
+  "clearance_l_h_mean": {
+   "1.0": {
+    "c1d1": 102.1,
+    "c1d11": 23.2,
+    "c3d1": 32.2,
+    "c3d11": 15.1
+   },
+   "1.3": {
+    "c1d1": 111.6,
+    "c1d11": 28.0,
+    "c3d1": 32.1,
+    "c3d11": 18.2
+   }
+  }
+ },
+ "limits": [
+  "Means and SDs only.",
+  "Evaluable patients completed dosing through cycle 3 day 11 without dose modification, a selected subset."
+ ],
+ "clinical_prediction_validated": false
+}

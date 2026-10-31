@@ -18,7 +18,7 @@ from intelligence_store.estimated_pk import calculate_estimated_pk, primary_weig
 from intelligence_store.kim_pk_runs import read_kim_pk_run
 from intelligence_store.patient_state import SCHEMA_V2, digest
 from intelligence_store.patient_state_revisions import save_revision
-from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, EVIDENCE_V5_SHA256, EVIDENCE_V6_SHA256, EVIDENCE_V7_SHA256, EVIDENCE_V8_SHA256, EVIDENCE_V9_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
+from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, EVIDENCE_V5_SHA256, EVIDENCE_V6_SHA256, EVIDENCE_V7_SHA256, EVIDENCE_V8_SHA256, EVIDENCE_V9_SHA256, EVIDENCE_V10_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
                                            record_for_estimated_pk, record_for_kim_run, record_for_patient_platelets)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,11 +62,26 @@ class EvidenceStatus(unittest.TestCase):
         v9 = EVIDENCE_PATH.with_name('model_evidence_status_v9.json')
         self.assertEqual(hashlib.sha256(v9.read_bytes()).hexdigest(), EVIDENCE_V9_SHA256)
         self.assertEqual(json.loads(v9.read_text())['supersedes']['status_version'], json.loads(v8.read_text())['status_version'])
+        v10 = EVIDENCE_PATH.with_name('model_evidence_status_v10.json')
+        self.assertEqual(hashlib.sha256(v10.read_bytes()).hexdigest(), EVIDENCE_V10_SHA256)
+        self.assertEqual(json.loads(v10.read_text())['supersedes']['status_version'], json.loads(v9.read_text())['status_version'])
         current = load_evidence_status()
-        self.assertEqual(current['supersedes']['status_version'], json.loads(v9.read_text())['status_version'])
+        self.assertEqual(current['supersedes']['status_version'], json.loads(v10.read_text())['status_version'])
+
+    def test_v11_only_records_the_bortezomib_reproduction_layer(self):
+        current = load_evidence_status()['models']
+        v10 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v10.json').read_text())['models']
+        for model_id in v10:
+            for layer in v10[model_id]['layers']:
+                if (model_id, layer) != ('bortezomib_pk_lignet_2022', 'reproduction'):
+                    self.assertEqual(current[model_id]['layers'][layer], v10[model_id]['layers'][layer])
+        rep = current['bortezomib_pk_lignet_2022']['layers']['reproduction']
+        self.assertEqual(rep['status'], 'done_exploratory')
+        report = json.loads((ROOT / rep['further_reports'][0]['evidence_report']).read_text())
+        self.assertEqual(rep['further_reports'][0]['results']['reece_auc48_c1d1_1.3'], report['decision']['result']['auc48_c1d1_1.3'])
 
     def test_v10_only_adds_the_mmy3021_report(self):
-        current = load_evidence_status()['models']
+        current = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v10.json').read_text())['models']
         v9 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v9.json').read_text())['models']
         for model_id in v9:
             if model_id != 'bortezomib_pk_lignet_2022':
@@ -185,7 +200,7 @@ class EvidenceStatus(unittest.TestCase):
                     self.assertEqual(report['primary_endpoint_by_group'], layer['result_by_group'])
                 if 'result_by_endpoint' in layer:          # v7 models; checked in detail in the v7 test
                     self.assertIn('classification_by_endpoint', report)
-        self.assertEqual(cited, 14)
+        self.assertEqual(cited, 15)
 
     def test_bortezomib_reproduction_matches_the_adopted_reading(self):
         report = json.loads((ROOT / 'docs/verification/bortezomib_platelet_check_v1.json').read_text())
