@@ -114,3 +114,35 @@ Each step is its own PR.
 1. **Unbound fraction (issue 1): show both values.** The split is drawn with fu 0.77 (in vitro, the value the 2.0a check used) and fu ≈ 0.60 (ex vivo, in the renal study's own subjects). Exposure is the same under both.
 2. **Explorer mode in v1: yes.**
 3. **"Where it acts" card: later.** Not part of v1.
+4. **Rendering: 3D, using the Human Reference Atlas (decided 31 October 2026, replacing the 2D schematic).** See the next section.
+
+## Rendering decision: 3D reference organs (amends "What it shows" and step 1.3)
+
+The platform owner chose a 3D view built on the **Human Reference Atlas (HRA) 3D Reference Object Library**. It is a set of expert-reviewed reference organs, published as GLB files on NIH 3D under CC BY 4.0 and fitted to the Visible Human bodies. It suits the long-term vision: its anatomy is tagged with UBERON IDs (the vocabulary the step 1.2 data already uses), and it goes from organs down to tissue structures.
+
+**What stays the same.** The numbers, bands, evidence statuses and limitations come from the step 1.2 `body-map-view-v1` data, unchanged. 3D only changes how they are drawn.
+
+**How the flows are drawn in 3D:**
+- Kidneys, ureters and bladder from the HRA models. The heart and blood vessels as the plasma compartment, if the vascular model is usable; otherwise a simple drawn vessel, labelled as schematic.
+- Flow as tubes along the renal vessels and ureters, with thickness proportional to clearance on one fixed scale. Particles move along them at a speed proportional to clearance (off for viewers who prefer reduced motion).
+- Non-renal clearance as an arrow leaving the circulation, labelled "routes not identified". **No liver is drawn**, because no source puts lenalidomide metabolism there.
+- Evidence status on the organs: the moderate band outlines the kidneys in the warning style, with the text "probably lower than shown". Tapping an organ opens its evidence card.
+- A fixed, labelled camera view by default, so screenshots are comparable. Rotation and zoom are optional.
+
+**What it does not imply.** A realistic organ is not a concentration. Organs are not shaded by drug amount, because no source gives tissue levels.
+
+**Engineering:**
+- **three.js** is installed from npm and served from the platform's own static files (no external CDN at runtime). Models load with its GLTF loader.
+- **The GLB files** are recorded in an asset manifest with file name, HRA version, sex, source URL, licence and SHA-256. The page refuses to load a changed file, as with the reference data.
+- **Attribution** on the page and in the manifest: "Human Reference Atlas 3D Reference Object Library (HuBMAP), CC BY 4.0".
+- **One body for all organs:** female or male, chosen once, because organ positions and sizes differ between the two reference bodies.
+- **2D fallback:** the schematic SVG is drawn when WebGL is unavailable, or on request, so the page works everywhere and in tests.
+- **Phones:** model detail is checked against file size and frame rate. If a model is too heavy, a simplified copy is made and recorded in the manifest as derived from the original.
+
+**Revised steps** (1.3 becomes three steps; 1.4 and 1.5 unchanged):
+
+| Step | What |
+|---|---|
+| 1.3a | Assets: the owner downloads the HRA GLB files; asset manifest with checksums and licence; check that the organs line up in one coordinate space |
+| 1.3b | 3D viewer: three.js scene with the organs, a fixed default camera, the 2D fallback and the record mode |
+| 1.3c | Flows and evidence drawn from the step 1.2 data: tubes, particles, organ outlines, evidence cards |
