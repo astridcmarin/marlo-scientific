@@ -53,7 +53,21 @@ The label's Table 3 starts at creatinine clearance 30–60 mL/min. The platform'
 
 The current label starts at 60 mL/min and gives 5 mg daily for patients on dialysis. So the 50 is the study's original recommendation; when and why the label changed is not established.
 
-**To confirm:** an earlier REVLIMID label and the review for the supplement that set the 30–60 mL/min step.
+**When it changed (v3).** Three earlier labels date the change:
+
+| Label | Myeloma kidney table |
+|---|---|
+| June 2006 (supplement 001) | None. "No formal studies have been conducted in patients with renal impairment"; patients with renal insufficiency were excluded from the trials. |
+| February 2015 (supplement 041) | Its own table, starting at **30–50 mL/min** (10 mg every 24 h). The MDS and MCL table already starts at 30–60, and the text above both says adjustment is recommended below 60 mL/min, so this label contradicts itself for myeloma. |
+| September 2017 (supplement 051) | One table for all indications, starting at **30 to 60 mL/min**. The 2023 label keeps it. |
+
+So the myeloma threshold moved from 50 to 60 between February 2015 and September 2017. The reason is not established.
+
+**To confirm:** labels between those dates (for example the February 2017 maintenance approval) and the review for the supplement that unified the table.
+
+## Who the renal study enrolled (v3)
+
+The February 2015 label says the kidney dosing is "based on a pharmacokinetic study in patients with renal impairment due to non-malignant conditions". So CC-5013-PK-001 enrolled people whose kidney disease was not caused by cancer; it did not enrol myeloma patients. The pinned EMA extract and the Hughes scope still say the study's disease context is "not established". They are left unchanged here and should be updated in their next versions. When the myeloma-based Hughes and Kim models are compared with this study, the population difference is one possible reason for disagreement. This has not been tested.
 
 ## 4. Mild versus normal exposure: below 20% or 27%? (difference recorded, v2)
 

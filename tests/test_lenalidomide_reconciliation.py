@@ -33,7 +33,8 @@ class Reconciliation(unittest.TestCase):
         from intelligence_store.lenalidomide_label import RECONCILIATION_V1_SHA256, load_renal_reconciliation
         import hashlib
         r = load_renal_reconciliation()
-        self.assertEqual(r['supersedes']['sha256'], RECONCILIATION_V1_SHA256)
+        v2 = json.loads((ROOT / 'intelligence_store/data/lenalidomide_renal_source_reconciliation_v2.json').read_text())
+        self.assertEqual(v2['supersedes']['sha256'], RECONCILIATION_V1_SHA256)
         v1 = ROOT / 'intelligence_store/data/lenalidomide_renal_source_reconciliation_v1.json'
         self.assertEqual(hashlib.sha256(v1.read_bytes()).hexdigest(), RECONCILIATION_V1_SHA256)
         self.assertIn('N = 7', r['sources']['study_abstract']['quotes']['stratification'])
@@ -46,7 +47,19 @@ class Reconciliation(unittest.TestCase):
         for g, key in (('moderate', 'moderate'), ('severe', 'severe_without_dialysis')):
             self.assertEqual(comp[g], round(100 * (auc[key] / pooled - 1)))
         self.assertEqual(round(auc['mild'] / auc['normal'], 2), self.r['mild_versus_normal_auc']['computation']['mild_to_normal_arithmetic_mean_ratio'])
-        self.assertEqual(self.r['dose_threshold_50_or_60']['status'], 'origin_of_50_established_reason_for_60_not_established')
+        self.assertEqual(self.r['dose_threshold_50_or_60']['status'], 'change_dated_between_2015_and_2017_reason_not_established')
+
+    def test_v3_adds_earlier_labels(self):
+        import hashlib
+        from intelligence_store.lenalidomide_label import RECONCILIATION_V2_SHA256
+        r = load_renal_reconciliation()
+        v2 = ROOT / 'intelligence_store/data/lenalidomide_renal_source_reconciliation_v2.json'
+        self.assertEqual(hashlib.sha256(v2.read_bytes()).hexdigest(), RECONCILIATION_V2_SHA256)
+        self.assertEqual(r['supersedes']['sha256'], RECONCILIATION_V2_SHA256)
+        self.assertEqual(r['sources']['label_2015']['quotes']['mm_moderate_range']['quote'], 'CLcr 30-50 mL/min')
+        self.assertIn('non-malignant', r['sources']['label_2015']['quotes']['basis']['quote'])
+        self.assertIn('30 to 60', r['sources']['label_2017']['quotes']['table']['quote'])
+        self.assertEqual(self.r['renal_study_population']['status'], 'established_from_label')
 
     def test_ema_page_states_measured_clearance(self):
         try:
