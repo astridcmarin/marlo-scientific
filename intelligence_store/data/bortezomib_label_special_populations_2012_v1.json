@@ -1,0 +1,72 @@
+{
+  "schema_version": "label-special-populations-v1",
+  "extract_version": "bortezomib-label-special-populations-2012-v1.0",
+  "drug": "bortezomib",
+  "recorded_on": "2026-10-30",
+  "source": {
+    "document": "VELCADE (bortezomib) for injection, full prescribing information, revised 1/2012, as included in the FDA approval package for NDA 021602 supplement 027 (approval date 01/23/2012)",
+    "file_reviewed": {"file": "021602s027.pdf (379 pages; the label is PDF pages 9-43, scanned, labelled 1/35 to 35/35)", "sha256": "8f04422867a8d7e3d165960ad0054be6468f7c4da97ce2ec09f324fb4b481398"},
+    "storage": "Kept on the platform owner's computer only; not committed.",
+    "extraction": "AI-assisted. The label pages have no text layer; they were located by OCR and every quote below was transcribed from the rendered page images (PDF pages 12, 29, 31 and 32), not from the OCR text. Independent review pending.",
+    "currency": "This is the 2012 label. Later revisions are not reviewed here and may differ."
+  },
+  "hepatic": {
+    "dose_section_2_6": {
+      "quote": "Patients with mild hepatic impairment do not require a starting dose adjustment and should be treated per the recommended VELCADE dose. Patients with moderate or severe hepatic impairment should be started on VELCADE at a reduced dose of 0.7 mg/m2 per injection during the first cycle, and a subsequent dose escalation to 1.0 mg/m2 or further dose reduction to 0.5 mg/m2 may be considered based on patient tolerance (see Table 4).",
+      "location": "Section 2.6, label page 4/35 (PDF page 12)"
+    },
+    "categories_table_4": {
+      "mild": "Bilirubin less than or equal to 1.0x ULN with SGOT (AST) more than ULN, or bilirubin more than 1.0x-1.5x ULN with any AST: no starting dose modification",
+      "moderate": "Bilirubin more than 1.5x-3x ULN, any AST",
+      "severe": "Bilirubin more than 3x ULN, any AST",
+      "location": "Table 4, label page 4/35 (PDF page 12)"
+    },
+    "statement_8_7": {
+      "quote": "The exposure of bortezomib is increased in patients with moderate and severe hepatic impairment. Starting dose should be reduced in those patients.",
+      "location": "Section 8.7, label page 21/35 (PDF page 29)"
+    },
+    "pk_12_3": {
+      "quote": "The effect of hepatic impairment (see Table 4 for definition of hepatic impairment) on the pharmacokinetics of bortezomib was assessed in 51 cancer patients at bortezomib doses ranging from 0.5 to 1.3 mg/m2. When compared to patients with normal hepatic function, mild hepatic impairment did not alter dose-normalized bortezomib AUC. However, the dose-normalized mean AUC values were increased by approximately 60% in patients with moderate or severe hepatic impairment.",
+      "n_patients": 51,
+      "population": "cancer patients",
+      "dose_normalised_auc_increase_percent_moderate_or_severe": 60,
+      "location": "Section 12.3, label pages 23/35-24/35 (PDF pages 31-32)"
+    }
+  },
+  "renal": {
+    "statement_8_6": {
+      "quote": "The pharmacokinetics of VELCADE are not influenced by the degree of renal impairment. Therefore, dosing adjustments of VELCADE are not necessary for patients with renal insufficiency. Since dialysis may reduce VELCADE concentrations, VELCADE should be administered after the dialysis procedure.",
+      "location": "Section 8.6, label page 21/35 (PDF page 29)"
+    },
+    "pk_12_3": {
+      "quote": "A pharmacokinetic study was conducted in patients with various degrees of renal impairment who were classified according to their creatinine clearance values (CrCl) into the following groups: Normal (CrCl >=60 mL/min/1.73 m2, N=12), Mild (CrCl=40-59 mL/min/1.73 m2, N=10), Moderate (CrCl=20-39 mL/min/1.73 m2, N=9), and Severe (CrCl < 20 mL/min/1.73 m2, N=3). A group of dialysis patients who were dosed after dialysis was also included in the study (N=8). Patients were administered intravenous doses of 0.7 to 1.3 mg/m2 of bortezomib twice weekly. Exposure of bortezomib (dose-normalized AUC and Cmax) was comparable among all the groups.",
+      "groups_n": {"normal_crcl_ge_60": 12, "mild_40_59": 10, "moderate_20_39": 9, "severe_lt_20": 3, "dialysis": 8},
+      "location": "Section 12.3, label page 24/35 (PDF page 32)"
+    }
+  },
+  "age": {
+    "pk_12_3": {
+      "quote": "Analyses of data after the first dose of Cycle 1 (Day 1) in 39 multiple myeloma patients who had received intravenous doses of 1 mg/m2 and 1.3 mg/m2 showed that both dose-normalized AUC and Cmax tend to be less in younger patients. Patients < 65 years of age (n=26) had about 25% lower mean dose-normalized AUC and Cmax than those >= 65 years of age (n=13).",
+      "lower_percent_under_65": 25,
+      "location": "Section 12.3, label page 23/35 (PDF page 31)"
+    },
+    "geriatric_8_5": {
+      "quote": "No overall differences in safety or effectiveness were observed between patients >= age 65 and younger patients receiving VELCADE; but greater sensitivity of some older individuals cannot be ruled out.",
+      "location": "Section 8.5, label page 21/35 (PDF page 29)"
+    }
+  },
+  "sex": {
+    "pk_12_3": {
+      "quote": "Mean dose-normalized AUC and Cmax values were comparable between male (n=22) and female (n=17) patients after the first dose of Cycle 1 for the 1 and 1.3 mg/m2 doses.",
+      "location": "Section 12.3, label page 23/35 (PDF page 31)"
+    }
+  },
+  "race": {
+    "pk_12_3": {
+      "quote": "The effect of race on exposure to bortezomib could not be assessed as most of the patients were Caucasian.",
+      "location": "Section 12.3, label page 23/35 (PDF page 31)"
+    }
+  },
+  "not_extracted": ["Body-size findings (doses are per m2 of body surface area)", "Section 5.10 (Hepatic Impairment warning) beyond its cross-reference", "Later label revisions"],
+  "clinical_prediction_validated": false
+}
