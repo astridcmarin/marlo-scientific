@@ -155,6 +155,23 @@ What this does not change by itself: the plan's decision rule says scope and war
 - **Pre-specified reading.** If the models under-predict here too, the non-cancer population of CC-5013-PK-001 does not explain the disagreement. If they are consistent here, the population difference becomes a candidate explanation. No scope or warning changes from the check alone.
 - **Waiting on:** the article. A request to the first author could not be delivered; a co-author or a library copy are the next routes. Two EMA variation reports and an Australian evaluation report in the owner's folder may also tabulate the study; they have not been opened.
 
+**2.1i — EMA 2013 re-analysis of the renal study extracted (2026-10-31).** The CHMP assessment of Revlimid variation II/0056 (EMA/297642/2013, pages 17–21) re-analyses CC-5013-PK-001, the same subjects as the 2008 extract. It is now pinned as `lenalidomide_renal_pk_ema_2013_v1.json`. The tables are images, so the values were transcribed from pages rendered at 200 dpi; the tests check that they hang together.
+- **What it adds:**
+  - geometric means with CVs for every group, including renal clearance and urinary excretion;
+  - **geometric-mean ratios with 90% confidence intervals** for AUC against normal and mild pooled: moderate 259% (209–322), severe 352% (284–436), ESRD off dialysis 477% (384–591);
+  - regressions on measured creatinine clearance;
+  - the R and S enantiomers;
+  - ex vivo protein binding;
+  - the sponsor's simulated steady-state exposures (labelled as predictions, not observations).
+- **Checks on the transcription** (`tests/test_lenalidomide_renal_pk_ema_2013.py`):
+  - CL/F equals 25 mg divided by AUC in every group, and its CV equals AUC's;
+  - the ratios follow from the group geometric means;
+  - group sizes match the 2008 extract;
+  - each geometric mean sits below its 2008 arithmetic mean by the amount its CV implies;
+  - the enantiomer fractions add up.
+- **One finding worth recording, not tested here.** Clearance rises almost in proportion to creatinine clearance: CL/F = 20.8 + 1.85 × CLcr mL/min, and renal clearance = −17.4 + 1.89 × CLcr. A slope near 2 means the kidneys remove lenalidomide faster than filtration alone would, which points to net tubular secretion. The kidney-pathways model already has a secretion term. By contrast, the Hughes model scales clearance with (CrCl/90)^0.224, which is far flatter. That is consistent with Hughes under-predicting exposure in moderate and severe impairment. Testing either point would need its own locked plan.
+- **Not used yet.** No check, scope or warning changes. The confidence intervals make it possible to re-read the earlier checks on the ratio scale; that, too, would need a new locked plan.
+
 **Evidence scan: exposure–response (2026-10-14).** Before building any drug-effect module, I searched for a published, transcribable model linking lenalidomide exposure to neutrophil or platelet counts over time. None was found:
 - **Chen, Zhou & Palmisano (Clin Pharmacokinet 2017)** summarise a pooled six-study analysis. AUC predicted grade 3/4 thrombocytopenia (odds ratio 3.34, 95% CI 1.18–9.42), and the neutropenia link was not clearly established (odds ratio 1.98, CI 1.00–3.92). Neither was apparent in cycle 1. The review does not give the AUC units or baseline risk, so the probability model cannot be reconstructed.
 - **Guglieri-López et al. (Cancer Chemother Pharmacol 2017; 15 patients)** is PK only. It has one compartment, three transit stages, CrCl on CL/F and BSA on V/F. It is not implemented: Hughes has a similar structure, and 15 patients is too few to rely on the covariate estimates. Its claim that the model can individualise dose is not adopted. The associated thesis (Valencia 2017) may contain PK/PD work; it is unread.
