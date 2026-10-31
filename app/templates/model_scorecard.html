@@ -21,7 +21,7 @@
             <h1>{{ card.name }}</h1>
             <p class="prose-lede">{{ card.what }}</p>
             <p>Source: {{ card.citation }}{% if card.doi %} · <a href="https://doi.org/{{ card.doi }}" rel="noopener">doi:{{ card.doi }}</a>{% endif %}</p>
-            <p><a href="{{ url_for('credibility_record', model_id=card.model_id) }}">Credibility record (ICH M15 structure)</a></p>
+            <p><a href="{{ url_for('credibility_record', model_id=card.model_id) }}">Credibility record (ICH M15 structure)</a>{% if has_scope %} · <a href="{{ url_for('model_scope', model_id=card.model_id) }}">Platform scope: where this model is used, and with which evidence</a>{% endif %}</p>
         </header>
 
         {% if card.outside_data_disagreements or card.depends_on|selectattr('disagreements')|list %}

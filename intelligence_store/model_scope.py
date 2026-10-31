@@ -98,7 +98,7 @@ def evaluate_rule(rule, state, request, derived=None):
         if value is None or value == 'UNKNOWN':
             row.update(status='cannot_determine', value=value, reason=_reason(rule, 'UNKNOWN') or 'Input unknown.')
         elif value in rule['in_scope']:
-            row.update(status='in_scope', value=value, tier=rule['tier'])
+            row.update(status='in_scope', value=value, tier=rule.get('tier_by_value', {}).get(value, rule.get('tier')))
         else:
             row.update(status='out_of_scope', value=value, reason=_reason(rule, value))
     elif kind == 'range':

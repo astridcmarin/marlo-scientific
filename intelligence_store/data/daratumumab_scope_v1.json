@@ -1,0 +1,60 @@
+{
+  "schema_version": "model-scope-v1",
+  "scope_version": "daratumumab-pk-luo-2021-scope-v1.0",
+  "model_id": "daratumumab_pk_luo_2021",
+  "recorded_on": "2026-10-30",
+  "purpose": "The context of use of the Luo 2021 daratumumab model, as enforceable rules, written from the two locked checks against GEN501 and SIRIUS (Simulation 3.2b and 3.2c). The platform does not compute daratumumab exposure yet; this scope records what a future implementation may compute and how it must be labelled. Policy as for lenalidomide (30 October 2026): compute and flag where a check disagrees inside the model's data; refuse beyond it.",
+  "runtime": "none",
+  "evidence": {
+    "model_extract": {"file": "intelligence_store/data/daratumumab_pk_luo_2021_extract_v1.json", "sha256": "8c68ddb7a849ce00a6340e0a7b4ec58ecf9e720491be8b55f1a47c774293d4f6"},
+    "observed": {"file": "intelligence_store/data/daratumumab_iv_clemens_2017_observed_v1.json", "sha256": "2872913fd369aea906fc4a11623755d8ff3722c75de0d1fbe55e567992632ed0"},
+    "supplement": {"file": "intelligence_store/data/daratumumab_iv_clemens_2017_supplement_v1.json", "sha256": "4bf5724fe66bb10d921ce8c8a70eb0bf4f52498f7a5e30272e458a1ce0b6a6cb"},
+    "external_check_report_v1": {"file": "docs/verification/daratumumab_pk_luo_check_v1.json", "sha256": "89c8310ea73ab5388553a125ba8389630f047d555019124985000b22632b0a26"},
+    "external_check_report_v2": {"file": "docs/verification/daratumumab_pk_luo_check_v2.json", "sha256": "40862b42fb00d8095653c39c601955eff7141b98d6119eb0d1b3ee9ab342d028"}
+  },
+  "evidence_tiers": {
+    "externally_checked": "Consistent in every scenario of both locked checks.",
+    "inside_model_data": "Inside the data the model was built on; not checked against outside data, or not consistent in every scenario.",
+    "external_check_disagrees": "Inside the model's data, but both locked checks found the model inconsistent here: may be computed only if flagged and shown with the observed data.",
+    "outside": "Beyond the model's data: refused."
+  },
+  "outputs": {
+    "supported": [
+      {"id": "typical_peak_first_iv_infusion", "label": "Typical end-of-infusion concentration after the first IV infusion (8 or 16 mg/kg)", "tier": "externally_checked",
+       "evidence": "SIRIUS 8 mg/kg and GEN501 16 mg/kg Cmax consistent in all eight scenarios of both checks (observed / model median 0.97-1.07)."},
+      {"id": "typical_auc_infinity_first_iv_8_mg_kg", "label": "Typical AUC to infinity after one 8 mg/kg IV infusion", "tier": "inside_model_data",
+       "evidence": "Consistent in all eight scenarios of check v1 (1.11) and in the primary scenario of check v2 (1.18), but under-predicted in v2's 75% IgG scenario."},
+      {"id": "typical_auc_first_week_16_mg_kg", "label": "Typical AUC over the first week after one 16 mg/kg IV infusion", "tier": "external_check_disagrees",
+       "evidence": "Over-predicted in every scenario of both checks (observed / model median 0.87 and 0.83, GEN501 Part 2).",
+       "observed": {"source": "clemens_2017", "values": "GEN501 Part 2 16 mg/kg AUC 0-7 days mean 25,123 (SD 10,852) ug.h/mL, n = 20"}},
+      {"id": "typical_exposure_over_the_regimen", "label": "Typical troughs and peaks over the labelled schedule", "tier": "inside_model_data",
+       "evidence": "Not classified (SIRIUS 16 mg/kg reports no group sizes). Descriptively, observed troughs before the ninth infusion were about 1.26 times the model mean (check v1, descriptive)."}
+    ],
+    "not_supported": [
+      {"id": "individual_prediction", "label": "This patient's concentrations", "reason": "Typical values only."},
+      {"id": "target_saturation_or_efficacy", "label": "CD38 saturation, response or toxicity", "reason": "The model's saturable clearance is a disposition term, not a measured target occupancy; no efficacy or safety model is checked."}
+    ]
+  },
+  "request_rules": [
+    {"id": "disease", "kind": "category", "input": "disease_code", "in_scope": ["MM"], "tier": "externally_checked",
+     "basis": "The model's data and both outside studies are multiple myeloma.",
+     "outside_reason": {"default": "Only multiple myeloma is in the model's data.", "UNKNOWN": "Disease not declared."}},
+    {"id": "route", "kind": "category", "input": "route", "in_scope": ["IV", "SC"],
+     "tier_by_value": {"IV": "externally_checked", "SC": "inside_model_data"},
+     "basis": "IV was checked against GEN501 and SIRIUS. Subcutaneous dosing (1,800 mg with hyaluronidase) is in the model's data (PAVO, MMY1008, COLUMBA, PLEIADES) but was not checked against outside data here.",
+     "outside_reason": {"default": "Only IV infusion and the subcutaneous formulation are in the model's data."}}
+  ],
+  "state_rules": [
+    {"id": "weight", "kind": "range", "field": "weight", "unit": "kg", "range": [28.6, 147.6], "tier": "inside_model_data",
+     "basis": "Model data 28.6-147.6 kg (model_extract population).", "outside_reason": {"default": "Weight outside the model's data."}},
+    {"id": "albumin", "kind": "range", "field": "albumin", "unit": "g/L", "range": [19, 53], "tier": "inside_model_data",
+     "basis": "Albumin is a covariate on clearance; the model's studies span 19-53 g/L (model_extract population, Table 2 ranges). The albumin effect may not transfer to GEN501/SIRIUS (check v2).",
+     "outside_reason": {"default": "Albumin outside the model's data."}}
+  ],
+  "unknown_policy": "A rule whose input is unknown cannot be evaluated; the request is then 'cannot_determine' and no output is computed.",
+  "never_claimed": [
+    "A prediction for a real patient, a dose recommendation or a judgement of treatment suitability.",
+    "Validation of the model; validation flags stay false."
+  ],
+  "clinical_prediction_validated": false
+}

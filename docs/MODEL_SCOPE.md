@@ -115,8 +115,29 @@ Doses and schedules are still checked by each model's existing execution blocker
 - **Kim:** records outside its Table 1 ranges (eGFR, BSA, age, weight, height) previously ran with an "extrapolation" warning. They are now refused.
 - **Both:** severe renal impairment for Kim and the moderate band for Hughes still run, now flagged with the observed data.
 
+## Daratumumab and the public scope pages (Phase 2.5c)
+
+**Daratumumab scope** (`daratumumab_scope_v1.json`). Written from both locked checks (3.2b, 3.2c). The platform does not compute daratumumab yet (`runtime: none`); the scope fixes what a future implementation may compute and how it must be labelled.
+
+| Output | Tier | Why |
+|---|---|---|
+| Peak after the first IV infusion, 8 or 16 mg/kg | checked | Consistent in all 8 scenarios of both checks |
+| AUC to infinity after 8 mg/kg | model data only | Consistent in v1, but not in every v2 scenario |
+| First-week AUC after 16 mg/kg | **outside check disagrees** | Over-predicted in every scenario of both checks (0.87, 0.83) |
+| Troughs and peaks over the labelled schedule | model data only | Not classified; descriptively about 1.26× the model in SIRIUS |
+
+**Rules:**
+- **Disease:** MM.
+- **Route:** IV is checked against outside data; subcutaneous dosing is model data only. Category rules can now carry a tier per value (`tier_by_value`).
+- **Weight and albumin:** must be inside the model's data.
+
+**Pages:**
+- **`/models/<model_id>/scope`**, with a JSON download, for every registered scope. The registry is `intelligence_store/scope_registry.py`; each entry uses its scope file's pinned loader.
+- **Links.** The models index lists all four scopes. Scorecards and credibility records link to the scope when one exists. Ixazomib and daratumumab have scopes but no scorecard or credibility record yet, because they are not in the evidence status file or the credibility context.
+
 ## Next
 
 - ~~Move the Hughes and Kim per-model versions to this format~~: done in 2.5b. The coverage contract and applicability findings remain as the evidence the scopes cite.
-- **Write daratumumab's scope** from 3.2b–3.2c. Candidates: peaks at 8 and 16 mg/kg; AUC at 8 mg/kg as model data only, given the opposite-direction misses.
-- **Show each model's scope** on its scorecard and credibility record (PR #69).
+- ~~Write daratumumab's scope~~: done in 2.5c.
+- ~~Show each model's scope on its scorecard and credibility record~~: done in 2.5c (linked pages).
+- **Add ixazomib and daratumumab to the evidence status file and the credibility context**, so they get scorecards and records like the other models.
