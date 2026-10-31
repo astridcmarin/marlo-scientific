@@ -29,6 +29,25 @@ class Reconciliation(unittest.TestCase):
         lo, hi = label['clearance_decrease_percent_moderate_severe']
         self.assertEqual((lo, hi), (round(comp['cl_decrease_percent']['moderate']), round(comp['cl_decrease_percent']['severe'])))
 
+    def test_v2_adds_the_study_abstract(self):
+        from intelligence_store.lenalidomide_label import RECONCILIATION_V1_SHA256, load_renal_reconciliation
+        import hashlib
+        r = load_renal_reconciliation()
+        self.assertEqual(r['supersedes']['sha256'], RECONCILIATION_V1_SHA256)
+        v1 = ROOT / 'intelligence_store/data/lenalidomide_renal_source_reconciliation_v1.json'
+        self.assertEqual(hashlib.sha256(v1.read_bytes()).hexdigest(), RECONCILIATION_V1_SHA256)
+        self.assertIn('N = 7', r['sources']['study_abstract']['quotes']['stratification'])
+        self.assertIn('CLCr < 50 mL/min', r['sources']['study_abstract']['quotes']['conclusion'])
+        ema = json.loads((ROOT / 'landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json').read_text())
+        auc = {g['group']: g['measurements']['auc_infinity']['mean'] for g in ema['groups']}
+        n = {g['group']: g['n'] for g in ema['groups']}
+        pooled = (n['normal'] * auc['normal'] + n['mild'] * auc['mild']) / (n['normal'] + n['mild'])
+        comp = self.r['renal_study_group_sizes']['computation']['auc_increase_vs_pooled_normal_mild_percent']
+        for g, key in (('moderate', 'moderate'), ('severe', 'severe_without_dialysis')):
+            self.assertEqual(comp[g], round(100 * (auc[key] / pooled - 1)))
+        self.assertEqual(round(auc['mild'] / auc['normal'], 2), self.r['mild_versus_normal_auc']['computation']['mild_to_normal_arithmetic_mean_ratio'])
+        self.assertEqual(self.r['dose_threshold_50_or_60']['status'], 'origin_of_50_established_reason_for_60_not_established')
+
     def test_ema_page_states_measured_clearance(self):
         try:
             from pypdf import PdfReader
