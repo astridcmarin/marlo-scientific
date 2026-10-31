@@ -1,0 +1,643 @@
+{
+  "schema_version": "renal-pk-group-summary-v1",
+  "extract_version": "lenalidomide-renal-pk-ema-2013-v1.0",
+  "study_id": "CC-5013-PK-001",
+  "recorded_on": "2026-10-31",
+  "source": {
+    "title": "Revlimid: CHMP assessment report, variation EMEA/H/C/000717/II/0056",
+    "document_reference": "EMA/297642/2013",
+    "date": "2013-04-25",
+    "marketing_authorisation_holder": "Celgene Europe Ltd.",
+    "pages": "PDF pages 17-21 (section 2.4.2.1, Special populations: impaired renal function; dosage recommendations)",
+    "file": {
+      "original_name": "revlimid-h-c-717-ii-0056-epar-assessment-report-variation_en.pdf",
+      "local_name": "REVLIMID EPAR variation II-0056 assessment report, EMA, MDS [revlimid-h-c-717-ii-0056].pdf",
+      "sha256": "5ed09be4df5700ff340b49114e4965c57dcddc5e5c9eaba0754403cb6c722eb2",
+      "pages": 123
+    },
+    "storage": "Kept on the platform owner's computer only; not committed (public EMA document).",
+    "extraction": "Tables 3-7 and Figure 1 are images with no text layer. Values were transcribed from the pages rendered at 200 dpi and read twice; the surrounding text (pages 17-20) is from the text layer. AI-assisted; independent review pending."
+  },
+  "relation_to_existing_extract": "Same study and subjects as renal_pk_group_evidence (EMA 2008 withdrawal assessment report, arithmetic means). This 2013 re-analysis gives geometric means, geometric mean ratios with 90% confidence intervals, renal clearance and urinary excretion, linear regressions on measured creatinine clearance, and the enantiomers. Groups were classified by measured creatinine clearance (Table 4, Table 5 footnote).",
+  "population": "Subjects with renal impairment and otherwise healthy (page 17); impairment due to non-malignant conditions per renal_pk_group_evidence_v2 population record.",
+  "design": {
+    "dose_mg": 25,
+    "route": "oral",
+    "regimen": "single dose; ESRD subjects received two single doses at least 7 days apart, one on a non-dialysis day and one 3 h before a 4-hour haemodialysis",
+    "food_state": "fasting",
+    "location": "PDF page 17"
+  },
+  "groups": {
+    "normal": {
+      "n": 7
+    },
+    "mild": {
+      "n": 5
+    },
+    "moderate": {
+      "n": 6
+    },
+    "severe": {
+      "n": 6
+    },
+    "esrd_off_dialysis": {
+      "n": 6
+    },
+    "esrd_on_dialysis": {
+      "n": 6
+    }
+  },
+  "table_3_geometric_means": {
+    "location": "PDF page 18, Table 3",
+    "statistic": "Geometric mean (CV%), except tmax: median (min-max)",
+    "cmax": {
+      "normal": {
+        "geometric_mean": 568,
+        "cv_pct": 39
+      },
+      "mild": {
+        "geometric_mean": 684,
+        "cv_pct": 16
+      },
+      "moderate": {
+        "geometric_mean": 568,
+        "cv_pct": 33
+      },
+      "severe": {
+        "geometric_mean": 761,
+        "cv_pct": 11
+      },
+      "esrd_off_dialysis": {
+        "geometric_mean": 538,
+        "cv_pct": 25
+      },
+      "esrd_on_dialysis": {
+        "geometric_mean": 370,
+        "cv_pct": 32
+      },
+      "unit": "ng/mL"
+    },
+    "auc_t": {
+      "normal": {
+        "geometric_mean": 1977,
+        "cv_pct": 32
+      },
+      "mild": {
+        "geometric_mean": 2514,
+        "cv_pct": 37
+      },
+      "moderate": {
+        "geometric_mean": 5668,
+        "cv_pct": 14
+      },
+      "severe": {
+        "geometric_mean": 7766,
+        "cv_pct": 19
+      },
+      "esrd_off_dialysis": {
+        "geometric_mean": 10346,
+        "cv_pct": 19
+      },
+      "esrd_on_dialysis": {
+        "geometric_mean": 6238,
+        "cv_pct": 17
+      },
+      "unit": "ng*h/mL"
+    },
+    "auc_infinity": {
+      "normal": {
+        "geometric_mean": 2091,
+        "cv_pct": 32
+      },
+      "mild": {
+        "geometric_mean": 2627,
+        "cv_pct": 36
+      },
+      "moderate": {
+        "geometric_mean": 5964,
+        "cv_pct": 16
+      },
+      "severe": {
+        "geometric_mean": 8088,
+        "cv_pct": 18
+      },
+      "esrd_off_dialysis": {
+        "geometric_mean": 10958,
+        "cv_pct": 19
+      },
+      "esrd_on_dialysis": {
+        "geometric_mean": 6776,
+        "cv_pct": 14
+      },
+      "unit": "ng*h/mL"
+    },
+    "cl_f": {
+      "normal": {
+        "geometric_mean": 199,
+        "cv_pct": 32
+      },
+      "mild": {
+        "geometric_mean": 159,
+        "cv_pct": 36
+      },
+      "moderate": {
+        "geometric_mean": 70,
+        "cv_pct": 16
+      },
+      "severe": {
+        "geometric_mean": 52,
+        "cv_pct": 18
+      },
+      "esrd_off_dialysis": {
+        "geometric_mean": 38,
+        "cv_pct": 19
+      },
+      "esrd_on_dialysis": {
+        "geometric_mean": 62,
+        "cv_pct": 14
+      },
+      "unit": "mL/min"
+    },
+    "vz_f": {
+      "normal": {
+        "geometric_mean": 56,
+        "cv_pct": 30
+      },
+      "mild": {
+        "geometric_mean": 50,
+        "cv_pct": 25
+      },
+      "moderate": {
+        "geometric_mean": 60,
+        "cv_pct": 30
+      },
+      "severe": {
+        "geometric_mean": 40,
+        "cv_pct": 20
+      },
+      "esrd_off_dialysis": {
+        "geometric_mean": 51,
+        "cv_pct": 17
+      },
+      "esrd_on_dialysis": {
+        "geometric_mean": 85,
+        "cv_pct": 15
+      },
+      "unit": "L"
+    },
+    "terminal_half_life": {
+      "normal": {
+        "geometric_mean": 3.26,
+        "cv_pct": 23
+      },
+      "mild": {
+        "geometric_mean": 3.61,
+        "cv_pct": 20
+      },
+      "moderate": {
+        "geometric_mean": 9.97,
+        "cv_pct": 44
+      },
+      "severe": {
+        "geometric_mean": 8.93,
+        "cv_pct": 29
+      },
+      "esrd_off_dialysis": {
+        "geometric_mean": 15.5,
+        "cv_pct": 7
+      },
+      "esrd_on_dialysis": {
+        "geometric_mean": 16.0,
+        "cv_pct": 11
+      },
+      "unit": "h"
+    },
+    "urine_excretion_pct_dose": {
+      "normal": {
+        "geometric_mean": 84,
+        "cv_pct": 10
+      },
+      "mild": {
+        "geometric_mean": 69,
+        "cv_pct": 12
+      },
+      "moderate": {
+        "geometric_mean": 38,
+        "cv_pct": 48
+      },
+      "severe": {
+        "geometric_mean": 43,
+        "cv_pct": 28
+      },
+      "esrd_off_dialysis": null,
+      "esrd_on_dialysis": null,
+      "unit": "% of dose"
+    },
+    "renal_clearance": {
+      "normal": {
+        "geometric_mean": 159,
+        "cv_pct": 36
+      },
+      "mild": {
+        "geometric_mean": 109,
+        "cv_pct": 36
+      },
+      "moderate": {
+        "geometric_mean": 27,
+        "cv_pct": 63
+      },
+      "severe": {
+        "geometric_mean": 22,
+        "cv_pct": 44
+      },
+      "esrd_off_dialysis": null,
+      "esrd_on_dialysis": null,
+      "unit": "mL/min"
+    },
+    "tmax_median_range_h": {
+      "normal": [
+        1.0,
+        0.5,
+        2.0
+      ],
+      "mild": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "moderate": [
+        1.0,
+        0.5,
+        1.5
+      ],
+      "severe": [
+        1.5,
+        0.5,
+        2.0
+      ],
+      "esrd_off_dialysis": [
+        1.25,
+        1.0,
+        2.0
+      ],
+      "esrd_on_dialysis": [
+        2.0,
+        0.5,
+        6.0
+      ]
+    },
+    "footnotes": [
+      "Normal group urine excretion and renal clearance: N = 6 (marked *).",
+      "ESRD urine values not applicable (anuric)."
+    ]
+  },
+  "table_4_geometric_mean_ratios": {
+    "location": "PDF page 19, Table 4",
+    "definition": "% geometric mean ratio (90% CI), test / reference, reference = normal + mild (measured CLcr >= 50 mL/min)",
+    "auc_infinity": {
+      "moderate": [
+        259,
+        209,
+        322
+      ],
+      "severe": [
+        352,
+        284,
+        436
+      ],
+      "esrd_off_dialysis": [
+        477,
+        384,
+        591
+      ]
+    },
+    "cmax": {
+      "moderate": [
+        93,
+        73,
+        117
+      ],
+      "severe": [
+        124,
+        98,
+        157
+      ],
+      "esrd_off_dialysis": [
+        88,
+        70,
+        111
+      ]
+    },
+    "group_definitions_measured_clcr": {
+      "reference": ">= 50 mL/min",
+      "moderate": "30 <= CLcr < 50 mL/min",
+      "severe": "< 30 mL/min, not requiring dialysis",
+      "esrd_off_dialysis": "requiring dialysis"
+    }
+  },
+  "figure_1_regressions": {
+    "location": "PDF page 19, Figure 1 (equations printed on the panels); slopes also in the text",
+    "x": "measured creatinine clearance, mL/min",
+    "auc_infinity": {
+      "equation": "AUCinf (ng*h/mL) = 9979.59 - 83.57 x CLcr",
+      "r_squared": 0.7855,
+      "p": "< 0.0001"
+    },
+    "cmax": {
+      "equation": "no relationship",
+      "r_squared": 0.0003,
+      "p": 0.9276
+    },
+    "cl_f": {
+      "equation": "CL/F (mL/min) = 20.81 + 1.85 x CLcr",
+      "intercept": 20.81,
+      "slope": 1.85,
+      "r_squared": 0.853,
+      "p": "< 0.0001"
+    },
+    "renal_clearance": {
+      "equation": "CLr (mL/min) = -17.35 + 1.89 x CLcr",
+      "intercept": -17.35,
+      "slope": 1.89,
+      "r_squared": 0.8568,
+      "p": "< 0.0001"
+    },
+    "text_quote": "Linear regression of CL/F and CLr against the measured CLcr produced similar slopes (1.85 and 1.89, respectively).",
+    "note": "Individual points are shown only as a figure; they are not digitised here."
+  },
+  "table_5_enantiomers": {
+    "location": "PDF page 20, Table 5",
+    "statistic": "ratio (value in parentheses as printed; its statistic is not labelled)",
+    "auc_infinity": {
+      "normal": {
+        "S/R": [
+          1.27,
+          0.059
+        ],
+        "S/T": [
+          0.56,
+          0.013
+        ],
+        "R/T": [
+          0.44,
+          0.011
+        ]
+      },
+      "mild": {
+        "S/R": [
+          1.26,
+          0.0734
+        ],
+        "S/T": [
+          0.56,
+          0.014
+        ],
+        "R/T": [
+          0.44,
+          0.014
+        ]
+      },
+      "moderate": {
+        "S/R": [
+          1.33,
+          0.0799
+        ],
+        "S/T": [
+          0.57,
+          0.014
+        ],
+        "R/T": [
+          0.43,
+          0.014
+        ]
+      },
+      "severe": {
+        "S/R": [
+          1.35,
+          0.0773
+        ],
+        "S/T": [
+          0.58,
+          0.012
+        ],
+        "R/T": [
+          0.43,
+          0.016
+        ]
+      },
+      "esrd_off_dialysis": {
+        "S/R": [
+          1.46,
+          0.138
+        ],
+        "S/T": [
+          0.59,
+          0.022
+        ],
+        "R/T": [
+          0.41,
+          0.023
+        ]
+      },
+      "esrd_on_dialysis": {
+        "S/R": [
+          1.4,
+          0.0975
+        ],
+        "S/T": [
+          0.58,
+          0.018
+        ],
+        "R/T": [
+          0.42,
+          0.016
+        ]
+      }
+    },
+    "auc_t": {
+      "normal": {
+        "S/R": [
+          1.28,
+          0.0879
+        ],
+        "S/T": [
+          0.57,
+          0.026
+        ],
+        "R/T": [
+          0.44,
+          0.011
+        ]
+      },
+      "mild": {
+        "S/R": [
+          1.26,
+          0.0668
+        ],
+        "S/T": [
+          0.56,
+          0.018
+        ],
+        "R/T": [
+          0.45,
+          0.013
+        ]
+      },
+      "moderate": {
+        "S/R": [
+          1.33,
+          0.0779
+        ],
+        "S/T": [
+          0.57,
+          0.014
+        ],
+        "R/T": [
+          0.43,
+          0.014
+        ]
+      },
+      "severe": {
+        "S/R": [
+          1.36,
+          0.0675
+        ],
+        "S/T": [
+          0.58,
+          0.015
+        ],
+        "R/T": [
+          0.43,
+          0.015
+        ]
+      },
+      "esrd_off_dialysis": {
+        "S/R": [
+          1.48,
+          0.172
+        ],
+        "S/T": [
+          0.6,
+          0.038
+        ],
+        "R/T": [
+          0.41,
+          0.024
+        ]
+      },
+      "esrd_on_dialysis": {
+        "S/R": [
+          1.43,
+          0.15
+        ],
+        "S/T": [
+          0.6,
+          0.039
+        ],
+        "R/T": [
+          0.42,
+          0.017
+        ]
+      }
+    },
+    "footnote": "Renal function groups classified by measured CLcr."
+  },
+  "protein_binding_ex_vivo": {
+    "location": "PDF page 20, text",
+    "method": "ultracentrifugation at 37 C",
+    "unit": "% bound, mean +/- SD",
+    "values": {
+      "normal": [
+        40.15,
+        4.5
+      ],
+      "mild": [
+        35.37,
+        4.06
+      ],
+      "moderate": [
+        37.16,
+        6.34
+      ],
+      "severe": [
+        39.77,
+        6.27
+      ],
+      "esrd": [
+        44.31,
+        3.92
+      ]
+    },
+    "quote": "Thus, it was concluded that renal impairment did not significantly affect protein binding of lenalidomide."
+  },
+  "dialysis": {
+    "location": "PDF page 18, text",
+    "mean_dialysis_clearance_ml_min": 146,
+    "percent_removed_by_4_hour_haemodialysis": 31
+  },
+  "sponsor_simulation_table_7": {
+    "location": "PDF page 21, Table 7",
+    "kind": "model_predictions_not_observations",
+    "method": "Sponsor's nonparametric superposition of CC-5013-PK-001 data; non-compartmental analysis of simulated steady-state profiles",
+    "rows": [
+      {
+        "renal_function": "CLcr >= 50 mL/min",
+        "regimen": "25 mg q24h (MM)",
+        "auc_avg_ss_ng_h_ml": 2392,
+        "cmax_ss_ng_ml": 556
+      },
+      {
+        "renal_function": "CLcr >= 50 mL/min",
+        "regimen": "10 mg q24h (MDS)",
+        "auc_avg_ss_ng_h_ml": 957,
+        "cmax_ss_ng_ml": 222
+      },
+      {
+        "renal_function": "severe, not on dialysis",
+        "regimen": "15 mg q48h (MM)",
+        "auc_avg_ss_ng_h_ml": 2507,
+        "cmax_ss_ng_ml": 428
+      },
+      {
+        "renal_function": "severe, not on dialysis",
+        "regimen": "7.5 mg q24h (MM)",
+        "auc_avg_ss_ng_h_ml": 2506,
+        "cmax_ss_ng_ml": 242
+      },
+      {
+        "renal_function": "severe, not on dialysis",
+        "regimen": "5 mg q48h (MDS)",
+        "auc_avg_ss_ng_h_ml": 836,
+        "cmax_ss_ng_ml": 143
+      },
+      {
+        "renal_function": "severe, not on dialysis",
+        "regimen": "2.5 mg q24h (MDS)",
+        "auc_avg_ss_ng_h_ml": 836,
+        "cmax_ss_ng_ml": 81
+      },
+      {
+        "renal_function": "ESRD",
+        "regimen": "5 mg 3 times a week (MDS)",
+        "auc_avg_ss_ng_h_ml": 960,
+        "cmax_ss_ng_ml": 117
+      },
+      {
+        "renal_function": "ESRD",
+        "regimen": "2.5 mg q24h (MDS)",
+        "auc_avg_ss_ng_h_ml": 1121,
+        "cmax_ss_ng_ml": 78
+      }
+    ],
+    "footnote": "AUCavg,ss = average daily AUC at steady state."
+  },
+  "limitations": [
+    "Group summaries only; no individual data (Figure 1 points are not digitised).",
+    "Geometric means here and the arithmetic means in renal_pk_group_evidence describe the same subjects with different statistics; they are not interchangeable.",
+    "Table 4's reference group pools normal and mild subjects; the platform's earlier checks used the normal group alone as reference.",
+    "Table 5's parenthesised statistic is not labelled in the source.",
+    "Table 7 is a sponsor simulation, not an observation."
+  ],
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false
+}
