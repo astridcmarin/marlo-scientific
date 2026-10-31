@@ -1,0 +1,65 @@
+{
+  "schema_version": "method-assessment-v1",
+  "assessment_version": "lenalidomide-pathway-unbound-fraction-assessment-v1.0",
+  "model": "lenalidomide_renal_pathways_2026",
+  "use": "Digital human 1.0, lenalidomide elimination body map (docs/DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md, issue 1)",
+  "recorded_on": "2026-10-31",
+  "decision_by": "Platform owner, 31 October 2026, on approving the body-map plan: show both values.",
+  "question": "Which unbound fraction should split renal clearance into filtration (fu x creatinine clearance) and tubular secretion on the body map?",
+  "sources": {
+    "pathway_evidence": {
+      "file": "intelligence_store/data/lenalidomide_renal_pathways_evidence_v1.json",
+      "sha256": "e7c62bc477bfc6170f42f1f01e5935ea222bec0fbf513da718178030c42d2c8f"
+    },
+    "reconciliation": {
+      "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v3.json",
+      "sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292"
+    }
+  },
+  "values": [
+    {
+      "id": "in_vitro",
+      "fu": 0.77,
+      "derived_from": "23% bound in myeloma patients' plasma, in vitro ultrafiltration (EMA 2008, page 20)",
+      "source": {
+        "ref": "pathway_evidence",
+        "pointer": "/physiology/plasma_protein_binding/myeloma_patients_percent",
+        "value": 23
+      },
+      "role": "primary: the value the Simulation 2.0a pathway check was run with"
+    },
+    {
+      "id": "ex_vivo_study_subjects",
+      "fu": 0.598,
+      "display": "about 0.60",
+      "derived_from": "40.2% bound ex vivo in the renal study's normal-function subjects (Chen 2007)",
+      "source": {
+        "ref": "reconciliation",
+        "pointer": "/items/4/facts/3"
+      },
+      "role": "alternative: drawn beside the primary split"
+    }
+  ],
+  "why_exposure_is_unchanged": "Under reading A (intact nephron) filtration and secretion both scale with creatinine clearance, and secretion is calibrated as renal clearance minus filtration in the normal group. Renal clearance at any creatinine clearance is therefore the calibrated renal clearance times CrCl / CrCl_calibration, whatever fu is. Total clearance, exposure and the fraction excreted in urine are identical under both values; only the filtration/secretion split moves.",
+  "split_at_calibration": {
+    "crcl_ml_min": 110,
+    "renal_ml_min": 162.4,
+    "non_renal_ml_min": 28.7,
+    "fu_0.77": {
+      "filtration_ml_min": 84.7,
+      "secretion_ml_min": 77.7
+    },
+    "fu_0.598": {
+      "filtration_ml_min": 65.8,
+      "secretion_ml_min": 96.6
+    }
+  },
+  "why_not_choose_one": "The 2.0a check used 0.77, and changing it would mean a new locked check for no change in any checked quantity. The ex vivo value comes from the same subjects as the calibration and agrees with Kim 2026 (0.614), so it is arguably the better estimate of binding in those subjects. Showing both makes visible that the split between filtration and secretion is not well identified by the data, while the total is.",
+  "not_changed": [
+    "The Simulation 2.0a model, its plan, report and the 2.0b patient page keep fu 0.77.",
+    "No exposure, scope or warning changes."
+  ],
+  "status": "decided_show_both",
+  "changes_any_calculation": false,
+  "clinical_prediction_validated": false
+}
