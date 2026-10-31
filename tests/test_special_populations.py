@@ -75,6 +75,16 @@ class Summaries(unittest.TestCase):
         dex = {r['domain']: r for r in sp.build('dexamethasone')['rows']}
         self.assertEqual(dex['kidney']['statements'][0]['kind'], 'not_studied')
         self.assertEqual(dex['other_covariates']['statements'][2]['value'], [182, 43.8])      # MM-017 CL/F
+        btz = {r['domain']: r for r in sp.build('bortezomib')['rows']}
+        self.assertEqual(btz['liver']['statements'][0]['value'], 60)                      # 2012 label 12.3
+        self.assertEqual(btz['age']['statements'][0]['value'], 25)
+        self.assertEqual(btz['kidney']['statements'][2]['value']['dialysis'], 8)
+
+    def test_bortezomib_label_extract_is_pinned(self):
+        from intelligence_store.bortezomib_label_special_populations import load_extract
+        e = load_extract()
+        self.assertEqual(e['hepatic']['pk_12_3']['n_patients'], 51)
+        self.assertIn('rendered page images', e['source']['extraction'])
 
 
 class Page(unittest.TestCase):

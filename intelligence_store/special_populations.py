@@ -35,6 +35,7 @@ SUMMARIES = {
     'lenalidomide': ('special_populations_lenalidomide_v1.json', '406618748fe544594f44d8b7e6c8cf7c0677138842f4c3715138a0c22ea4e1c8'),
     'daratumumab': ('special_populations_daratumumab_v1.json', 'c5fde7d9f8ccd730c1bb5f66aeb8823b00935f914fd1a23bef4cd48d3a46c73d'),
     'dexamethasone': ('special_populations_dexamethasone_v1.json', 'bdf9f6da7204f48f8d10827653c0cecefe038b37f8bc1b0b0d3b14aa818d6d3d'),
+    'bortezomib': ('special_populations_bortezomib_v1.json', 'ba438c49bd4f4ab9e7f34f1215ea29376521688821cb41a9c2a9761a226ce388'),
 }
 
 
