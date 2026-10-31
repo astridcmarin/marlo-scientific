@@ -18,3 +18,18 @@ def load_label_extract(path=EXTRACT_PATH):
     if data.get('schema_version') != 'drug-label-extract-v1':
         raise ValueError('Unsupported label extract schema.')
     return data
+
+
+RECONCILIATION_PATH = Path(__file__).parent / 'data' / 'lenalidomide_renal_source_reconciliation_v1.json'
+RECONCILIATION_SHA256 = '79b7aa02273a2c34e23190450b092a26baf7e27826591036d70e563bea9fb3d5'
+
+
+def load_renal_reconciliation(path=RECONCILIATION_PATH):
+    """Reconciliation of the renal-study sources (EMA table, label, reference note); see the file's items."""
+    raw = Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != RECONCILIATION_SHA256:
+        raise ValueError('Lenalidomide renal source reconciliation is missing or changed.')
+    data = json.loads(raw)
+    if data.get('schema_version') != 'source-reconciliation-v1':
+        raise ValueError('Unsupported reconciliation schema.')
+    return data

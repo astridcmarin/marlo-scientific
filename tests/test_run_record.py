@@ -18,7 +18,7 @@ from intelligence_store.estimated_pk import calculate_estimated_pk, primary_weig
 from intelligence_store.kim_pk_runs import read_kim_pk_run
 from intelligence_store.patient_state import SCHEMA_V2, digest
 from intelligence_store.patient_state_revisions import save_revision
-from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, EVIDENCE_V5_SHA256, EVIDENCE_V6_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
+from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, EVIDENCE_V5_SHA256, EVIDENCE_V6_SHA256, EVIDENCE_V7_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
                                            record_for_estimated_pk, record_for_kim_run, record_for_patient_platelets)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,11 +53,27 @@ class EvidenceStatus(unittest.TestCase):
         v6 = EVIDENCE_PATH.with_name('model_evidence_status_v6.json')
         self.assertEqual(hashlib.sha256(v6.read_bytes()).hexdigest(), EVIDENCE_V6_SHA256)
         self.assertEqual(json.loads(v6.read_text())['supersedes']['status_version'], json.loads(v5.read_text())['status_version'])
+        v7 = EVIDENCE_PATH.with_name('model_evidence_status_v7.json')
+        self.assertEqual(hashlib.sha256(v7.read_bytes()).hexdigest(), EVIDENCE_V7_SHA256)
+        self.assertEqual(json.loads(v7.read_text())['supersedes']['status_version'], json.loads(v6.read_text())['status_version'])
         current = load_evidence_status()
-        self.assertEqual(current['supersedes']['status_version'], json.loads(v6.read_text())['status_version'])
+        self.assertEqual(current['supersedes']['status_version'], json.loads(v7.read_text())['status_version'])
+
+    def test_v8_only_corrects_lenalidomide_summaries(self):
+        current = load_evidence_status()['models']
+        v7 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v7.json').read_text())['models']
+        self.assertEqual(set(current), set(v7))
+        for model_id in v7:
+            for layer in v7[model_id]['layers']:
+                old, new = v7[model_id]['layers'][layer], current[model_id]['layers'][layer]
+                self.assertEqual({k: v for k, v in old.items() if k != 'summary'}, {k: v for k, v in new.items() if k != 'summary'})
+                if old['summary'] != new['summary']:
+                    self.assertIn((model_id, layer), {('lenalidomide_hughes_2019', 'transcription_verification'),
+                                                      ('lenalidomide_hughes_2019', 'external_consistency'),
+                                                      ('lenalidomide_kim_2026', 'external_consistency')})
 
     def test_v7_only_adds_ixazomib_and_daratumumab_with_their_locked_results(self):
-        current = load_evidence_status()['models']
+        current = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v7.json').read_text())['models']
         v6 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v6.json').read_text())['models']
         self.assertEqual(set(current) - set(v6), {'ixazomib_pk_gupta_2017', 'daratumumab_pk_luo_2021'})
         for model_id in v6:
