@@ -1,0 +1,440 @@
+{
+ "schema_version": "special-population-summary-v1",
+ "summary_version": "special-populations-lenalidomide-v2.0",
+ "drug": "lenalidomide",
+ "label": "Lenalidomide",
+ "recorded_on": "2026-10-31",
+ "intro": "Lenalidomide is cleared mainly by the kidneys, so renal function dominates its special-population evidence. The platform holds the dedicated renal study CC-5013-PK-001 (from the EMA assessment), two population PK models with renal covariates (Hughes 2019, Kim 2026), their locked outside checks against that study, and their enforced scopes, and the REVLIMID prescribing information (revision 3/2023).",
+ "sources": {
+  "renal": {
+   "file": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+   "sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+   "title": "CC-5013-PK-001 renal-function groups (EMA withdrawal assessment report, 2008, pages 20-21)"
+  },
+  "esrd": {
+   "file": "intelligence_store/data/lenalidomide_esrd_dialysis_evidence_v1.json",
+   "sha256": "7769bba1cad79392919ba02a36a24617cf2aa7bec2cfebdb2f6bc5d935c1d2b6",
+   "title": "CC-5013-PK-001 end-stage renal disease groups, on and off dialysis (same report)"
+  },
+  "hughes": {
+   "file": "intelligence_store/data/hughes_parameter_extract_v1.json",
+   "sha256": "8199220db206c3e78fd5abc40191602d5b59e6275f5c77d9e43e0f7c90ae5f74",
+   "title": "Hughes 2019 lenalidomide population PK (Br J Clin Pharmacol 85:924), final model"
+  },
+  "kim": {
+   "file": "intelligence_store/data/kim_2026_model_extract_v1.json",
+   "sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af",
+   "title": "Kim 2026 lenalidomide population PK in renal impairment (Drug Des Devel Ther)"
+  },
+  "hughes_scope": {
+   "file": "intelligence_store/data/lenalidomide_hughes_scope_v1.json",
+   "sha256": "e89c34106bee1a0187bbcb02c72f0b1faffdc246b388a5f3a2908d2736977b93",
+   "title": "Platform scope of the Hughes 2019 model",
+   "extraction": "Platform scope file written from locked results (not an extraction)."
+  },
+  "kim_scope": {
+   "file": "intelligence_store/data/lenalidomide_kim_scope_v1.json",
+   "sha256": "a2d510ba6b16926e436ee644828dce41d3bfa7b3c8abd868d303e0ce8491bb01",
+   "title": "Platform scope of the Kim 2026 model",
+   "extraction": "Platform scope file written from locked results (not an extraction)."
+  },
+  "label": {
+   "file": "intelligence_store/data/lenalidomide_label_2023_v1.json",
+   "sha256": "d4b02134613dc45d6b039999b37d9c94ccbc047cc0b7e811b77278c868e47a9a",
+   "title": "REVLIMID prescribing information, revised 3/2023 (DailyMed set ID 5fa97bf5-28a2-48f1-8955-f56012d296be)"
+  }
+ },
+ "domains": {
+  "kidney": [
+   {
+    "kind": "study_exposure_change",
+    "text": "Mean AUC to infinity (ng·h/mL), normal renal function (creatinine clearance > 80 mL/min), n = 7.",
+    "value": 2181,
+    "source": {
+     "ref": "renal",
+     "pointer": "/groups/0/measurements/auc_infinity/mean",
+     "location": "PDF page 21, Table 4"
+    },
+    "population": "Study CC-5013-PK-001 (EMA assessment report EMEA/CHMP/249329/2008); single 25 mg dose, fasting; disease context of the subjects not established from the extracted pages"
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Mean AUC to infinity, mild impairment (50-80 mL/min), n = 5.",
+    "value": 2767,
+    "source": {
+     "ref": "renal",
+     "pointer": "/groups/1/measurements/auc_infinity/mean",
+     "location": "PDF page 21, Table 4"
+    }
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Mean AUC to infinity, moderate impairment (30 to < 50 mL/min), n = 6.",
+    "value": 6021,
+    "source": {
+     "ref": "renal",
+     "pointer": "/groups/2/measurements/auc_infinity/mean",
+     "location": "PDF page 21, Table 4"
+    }
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Mean AUC to infinity, severe impairment not on dialysis (< 30 mL/min), n = 6.",
+    "value": 8191,
+    "source": {
+     "ref": "renal",
+     "pointer": "/groups/3/measurements/auc_infinity/mean",
+     "location": "PDF page 21, Table 4"
+    }
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Mean terminal half-life (h), normal renal function.",
+    "value": 3.34,
+    "source": {
+     "ref": "renal",
+     "pointer": "/groups/0/measurements/terminal_half_life/mean",
+     "location": "PDF page 21, Table 4"
+    }
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Mean terminal half-life (h), moderate impairment.",
+    "value": 10.6,
+    "source": {
+     "ref": "renal",
+     "pointer": "/groups/2/measurements/terminal_half_life/mean",
+     "location": "PDF page 21, Table 4"
+    }
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "End-stage renal disease, dose on a non-dialysis day: AUC (ng·h/mL), mean (SD), n = 6.",
+    "value": [
+     11121,
+     2133
+    ],
+    "source": {
+     "ref": "esrd",
+     "pointer": "/groups/0/auc_ng_h_ml",
+     "location": "PDF pages 20-21"
+    },
+    "display": "mean_sd"
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Same subjects, dose 3 h before a 4-hour haemodialysis session: AUC, mean (SD).",
+    "value": [
+     6830,
+     919
+    ],
+    "source": {
+     "ref": "esrd",
+     "pointer": "/groups/1/auc_ng_h_ml",
+     "location": "PDF pages 20-21"
+    },
+    "display": "mean_sd"
+   },
+   {
+    "kind": "label_action",
+    "text": "Table 3, creatinine clearance 30 to 60 mL/min (Cockcroft–Gault): starting dose in combination therapy for MM.",
+    "value": "10 mg once daily",
+    "source": {
+     "ref": "label",
+     "pointer": "/renal_dose_adjustments/rows/0/mm_combination",
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    "population": "REVLIMID label, multiple myeloma"
+   },
+   {
+    "kind": "label_action",
+    "text": "Table 3, creatinine clearance below 30 mL/min, not requiring dialysis: combination therapy for MM.",
+    "value": "15 mg every other day",
+    "source": {
+     "ref": "label",
+     "pointer": "/renal_dose_adjustments/rows/1/mm_combination",
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    "population": "REVLIMID label, multiple myeloma"
+   },
+   {
+    "kind": "label_action",
+    "text": "Table 3, creatinine clearance below 30 mL/min, requiring dialysis: combination therapy for MM.",
+    "value": "5 mg once daily; on dialysis days, after dialysis",
+    "source": {
+     "ref": "label",
+     "pointer": "/renal_dose_adjustments/rows/2/mm_combination",
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    "population": "REVLIMID label, multiple myeloma"
+   },
+   {
+    "kind": "label_action",
+    "text": "Table 3, maintenance after auto-HSCT for MM, creatinine clearance 30 to 60 mL/min.",
+    "value": "5 mg once daily",
+    "source": {
+     "ref": "label",
+     "pointer": "/renal_dose_adjustments/rows/0/mm_maintenance_and_mds",
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    "population": "REVLIMID label, multiple myeloma"
+   },
+   {
+    "kind": "label_statement",
+    "text": "Decrease in clearance (%) with moderate and severe impairment compared with healthy subjects; half-life about 3-fold longer. The label threshold for the first dose step (60 mL/min) differs from the 50 mL/min in the platform's earlier secondary source.",
+    "value": [
+     66,
+     75
+    ],
+    "source": {
+     "ref": "label",
+     "pointer": "/pharmacokinetics/renal_study/clearance_decrease_percent_moderate_severe",
+     "location": "Section 12.3, PDF page 46"
+    },
+    "display": "range",
+    "population": "Single 25 mg dose; label group sizes: 3 healthy, 8 mild, 9 moderate, 4 severe, 6 on dialysis"
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Hughes 2019: clearance scales with creatinine clearance as (CrCl / 90 mL/min) to this power (with fat-free mass).",
+    "value": 0.224,
+    "source": {
+     "ref": "hughes",
+     "pointer": "/parameters/crcl_exponent/value",
+     "location": "Hughes 2019 Table 2; Equation 4"
+    }
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Kim 2026: clearance rises exponentially with eGFR; coefficient per mL/min/1.73 m2 (estimate) around a reference of 46.92.",
+    "value": 0.0131,
+    "source": {
+     "ref": "kim",
+     "pointer": "/parameters/cl_egfr_coefficient/value",
+     "location": "Kim 2026 Table 3"
+    }
+   },
+   {
+    "kind": "platform_model_scope",
+    "text": "Hughes 2019 creatinine clearance bands and evidence tiers on the platform (36-50 mL/min is flagged: the model under-predicted the moderate group about 2-fold).",
+    "value": [
+     {
+      "range": [
+       50,
+       211
+      ],
+      "tier": "externally_checked",
+      "band_note": "Normal (> 80 mL/min) and mild (50-80) groups: exposure consistent with study CC-5013-PK-001 in all four scenarios (external_check_report)."
+     },
+     {
+      "range": [
+       36,
+       50
+      ],
+      "tier": "external_check_disagrees",
+      "band_note": "Moderate group (30-50 mL/min): the model under-predicted exposure about 2.1-fold (ratio to normal 2.2-fold) in all four scenarios (external_check_report). Read the curve as substantially too low.",
+      "observed": {
+       "source": "renal_pk_group_evidence",
+       "groups": [
+        "moderate"
+       ],
+       "reference_group": "normal"
+      }
+     }
+    ],
+    "source": {
+     "ref": "hughes_scope",
+     "pointer": "/state_rules/0/tier_by_band"
+    },
+    "link": "/models/lenalidomide_hughes_2019/scope",
+    "display": "bands"
+   },
+   {
+    "kind": "platform_model_scope",
+    "text": "Kim 2026 eGFR bands and evidence tiers on the platform (11.1-30 is flagged: the model under-predicted the severe group about 1.3-fold).",
+    "value": [
+     {
+      "range": [
+       50,
+       94.7
+      ],
+      "tier": "externally_checked",
+      "band_note": "Mild group (creatinine clearance 50-80 mL/min): ratio to normal consistent in all seven scenarios; normal-group exposure consistent in six of seven (external_check_report). The study groups are defined by creatinine clearance; Kim's covariate is indexed eGFR, so band edges are approximate."
+     },
+     {
+      "range": [
+       30,
+       50
+      ],
+      "tier": "inside_model_data",
+      "band_note": "Moderate group (30-50 mL/min): ratio to normal consistent in the primary scenario but not in every scenario; absolute exposure under-predicted about 1.3-fold in six of seven (secondary endpoint) (external_check_report)."
+     },
+     {
+      "range": [
+       11.1,
+       30
+      ],
+      "tier": "external_check_disagrees",
+      "band_note": "Severe group (< 30 mL/min): ratio to normal under-predicted about 1.3-fold in the primary scenario (five of seven scenarios); half-life reproduced (applicability_findings renal-under-prediction-severe). Read the curve as possibly somewhat low.",
+      "observed": {
+       "source": "renal_pk_group_evidence",
+       "groups": [
+        "severe_without_dialysis"
+       ],
+       "reference_group": "normal"
+      }
+     }
+    ],
+    "source": {
+     "ref": "kim_scope",
+     "pointer": "/state_rules/0/tier_by_band"
+    },
+    "link": "/models/lenalidomide_kim_2026/scope",
+    "display": "bands"
+   }
+  ],
+  "liver": [
+   {
+    "kind": "label_statement",
+    "text": "Mild hepatic impairment (total bilirubin > 1 to 1.5 × ULN or any AST > ULN) did not influence the disposition of lenalidomide.",
+    "value": "Mild hepatic impairment (defined as total bilirubin > 1 to 1.5 times upper limit normal (ULN) or any aspartate transaminase greater than ULN) did not influence the disposition of lenalidomide.",
+    "source": {
+     "ref": "label",
+     "pointer": "/pharmacokinetics/hepatic/mild/quote",
+     "location": "Section 12.3, PDF page 46"
+    }
+   },
+   {
+    "kind": "not_studied",
+    "text": "Moderate to severe hepatic impairment: no pharmacokinetic data.",
+    "value": "No pharmacokinetic data is available for patients with moderate to severe hepatic impairment.",
+    "source": {
+     "ref": "label",
+     "pointer": "/pharmacokinetics/hepatic/moderate_severe/quote",
+     "location": "Section 12.3, PDF page 46"
+    }
+   }
+  ],
+  "age": [
+   {
+    "kind": "covariate_not_retained",
+    "text": "Age range (years) over which age had no clinically relevant effect on clearance in adults (label).",
+    "value": [
+     39,
+     85
+    ],
+    "source": {
+     "ref": "label",
+     "pointer": "/pharmacokinetics/other_intrinsic_factors/age_range_years",
+     "location": "Section 12.3, PDF page 46"
+    },
+    "display": "range"
+   },
+   {
+    "kind": "label_statement",
+    "text": "Geriatric use: renal caution.",
+    "value": "Since elderly patients are more likely to have decreased renal function, care should be taken in dose selection. Monitor renal function.",
+    "source": {
+     "ref": "label",
+     "pointer": "/geriatric/renal_caution/quote",
+     "location": "Section 8.5, PDF page 43"
+    }
+   },
+   {
+    "kind": "platform_model_scope",
+    "text": "Age range (years) inside the Hughes 2019 data (the platform refuses records outside it).",
+    "value": [
+     22,
+     79
+    ],
+    "source": {
+     "ref": "hughes_scope",
+     "pointer": "/state_rules/2/range"
+    },
+    "link": "/models/lenalidomide_hughes_2019/scope"
+   },
+   {
+    "kind": "platform_model_scope",
+    "text": "Age range (years) inside the Kim 2026 data.",
+    "value": [
+     47,
+     84
+    ],
+    "source": {
+     "ref": "kim_scope",
+     "pointer": "/state_rules/2/range"
+    },
+    "link": "/models/lenalidomide_kim_2026/scope"
+   }
+  ],
+  "body_size": [
+   {
+    "kind": "covariate_not_retained",
+    "text": "Body weight range (kg) over which weight had no clinically relevant effect on clearance in adults (label).",
+    "value": [
+     33,
+     135
+    ],
+    "source": {
+     "ref": "label",
+     "pointer": "/pharmacokinetics/other_intrinsic_factors/body_weight_range_kg",
+     "location": "Section 12.3, PDF page 46"
+    },
+    "display": "range"
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Hughes 2019: clearance scales with fat-free mass as (FFM / 55 kg) to this power.",
+    "value": 0.75,
+    "source": {
+     "ref": "hughes",
+     "pointer": "/parameters/ffm_clearance_exponent/value",
+     "location": "Hughes 2019 Table 2"
+    }
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Hughes 2019: volume scales with fat-free mass to this power.",
+    "value": 1.0,
+    "source": {
+     "ref": "hughes",
+     "pointer": "/parameters/ffm_volume_exponent/value",
+     "location": "Hughes 2019 Table 2"
+    }
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Kim 2026: BSA effect on clearance (coefficient; the form of the printed equation is unresolved).",
+    "value": 1.1,
+    "source": {
+     "ref": "kim",
+     "pointer": "/parameters/cl_bsa_coefficient/value",
+     "location": "Kim 2026 Table 3"
+    }
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Kim 2026: BSA effect on central volume (exponential coefficient).",
+    "value": 1.16,
+    "source": {
+     "ref": "kim",
+     "pointer": "/parameters/v1_bsa_coefficient/value",
+     "location": "Kim 2026 Table 3"
+    }
+   }
+  ],
+  "other_covariates": [
+   {
+    "kind": "covariate_not_retained",
+    "text": "Sex, race and type of haematological malignancy: no clinically relevant effect on clearance in adults (label).",
+    "value": "Other Intrinsic Factors: Age (39 to 85 years), body weight (33 to 135 kg), sex, race, and type of hematological malignancies (MM, MDS or MCL) did not have a clinically relevant effect on lenalidomide clearance in adult patients.",
+    "source": {
+     "ref": "label",
+     "pointer": "/pharmacokinetics/other_intrinsic_factors/quote",
+     "location": "Section 12.3, PDF page 46"
+    }
+   }
+  ]
+ },
+ "not_this": "A research summary of sourced findings. Not dosing guidance: the label's dose adjustments are quoted as the label states them, and the platform proposes no dose."
+}

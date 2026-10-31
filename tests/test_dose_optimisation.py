@@ -100,7 +100,7 @@ class DoseView(unittest.TestCase):
     def test_gaps_and_no_ranking(self):
         r = do.lenalidomide_dose_view(state(), 'MM')
         self.assertEqual({g['id'] for g in r['gaps']},
-                         {'exposure_efficacy', 'label_dose_reductions', 'combination_regimens', 'trial_dose_levels'})
+                         {'exposure_efficacy', 'combination_regimens', 'trial_dose_levels'})
         text = json.dumps(r).lower()
         for word in ('recommended dose', 'optimal dose', 'best dose'):
             self.assertNotIn(word, text)
@@ -118,6 +118,8 @@ class Page(unittest.TestCase):
         self.assertIn(b'Not dosing guidance', r.data)
         self.assertIn(b'not a study dose', r.data)
         self.assertIn('shown, not used'.encode(), r.data)
+        self.assertIn(b'15 mg every other day', r.data)
+        self.assertIn(b'not a capsule strength', r.data)
         j = self.client.get(url + '?format=json')
         self.assertEqual(json.loads(j.data)['schema_version'], do.SCHEMA_VERSION)
         self.assertIn(b'outside the model', self.client.get(url + '?disease=MM&sex=MALE&age=70&weight=80&height=175&scr=200').data)

@@ -23,7 +23,7 @@ Lenalidomide is the only drug for which the platform holds all three parts:
 | Reference exposure | Mean AUC after 25 mg, normal renal function, CC-5013-PK-001 (n = 7) | Pinned |
 | Exposure → safety | Odds ratio per unit ln AUC for grade 3/4 thrombocytopenia (2.972, 95% CI 1.027–8.598) and neutropenia (1.982, 0.924–4.249, not significant), MM, monotherapy (TGA CER) | Pinned; used since Simulation 4.0a |
 | Exposure → efficacy | None | **Gap** |
-| Label dose levels and renal dose reductions | Not extracted | **Gap** |
+| Label dose levels and renal dose reductions | REVLIMID label, revision 3/2023 (`lenalidomide_label_2023_v1.json`, added 31 October 2026) | Pinned; quoted on the page (view v1.2) |
 | Trial dose levels | The pinned corpus holds intervention names only, not arm descriptions or doses | **Gap** in v1 (decision 1) |
 
 ## What the view shows
@@ -90,3 +90,5 @@ Done to find out whether the efficacy gap is a gap in the platform or in the pub
 Showing it as a dose–hazard curve would suggest that lower doses are more effective. The evidence cannot support that.
 
 **Conclusion:** no usable exposure–efficacy relationship for lenalidomide in myeloma was found. The efficacy side of the dose view stays a gap. A usable source would be a sponsor exposure–response analysis with randomised dose levels or adequate adjustment, for example in a later FDA or EMA review.
+
+**31 October 2026 (view v1.2):** the page now quotes the label's myeloma starting doses, the 2.5 mg floor, the capsule strengths and Table 3. Grid rows that are not capsule strengths are marked; 7.5 mg is the average of the label's "15 mg every other day". The page does not pick a label dose for the record: the label does not state its Cockcroft–Gault weight basis, and the Hughes estimate uses an assumed one.

@@ -68,7 +68,10 @@ class Summaries(unittest.TestCase):
         len_ = {r['domain']: r for r in sp.build('lenalidomide')['rows']}
         aucs = [s['value'] for s in len_['kidney']['statements'][:4]]
         self.assertEqual(aucs, [2181, 2767, 6021, 8191])                     # CC-5013-PK-001 Table 4
-        self.assertEqual(len_['liver']['statements'][0]['kind'], 'gap')
+        self.assertEqual([st['kind'] for st in len_['liver']['statements']], ['label_statement', 'not_studied'])
+        actions = [st['value'] for st in len_['kidney']['statements'] if st['kind'] == 'label_action']
+        self.assertEqual(actions[:3], ['10 mg once daily', '15 mg every other day', '5 mg once daily; on dialysis days, after dialysis'])
+        self.assertFalse(any(st['kind'] == 'gap' for r in sp.build('lenalidomide')['rows'] for st in r['statements']))
         dara = {r['domain']: r for r in sp.build('daratumumab')['rows']}
         self.assertEqual(dara['kidney']['statements'][0]['kind'], 'covariate_not_retained')
         self.assertEqual([s['value'] for s in dara['body_size']['statements'][:2]], [1.24, 0.91])
@@ -79,6 +82,14 @@ class Summaries(unittest.TestCase):
         self.assertEqual(btz['liver']['statements'][0]['value'], 60)                      # 2012 label 12.3
         self.assertEqual(btz['age']['statements'][0]['value'], 25)
         self.assertEqual(btz['kidney']['statements'][2]['value']['dialysis'], 8)
+
+    def test_lenalidomide_label_extract_is_pinned(self):
+        from intelligence_store.lenalidomide_label import load_label_extract
+        e = load_label_extract()
+        self.assertEqual(e['multiple_myeloma_dosing']['capsule_strengths_mg'], [2.5, 5, 10, 15, 20, 25])
+        self.assertEqual([r['crcl_ml_min'] for r in e['renal_dose_adjustments']['rows']], [[30, 60], [None, 30], [None, 30]])
+        self.assertIn('Revised: 3/2023', e['source']['document'])
+        self.assertIn('406618748fe544594f44d8b7e6c8cf7c0677138842f4c3715138a0c22ea4e1c8', sp.SUPERSEDED.values())
 
     def test_bortezomib_label_extract_is_pinned(self):
         from intelligence_store.bortezomib_label_special_populations import load_extract
