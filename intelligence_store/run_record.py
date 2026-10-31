@@ -223,7 +223,8 @@ def record_for_patient_platelets(view, extract, evidence=None):
                    {'label': 'Observed context', 'sha256': view['context_sha256']},
                    {'label': 'Patient state', 'sha256': view['state_sha256']}]
                   + ([{'label': 'CTCAE v5.0 grading', 'sha256': view['current_grading_sha256']}]
-                     if 'current_grading_sha256' in view else []))
+                     if 'current_grading_sha256' in view else [])
+                  + ([{'label': 'Model scope', 'sha256': view['scope_sha256']}] if 'scope_sha256' in view else []))
     return _finish(record)
 
 

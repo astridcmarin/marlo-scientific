@@ -135,6 +135,28 @@ Doses and schedules are still checked by each model's existing execution blocker
 - **`/models/<model_id>/scope`**, with a JSON download, for every registered scope. The registry is `intelligence_store/scope_registry.py`; each entry uses its scope file's pinned loader.
 - **Links.** The models index lists all four scopes. Scorecards and credibility records link to the scope when one exists. Ixazomib and daratumumab have scopes but no scorecard or credibility record yet, because they are not in the evidence status file or the credibility context.
 
+## Bortezomib platelet model (Phase 2.5d, 31 October 2026)
+
+**Why.** The bortezomib platelet curve was the only computed model with no scope. It ran for any baseline, with a warning below the source study's entry thresholds, although the 30 October policy is to refuse beyond the model's data. Its driving PK component disagrees with outside concentration data, and that was stated only in a limitation line.
+
+**Scope** (`bortezomib_platelets_scope_v1.json`, pinned in `bortezomib_patient_platelets.py`):
+
+| Baseline platelets (×10⁹/L) | Tier | Note |
+|---|---|---|
+| 50 or more | model data only | At or above the source's usual entry threshold |
+| 30–50 | model data only | Admitted in the source only with extensive marrow involvement (transfusion allowed) |
+| below 30 | **refused** | Below every entry threshold; the model has no data from such patients |
+
+- **No upper limit.** The source states none, and none is invented. The scope engine now accepts an open range end (`null`; evaluation v1.1). Existing scopes evaluate exactly as before.
+- **Tier of the curve: model data only.** It is reproduced against its fitting data (Lonial 2005), and no outside platelet data exist. It is not tier "outside check disagrees": the outside checks tested the PK component's concentrations, not platelet counts.
+- **Inherited caveat, shown on the scope page.** The PK component disagrees with outside data: first-dose exposure is 2–3-fold too high in Ogawa 2008 and Reece 2011 and consistent in CAN-1004, and the rise over repeated doses is too small in every study that sampled both days. The platelet parameters were fitted with this same PK, so the curve can still match its fitting data; transfer to other regimens is what the disagreement undermines. Only the studied regimen is run.
+- **Not supported:** individual counts, grade or risk; other doses, schedules, holds or subcutaneous dosing; patient bortezomib concentrations.
+- **Population stated, not enforced.** The model was fitted on relapsed or refractory myeloma (SUMMIT, CREST). The page has no disease input, so the scope states the population rather than enforcing it.
+
+**Behaviour change.** A baseline below 30 ×10⁹/L now gives "Outside the model's scope" with the scope panel, and no curve. Before, a curve was drawn with a warning. Baselines of 30–50 still draw a curve, with the existing warning and the band note.
+
+**Corrected text.** The platelet tool's limitation and the drug-capability assumption said the PK model "overstates first-dose exposure about 7-fold". That figure is the ratio of the label's first-dose clearance to the model's clearance, not measured exposure. Against measured exposure, first-dose AUC is 2–3-fold too high in two studies and consistent in a third. Both texts now say so. The locked platelet check plan keeps its original wording, as a record.
+
 ## Next
 
 - ~~Move the Hughes and Kim per-model versions to this format~~: done in 2.5b. The coverage contract and applicability findings remain as the evidence the scopes cite.

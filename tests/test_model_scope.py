@@ -136,6 +136,19 @@ class Exposure(unittest.TestCase):
         self.assertFalse(r['scope_evaluation']['clinical_prediction_validated'])
 
 
+class OpenRanges(unittest.TestCase):
+    def test_null_end_is_open_and_bands_match(self):
+        from intelligence_store import model_scope as m
+        rule = {'id': 'x', 'kind': 'range', 'field': 'platelet_count', 'unit': '10^9/L', 'range': [30, None],
+                'tier_by_band': [{'range': [50, None], 'tier': 'externally_checked'}, {'range': [30, 50], 'tier': 'inside_model_data'}]}
+        self.assertEqual(m._range_rule(rule, 10 ** 6)['tier'], 'externally_checked')
+        self.assertEqual(m._range_rule(rule, 40)['tier'], 'inside_model_data')
+        self.assertEqual(m._range_rule(rule, 29)['side'], 'below')
+        upper = dict(rule, range=[None, 5], tier='inside_model_data', tier_by_band=[])
+        self.assertEqual(m._range_rule(upper, -1e9)['status'], 'in_scope')
+        self.assertEqual(m._range_rule(upper, 6)['side'], 'above')
+
+
 if __name__ == '__main__':
     unittest.main()
 

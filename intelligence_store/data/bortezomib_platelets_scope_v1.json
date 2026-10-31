@@ -1,0 +1,119 @@
+{
+  "schema_version": "model-scope-v1",
+  "scope_version": "bortezomib-platelets-lignet-2022-scope-v1.0",
+  "model_id": "bortezomib_platelets_lignet_2022",
+  "recorded_on": "2026-10-31",
+  "purpose": "The context of use of the Lignet 2022 bortezomib platelet model on the platform, as enforceable rules. Written from results already on record; no new computation. Same policy as lenalidomide (30 October 2026): compute and flag where a locked outside check disagrees inside the model's data; refuse beyond the model's data. Proposed 31 October 2026; the one behaviour change (baselines below 30 x10^9/L are refused instead of computed with a warning) takes effect when the platform owner merges it.",
+  "runtime": "Patient Lab: bortezomib platelet curve for a saved synthetic patient (absolute counts).",
+  "evidence": {
+    "model_extract": {
+      "file": "intelligence_store/data/bortezomib_platelet_model_extract_v1.json",
+      "sha256": "3093fff25dbf44a75aa31b4d41d40d57eabc5cf29ce21c7718276edf8a028e84"
+    },
+    "observed_context": {
+      "file": "intelligence_store/data/bortezomib_platelet_context_v1.json",
+      "sha256": "4154f2d0cde5933a1e017fce62effbf012bcf09453b3b46e2ef43fb558e12775"
+    },
+    "reproduction_report": {
+      "file": "docs/verification/bortezomib_platelet_check_v1.json",
+      "sha256": "1fc74f8757364d0befe15bf9dad2d54e817398ad056b5f4f13091a9021ab5e9f"
+    },
+    "evidence_status": {
+      "file": "intelligence_store/data/model_evidence_status_v12.json",
+      "sha256": "94f9b9c857fe33e0a660a2d16135ad6a1d3e98018048480eb6869814675a50be"
+    },
+    "pk_check_ogawa_2008": {
+      "file": "docs/verification/bortezomib_pk_ogawa_check_v1.json",
+      "sha256": "d0d5f464c954d83cca4767af674afc7d8c2ca372d32606f8a2885f6ae418a85d"
+    },
+    "pk_check_can1004": {
+      "file": "docs/verification/bortezomib_pk_can1004_check_v1.json",
+      "sha256": "fc9f61cc67c79b4a798935bf5112ed9c28c4d7c4056fb4f8f36ea8e73df8b408"
+    },
+    "pk_check_mmy3021": {
+      "file": "docs/verification/bortezomib_pk_mmy3021_check_v1.json",
+      "sha256": "2241a18dcf7ca7ca85b8a3805e5719417c6111d7b0edcd42a6c9b3babeafae15"
+    },
+    "pk_reproduction_reece_2011": {
+      "file": "docs/verification/bortezomib_pk_reece_reproduction_v1.json",
+      "sha256": "cc6f085a75990a33a71ed4f8e4be7c6b30e340c6171bdbd6e57d158e592f24e2"
+    }
+  },
+  "evidence_tiers": {
+    "externally_checked": "Consistent with outside platelet data in a locked check. None exists for this model: no usable outside platelet data were found (evidence_status, 15 October 2026 search).",
+    "inside_model_data": "Inside the data the model was fitted on (Lonial 2005: SUMMIT and CREST), reproduced against that fitting data only.",
+    "external_check_disagrees": "Inside the model's data, but a locked outside check found the model's output inconsistent: computed, flagged and shown with the observed data.",
+    "outside": "Beyond the model's data: refused."
+  },
+  "model_population": "Fitted to mean platelet counts from 228 patients with relapsed or refractory multiple myeloma (SUMMIT, CREST) given bortezomib 1.3 mg/m2 IV on days 1, 4, 8 and 11 of 21-day cycles (observed_context source). The page has no disease or prior-therapy input, so the population is stated on the page, not enforced.",
+  "outputs": {
+    "supported": [
+      {
+        "id": "typical_platelet_curve_absolute",
+        "label": "Typical platelet curve for the studied regimen, scaled to the record's baseline count",
+        "tier": "inside_model_data",
+        "evidence": "Reproduced against its fitting data: the cycle 1 day 11 fall in Lonial 2005 is matched by both variants (reproduction_report). No outside platelet data exist to test it. The model is scale-invariant, so the curve is the typical fraction of baseline times the record's baseline.",
+        "inherited_caveat": "The curve is driven by the Lignet 2022 PK component, which disagrees with outside concentration data: first-dose exposure too high in Ogawa 2008 (2.9-fold) and Reece 2011 (about 2-fold), consistent in CAN-1004; the rise from day 1 to day 11 too small in every study that sampled both days (Ogawa 2008, Reece 2011, CAN-1004) (evidence_status; pk_check_* reports). The platelet parameters were fitted with this same PK, so the curve can still match its fitting data; what the disagreement undermines is transfer beyond the studied regimen, which is why only that regimen is run."
+      }
+    ],
+    "not_supported": [
+      {
+        "id": "individual_prediction",
+        "label": "This patient's platelet counts, grade or risk",
+        "reason": "One typical curve fitted to mean counts; no between-patient spread. The observed incidence by baseline is shown instead."
+      },
+      {
+        "id": "other_regimens",
+        "label": "Other doses, schedules, dose holds or reductions, or subcutaneous dosing",
+        "reason": "Only the studied regimen (1.3 mg/m2 IV, days 1, 4, 8, 11 of 21-day cycles) was fitted; the driving PK disagrees with outside data, so other regimens would rest on it."
+      },
+      {
+        "id": "patient_bortezomib_concentrations",
+        "label": "Bortezomib concentrations for this patient",
+        "reason": "The PK component drives the platelet model only and is not offered as patient PK (evidence_status role)."
+      }
+    ]
+  },
+  "request_rules": [],
+  "state_rules": [
+    {
+      "id": "baseline_platelets",
+      "kind": "range",
+      "field": "platelet_count",
+      "unit": "10^9/L",
+      "range": [
+        30,
+        null
+      ],
+      "tier_by_band": [
+        {
+          "range": [
+            50,
+            null
+          ],
+          "tier": "inside_model_data",
+          "band_note": "At or above the usual entry threshold of the source study (50 x10^9/L)."
+        },
+        {
+          "range": [
+            30,
+            50
+          ],
+          "tier": "inside_model_data",
+          "band_note": "Below the usual entry threshold (50 x10^9/L): the source admitted such patients only with extensive marrow involvement, and transfusion to meet the threshold was allowed (observed_context eligibility)."
+        }
+      ],
+      "basis": "The source required a platelet count of at least 50 x10^9/L, or at least 30 with extensive bone marrow involvement (observed_context eligibility, printout page 4). No upper limit is stated, and none is invented.",
+      "outside_reason": {
+        "below": "Below every entry threshold of the source study (30 x10^9/L, with extensive marrow involvement); the model has no data from such patients."
+      }
+    }
+  ],
+  "enforced_elsewhere": "The regimen (1.3 mg/m2 IV, days 1, 4, 8 and 11 of 21-day cycles) and the number of cycles (1 to the tool maximum) are fixed by the calculation itself.",
+  "unknown_policy": "A missing baseline platelet count is reported as missing before the scope is evaluated; nothing is computed. Unknown stays unknown.",
+  "never_claimed": [
+    "A prediction for a real patient, a toxicity or grade prediction, a dose recommendation or a judgement of treatment suitability.",
+    "Validation of the model; validation flags stay false."
+  ],
+  "clinical_prediction_validated": false
+}

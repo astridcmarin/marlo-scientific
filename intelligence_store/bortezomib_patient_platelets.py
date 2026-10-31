@@ -16,13 +16,28 @@ from .covariate_estimation import _load_pinned
 from .patient_state import digest
 from .patient_state_revisions import read_revision
 from .bortezomib_platelets import platelet_timecourse
+from .model_scope import evaluate, load_scope
 
 CONTEXT_PATH = Path(__file__).parent / 'data' / 'bortezomib_platelet_context_v1.json'
 CONTEXT_SHA256 = '4154f2d0cde5933a1e017fce62effbf012bcf09453b3b46e2ef43fb558e12775'
 CTCAE_V5_PATH = Path(__file__).parent / 'data' / 'platelet_grading_ctcae_v5_v1.json'
 CTCAE_V5_SHA256 = '475dabd7647b9294e17ed184b7816488c3273b75507f460746cf3b273787d525'
+SCOPE_PATH = Path(__file__).parent / 'data' / 'bortezomib_platelets_scope_v1.json'
+SCOPE_SHA256 = 'cac2399f38a613d055f2b3e078a9041ae5f7b74fe8297784318f6cc79c2c4a0f'
 SCHEMA_VERSION = 'bortezomib-patient-platelet-view-v1'
-METHOD_VERSION = 'bortezomib-patient-platelets-v1.0'
+METHOD_VERSION = 'bortezomib-patient-platelets-v1.1'  # v1.1: model scope applied (baseline below 30 x10^9/L refused)
+
+
+def load_platelet_scope():
+    return load_scope(SCOPE_PATH, SCOPE_SHA256)
+
+
+def platelet_scope(state):
+    """Scope evaluation for a patient state; observed-data panels are not used by this model (none exist)."""
+    scope = load_platelet_scope()
+    evaluation = evaluate(scope, state, {})
+    evaluation['observed'] = []
+    return {'scope_sha256': SCOPE_SHA256, 'scope_evaluation': evaluation}
 
 
 def load_context(path=CONTEXT_PATH):
@@ -61,14 +76,19 @@ def patient_platelet_view(revision_id, cycles=1):
         report['report_sha256'] = digest(report)
         return report
     baseline = float(field['value'])
+    scope = platelet_scope(state)
+    report.update(scope)
+    if scope['scope_evaluation']['status'] != 'in_scope':
+        rule = next(r for r in scope['scope_evaluation']['rules'] if r['status'] != 'in_scope')
+        report.update(status='outside_model_scope', baseline_1e9_per_l=baseline,
+                      message=f"No curve is drawn: {rule.get('reason') or 'outside the model scope.'}")
+        report['report_sha256'] = digest(report)
+        return report
     curves = platelet_timecourse(cycles)
     grading = context['grading']
     eligibility = context['eligibility']
     warnings = []
-    if baseline < eligibility['minimum_with_extensive_marrow_involvement_1e9_per_l']:
-        warnings.append(f'Baseline {baseline:g} x10^9/L is below every entry threshold of the source study '
-                        f'(50, or 30 with extensive marrow involvement); the model has no data from such patients.')
-    elif baseline < eligibility['minimum_platelets_1e9_per_l']:
+    if baseline < eligibility['minimum_platelets_1e9_per_l']:     # below 30 is refused by the scope above
         warnings.append(f'Baseline {baseline:g} x10^9/L is below the usual entry threshold of 50 x10^9/L; the source '
                         f'admitted such patients only with extensive marrow involvement or after transfusion.')
     observed = {o['id']: o for o in context['observed']}
