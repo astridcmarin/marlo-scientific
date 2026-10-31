@@ -1,6 +1,6 @@
 # Digital human 1.0 — lenalidomide elimination body map (design plan)
 
-Written 31 October 2026, for the platform owner's approval before any code. Status: **proposed**.
+Written 31 October 2026. Status: **approved by the platform owner on 31 October 2026**, with the three recommended decisions (see the end of this plan).
 
 ## The question it answers
 
@@ -109,8 +109,8 @@ This is the first piece of the computational-human interface: a whole-body view 
 
 Each step is its own PR.
 
-## Decisions for the owner
+## Decisions (taken 31 October 2026)
 
-1. **Unbound fraction (issue 1):** show both values (recommended), or keep 0.77 with a note.
-2. **Explorer mode in v1:** yes (recommended; useful without a patient record) or record mode only.
-3. **A static "where it acts" card** (cereblon; sourced, not simulated): in v1, or later (recommended: later).
+1. **Unbound fraction (issue 1): show both values.** The split is drawn with fu 0.77 (in vitro, the value the 2.0a check used) and fu ≈ 0.60 (ex vivo, in the renal study's own subjects). Exposure is the same under both.
+2. **Explorer mode in v1: yes.**
+3. **"Where it acts" card: later.** Not part of v1.
