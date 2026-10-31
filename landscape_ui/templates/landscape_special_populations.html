@@ -1,0 +1,32 @@
+{% extends "landscape_base.html" %}
+{% block title %}{{ v.label }} · Special populations{% endblock %}
+{% block content %}
+<style>
+.sp-row{border:1px solid #dbe5e9;border-radius:8px;background:#fff;margin:0 0 16px;padding:14px 16px}
+.sp-row h2{margin:0 0 8px;font-size:19px}
+.sp-st{border-top:1px solid #edf2f4;padding:10px 0}
+.sp-st:first-of-type{border-top:0}
+.sp-kind{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:10px;background:#e8f1f3;margin-right:6px}
+.sp-kind-study_exposure_change{background:#e3f0e6}.sp-kind-label_action,.sp-kind-label_statement{background:#efe8f7}
+.sp-kind-gap,.sp-kind-not_studied{background:#f6e3df}.sp-kind-platform_model_scope{background:#fdf0dc}
+.sp-value{font-weight:600;overflow-wrap:anywhere}
+.sp-src{font-size:13px;color:#566c76;overflow-wrap:anywhere}
+</style>
+<p class="eyebrow">Special-population evidence · intrinsic factors</p>
+<h1>{{ v.label }}: exposure in special populations</h1>
+<section class="scenario-notice"><strong>Sourced findings side by side — not dosing guidance</strong>
+<p>{{ v.intro }}</p>
+<p>Each finding is labelled with its kind (study, label, population model, platform scope) and the population it comes from. Every value is checked against its pinned source file before this page is shown. {{ v.not_this }}</p>
+<p>Clinical prediction validated: <strong>false</strong></p></section>
+{% for row in v.rows %}<section class="sp-row" aria-labelledby="sp-{{ row.domain }}"><h2 id="sp-{{ row.domain }}">{{ row.label }}</h2>
+{% if not row.statements %}<p class="sp-st"><span class="sp-kind sp-kind-gap">Not in the platform's pinned sources</span></p>{% endif %}
+{% for s in row.statements %}<div class="sp-st"><p><span class="sp-kind sp-kind-{{ s.kind }}">{{ s.kind_label }}</span>{{ s.text }}</p>
+{% if s.kind != 'gap' %}<p class="sp-value">{{ fmt(s.value) }}</p>{% endif %}
+{% if s.population %}<p class="sp-src">Population: {{ s.population }}</p>{% endif %}
+{% if s.source %}<p class="sp-src">Source: {{ s.source.title }}{% if s.source.location %} · {{ s.source.location }}{% endif %}</p>{% endif %}
+{% if s.link %}<p class="sp-src"><a href="{{ s.link }}">See the model scope</a></p>{% endif %}
+</div>{% endfor %}</section>{% endfor %}
+<section class="panel"><h2>Sources</h2><ul>
+{% for s in v.sources %}<li><strong>{{ s.title }}</strong><br><span class="sp-src">{{ s.file }} · SHA-256 {{ s.sha256[:16] }}… · {{ s.extraction }}</span></li>{% endfor %}</ul>
+<p><a href="?format=json">Download this summary (JSON)</a></p></section>
+{% endblock %}

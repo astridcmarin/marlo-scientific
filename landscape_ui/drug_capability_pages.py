@@ -30,8 +30,10 @@ def register_drug_capability_pages(bp):
             response = Response(json.dumps(payload,indent=2,allow_nan=False)+'\n',mimetype='application/json')
             response.headers['Content-Disposition']='attachment; filename="drug-capability-library.json"'
         else:
+            from intelligence_store.special_populations import available as _special_population_drugs
             response = Response(render_template('landscape_drug_capabilities.html', report=report, rows=rows,
-                                q=q,capability=capability))
+                                                special_population_drugs=_special_population_drugs(),
+                                                q=q, capability=capability))
         response.headers['Cache-Control']='no-store'
         response.headers['X-Content-Type-Options']='nosniff'
         return response
