@@ -1,0 +1,79 @@
+{
+ "schema_version": "source-reconciliation-v1",
+ "reconciliation_version": "lenalidomide-renal-source-reconciliation-v1.0",
+ "drug": "lenalidomide",
+ "recorded_on": "2026-10-31",
+ "sources": {
+  "ema_table": {
+   "file": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+   "sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+   "original": "EMA withdrawal assessment report EMEA/CHMP/249329/2008 (landscape_ui/data/renal_pk/ema_lenalidomide_2008.pdf), PDF pages 20-21"
+  },
+  "label": {
+   "file": "intelligence_store/data/lenalidomide_label_2023_v1.json",
+   "sha256": "d4b02134613dc45d6b039999b37d9c94ccbc047cc0b7e811b77278c868e47a9a",
+   "original": "REVLIMID prescribing information, revised 3/2023, section 12.3, PDF page 46"
+  },
+  "reference_note": {
+   "file": "intelligence_store/data/lenalidomide_reference_exposure_v1.json",
+   "pointer": "/regulatory_context"
+  }
+ },
+ "items": [
+  {
+   "id": "renal_study_group_sizes",
+   "question": "The label lists 3 healthy subjects with normal renal function in the renal study; the EMA table used as the platform's reference has n = 7 in the normal group. Are these different studies?",
+   "facts": [
+    "EMA (PDF page 20): groups by 'Measured creatinine clearance (CLcr)': normal > 80 mL/min n = 7; mild 50-80 n = 5; moderate 30-<50 n = 6; severe < 30 not on dialysis n = 6; ESRD requiring dialysis n = 6; 30 subjects in all.",
+    "Label (12.3): groups by CLcr 'calculated using Cockcroft-Gault': mild 50-79 n = 8; moderate 30-49 n = 9; severe < 30 n = 4; ESRD on dialysis n = 6; healthy subjects with CLcr > 80 n = 3; 30 subjects in all.",
+    "The label's results reproduce from the EMA Table 4 group means: CL/F 207 (normal), 71 (moderate), 52 (severe), 39 mL/min (ESRD off dialysis) give decreases of 66%, 75% and 81% (label: '66% to 75%' and 'an 80% decrease'); half-lives 3.34, 10.6, 9.22 and 15.6 h give 3.2-, 2.8- and 4.7-fold increases (label: '3-fold' and 'approximate 4.5-fold')."
+   ],
+   "computation": {
+    "cl_decrease_percent": {
+     "moderate": 65.7,
+     "severe": 74.9,
+     "esrd_off_dialysis": 81.2
+    },
+    "half_life_fold": {
+     "moderate": 3.17,
+     "severe": 2.76,
+     "esrd_off_dialysis": 4.67
+    }
+   },
+   "conclusion": "Same study (CC-5013-PK-001, 30 subjects), classified two ways: by measured creatinine clearance in the EMA table and by Cockcroft-Gault in the label's description. The label's quantitative results correspond to the EMA's measured-clearance groups. The platform's reference (normal group, n = 7, mean AUC 2181 ng.h/mL) is unaffected.",
+   "status": "reconciled_by_inference",
+   "to_confirm": "Chen N, et al. J Clin Pharmacol 2007;47:1466-1475 (doi:10.1177/0091270007309563), the study publication; only its abstract has been reviewed on the platform."
+  },
+  {
+   "id": "creatinine_clearance_method_in_checks",
+   "question": "Which creatinine clearance defined the renal groups used in the Hughes and Kim outside checks?",
+   "facts": [
+    "The EMA table states measured creatinine clearance (PDF page 20).",
+    "The locked plans record otherwise. hughes_renal_group_check_plan_v1.json (known_differences): 'Creatinine clearance method and weight basis used to assign renal groups are not stated in the extracted pages.' kim_renal_group_check_plan_v1.json (scenario rationale): 'the study's actual method is not stated in the extracted pages'. The method statement was incorrect: the extracted page states 'Measured'. The weight basis is indeed not stated.",
+    "Both checks treated the group ranges as Cockcroft-Gault values (the models' covariate), with an assumed weight basis.",
+    "The label's Cockcroft-Gault classification of the same subjects places fewer above 80 mL/min (3 against 7) and more in 30-49 mL/min (9 against 6), so for some subjects the Cockcroft-Gault value was lower than the measured one; individual values are not available."
+   ],
+   "post_hoc_bound": {
+    "status": "post_hoc_not_a_rerun",
+    "method": "Change in typical exposure if a group's Cockcroft-Gault value were lower than the range used in the check, from each model's covariate equation alone.",
+    "hughes": "Clearance scales as CrCl^0.224: 40 to 25 mL/min gives clearance x 0.90, exposure about 1.11-fold. Far smaller than the 2.1-fold under-prediction in the moderate group, so the method difference does not explain that result.",
+    "kim": "Clearance scales as exp(0.0131 x eGFR): 5, 10 and 15 mL/min lower gives exposure about 1.07-, 1.14- and 1.22-fold (treating a change in Cockcroft-Gault clearance as an equal change in eGFR, an approximation). Comparable to Kim's 1.3-fold under-prediction in the severe group, so Kim's severe and moderate results may be sensitive to the method difference."
+   },
+   "conclusion": "The locked results stand as recorded. The plans' statement about the clearance method is corrected here. The difference cannot explain the Hughes moderate-group result, but it could account for part of Kim's severe-group under-prediction. The scope band edges (50 and 30 mL/min) come from the measured-clearance groups and are applied to each model's estimated clearance; this is recorded, and the scope files are unchanged.",
+   "status": "correction_recorded"
+  },
+  {
+   "id": "dose_threshold_50_or_60",
+   "question": "The label's first renal dose step is CLcr 30 to 60 mL/min; the platform's reference note (from Chen 2017, a secondary source) describes dose reductions below 50 mL/min. Which figure does the platform use?",
+   "facts": [
+    "No platform calculation uses a dose threshold. The 50 mL/min figures in the scopes, band notes and special-population summaries are the EMA study's moderate-group boundary (measured clearance, 30 to < 50), not a dose threshold.",
+    "The only dose-threshold statement is the reference note's quotation of Chen 2017, already marked as a secondary summary.",
+    "The label is quoted as it stands (lenalidomide_label_2023_v1.json, Table 3)."
+   ],
+   "conclusion": "Recorded as a difference between sources. Why the label's step is 60 mL/min (for example a later label change) is not established from the files held.",
+   "status": "difference_recorded",
+   "to_confirm": "An earlier REVLIMID label and the review for the supplement that set the 30-60 mL/min step."
+  }
+ ],
+ "clinical_prediction_validated": false
+}
