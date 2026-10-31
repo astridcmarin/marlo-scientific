@@ -1,0 +1,184 @@
+{
+ "schema_version": "aggregate-consistency-plan-v1",
+ "plan_version": "lenalidomide-renal-recheck-plan-v1.0",
+ "recorded_on": "2026-10-31",
+ "status": "locked_before_computation",
+ "prespecification_note": "Written and checksum-pinned before any simulation of this design was run. Not blinded: the v1 results are known (Hughes under-predicts the moderate and severe exposure ratios about 2-fold; Kim under-predicts the severe group about 1.3-fold and is consistent for moderate only in its primary scenario), and the publication's Table IV showed that the clearance method changes group exposure ratios by under 10%. The planner expects the Hughes result to be unchanged (weak creatinine clearance exponent) and the Kim result to move little. No virtual trial of this design was computed.",
+ "classification": "exploratory_aggregate_external_consistency_check",
+ "not_this": [
+  "Not validation or an acceptance decision; no acceptance limits are introduced.",
+  "Not a comparison of individual concentrations; only group means and SDs are available.",
+  "Not a re-fit: no model parameter is estimated or tuned.",
+  "Not a dosing decision for any patient."
+ ],
+ "question": "With virtual subjects built from the renal study's reported demographics and measured creatinine clearance (Chen et al. 2007), instead of the broad assumptions of the v1 checks, do the Hughes 2019 and Kim 2026 results against CC-5013-PK-001 change?",
+ "models": {
+  "lenalidomide_hughes_2019": "As in hughes_renal_group_check_plan_v1.json: CL/F = 12.0 (FFM/55)^0.75 (CrCL/90)^0.224 exp(eta_CL); V/F = 68.8 (FFM/55) exp(eta_V); OMEGA block from the pinned variability extract; AUC = 1000 x 25 / CL/F.",
+  "lenalidomide_kim_2026": "As in kim_renal_group_check_plan_v1.json: typical parameters from eGFR (CKD-EPI 2021) and BSA (Du Bois), CL and V1 log-normal with the reported CVs; primary CL/F form linear_multiplicative."
+ },
+ "observed_data": {
+  "file": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+  "sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+  "statistics": "EMA arithmetic group means and SDs, as in v1, so results are comparable."
+ },
+ "demographic_source": {
+  "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v3.json",
+  "sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292",
+  "table_I_pointer": "/sources/chen_2007/table_I_demographics",
+  "crcl_range_pointer": "/sources/label_2008/study_crcl_ranges_ml_min",
+  "values_at_lock": {
+   "table_I": {
+    "normal": {
+     "n": 7,
+     "female_male": [
+      3,
+      4
+     ],
+     "age_mean": 58,
+     "age_range": [
+      42,
+      70
+     ],
+     "weight_kg_mean": 80,
+     "weight_kg_range": [
+      67,
+      98
+     ],
+     "crcl_ml_min_mean": 102.2,
+     "crcl_sd": 21.9
+    },
+    "mild": {
+     "n": 5,
+     "female_male": [
+      2,
+      3
+     ],
+     "age_mean": 68,
+     "age_range": [
+      55,
+      76
+     ],
+     "weight_kg_mean": 74,
+     "weight_kg_range": [
+      66,
+      85
+     ],
+     "crcl_ml_min_mean": 64.6,
+     "crcl_sd": 8.3
+    },
+    "moderate": {
+     "n": 6,
+     "female_male": [
+      1,
+      5
+     ],
+     "age_mean": 59,
+     "age_range": [
+      39,
+      73
+     ],
+     "weight_kg_mean": 96,
+     "weight_kg_range": [
+      76,
+      119
+     ],
+     "crcl_ml_min_mean": 39.1,
+     "crcl_sd": 5.9
+    },
+    "severe": {
+     "n": 6,
+     "female_male": [
+      4,
+      2
+     ],
+     "age_mean": 66,
+     "age_range": [
+      56,
+      74
+     ],
+     "weight_kg_mean": 75,
+     "weight_kg_range": [
+      53,
+      88
+     ],
+     "crcl_ml_min_mean": 23.9,
+     "crcl_sd": 4.3
+    }
+   },
+   "observed_crcl_ranges": {
+    "normal_healthy": [
+     83,
+     145
+    ],
+    "mild": [
+     57,
+     74
+    ],
+    "moderate": [
+     33,
+     46
+    ],
+    "severe": [
+     17,
+     29
+    ]
+   }
+  }
+ },
+ "subject_construction": {
+  "sex": "Exact group counts from Table I (normal 3 F / 4 M, mild 2 / 3, moderate 1 / 5, severe 4 / 2), the same in every trial.",
+  "creatinine_clearance": "Measured 24-hour urine creatinine clearance: normal distribution with the group's Table I mean and SD, truncated to the group's observed range (2008 label) by redrawing.",
+  "age_years": "Uniform within the group's Table I range.",
+  "weight_kg": "Uniform within the group's Table I range.",
+  "height_cm": "Not reported. Assumed uniform, men 165-185, women 152-172 (the v1 Kim assumption).",
+  "hughes_covariates": "CrCL = the drawn measured creatinine clearance (Cockcroft-Gault was derived to estimate measured clearance; the publication found the two classifications gave similar results). FFM by Janmahasatian from weight, height and sex.",
+  "kim_covariates": "Serum creatinine back-solved from Cockcroft-Gault with total body weight so that it returns the drawn clearance; eGFR by CKD-EPI 2021 from age, sex and that creatinine; BSA by Du Bois.",
+  "draw_order_per_subject": [
+   "crcl",
+   "age",
+   "weight",
+   "height",
+   "z1",
+   "z2"
+  ]
+ },
+ "virtual_trial": {
+  "dose_mg": 25,
+  "group_sizes": "7, 5, 6, 6",
+  "trials": 10000,
+  "seed": 20261031,
+  "seed_per_scenario": "seed + scenario index in the order listed",
+  "group_statistic": "arithmetic mean across simulated subjects"
+ },
+ "endpoints": {
+  "primary": "Ratio of each impaired group's mean AUC to infinity to the normal group's (mild, moderate, severe), for each model.",
+  "secondary": "Absolute group mean AUC to infinity.",
+  "descriptive": "Constructed covariates per group (FFM; serum creatinine, eGFR, BSA, and the fraction outside Kim's data ranges)."
+ },
+ "classification_rule": {
+  "consistent": "observed within the 5th-95th percentile of simulated values",
+  "model_under_predicts": "observed above the 95th percentile",
+  "model_over_predicts": "observed below the 5th percentile"
+ },
+ "scenarios": {
+  "primary": {},
+  "sensitivity_uniform_crcl": {
+   "change": "Creatinine clearance uniform over each group's observed range instead of the truncated normal."
+  },
+  "sensitivity_shorter": {
+   "change": "Heights 10 cm shorter (men 155-175, women 142-162)."
+  },
+  "sensitivity_kim_exponential": {
+   "change": "Kim CL/F read with the exponential BSA term (Kim only)."
+  }
+ },
+ "decision_rule": {
+  "summary": "For each model and impaired group, compare the primary classification with v1. Recorded as 'unchanged' if it matches v1's primary classification, otherwise 'changed', with robustness across this plan's scenarios. Scope or flag changes are not made by this check: if a flagged band becomes consistent in every scenario here, a scope revision is proposed in a separate, documented step."
+ },
+ "known_differences": [
+  "Height is assumed, not reported.",
+  "Within-group distributions of age and weight are unknown; ranges are used uniformly.",
+  "The study subjects had renal impairment due to non-malignant conditions; both models were fitted in patients with haematological cancer (Kim: myeloma)."
+ ],
+ "clinical_prediction_validated": false
+}
