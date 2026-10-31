@@ -1,0 +1,166 @@
+{
+ "schema_version": "drug-label-extract-v1",
+ "extract_version": "lenalidomide-label-2023-v1.0",
+ "drug": "lenalidomide",
+ "recorded_on": "2026-10-31",
+ "source": {
+  "document": "REVLIMID (lenalidomide) capsules, full prescribing information, Revised: 3/2023, DailyMed set ID 5fa97bf5-28a2-48f1-8955-f56012d296be",
+  "file_reviewed": {
+   "file": "20260806_5fa97bf5-28a2-48f1-8955-f56012d296be.pdf (81 pages, DailyMed print dated 2026-08-06, text layer)",
+   "sha256": "3feea84a2363a1df7de9886897c4bfa04feffb042bea26d45afe3bbd5995dadf"
+  },
+  "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
+  "extraction": "AI-assisted. Every quote was checked against text extracted from the file (pdftotext, whitespace normalised); Table 3 values were transcribed from the same text. Independent review pending.",
+  "currency": "Revision 3/2023 as printed on 6 August 2026. The DailyMed SPL version number is not printed in the file."
+ },
+ "multiple_myeloma_dosing": {
+  "combination_starting_dose": {
+   "dose_mg": 25,
+   "schedule": "once daily, days 1-21 of repeated 28-day cycles, with dexamethasone",
+   "quote": "The recommended starting dose of REVLIMID is 25 mg orally once daily on Days 1-21 of repeated 28-day cycles in combination with dexamethasone.",
+   "location": "Section 2.1, PDF page 6"
+  },
+  "combination_dose_floor": {
+   "dose_mg": 2.5,
+   "quote": "Do not dose below 2.5 mg daily",
+   "location": "Section 2.1, Table 1, PDF page 7"
+  },
+  "maintenance_starting_dose": {
+   "dose_mg": 10,
+   "schedule": "once daily continuously, days 1-28 of repeated 28-day cycles; may increase to 15 mg after 3 cycles if tolerated",
+   "quote": "The recommended starting dose of REVLIMID is 10 mg once daily continuously (Days 1-28 of repeated 28-day cycles) until disease progression or unacceptable toxicity.",
+   "location": "Section 2.1, PDF page 7"
+  },
+  "capsule_strengths_mg": [
+   2.5,
+   5,
+   10,
+   15,
+   20,
+   25
+  ],
+  "capsule_strengths_location": "Section 3, PDF page 12"
+ },
+ "renal_dose_adjustments": {
+  "table": "Table 3: Dose Adjustments for Patients with Renal Impairment (section 2.6, PDF pages 11-12); renal function by Cockcroft-Gault",
+  "rows": [
+   {
+    "crcl_ml_min": [
+     30,
+     60
+    ],
+    "dialysis": false,
+    "mm_combination": "10 mg once daily",
+    "mm_combination_average_daily_mg": 10,
+    "mm_maintenance_and_mds": "5 mg once daily"
+   },
+   {
+    "crcl_ml_min": [
+     null,
+     30
+    ],
+    "dialysis": false,
+    "mm_combination": "15 mg every other day",
+    "mm_combination_average_daily_mg": 7.5,
+    "mm_maintenance_and_mds": "2.5 mg once daily"
+   },
+   {
+    "crcl_ml_min": [
+     null,
+     30
+    ],
+    "dialysis": true,
+    "mm_combination": "5 mg once daily; on dialysis days, after dialysis",
+    "mm_combination_average_daily_mg": 5,
+    "mm_maintenance_and_mds": "2.5 mg once daily; on dialysis days, after dialysis"
+   }
+  ],
+  "average_daily_dose_note": "mm_combination_average_daily_mg is derived by the platform (15 mg every other day = 7.5 mg per day on average); the label states only the regimen.",
+  "upper_bound_note": "The label's first row is CLcr 30 to 60 mL/min. The platform's pinned regulatory-context note (lenalidomide_reference_exposure_v1.json, from Chen 2017) describes the dose reductions as applying below 50 mL/min. The two sources use different thresholds; this extract records the label's.",
+  "escalation": {
+   "quote": "For CLcr of 30 to 60 mL/min, consider escalating the dose to 15 mg after 2 cycles if the patient tolerates the 10 mg dose of lenalidomide without dose-limiting toxicity.",
+   "location": "Section 2.6, PDF page 12"
+  },
+  "statement_8_6": {
+   "quote": "Adjust the starting dose of REVLIMID based on the creatinine clearance value and for patients on dialysis [see Dosage and Administration (2.6)].",
+   "location": "Section 8.6, PDF page 44"
+  }
+ },
+ "pharmacokinetics": {
+  "linearity": {
+   "quote": "The single and multiple dose pharmacokinetic disposition of lenalidomide is linear with AUC and Cmax values increasing proportionally with dose.",
+   "location": "Section 12.3, PDF page 45"
+  },
+  "protein_binding": {
+   "quote": "In vitro [14C]-lenalidomide binding to plasma proteins is approximately 30%.",
+   "location": "Section 12.3, PDF page 45"
+  },
+  "renal_study": {
+   "groups_n": {
+    "normal_healthy_crcl_gt_80": 3,
+    "mild_50_79": 8,
+    "moderate_30_49": 9,
+    "severe_lt_30": 4,
+    "esrd_dialysis": 6
+   },
+   "design": {
+    "quote": "Eight subjects with mild renal impairment (creatinine clearance (CLcr) 50 to 79 mL/min calculated using Cockcroft-Gault), 9 subjects with moderate renal impairment (CLcr 30 to 49 mL/min), 4 subjects with severe renal impairment (CLcr < 30 mL/min), and 6 patients with end stage renal disease (ESRD) requiring dialysis were administered a single 25 mg dose of REVLIMID.",
+    "location": "Section 12.3, PDF page 46"
+   },
+   "result": {
+    "quote": "Patients with moderate and severe impairment had a 3-fold increase in half-life and a 66% to 75% decrease in drug clearance compared to healthy subjects.",
+    "location": "Section 12.3, PDF page 46"
+   },
+   "clearance_decrease_percent_moderate_severe": [
+    66,
+    75
+   ],
+   "half_life_fold_moderate_severe": 3,
+   "dialysis": {
+    "quote": "Patients on hemodialysis (n=6) had an approximate 4.5-fold increase in half-life and an 80% decrease in drug clearance compared to healthy subjects.",
+    "location": "Section 12.3, PDF page 46"
+   },
+   "dialysis_clearance_decrease_percent": 80,
+   "group_count_note": "The label lists 3 healthy subjects with normal renal function. The EMA assessment table pinned as the platform's reference (renal_pk_group_evidence_v1.json) reports n = 7 in the normal group of CC-5013-PK-001. Not reconciled here."
+  },
+  "hepatic": {
+   "mild": {
+    "quote": "Mild hepatic impairment (defined as total bilirubin > 1 to 1.5 times upper limit normal (ULN) or any aspartate transaminase greater than ULN) did not influence the disposition of lenalidomide.",
+    "location": "Section 12.3, PDF page 46"
+   },
+   "moderate_severe": {
+    "quote": "No pharmacokinetic data is available for patients with moderate to severe hepatic impairment.",
+    "location": "Section 12.3, PDF page 46"
+   }
+  },
+  "other_intrinsic_factors": {
+   "age_range_years": [
+    39,
+    85
+   ],
+   "body_weight_range_kg": [
+    33,
+    135
+   ],
+   "quote": "Other Intrinsic Factors: Age (39 to 85 years), body weight (33 to 135 kg), sex, race, and type of hematological malignancies (MM, MDS or MCL) did not have a clinically relevant effect on lenalidomide clearance in adult patients.",
+   "location": "Section 12.3, PDF page 46"
+  }
+ },
+ "geriatric": {
+  "renal_caution": {
+   "quote": "Since elderly patients are more likely to have decreased renal function, care should be taken in dose selection. Monitor renal function.",
+   "location": "Section 8.5, PDF page 43"
+  },
+  "efficacy_mm_prior_therapy": {
+   "quote": "No differences in efficacy were observed between patients over 65 years of age and younger patients.",
+   "location": "Section 8.5, PDF page 43"
+  }
+ },
+ "not_extracted": [
+  "Indications other than multiple myeloma",
+  "Adverse reactions (section 6)",
+  "Clinical studies (section 14)",
+  "Warnings and precautions (section 5)"
+ ],
+ "clinical_prediction_validated": false
+}

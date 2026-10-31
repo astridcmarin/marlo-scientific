@@ -24,10 +24,22 @@
 <p class="panel-note">{% if m.computed %}{{ m.label }}: typical total CL/F {{ '%.2f'|format(m.typical_total_cl_f_l_h) }} L/h ({% for k, v in m.covariates.items() %}{{ k|replace('_', ' ') }} {{ '%.3g'|format(v) }}{% if not loop.last %}, {% endif %}{% endfor %}). Assumption: {% for k, v in m.assumption.items() %}{{ k|replace('_', ' ') }} = {{ v|replace('_', ' ') }}{% endfor %}.{% for w in m.warnings %} {{ w }}{% endfor %}{% else %}{{ m.label }}: {{ m.reason }}{% endif %}</p>{% endfor %}
 </section>
 
+{% set lab = r.label %}<section class="panel"><h2>What the label says (quoted, multiple myeloma)</h2>
+<ul><li>Combination therapy: {{ lab.combination_starting_dose.quote }} <span class="panel-note">({{ lab.combination_starting_dose.location }})</span></li>
+<li>Dose reductions for toxicity: “{{ lab.combination_dose_floor.quote }}.” <span class="panel-note">({{ lab.combination_dose_floor.location }})</span></li>
+<li>Maintenance after auto-HSCT: {{ lab.maintenance_starting_dose.quote }} <span class="panel-note">({{ lab.maintenance_starting_dose.location }})</span></li>
+<li>Capsule strengths: {% for d in lab.capsule_strengths_mg %}{{ '%g'|format(d) }}{% if not loop.last %}, {% endif %}{% endfor %} mg.</li></ul>
+<p>{{ lab.renal_table }}:</p>
+<div class="table-scroll"><table style="min-width:560px"><thead><tr><th>Creatinine clearance</th><th>Combination therapy for MM</th><th>Maintenance after auto-HSCT for MM</th></tr></thead><tbody>
+{% for row in lab.renal_rows %}<tr><td>{% if row.crcl_ml_min[0] is none %}below {{ row.crcl_ml_min[1] }}{% else %}{{ row.crcl_ml_min[0] }} to {{ row.crcl_ml_min[1] }}{% endif %} mL/min{% if row.dialysis %}, requiring dialysis{% elif row.crcl_ml_min[0] is none %}, not requiring dialysis{% endif %}</td><td>{{ row.mm_combination }}</td><td>{{ row.mm_maintenance_and_mds }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="panel-note">{{ lab.escalation.quote }} ({{ lab.escalation.location }}). {{ lab.source }}. Quoted as the label states it; the platform does not select a dose for the record above, because the label's Cockcroft–Gault weight basis is not stated and the Hughes estimate uses an assumed one.</p>
+</section>
+
 <section class="panel"><h2>Typical daily exposure by dose level</h2>
 <p>Ratio of the typical daily AUC to the mean AUC measured after a single {{ '%g'|format(r.reference.dose_mg) }} mg dose in subjects with normal renal function ({{ r.reference.auc_ng_h_ml }} ng·h/mL, SD {{ r.reference.sd }}, n = {{ r.reference.n }}). Dose levels: {{ r.dose_levels_source }}</p>
 <div class="table-scroll"><table style="min-width:620px"><thead><tr><th>Dose (mg/day)</th>{% for m in r.models %}<th>{{ m.label }}: daily AUC (ratio to reference){% if m.tier == 'external_check_disagrees' %}<br><strong>Flagged: outside check disagrees</strong>{% endif %}</th>{% endfor %}</tr></thead><tbody>
-{% for i in range(r.dose_levels_mg|length) %}<tr><td>{{ '%g'|format(r.dose_levels_mg[i]) }}</td>
+{% for i in range(r.dose_levels_mg|length) %}<tr><td>{{ '%g'|format(r.dose_levels_mg[i]) }}{% if r.dose_levels_mg[i] not in lab.capsule_strengths_mg %} <span class="panel-note">(not a capsule strength{% for row in lab.renal_rows if row.mm_combination_average_daily_mg == r.dose_levels_mg[i] %}; average of the label's “{{ row.mm_combination }}”{% endfor %})</span>{% endif %}</td>
 {% for m in r.models %}<td>{% if not m.computed %}—{% else %}{% set c = m.cells[i] %}{% if c.dose_status == 'not_a_study_dose' %}<span class="panel-note">not a study dose</span>{% else %}{{ '%.0f'|format(c.typical_daily_auc_ng_h_ml) }} ng·h/mL ({{ '%.2f'|format(c.ratio_to_reference) }}){% if c.dose_status == 'inside_range_not_listed' %} <span class="panel-note">· inside range, not a listed study dose</span>{% endif %}{% endif %}{% endif %}</td>{% endfor %}</tr>{% endfor %}
 </tbody></table></div>
 {% for m in r.models if m.tier == 'external_check_disagrees' %}<p class="cap-level" role="note"><strong>{{ m.label }} is flagged for this record.</strong> A locked outside check found it inconsistent for patients like this one; the observed data are in its scope panel above.{% for rule in m.scope.rules if rule.id in m.scope.flags %} {{ rule.band_note }}{% endfor %} The relative odds below are built on the same exposure.</p>{% endfor %}
@@ -43,6 +55,19 @@
 </tbody></table></div>
 {% if ep == 'grade_3_4_neutropenia' %}<p class="panel-note">The neutropenia odds ratio was not statistically significant (95% CI includes 1).</p>{% endif %}{% endfor %}
 </section>
+
+{% set er = r.published_exposure_response %}<section class="panel"><h2>Published exposure–response findings in myeloma: shown, not used</h2>
+<p class="cap-level" role="note"><strong>Not used in any calculation on this page.</strong> {{ er.not_this|join(' ') }}</p>
+<p>{{ er.source }} {{ er.source_status }} {{ er.design.setting }}: {{ er.design.n_patients }} patients — {{ er.design.population|lower }}; concentrations measured in {{ er.design.pk_sampled_patients }}.</p>
+<h3>Time to progression ({{ er.time_to_progression.events }} events)</h3>
+<blockquote>“{{ er.time_to_progression.quotes.result.quote }}” <span class="panel-note">({{ er.time_to_progression.quotes.result.location }})</span></blockquote>
+<blockquote>“{{ er.time_to_progression.quotes.author_caution.quote }}” <span class="panel-note">({{ er.time_to_progression.quotes.author_caution.location }})</span></blockquote>
+<h3>Time to severe neutropenia ({{ er.time_to_severe_neutropenia.events }} events)</h3>
+<div class="table-scroll"><table><thead><tr><th>Covariate</th><th>Unit</th><th>Hazard ratio (bootstrap 95%)</th></tr></thead><tbody>
+{% for h in er.time_to_severe_neutropenia.hazard_ratios %}<tr><td>{{ h.covariate }}</td><td>{{ h.unit }}</td><td>{{ h.hr }} ({{ h.bootstrap_95[0] }}–{{ h.bootstrap_95[1] }})</td></tr>{% endfor %}
+</tbody></table></div><p class="panel-note">{{ er.time_to_severe_neutropenia.auc_tested_not_retained }}. {{ er.time_to_severe_neutropenia.location }}.</p>
+<h3>Why the platform does not use these findings</h3><ul>{% for w in er.why_not_used %}<li>{{ w }}</li>{% endfor %}</ul>
+<p class="panel-note">{{ er.extraction }}</p></section>
 
 <section class="panel"><h2>Limits</h2><ul>{% for l in r.limits %}<li>{{ l }}</li>{% endfor %}</ul></section>
 

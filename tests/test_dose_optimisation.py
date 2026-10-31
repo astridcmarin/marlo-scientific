@@ -2,6 +2,7 @@
 import json
 import math
 import unittest
+from unittest import mock
 
 from intelligence_store import dose_optimisation as do
 from intelligence_store.patient_state import example_state
@@ -80,10 +81,26 @@ class DoseView(unittest.TestCase):
         self.assertEqual(sum(n for _, n in t['by_phase']), 380)
         self.assertTrue(all({'PHASE1', 'EARLY_PHASE1'} & set(x['phases']) for x in t['phase_1_trials']))
 
+    def test_published_exposure_response_is_shown_not_used(self):
+        e = do.load_exposure_response()
+        ttp = {h['covariate']: h for h in e['time_to_progression']['hazard_ratios']}
+        self.assertEqual((ttp['lenalidomide AUC0-inf']['hr'], ttp['lenalidomide AUC0-inf']['bootstrap_95']), (1.19, [1.08, 1.35]))
+        self.assertEqual(e['time_to_progression']['auc_threshold_ug_h_l'], 1110)
+        self.assertEqual((e['design']['n_patients'], e['time_to_progression']['events'], e['time_to_severe_neutropenia']['events']), (54, 26, 27))
+        self.assertFalse(e['clinical_prediction_validated'])
+        r = do.lenalidomide_dose_view(state(), 'MM')
+        self.assertEqual(r['published_exposure_response']['kind'], 'cited_finding_not_used_in_calculation')
+        for col in r['models']:
+            for cell in col['cells']:
+                self.assertFalse(set(cell) & {'hazard_ratio', 'progression', 'relative_hazard'})
+        with mock.patch.object(do, 'EXPOSURE_RESPONSE_SHA256', '0' * 64):
+            with self.assertRaises(ValueError):
+                do.load_exposure_response()
+
     def test_gaps_and_no_ranking(self):
         r = do.lenalidomide_dose_view(state(), 'MM')
         self.assertEqual({g['id'] for g in r['gaps']},
-                         {'exposure_efficacy', 'label_dose_reductions', 'combination_regimens', 'trial_dose_levels'})
+                         {'exposure_efficacy', 'combination_regimens', 'trial_dose_levels'})
         text = json.dumps(r).lower()
         for word in ('recommended dose', 'optimal dose', 'best dose'):
             self.assertNotIn(word, text)
@@ -100,6 +117,9 @@ class Page(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertIn(b'Not dosing guidance', r.data)
         self.assertIn(b'not a study dose', r.data)
+        self.assertIn('shown, not used'.encode(), r.data)
+        self.assertIn(b'15 mg every other day', r.data)
+        self.assertIn(b'not a capsule strength', r.data)
         j = self.client.get(url + '?format=json')
         self.assertEqual(json.loads(j.data)['schema_version'], do.SCHEMA_VERSION)
         self.assertIn(b'outside the model', self.client.get(url + '?disease=MM&sex=MALE&age=70&weight=80&height=175&scr=200').data)
