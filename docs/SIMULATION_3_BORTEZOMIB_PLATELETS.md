@@ -351,3 +351,21 @@ On 30 October 2026, an author of the article answered two of the open questions.
 - the proteasome-inhibition equation (not needed for the PK check).
 
 Body size remains an assumption in 3.0k, but the result was robust to ±10% dose per kg.
+
+## 3.0m — The constant-clearance PK component against MMY-3021 day 11 (`bortezomib_pk_mmy3021_check.py`)
+
+**Source.** Moreau et al., *Clin Pharmacokinet* 2012;51:823–829: the PK substudy of the phase 3 MMY-3021 trial. IV arm: 14 of 14 patients assessable, 1.3 mg/m², day 11 of cycle 1, sampled to 72 h. It is independent of the model: Lignet's PK comes from scaled paediatric parameters and was compared only with Reece 2011, and MMY-3021 is not among Kuan's phase 1 studies. Pinned as `bortezomib_pk_mmy3021_observed_v1.json`. The paper's CAN-1004 data are already on the platform and are not reused.
+
+**Plan.** `bortezomib_pk_mmy3021_check_plan_v1.json`, locked at commit `b921f21` before any value was computed. It was not blinded: the planner knew the model's day 11 AUClast on the CAN-1004 schedule (127 ng·h/mL) and expected a borderline result.
+
+**Result** (`docs/verification/bortezomib_pk_mmy3021_check_v1.json`):
+
+| Endpoint | Model | Observed mean (95% CI) | Classification |
+|---|---|---|---|
+| AUClast day 11, primary reading | 126.9 | 151 (126.2–175.8) | consistent, at the edge |
+| AUClast day 11, log-down AUC rule | 125.3 | 151 (126.2–175.8) | model under-predicts |
+| Cmax day 11, all readings | 111 | 223 (165–281) | model under-predicts |
+
+Under the locked rule the day 11 exposure is recorded as **consistent but not robust**: the CAN-1004 day 11 under-prediction (127 vs 241) is not clearly reproduced. The two studies' own day 11 means differ 1.6-fold (241 vs 151), so day 11 evidence across Ogawa, CAN-1004 and MMY-3021 is mixed.
+
+**What does not change.** MMY-3021 has no day 1 profile, so it cannot test the model's main problem: the rise from day 1 to day 11 is too small (Ogawa, CAN-1004). The model stays recorded as disagreeing with outside data, and the platelet model built on it keeps its inherited warning. Evidence status v10 adds this report.
