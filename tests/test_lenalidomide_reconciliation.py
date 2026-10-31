@@ -47,7 +47,7 @@ class Reconciliation(unittest.TestCase):
         for g, key in (('moderate', 'moderate'), ('severe', 'severe_without_dialysis')):
             self.assertEqual(comp[g], round(100 * (auc[key] / pooled - 1)))
         self.assertEqual(round(auc['mild'] / auc['normal'], 2), self.r['mild_versus_normal_auc']['computation']['mild_to_normal_arithmetic_mean_ratio'])
-        self.assertEqual(self.r['dose_threshold_50_or_60']['status'], 'change_dated_between_2015_and_2017_reason_not_established')
+        self.assertEqual(self.r['dose_threshold_50_or_60']['status'], 'label_history_traced_reason_not_established')
 
     def test_v3_adds_earlier_labels(self):
         import hashlib
@@ -59,7 +59,12 @@ class Reconciliation(unittest.TestCase):
         self.assertEqual(r['sources']['label_2015']['quotes']['mm_moderate_range']['quote'], 'CLcr 30-50 mL/min')
         self.assertIn('non-malignant', r['sources']['label_2015']['quotes']['basis']['quote'])
         self.assertIn('30 to 60', r['sources']['label_2017']['quotes']['table']['quote'])
-        self.assertEqual(self.r['renal_study_population']['status'], 'established_from_label')
+        self.assertEqual(self.r['renal_study_population']['status'], 'established_from_labels')
+        self.assertEqual(r['sources']['label_2008']['study_crcl_ranges_ml_min']['severe'], [17, 29])
+        self.assertEqual(r['sources']['label_2008']['quotes']['mm_moderate']['quote'], '30 ≤ CLcr < 60')
+        plan = json.loads((ROOT / 'intelligence_store/data/hughes_renal_group_check_plan_v1.json').read_text())
+        sampled = json.dumps(plan)
+        self.assertIn('"moderate": [30, 50]', sampled)
 
     def test_ema_page_states_measured_clearance(self):
         try:

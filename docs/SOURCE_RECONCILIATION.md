@@ -53,21 +53,38 @@ The label's Table 3 starts at creatinine clearance 30–60 mL/min. The platform'
 
 The current label starts at 60 mL/min and gives 5 mg daily for patients on dialysis. So the 50 is the study's original recommendation; when and why the label changed is not established.
 
-**When it changed (v3).** Three earlier labels date the change:
+**Label history (v3).** Five earlier labels trace the myeloma threshold:
 
 | Label | Myeloma kidney table |
 |---|---|
-| June 2006 (supplement 001) | None. "No formal studies have been conducted in patients with renal impairment"; patients with renal insufficiency were excluded from the trials. |
-| February 2015 (supplement 041) | Its own table, starting at **30–50 mL/min** (10 mg every 24 h). The MDS and MCL table already starts at 30–60, and the text above both says adjustment is recommended below 60 mL/min, so this label contradicts itself for myeloma. |
-| September 2017 (supplement 051) | One table for all indications, starting at **30 to 60 mL/min**. The 2023 label keeps it. |
+| June 2006 (s001) | None. Renal impairment had not been studied, and patients with it were excluded from the trials. |
+| About December 2008 (s006/s016/s017; the first table found) | **30 ≤ CLcr < 60** → 10 mg every 24 h. The text above says adjust below 60. |
+| February 2015 (s041) | A separate myeloma table at **30–50**, while the MDS and MCL table and the text above both say below 60. The label contradicts itself. |
+| February 2017 (s049) and September 2017 (s051) | One table at **30 to 60** for all indications. The 2023 label keeps it. |
 
-So the myeloma threshold moved from 50 to 60 between February 2015 and September 2017. The reason is not established.
+So **60 was the label's threshold from the first kidney table**, even though the study abstract recommended below 50. The 2015 myeloma table is the exception. Not established: why the label set 60, and whether labels between 2009 and 2015 used 50 or 60.
 
-**To confirm:** labels between those dates (for example the February 2017 maintenance approval) and the review for the supplement that unified the table.
+**To confirm:** the review for the supplement that first added kidney dosing (about 2008).
 
 ## Who the renal study enrolled (v3)
 
-The February 2015 label says the kidney dosing is "based on a pharmacokinetic study in patients with renal impairment due to non-malignant conditions". So CC-5013-PK-001 enrolled people whose kidney disease was not caused by cancer; it did not enrol myeloma patients. The pinned EMA extract and the Hughes scope still say the study's disease context is "not established". They are left unchanged here and should be updated in their next versions. When the myeloma-based Hughes and Kim models are compared with this study, the population difference is one possible reason for disagreement. This has not been tested.
+The labels of about December 2008 and February 2015 both say the kidney dosing is "based on a pharmacokinetic study in patients with renal impairment due to non-malignant conditions". So CC-5013-PK-001 enrolled people whose kidney disease was not caused by cancer; it did not enrol myeloma patients. The pinned EMA extract and the Hughes scope still say the study's disease context is "not established". They are left unchanged here and should be updated in their next versions. When the myeloma-based Hughes and Kim models are compared with this study, the population difference is one possible reason for disagreement. This has not been tested.
+
+## Observed creatinine clearance in each study group (v3)
+
+The label of about December 2008 gives each group's actual creatinine clearance range:
+
+| Group | n | CrCl (mL/min) |
+|---|---|---|
+| Normal (healthy subjects of similar age) | 7 | 83–145 |
+| Mild | 5 | 57–74 |
+| Moderate | 6 | 33–46 |
+| Severe | 6 | 17–29 |
+| ESRD on dialysis | 6 | — |
+
+These are the same 7/5/6/6/6 groups as the EMA table. The 2023 label's 3/8/9/4/6 is a later regrouping of the same 30 people.
+
+The Hughes and Kim checks sampled across the group definitions (moderate 30–50, severe 10–30 or similar), and each observed range lies inside the interval sampled, so the recorded results are unlikely to change. The observed moderate range partly lies below the Hughes model's data (36 mL/min), and the severe range lies wholly below it. Any recheck with these ranges needs a new locked plan.
 
 ## 4. Mild versus normal exposure: below 20% or 27%? (difference recorded, v2)
 

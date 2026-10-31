@@ -120,6 +120,84 @@
    },
    "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
    "extraction": "AI-assisted; quotes checked against the file text (pdftotext, whitespace normalised); table rows transcribed from the layout text."
+  },
+  "label_2008": {
+   "document": "REVLIMID prescribing information approved with NDA 021880 supplements 006, 016 and 017. No approval date is printed; its Medication Guide is coded 'RevPlyMG.006 12/08' and the PDF was created on 24 February 2009.",
+   "file": "021880s006s016s017lbl.pdf (41 pages, text layer; FDA-hosted)",
+   "sha256": "538caf39cc51721480c976dc1aac2aab26729014851ad8fc0d13aa2cbb531fe3",
+   "quotes": {
+    "basis": {
+     "quote": "Based on a pharmacokinetic study in patients with renal impairment due to nonmalignant conditions, lenalidomide starting dose adjustment is recommended for patients with CLcr < 60 mL/min.",
+     "location": "Dosage and Administration, Starting Dose Adjustment for Renal Impairment, PDF page 31"
+    },
+    "not_studied": {
+     "quote": "Non-dialysis patients with creatinine clearances less than 11 mL/min, and dialysis patients with creatinine clearances less than 7 mL/min, have not been studied.",
+     "location": "Dosage and Administration, Starting Dose Adjustment for Renal Impairment, PDF page 31"
+    },
+    "study_groups": {
+     "quote": "In this study, 5 patients with mild renal function impairment (creatinine clearance 57-74 mL/min), 6 patients with moderate renal function impairment (creatinine clearance 33-46 mL/min), 6 patients with severe renal function impairment (creatinine clearance 17-29 mL/min), and 6 patients with end stage renal disease requiring dialysis were administered a single oral 25-mg dose of REVLIMID® (lenalidomide).",
+     "location": "Clinical Pharmacology, Special Populations, PDF page 6"
+    },
+    "control": {
+     "quote": "As a control group comparator, 7 healthy subjects of similar age with normal renal function (creatinine clearance 83-145 mL/min) were also administered a single oral 25-mg dose of REVLIMID® (lenalidomide).",
+     "location": "Clinical Pharmacology, Special Populations, PDF page 6"
+    },
+    "mm_moderate": {
+     "quote": "30 ≤ CLcr < 60",
+     "location": "Dosage and Administration, renal table, PDF page 31"
+    }
+   },
+   "mm_table_transcribed": [
+    {
+     "category": "Moderate renal impairment",
+     "crcl": "30 <= CLcr < 60 mL/min (Cockcroft-Gault)",
+     "dose": "10 mg every 24 hours"
+    },
+    {
+     "category": "Severe renal impairment",
+     "crcl": "< 30 mL/min, not requiring dialysis",
+     "dose": "15 mg every 48 hours"
+    },
+    {
+     "category": "End stage renal disease",
+     "crcl": "< 30 mL/min, requiring dialysis",
+     "dose": "5 mg once daily; on dialysis days after dialysis"
+    }
+   ],
+   "study_crcl_ranges_ml_min": {
+    "normal_healthy": [
+     83,
+     145
+    ],
+    "mild": [
+     57,
+     74
+    ],
+    "moderate": [
+     33,
+     46
+    ],
+    "severe": [
+     17,
+     29
+    ]
+   },
+   "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
+   "extraction": "AI-assisted; quotes checked against the file text (pdftotext, whitespace and line numbers normalised); table transcribed from the layout text."
+  },
+  "label_2017_02": {
+   "document": "REVLIMID prescribing information, Revised: 02/2017 (NDA 021880 supplement 049; FDA Reference ID 4059396)",
+   "file": "021880s049lbl.pdf (45 pages, text layer; FDA-hosted)",
+   "sha256": "c3dcf0b03f024910c53b50cf429ed7931ecbaaf820a314281c59c43c7c9918f8",
+   "quotes": {
+    "table": {
+     "quote": "Table 3: Starting Dose Adjustments for Patients with Renal Impairment",
+     "location": "Section 2.4, PDF page 6"
+    }
+   },
+   "mm_moderate_range": "CLcr 30 to 60 mL/min (10 mg once daily in combination therapy; 5 mg once daily in maintenance), as in the 09/2017 label",
+   "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
+   "extraction": "AI-assisted; quote checked against the file text; table read from the layout text."
   }
  },
  "items": [
@@ -131,7 +209,8 @@
     "Label (12.3): groups by CLcr 'calculated using Cockcroft-Gault': mild 50-79 n = 8; moderate 30-49 n = 9; severe < 30 n = 4; ESRD on dialysis n = 6; healthy subjects with CLcr > 80 n = 3; 30 subjects in all.",
     "The label's results reproduce from the EMA Table 4 group means: CL/F 207 (normal), 71 (moderate), 52 (severe), 39 mL/min (ESRD off dialysis) give decreases of 66%, 75% and 81% (label: '66% to 75%' and 'an 80% decrease'); half-lives 3.34, 10.6, 9.22 and 15.6 h give 3.2-, 2.8- and 4.7-fold increases (label: '3-fold' and 'approximate 4.5-fold').",
     "The study abstract confirms the stratification: 30 subjects in 5 groups by creatinine clearance, N = 7, 5, 6, 6 and 6 (normal > 80, mild 50-80, moderate 30-< 50, severe < 30 not on dialysis, ESRD). It does not say how clearance was determined; its background refers to dosing 'based on a subject's estimated creatinine clearance'.",
-    "The abstract's AUC increases reproduce from the EMA Table 4 means: against the pooled normal and mild groups (mean 2425 ng.h/mL), severe +238% (abstract 'approximately 240%'), ESRD off dialysis +359% ('360%'), moderate +148% ('approximately 140%')."
+    "The abstract's AUC increases reproduce from the EMA Table 4 means: against the pooled normal and mild groups (mean 2425 ng.h/mL), severe +238% (abstract 'approximately 240%'), ESRD off dialysis +359% ('360%'), moderate +148% ('approximately 140%').",
+    "Label of about December 2008: 7 healthy subjects (CLcr 83-145 mL/min), and 5 mild (57-74), 6 moderate (33-46), 6 severe (17-29) and 6 ESRD patients, the same 7/5/6/6/6 as the EMA table; the 2023 label's 3/8/9/4/6 is a later regrouping of the same 30 subjects."
    ],
    "computation": {
     "cl_decrease_percent": {
@@ -150,7 +229,7 @@
      "esrd_off_dialysis": 359
     }
    },
-   "conclusion": "Same study (CC-5013-PK-001, 30 subjects), classified two ways: by measured creatinine clearance in the EMA table and by Cockcroft-Gault in the label's description. The label's quantitative results correspond to the EMA's measured-clearance groups. The platform's reference (normal group, n = 7, mean AUC 2181 ng.h/mL) is unaffected.",
+   "conclusion": "Same study (CC-5013-PK-001, 30 subjects), classified two ways: by measured creatinine clearance in the EMA table and by Cockcroft-Gault in the label's description. The label's quantitative results correspond to the EMA's measured-clearance groups. The platform's reference (normal group, n = 7, mean AUC 2181 ng.h/mL) is unaffected. The earliest renal label (about December 2008) gives the same 7/5/6/6/6 groups as the EMA table, with each group's observed creatinine clearance range.",
    "status": "reconciled_by_inference",
    "to_confirm": "The full publication (Chen N, et al. J Clin Pharmacol 2007;47:1466-1475), to see whether the label's 3/8/9/4/6 grouping by Cockcroft-Gault is reported there."
   },
@@ -181,13 +260,14 @@
     "The label is quoted as it stands (lenalidomide_label_2023_v1.json, Table 3).",
     "The study's own conclusion was 'Lenalidomide dosage adjustment should be considered for patients with CLCr < 50 mL/min', with recommended myeloma starting doses of 10 mg daily (moderate), 15 mg every 48 h (severe) and 15 mg three times a week after dialysis (ESRD).",
     "The current label (revision 3/2023) starts dose reduction at CLcr 60 mL/min and gives 5 mg daily, after dialysis on dialysis days, for patients requiring dialysis.",
-    "The June 2006 myeloma label (supplement 001) had no renal dose table: 'No formal studies have been conducted in patients with renal impairment', and patients with renal insufficiency were excluded from the trials.",
-    "The February 2015 label (supplement 041) gives myeloma its own table starting at CLcr 30-50 mL/min (10 mg every 24 hours), while its MDS and MCL table starts at 30-60 mL/min. Its own text above both tables says adjustment 'is recommended for patients with CLcr < 60 mL/min', so the 2015 label is internally inconsistent for myeloma.",
-    "The September 2017 label (supplement 051) has one table starting at CLcr 30 to 60 mL/min, covering myeloma combination therapy, maintenance, MCL and MDS; the 2023 label keeps it."
+    "June 2006 myeloma label (supplement 001): no renal dose table; 'No formal studies have been conducted in patients with renal impairment', and patients with renal insufficiency were excluded from the trials.",
+    "First renal table found, label of about December 2008 (supplements 006/016/017): myeloma moderate impairment '30 ≤ CLcr < 60' (Cockcroft-Gault), 10 mg every 24 hours; the text above says adjustment is recommended for CLcr < 60 mL/min.",
+    "February 2015 label (supplement 041): a separate myeloma table starting at CLcr 30-50 mL/min, while the MDS and MCL table and the text above both tables say < 60, so the label is internally inconsistent for myeloma.",
+    "February 2017 label (supplement 049, maintenance approval) and every later label held: one table starting at CLcr 30 to 60 mL/min for all indications."
    ],
-   "conclusion": "The 50 mL/min threshold is the renal study's recommendation and was the myeloma threshold in the label until at least February 2015. By September 2017 the label used 60 mL/min for myeloma, as it already did for MDS and MCL. The supplement that made the change, and the reason, are not established from the files held.",
-   "status": "change_dated_between_2015_and_2017_reason_not_established",
-   "to_confirm": "REVLIMID labels approved between February 2015 and September 2017 (for example the February 2017 maintenance approval) and the review for the supplement that unified the table."
+   "conclusion": "60 mL/min was the label's myeloma threshold from the first renal table (about December 2008), although the renal study's abstract recommended < 50. The February 2015 label's myeloma table at 30-50 is the exception, inconsistent with its own text, and the February 2017 label restored 30-60. Whether labels between 2009 and 2015 used 50 or 60, and why the label departed from the study's recommendation, are not established from the files held.",
+   "status": "label_history_traced_reason_not_established",
+   "to_confirm": "The review for the supplement that first added renal dosing (about 2008), which should explain the 60 mL/min threshold; optionally labels between 2009 and 2015."
   },
   {
    "id": "mild_versus_normal_auc",
@@ -218,21 +298,32 @@
    "id": "renal_study_population",
    "question": "Who were the subjects of the renal study CC-5013-PK-001? The platform's EMA extract records their disease context as 'not established'.",
    "facts": [
+    "Label of about December 2008: 'The pharmacokinetics of lenalidomide were studied in patients with renal impairment due to nonmalignant conditions', with 7 healthy subjects of similar age as controls.",
     "February 2015 label, section 2.4: the dose adjustment is 'based on a pharmacokinetic study in patients with renal impairment due to non-malignant conditions'.",
-    "The 2017 and 2023 labels no longer contain this phrase; the 2023 label calls the normal-function group 'healthy subjects'."
+    "The 2017 and 2023 labels no longer contain this phrase."
    ],
    "source": {
-    "quote": "Based on a pharmacokinetic study in patients with renal impairment due to non-malignant conditions, REVLIMID starting dose adjustment is recommended for patients with CLcr < 60 mL/min.",
-    "location": "Section 2.4, PDF page 6"
+    "quote": "In this study, 5 patients with mild renal function impairment (creatinine clearance 57-74 mL/min), 6 patients with moderate renal function impairment (creatinine clearance 33-46 mL/min), 6 patients with severe renal function impairment (creatinine clearance 17-29 mL/min), and 6 patients with end stage renal disease requiring dialysis were administered a single oral 25-mg dose of REVLIMID® (lenalidomide).",
+    "location": "Clinical Pharmacology, Special Populations, PDF page 6"
    },
    "conclusion": "The renal study enrolled people whose renal impairment was due to non-malignant conditions, not myeloma patients. The pinned EMA extract (renal_pk_group_evidence_v1.json) and the Hughes scope's disease rule still say the outside study's disease context is not established; those files are not changed here. The study should be read as a non-cancer population when compared with the myeloma-based models; this is one possible contributor to model-versus-study differences, not tested.",
-   "status": "established_from_label"
+   "status": "established_from_labels"
+  },
+  {
+   "id": "study_crcl_ranges",
+   "question": "What creatinine clearance did each renal study group actually have?",
+   "facts": [
+    "Label of about December 2008: normal 83-145, mild 57-74, moderate 33-46, severe 17-29 mL/min (method not named in that sentence; the label's dose table uses Cockcroft-Gault).",
+    "The Hughes and Kim checks sampled creatinine clearance across the group definitions (normal 80-140 or wider, mild 50-80, moderate 30-50, severe 10-30, 5-30 or 20-30 depending on scenario), not these observed ranges; each observed range lies inside the corresponding sampled interval."
+   ],
+   "conclusion": "Recorded for any future check. The observed moderate range (33-46) partly lies below the Hughes model's data (36 mL/min) and the severe range (17-29) wholly below it. Because the observed ranges sit inside the intervals the checks sampled, using them is unlikely to reverse the recorded results, but a recheck would need a new locked plan; the existing results stand.",
+   "status": "recorded_for_future_check"
   }
  ],
  "clinical_prediction_validated": false,
  "supersedes": {
   "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v2.json",
   "sha256": "799d35e0966a57b697e8c1a955a5b40e9f04b2e92e62ceabe6fbf2e963e36da1",
-  "change": "Adds three earlier REVLIMID labels (2006, 2/2015, 9/2017) supplied by the platform owner: dates the change of the myeloma renal threshold from 50 to 60 mL/min, records an inconsistency inside the 2015 label, and records that the renal study enrolled subjects with renal impairment due to non-malignant conditions."
+  "change": "Adds five earlier REVLIMID labels (6/2006, about 12/2008, 2/2015, 2/2017, 9/2017) supplied by the platform owner: traces the myeloma renal threshold through the label history, records an inconsistency inside the 2015 label, records that the renal study enrolled subjects with renal impairment due to non-malignant conditions, and records the study groups' creatinine clearance ranges."
  }
 }
