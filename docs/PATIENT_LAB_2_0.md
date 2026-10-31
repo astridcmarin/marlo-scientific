@@ -118,6 +118,22 @@ Reading: Kim describes the renal effect much better than Hughes, but likely stil
 - **Dose proportionality** (`lenalidomide_dose_proportionality_evidence_v1.json`). Source: page 20 of the pinned EMA report already in the repository, which says exposure is dose-proportional over 5–400 mg; a test checks the quotes against the PDF. The FDA label section 12.3 says the same, but was read only through a mirror. This resolves the 2.1c known difference about scaling from Kim's 5–10 mg to the study's 25 mg.
 - **Noted, not acted on:** the label gives protein binding of about 30% (Fu ≈ 0.7), while Kim estimated 0.614. This is for a later review of the unbound-to-total conversion.
 
+**2.1e — Recheck of both models with study-matched virtual subjects (2026-10-31).** The 2.0g and 2.1c checks gave every virtual subject assumed demographics, which 2.1c called its largest assumption. The study publication (Chen et al. 2007, Table I, recorded in `lenalidomide_renal_source_reconciliation_v3.json`) gives each group's sex counts and the ranges of age, weight and measured creatinine clearance. The recheck draws virtual subjects from those, with the exact sex counts, and keeps the observed data, endpoint and decision rule of the first checks. Heights are still assumed (men 165–185 cm, women 152–172 cm). The plan (`lenalidomide_renal_recheck_plan_v1.json`) was committed and pushed at d163781 before computation; report `docs/verification/lenalidomide_renal_recheck_v1.json`; CLI `lenalidomide-renal-recheck`. Four scenarios, 10,000 virtual trials each.
+
+Primary endpoint (each group's AUC ÷ the normal group's), observed vs simulated median (5th–95th percentile), primary scenario:
+
+| Group | Observed | Hughes | Kim | Change from the first check |
+|---|---|---|---|---|
+| Mild | 1.27 | 1.14 (0.65–1.98), consistent | 1.50 (1.20–1.86), consistent | none |
+| Moderate | 2.76 | 1.11 (0.66–1.88), under-predicts | 2.09 (1.71–2.57), under-predicts | **Kim: consistent → under-predicts** |
+| Severe | 3.76 | 1.57 (0.93–2.69), under-predicts | 2.91 (2.38–3.58), under-predicts | none |
+
+Every classification is the same in all four scenarios. Absolute AUC in the normal group is consistent for both models. About half of the simulated normal-group eGFR values (54%) still lie above Kim's data (94.7 mL/min/1.73 m²).
+
+Reading: with subjects that look like the study's, Kim under-predicts the moderate group by about 1.3-fold as well as the severe group, and no longer passes in any scenario. The first check's consistent moderate result depended on virtual subjects who did not match the study. Hughes is unchanged. The study population had non-malignant renal impairment, so this says how the models extrapolate to that population; it is not a check in myeloma patients.
+
+What this does not change by itself: the plan's decision rule says scope and warnings change only in a separate, documented step. The Kim finding (`kim_applicability_findings_v1.json`) still warns only below eGFR 30. Extending the warning to the moderate band is proposed, not done.
+
 **Evidence scan: exposure–response (2026-10-14).** Before building any drug-effect module, I searched for a published, transcribable model linking lenalidomide exposure to neutrophil or platelet counts over time. None was found:
 - **Chen, Zhou & Palmisano (Clin Pharmacokinet 2017)** summarise a pooled six-study analysis. AUC predicted grade 3/4 thrombocytopenia (odds ratio 3.34, 95% CI 1.18–9.42), and the neutropenia link was not clearly established (odds ratio 1.98, CI 1.00–3.92). Neither was apparent in cycle 1. The review does not give the AUC units or baseline risk, so the probability model cannot be reconstructed.
 - **Guglieri-López et al. (Cancer Chemother Pharmacol 2017; 15 patients)** is PK only. It has one compartment, three transit stages, CrCl on CL/F and BSA on V/F. It is not implemented: Hughes has a similar structure, and 15 patients is too few to rely on the covariate estimates. Its claim that the model can individualise dose is not adopted. The associated thesis (Valencia 2017) may contain PK/PD work; it is unread.
