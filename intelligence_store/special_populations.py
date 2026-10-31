@@ -32,6 +32,7 @@ KINDS = {
 SUMMARIES = {
     'ixazomib': ('special_populations_ixazomib_v1.json', 'cd3b68f8ec285160dadd81140b0d3aae9748971e6176bfef8032564ecc9bf423'),
     'pomalidomide': ('special_populations_pomalidomide_v1.json', '1679f31955b42f86b4246e9a99c236e0800a0007cbd131a6c39e44d36390813f'),
+    'lenalidomide': ('special_populations_lenalidomide_v1.json', '406618748fe544594f44d8b7e6c8cf7c0677138842f4c3715138a0c22ea4e1c8'),
 }
 
 
@@ -88,8 +89,10 @@ def build(drug):
         for st in summary['domains'].get(domain, []):
             if st['kind'] not in KINDS:
                 raise SummaryError(f'Unknown statement kind {st["kind"]!r}.')
+            if st.get('display') not in (None, 'mean_sd', 'range', 'ratio_ci', 'bands'):
+                raise SummaryError(f'Unknown display hint {st.get("display")!r}.')
             out = {'kind': st['kind'], 'kind_label': KINDS[st['kind']], 'text': st['text'],
-                   'population': st.get('population'), 'link': st.get('link')}
+                   'population': st.get('population'), 'link': st.get('link'), 'display': st.get('display')}
             if st['kind'] != 'gap':
                 src = st['source']
                 if src['ref'] not in sources:

@@ -65,6 +65,10 @@ class Summaries(unittest.TestCase):
         pom = {r['domain']: r for r in sp.build('pomalidomide')['rows']}
         self.assertEqual([s['value'] for s in pom['liver']['statements'] if s['kind'] == 'study_exposure_change'], [1.51, 1.58, 1.72])
         self.assertEqual(pom['age']['statements'][0]['kind'], 'gap')
+        len_ = {r['domain']: r for r in sp.build('lenalidomide')['rows']}
+        aucs = [s['value'] for s in len_['kidney']['statements'][:4]]
+        self.assertEqual(aucs, [2181, 2767, 6021, 8191])                     # CC-5013-PK-001 Table 4
+        self.assertEqual(len_['liver']['statements'][0]['kind'], 'gap')
 
 
 class Page(unittest.TestCase):
@@ -75,6 +79,9 @@ class Page(unittest.TestCase):
     def test_pages(self):
         from landscape_ui.special_population_pages import fmt_value
         self.assertEqual(fmt_value([1.39, 0.88, 2.2]), '1.39 (90% CI 0.88–2.20)')
+        self.assertEqual(fmt_value([11121, 2133], 'mean_sd'), '11121 (SD 2133)')
+        self.assertEqual(fmt_value([30, 297]), '30–297')
+        self.assertEqual(fmt_value([{'range': [50, 211], 'tier': 'externally_checked'}], 'bands'), '50–211: checked against outside data')
         for drug in sp.available():
             r = self.client.get(f'/landscape/drugs/{drug}/special-populations')
             self.assertEqual(r.status_code, 200)
