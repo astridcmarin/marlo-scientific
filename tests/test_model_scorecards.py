@@ -65,7 +65,7 @@ class ScorecardData(unittest.TestCase):
 
     def test_cited_reports_are_found_and_intact(self):
         reports = [r for c in ms.all_scorecards()['cards'] for l in c['layers'] for r in l['reports']]
-        self.assertEqual(len(reports), 14)          # v7 adds ixazomib (2 citations) and daratumumab (3); v10 adds MMY-3021
+        self.assertEqual(len(reports), 15)          # v7 adds ixazomib (2 citations) and daratumumab (3); v10 MMY-3021; v11 Reece
         self.assertTrue(all(r['intact'] for r in reports))
 
     def test_a_changed_or_uncited_report_is_not_served(self):
@@ -142,3 +142,12 @@ class ScorecardPages(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class ReproductionSeparate(unittest.TestCase):
+    def test_reproduction_failures_are_not_counted_as_outside_data(self):
+        from intelligence_store.model_scorecards import scorecard
+        card = scorecard('bortezomib_pk_lignet_2022')
+        self.assertEqual(len(card['outside_data_disagreements']), 4)
+        self.assertTrue(card['reproduction_failures'])
+        self.assertTrue(all('Reece 2011' in r['item'] for r in card['reproduction_failures']))

@@ -90,6 +90,8 @@ The differentiator already exists in the code; users cannot see it yet.
 
 **31 October 2026, a third outside study (Simulation 3.0m):** MMY-3021 (Moreau 2012; IV, n = 14, day 11 only). Day 11 exposure is consistent at the edge of the interval and not robust (126.9 vs 126.2–175.8); peak concentration is under-predicted. The two studies' day 11 means differ 1.6-fold (CAN-1004 241, MMY-3021 151). There is no day 1 profile, so the main finding, that the rise from day 1 to day 11 is too small, is untested here and stands.
 
+**31 October 2026, reproduction check (Simulation 3.0n):** Reece 2011, the study the model's source compared it with. The model does not reproduce it: day 1 exposure is about 2-fold too high at both doses, and the rise to day 11 is 1.5-fold against 2.4–3.1. The pattern matches the outside studies, which points to the constant clearance itself.
+
 **30 October 2026, model scope (Phase 2.5)** ([MODEL_SCOPE.md](MODEL_SCOPE.md)): what each model may be run on is now a pinned rule set, not prose. Following the owner's decision for lenalidomide, the Patient Lab computes and flags results where an outside check disagrees inside the model's data (showing the observed data), and refuses beyond the model's data. Hughes, Kim, ixazomib and daratumumab have scopes; the ixazomib exposure page is the first page built on one.
 
 ### Phase 3 — Any drug, at an honest level

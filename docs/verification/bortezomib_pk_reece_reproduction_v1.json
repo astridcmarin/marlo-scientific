@@ -1,0 +1,622 @@
+{
+  "schema_version": "bortezomib-pk-reproduction-report-v1",
+  "method_version": "bortezomib-pk-reece-reproduction-v1.0",
+  "plan_version": "bortezomib-pk-reece-reproduction-plan-v1.0",
+  "plan_sha256": "5aef94884fe3dc65e417e897ca798447587fb69465eca054949bbdcb2128d8be",
+  "plan_locked_at_commit": "1c3591f",
+  "observed_sha256": "83f6ee4cb444ce049ab004131e04283b317cf536c8de6ab07411d180c01a3c7e",
+  "model_extract_sha256": "3093fff25dbf44a75aa31b4d41d40d57eabc5cf29ce21c7718276edf8a028e84",
+  "classification": "exploratory_aggregate_reproduction_check",
+  "sampling_times_h": [
+    0.0833333333333,
+    0.25,
+    0.5,
+    1,
+    2,
+    4,
+    6,
+    8,
+    12,
+    24,
+    48
+  ],
+  "model_profiles_ng_ml": {
+    "c1d1_1.0": [
+      62.73412666523902,
+      24.631484496730902,
+      8.757201777223377,
+      4.295150661291575,
+      2.858607628393584,
+      1.4951258997913286,
+      0.9331472455202503,
+      0.6988581198416524,
+      0.5532368937118285,
+      0.4843219700229808,
+      0.408684002377064
+    ],
+    "c1d11_1.0": [
+      63.359038534509125,
+      25.2556609872735,
+      9.380276821938708,
+      4.916028641883462,
+      3.4751146950388567,
+      2.1029832342072994,
+      1.5324762053874572,
+      1.2897783601651898,
+      1.1276919683709665,
+      1.0120834437744126,
+      0.8541360000253881
+    ],
+    "c3d1_1.0": [
+      62.92498494356992,
+      24.822118178388795,
+      8.947499059359053,
+      4.484776924205869,
+      3.0468989428910835,
+      1.6807754449732442,
+      1.116192086001779,
+      0.879334800213138,
+      0.7286848439128091,
+      0.6455089328497604,
+      0.5447323085856987
+    ],
+    "c3d11_1.0": [
+      63.394060722317334,
+      25.290641961944907,
+      9.415196067837616,
+      4.9508247568320405,
+      3.509665849095166,
+      2.137049627833487,
+      1.5660646398809341,
+      1.3228955413996397,
+      1.1598863856888095,
+      1.0416609927939167,
+      0.8791006458958536
+    ],
+    "c1d1_1.3": [
+      81.55436466481072,
+      32.020929845750175,
+      11.384362310390388,
+      5.583695859679048,
+      3.71618991691166,
+      1.9436636697287275,
+      1.2130914191763256,
+      0.908515555794148,
+      0.7192079618253772,
+      0.6296185610298751,
+      0.5312892030901832
+    ],
+    "c1d11_1.3": [
+      82.36675009486187,
+      32.83235928345555,
+      12.19435986852032,
+      6.390837234448499,
+      4.517649103550514,
+      2.7338782044694896,
+      1.9922190670036946,
+      1.6767118682147466,
+      1.4659995588822563,
+      1.3157084769067366,
+      1.1103768000330048
+    ],
+    "c3d1_1.3": [
+      81.80248042664091,
+      32.26875363190543,
+      11.63174877716677,
+      5.83021000146763,
+      3.960968625758409,
+      2.1850080784652177,
+      1.451049711802313,
+      1.1431352402770796,
+      0.9472902970866518,
+      0.8391616127046886,
+      0.7081520011614085
+    ],
+    "c3d11_1.3": [
+      82.41227893901254,
+      32.877834550528384,
+      12.2397548881889,
+      6.436072183881652,
+      4.562565603823716,
+      2.7781645161835336,
+      2.0358840318452143,
+      1.7197642038195318,
+      1.5078523013954528,
+      1.354159290632092,
+      1.1428308396646099
+    ]
+  },
+  "readings": [
+    {
+      "auc_rule": "linear",
+      "terminal_points": 3,
+      "role": "primary",
+      "endpoints": {
+        "auc48_c1d1_1.0": {
+          "model_emulated": 52.93913675031749,
+          "observed_mean": 26.5,
+          "observed_sd": 12.4,
+          "n": 11,
+          "interval_95": [
+            18.169711907013934,
+            34.830288092986066
+          ],
+          "ratio_model_to_observed": 1.9977032735968863,
+          "classification": "model_over_predicts"
+        },
+        "cmax_c1d1_1.0": {
+          "model_emulated": 62.73412666523902,
+          "observed_mean": 56.7,
+          "observed_sd": 36.3,
+          "n": 11,
+          "interval_95": [
+            32.31375340521015,
+            81.08624659478986
+          ],
+          "ratio_model_to_observed": 1.1064219870412524,
+          "classification": "consistent"
+        },
+        "auc48_c1d11_1.0": {
+          "model_emulated": 78.40910209306097,
+          "observed_mean": 82.8,
+          "observed_sd": 35.9,
+          "n": 11,
+          "interval_95": [
+            58.682472375951626,
+            106.91752762404838
+          ],
+          "ratio_model_to_observed": 0.9469698320417992,
+          "classification": "consistent"
+        },
+        "cmax_c1d11_1.0": {
+          "model_emulated": 63.359038534509125,
+          "observed_mean": 106.2,
+          "observed_sd": 46.7,
+          "n": 12,
+          "interval_95": [
+            76.52803554294334,
+            135.87196445705666
+          ],
+          "ratio_model_to_observed": 0.5966011161441537,
+          "classification": "model_under_predicts"
+        },
+        "auc48_c3d1_1.0": {
+          "model_emulated": 60.71800341316943,
+          "observed_mean": 66.4,
+          "observed_sd": 24.1,
+          "n": 12,
+          "interval_95": [
+            51.08748729303929,
+            81.71251270696072
+          ],
+          "ratio_model_to_observed": 0.9144277622465274,
+          "classification": "consistent"
+        },
+        "cmax_c3d1_1.0": {
+          "model_emulated": 62.92498494356992,
+          "observed_mean": 66.5,
+          "observed_sd": 42.6,
+          "n": 12,
+          "interval_95": [
+            39.433068825040394,
+            93.5669311749596
+          ],
+          "ratio_model_to_observed": 0.946240375091277,
+          "classification": "consistent"
+        },
+        "auc48_c3d11_1.0": {
+          "model_emulated": 79.8365465362375,
+          "observed_mean": 101.6,
+          "observed_sd": 58.2,
+          "n": 11,
+          "interval_95": [
+            62.50138975711377,
+            140.69861024288622
+          ],
+          "ratio_model_to_observed": 0.7857927808684795,
+          "classification": "consistent"
+        },
+        "cmax_c3d11_1.0": {
+          "model_emulated": 63.394060722317334,
+          "observed_mean": 83.9,
+          "observed_sd": 69.3,
+          "n": 12,
+          "interval_95": [
+            39.86858379284741,
+            127.93141620715261
+          ],
+          "ratio_model_to_observed": 0.7555907118273818,
+          "classification": "consistent"
+        },
+        "ratio_auc48_c1d11_over_c1d1_1.0": {
+          "model_emulated": 1.4811178818965296,
+          "observed": 3.124528301886792,
+          "classification": null
+        },
+        "auc48_c1d1_1.3": {
+          "model_emulated": 68.82087777541274,
+          "observed_mean": 34.6,
+          "observed_sd": 19.8,
+          "n": 12,
+          "interval_95": [
+            22.019595369384973,
+            47.18040463061503
+          ],
+          "ratio_model_to_observed": 1.9890427102720445,
+          "classification": "model_over_predicts"
+        },
+        "cmax_c1d1_1.3": {
+          "model_emulated": 81.55436466481072,
+          "observed_mean": 112,
+          "observed_sd": 122,
+          "n": 12,
+          "interval_95": [
+            34.48437550833165,
+            189.51562449166835
+          ],
+          "ratio_model_to_observed": 0.7281639702215242,
+          "classification": "consistent"
+        },
+        "auc48_c1d11_1.3": {
+          "model_emulated": 101.93183272097926,
+          "observed_mean": 82.4,
+          "observed_sd": 28.6,
+          "n": 11,
+          "interval_95": [
+            63.18659359198375,
+            101.61340640801626
+          ],
+          "ratio_model_to_observed": 1.237036804866253,
+          "classification": "model_over_predicts"
+        },
+        "cmax_c1d11_1.3": {
+          "model_emulated": 82.36675009486187,
+          "observed_mean": 88.6,
+          "observed_sd": 47.6,
+          "n": 12,
+          "interval_95": [
+            58.35619896882447,
+            118.84380103117552
+          ],
+          "ratio_model_to_observed": 0.9296472922670641,
+          "classification": "consistent"
+        },
+        "auc48_c3d1_1.3": {
+          "model_emulated": 78.93340443712027,
+          "observed_mean": 79.4,
+          "observed_sd": 24.5,
+          "n": 11,
+          "interval_95": [
+            62.940963042083986,
+            95.85903695791603
+          ],
+          "ratio_model_to_observed": 0.994123481575822,
+          "classification": "consistent"
+        },
+        "cmax_c3d1_1.3": {
+          "model_emulated": 81.80248042664091,
+          "observed_mean": 120.3,
+          "observed_sd": 70.7,
+          "n": 12,
+          "interval_95": [
+            75.37906023310694,
+            165.22093976689305
+          ],
+          "ratio_model_to_observed": 0.6799873684675055,
+          "classification": "consistent"
+        },
+        "auc48_c3d11_1.3": {
+          "model_emulated": 103.78751049710877,
+          "observed_mean": 85.2,
+          "observed_sd": 18.7,
+          "n": 9,
+          "interval_95": [
+            70.82593333333334,
+            99.57406666666667
+          ],
+          "ratio_model_to_observed": 1.218163268745408,
+          "classification": "model_over_predicts"
+        },
+        "cmax_c3d11_1.3": {
+          "model_emulated": 82.41227893901254,
+          "observed_mean": 114.9,
+          "observed_sd": 98.3,
+          "n": 11,
+          "interval_95": [
+            48.86231294027981,
+            180.9376870597202
+          ],
+          "ratio_model_to_observed": 0.7172522100871412,
+          "classification": "consistent"
+        },
+        "ratio_auc48_c1d11_over_c1d1_1.3": {
+          "model_emulated": 1.4811178818965296,
+          "observed": 2.3815028901734103,
+          "classification": null
+        }
+      }
+    },
+    {
+      "auc_rule": "linear_up_log_down",
+      "terminal_points": 3,
+      "role": "sensitivity",
+      "endpoints": {
+        "auc48_c1d1_1.0": {
+          "model_emulated": 51.56683414627636,
+          "observed_mean": 26.5,
+          "observed_sd": 12.4,
+          "n": 11,
+          "interval_95": [
+            18.169711907013934,
+            34.830288092986066
+          ],
+          "ratio_model_to_observed": 1.9459182696708062,
+          "classification": "model_over_predicts"
+        },
+        "cmax_c1d1_1.0": {
+          "model_emulated": 62.73412666523902,
+          "observed_mean": 56.7,
+          "observed_sd": 36.3,
+          "n": 11,
+          "interval_95": [
+            32.31375340521015,
+            81.08624659478986
+          ],
+          "ratio_model_to_observed": 1.1064219870412524,
+          "classification": "consistent"
+        },
+        "auc48_c1d11_1.0": {
+          "model_emulated": 77.10335293834805,
+          "observed_mean": 82.8,
+          "observed_sd": 35.9,
+          "n": 11,
+          "interval_95": [
+            58.682472375951626,
+            106.91752762404838
+          ],
+          "ratio_model_to_observed": 0.9311999147143485,
+          "classification": "consistent"
+        },
+        "cmax_c1d11_1.0": {
+          "model_emulated": 63.359038534509125,
+          "observed_mean": 106.2,
+          "observed_sd": 46.7,
+          "n": 12,
+          "interval_95": [
+            76.52803554294334,
+            135.87196445705666
+          ],
+          "ratio_model_to_observed": 0.5966011161441537,
+          "classification": "model_under_predicts"
+        },
+        "auc48_c3d1_1.0": {
+          "model_emulated": 59.37122288390367,
+          "observed_mean": 66.4,
+          "observed_sd": 24.1,
+          "n": 12,
+          "interval_95": [
+            51.08748729303929,
+            81.71251270696072
+          ],
+          "ratio_model_to_observed": 0.8941449229503564,
+          "classification": "consistent"
+        },
+        "cmax_c3d1_1.0": {
+          "model_emulated": 62.92498494356992,
+          "observed_mean": 66.5,
+          "observed_sd": 42.6,
+          "n": 12,
+          "interval_95": [
+            39.433068825040394,
+            93.5669311749596
+          ],
+          "ratio_model_to_observed": 0.946240375091277,
+          "classification": "consistent"
+        },
+        "auc48_c3d11_1.0": {
+          "model_emulated": 78.53340061336056,
+          "observed_mean": 101.6,
+          "observed_sd": 58.2,
+          "n": 11,
+          "interval_95": [
+            62.50138975711377,
+            140.69861024288622
+          ],
+          "ratio_model_to_observed": 0.7729665414700843,
+          "classification": "consistent"
+        },
+        "cmax_c3d11_1.0": {
+          "model_emulated": 63.394060722317334,
+          "observed_mean": 83.9,
+          "observed_sd": 69.3,
+          "n": 12,
+          "interval_95": [
+            39.86858379284741,
+            127.93141620715261
+          ],
+          "ratio_model_to_observed": 0.7555907118273818,
+          "classification": "consistent"
+        },
+        "ratio_auc48_c1d11_over_c1d1_1.0": {
+          "model_emulated": 1.4952120721554065,
+          "observed": 3.124528301886792,
+          "classification": null
+        },
+        "auc48_c1d1_1.3": {
+          "model_emulated": 67.03688439015926,
+          "observed_mean": 34.6,
+          "observed_sd": 19.8,
+          "n": 12,
+          "interval_95": [
+            22.019595369384973,
+            47.18040463061503
+          ],
+          "ratio_model_to_observed": 1.937482207808071,
+          "classification": "model_over_predicts"
+        },
+        "cmax_c1d1_1.3": {
+          "model_emulated": 81.55436466481072,
+          "observed_mean": 112,
+          "observed_sd": 122,
+          "n": 12,
+          "interval_95": [
+            34.48437550833165,
+            189.51562449166835
+          ],
+          "ratio_model_to_observed": 0.7281639702215242,
+          "classification": "consistent"
+        },
+        "auc48_c1d11_1.3": {
+          "model_emulated": 100.23435881985246,
+          "observed_mean": 82.4,
+          "observed_sd": 28.6,
+          "n": 11,
+          "interval_95": [
+            63.18659359198375,
+            101.61340640801626
+          ],
+          "ratio_model_to_observed": 1.2164363934448112,
+          "classification": "consistent"
+        },
+        "cmax_c1d11_1.3": {
+          "model_emulated": 82.36675009486187,
+          "observed_mean": 88.6,
+          "observed_sd": 47.6,
+          "n": 12,
+          "interval_95": [
+            58.35619896882447,
+            118.84380103117552
+          ],
+          "ratio_model_to_observed": 0.9296472922670641,
+          "classification": "consistent"
+        },
+        "auc48_c3d1_1.3": {
+          "model_emulated": 77.18258974907478,
+          "observed_mean": 79.4,
+          "observed_sd": 24.5,
+          "n": 11,
+          "interval_95": [
+            62.940963042083986,
+            95.85903695791603
+          ],
+          "ratio_model_to_observed": 0.9720729187540903,
+          "classification": "consistent"
+        },
+        "cmax_c3d1_1.3": {
+          "model_emulated": 81.80248042664091,
+          "observed_mean": 120.3,
+          "observed_sd": 70.7,
+          "n": 12,
+          "interval_95": [
+            75.37906023310694,
+            165.22093976689305
+          ],
+          "ratio_model_to_observed": 0.6799873684675055,
+          "classification": "consistent"
+        },
+        "auc48_c3d11_1.3": {
+          "model_emulated": 102.09342079736872,
+          "observed_mean": 85.2,
+          "observed_sd": 18.7,
+          "n": 9,
+          "interval_95": [
+            70.82593333333334,
+            99.57406666666667
+          ],
+          "ratio_model_to_observed": 1.1982795868235765,
+          "classification": "model_over_predicts"
+        },
+        "cmax_c3d11_1.3": {
+          "model_emulated": 82.41227893901254,
+          "observed_mean": 114.9,
+          "observed_sd": 98.3,
+          "n": 11,
+          "interval_95": [
+            48.86231294027981,
+            180.9376870597202
+          ],
+          "ratio_model_to_observed": 0.7172522100871412,
+          "classification": "consistent"
+        },
+        "ratio_auc48_c1d11_over_c1d1_1.3": {
+          "model_emulated": 1.4952120721554067,
+          "observed": 2.3815028901734103,
+          "classification": null
+        }
+      }
+    }
+  ],
+  "classifications_across_readings": {
+    "auc48_c1d1_1.0": [
+      "model_over_predicts"
+    ],
+    "cmax_c1d1_1.0": [
+      "consistent"
+    ],
+    "auc48_c1d11_1.0": [
+      "consistent"
+    ],
+    "cmax_c1d11_1.0": [
+      "model_under_predicts"
+    ],
+    "auc48_c3d1_1.0": [
+      "consistent"
+    ],
+    "cmax_c3d1_1.0": [
+      "consistent"
+    ],
+    "auc48_c3d11_1.0": [
+      "consistent"
+    ],
+    "cmax_c3d11_1.0": [
+      "consistent"
+    ],
+    "auc48_c1d1_1.3": [
+      "model_over_predicts"
+    ],
+    "cmax_c1d1_1.3": [
+      "consistent"
+    ],
+    "auc48_c1d11_1.3": [
+      "consistent",
+      "model_over_predicts"
+    ],
+    "cmax_c1d11_1.3": [
+      "consistent"
+    ],
+    "auc48_c3d1_1.3": [
+      "consistent"
+    ],
+    "cmax_c3d1_1.3": [
+      "consistent"
+    ],
+    "auc48_c3d11_1.3": [
+      "model_over_predicts"
+    ],
+    "cmax_c3d11_1.3": [
+      "consistent"
+    ]
+  },
+  "decision": {
+    "reproduces_reece_at_1_3": false,
+    "result": {
+      "auc48_c1d1_1.3": "model_over_predicts",
+      "auc48_c1d11_1.3": "model_over_predicts"
+    },
+    "robust_primary": false,
+    "rule": "The implementation is recorded as reproducing Reece 2011 at 1.3 mg/m2 only if both primary endpoints are consistent under the primary reading. Otherwise the reproduction layer is recorded as done, with the source study not reproduced, and the specific failures listed."
+  },
+  "not_this": [
+    "Not an outside check: the study informed the model's source.",
+    "Not validation; no acceptance limits are introduced.",
+    "Not a re-fit: no parameter is estimated or tuned.",
+    "Not a prediction for any patient."
+  ],
+  "known_differences": [
+    "Evaluable patients completed cycle 3 day 11 without dose modification (a selected subset); the model is a typical-value curve.",
+    "The source shows the comparison only graphically, so no published reproduction figures exist to match.",
+    "Two outlying patients were excluded from two cells by the study authors (footnote a)."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "79e2201295711afaff887c045b80c6f49cb849bc32fb1955c7fb281bf05676ba"
+}
