@@ -1,63 +1,76 @@
-# Repository checkpoint — 30 October 2026
+# Repository checkpoint — 30 October 2026 (second)
 
-**Verified tree:** `main` at `4ba876a`, plus PR #66 (`afb6151`, Simulation 3.0k).
-**Machine-readable record:** [`verification/repository_checkpoint_2026-10-30.json`](verification/repository_checkpoint_2026-10-30.json).
-**Previous checkpoint:** 21 October, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-10-21.md).
+**Verified tree:** `main` at `ce19f41` (after PR #81).
+**Machine-readable record:** [`verification/repository_checkpoint_2026-10-30b.json`](verification/repository_checkpoint_2026-10-30b.json).
+**Previous checkpoint:** earlier the same day, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-10-30.md).
 
 This is a software and repository verification. It does not validate any model scientifically, and it is not a clinical-readiness review.
 
-## What was delivered since 21 October (PRs #56–#66)
+## What was delivered since the previous checkpoint (PRs #67–#81)
 
 | Area | What | Main files |
 |---|---|---|
-| Checkpoint (#56) | 21 October verification | `docs/history/REPOSITORY_CHECKPOINT_2026-10-21.md` |
-| Protocol benchmarking v1 (Phase 4.1a–4.1e, #57–#60, #62–#63) | Eligibility corpus pinned: cohort 3, 3,450 trials. Validation plan, guide and 120-trial sample locked. Annotation page with self-review. Rule-based extractor v1.0. Locked check: **all eight types fail**. A post-hoc analysis attributes the largest share of disagreements to a convention (exclusion criteria annotated as written) and a pass rule unreachable at that sample size. | `eligibility_*.py`, `docs/PROTOCOL_BENCHMARKING.md` |
-| Protocol benchmarking v2 (Phase 4.2a–4.2b, #64–#65) | Plan, guide and a 200-trial sample disjoint from v1, locked before annotation. Comparators recorded as written. Extractor v1.1 frozen before scoring. The v2 scoring module refuses to run until the annotation is pinned. | `eligibility_*_v2.py`, `eligibility_extractor_v1_1.py` |
-| Bortezomib, Iwasaki 2020 (Simulation 3.0j–3.0k, #61, #66) | Equations from the author (personal communication) transcribed and pinned. Locked check against Ogawa 2008 and CAN-1004: **not consistent**, robust; same pattern as the constant-clearance model. | `bortezomib_pbpk_iwasaki*.py` |
+| Checkpoint (#67) | Morning verification | `docs/history/REPOSITORY_CHECKPOINT_2026-10-30.md` |
+| Protocol benchmarking page (4.1f, #68) | Built on the full corpus with extractor v1.1. Each criterion type stays hidden until it passes the locked v2 check (none yet). | `eligibility_benchmark.py` |
+| Credibility records (Phase 6.1, #69, #76) | One record per model in the ICH M15 structure, at `/models/credibility`. Ixazomib and daratumumab added in 6.1b (evidence status v7, credibility context v2). | `credibility_records.py` |
+| Ixazomib (Simulation 3.2a, #70) | Gupta 2017 model, closed-form solution. Locked check against the dedicated renal and hepatic studies: consistent in MM with normal renal function; under-predicts solid-tumour patients about 1.4-fold; peaks 2–4-fold low. | `ixazomib_pk_gupta*.py` |
+| Iwasaki 2020 answers (3.0l, #71) | The author confirmed the dose input (IV bolus into the central compartment) and the attribution (cite the article). | `bortezomib_pbpk_iwasaki_2020_author_answers_v1.json` |
+| Daratumumab (Simulation 3.2b–3.2c, #72) | Luo 2021 model (linear plus saturable clearance). Two locked checks against GEN501 and SIRIUS: peaks consistent; 16 mg/kg first-week AUC over-predicted (0.87, then 0.83 with study demographics). | `daratumumab_pk_luo*.py` |
+| Model scope (Phase 2.5, #73–#75) | Context of use as enforced rules with evidence tiers. Ixazomib exposure page; Hughes and Kim gated in the Patient Lab (compute and flag where a check disagrees inside the model's data, refuse beyond it); daratumumab scope; public scope pages. | `model_scope.py`, `*_scope_v1.json` |
+| Special-population summaries (Phase 4.2, #77–#81) | Six drugs. Every value is resolved against its pinned source before display. Includes a new extract of the 2012 VELCADE label, transcribed from scanned pages. | `special_populations.py`, `special_populations_*_v1.json` |
 
 ## Checks
 
 | Check | Result |
 |---|---|
-| Unit tests | **Pass.** 895 tests on the verified tree (Python 3.13 here). CI (Python 3.12) passed on every merged PR. |
+| Unit tests | **Pass.** 976 tests on the verified tree (Python 3.13 here). |
 | Compile all modules | **Pass.** |
 | Migration chain | **Pass.** 9 revisions; one root (`3538c7d69211`) and one head (`585bc7cb8d18`). No schema change since 16 October. |
-| Pinned data | **Pass.** 80 tracked data files in `intelligence_store/data/` outside `curation/`. 78 match a checksum in code. The eligibility corpus is pinned by the checksum of its decompressed content. The observation template stays unpinned by design. |
-| Locked plans and reports | **Pass, with one finding (fixed here).** 20 reports in `docs/verification/`. All 18 check reports regenerate exactly; the other two are the checkpoint records. The eligibility v1 and post-hoc reports had no regeneration test until now. The Iwasaki report takes about 2 minutes, so it was regenerated for this checkpoint rather than in the unit tests. |
+| Pinned data | **Pass.** 104 tracked data files in `intelligence_store/data/` outside `curation/`; 100 match a checksum in code. The other four are the known ones: the observation template (unpinned by design), the eligibility corpus (pinned by its decompressed content) and two assay review packets (guarded by `tests/test_reference_pins.py`). |
+| Locked plans and reports | **Pass.** 24 files in `docs/verification/` before this record: 21 check reports and 3 earlier checkpoint records. Reports are regenerated by their tests, except the three slow ones, which were regenerated for this checkpoint and match exactly: Iwasaki (`529772d9…`), daratumumab v1 (`ac3369f7…`) and daratumumab v2 (`24b12ab8…`). |
 | Validation flags | **Pass.** No tracked JSON sets `clinical_prediction_validated` or `ready_for_patient_simulation` to true. |
-| Page smoke test | **Pass.** 49 pages without path parameters were requested against a freshly migrated SQLite database: 41 returned 200, and 8 returned 400 because they need a `cohort_id`. No server errors. The 32 routes with path parameters are covered by their own tests. |
-| Repository hygiene | **Pass.** No source articles or private correspondence are tracked, and no email addresses appear in the Iwasaki extract (a test checks this). The only PDF is the public EMA lenalidomide report. |
+| Page smoke test | **Pass.** 52 GET pages without path parameters against a freshly migrated SQLite database: 44 returned 200, and 8 returned 400 because they need a `cohort_id`. No server errors. All 50 instances of the parameterised routes added since the last checkpoint returned 200: scorecards, credibility records, scope pages, special-population pages and the ixazomib exposure page. |
+| Repository hygiene | **Pass.** No source articles or private correspondence are tracked, and no email addresses appear. The only PDF is the public EMA lenalidomide report. |
 
 ## Findings
 
-1. **Two reports had no regeneration test — fixed here.** `eligibility_validation_v1.json` and its post-hoc report are now regenerated by `tests/test_eligibility_validation.py` (about 2 seconds). The Iwasaki check is regenerated at each checkpoint instead, because its run takes about 2 minutes.
-2. **Recorded corrections.** The first version of the Iwasaki closed-form numerical check used a coarse quadrature and failed at 2.3%. It was replaced before the report was committed, and the report records this. The v1 eligibility pass rule could not be met at its sample size; the v2 plan addresses that and records why.
-3. **Housekeeping.** Merged branches on GitHub can be deleted. These include the seven listed on 21 October and the phase-4.1 and 4.2 branches.
+1. **No new defects.** Everything passed.
+2. **Slow reports.** The daratumumab check reports (about 20 minutes each) are not regenerated in the unit tests; their tests check structure and checksums. They are regenerated at each checkpoint, as the Iwasaki report is.
+3. **Behaviour changes recorded in their PRs.**
+   - Kim records outside the model's data ranges are now refused (they used to run with a warning).
+   - Hughes refusals now come from the scope, with reasons and observed data.
+   - Daratumumab moved to *Published model, checked against outside data* in the drug library.
+4. **Not done, by decision.** Ixazomib was not added to the curated drug catalog. Doing so would mean new versions of four reference catalogs and a change to trial drug-name matching, and its DailyMed label file cannot be retrieved from the development environment. It is deferred to the drug-catalog growth phase.
+5. **Housekeeping.** Merged branches on GitHub can be deleted.
 
 ## Scientific state
 
-| Model | Outside data |
-|---|---|
-| Hughes 2019 (lenalidomide PK) | exploratory: mild kidney impairment consistent; moderate and severe under-predicted |
-| Kim 2026 (lenalidomide PK) | exploratory: mild and moderate consistent; severe under-predicted |
-| Lenalidomide kidney pathways 2026 | calibrated on normal kidney function; the secretion-preserved reading was rejected |
-| Lenalidomide exposure–safety 2016 | not done (no independent data) |
-| Lignet 2022 bortezomib PK component | **disagrees with two outside studies**. Three candidates have now failed under locked plans: Kuan 2012, an empirical falling clearance, and Iwasaki 2020. |
-| Lignet 2022 bortezomib platelets | not done; inherits the PK component's disagreements |
-| Label-based exposure | pomalidomide and dexamethasone shown; melphalan not eligible |
-| Eligibility extractor | v1.0 failed every type. v1.1 awaits the v2 annotation (200 trials, in progress). |
+| Model | Outside data | Platform scope |
+|---|---|---|
+| Hughes 2019 (lenalidomide) | Mild consistent; moderate and severe under-predicted (about 2-fold) | CrCl 50–211 checked; 36–50 flagged; below 36 refused |
+| Kim 2026 (lenalidomide) | Mild consistent; moderate consistent in the primary scenario only; severe under-predicted (about 1.3-fold) | eGFR 50–94.7 checked; 30–50 model data only; 11.1–30 flagged; outside refused |
+| Lenalidomide kidney pathways 2026 | Calibrated on normal kidney function | — |
+| Lenalidomide exposure–safety 2016 | Not done (no independent data) | — |
+| Lignet 2022 bortezomib PK | Disagrees with two outside studies; three candidate fixes failed | — |
+| Lignet 2022 bortezomib platelets | Not done; inherits the PK component's disagreements | — |
+| Gupta 2017 (ixazomib) | Consistent in MM with normal renal function; solid tumours under-predicted; peaks 2–4-fold low | MM, oral 1.5–4 mg, CrCl 30–297, bilirubin ≤ 1.5 × ULN; AUC only |
+| Luo 2021 (daratumumab) | Peaks consistent; 16 mg/kg first-week AUC over-predicted; albumin effect reversed across studies | Defined, not run on any page |
+| Label-based exposure | Pomalidomide and dexamethasone shown; melphalan not eligible | — |
+| Eligibility extractor | v1.0 failed every type; v1.1 awaits the v2 annotation | — |
 
 No model is validated for clinical prediction.
 
 ## Remaining gates
 
-- **Protocol benchmarking:** the v2 annotation is in progress. Then: pin it, run the locked check, and build the benchmarking page with passing types only.
-- **Bortezomib:**
-  - individual concentration data, or a mechanism that changes clearance between doses;
-  - for Iwasaki 2020: which human data evaluated the model (the dose input and attribution were settled on 30 October, 3.0l).
-- **Hughes:** independent transcription review and the Cockcroft–Gault weight basis.
-- **Kim:** confirmation of the CL/F equation form.
-- **Label engine:** independent review of the label extracts, an observed-data outside check for pomalidomide, and a two-compartment model for melphalan.
-- **Platform:** drug catalog growth (blocked here by network access), special-population summaries, ICH M15 credibility records, accounts and deployment.
+- **Protocol benchmarking:** the v2 annotation (200 trials, by the platform owner). Then: pin it, run the locked check, and show the passing types.
+- **Authors:**
+  - Hughes: the Cockcroft–Gault weight basis.
+  - Kim: the CL/F equation form.
+  - Iwasaki: which human data evaluated the model.
+- **Bortezomib PK:** individual concentration data, or a mechanism that changes clearance between doses.
+- **Special populations:** the gaps listed on each page, for example liver function for lenalidomide and age, body size, sex and race for several drugs.
+- **Drug catalog growth (including ixazomib):** needs access to DailyMed label files.
+- **Independent review of the AI-assisted extractions:** none has been independently reviewed yet.
+- **Platform:** accounts and deployment.
 
 Step numbers identify historical deliveries, not a unique sequence; use module and schema versions.
