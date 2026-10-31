@@ -1,0 +1,1331 @@
+{
+ "schema_version": "extraction-review-queue-v1",
+ "queue_version": "extraction-review-queue-v1.0",
+ "recorded_on": "2026-10-31",
+ "purpose": "Values that feed a calculation or a quoted dose on the platform, for review against the original source by the platform owner. Each value resolves by JSON pointer into a pinned file.",
+ "excluded": "Values the platform derives itself (for example the average daily dose of an every-other-day regimen) and uncertainty statistics (RSE, bootstrap intervals) are not listed.",
+ "decisions": {
+  "matches": "The value matches the source at the stated location.",
+  "wrong": "The value does not match the source (note what the source says).",
+  "cannot_check": "The source or location could not be checked."
+ },
+ "groups": [
+  {
+   "id": "lenalidomide_hughes_parameters",
+   "priority": 1,
+   "file": "intelligence_store/data/hughes_parameter_extract_v1.json",
+   "sha256": "8199220db206c3e78fd5abc40191602d5b59e6275f5c77d9e43e0f7c90ae5f74",
+   "where_to_look": "Hughes et al. Br J Clin Pharmacol 2019;85:924-934, Table 2 (final model) and Equation 4",
+   "used_by": "Patient Lab Hughes curves, dose view, scope",
+   "items": [
+    {
+     "id": "lenalidomide_hughes_parameters:/parameters/apparent_clearance/value",
+     "label": "apparent clearance",
+     "pointer": "/parameters/apparent_clearance/value",
+     "value": 12.0,
+     "location": "Table 2 final model CL/F"
+    },
+    {
+     "id": "lenalidomide_hughes_parameters:/parameters/apparent_volume/value",
+     "label": "apparent volume",
+     "pointer": "/parameters/apparent_volume/value",
+     "value": 68.8,
+     "location": "Table 2 final model Vd/F"
+    },
+    {
+     "id": "lenalidomide_hughes_parameters:/parameters/transit_rate/value",
+     "label": "transit rate",
+     "pointer": "/parameters/transit_rate/value",
+     "value": 13.5,
+     "location": "Table 2 final model KTR"
+    },
+    {
+     "id": "lenalidomide_hughes_parameters:/parameters/crcl_exponent/value",
+     "label": "crcl exponent",
+     "pointer": "/parameters/crcl_exponent/value",
+     "value": 0.224,
+     "location": "Table 2 CrCl covariate effect; Equation 4"
+    },
+    {
+     "id": "lenalidomide_hughes_parameters:/parameters/ffm_clearance_exponent/value",
+     "label": "ffm clearance exponent",
+     "pointer": "/parameters/ffm_clearance_exponent/value",
+     "value": 0.75,
+     "location": "Table 2 CL/F scaling"
+    },
+    {
+     "id": "lenalidomide_hughes_parameters:/parameters/ffm_volume_exponent/value",
+     "label": "ffm volume exponent",
+     "pointer": "/parameters/ffm_volume_exponent/value",
+     "value": 1.0,
+     "location": "Table 2 Vd/F scaling"
+    },
+    {
+     "id": "lenalidomide_hughes_parameters:/parameters/reference_ffm/value",
+     "label": "reference ffm",
+     "pointer": "/parameters/reference_ffm/value",
+     "value": 55.0,
+     "location": "Table 2 allometric denominator"
+    },
+    {
+     "id": "lenalidomide_hughes_parameters:/parameters/reference_crcl/value",
+     "label": "reference crcl",
+     "pointer": "/parameters/reference_crcl/value",
+     "value": 90.0,
+     "location": "Table 2 CrCl denominator; Equation 4"
+    }
+   ]
+  },
+  {
+   "id": "lenalidomide_hughes_variability",
+   "priority": 1,
+   "file": "intelligence_store/data/hughes_variability_extract_v1.json",
+   "sha256": "2e5970e646f6acdbee434f6c52e1bc051ecfdec163c0aee825fe1c4ea1dde5d4",
+   "where_to_look": "Hughes 2019 Supplementary Material 2 (final control stream: $OMEGA BLOCK(2), $OMEGA, RUV_PROP) and Table 2",
+   "used_by": "Between-patient ranges on the dose view and Patient Lab",
+   "items": [
+    {
+     "id": "lenalidomide_hughes_variability:/random_effects/omega_matrix/0",
+     "label": "omega matrix › 0",
+     "pointer": "/random_effects/omega_matrix/0",
+     "value": [
+      0.296,
+      0.25,
+      0.0
+     ],
+     "location": "Supplementary Material 2, final control stream"
+    },
+    {
+     "id": "lenalidomide_hughes_variability:/random_effects/omega_matrix/1",
+     "label": "omega matrix › 1",
+     "pointer": "/random_effects/omega_matrix/1",
+     "value": [
+      0.25,
+      0.284,
+      0.0
+     ],
+     "location": "Supplementary Material 2, final control stream"
+    },
+    {
+     "id": "lenalidomide_hughes_variability:/random_effects/omega_matrix/2",
+     "label": "omega matrix › 2",
+     "pointer": "/random_effects/omega_matrix/2",
+     "value": [
+      0.0,
+      0.0,
+      0.367
+     ],
+     "location": "Supplementary Material 2, final control stream"
+    },
+    {
+     "id": "lenalidomide_hughes_variability:/residual_error/ruv_prop",
+     "label": "ruv prop",
+     "pointer": "/residual_error/ruv_prop",
+     "value": 0.43,
+     "location": "Supplementary Material 2, final control stream"
+    }
+   ]
+  },
+  {
+   "id": "lenalidomide_kim_parameters",
+   "priority": 1,
+   "file": "intelligence_store/data/kim_2026_model_extract_v1.json",
+   "sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af",
+   "where_to_look": "Kim et al. Drug Des Devel Ther 2026, Table 3",
+   "used_by": "Patient Lab Kim curves, dose view, scope",
+   "items": [
+    {
+     "id": "lenalidomide_kim_parameters:/parameters/unbound_clearance_l_h/value",
+     "label": "unbound clearance l h",
+     "pointer": "/parameters/unbound_clearance_l_h/value",
+     "value": 8.52,
+     "location": "Table 3"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/parameters/unbound_central_volume_l/value",
+     "label": "unbound central volume l",
+     "pointer": "/parameters/unbound_central_volume_l/value",
+     "value": 48.8,
+     "location": "Table 3"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/parameters/unbound_intercompartmental_clearance_l_h/value",
+     "label": "unbound intercompartmental clearance l h",
+     "pointer": "/parameters/unbound_intercompartmental_clearance_l_h/value",
+     "value": 8.05,
+     "location": "Table 3"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/parameters/unbound_peripheral_volume_l/value",
+     "label": "unbound peripheral volume l",
+     "pointer": "/parameters/unbound_peripheral_volume_l/value",
+     "value": 21.2,
+     "location": "Table 3"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/parameters/absorption_rate_h/value",
+     "label": "absorption rate h",
+     "pointer": "/parameters/absorption_rate_h/value",
+     "value": 1.16,
+     "location": "Table 3; Results p.8"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/parameters/fraction_unbound/value",
+     "label": "fraction unbound",
+     "pointer": "/parameters/fraction_unbound/value",
+     "value": 0.614,
+     "location": "Table 3 (61.4%)"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/parameters/cl_egfr_coefficient/value",
+     "label": "cl egfr coefficient",
+     "pointer": "/parameters/cl_egfr_coefficient/value",
+     "value": 0.0131,
+     "location": "Table 3"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/parameters/cl_bsa_coefficient/value",
+     "label": "cl bsa coefficient",
+     "pointer": "/parameters/cl_bsa_coefficient/value",
+     "value": 1.1,
+     "location": "Table 3"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/parameters/v1_bsa_coefficient/value",
+     "label": "v1 bsa coefficient",
+     "pointer": "/parameters/v1_bsa_coefficient/value",
+     "value": 1.16,
+     "location": "Table 3"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/parameters/reference_egfr/value",
+     "label": "reference egfr",
+     "pointer": "/parameters/reference_egfr/value",
+     "value": 46.92,
+     "location": "equation p.10"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/parameters/reference_bsa/value",
+     "label": "reference bsa",
+     "pointer": "/parameters/reference_bsa/value",
+     "value": 1.64,
+     "location": "equation p.10"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/random_effects/reported/cl_pct_cv",
+     "label": "reported › cl pct cv",
+     "pointer": "/random_effects/reported/cl_pct_cv",
+     "value": 18.9,
+     "location": "Table 3"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/random_effects/reported/v1_pct_cv",
+     "label": "reported › v1 pct cv",
+     "pointer": "/random_effects/reported/v1_pct_cv",
+     "value": 30.8,
+     "location": "Table 3"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/random_effects/reported/cl_shrinkage_pct",
+     "label": "reported › cl shrinkage pct",
+     "pointer": "/random_effects/reported/cl_shrinkage_pct",
+     "value": 2,
+     "location": "Table 3"
+    },
+    {
+     "id": "lenalidomide_kim_parameters:/random_effects/reported/v1_shrinkage_pct",
+     "label": "reported › v1 shrinkage pct",
+     "pointer": "/random_effects/reported/v1_shrinkage_pct",
+     "value": 8,
+     "location": "Table 3"
+    }
+   ]
+  },
+  {
+   "id": "lenalidomide_renal_groups",
+   "priority": 1,
+   "file": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+   "sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+   "where_to_look": "EMA withdrawal assessment report EMEA/CHMP/249329/2008 (committed: landscape_ui/data/renal_pk/ema_lenalidomide_2008.pdf), PDF pages 20-21",
+   "used_by": "25 mg reference exposure, Hughes and Kim outside checks, special populations",
+   "items": [
+    {
+     "id": "lenalidomide_renal_groups:/groups/0/n",
+     "label": "normal › n",
+     "pointer": "/groups/0/n",
+     "value": 7,
+     "location": "PDF page 20, Renal Function Groups"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/0/crcl_range/lower",
+     "label": "normal › crcl range › lower",
+     "pointer": "/groups/0/crcl_range/lower",
+     "value": 80,
+     "location": "PDF page 20, Renal Function Groups"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/0/measurements/auc_infinity/mean",
+     "label": "normal › measurements › auc infinity › mean",
+     "pointer": "/groups/0/measurements/auc_infinity/mean",
+     "value": 2181,
+     "location": "PDF page 21, Table 4, AUC infinity row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/0/measurements/auc_infinity/sd",
+     "label": "normal › measurements › auc infinity › sd",
+     "pointer": "/groups/0/measurements/auc_infinity/sd",
+     "value": 703,
+     "location": "PDF page 21, Table 4, AUC infinity row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/0/measurements/cmax/mean",
+     "label": "normal › measurements › cmax › mean",
+     "pointer": "/groups/0/measurements/cmax/mean",
+     "value": 605,
+     "location": "PDF page 21, Table 4, Cmax row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/0/measurements/cmax/sd",
+     "label": "normal › measurements › cmax › sd",
+     "pointer": "/groups/0/measurements/cmax/sd",
+     "value": 246,
+     "location": "PDF page 21, Table 4, Cmax row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/0/measurements/terminal_half_life/mean",
+     "label": "normal › measurements › terminal half life › mean",
+     "pointer": "/groups/0/measurements/terminal_half_life/mean",
+     "value": 3.34,
+     "location": "PDF page 21, Table 4, t1/2,z row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/0/measurements/terminal_half_life/sd",
+     "label": "normal › measurements › terminal half life › sd",
+     "pointer": "/groups/0/measurements/terminal_half_life/sd",
+     "value": 0.878,
+     "location": "PDF page 21, Table 4, t1/2,z row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/1/n",
+     "label": "mild › n",
+     "pointer": "/groups/1/n",
+     "value": 5,
+     "location": "PDF page 20, Renal Function Groups"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/1/crcl_range/lower",
+     "label": "mild › crcl range › lower",
+     "pointer": "/groups/1/crcl_range/lower",
+     "value": 50,
+     "location": "PDF page 20, Renal Function Groups"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/1/crcl_range/upper",
+     "label": "mild › crcl range › upper",
+     "pointer": "/groups/1/crcl_range/upper",
+     "value": 80,
+     "location": "PDF page 20, Renal Function Groups"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/1/measurements/auc_infinity/mean",
+     "label": "mild › measurements › auc infinity › mean",
+     "pointer": "/groups/1/measurements/auc_infinity/mean",
+     "value": 2767,
+     "location": "PDF page 21, Table 4, AUC infinity row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/1/measurements/auc_infinity/sd",
+     "label": "mild › measurements › auc infinity › sd",
+     "pointer": "/groups/1/measurements/auc_infinity/sd",
+     "value": 1094,
+     "location": "PDF page 21, Table 4, AUC infinity row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/1/measurements/cmax/mean",
+     "label": "mild › measurements › cmax › mean",
+     "pointer": "/groups/1/measurements/cmax/mean",
+     "value": 691,
+     "location": "PDF page 21, Table 4, Cmax row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/1/measurements/cmax/sd",
+     "label": "mild › measurements › cmax › sd",
+     "pointer": "/groups/1/measurements/cmax/sd",
+     "value": 110,
+     "location": "PDF page 21, Table 4, Cmax row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/1/measurements/terminal_half_life/mean",
+     "label": "mild › measurements › terminal half life › mean",
+     "pointer": "/groups/1/measurements/terminal_half_life/mean",
+     "value": 3.67,
+     "location": "PDF page 21, Table 4, t1/2,z row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/1/measurements/terminal_half_life/sd",
+     "label": "mild › measurements › terminal half life › sd",
+     "pointer": "/groups/1/measurements/terminal_half_life/sd",
+     "value": 0.703,
+     "location": "PDF page 21, Table 4, t1/2,z row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/2/n",
+     "label": "moderate › n",
+     "pointer": "/groups/2/n",
+     "value": 6,
+     "location": "PDF page 20, Renal Function Groups"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/2/crcl_range/lower",
+     "label": "moderate › crcl range › lower",
+     "pointer": "/groups/2/crcl_range/lower",
+     "value": 30,
+     "location": "PDF page 20, Renal Function Groups"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/2/crcl_range/upper",
+     "label": "moderate › crcl range › upper",
+     "pointer": "/groups/2/crcl_range/upper",
+     "value": 50,
+     "location": "PDF page 20, Renal Function Groups"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/2/measurements/auc_infinity/mean",
+     "label": "moderate › measurements › auc infinity › mean",
+     "pointer": "/groups/2/measurements/auc_infinity/mean",
+     "value": 6021,
+     "location": "PDF page 21, Table 4, AUC infinity row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/2/measurements/auc_infinity/sd",
+     "label": "moderate › measurements › auc infinity › sd",
+     "pointer": "/groups/2/measurements/auc_infinity/sd",
+     "value": 847,
+     "location": "PDF page 21, Table 4, AUC infinity row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/2/measurements/cmax/mean",
+     "label": "moderate › measurements › cmax › mean",
+     "pointer": "/groups/2/measurements/cmax/mean",
+     "value": 592,
+     "location": "PDF page 21, Table 4, Cmax row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/2/measurements/cmax/sd",
+     "label": "moderate › measurements › cmax › sd",
+     "pointer": "/groups/2/measurements/cmax/sd",
+     "value": 177,
+     "location": "PDF page 21, Table 4, Cmax row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/2/measurements/terminal_half_life/mean",
+     "label": "moderate › measurements › terminal half life › mean",
+     "pointer": "/groups/2/measurements/terminal_half_life/mean",
+     "value": 10.6,
+     "location": "PDF page 21, Table 4, t1/2,z row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/2/measurements/terminal_half_life/sd",
+     "label": "moderate › measurements › terminal half life › sd",
+     "pointer": "/groups/2/measurements/terminal_half_life/sd",
+     "value": 3.33,
+     "location": "PDF page 21, Table 4, t1/2,z row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/3/n",
+     "label": "severe without dialysis › n",
+     "pointer": "/groups/3/n",
+     "value": 6,
+     "location": "PDF page 20, Renal Function Groups"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/3/crcl_range/upper",
+     "label": "severe without dialysis › crcl range › upper",
+     "pointer": "/groups/3/crcl_range/upper",
+     "value": 30,
+     "location": "PDF page 20, Renal Function Groups"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/3/measurements/auc_infinity/mean",
+     "label": "severe without dialysis › measurements › auc infinity › mean",
+     "pointer": "/groups/3/measurements/auc_infinity/mean",
+     "value": 8191,
+     "location": "PDF page 21, Table 4, AUC infinity row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/3/measurements/auc_infinity/sd",
+     "label": "severe without dialysis › measurements › auc infinity › sd",
+     "pointer": "/groups/3/measurements/auc_infinity/sd",
+     "value": 1317,
+     "location": "PDF page 21, Table 4, AUC infinity row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/3/measurements/cmax/mean",
+     "label": "severe without dialysis › measurements › cmax › mean",
+     "pointer": "/groups/3/measurements/cmax/mean",
+     "value": 765,
+     "location": "PDF page 21, Table 4, Cmax row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/3/measurements/cmax/sd",
+     "label": "severe without dialysis › measurements › cmax › sd",
+     "pointer": "/groups/3/measurements/cmax/sd",
+     "value": 81.3,
+     "location": "PDF page 21, Table 4, Cmax row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/3/measurements/terminal_half_life/mean",
+     "label": "severe without dialysis › measurements › terminal half life › mean",
+     "pointer": "/groups/3/measurements/terminal_half_life/mean",
+     "value": 9.22,
+     "location": "PDF page 21, Table 4, t1/2,z row"
+    },
+    {
+     "id": "lenalidomide_renal_groups:/groups/3/measurements/terminal_half_life/sd",
+     "label": "severe without dialysis › measurements › terminal half life › sd",
+     "pointer": "/groups/3/measurements/terminal_half_life/sd",
+     "value": 2.44,
+     "location": "PDF page 21, Table 4, t1/2,z row"
+    }
+   ]
+  },
+  {
+   "id": "lenalidomide_exposure_safety",
+   "priority": 1,
+   "file": "intelligence_store/data/lenalidomide_exposure_safety_v2.json",
+   "sha256": "a839525eb7fc0554201f14a5641ce64ad4e04f0f806e4ceec3d20c2d6171ed73",
+   "where_to_look": "TGA AusPAR lenalidomide 2016, Attachment 2 (Clinical Evaluation Report), section 4.2.4.1",
+   "used_by": "Relative cytopenia odds on the dose view and Patient Lab",
+   "items": [
+    {
+     "id": "lenalidomide_exposure_safety:/odds_ratios_multiple_myeloma/grade_3_4_thrombocytopenia/odds_ratio_per_unit_ln_auc",
+     "label": "grade 3 4 thrombocytopenia › odds ratio per unit ln auc",
+     "pointer": "/odds_ratios_multiple_myeloma/grade_3_4_thrombocytopenia/odds_ratio_per_unit_ln_auc",
+     "value": 2.972,
+     "location": "Section 4.2.4.1"
+    },
+    {
+     "id": "lenalidomide_exposure_safety:/odds_ratios_multiple_myeloma/grade_3_4_thrombocytopenia/ci95",
+     "label": "grade 3 4 thrombocytopenia › ci95",
+     "pointer": "/odds_ratios_multiple_myeloma/grade_3_4_thrombocytopenia/ci95",
+     "value": [
+      1.027,
+      8.598
+     ],
+     "location": "Section 4.2.4.1"
+    },
+    {
+     "id": "lenalidomide_exposure_safety:/odds_ratios_multiple_myeloma/grade_3_4_neutropenia/odds_ratio_per_unit_ln_auc",
+     "label": "grade 3 4 neutropenia › odds ratio per unit ln auc",
+     "pointer": "/odds_ratios_multiple_myeloma/grade_3_4_neutropenia/odds_ratio_per_unit_ln_auc",
+     "value": 1.982,
+     "location": "Section 4.2.4.1"
+    },
+    {
+     "id": "lenalidomide_exposure_safety:/odds_ratios_multiple_myeloma/grade_3_4_neutropenia/ci95",
+     "label": "grade 3 4 neutropenia › ci95",
+     "pointer": "/odds_ratios_multiple_myeloma/grade_3_4_neutropenia/ci95",
+     "value": [
+      0.924,
+      4.249
+     ],
+     "location": "Section 4.2.4.1"
+    }
+   ]
+  },
+  {
+   "id": "lenalidomide_label",
+   "priority": 1,
+   "file": "intelligence_store/data/lenalidomide_label_2023_v1.json",
+   "sha256": "d4b02134613dc45d6b039999b37d9c94ccbc047cc0b7e811b77278c868e47a9a",
+   "where_to_look": "REVLIMID prescribing information, revised 3/2023: sections 2.1, 2.6 (Table 3) and 3",
+   "used_by": "Dose view and special populations (quoted)",
+   "items": [
+    {
+     "id": "lenalidomide_label:/multiple_myeloma_dosing/combination_starting_dose/dose_mg",
+     "label": "combination starting dose › dose mg",
+     "pointer": "/multiple_myeloma_dosing/combination_starting_dose/dose_mg",
+     "value": 25,
+     "location": "Section 2.1, PDF page 6"
+    },
+    {
+     "id": "lenalidomide_label:/multiple_myeloma_dosing/combination_dose_floor/dose_mg",
+     "label": "combination dose floor › dose mg",
+     "pointer": "/multiple_myeloma_dosing/combination_dose_floor/dose_mg",
+     "value": 2.5,
+     "location": "Section 2.1, Table 1, PDF page 7"
+    },
+    {
+     "id": "lenalidomide_label:/multiple_myeloma_dosing/maintenance_starting_dose/dose_mg",
+     "label": "maintenance starting dose › dose mg",
+     "pointer": "/multiple_myeloma_dosing/maintenance_starting_dose/dose_mg",
+     "value": 10,
+     "location": "Section 2.1, PDF page 7"
+    },
+    {
+     "id": "lenalidomide_label:/multiple_myeloma_dosing/capsule_strengths_mg",
+     "label": "capsule strengths mg",
+     "pointer": "/multiple_myeloma_dosing/capsule_strengths_mg",
+     "value": [
+      2.5,
+      5,
+      10,
+      15,
+      20,
+      25
+     ],
+     "location": "Section 3, PDF page 12"
+    },
+    {
+     "id": "lenalidomide_label:/renal_dose_adjustments/rows/0/crcl_ml_min",
+     "label": "CLcr 30-60 › crcl ml min",
+     "pointer": "/renal_dose_adjustments/rows/0/crcl_ml_min",
+     "value": [
+      30,
+      60
+     ],
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    {
+     "id": "lenalidomide_label:/renal_dose_adjustments/rows/0/mm_combination",
+     "label": "CLcr 30-60 › mm combination",
+     "pointer": "/renal_dose_adjustments/rows/0/mm_combination",
+     "value": "10 mg once daily",
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    {
+     "id": "lenalidomide_label:/renal_dose_adjustments/rows/0/mm_maintenance_and_mds",
+     "label": "CLcr 30-60 › mm maintenance and mds",
+     "pointer": "/renal_dose_adjustments/rows/0/mm_maintenance_and_mds",
+     "value": "5 mg once daily",
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    {
+     "id": "lenalidomide_label:/renal_dose_adjustments/rows/1/crcl_ml_min/1",
+     "label": "CLcr below-30 › crcl ml min › 1",
+     "pointer": "/renal_dose_adjustments/rows/1/crcl_ml_min/1",
+     "value": 30,
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    {
+     "id": "lenalidomide_label:/renal_dose_adjustments/rows/1/mm_combination",
+     "label": "CLcr below-30 › mm combination",
+     "pointer": "/renal_dose_adjustments/rows/1/mm_combination",
+     "value": "15 mg every other day",
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    {
+     "id": "lenalidomide_label:/renal_dose_adjustments/rows/1/mm_maintenance_and_mds",
+     "label": "CLcr below-30 › mm maintenance and mds",
+     "pointer": "/renal_dose_adjustments/rows/1/mm_maintenance_and_mds",
+     "value": "2.5 mg once daily",
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    {
+     "id": "lenalidomide_label:/renal_dose_adjustments/rows/2/crcl_ml_min/1",
+     "label": "CLcr below-30 dialysis › crcl ml min › 1",
+     "pointer": "/renal_dose_adjustments/rows/2/crcl_ml_min/1",
+     "value": 30,
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    {
+     "id": "lenalidomide_label:/renal_dose_adjustments/rows/2/mm_combination",
+     "label": "CLcr below-30 dialysis › mm combination",
+     "pointer": "/renal_dose_adjustments/rows/2/mm_combination",
+     "value": "5 mg once daily; on dialysis days, after dialysis",
+     "location": "Section 2.6, Table 3, PDF page 12"
+    },
+    {
+     "id": "lenalidomide_label:/renal_dose_adjustments/rows/2/mm_maintenance_and_mds",
+     "label": "CLcr below-30 dialysis › mm maintenance and mds",
+     "pointer": "/renal_dose_adjustments/rows/2/mm_maintenance_and_mds",
+     "value": "2.5 mg once daily; on dialysis days, after dialysis",
+     "location": "Section 2.6, Table 3, PDF page 12"
+    }
+   ]
+  },
+  {
+   "id": "ixazomib_parameters",
+   "priority": 1,
+   "file": "intelligence_store/data/ixazomib_pk_gupta_2017_extract_v1.json",
+   "sha256": "d4fe97e4a8659b993541c9bd960ff6d6c519b4fe913b3ad27de84ce894b233bf",
+   "where_to_look": "Gupta et al. Clin Pharmacokinet 2017;56:1355-1368, Table 3",
+   "used_by": "Ixazomib exposure page",
+   "items": [
+    {
+     "id": "ixazomib_parameters:/parameters/fixed_effects/ka_per_h/value",
+     "label": "fixed effects › ka per h",
+     "pointer": "/parameters/fixed_effects/ka_per_h/value",
+     "value": 0.34,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/fixed_effects/cl_l_h/value",
+     "label": "fixed effects › cl l h",
+     "pointer": "/parameters/fixed_effects/cl_l_h/value",
+     "value": 1.86,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/fixed_effects/v2_l/value",
+     "label": "fixed effects › v2 l",
+     "pointer": "/parameters/fixed_effects/v2_l/value",
+     "value": 13.7,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/fixed_effects/f/value",
+     "label": "fixed effects › f",
+     "pointer": "/parameters/fixed_effects/f/value",
+     "value": 0.58,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/fixed_effects/q3_l_h/value",
+     "label": "fixed effects › q3 l h",
+     "pointer": "/parameters/fixed_effects/q3_l_h/value",
+     "value": 5.18,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/fixed_effects/v3_l/value",
+     "label": "fixed effects › v3 l",
+     "pointer": "/parameters/fixed_effects/v3_l/value",
+     "value": 309,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/fixed_effects/q4_l_h/value",
+     "label": "fixed effects › q4 l h",
+     "pointer": "/parameters/fixed_effects/q4_l_h/value",
+     "value": 26.1,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/fixed_effects/v4_l/value",
+     "label": "fixed effects › v4 l",
+     "pointer": "/parameters/fixed_effects/v4_l/value",
+     "value": 205,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/fixed_effects/tlag_h/value",
+     "label": "fixed effects › tlag h",
+     "pointer": "/parameters/fixed_effects/tlag_h/value",
+     "value": 0.216666666667,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/fixed_effects/bsa_exponent_on_v4/value",
+     "label": "fixed effects › bsa exponent on v4",
+     "pointer": "/parameters/fixed_effects/bsa_exponent_on_v4/value",
+     "value": 2.06,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/random_effects/iiv_cl_cv_percent/value",
+     "label": "random effects › iiv cl cv percent",
+     "pointer": "/parameters/random_effects/iiv_cl_cv_percent/value",
+     "value": 44,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/random_effects/iiv_f_cv_percent/value",
+     "label": "random effects › iiv f cv percent",
+     "pointer": "/parameters/random_effects/iiv_f_cv_percent/value",
+     "value": 73,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/random_effects/correlation_log_cl_log_f/value",
+     "label": "random effects › correlation log cl log f",
+     "pointer": "/parameters/random_effects/correlation_log_cl_log_f/value",
+     "value": 0.82,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/random_effects/iiv_v4_cv_percent/value",
+     "label": "random effects › iiv v4 cv percent",
+     "pointer": "/parameters/random_effects/iiv_v4_cv_percent/value",
+     "value": 79,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/residual_error/initial_sd",
+     "label": "residual error › initial sd",
+     "pointer": "/parameters/residual_error/initial_sd",
+     "value": 1.9,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/residual_error/steady_state_sd",
+     "label": "residual error › steady state sd",
+     "pointer": "/parameters/residual_error/steady_state_sd",
+     "value": 0.46,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    },
+    {
+     "id": "ixazomib_parameters:/parameters/residual_error/time_constant_sd_per_h",
+     "label": "residual error › time constant sd per h",
+     "pointer": "/parameters/residual_error/time_constant_sd_per_h",
+     "value": 0.84,
+     "location": "Table 3 'Model parameters estimated for the final model', article page 1361 (rendered page checked)"
+    }
+   ]
+  },
+  {
+   "id": "pomalidomide_label",
+   "priority": 1,
+   "file": "intelligence_store/data/label_pk_pomalidomide_v1.json",
+   "sha256": "ce4b9afa97e1ba84b9e7cf802c5da80b8927e5db51c8506dddb0c993d6398417",
+   "where_to_look": "POMALYST prescribing information, revised 2/2025: sections 2 and 12.3",
+   "used_by": "Pomalidomide label-based exposure page",
+   "items": [
+    {
+     "id": "pomalidomide_label:/regimen/dose_mg",
+     "label": "regimen › dose mg",
+     "pointer": "/regimen/dose_mg",
+     "value": 4,
+     "location": "section 2.2"
+    },
+    {
+     "id": "pomalidomide_label:/regimen/interval_h",
+     "label": "regimen › interval h",
+     "pointer": "/regimen/interval_h",
+     "value": 24,
+     "location": "section 2.2"
+    },
+    {
+     "id": "pomalidomide_label:/values/auc_tau_ss_mm_4mg_ng_h_ml/value",
+     "label": "values › auc tau ss mm 4mg ng h ml",
+     "pointer": "/values/auc_tau_ss_mm_4mg_ng_h_ml/value",
+     "value": 860,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/auc_tau_ss_mm_4mg_ng_h_ml/cv_percent",
+     "label": "values › auc tau ss mm 4mg ng h ml › cv percent",
+     "pointer": "/values/auc_tau_ss_mm_4mg_ng_h_ml/cv_percent",
+     "value": 37,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/cmax_ss_mm_4mg_ng_ml/value",
+     "label": "values › cmax ss mm 4mg ng ml",
+     "pointer": "/values/cmax_ss_mm_4mg_ng_ml/value",
+     "value": 75,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/cmax_ss_mm_4mg_ng_ml/cv_percent",
+     "label": "values › cmax ss mm 4mg ng ml › cv percent",
+     "pointer": "/values/cmax_ss_mm_4mg_ng_ml/cv_percent",
+     "value": 32,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/auc_ss_ks_5mg_ng_h_ml/value",
+     "label": "values › auc ss ks 5mg ng h ml",
+     "pointer": "/values/auc_ss_ks_5mg_ng_h_ml/value",
+     "value": 462.3,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/auc_ss_ks_5mg_ng_h_ml/cv_percent",
+     "label": "values › auc ss ks 5mg ng h ml › cv percent",
+     "pointer": "/values/auc_ss_ks_5mg_ng_h_ml/cv_percent",
+     "value": 82,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/tmax_h/range",
+     "label": "values › tmax h › range",
+     "pointer": "/values/tmax_h/range",
+     "value": [
+      2,
+      3
+     ],
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/vd_f_l/range",
+     "label": "values › vd f l › range",
+     "pointer": "/values/vd_f_l/range",
+     "value": [
+      62,
+      138
+     ],
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/cl_f_l_h/range",
+     "label": "values › cl f l h › range",
+     "pointer": "/values/cl_f_l_h/range",
+     "value": [
+      7,
+      10
+     ],
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/half_life_h_patients/value",
+     "label": "values › half life h patients",
+     "pointer": "/values/half_life_h_patients/value",
+     "value": 7.5,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/half_life_h_healthy/value",
+     "label": "values › half life h healthy",
+     "pointer": "/values/half_life_h_healthy/value",
+     "value": 9.5,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/fraction_excreted_unchanged/urine",
+     "label": "values › fraction excreted unchanged › urine",
+     "pointer": "/values/fraction_excreted_unchanged/urine",
+     "value": 0.02,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/fraction_excreted_unchanged/feces",
+     "label": "values › fraction excreted unchanged › feces",
+     "pointer": "/values/fraction_excreted_unchanged/feces",
+     "value": 0.08,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/values/protein_binding_percent/range",
+     "label": "values › protein binding percent › range",
+     "pointer": "/values/protein_binding_percent/range",
+     "value": [
+      12,
+      44
+     ],
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/renal_moderate_or_severe_no_dialysis/auc_fold",
+     "label": "scenarios › renal moderate or severe no dialysis › auc fold",
+     "pointer": "/scenarios/renal_moderate_or_severe_no_dialysis/auc_fold",
+     "value": 1.0,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/renal_severe_requiring_dialysis/auc_fold",
+     "label": "scenarios › renal severe requiring dialysis › auc fold",
+     "pointer": "/scenarios/renal_severe_requiring_dialysis/auc_fold",
+     "value": 1.38,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/renal_esrd_non_dialysis_days/auc_fold",
+     "label": "scenarios › renal esrd non dialysis days › auc fold",
+     "pointer": "/scenarios/renal_esrd_non_dialysis_days/auc_fold",
+     "value": 1.4,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/hepatic_child_pugh_a/auc_fold",
+     "label": "scenarios › hepatic child pugh a › auc fold",
+     "pointer": "/scenarios/hepatic_child_pugh_a/auc_fold",
+     "value": 1.51,
+     "location": "section 8.7"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/hepatic_child_pugh_b/auc_fold",
+     "label": "scenarios › hepatic child pugh b › auc fold",
+     "pointer": "/scenarios/hepatic_child_pugh_b/auc_fold",
+     "value": 1.58,
+     "location": "section 8.7"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/hepatic_child_pugh_c/auc_fold",
+     "label": "scenarios › hepatic child pugh c › auc fold",
+     "pointer": "/scenarios/hepatic_child_pugh_c/auc_fold",
+     "value": 1.72,
+     "location": "section 8.7"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/fluvoxamine_strong_cyp1a2_inhibitor/auc_fold",
+     "label": "scenarios › fluvoxamine strong cyp1a2 inhibitor › auc fold",
+     "pointer": "/scenarios/fluvoxamine_strong_cyp1a2_inhibitor/auc_fold",
+     "value": 2.25,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/fluvoxamine_strong_cyp1a2_inhibitor/ci90_fold",
+     "label": "scenarios › fluvoxamine strong cyp1a2 inhibitor › ci90 fold",
+     "pointer": "/scenarios/fluvoxamine_strong_cyp1a2_inhibitor/ci90_fold",
+     "value": [
+      1.98,
+      2.57
+     ],
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/fluvoxamine_with_ketoconazole/auc_fold",
+     "label": "scenarios › fluvoxamine with ketoconazole › auc fold",
+     "pointer": "/scenarios/fluvoxamine_with_ketoconazole/auc_fold",
+     "value": 2.46,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/fluvoxamine_with_ketoconazole/ci90_fold",
+     "label": "scenarios › fluvoxamine with ketoconazole › ci90 fold",
+     "pointer": "/scenarios/fluvoxamine_with_ketoconazole/ci90_fold",
+     "value": [
+      2.26,
+      2.67
+     ],
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/ketoconazole_strong_cyp3a4_pgp_inhibitor/auc_fold",
+     "label": "scenarios › ketoconazole strong cyp3a4 pgp inhibitor › auc fold",
+     "pointer": "/scenarios/ketoconazole_strong_cyp3a4_pgp_inhibitor/auc_fold",
+     "value": 1.19,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/carbamazepine_strong_cyp3a4_inducer/auc_fold",
+     "label": "scenarios › carbamazepine strong cyp3a4 inducer › auc fold",
+     "pointer": "/scenarios/carbamazepine_strong_cyp3a4_inducer/auc_fold",
+     "value": 0.8,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/carbamazepine_strong_cyp3a4_inducer/ci90_fold",
+     "label": "scenarios › carbamazepine strong cyp3a4 inducer › ci90 fold",
+     "pointer": "/scenarios/carbamazepine_strong_cyp3a4_inducer/ci90_fold",
+     "value": [
+      0.73,
+      0.87
+     ],
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/smoking_25_per_day/auc_fold",
+     "label": "scenarios › smoking 25 per day › auc fold",
+     "pointer": "/scenarios/smoking_25_per_day/auc_fold",
+     "value": 0.68,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/smoking_25_per_day/cmax_fold",
+     "label": "scenarios › smoking 25 per day › cmax fold",
+     "pointer": "/scenarios/smoking_25_per_day/cmax_fold",
+     "value": 1.14,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/high_fat_meal/auc_fold",
+     "label": "scenarios › high fat meal › auc fold",
+     "pointer": "/scenarios/high_fat_meal/auc_fold",
+     "value": 0.92,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/high_fat_meal/cmax_fold",
+     "label": "scenarios › high fat meal › cmax fold",
+     "pointer": "/scenarios/high_fat_meal/cmax_fold",
+     "value": 0.73,
+     "location": "section 12.3"
+    },
+    {
+     "id": "pomalidomide_label:/scenarios/high_fat_meal/tmax_delay_h",
+     "label": "scenarios › high fat meal › tmax delay h",
+     "pointer": "/scenarios/high_fat_meal/tmax_delay_h",
+     "value": 2.5,
+     "location": "section 12.3"
+    }
+   ]
+  },
+  {
+   "id": "dexamethasone_label",
+   "priority": 1,
+   "file": "intelligence_store/data/label_pk_dexamethasone_hemady_v1.json",
+   "sha256": "f764633f39576fd65ebc7b0a3cc3e22ddb362756b3c9c0838434cb0dab28605c",
+   "where_to_look": "HEMADY prescribing information, revised 1/2026: sections 2 and 12.3",
+   "used_by": "Dexamethasone label-based exposure page",
+   "items": [
+    {
+     "id": "dexamethasone_label:/regimen/dose_mg",
+     "label": "regimen › dose mg",
+     "pointer": "/regimen/dose_mg",
+     "value": 20,
+     "location": "section 2.1"
+    },
+    {
+     "id": "dexamethasone_label:/regimen/alternative_dose_mg",
+     "label": "regimen › alternative dose mg",
+     "pointer": "/regimen/alternative_dose_mg",
+     "value": 40,
+     "location": "section 2.1"
+    },
+    {
+     "id": "dexamethasone_label:/values/cmax_single_20mg_ng_ml/value",
+     "label": "values › cmax single 20mg ng ml",
+     "pointer": "/values/cmax_single_20mg_ng_ml/value",
+     "value": 247,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/values/cmax_single_20mg_ng_ml/cv_percent",
+     "label": "values › cmax single 20mg ng ml › cv percent",
+     "pointer": "/values/cmax_single_20mg_ng_ml/cv_percent",
+     "value": 31,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/values/auc_inf_single_20mg_ng_h_ml/value",
+     "label": "values › auc inf single 20mg ng h ml",
+     "pointer": "/values/auc_inf_single_20mg_ng_h_ml/value",
+     "value": 1271,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/values/auc_inf_single_20mg_ng_h_ml/cv_percent",
+     "label": "values › auc inf single 20mg ng h ml › cv percent",
+     "pointer": "/values/auc_inf_single_20mg_ng_h_ml/cv_percent",
+     "value": 31,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/values/tmax_h/value",
+     "label": "values › tmax h",
+     "pointer": "/values/tmax_h/value",
+     "value": 1,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/values/tmax_h/range",
+     "label": "values › tmax h › range",
+     "pointer": "/values/tmax_h/range",
+     "value": [
+      0.5,
+      4
+     ],
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/values/half_life_h/value",
+     "label": "values › half life h",
+     "pointer": "/values/half_life_h/value",
+     "value": 4,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/values/half_life_h/cv_percent",
+     "label": "values › half life h › cv percent",
+     "pointer": "/values/half_life_h/cv_percent",
+     "value": 18,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/values/cl_f_l_h/value",
+     "label": "values › cl f l h",
+     "pointer": "/values/cl_f_l_h/value",
+     "value": 15.7,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/values/protein_binding_percent/value",
+     "label": "values › protein binding percent",
+     "pointer": "/values/protein_binding_percent/value",
+     "value": 77,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/linearity/range_mg",
+     "label": "linearity › range mg",
+     "pointer": "/linearity/range_mg",
+     "value": [
+      0.5,
+      40
+     ],
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/scenarios/itraconazole_strong_cyp3a4_inhibitor/auc_fold",
+     "label": "scenarios › itraconazole strong cyp3a4 inhibitor › auc fold",
+     "pointer": "/scenarios/itraconazole_strong_cyp3a4_inhibitor/auc_fold",
+     "value": 3.7,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/scenarios/aprepitant_moderate_cyp3a4_inhibitor/auc_fold",
+     "label": "scenarios › aprepitant moderate cyp3a4 inhibitor › auc fold",
+     "pointer": "/scenarios/aprepitant_moderate_cyp3a4_inhibitor/auc_fold",
+     "value": 2.2,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/scenarios/high_fat_meal/auc_fold",
+     "label": "scenarios › high fat meal › auc fold",
+     "pointer": "/scenarios/high_fat_meal/auc_fold",
+     "value": 1.0,
+     "location": "section 12.3"
+    },
+    {
+     "id": "dexamethasone_label:/scenarios/high_fat_meal/cmax_fold",
+     "label": "scenarios › high fat meal › cmax fold",
+     "pointer": "/scenarios/high_fat_meal/cmax_fold",
+     "value": 0.77,
+     "location": "section 12.3"
+    }
+   ]
+  },
+  {
+   "id": "daratumumab_parameters",
+   "priority": 2,
+   "file": "intelligence_store/data/daratumumab_pk_luo_2021_extract_v1.json",
+   "sha256": "8c68ddb7a849ce00a6340e0a7b4ec58ecf9e720491be8b55f1a47c774293d4f6",
+   "where_to_look": "Luo et al. J Clin Pharmacol 2021;61:614-627, Supplementary Table S1",
+   "used_by": "Daratumumab outside checks only; not run on any page",
+   "items": [
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/cl_l_h/value",
+     "label": "fixed effects › cl l h",
+     "pointer": "/parameters/fixed_effects/cl_l_h/value",
+     "value": 0.00496,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/alb_exponent_on_cl/value",
+     "label": "fixed effects › alb exponent on cl",
+     "pointer": "/parameters/fixed_effects/alb_exponent_on_cl/value",
+     "value": -1.85,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/wt_exponent_on_cl/value",
+     "label": "fixed effects › wt exponent on cl",
+     "pointer": "/parameters/fixed_effects/wt_exponent_on_cl/value",
+     "value": 1.24,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/igg_shift_on_cl/value",
+     "label": "fixed effects › igg shift on cl",
+     "pointer": "/parameters/fixed_effects/igg_shift_on_cl/value",
+     "value": 1.26,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/v1_l/value",
+     "label": "fixed effects › v1 l",
+     "pointer": "/parameters/fixed_effects/v1_l/value",
+     "value": 5.25,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/wt_exponent_on_v1/value",
+     "label": "fixed effects › wt exponent on v1",
+     "pointer": "/parameters/fixed_effects/wt_exponent_on_v1/value",
+     "value": 0.91,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/sex_shift_on_v1/value",
+     "label": "fixed effects › sex shift on v1",
+     "pointer": "/parameters/fixed_effects/sex_shift_on_v1/value",
+     "value": -0.105,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/v2_l/value",
+     "label": "fixed effects › v2 l",
+     "pointer": "/parameters/fixed_effects/v2_l/value",
+     "value": 3.78,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/q_l_h/value",
+     "label": "fixed effects › q l h",
+     "pointer": "/parameters/fixed_effects/q_l_h/value",
+     "value": 0.00955,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/vmax_mg_h/value",
+     "label": "fixed effects › vmax mg h",
+     "pointer": "/parameters/fixed_effects/vmax_mg_h/value",
+     "value": 1.15,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/kdes_per_h/value",
+     "label": "fixed effects › kdes per h",
+     "pointer": "/parameters/fixed_effects/kdes_per_h/value",
+     "value": 7.83e-05,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/km_ug_ml/value",
+     "label": "fixed effects › km ug ml",
+     "pointer": "/parameters/fixed_effects/km_ug_ml/value",
+     "value": 2.56,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/ka_per_h/value",
+     "label": "fixed effects › ka per h",
+     "pointer": "/parameters/fixed_effects/ka_per_h/value",
+     "value": 0.0117,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/fixed_effects/f_sc/value",
+     "label": "fixed effects › f sc",
+     "pointer": "/parameters/fixed_effects/f_sc/value",
+     "value": 0.689,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/random_effects/iiv_cl_cv_percent",
+     "label": "random effects › iiv cl cv percent",
+     "pointer": "/parameters/random_effects/iiv_cl_cv_percent",
+     "value": 58.7,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/random_effects/iiv_v1_cv_percent",
+     "label": "random effects › iiv v1 cv percent",
+     "pointer": "/parameters/random_effects/iiv_v1_cv_percent",
+     "value": 36.9,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/random_effects/iiv_vmax_cv_percent",
+     "label": "random effects › iiv vmax cv percent",
+     "pointer": "/parameters/random_effects/iiv_vmax_cv_percent",
+     "value": 67.4,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/random_effects/iiv_kdes_cv_percent",
+     "label": "random effects › iiv kdes cv percent",
+     "pointer": "/parameters/random_effects/iiv_kdes_cv_percent",
+     "value": 145.9,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/random_effects/iiv_ka_cv_percent",
+     "label": "random effects › iiv ka cv percent",
+     "pointer": "/parameters/random_effects/iiv_ka_cv_percent",
+     "value": 36.1,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    },
+    {
+     "id": "daratumumab_parameters:/parameters/residual_error/additive_log_scale_cv_percent",
+     "label": "residual error › additive log scale cv percent",
+     "pointer": "/parameters/residual_error/additive_log_scale_cv_percent",
+     "value": 34.8,
+     "location": "Table S1 (JCPH-61-614-s003.docx), 'Parameter Estimates of the popPK Model of DARA Based on Combined DARA SC and DARA IV Data'"
+    }
+   ]
+  }
+ ]
+}
