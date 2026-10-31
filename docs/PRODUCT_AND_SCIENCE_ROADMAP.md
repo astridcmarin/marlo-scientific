@@ -53,7 +53,7 @@ Not differentiating on their own, so not the lead message: trial search, dashboa
 | Interface | Landing page, shared brand and navigation, About and intended-use pages, eligibility annotation and review pages. |
 | Online | Not deployed. No accounts. |
 
-Latest verification: [repository checkpoint, 30 October 2026 (second)](REPOSITORY_CHECKPOINT.md). No model is validated for clinical prediction.
+Latest verification: [repository checkpoint, 31 October 2026](REPOSITORY_CHECKPOINT.md). No model is validated for clinical prediction.
 
 ## Phases
 

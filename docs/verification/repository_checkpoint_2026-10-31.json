@@ -1,0 +1,129 @@
+{
+ "schema_version": "repository-checkpoint-v1",
+ "checkpoint": "2026-10-31",
+ "recorded_on": "2026-10-31",
+ "verified_tree": {
+  "branch": "main",
+  "commit": "7b4bda4",
+  "after_pr": 95
+ },
+ "classification": "software_and_repository_verification",
+ "not_this": [
+  "Not scientific validation of any model.",
+  "Not a clinical-readiness review."
+ ],
+ "environment": "Cloud workspace without database packages (installs blocked): non-database modules and every report run locally with the database layer stubbed; the full suite, including database-backed tests, ran in CI (Python 3.12).",
+ "checks": [
+  {
+   "id": "unit_tests",
+   "result": "pass",
+   "detail": "CI passed on 7b4bda4 (python -m unittest discover -s tests, Python 3.12); 1,040 test methods defined (static count)."
+  },
+  {
+   "id": "compile",
+   "result": "pass",
+   "detail": "python -m compileall on app, intelligence_store, landscape_ui, scripts and intelligence_migrations."
+  },
+  {
+   "id": "migration_chain",
+   "result": "pass",
+   "detail": "9 revisions; root 3538c7d69211, head 585bc7cb8d18; unchanged since 16 October."
+  },
+  {
+   "id": "pinned_data",
+   "result": "pass",
+   "detail": "128 tracked data files outside curation/; 126 match a checksum in code. Known exceptions: bortezomib_observation_template_v1.json (by design) and the eligibility corpus (pinned by decompressed content). 125 named checksum constants; 121 match a tracked file; the others are the corpus content pin, two canonical-content pins in scripts/ and the Hughes source article (kept on the owner's computer)."
+  },
+  {
+   "id": "locked_reports",
+   "result": "pass",
+   "detail": "All 23 check reports regenerated and byte-identical to the committed files, including the slow Iwasaki (529772d9...), daratumumab v1 (ac3369f7...) and v2 (24b12ab8...).",
+   "reports": {
+    "daratumumab_pk_luo_check_v2.json": "identical",
+    "daratumumab_pk_luo_check_v1.json": "identical",
+    "lenalidomide_renal_recheck_v1.json": "identical",
+    "hughes_renal_group_check_v1.json": "identical",
+    "kim_renal_group_check_v1.json": "identical",
+    "ixazomib_pk_gupta_check_v1.json": "identical",
+    "bortezomib_pk_can1004_check_v1.json": "identical",
+    "bortezomib_pk_falling_clearance_v1.json": "identical",
+    "bortezomib_pbpk_iwasaki_check_v1.json": "identical",
+    "bortezomib_pk_mmy3021_check_v1.json": "identical",
+    "bortezomib_pk_ogawa_check_v1.json": "identical",
+    "bortezomib_pk_reece_reproduction_v1.json": "identical",
+    "bortezomib_platelet_check_v1.json": "identical",
+    "eligibility_validation_v1.json": "identical",
+    "eligibility_validation_v1_posthoc.json": "identical",
+    "label_exposure_pomalidomide_consistency_v1.json": "identical",
+    "label_exposure_dexamethasone_outside_check_v1.json": "identical",
+    "label_exposure_melphalan_consistency_v1.json": "identical",
+    "label_exposure_pomalidomide_li_check_v1.json": "identical",
+    "label_exposure_dexamethasone_consistency_v1.json": "identical",
+    "lenalidomide_esrd_dialysis_check_v1.json": "identical",
+    "lenalidomide_renal_pathways_check_v1.json": "identical",
+    "bortezomib_pk_kuan_check_v1.json": "identical"
+   }
+  },
+  {
+   "id": "validation_flags",
+   "result": "pass",
+   "detail": "No tracked JSON sets clinical_prediction_validated or ready_for_patient_simulation to true."
+  },
+  {
+   "id": "page_smoke",
+   "result": "not_run_here",
+   "detail": "The app could not be started against a database in this workspace; the CI page tests (all route families touched since the previous checkpoint) passed. Repeat the full smoke test at the next checkpoint with the database available."
+  },
+  {
+   "id": "repository_hygiene",
+   "result": "pass",
+   "detail": "No source articles, private correspondence, databases or instance files tracked; only PDF is the public EMA lenalidomide report; the only email addresses are in the font licence."
+  }
+ ],
+ "findings": [
+  {
+   "id": "stale_first_dose_claim",
+   "status": "fixed_in_pr_96",
+   "detail": "'Overstates first-dose exposure about 7-fold' was the label-to-model clearance ratio; measured first-dose AUC is 2-3-fold too high in two studies and consistent in a third."
+  },
+  {
+   "id": "bortezomib_platelets_without_scope",
+   "status": "fixed_in_pr_96",
+   "detail": "The only computed model without a scope; baselines below every entry threshold were computed with a warning."
+  },
+  {
+   "id": "stacked_pr_closed",
+   "status": "resolved",
+   "detail": "#94 closed automatically when #93's branch was deleted; reopened and merged. Retarget stacked PRs to main before deleting their base branch."
+  },
+  {
+   "id": "housekeeping",
+   "status": "open",
+   "detail": "Merged branches on GitHub can be deleted."
+  }
+ ],
+ "delivered_since_previous": [
+  "#82 checkpoint 2026-10-30b",
+  "#83 lenalidomide dose-optimisation view (4.3)",
+  "#84 lenalidomide label 3/2023: special populations v2 and dose page",
+  "#85, #88, #90 renal source reconciliation v1-v3; evidence status v8-v9",
+  "#86 owner review of AI-assisted extractions",
+  "#87 lenalidomide guided path (4.4)",
+  "#89 ixazomib label 7/2024: special populations v2",
+  "#91 bortezomib PK against MMY-3021 (3.0m)",
+  "#92 bortezomib PK Reece 2011 reproduction (3.0n)",
+  "#93 lenalidomide renal recheck (2.1e)",
+  "#94 Kim warning extended to eGFR 30-50 (2.1f)",
+  "#95 renal study population recorded (2.1g)"
+ ],
+ "remaining_gates": [
+  "v2 eligibility annotation and extraction review round 1 (platform owner)",
+  "independent review of AI-assisted extractions",
+  "a second, independent lenalidomide renal dataset in myeloma patients",
+  "author answers: Hughes (Cockcroft-Gault weight basis), Kim (CL/F equation form), Iwasaki (evaluation data)",
+  "Kim protein binding: label unbound fraction about 0.7 vs Kim 0.614",
+  "bortezomib PK: individual concentration data or a clearance mechanism that changes between doses",
+  "drug catalog growth: needs DailyMed label files",
+  "accounts and deployment"
+ ]
+}
