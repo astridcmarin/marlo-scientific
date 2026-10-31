@@ -19,8 +19,11 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = Path(__file__).parent / 'data'
 HUGHES_SCOPE_PATH = DATA / 'lenalidomide_hughes_scope_v1.json'
 HUGHES_SCOPE_SHA256 = 'e89c34106bee1a0187bbcb02c72f0b1faffdc246b388a5f3a2908d2736977b93'
-KIM_SCOPE_PATH = DATA / 'lenalidomide_kim_scope_v1.json'
-KIM_SCOPE_SHA256 = 'a2d510ba6b16926e436ee644828dce41d3bfa7b3c8abd868d303e0ce8491bb01'
+KIM_SCOPE_PATH = DATA / 'lenalidomide_kim_scope_v2.json'
+KIM_SCOPE_SHA256 = 'afaf3890ed225b6e5d2dae6a6998a90d79d0e650a171103979b7a1a829d9406a'
+# Superseded on 2026-10-31 (moderate band flagged after the 2.1e recheck); kept unchanged and pinned.
+SUPERSEDED_KIM_SCOPE_PATH = DATA / 'lenalidomide_kim_scope_v1.json'
+SUPERSEDED_KIM_SCOPE_SHA256 = 'a2d510ba6b16926e436ee644828dce41d3bfa7b3c8abd868d303e0ce8491bb01'
 RENAL_EVIDENCE_PATH = ROOT / 'landscape_ui' / 'data' / 'renal_pk' / 'renal_pk_group_evidence_v1.json'
 RENAL_EVIDENCE_SHA256 = 'bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89'
 SCHEMA_VERSION = 'lenalidomide-scope-evaluation-v1'

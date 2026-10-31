@@ -1,0 +1,60 @@
+{
+  "schema_version": "model-applicability-findings-v2",
+  "findings_version": "kim-applicability-findings-v2.0",
+  "model": "lenalidomide_kim_2026",
+  "recorded_on": "2026-10-31",
+  "supersedes": {
+    "file": "intelligence_store/data/kim_applicability_findings_v1.json",
+    "sha256": "deb1c48cf97a59d6bca251935cb1e57fb4a64c158810bf1583a78aeb157d9af9",
+    "findings_version": "kim-applicability-findings-v1.0"
+  },
+  "review": "Decided by the platform owner on 2026-10-31 after the 2.1e recheck: extend the under-prediction warning to the moderate band (eGFR 30 to below 50). The severe finding is carried over from v1 with its text unchanged; the recheck's confirmation is added beside it.",
+  "schema_change": "v2 adds an optional inclusive lower bound, applies_from, so a finding can cover a band. A finding applies when applies_from <= covariate < applies_below; without applies_from it applies to every value below applies_below, as in v1.",
+  "findings": [
+    {
+      "id": "renal-under-prediction-severe",
+      "covariate": "egfr_indexed",
+      "applies_below": 30,
+      "unit": "mL/min/1.73m2",
+      "threshold_note": "The external data group is creatinine clearance below 30 mL/min; Kim's covariate is indexed eGFR. eGFR 30 is Kim's own severe-group boundary and corresponds only approximately to the study group (constructed eGFR median 13.5, range 4-37 in the primary scenario).",
+      "finding": "In an exploratory aggregate check against study CC-5013-PK-001 (single 25 mg dose), the Kim model under-predicted the severe group's exposure relative to normal renal function by about 1.3-fold in the primary scenario (observed ratio 3.76 vs simulated median 2.84). It reproduced the severe group's terminal half-life (9.2 h observed, 9.5 h simulated). The mild group was consistent in every scenario; the moderate group was consistent in the primary scenario.",
+      "warning": "Estimated eGFR is below 30 mL/min/1.73 m2. An external check suggests this model may under-predict lenalidomide exposure in severe renal impairment by roughly 1.2 to 1.5 fold; treat the curve as possibly somewhat low.",
+      "robustness": "Under-predicts in 5 of 7 prespecified scenarios; consistent when study creatinine clearance is assumed computed from ideal body weight or when Kim's body-size ranges are used. Observed over simulated median 1.19 to 1.55 across all seven.",
+      "recheck": {
+        "finding": "Confirmed by the 2.1e recheck with study-matched virtual subjects: observed ratio 3.76 vs simulated median 2.91 (90% interval 2.38-3.58) in the primary scenario; under-predicts in all four prespecified scenarios (observed over simulated median 1.23 to 1.29). The v1 sentence above that the moderate group was consistent no longer holds; see renal-under-prediction-moderate.",
+        "report": "docs/verification/lenalidomide_renal_recheck_v1.json",
+        "report_file_sha256": "c98e29919cd9e90981439a37d03883a8cfd834f397b8c0383e723b1f923e2991"
+      },
+      "evidence": {
+        "plan": "intelligence_store/data/kim_renal_group_check_plan_v1.json",
+        "report": "docs/verification/kim_renal_group_check_v1.json",
+        "report_file_sha256": "e53f62db6506346a3d5027388b0c9165de51b8fab0c5f9efc1ad7b29d34da4bb",
+        "observed_data": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+        "dose_scaling": "intelligence_store/data/lenalidomide_dose_proportionality_evidence_v1.json"
+      },
+      "status": "exploratory_finding_not_validation",
+      "consequence": "Reported as a warning on every Kim covariate estimate below the threshold. Calculations still run; nothing is corrected or hidden."
+    },
+    {
+      "id": "renal-under-prediction-moderate",
+      "covariate": "egfr_indexed",
+      "applies_from": 30,
+      "applies_below": 50,
+      "unit": "mL/min/1.73m2",
+      "threshold_note": "The external data group is creatinine clearance 30-50 mL/min; Kim's covariate is indexed CKD-EPI 2021 eGFR. 30 and 50 are Kim's own band boundaries and correspond only approximately to the study group. In the recheck's primary scenario the constructed eGFR of this group's virtual subjects had median 24.5 (range 13.2-46.4), so most of them fell below eGFR 30: the warning for eGFR 30-50 rests on the study's creatinine-clearance grouping, not on subjects observed with eGFR in that band.",
+      "finding": "In a recheck with study-matched virtual subjects (Patient Lab 2.1e, plan locked at commit d163781) against study CC-5013-PK-001 (single 25 mg dose), the Kim model under-predicted the moderate group's exposure relative to normal renal function by about 1.3-fold in the primary scenario (observed ratio 2.76 vs simulated median 2.09, 90% interval 1.71-2.57). In the first check (2.1c) this group was consistent in the primary scenario but not in every scenario. The study subjects had kidney impairment from non-malignant causes; Kim 2026 was fitted in patients with multiple myeloma.",
+      "warning": "Estimated eGFR is 30 to 50 mL/min/1.73 m2. An external check suggests this model may under-predict lenalidomide exposure in moderate renal impairment by roughly 1.3 to 1.4 fold; treat the curve as possibly somewhat low.",
+      "robustness": "Under-predicts in all four prespecified scenarios; observed over simulated median 1.28 to 1.39. Absolute exposure (secondary endpoint) under-predicted 1.31 to 1.55-fold.",
+      "evidence": {
+        "plan": "intelligence_store/data/lenalidomide_renal_recheck_plan_v1.json",
+        "plan_locked_at_commit": "d163781",
+        "report": "docs/verification/lenalidomide_renal_recheck_v1.json",
+        "report_file_sha256": "c98e29919cd9e90981439a37d03883a8cfd834f397b8c0383e723b1f923e2991",
+        "earlier_report": "docs/verification/kim_renal_group_check_v1.json",
+        "observed_data": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json"
+      },
+      "status": "exploratory_finding_not_validation",
+      "consequence": "Reported as a warning on every Kim covariate estimate in the band. Calculations still run; nothing is corrected or hidden."
+    }
+  ]
+}
