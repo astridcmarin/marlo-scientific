@@ -21,7 +21,7 @@
 {% for row in v.rows %}<section class="sp-row" aria-labelledby="sp-{{ row.domain }}"><h2 id="sp-{{ row.domain }}">{{ row.label }}</h2>
 {% if not row.statements %}<p class="sp-st"><span class="sp-kind sp-kind-gap">Not in the platform's pinned sources</span></p>{% endif %}
 {% for s in row.statements %}<div class="sp-st"><p><span class="sp-kind sp-kind-{{ s.kind }}">{{ s.kind_label }}</span>{{ s.text }}</p>
-{% if s.kind != 'gap' %}<p class="sp-value">{{ fmt(s.value) }}</p>{% endif %}
+{% if s.kind != 'gap' %}<p class="sp-value">{{ fmt(s.value, s.display) }}</p>{% endif %}
 {% if s.population %}<p class="sp-src">Population: {{ s.population }}</p>{% endif %}
 {% if s.source %}<p class="sp-src">Source: {{ s.source.title }}{% if s.source.location %} · {{ s.source.location }}{% endif %}</p>{% endif %}
 {% if s.link %}<p class="sp-src"><a href="{{ s.link }}">See the model scope</a></p>{% endif %}

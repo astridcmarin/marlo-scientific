@@ -6,8 +6,16 @@ from flask import Response, abort, render_template, request
 from intelligence_store.special_populations import SummaryError, available, build
 
 
-def fmt_value(value):
-    """Readable form of a sourced value: [ratio, low, high] -> '1.39 (0.88-2.20)'; dicts as 'key: value' lines."""
+def fmt_value(value, display=None):
+    """Readable form of a sourced value: [ratio, low, high] -> '1.39 (0.88-2.20)'; dicts as 'key: value' lines.
+    `display` (from the summary) disambiguates two-number lists: 'mean_sd' -> 'mean (SD)', otherwise a range."""
+    numbers = isinstance(value, list) and all(isinstance(v, (int, float)) for v in value)
+    if display == 'mean_sd' and numbers and len(value) == 2:
+        return f'{value[0]:g} (SD {value[1]:g})'
+    if display == 'bands' and isinstance(value, list):
+        tiers = {'externally_checked': 'checked against outside data', 'inside_model_data': "model's own data only",
+                 'external_check_disagrees': 'outside check disagrees'}
+        return '; '.join(f'{b["range"][0]:g}–{b["range"][1]:g}: {tiers.get(b["tier"], b["tier"])}' for b in value)
     if isinstance(value, list) and len(value) == 3 and all(isinstance(v, (int, float)) for v in value):
         return f'{value[0]:.2f} (90% CI {value[1]:.2f}–{value[2]:.2f})'
     if isinstance(value, list) and len(value) == 2 and all(isinstance(v, (int, float)) for v in value):
