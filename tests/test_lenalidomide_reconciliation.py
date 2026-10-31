@@ -59,12 +59,27 @@ class Reconciliation(unittest.TestCase):
         self.assertEqual(r['sources']['label_2015']['quotes']['mm_moderate_range']['quote'], 'CLcr 30-50 mL/min')
         self.assertIn('non-malignant', r['sources']['label_2015']['quotes']['basis']['quote'])
         self.assertIn('30 to 60', r['sources']['label_2017']['quotes']['table']['quote'])
-        self.assertEqual(self.r['renal_study_population']['status'], 'established_from_labels')
+        self.assertEqual(self.r['renal_study_population']['status'], 'established_from_publication_and_labels')
         self.assertEqual(r['sources']['label_2008']['study_crcl_ranges_ml_min']['severe'], [17, 29])
         self.assertEqual(r['sources']['label_2008']['quotes']['mm_moderate']['quote'], '30 ≤ CLcr < 60')
         plan = json.loads((ROOT / 'intelligence_store/data/hughes_renal_group_check_plan_v1.json').read_text())
         sampled = json.dumps(plan)
         self.assertIn('"moderate": [30, 50]', sampled)
+
+    def test_chen_2007_resolves_group_sizes_and_bounds_method_effect(self):
+        r = load_renal_reconciliation()
+        c = r['sources']['chen_2007']
+        self.assertEqual(c['table_IV_gmr_auc_inf']['cockcroft_gault']['n'], {'reference': 11, 'moderate': 9, 'severe': 4, 'esrd': 6})
+        label = load_label_extract()['pharmacokinetics']['renal_study']['groups_n']
+        self.assertEqual(label['normal_healthy_crcl_gt_80'] + label['mild_50_79'], 11)
+        self.assertEqual((label['moderate_30_49'], label['severe_lt_30']), (9, 4))
+        m, e = c['table_IV_gmr_auc_inf']['measured_crcl'], c['table_IV_gmr_auc_inf']['cockcroft_gault']
+        for g in ('moderate', 'severe'):
+            self.assertLess(abs(e[g][0] / m[g][0] - 1), 0.10)
+        t2 = c['table_II_auc_inf_geometric_mean']
+        self.assertEqual(round(t2['mild'][0] / t2['normal'][0], 2), 1.26)
+        self.assertEqual(self.r['renal_study_group_sizes']['status'], 'reconciled')
+        self.assertIn('24-hour urine', c['quotes']['stratification']['quote'])
 
     def test_ema_page_states_measured_clearance(self):
         try:

@@ -18,7 +18,7 @@ from intelligence_store.estimated_pk import calculate_estimated_pk, primary_weig
 from intelligence_store.kim_pk_runs import read_kim_pk_run
 from intelligence_store.patient_state import SCHEMA_V2, digest
 from intelligence_store.patient_state_revisions import save_revision
-from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, EVIDENCE_V5_SHA256, EVIDENCE_V6_SHA256, EVIDENCE_V7_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
+from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, EVIDENCE_V5_SHA256, EVIDENCE_V6_SHA256, EVIDENCE_V7_SHA256, EVIDENCE_V8_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
                                            record_for_estimated_pk, record_for_kim_run, record_for_patient_platelets)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -56,11 +56,25 @@ class EvidenceStatus(unittest.TestCase):
         v7 = EVIDENCE_PATH.with_name('model_evidence_status_v7.json')
         self.assertEqual(hashlib.sha256(v7.read_bytes()).hexdigest(), EVIDENCE_V7_SHA256)
         self.assertEqual(json.loads(v7.read_text())['supersedes']['status_version'], json.loads(v6.read_text())['status_version'])
+        v8 = EVIDENCE_PATH.with_name('model_evidence_status_v8.json')
+        self.assertEqual(hashlib.sha256(v8.read_bytes()).hexdigest(), EVIDENCE_V8_SHA256)
+        self.assertEqual(json.loads(v8.read_text())['supersedes']['status_version'], json.loads(v7.read_text())['status_version'])
         current = load_evidence_status()
-        self.assertEqual(current['supersedes']['status_version'], json.loads(v7.read_text())['status_version'])
+        self.assertEqual(current['supersedes']['status_version'], json.loads(v8.read_text())['status_version'])
+
+    def test_v9_only_corrects_hughes_and_kim_outside_check_summaries(self):
+        current = load_evidence_status()['models']
+        v8 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v8.json').read_text())['models']
+        for model_id in v8:
+            for layer in v8[model_id]['layers']:
+                old, new = v8[model_id]['layers'][layer], current[model_id]['layers'][layer]
+                self.assertEqual({k: v for k, v in old.items() if k != 'summary'}, {k: v for k, v in new.items() if k != 'summary'})
+                if old['summary'] != new['summary']:
+                    self.assertIn((model_id, layer), {('lenalidomide_hughes_2019', 'external_consistency'), ('lenalidomide_kim_2026', 'external_consistency')})
+        self.assertIn('non-malignant', current['lenalidomide_kim_2026']['layers']['external_consistency']['summary'])
 
     def test_v8_only_corrects_lenalidomide_summaries(self):
-        current = load_evidence_status()['models']
+        current = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v8.json').read_text())['models']
         v7 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v7.json').read_text())['models']
         self.assertEqual(set(current), set(v7))
         for model_id in v7:
