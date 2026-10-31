@@ -68,7 +68,7 @@ def lenalidomide_path():
          'links': [('Lenalidomide in special populations', 'landscape.special_populations', {'drug': 'lenalidomide'})]},
         {'id': 'exposure', 'title': 'Exposure models', 'question': 'What exposure would a synthetic patient have?',
          'found': 'Two population PK models (Hughes 2019, Kim 2026), an elimination-pathway model, and an exposure-safety relationship, run on synthetic records in the Patient Lab, inside each model\'s scope.',
-         'checked': 'See each model below. Both PK models were compared with the dedicated renal study; both under-predict exposure in severe impairment, Hughes also in moderate.',
+         'checked': 'See each model below. Both PK models were compared with the dedicated renal study, and rechecked with virtual subjects matched to that study: both under-predict exposure in moderate and severe impairment.',
          'missing': 'No model is validated for clinical prediction. Below 36 mL/min (Hughes) or outside eGFR 11.1-94.7 (Kim) the platform refuses to compute.',
          'links': [('Patient Lab', 'landscape.patient_directory', {}), ('Model library', 'landscape.drug_capability_library', {'q': 'lenalidomide'})]},
         {'id': 'dose', 'title': 'Dose', 'question': 'How do exposure and safety odds move between dose levels?',

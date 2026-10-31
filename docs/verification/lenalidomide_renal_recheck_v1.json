@@ -1,0 +1,1087 @@
+{
+  "schema_version": "lenalidomide-renal-recheck-report-v1",
+  "method_version": "lenalidomide-renal-recheck-v1.0",
+  "plan_version": "lenalidomide-renal-recheck-plan-v1.0",
+  "plan_sha256": "1766ddb3c353602a6892f69b6308155acbfd531d3971dd54d0656ea5dcee0a42",
+  "plan_locked_at_commit": "d163781",
+  "observed_data_sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+  "demographic_source_sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292",
+  "hughes_extract_sha256": "8199220db206c3e78fd5abc40191602d5b59e6275f5c77d9e43e0f7c90ae5f74",
+  "hughes_variability_sha256": "2e5970e646f6acdbee434f6c52e1bc051ecfdec163c0aee825fe1c4ea1dde5d4",
+  "kim_extract_sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af",
+  "trials": 10000,
+  "seed": 20261031,
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "result_by_model": {
+    "lenalidomide_hughes_2019": {
+      "primary": {
+        "mild": "consistent",
+        "moderate": "model_under_predicts",
+        "severe": "model_under_predicts"
+      },
+      "across_scenarios": {
+        "mild": [
+          "consistent"
+        ],
+        "moderate": [
+          "model_under_predicts"
+        ],
+        "severe": [
+          "model_under_predicts"
+        ]
+      },
+      "v1_primary": {
+        "mild": "consistent",
+        "moderate": "model_under_predicts",
+        "severe": "model_under_predicts"
+      },
+      "v1_report": "docs/verification/hughes_renal_group_check_v1.json",
+      "change_from_v1": {
+        "mild": "unchanged",
+        "moderate": "unchanged",
+        "severe": "unchanged"
+      }
+    },
+    "lenalidomide_kim_2026": {
+      "primary": {
+        "mild": "consistent",
+        "moderate": "model_under_predicts",
+        "severe": "model_under_predicts"
+      },
+      "across_scenarios": {
+        "mild": [
+          "consistent"
+        ],
+        "moderate": [
+          "model_under_predicts"
+        ],
+        "severe": [
+          "model_under_predicts"
+        ]
+      },
+      "v1_primary": {
+        "mild": "consistent",
+        "moderate": "consistent",
+        "severe": "model_under_predicts"
+      },
+      "v1_report": "docs/verification/kim_renal_group_check_v1.json",
+      "change_from_v1": {
+        "mild": "unchanged",
+        "moderate": "changed",
+        "severe": "unchanged"
+      }
+    }
+  },
+  "scenarios": {
+    "primary": {
+      "lenalidomide_hughes_2019": [
+        {
+          "group": "normal",
+          "n": 7,
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1617.7862361033767,
+              "p50": 2299.8012904745083,
+              "p95": 3294.123604695377
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9483428020644356
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 39.26876961712303,
+              "median": 55.98436372369329,
+              "max": 70.59017639929856
+            }
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 1725.0086687161338,
+              "p50": 2622.6222126350926,
+              "p95": 4022.334887284028
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.0550509282920482
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 38.932846262517984,
+              "median": 55.180150584385515,
+              "max": 65.3901988451477
+            }
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 0.6535782778663578,
+              "p50": 1.1441733092389132,
+              "p95": 1.9809964957288522
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.1088216091240084
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 1748.5132411613142,
+              "p50": 2551.695235703327,
+              "p95": 3786.49040639182
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.3596078072938145
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 42.024433868726526,
+              "median": 64.99084863842018,
+              "max": 77.69412600686162
+            }
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 0.6563656481802219,
+              "p50": 1.1069066206501255,
+              "p95": 1.8847777613515786
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.4940317422362273
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 2464.5982289231406,
+              "p50": 3631.121028767884,
+              "p95": 5353.810654698992
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.2557771925270633
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 34.205137365779336,
+              "median": 45.34876376939364,
+              "max": 66.56647135978118
+            }
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 0.9270019881808644,
+              "p50": 1.5734518731114104,
+              "p95": 2.6901773893820047
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.3868646723623104
+          }
+        }
+      ],
+      "lenalidomide_kim_2026": [
+        {
+          "group": "normal",
+          "n": 7,
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1771.5255768647348,
+              "p50": 2053.740318532923,
+              "p95": 2387.7474990299215
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.0619648357285911
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 35.459737587258516,
+              "median": 73.53961370354344,
+              "max": 139.26051336110845
+            },
+            "egfr": {
+              "min": 51.09688363007683,
+              "median": 95.9488360423606,
+              "max": 120.9778931941277
+            },
+            "bsa": {
+              "min": 1.6410471701568274,
+              "median": 1.9308399305136081,
+              "max": 2.2192972249173635
+            },
+            "fraction_egfr_outside_kim_range": 0.5354428571428571
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 2620.953610752605,
+              "p50": 3074.2740930129976,
+              "p95": 3597.38473054691
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9000498707283943
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 60.971355148946266,
+              "median": 99.07557586702397,
+              "max": 152.92182626986514
+            },
+            "egfr": {
+              "min": 42.18343841890195,
+              "median": 64.87391484671795,
+              "max": 92.86329514217502
+            },
+            "bsa": {
+              "min": 1.6303988951403376,
+              "median": 1.8659840507785361,
+              "max": 2.0888707445504733
+            },
+            "fraction_egfr_outside_kim_range": 0.0
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 1.2032412012101028,
+              "p50": 1.4981047115254018,
+              "p95": 1.858947748590854
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.8468594218459087
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 3763.48285938634,
+              "p50": 4300.819360844784,
+              "p95": 4924.82164933663
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3999657960099332
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 119.01378179488131,
+              "median": 246.91580828574132,
+              "max": 436.8809468989384
+            },
+            "egfr": {
+              "min": 13.181852778967947,
+              "median": 24.53393032872905,
+              "max": 46.43912749961615
+            },
+            "bsa": {
+              "min": 1.7313430387312987,
+              "median": 2.1052996824327685,
+              "max": 2.4098647819270553
+            },
+            "fraction_egfr_outside_kim_range": 0.0
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 1.7149547451883629,
+              "p50": 2.0900053495266877,
+              "p95": 2.5689582680371124
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3208866897005977
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 5197.1147728911965,
+              "p50": 5984.195964093753,
+              "p95": 6881.516047972455
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3687720203595382
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 127.6543325667975,
+              "median": 246.86205136504,
+              "max": 512.5959171642884
+            },
+            "egfr": {
+              "min": 9.701080654443663,
+              "median": 20.02217811071639,
+              "max": 41.70530923802629
+            },
+            "bsa": {
+              "min": 1.4838474093763996,
+              "median": 1.7834829664297476,
+              "max": 2.1178318595161465
+            },
+            "fraction_egfr_outside_kim_range": 0.00505
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 2.3777298678730716,
+              "p50": 2.9103661035821435,
+              "p95": 3.577309933240035
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.2904275805608902
+          }
+        }
+      ]
+    },
+    "sensitivity_uniform_crcl": {
+      "lenalidomide_hughes_2019": [
+        {
+          "group": "normal",
+          "n": 7,
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1607.3341754465516,
+              "p50": 2292.527698120773,
+              "p95": 3298.366933089826
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9513516463891825
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 39.183340937610254,
+              "median": 55.960535354600246,
+              "max": 70.52025427996901
+            }
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 1734.463418183629,
+              "p50": 2619.7359853957496,
+              "p95": 4017.8641564194195
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.056213303716559
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 38.916052903487135,
+              "median": 55.20557209718943,
+              "max": 65.38465564917385
+            }
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 0.6646415232962475,
+              "p50": 1.1479627759301965,
+              "p95": 2.001151644295031
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.1051613488416612
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 1719.0965486297266,
+              "p50": 2551.1697128236106,
+              "p95": 3748.9510176959157
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.3600938697786646
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 41.965262431461866,
+              "median": 64.95543940222387,
+              "max": 77.72980810832416
+            }
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 0.6543216100141037,
+              "p50": 1.1105425482331501,
+              "p95": 1.8843087896646529
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.4858662569795276
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 2483.179065003412,
+              "p50": 3654.875863757684,
+              "p95": 5412.413542366823
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.2411157876039587
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 34.22134008886753,
+              "median": 45.29705718796323,
+              "max": 66.58233505590789
+            }
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 0.9430723494441033,
+              "p50": 1.5913831434069303,
+              "p95": 2.7256789575767333
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.3599701336233063
+          }
+        }
+      ],
+      "lenalidomide_kim_2026": [
+        {
+          "group": "normal",
+          "n": 7,
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1697.7769566956488,
+              "p50": 1982.1443224075106,
+              "p95": 2321.058469213556
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.1003235109292948
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 34.35511666793185,
+              "median": 69.50394931860808,
+              "max": 138.6858049148063
+            },
+            "egfr": {
+              "min": 50.52653910658878,
+              "median": 99.27191581853825,
+              "max": 121.0809026703159
+            },
+            "bsa": {
+              "min": 1.638292403148942,
+              "median": 1.930134967397337,
+              "max": 2.217668370230647
+            },
+            "fraction_egfr_outside_kim_range": 0.6321285714285715
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 2615.693658976563,
+              "p50": 3070.4162674426366,
+              "p95": 3597.516106403027
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9011807386965959
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 60.36287390038217,
+              "median": 98.74472998619001,
+              "max": 153.22682295607
+            },
+            "egfr": {
+              "min": 41.57507631433049,
+              "median": 65.13978705809471,
+              "max": 93.12914625786063
+            },
+            "bsa": {
+              "min": 1.6297883381675768,
+              "median": 1.8664971237197168,
+              "max": 2.088726313689302
+            },
+            "fraction_egfr_outside_kim_range": 0.0
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 1.2358112821604406,
+              "p50": 1.5471248070596406,
+              "p95": 1.9350968223200893
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.8200269842988347
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 3740.5768085630084,
+              "p50": 4294.734543583201,
+              "p95": 4908.959679119785
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.4019492797281328
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 121.38882901113229,
+              "median": 246.14383621435087,
+              "max": 440.42943319451496
+            },
+            "egfr": {
+              "min": 13.207876016482432,
+              "median": 24.697435984172742,
+              "max": 46.65400809188285
+            },
+            "bsa": {
+              "min": 1.7295161005060065,
+              "median": 2.105018319516296,
+              "max": 2.410658459399643
+            },
+            "fraction_egfr_outside_kim_range": 0.0
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 1.7577161972653275,
+              "p50": 2.1633012798071323,
+              "p95": 2.6569376721637865
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.2761330441402836
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 5232.979321219251,
+              "p50": 6025.294439643056,
+              "p95": 6934.368128214211
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.359435639544487
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 128.56145332736003,
+              "median": 252.1971639833024,
+              "max": 515.0557568431548
+            },
+            "egfr": {
+              "min": 9.528864755937102,
+              "median": 19.551750353576253,
+              "max": 41.614802813373174
+            },
+            "bsa": {
+              "min": 1.4842059546576831,
+              "median": 1.7817354572930966,
+              "max": 2.1182160289169834
+            },
+            "fraction_egfr_outside_kim_range": 0.009916666666666667
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 2.4540508516808397,
+              "p50": 3.042438828968753,
+              "p95": 3.749964309249659
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.2344099259556558
+          }
+        }
+      ]
+    },
+    "sensitivity_shorter": {
+      "lenalidomide_hughes_2019": [
+        {
+          "group": "normal",
+          "n": 7,
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1697.0515011346042,
+              "p50": 2419.158153056439,
+              "p95": 3475.47702188917
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9015532933406843
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 36.85050527486362,
+              "median": 53.05112516934644,
+              "max": 66.79091994347112
+            }
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 1793.5401052304574,
+              "p50": 2730.776004242901,
+              "p95": 4216.736429450904
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.0132650923037323
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 36.53445070125485,
+              "median": 52.25710185865653,
+              "max": 62.10506219823454
+            }
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 0.6524136816854035,
+              "p50": 1.1342634545455594,
+              "p95": 1.9681974515639244
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.1185091830145664
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 1805.8161214690392,
+              "p50": 2667.212963788378,
+              "p95": 3989.7866605162594
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.2574125432594134
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 39.27865009819124,
+              "median": 61.06369892832552,
+              "max": 73.13120122602064
+            }
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 0.6491710484908314,
+              "p50": 1.109209196529057,
+              "p95": 1.8748966437088381
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.4888544525518896
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 2593.156161282466,
+              "p50": 3802.3114714719704,
+              "p95": 5678.034438976696
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.1542159450785494
+          },
+          "constructed_covariates": {
+            "ffm": {
+              "min": 32.38935224516301,
+              "median": 42.69645999289489,
+              "max": 63.216595789321666
+            }
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 0.9287526314347123,
+              "p50": 1.5801637942468272,
+              "p95": 2.657040277255249
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 2.376726199692492
+          }
+        }
+      ],
+      "lenalidomide_kim_2026": [
+        {
+          "group": "normal",
+          "n": 7,
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1902.6826607951923,
+              "p50": 2213.591014019509,
+              "p95": 2576.406460965828
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.9852768583658418
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 34.74878957299535,
+              "median": 73.66714631865474,
+              "max": 138.02732316108242
+            },
+            "egfr": {
+              "min": 50.764110674430356,
+              "median": 95.88490707093297,
+              "max": 120.54153974087448
+            },
+            "bsa": {
+              "min": 1.5613607959670566,
+              "median": 1.847630024813882,
+              "max": 2.1311797548100713
+            },
+            "fraction_egfr_outside_kim_range": 0.5338142857142857
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 2826.4238266977864,
+              "p50": 3312.2296247462127,
+              "p95": 3890.077478352766
+            },
+            "classification": "model_over_predicts",
+            "observed_over_median": 0.835388941433072
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 60.60082562053076,
+              "median": 99.1077980304892,
+              "max": 155.23518626206672
+            },
+            "egfr": {
+              "min": 41.80490909913166,
+              "median": 64.79478528138218,
+              "max": 92.88984412672383
+            },
+            "bsa": {
+              "min": 1.550617668648977,
+              "median": 1.7865054471228985,
+              "max": 2.005572837227934
+            },
+            "fraction_egfr_outside_kim_range": 0.0
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 1.2010252964715609,
+              "p50": 1.497710145727326,
+              "p95": 1.8581991840093874
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.8470825236020073
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 4010.074021264518,
+              "p50": 4599.385228775027,
+              "p95": 5282.729870817629
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3090879977460808
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 119.03147103310695,
+              "median": 246.88474174343827,
+              "max": 436.561740629494
+            },
+            "egfr": {
+              "min": 13.102697290870088,
+              "median": 24.563844299833786,
+              "max": 46.171253661190946
+            },
+            "bsa": {
+              "min": 1.6477971062583898,
+              "median": 2.0147707648812583,
+              "max": 2.3144893628841263
+            },
+            "fraction_egfr_outside_kim_range": 0.0
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 1.6936901095081687,
+              "p50": 2.0796451717349727,
+              "p95": 2.556096798252241
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.327466956918294
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 5626.823819684741,
+              "p50": 6476.972070574082,
+              "p95": 7488.717797559283
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.2646341393400506
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 128.92098827124897,
+              "median": 247.39769524197334,
+              "max": 521.2866834680308
+            },
+            "egfr": {
+              "min": 9.38358175686933,
+              "median": 19.946531347298862,
+              "max": 40.67212887510006
+            },
+            "bsa": {
+              "min": 1.4130023687113202,
+              "median": 1.7051687155322974,
+              "max": 2.0346958573996456
+            },
+            "fraction_egfr_outside_kim_range": 0.004516666666666667
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 2.3793884410632336,
+              "p50": 2.9322672320988774,
+              "p95": 3.610626532062105
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.280789366153272
+          }
+        }
+      ]
+    },
+    "sensitivity_kim_exponential": {
+      "lenalidomide_kim_2026": [
+        {
+          "group": "normal",
+          "n": 7,
+          "auc_infinity": {
+            "observed_mean": 2181,
+            "simulated_group_mean": {
+              "p05": 1686.963694745013,
+              "p50": 1962.358986512018,
+              "p95": 2293.6037082722955
+            },
+            "classification": "consistent",
+            "observed_over_median": 1.111417439413878
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 35.885613254870265,
+              "median": 73.63824564709223,
+              "max": 139.3287037539103
+            },
+            "egfr": {
+              "min": 50.58134021229736,
+              "median": 95.90421824523551,
+              "max": 120.87658822947272
+            },
+            "bsa": {
+              "min": 1.640662507093442,
+              "median": 1.931036063922999,
+              "max": 2.2192599994279814
+            },
+            "fraction_egfr_outside_kim_range": 0.5336714285714286
+          }
+        },
+        {
+          "group": "mild",
+          "n": 5,
+          "auc_infinity": {
+            "observed_mean": 2767,
+            "simulated_group_mean": {
+              "p05": 2547.4007133795285,
+              "p50": 2992.351120498665,
+              "p95": 3507.9690114462164
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.924690949883879
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 60.990948364287064,
+              "median": 99.02723892535462,
+              "max": 153.67029703840038
+            },
+            "egfr": {
+              "min": 41.366456865750884,
+              "median": 64.8672713680372,
+              "max": 92.34663799622098
+            },
+            "bsa": {
+              "min": 1.6291100856402125,
+              "median": 1.8664370919393507,
+              "max": 2.087903727307131
+            },
+            "fraction_egfr_outside_kim_range": 0.0
+          },
+          "auc_ratio_to_normal": {
+            "observed": 1.2686840898670335,
+            "simulated": {
+              "p05": 1.220790539888971,
+              "p50": 1.5216253088912506,
+              "p95": 1.903193491043726
+            },
+            "classification": "consistent",
+            "observed_over_median": 0.8337690510625605
+          }
+        },
+        {
+          "group": "moderate",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 6021,
+            "simulated_group_mean": {
+              "p05": 3354.7036541885604,
+              "p50": 3882.1852129931717,
+              "p95": 4495.2821276043815
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.5509306407763577
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 121.47308514097253,
+              "median": 246.92148136599423,
+              "max": 444.1159767828384
+            },
+            "egfr": {
+              "min": 12.960632466572655,
+              "median": 24.565105322702777,
+              "max": 46.61766556708064
+            },
+            "bsa": {
+              "min": 1.730352013834292,
+              "median": 2.1052736649445074,
+              "max": 2.4102235846222566
+            },
+            "fraction_egfr_outside_kim_range": 0.0
+          },
+          "auc_ratio_to_normal": {
+            "observed": 2.7606602475928472,
+            "simulated": {
+              "p05": 1.5917135654351666,
+              "p50": 1.9799310461293609,
+              "p95": 2.4364695354300983
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.394321409823722
+          }
+        },
+        {
+          "group": "severe",
+          "n": 6,
+          "auc_infinity": {
+            "observed_mean": 8191,
+            "simulated_group_mean": {
+              "p05": 5089.238851815605,
+              "p50": 5880.5936064148445,
+              "p95": 6813.773758562588
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.3928865941466946
+          },
+          "constructed_covariates": {
+            "scr_umol_l": {
+              "min": 128.99519660785208,
+              "median": 247.53287654463247,
+              "max": 515.5391173202541
+            },
+            "egfr": {
+              "min": 9.547645704151575,
+              "median": 19.98255715991108,
+              "max": 41.489920933874146
+            },
+            "bsa": {
+              "min": 1.4840928966739328,
+              "median": 1.7822683546408546,
+              "max": 2.119347657622878
+            },
+            "fraction_egfr_outside_kim_range": 0.0049
+          },
+          "auc_ratio_to_normal": {
+            "observed": 3.7556166895919305,
+            "simulated": {
+              "p05": 2.4197663583043205,
+              "p50": 2.997794142913124,
+              "p95": 3.7097409288052403
+            },
+            "classification": "model_under_predicts",
+            "observed_over_median": 1.2527933909238973
+          }
+        }
+      ]
+    }
+  },
+  "decision_rule": "For each model and impaired group, compare the primary classification with v1. Recorded as 'unchanged' if it matches v1's primary classification, otherwise 'changed', with robustness across this plan's scenarios. Scope or flag changes are not made by this check: if a flagged band becomes consistent in every scenario here, a scope revision is proposed in a separate, documented step.",
+  "not_this": [
+    "Not validation or an acceptance decision; no acceptance limits are introduced.",
+    "Not a comparison of individual concentrations; only group means and SDs are available.",
+    "Not a re-fit: no model parameter is estimated or tuned.",
+    "Not a dosing decision for any patient."
+  ],
+  "known_differences": [
+    "Height is assumed, not reported.",
+    "Within-group distributions of age and weight are unknown; ranges are used uniformly.",
+    "The study subjects had renal impairment due to non-malignant conditions; both models were fitted in patients with haematological cancer (Kim: myeloma)."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "4d794f19d5a442d2213466b4ae78fe747f2890dfe51796d216b1cb0c51cf8c00"
+}

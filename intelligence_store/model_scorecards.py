@@ -63,6 +63,7 @@ RESULT_ITEMS.update({
 })
 RESULT_ITEMS.update({'v2.' + k: v + ' (with study demographics)' for k, v in list(RESULT_ITEMS.items())
                      if k.startswith(('sirius_8.', 'gen501_16.'))})
+RESULT_ITEMS.update({'recheck.' + g: RESULT_ITEMS[g] + ' (recheck with study-matched subjects)' for g in ('mild', 'moderate', 'severe')})
 RESULT_KEYS = ('result_by_group', 'result_at_1_3_mg_m2', 'result_by_endpoint')
 
 # What each model is and where the platform uses it. Descriptions only; no scientific values.
