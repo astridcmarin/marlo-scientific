@@ -1,0 +1,565 @@
+{
+ "schema_version": "source-reconciliation-v1",
+ "reconciliation_version": "lenalidomide-renal-source-reconciliation-v3.0",
+ "drug": "lenalidomide",
+ "recorded_on": "2026-10-31",
+ "sources": {
+  "ema_table": {
+   "file": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+   "sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+   "original": "EMA withdrawal assessment report EMEA/CHMP/249329/2008 (landscape_ui/data/renal_pk/ema_lenalidomide_2008.pdf), PDF pages 20-21"
+  },
+  "label": {
+   "file": "intelligence_store/data/lenalidomide_label_2023_v1.json",
+   "sha256": "d4b02134613dc45d6b039999b37d9c94ccbc047cc0b7e811b77278c868e47a9a",
+   "original": "REVLIMID prescribing information, revised 3/2023, section 12.3, PDF page 46"
+  },
+  "reference_note": {
+   "file": "intelligence_store/data/lenalidomide_reference_exposure_v1.json",
+   "pointer": "/regulatory_context"
+  },
+  "study_abstract": {
+   "document": "Conference abstract of study CC-5013-PK-001 on the effect of renal impairment on lenalidomide pharmacokinetics: J Clin Oncol 2007;25(18_suppl):2520 (ASCO annual meeting supplement), doi:10.1200/jco.2007.25.18_suppl.2520. Title and authors not verified: the journal page could not be retrieved from the development environment.",
+   "provenance": "Text pasted into the conversation by the platform owner on 31 October 2026, who supplied the DOI link. Only short quotes are stored here.",
+   "quotes": {
+    "stratification": "Thirty male and female subjects aged 39–76 years were stratified into 5 groups based on their creatinine clearance (CLCr) values: normal renal function (NRF) (CLCr > 80 mL/min; N = 7), mild RI (50 = CLCr = 80 mL/min; N = 5), moderate RI (30 = CLCr < 50 mL/min; N = 6), severe RI (CLCr < 30 mL/min, but not on dialysis; N = 6), and end stage renal disease (ESRD, requiring dialysis; N = 6).",
+    "purpose": "Results were used to refine initial dosing recommendations based on a subject’s estimated creatinine clearance.",
+    "auc_change": "Compared with the pooled data from NRF and mild RI groups, mean AUC8 increased approximately 140% in moderate RI, 240% in severe RI, and 360% in ESRD (off dialysis).",
+    "mild": "The mean difference in AUC8 between NRF and mild RI was < 20%.",
+    "protein_binding": "Protein binding of lenalidomide was not markedly affected by RI (∼35 - 44%).",
+    "conclusion": "Lenalidomide dosage adjustment should be considered for patients with CLCr < 50 mL/min."
+   },
+   "quote_note": "'50 = CLCr = 80' and 'AUC8' are as pasted; they are probably '≤' signs and 'AUC∞' lost in copying.",
+   "recommended_starting_doses_mm": {
+    "mild": "25 mg qd (full dose)",
+    "moderate": "10 mg qd (may be escalated to 15 mg qd after 2 cycles)",
+    "severe": "15 mg q 48 h",
+    "esrd": "15 mg 3x a week following each dialysis"
+   }
+  },
+  "label_2006": {
+   "document": "REVLIMID prescribing information approved with NDA 021880 supplement 001 (myeloma indication, June 2006)",
+   "file": "021880s001.pdf (47 pages, text layer; FDA-hosted)",
+   "sha256": "46ca5126d292b74a32b088379995d54e53803ebc784ecd41d640b1dc882f8fb3",
+   "quotes": {
+    "no_renal_studies": {
+     "quote": "No formal studies have been conducted in patients with renal impairment.",
+     "location": "Precautions, General, PDF page 16"
+    },
+    "excluded": {
+     "quote": "Patients with renal insufficiency were excluded from the clinical trials, and those who developed renal insufficiency during the clinical trials had the drug held.",
+     "location": "Precautions, Renal Impairment, PDF page 19"
+    },
+    "mild_mm": {
+     "quote": "In multiple myeloma patients, those with mild renal impairment had an AUC 56% greater than those with normal renal function.",
+     "location": "Clinical Pharmacology, Special Populations, PDF page 6"
+    }
+   },
+   "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
+   "extraction": "AI-assisted; quotes checked against the file text (pdftotext, whitespace normalised); table rows transcribed from the layout text."
+  },
+  "label_2015": {
+   "document": "REVLIMID prescribing information, Revised: 02/2015 (NDA 021880 supplement 041; FDA Reference ID 3703234)",
+   "file": "021880s041lbl.pdf (50 pages, text layer; FDA-hosted)",
+   "sha256": "c79ffd00d196a1ae6426bf9ff9326fca5ee3cda352bd9d0ba4f718692b3162ed",
+   "quotes": {
+    "basis": {
+     "quote": "Based on a pharmacokinetic study in patients with renal impairment due to non-malignant conditions, REVLIMID starting dose adjustment is recommended for patients with CLcr < 60 mL/min.",
+     "location": "Section 2.4, PDF page 6"
+    },
+    "mds_mcl_table": {
+     "quote": "Table 2: Starting Dose Adjustments for Patients with Renal Impairment in MDS or MCL",
+     "location": "Section 2.4, PDF page 6"
+    },
+    "mds_mcl_moderate_range": {
+     "quote": "CLcr 30-60 mL/min",
+     "location": "Section 2.4, Table 2, PDF page 6"
+    },
+    "mm_table": {
+     "quote": "Table 3: Starting Dose Adjustments for Patients with Renal Impairment in MM",
+     "location": "Section 2.4, PDF page 6"
+    },
+    "mm_moderate_range": {
+     "quote": "CLcr 30-50 mL/min",
+     "location": "Section 2.4, Table 3, PDF page 6"
+    }
+   },
+   "mm_table_transcribed": [
+    {
+     "category": "Moderate renal impairment",
+     "crcl": "30-50 mL/min",
+     "dose": "10 mg every 24 hours"
+    },
+    {
+     "category": "Severe renal impairment",
+     "crcl": "< 30 mL/min, not requiring dialysis",
+     "dose": "15 mg every 48 hours"
+    },
+    {
+     "category": "End stage renal disease",
+     "crcl": "< 30 mL/min, requiring dialysis",
+     "dose": "5 mg once daily; on dialysis days after dialysis"
+    }
+   ],
+   "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
+   "extraction": "AI-assisted; quotes checked against the file text (pdftotext, whitespace normalised); table rows transcribed from the layout text."
+  },
+  "label_2017": {
+   "document": "REVLIMID prescribing information, Revised: 09/2017 (NDA 021880 supplement 051; FDA Reference ID 4153406)",
+   "file": "021880s051lbl.pdf (46 pages, text layer; FDA-hosted)",
+   "sha256": "0a7a92d0dcbfd34027a2714f288bb1701fa9189e6ab27fc599d9c4202e348813",
+   "quotes": {
+    "table": {
+     "quote": "Table 3: Starting Dose Adjustments for Patients with Renal Impairment Renal Function (Cockcroft-Gault) Dose in REVLIMID Combination Therapy for MM and for MCL CLcr 30 to 60 mL/min",
+     "location": "Section 2.4, PDF page 6"
+    },
+    "escalation": {
+     "quote": "REVLIMID Combination Therapy for MM: For CLcr of 30 to 60 mL/min, consider escalating the dose to 15 mg after 2 cycles",
+     "location": "Section 2.4, PDF page 6"
+    }
+   },
+   "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
+   "extraction": "AI-assisted; quotes checked against the file text (pdftotext, whitespace normalised); table rows transcribed from the layout text."
+  },
+  "label_2008": {
+   "document": "REVLIMID prescribing information approved with NDA 021880 supplements 006, 016 and 017. No approval date is printed; its Medication Guide is coded 'RevPlyMG.006 12/08' and the PDF was created on 24 February 2009.",
+   "file": "021880s006s016s017lbl.pdf (41 pages, text layer; FDA-hosted)",
+   "sha256": "538caf39cc51721480c976dc1aac2aab26729014851ad8fc0d13aa2cbb531fe3",
+   "quotes": {
+    "basis": {
+     "quote": "Based on a pharmacokinetic study in patients with renal impairment due to nonmalignant conditions, lenalidomide starting dose adjustment is recommended for patients with CLcr < 60 mL/min.",
+     "location": "Dosage and Administration, Starting Dose Adjustment for Renal Impairment, PDF page 31"
+    },
+    "not_studied": {
+     "quote": "Non-dialysis patients with creatinine clearances less than 11 mL/min, and dialysis patients with creatinine clearances less than 7 mL/min, have not been studied.",
+     "location": "Dosage and Administration, Starting Dose Adjustment for Renal Impairment, PDF page 31"
+    },
+    "study_groups": {
+     "quote": "In this study, 5 patients with mild renal function impairment (creatinine clearance 57-74 mL/min), 6 patients with moderate renal function impairment (creatinine clearance 33-46 mL/min), 6 patients with severe renal function impairment (creatinine clearance 17-29 mL/min), and 6 patients with end stage renal disease requiring dialysis were administered a single oral 25-mg dose of REVLIMID® (lenalidomide).",
+     "location": "Clinical Pharmacology, Special Populations, PDF page 6"
+    },
+    "control": {
+     "quote": "As a control group comparator, 7 healthy subjects of similar age with normal renal function (creatinine clearance 83-145 mL/min) were also administered a single oral 25-mg dose of REVLIMID® (lenalidomide).",
+     "location": "Clinical Pharmacology, Special Populations, PDF page 6"
+    },
+    "mm_moderate": {
+     "quote": "30 ≤ CLcr < 60",
+     "location": "Dosage and Administration, renal table, PDF page 31"
+    }
+   },
+   "mm_table_transcribed": [
+    {
+     "category": "Moderate renal impairment",
+     "crcl": "30 <= CLcr < 60 mL/min (Cockcroft-Gault)",
+     "dose": "10 mg every 24 hours"
+    },
+    {
+     "category": "Severe renal impairment",
+     "crcl": "< 30 mL/min, not requiring dialysis",
+     "dose": "15 mg every 48 hours"
+    },
+    {
+     "category": "End stage renal disease",
+     "crcl": "< 30 mL/min, requiring dialysis",
+     "dose": "5 mg once daily; on dialysis days after dialysis"
+    }
+   ],
+   "study_crcl_ranges_ml_min": {
+    "normal_healthy": [
+     83,
+     145
+    ],
+    "mild": [
+     57,
+     74
+    ],
+    "moderate": [
+     33,
+     46
+    ],
+    "severe": [
+     17,
+     29
+    ]
+   },
+   "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
+   "extraction": "AI-assisted; quotes checked against the file text (pdftotext, whitespace and line numbers normalised); table transcribed from the layout text."
+  },
+  "label_2017_02": {
+   "document": "REVLIMID prescribing information, Revised: 02/2017 (NDA 021880 supplement 049; FDA Reference ID 4059396)",
+   "file": "021880s049lbl.pdf (45 pages, text layer; FDA-hosted)",
+   "sha256": "c3dcf0b03f024910c53b50cf429ed7931ecbaaf820a314281c59c43c7c9918f8",
+   "quotes": {
+    "table": {
+     "quote": "Table 3: Starting Dose Adjustments for Patients with Renal Impairment",
+     "location": "Section 2.4, PDF page 6"
+    }
+   },
+   "mm_moderate_range": "CLcr 30 to 60 mL/min (10 mg once daily in combination therapy; 5 mg once daily in maintenance), as in the 09/2017 label",
+   "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
+   "extraction": "AI-assisted; quote checked against the file text; table read from the layout text."
+  },
+  "chen_2007": {
+   "document": "Chen N, Lau H, Kong L, Kumar G, Zeldis JB, Knight R, Laskin OL. Pharmacokinetics of lenalidomide in subjects with various degrees of renal impairment and in subjects on hemodialysis. J Clin Pharmacol 2007;47:1466-1475. doi:10.1177/0091270007309563",
+   "file": "Pharmacokinetics_of_Lenalidomi.PDF (10 pages, text layer)",
+   "sha256": "494067b57276b0bf8bf1377bab84e31c631331c5e11684404038176b2b269d78",
+   "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
+   "extraction": "AI-assisted; quotes checked against the file text (pdftotext, whitespace normalised); table values transcribed from the layout text. Independent review pending.",
+   "quotes": {
+    "population": {
+     "quote": "This was an open-label, multicenter, single oral dose study in subjects with renal impairment due to nonmalignant conditions.",
+     "location": "Methods, PDF page 2 (journal page 1467)"
+    },
+    "stratification": {
+     "quote": "They were stratified into 5 groups based on their creatinine clearance (CLCr) values measured from a 24-hour urine collection or the need of hemodialysis therapy",
+     "location": "Methods, PDF page 2 (journal page 1467)"
+    },
+    "cockcroft_gault": {
+     "quote": "the CLCr estimated by the Cockcroft-Gault formula was also used to classify renal function for calculating the geometric mean ratio and used as an independent variable for linear regression analyses.",
+     "location": "Methods, PDF page 4 (journal page 1469)"
+    },
+    "cause": {
+     "quote": "The cause of renal impairment in most of the subjects was the result of either cardiovascular and/or endocrine disorders.",
+     "location": "Results, PDF page 4 (journal page 1469)"
+    },
+    "mild": {
+     "quote": "the differences in CL/F, CLr, AUC, and t1/2 between normal renal function and mild RI groups were minor to modest (11%-32%) and fell within the range of intersubject variability for the drug.",
+     "location": "Results, PDF page 5 (journal page 1470)"
+    },
+    "similar_classification": {
+     "quote": "The results were similar when either the measured CLCr (from 24-hour urine collection) or the estimated CLCr (from the Cockcroft-Gault formula) was used to classify the renal function.",
+     "location": "Results, PDF page 6 (journal page 1471)"
+    },
+    "protein_binding": {
+     "quote": "The mean protein binding was 35.4% ± 4.1% for mild RI, 37.2% ± 6.3% for moderate RI, 39.8% ± 6.3% for severe RI, and 44.3% ± 3.9% for ESRD (off dialysis).",
+     "location": "Results, PDF page 5 (journal page 1470)"
+    },
+    "limitation": {
+     "quote": "It should be noted that the current dose recommendations are based on the single-dose pharmacokinetic study in subjects with renal impairment due to nonmalignant conditions.",
+     "location": "Discussion, PDF page 9 (journal page 1474)"
+    }
+   },
+   "table_I_demographics": {
+    "note": "Groups by CLCr measured from a 24-hour urine collection; mean (range) unless stated.",
+    "location": "Table I, PDF page 4 (journal page 1469)",
+    "normal": {
+     "n": 7,
+     "female_male": [
+      3,
+      4
+     ],
+     "age_mean": 58,
+     "age_range": [
+      42,
+      70
+     ],
+     "weight_kg_mean": 80,
+     "weight_kg_range": [
+      67,
+      98
+     ],
+     "crcl_ml_min_mean": 102.2,
+     "crcl_sd": 21.9
+    },
+    "mild": {
+     "n": 5,
+     "female_male": [
+      2,
+      3
+     ],
+     "age_mean": 68,
+     "age_range": [
+      55,
+      76
+     ],
+     "weight_kg_mean": 74,
+     "weight_kg_range": [
+      66,
+      85
+     ],
+     "crcl_ml_min_mean": 64.6,
+     "crcl_sd": 8.3
+    },
+    "moderate": {
+     "n": 6,
+     "female_male": [
+      1,
+      5
+     ],
+     "age_mean": 59,
+     "age_range": [
+      39,
+      73
+     ],
+     "weight_kg_mean": 96,
+     "weight_kg_range": [
+      76,
+      119
+     ],
+     "crcl_ml_min_mean": 39.1,
+     "crcl_sd": 5.9
+    },
+    "severe": {
+     "n": 6,
+     "female_male": [
+      4,
+      2
+     ],
+     "age_mean": 66,
+     "age_range": [
+      56,
+      74
+     ],
+     "weight_kg_mean": 75,
+     "weight_kg_range": [
+      53,
+      88
+     ],
+     "crcl_ml_min_mean": 23.9,
+     "crcl_sd": 4.3
+    },
+    "esrd": {
+     "n": 6,
+     "female_male": [
+      1,
+      5
+     ],
+     "age_mean": 50,
+     "age_range": [
+      41,
+      57
+     ],
+     "weight_kg_mean": 97,
+     "weight_kg_range": [
+      70,
+      116
+     ],
+     "crcl_ml_min_mean": 0
+    }
+   },
+   "table_II_auc_inf_geometric_mean": {
+    "note": "Geometric mean (geometric CV%), ng.h/mL",
+    "location": "Table II, PDF page 6 (journal page 1471)",
+    "normal": [
+     2091,
+     32
+    ],
+    "mild": [
+     2627,
+     36
+    ],
+    "moderate": [
+     5964,
+     16
+    ],
+    "severe": [
+     8088,
+     18
+    ],
+    "esrd_off_hd": [
+     10958,
+     19
+    ],
+    "esrd_on_hd": [
+     6778,
+     14
+    ]
+   },
+   "table_IV_gmr_auc_inf": {
+    "note": "% geometric mean ratio (90% CI) versus Normal + Mild RI (CLCr >= 50 mL/min)",
+    "location": "Table IV, PDF page 7 (journal page 1472)",
+    "measured_crcl": {
+     "n": {
+      "reference": 12,
+      "moderate": 6,
+      "severe": 6,
+      "esrd": 6
+     },
+     "moderate": [
+      259,
+      209,
+      322
+     ],
+     "severe": [
+      352,
+      284,
+      436
+     ],
+     "esrd": [
+      477,
+      384,
+      591
+     ]
+    },
+    "cockcroft_gault": {
+     "n": {
+      "reference": 11,
+      "moderate": 9,
+      "severe": 4,
+      "esrd": 6
+     },
+     "moderate": [
+      237,
+      186,
+      304
+     ],
+     "severe": [
+      374,
+      272,
+      515
+     ],
+     "esrd": [
+      472,
+      358,
+      624
+     ]
+    }
+   },
+   "table_V_mm_starting_doses": {
+    "location": "Table V, PDF page 9 (journal page 1474)",
+    "mild": "25 mg every 24 hours",
+    "moderate": "10 mg every 24 hours (could be escalated to 15 mg after 2 cycles)",
+    "severe": "15 mg every 48 hours",
+    "esrd": "15 mg 3 times a week following each dialysis"
+   }
+  }
+ },
+ "items": [
+  {
+   "id": "renal_study_group_sizes",
+   "question": "The label lists 3 healthy subjects with normal renal function in the renal study; the EMA table used as the platform's reference has n = 7 in the normal group. Are these different studies?",
+   "facts": [
+    "EMA (PDF page 20): groups by 'Measured creatinine clearance (CLcr)': normal > 80 mL/min n = 7; mild 50-80 n = 5; moderate 30-<50 n = 6; severe < 30 not on dialysis n = 6; ESRD requiring dialysis n = 6; 30 subjects in all.",
+    "Label (12.3): groups by CLcr 'calculated using Cockcroft-Gault': mild 50-79 n = 8; moderate 30-49 n = 9; severe < 30 n = 4; ESRD on dialysis n = 6; healthy subjects with CLcr > 80 n = 3; 30 subjects in all.",
+    "The label's results reproduce from the EMA Table 4 group means: CL/F 207 (normal), 71 (moderate), 52 (severe), 39 mL/min (ESRD off dialysis) give decreases of 66%, 75% and 81% (label: '66% to 75%' and 'an 80% decrease'); half-lives 3.34, 10.6, 9.22 and 15.6 h give 3.2-, 2.8- and 4.7-fold increases (label: '3-fold' and 'approximate 4.5-fold').",
+    "The study abstract confirms the stratification: 30 subjects in 5 groups by creatinine clearance, N = 7, 5, 6, 6 and 6 (normal > 80, mild 50-80, moderate 30-< 50, severe < 30 not on dialysis, ESRD). It does not say how clearance was determined; its background refers to dosing 'based on a subject's estimated creatinine clearance'.",
+    "The abstract's AUC increases reproduce from the EMA Table 4 means: against the pooled normal and mild groups (mean 2425 ng.h/mL), severe +238% (abstract 'approximately 240%'), ESRD off dialysis +359% ('360%'), moderate +148% ('approximately 140%').",
+    "Label of about December 2008: 7 healthy subjects (CLcr 83-145 mL/min), and 5 mild (57-74), 6 moderate (33-46), 6 severe (17-29) and 6 ESRD patients, the same 7/5/6/6/6 as the EMA table; the 2023 label's 3/8/9/4/6 is a later regrouping of the same 30 subjects.",
+    "Chen 2007 Table IV reports exposure ratios with subjects classified both ways: by measured 24-hour urine CLCr (reference 12, moderate 6, severe 6, ESRD 6) and by Cockcroft-Gault (reference 11, moderate 9, severe 4, ESRD 6). The label's 3 healthy + 8 mild (= 11), 9, 4 and 6 is the Cockcroft-Gault classification."
+   ],
+   "computation": {
+    "cl_decrease_percent": {
+     "moderate": 65.7,
+     "severe": 74.9,
+     "esrd_off_dialysis": 81.2
+    },
+    "half_life_fold": {
+     "moderate": 3.17,
+     "severe": 2.76,
+     "esrd_off_dialysis": 4.67
+    },
+    "auc_increase_vs_pooled_normal_mild_percent": {
+     "moderate": 148,
+     "severe": 238,
+     "esrd_off_dialysis": 359
+    }
+   },
+   "conclusion": "Same 30 subjects. The EMA table, the 2008 label and the publication group them by measured 24-hour urine creatinine clearance (7/5/6/6/6); the 2023 label's 3/8/9/4/6 is the publication's Cockcroft-Gault reclassification (Table IV). The platform's reference (normal group, n = 7, EMA arithmetic mean AUC 2181 ng.h/mL; publication geometric mean 2091) is unaffected.",
+   "status": "reconciled",
+   "to_confirm": null
+  },
+  {
+   "id": "creatinine_clearance_method_in_checks",
+   "question": "Which creatinine clearance defined the renal groups used in the Hughes and Kim outside checks?",
+   "facts": [
+    "The EMA table states measured creatinine clearance (PDF page 20).",
+    "The locked plans record otherwise. hughes_renal_group_check_plan_v1.json (known_differences): 'Creatinine clearance method and weight basis used to assign renal groups are not stated in the extracted pages.' kim_renal_group_check_plan_v1.json (scenario rationale): 'the study's actual method is not stated in the extracted pages'. The method statement was incorrect: the extracted page states 'Measured'. The weight basis is indeed not stated.",
+    "Both checks treated the group ranges as Cockcroft-Gault values (the models' covariate), with an assumed weight basis.",
+    "The label's Cockcroft-Gault classification of the same subjects places fewer above 80 mL/min (3 against 7) and more in 30-49 mL/min (9 against 6), so for some subjects the Cockcroft-Gault value was lower than the measured one; individual values are not available.",
+    "Chen 2007: groups by 'CLCr values measured from a 24-hour urine collection'; Cockcroft-Gault was used as a second classification. Table IV exposure ratios versus the Normal + Mild reference, measured against Cockcroft-Gault classification: moderate 259% against 237%, severe 352% against 374%, ESRD 477% against 472%; the authors report the results as similar."
+   ],
+   "post_hoc_bound": {
+    "status": "post_hoc_not_a_rerun",
+    "method": "Change in typical exposure if a group's Cockcroft-Gault value were lower than the range used in the check, from each model's covariate equation alone.",
+    "hughes": "Clearance scales as CrCl^0.224: 40 to 25 mL/min gives clearance x 0.90, exposure about 1.11-fold. Far smaller than the 2.1-fold under-prediction in the moderate group, so the method difference does not explain that result.",
+    "kim": "Clearance scales as exp(0.0131 x eGFR): 5, 10 and 15 mL/min lower gives exposure about 1.07-, 1.14- and 1.22-fold (treating a change in Cockcroft-Gault clearance as an equal change in eGFR, an approximation). Comparable to Kim's 1.3-fold under-prediction in the severe group, so Kim's severe and moderate results may be sensitive to the method difference."
+   },
+   "conclusion": "The locked results stand as recorded and the plans' statement about the clearance method is corrected here. On the publication's own data the method changes group exposure ratios by under 10%, so it explains neither the Hughes moderate-group result (about 2-fold) nor most of Kim's severe-group result (about 1.3-fold). The scope band edges (50 and 30 mL/min) come from the measured-clearance groups and are applied to each model's estimated clearance; the scope files are unchanged.",
+   "status": "correction_recorded",
+   "empirical_bound": {
+    "status": "from_publication",
+    "summary": "Reclassifying the same subjects by Cockcroft-Gault instead of measured clearance changed the moderate and severe exposure ratios by 6-8% (259 to 237%, 352 to 374%). This is direct evidence that the clearance method has a small effect on group exposure, smaller than the model-based bound recorded earlier for Kim (up to 1.22-fold), which assumed a systematic 5-15 mL/min shift."
+   }
+  },
+  {
+   "id": "dose_threshold_50_or_60",
+   "question": "The label's first renal dose step is CLcr 30 to 60 mL/min; the platform's reference note (from Chen 2017, a secondary source) describes dose reductions below 50 mL/min. Which figure does the platform use?",
+   "facts": [
+    "Chen 2007 Table V recommends myeloma starting doses of 25 mg (mild, 80 > CLCr >= 50), 10 mg every 24 h (moderate, 30 <= CLCr < 50), 15 mg every 48 h (severe) and 15 mg three times a week after dialysis (ESRD).",
+    "No platform calculation uses a dose threshold. The 50 mL/min figures in the scopes, band notes and special-population summaries are the EMA study's moderate-group boundary (measured clearance, 30 to < 50), not a dose threshold.",
+    "The only dose-threshold statement is the reference note's quotation of Chen 2017, already marked as a secondary summary.",
+    "The label is quoted as it stands (lenalidomide_label_2023_v1.json, Table 3).",
+    "The study's own conclusion was 'Lenalidomide dosage adjustment should be considered for patients with CLCr < 50 mL/min', with recommended myeloma starting doses of 10 mg daily (moderate), 15 mg every 48 h (severe) and 15 mg three times a week after dialysis (ESRD).",
+    "The current label (revision 3/2023) starts dose reduction at CLcr 60 mL/min and gives 5 mg daily, after dialysis on dialysis days, for patients requiring dialysis.",
+    "June 2006 myeloma label (supplement 001): no renal dose table; 'No formal studies have been conducted in patients with renal impairment', and patients with renal insufficiency were excluded from the trials.",
+    "First renal table found, label of about December 2008 (supplements 006/016/017): myeloma moderate impairment '30 ≤ CLcr < 60' (Cockcroft-Gault), 10 mg every 24 hours; the text above says adjustment is recommended for CLcr < 60 mL/min.",
+    "February 2015 label (supplement 041): a separate myeloma table starting at CLcr 30-50 mL/min, while the MDS and MCL table and the text above both tables say < 60, so the label is internally inconsistent for myeloma.",
+    "February 2017 label (supplement 049, maintenance approval) and every later label held: one table starting at CLcr 30 to 60 mL/min for all indications."
+   ],
+   "conclusion": "60 mL/min was the label's myeloma threshold from the first renal table (about December 2008), although the renal study's abstract recommended < 50. The February 2015 label's myeloma table at 30-50 is the exception, inconsistent with its own text, and the February 2017 label restored 30-60. Whether labels between 2009 and 2015 used 50 or 60, and why the label departed from the study's recommendation, are not established from the files held.",
+   "status": "label_history_traced_reason_not_established",
+   "to_confirm": "The review for the supplement that first added renal dosing (about 2008), which should explain the 60 mL/min threshold; optionally labels between 2009 and 2015."
+  },
+  {
+   "id": "mild_versus_normal_auc",
+   "question": "The study abstract says the mean difference in AUC between normal function and mild impairment was below 20%; the EMA Table 4 means differ by 27%. Which is right?",
+   "facts": [
+    "EMA Table 4 (PDF page 21): mean AUC to infinity 2181 (normal, n = 7) and 2767 ng.h/mL (mild, n = 5); ratio 1.27.",
+    "Abstract: 'The mean difference in AUC8 between NRF and mild RI was < 20%.'",
+    "Chen 2007 Table II (geometric means): AUC to infinity 2091 (normal) and 2627 ng.h/mL (mild), ratio 1.26; the text calls the normal-versus-mild differences 'minor to modest (11%-32%)' and not statistically significant."
+   ],
+   "computation": {
+    "mild_to_normal_arithmetic_mean_ratio": 1.27,
+    "mild_to_normal_geometric_mean_ratio_chen_2007": 1.26
+   },
+   "conclusion": "Resolved: the full publication reports a 26% difference in geometric mean AUC (27% in the EMA arithmetic means), not below 20%. The abstract's '< 20%' is not supported by the publication's own Table II. The difference was not statistically significant, and the Hughes and Kim checks classified the mild group as consistent.",
+   "status": "resolved_abstract_not_supported_by_publication",
+   "to_confirm": null
+  },
+  {
+   "id": "protein_binding",
+   "question": "Protein binding: the label says approximately 30%; the abstract reports about 35-44% across renal groups.",
+   "facts": [
+    "Label 12.3: 'In vitro [14C]-lenalidomide binding to plasma proteins is approximately 30%.'",
+    "Abstract: '∼35 - 44%' in the study subjects.",
+    "The EMA assessment reports 23% and 29% in plasma from myeloma patients and healthy volunteers (PDF page 20); Kim 2026 estimated an unbound fraction of 0.614 (binding about 39%).",
+    "Chen 2007 (ex vivo, study subjects): 40.2% ± 4.5% normal, 35.4% mild, 37.2% moderate, 39.8% severe, 44.3% ESRD off dialysis; not meaningfully different by renal function."
+   ],
+   "conclusion": "Recorded. Sources differ in method and population (in vitro versus subjects). No platform calculation uses a binding value except Kim's own estimated unbound fraction.",
+   "status": "difference_recorded"
+  },
+  {
+   "id": "renal_study_population",
+   "question": "Who were the subjects of the renal study CC-5013-PK-001? The platform's EMA extract records their disease context as 'not established'.",
+   "facts": [
+    "Chen 2007, methods: 'subjects with renal impairment due to nonmalignant conditions'; the cause in most subjects was 'cardiovascular and/or endocrine disorders'; the authors note the dose recommendations 'remain to be evaluated in renally impaired MM and MDS patients'.",
+    "Label of about December 2008: 'The pharmacokinetics of lenalidomide were studied in patients with renal impairment due to nonmalignant conditions', with 7 healthy subjects of similar age as controls.",
+    "February 2015 label, section 2.4: the dose adjustment is 'based on a pharmacokinetic study in patients with renal impairment due to non-malignant conditions'.",
+    "The 2017 and 2023 labels no longer contain this phrase."
+   ],
+   "source": {
+    "quote": "This was an open-label, multicenter, single oral dose study in subjects with renal impairment due to nonmalignant conditions.",
+    "location": "Methods, PDF page 2 (journal page 1467)"
+   },
+   "conclusion": "The renal study enrolled people whose renal impairment was due to non-malignant conditions, not myeloma patients. The pinned EMA extract (renal_pk_group_evidence_v1.json) and the Hughes scope's disease rule still say the outside study's disease context is not established; those files are not changed here. The study should be read as a non-cancer population when compared with the myeloma-based models; this is one possible contributor to model-versus-study differences, not tested.",
+   "status": "established_from_publication_and_labels"
+  },
+  {
+   "id": "study_crcl_ranges",
+   "question": "What creatinine clearance did each renal study group actually have?",
+   "facts": [
+    "Label of about December 2008: normal 83-145, mild 57-74, moderate 33-46, severe 17-29 mL/min (method not named in that sentence; the label's dose table uses Cockcroft-Gault).",
+    "The Hughes and Kim checks sampled creatinine clearance across the group definitions (normal 80-140 or wider, mild 50-80, moderate 30-50, severe 10-30, 5-30 or 20-30 depending on scenario), not these observed ranges; each observed range lies inside the corresponding sampled interval.",
+    "Chen 2007 Table I (measured 24-hour urine CLCr, mean (SD)): normal 102.2 (21.9), mild 64.6 (8.3), moderate 39.1 (5.9), severe 23.9 (4.3) mL/min; mean weights 80, 74, 96, 75 and 97 kg (ESRD); mean ages 58, 68, 59, 66 and 50 years."
+   ],
+   "conclusion": "Recorded for any future check. The observed moderate range (33-46) partly lies below the Hughes model's data (36 mL/min) and the severe range (17-29) wholly below it. Because the observed ranges sit inside the intervals the checks sampled, using them is unlikely to reverse the recorded results, but a recheck would need a new locked plan; the existing results stand. Chen 2007 Table I gives each group's sex, age, weight and measured clearance, which a new locked check could use in place of the assumed demographics.",
+   "status": "recorded_for_future_check"
+  }
+ ],
+ "clinical_prediction_validated": false,
+ "supersedes": {
+  "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v2.json",
+  "sha256": "799d35e0966a57b697e8c1a955a5b40e9f04b2e92e62ceabe6fbf2e963e36da1",
+  "change": "Adds five earlier REVLIMID labels (6/2006, about 12/2008, 2/2015, 2/2017, 9/2017) and the renal study's full publication (Chen et al. 2007), both supplied by the platform owner. Resolves the group sizes (the label's 3/8/9/4/6 is the publication's Cockcroft-Gault reclassification), confirms measured 24-hour urine clearance and a non-malignant population, replaces the model-based bound on the clearance-method effect with the publication's empirical one, traces the myeloma renal threshold through the label history, and records an inconsistency inside the 2015 label."
+ }
+}
