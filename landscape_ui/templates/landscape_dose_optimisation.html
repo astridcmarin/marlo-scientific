@@ -1,0 +1,61 @@
+{% extends "landscape_base.html" %}
+{% from "_model_scope.html" import scope_panel %}
+{% block title %}Lenalidomide · Exposure across dose levels{% endblock %}
+{% block content %}
+<p><a href="{{ url_for('landscape.special_populations', drug='lenalidomide') }}">&#8592; Lenalidomide in special populations</a></p>
+<p class="eyebrow">Dose optimisation · research reference</p>
+<h1>Lenalidomide: exposure and relative cytopenia odds across dose levels</h1>
+<section class="scenario-notice"><strong>Not dosing guidance</strong>
+<p>For one synthetic record, this page shows the typical daily exposure the two published models give at each of their own study doses, inside each model's scope, together with the relative odds of grade 3/4 cytopenia from the published exposure–safety analysis. No dose is recommended or ranked. There is no exposure–efficacy evidence on the platform, so a lower exposure here is not a better dose.</p>
+<p>Clinical prediction validated: <strong>false</strong> · <a href="/models/lenalidomide_hughes_2019/scope">Hughes 2019 scope</a> · <a href="/models/lenalidomide_kim_2026/scope">Kim 2026 scope</a></p></section>
+
+<section class="panel"><h2>Synthetic record</h2>
+<form method="get"><div class="workspace-form-grid">
+<div><label for="disease">Disease</label><select id="disease" name="disease">{% for k, v in diseases.items() %}<option value="{{ k }}" {% if form.disease == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></div>
+<div><label for="sex">Sex</label><select id="sex" name="sex">{% for k, v in sexes.items() %}<option value="{{ k }}" {% if form.sex == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></div>
+{% for key, label in [('age', 'Age (years)'), ('weight', 'Weight (kg)'), ('height', 'Height (cm)'), ('scr', 'Serum creatinine (µmol/L)')] %}
+<div><label for="{{ key }}">{{ label }}</label><input id="{{ key }}" name="{{ key }}" inputmode="decimal" value="{{ form[key] }}"></div>{% endfor %}
+</div><button class="button secondary">Evaluate</button></form>
+<p class="panel-note">Leave a field empty to mark it unknown; nothing is filled in. Each model estimates its own kidney-function covariate from these inputs: Hughes uses Cockcroft–Gault creatinine clearance, Kim uses CKD-EPI 2021 eGFR.</p>
+</section>
+
+<section class="panel"><h2>Each model's scope for this record</h2>
+{% for m in r.models %}{{ scope_panel(m.scope, m.label) }}
+<p class="panel-note">{% if m.computed %}{{ m.label }}: typical total CL/F {{ '%.2f'|format(m.typical_total_cl_f_l_h) }} L/h ({% for k, v in m.covariates.items() %}{{ k|replace('_', ' ') }} {{ '%.3g'|format(v) }}{% if not loop.last %}, {% endif %}{% endfor %}). Assumption: {% for k, v in m.assumption.items() %}{{ k|replace('_', ' ') }} = {{ v|replace('_', ' ') }}{% endfor %}.{% for w in m.warnings %} {{ w }}{% endfor %}{% else %}{{ m.label }}: {{ m.reason }}{% endif %}</p>{% endfor %}
+</section>
+
+<section class="panel"><h2>Typical daily exposure by dose level</h2>
+<p>Ratio of the typical daily AUC to the mean AUC measured after a single {{ '%g'|format(r.reference.dose_mg) }} mg dose in subjects with normal renal function ({{ r.reference.auc_ng_h_ml }} ng·h/mL, SD {{ r.reference.sd }}, n = {{ r.reference.n }}). Dose levels: {{ r.dose_levels_source }}</p>
+<div class="table-scroll"><table style="min-width:620px"><thead><tr><th>Dose (mg/day)</th>{% for m in r.models %}<th>{{ m.label }}: daily AUC (ratio to reference){% if m.tier == 'external_check_disagrees' %}<br><strong>Flagged: outside check disagrees</strong>{% endif %}</th>{% endfor %}</tr></thead><tbody>
+{% for i in range(r.dose_levels_mg|length) %}<tr><td>{{ '%g'|format(r.dose_levels_mg[i]) }}</td>
+{% for m in r.models %}<td>{% if not m.computed %}—{% else %}{% set c = m.cells[i] %}{% if c.dose_status == 'not_a_study_dose' %}<span class="panel-note">not a study dose</span>{% else %}{{ '%.0f'|format(c.typical_daily_auc_ng_h_ml) }} ng·h/mL ({{ '%.2f'|format(c.ratio_to_reference) }}){% if c.dose_status == 'inside_range_not_listed' %} <span class="panel-note">· inside range, not a listed study dose</span>{% endif %}{% endif %}{% endif %}</td>{% endfor %}</tr>{% endfor %}
+</tbody></table></div>
+{% for m in r.models if m.tier == 'external_check_disagrees' %}<p class="cap-level" role="note"><strong>{{ m.label }} is flagged for this record.</strong> A locked outside check found it inconsistent for patients like this one; the observed data are in its scope panel above.{% for rule in m.scope.rules if rule.id in m.scope.flags %} {{ rule.band_note }}{% endfor %} The relative odds below are built on the same exposure.</p>{% endfor %}
+<p class="panel-note">A dash means the model gives no value for this record (see its scope above). "Not a study dose": the model's study did not use that dose, so no value is shown.</p>
+</section>
+
+<section class="panel"><h2>Relative odds of grade 3/4 cytopenia against the reference exposure</h2>
+<p>From the sponsor's exposure–safety analysis in myeloma (lenalidomide monotherapy, as reported by the Australian TGA): relative odds = (exposure ratio)<sup>ln(odds ratio)</sup>, for a patient with the same disease and baseline count. Values are the relative odds, with the 95% interval carried from the published odds ratio, and the middle 90% across patients from the model's between-patient variability in clearance.</p>
+{% for ep in endpoints %}<h3>{{ endpoint_labels[ep] }}</h3>
+<div class="table-scroll"><table style="min-width:620px"><thead><tr><th>Dose (mg/day)</th>{% for m in r.models %}<th>{{ m.label }}{% if m.tier == 'external_check_disagrees' %}<br><strong>Flagged</strong>{% endif %}</th>{% endfor %}</tr></thead><tbody>
+{% for i in range(r.dose_levels_mg|length) %}<tr><td>{{ '%g'|format(r.dose_levels_mg[i]) }}</td>
+{% for m in r.models %}<td>{% if not m.computed %}—{% else %}{% set c = m.cells[i] %}{% if c.relative_odds is not defined %}<span class="panel-note">not a study dose</span>{% else %}{% set o = c.relative_odds[ep] %}{{ '%.2f'|format(o.relative_odds) }} <span class="panel-note">(95% CI {{ '%.2f'|format(o.ci95[0]) }}–{{ '%.2f'|format(o.ci95[1]) }}; patients {{ '%.2f'|format(o.between_patient_90[0]) }}–{{ '%.2f'|format(o.between_patient_90[1]) }})</span>{% endif %}{% endif %}</td>{% endfor %}</tr>{% endfor %}
+</tbody></table></div>
+{% if ep == 'grade_3_4_neutropenia' %}<p class="panel-note">The neutropenia odds ratio was not statistically significant (95% CI includes 1).</p>{% endif %}{% endfor %}
+</section>
+
+<section class="panel"><h2>Limits</h2><ul>{% for l in r.limits %}<li>{{ l }}</li>{% endfor %}</ul></section>
+
+<section class="panel"><h2>Trials testing lenalidomide in the myeloma corpus</h2>
+{% set t = r.trials %}<p>{{ t.matched }} of {{ t.corpus_trials }} interventional myeloma trials (snapshot retrieved {{ t.retrieved[:10] }}). Method: {{ t.method }} Another {{ t.mention_only_not_matched }} trials name lenalidomide only inside a longer intervention name, such as a combination or a dose description; they are not counted.</p>
+<div class="table-scroll"><table><thead><tr><th>Phase</th><th>Trials</th></tr></thead><tbody>{% for p, n in t.by_phase %}<tr><td>{{ p }}</td><td>{{ n }}</td></tr>{% endfor %}</tbody></table></div>
+<details><summary>Phase 1 and early phase 1 trials ({{ t.phase_1_trials|length }})</summary><div class="table-scroll"><table style="min-width:620px"><thead><tr><th>Trial</th><th>Title</th><th>Phase</th><th>Status</th><th>Enrolment</th></tr></thead><tbody>
+{% for x in t.phase_1_trials %}<tr><td><a href="https://clinicaltrials.gov/study/{{ x.nct_id }}" rel="noopener">{{ x.nct_id }}</a></td><td>{{ x.title }}</td><td>{{ x.phase_label }}</td><td>{{ x.status|replace('_', ' ')|lower }}</td><td>{{ x.enrollment if x.enrollment is not none else 'not stated' }}</td></tr>{% endfor %}
+</tbody></table></div></details>
+<p class="panel-note">Dose levels used in these trials are not shown: the corpus does not hold arm descriptions.</p>
+</section>
+
+<section class="panel"><h2>Not on the platform</h2><ul>{% for g in r.gaps %}<li>{{ g.text }}</li>{% endfor %}</ul>
+<p>{{ r.not_this }}</p>
+<p><a href="?{{ request.query_string.decode() }}{% if request.query_string %}&amp;{% endif %}format=json">Download this result (JSON, with checksums)</a></p></section>
+{% endblock %}
