@@ -5,7 +5,7 @@ retained ClinicalTrials.gov snapshot. The full local database is too large to mo
 only what benchmarking needs, from the cohort's frozen snapshots (never from current registry rows):
 
     PYTHONPATH=. flask --app app/app.py eligibility-corpus-export --list
-    PYTHONPATH=. flask --app app/app.py eligibility-corpus-export --cohort-id 3 --output Articles/eligibility_corpus_cohort3.json
+    PYTHONPATH=. flask --app app/app.py eligibility-corpus-export --cohort-id 3 --output supplemental-information/eligibility_corpus_cohort3.json
 
 The file records the cohort's query, the snapshot behind every trial, and a checksum of its own content. Nothing is
 parsed or interpreted here; extraction of thresholds is a later, separately validated step.
