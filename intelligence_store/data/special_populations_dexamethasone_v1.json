@@ -1,0 +1,117 @@
+{
+ "schema_version": "special-population-summary-v1",
+ "summary_version": "special-populations-dexamethasone-v1.0",
+ "drug": "dexamethasone",
+ "label": "Dexamethasone",
+ "recorded_on": "2026-10-30",
+ "intro": "The HEMADY label states that the effects of renal or hepatic impairment have not been studied. The platform also holds exposure measured in patients with multiple myeloma (NEOFORDEX assessment, study MM-017), which differs from the label's values in unspecified subjects.",
+ "sources": {
+  "label": {
+   "file": "intelligence_store/data/label_pk_dexamethasone_hemady_v1.json",
+   "sha256": "f764633f39576fd65ebc7b0a3cc3e22ddb362756b3c9c0838434cb0dab28605c",
+   "title": "HEMADY (dexamethasone 20 mg tablets) prescribing information, revised 1/2026"
+  },
+  "neo": {
+   "file": "intelligence_store/data/dexamethasone_outside_pk_v1.json",
+   "sha256": "a3d7de4528207684525885a6524c5b3e552664959b01e13ce6ba186eb163a774",
+   "title": "NEOFORDEX EPAR public assessment report (EMA/CHMP/6613/2016), PK studies"
+  }
+ },
+ "domains": {
+  "kidney": [
+   {
+    "kind": "not_studied",
+    "text": "The label does not quantify renal impairment (as recorded in the extract).",
+    "value": "Repeated-dose exposure; effects of renal or hepatic impairment (\"has not been studied\").",
+    "source": {
+     "ref": "label",
+     "pointer": "/not_stated/2"
+    }
+   },
+   {
+    "kind": "label_statement",
+    "text": "Renal excretion as a share of total clearance.",
+    "value": "less than 10% of total body clearance",
+    "source": {
+     "ref": "label",
+     "pointer": "/values/renal_fraction/value",
+     "location": "Section 12.3"
+    }
+   }
+  ],
+  "liver": [
+   {
+    "kind": "not_studied",
+    "text": "The label does not quantify hepatic impairment (same statement).",
+    "value": "Repeated-dose exposure; effects of renal or hepatic impairment (\"has not been studied\").",
+    "source": {
+     "ref": "label",
+     "pointer": "/not_stated/2"
+    }
+   }
+  ],
+  "age": [
+   {
+    "kind": "gap",
+    "text": "Age findings are not extracted on the platform for dexamethasone."
+   }
+  ],
+  "body_size": [
+   {
+    "kind": "gap",
+    "text": "Body-size findings are not extracted on the platform for dexamethasone."
+   }
+  ],
+  "other_covariates": [
+   {
+    "kind": "label_statement",
+    "text": "Label oral clearance (CL/F, L/h) after a single 20 mg dose.",
+    "value": 15.7,
+    "source": {
+     "ref": "label",
+     "pointer": "/values/cl_f_l_h/value",
+     "location": "Section 12.3"
+    }
+   },
+   {
+    "kind": "label_statement",
+    "text": "Who the label's PK \"subjects\" were is not stated.",
+    "value": "Whether the 'subjects' were patients with multiple myeloma or healthy volunteers, and how many.",
+    "source": {
+     "ref": "label",
+     "pointer": "/not_stated/0"
+    }
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Disease state: oral clearance (CL/F, mL/min) in patients with multiple myeloma after a first 40 mg dose, geometric mean (CV%).",
+    "value": [
+     182,
+     43.8
+    ],
+    "source": {
+     "ref": "neo",
+     "pointer": "/MM_017/day2_dex_alone/cl_f_ml_min",
+     "location": "EPAR Table 14, page 32"
+    },
+    "population": "6 Japanese patients with previously treated multiple myeloma (CC-5013-MM-017-PK)",
+    "display": "gm_cv"
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Same patients: AUC to infinity (ng·h/mL) after 40 mg, geometric mean (CV%).",
+    "value": [
+     3661,
+     43.8
+    ],
+    "source": {
+     "ref": "neo",
+     "pointer": "/MM_017/day2_dex_alone/auc_inf_ng_h_ml",
+     "location": "EPAR Table 14, page 32"
+    },
+    "display": "gm_cv"
+   }
+  ]
+ },
+ "not_this": "A research summary of sourced findings. Not dosing guidance."
+}

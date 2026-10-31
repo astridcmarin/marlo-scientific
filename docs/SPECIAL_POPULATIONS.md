@@ -70,6 +70,7 @@ Drug interactions and food (extrinsic factors) are a later, separate summary. Pr
 | Pomalidomide | Built 30 October 2026 (`special_populations_pomalidomide_v1.json`) | Age, body size, sex and race (label sections 8.5 and 12.3 not extracted for these) |
 | Lenalidomide | Built 30 October 2026 (`special_populations_lenalidomide_v1.json`) | Liver function; label renal dose adjustments; age as a tested covariate; sex and race |
 | Daratumumab | Built 30 October 2026 (`special_populations_daratumumab_v1.json`) | Age; label statements (renal and hepatic are from the population model only) |
-| Dexamethasone, bortezomib | Not yet | See "Order of work" |
+| Dexamethasone | Built 30 October 2026 (`special_populations_dexamethasone_v1.json`) | Age, body size; the label states renal and hepatic impairment were not studied |
+| Bortezomib | Not yet | New extractions needed |
 
-Pages: `/landscape/drugs/<drug>/special-populations` for ixazomib, pomalidomide, lenalidomide and daratumumab. Statements may carry a display hint (`mean_sd`, `range`, `ratio_ci`, `bands`) that changes only how a value is shown. The drug and model library links each drug that has a summary; ixazomib is not in the curated catalog, so its exposure page links its summary instead.
+Pages: `/landscape/drugs/<drug>/special-populations` for ixazomib, pomalidomide, lenalidomide, daratumumab and dexamethasone. Statements may carry a display hint (`mean_sd`, `gm_cv`, `range`, `ratio_ci`, `bands`) that changes only how a value is shown. The drug and model library links each drug that has a summary; ixazomib is not in the curated catalog, so its exposure page links its summary instead.

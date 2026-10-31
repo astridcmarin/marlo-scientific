@@ -72,6 +72,9 @@ class Summaries(unittest.TestCase):
         dara = {r['domain']: r for r in sp.build('daratumumab')['rows']}
         self.assertEqual(dara['kidney']['statements'][0]['kind'], 'covariate_not_retained')
         self.assertEqual([s['value'] for s in dara['body_size']['statements'][:2]], [1.24, 0.91])
+        dex = {r['domain']: r for r in sp.build('dexamethasone')['rows']}
+        self.assertEqual(dex['kidney']['statements'][0]['kind'], 'not_studied')
+        self.assertEqual(dex['other_covariates']['statements'][2]['value'], [182, 43.8])      # MM-017 CL/F
 
 
 class Page(unittest.TestCase):
@@ -83,6 +86,7 @@ class Page(unittest.TestCase):
         from landscape_ui.special_population_pages import fmt_value
         self.assertEqual(fmt_value([1.39, 0.88, 2.2]), '1.39 (90% CI 0.88–2.20)')
         self.assertEqual(fmt_value([11121, 2133], 'mean_sd'), '11121 (SD 2133)')
+        self.assertEqual(fmt_value([182, 43.8], 'gm_cv'), '182 (CV 43.8%)')
         self.assertEqual(fmt_value([30, 297]), '30–297')
         self.assertEqual(fmt_value([{'range': [50, 211], 'tier': 'externally_checked'}], 'bands'), '50–211: checked against outside data')
         for drug in sp.available():
