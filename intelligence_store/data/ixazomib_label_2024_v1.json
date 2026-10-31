@@ -1,17 +1,23 @@
 {
  "schema_version": "drug-label-extract-v1",
- "extract_version": "ixazomib-label-2015-v1.0",
+ "extract_version": "ixazomib-label-2024-v1.0",
  "drug": "ixazomib",
  "recorded_on": "2026-10-31",
  "source": {
-  "document": "NINLARO (ixazomib) capsules, full prescribing information, Revised: 11/2015 (initial U.S. approval, NDA 208462; FDA Reference ID 3849755)",
+  "document": "NINLARO (ixazomib) capsules, full prescribing information, Revised: 7/2024 (NDA 208462, supplement 17; FDA Reference ID 5406207)",
   "file_reviewed": {
-   "file": "208462lbl.pdf (23 pages, text layer; FDA-hosted label file)",
-   "sha256": "cdb59120cb524700318f3b1586df62ae8837c04ddd2fbacd72aadb6f89d4d247"
+   "file": "208462s017lbl.pdf (26 pages, text layer; FDA-hosted label file)",
+   "sha256": "2076245b7b5db0dff3f8ae880def3eca9f7f0eaab9ce9bcbcbabfbd7d0e558df"
+  },
+  "also_checked": {
+   "document": "NINLARO prescribing information at initial approval, Revised: 11/2015 (Reference ID 3849755)",
+   "file": "208462lbl.pdf",
+   "sha256": "cdb59120cb524700318f3b1586df62ae8837c04ddd2fbacd72aadb6f89d4d247",
+   "result": "Every quote in this extract appears unchanged in the 2015 label."
   },
   "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
-  "extraction": "AI-assisted. Every quote was checked against text extracted from the file (pdftotext, whitespace normalised). Independent review pending.",
-  "currency": "The 2015 label at first approval. The file itself states it may not be the latest approved; later revisions are not reviewed here."
+  "extraction": "AI-assisted. Every quote was checked against text extracted from both files (pdftotext, whitespace normalised); locations refer to the 2024 file. Independent review pending.",
+  "currency": "Revision 7/2024. The file states it may not be the latest approved; later revisions are not reviewed here."
  },
  "dosing": {
   "starting_dose": {
@@ -37,31 +43,31 @@
  "hepatic": {
   "statement_8_6": {
    "quote": "In patients with moderate or severe hepatic impairment, the mean AUC increased by 20% when compared to patients with normal hepatic function.",
-   "location": "Section 8.6, PDF page 11"
+   "location": "Section 8.6, PDF page 12"
   },
   "auc_increase_percent_moderate_severe": 20,
   "mild_12_3": {
    "quote": "The PK of ixazomib was similar in patients with normal hepatic function and in patients with mild hepatic impairment (total bilirubin ≤ ULN and AST > ULN or total bilirubin > 1-1.5 x ULN and any AST) based on population PK analysis.",
-   "location": "Section 12.3, PDF page 13"
+   "location": "Section 12.3, PDF page 14"
   },
   "study_12_3": {
    "quote": "The PK of ixazomib was characterized in patients with normal hepatic function at 4 mg (N=12), moderate hepatic impairment at 2.3 mg (total bilirubin > 1.5-3 x ULN, N=13) or severe hepatic impairment at 1.5 mg (total bilirubin > 3 x ULN, N=18).",
-   "location": "Section 12.3, PDF page 13"
+   "location": "Section 12.3, PDF page 14"
   }
  },
  "renal": {
   "statement_8_7": {
    "quote": "In patients with severe renal impairment or ESRD requiring dialysis, the mean AUC increased by 39% when compared to patients with normal renal function.",
-   "location": "Section 8.7, PDF page 11"
+   "location": "Section 8.7, PDF page 12"
   },
   "auc_increase_percent_severe_esrd": 39,
   "mild_moderate_12_3": {
    "quote": "The PK of ixazomib was similar in patients with normal renal function and in patients with mild or moderate renal impairment (creatinine clearance ≥ 30 mL/min) based on population PK analysis.",
-   "location": "Section 12.3, PDF page 13"
+   "location": "Section 12.3, PDF page 14"
   },
   "study_12_3": {
    "quote": "The PK of ixazomib was characterized at a dose of 3 mg in patients with normal renal function (creatinine clearance ≥ 90 mL/min, N=18), severe renal impairment (creatinine clearance < 30 mL/min, N=14), or ESRD requiring dialysis (N=6).",
-   "location": "Section 12.3, PDF page 13"
+   "location": "Section 12.3, PDF page 14"
   }
  },
  "other_intrinsic_factors": {
@@ -74,11 +80,11 @@
    2.7
   ],
   "quote": "There was no clinically meaningful effect of age (range 23-91 years), sex, body surface area (range 1.2-2.7 m2), or race on the clearance of ixazomib based on population PK analysis.",
-  "location": "Section 12.3, PDF page 13"
+  "location": "Section 12.3, PDF page 14"
  },
  "geriatric": {
   "quote": "No overall differences in safety or effectiveness were observed between these subjects and younger subjects",
-  "location": "Section 8.5, PDF page 10"
+  "location": "Section 8.5, PDF page 11"
  },
  "not_extracted": [
   "Adverse reactions",

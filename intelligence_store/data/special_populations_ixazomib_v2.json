@@ -4,7 +4,7 @@
  "drug": "ixazomib",
  "label": "Ixazomib",
  "recorded_on": "2026-10-31",
- "intro": "Ixazomib has dedicated renal and hepatic impairment studies, both independent of its population PK model (Gupta 2017), and the platform has checked that model against them (Simulation 3.2a). The NINLARO prescribing information at first approval (revision 11/2015) is now extracted, so the label's own statements replace the actions previously quoted from the study articles.",
+ "intro": "Ixazomib has dedicated renal and hepatic impairment studies, both independent of its population PK model (Gupta 2017), and the platform has checked that model against them (Simulation 3.2a). The NINLARO prescribing information (revision 7/2024; the same statements appear in the 11/2015 label at first approval) is now extracted, so the label's own statements replace the actions previously quoted from the study articles.",
  "sources": {
   "observed": {
    "file": "intelligence_store/data/ixazomib_impairment_observed_v1.json",
@@ -23,9 +23,9 @@
    "extraction": "Platform scope file written from locked results (not an extraction)."
   },
   "label": {
-   "file": "intelligence_store/data/ixazomib_label_2015_v1.json",
-   "sha256": "38943eeb919d768c4d3a626cfbf96250ad29f14d2dd16c72fae45bd675d226f9",
-   "title": "NINLARO prescribing information, revised 11/2015 (initial approval, NDA 208462)"
+   "file": "intelligence_store/data/ixazomib_label_2024_v1.json",
+   "sha256": "013d5b20a8d1c049bed39d23b44f57110a5f691408f4e50f8423e8f29735dd06",
+   "title": "NINLARO prescribing information, revised 7/2024 (statements identical in the 11/2015 initial-approval label)"
   }
  },
  "domains": {
@@ -100,7 +100,7 @@
     "source": {
      "ref": "label",
      "pointer": "/renal/auc_increase_percent_severe_esrd",
-     "location": "Section 8.7, PDF page 11"
+     "location": "Section 8.7, PDF page 12"
     }
    },
    {
@@ -202,7 +202,7 @@
     "source": {
      "ref": "label",
      "pointer": "/hepatic/auc_increase_percent_moderate_severe",
-     "location": "Section 8.6, PDF page 11"
+     "location": "Section 8.6, PDF page 12"
     }
    },
    {
@@ -237,7 +237,7 @@
     "source": {
      "ref": "label",
      "pointer": "/other_intrinsic_factors/age_range_years",
-     "location": "Section 12.3, PDF page 13"
+     "location": "Section 12.3, PDF page 14"
     },
     "display": "range"
    },
@@ -248,7 +248,7 @@
     "source": {
      "ref": "label",
      "pointer": "/geriatric/quote",
-     "location": "Section 8.5, PDF page 10"
+     "location": "Section 8.5, PDF page 11"
     }
    },
    {
@@ -314,7 +314,7 @@
     "source": {
      "ref": "label",
      "pointer": "/other_intrinsic_factors/quote",
-     "location": "Section 12.3, PDF page 13"
+     "location": "Section 12.3, PDF page 14"
     }
    },
    {

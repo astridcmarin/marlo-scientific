@@ -30,7 +30,7 @@ KINDS = {
     'gap': "Not in the platform's pinned sources",
 }
 SUMMARIES = {
-    'ixazomib': ('special_populations_ixazomib_v2.json', 'd3867c0872d442281d477d50b16504579da70b469183d28a12b592923944da35'),
+    'ixazomib': ('special_populations_ixazomib_v2.json', 'ef50d5ee0ab4e2a0f04d2cd93b01704ea5ad314295dc5606cee33fe32d58aa83'),
     'pomalidomide': ('special_populations_pomalidomide_v1.json', '1679f31955b42f86b4246e9a99c236e0800a0007cbd131a6c39e44d36390813f'),
     'lenalidomide': ('special_populations_lenalidomide_v2.json', '7236f8899c71ff7268db5edffe062dd7a3aa49a0499f3436767f10dcca2e84b3'),
     'daratumumab': ('special_populations_daratumumab_v1.json', 'c5fde7d9f8ccd730c1bb5f66aeb8823b00935f914fd1a23bef4cd48d3a46c73d'),
