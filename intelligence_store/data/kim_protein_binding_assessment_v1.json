@@ -1,0 +1,73 @@
+{
+  "schema_version": "method-assessment-v1",
+  "assessment_version": "kim-protein-binding-assessment-v1.0",
+  "model": "lenalidomide_kim_2026",
+  "recorded_on": "2026-10-31",
+  "question": "Kim 2026 estimated an unbound fraction of 0.614 (binding about 39%); the REVLIMID label gives in vitro binding of about 30% (unbound fraction about 0.7). Should the platform's Kim total-concentration curves change?",
+  "sources": {
+    "kim_extract": {
+      "file": "intelligence_store/data/kim_2026_model_extract_v1.json",
+      "sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af"
+    },
+    "reconciliation": {
+      "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v3.json",
+      "sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292"
+    },
+    "label": {
+      "file": "intelligence_store/data/lenalidomide_label_2023_v1.json",
+      "sha256": "d4b02134613dc45d6b039999b37d9c94ccbc047cc0b7e811b77278c868e47a9a"
+    }
+  },
+  "values": [
+    {
+      "id": "kim_fu",
+      "what": "Kim 2026 unbound fraction, estimated from paired total and unbound concentrations in the 30 study patients (bootstrap 95% CI 0.601-0.626)",
+      "value": 0.614,
+      "source": {
+        "ref": "kim_extract",
+        "pointer": "/parameters/fraction_unbound/value"
+      }
+    },
+    {
+      "id": "label_binding",
+      "what": "Label section 12.3: in vitro plasma protein binding",
+      "value": "In vitro [14C]-lenalidomide binding to plasma proteins is approximately 30%.",
+      "source": {
+        "ref": "label",
+        "pointer": "/pharmacokinetics/protein_binding/quote"
+      }
+    },
+    {
+      "id": "chen_2007_ex_vivo",
+      "what": "Chen 2007: ex vivo binding in the renal study's subjects, by renal group",
+      "value": "Chen 2007 (ex vivo, study subjects): 40.2% ± 4.5% normal, 35.4% mild, 37.2% moderate, 39.8% severe, 44.3% ESRD off dialysis; not meaningfully different by renal function.",
+      "source": {
+        "ref": "reconciliation",
+        "pointer": "/items/4/facts/3"
+      }
+    },
+    {
+      "id": "ema_in_vitro",
+      "what": "EMA assessment and Kim, as recorded in the reconciliation",
+      "value": "The EMA assessment reports 23% and 29% in plasma from myeloma patients and healthy volunteers (PDF page 20); Kim 2026 estimated an unbound fraction of 0.614 (binding about 39%).",
+      "source": {
+        "ref": "reconciliation",
+        "pointer": "/items/4/facts/2"
+      }
+    }
+  ],
+  "reasoning": [
+    "Kim's structural parameters are on the unbound scale, and total concentration is unbound / Fu. Fu was estimated jointly with them from paired total and unbound measurements in the same patients, so Kim's total curves are fitted to measured totals and its unbound curves to measured unbound concentrations. Replacing Fu with another source's value would break that joint fit and make the total curves disagree with the data the model was fitted to.",
+    "The values that differ most from Kim's (label about 30%; EMA 23% and 29%) are in vitro measurements. The ex vivo measurements in study subjects (Chen 2007: 35-44% across groups, 40.2% with normal renal function) agree with Kim's estimate of about 39%.",
+    "Chen 2007 found binding not meaningfully different by renal function, which supports Kim's constant Fu across renal groups.",
+    "The platform's outside checks compare total exposure (AUC), which comes from Kim's fitted totals; Fu does not enter them as a separate assumption."
+  ],
+  "conclusion": "No change. Kim's unbound fraction agrees with the ex vivo binding measured in patients; the lower label and EMA figures are in vitro and are not a reason to alter a jointly fitted parameter. The difference stays recorded.",
+  "residual_limits": [
+    "No Kim patient had albumin below 3 g/dL; a constant Fu may not hold in marked hypoalbuminaemia. Kim's scope already refuses a known albumin below 30 g/L and reports an unknown albumin as not assessed.",
+    "All binding values come from small groups or in vitro work, and none has been independently reviewed (AI-assisted extraction)."
+  ],
+  "status": "assessed_no_change",
+  "changes_any_calculation": false,
+  "clinical_prediction_validated": false
+}
