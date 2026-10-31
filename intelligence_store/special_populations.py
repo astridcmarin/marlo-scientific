@@ -33,6 +33,7 @@ SUMMARIES = {
     'ixazomib': ('special_populations_ixazomib_v1.json', 'cd3b68f8ec285160dadd81140b0d3aae9748971e6176bfef8032564ecc9bf423'),
     'pomalidomide': ('special_populations_pomalidomide_v1.json', '1679f31955b42f86b4246e9a99c236e0800a0007cbd131a6c39e44d36390813f'),
     'lenalidomide': ('special_populations_lenalidomide_v1.json', '406618748fe544594f44d8b7e6c8cf7c0677138842f4c3715138a0c22ea4e1c8'),
+    'daratumumab': ('special_populations_daratumumab_v1.json', 'c5fde7d9f8ccd730c1bb5f66aeb8823b00935f914fd1a23bef4cd48d3a46c73d'),
 }
 
 

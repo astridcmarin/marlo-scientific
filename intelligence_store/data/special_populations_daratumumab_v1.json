@@ -1,0 +1,142 @@
+{
+ "schema_version": "special-population-summary-v1",
+ "summary_version": "special-populations-daratumumab-v1.0",
+ "drug": "daratumumab",
+ "label": "Daratumumab",
+ "recorded_on": "2026-10-30",
+ "intro": "Daratumumab is a monoclonal antibody. Its special-population evidence on the platform comes from the Luo 2021 population PK model. The platform checked that model against older studies (Simulation 3.2b-3.2c); the albumin effect did not transfer as expected.",
+ "sources": {
+  "model": {
+   "file": "intelligence_store/data/daratumumab_pk_luo_2021_extract_v1.json",
+   "sha256": "8c68ddb7a849ce00a6340e0a7b4ec58ecf9e720491be8b55f1a47c774293d4f6",
+   "title": "Luo 2021 daratumumab population PK (J Clin Pharmacol 61:614), Table S1"
+  },
+  "scope": {
+   "file": "intelligence_store/data/daratumumab_scope_v1.json",
+   "sha256": "2005d487a42b54659c2af372a964cd8ff691184d2b2ac807474b251d86865d60",
+   "title": "Platform scope of the Luo 2021 model",
+   "extraction": "Platform scope file written from locked results (not an extraction)."
+  }
+ },
+ "domains": {
+  "kidney": [
+   {
+    "kind": "covariate_not_retained",
+    "text": "Renal function was tested and not retained in the population model.",
+    "value": "Renal and hepatic function were tested and not retained; the population had eGFR down to about 20 mL/min/1.73 m2 and mostly normal liver function (Table 2).",
+    "source": {
+     "ref": "model",
+     "pointer": "/limitations/3",
+     "location": "Luo 2021 Methods; Table 2"
+    },
+    "population": "742 patients with multiple myeloma in PAVO Part 2, MMY1008, COLUMBA and PLEIADES (subcutaneous and intravenous)"
+   }
+  ],
+  "liver": [
+   {
+    "kind": "covariate_not_retained",
+    "text": "Hepatic function was tested and not retained (same statement).",
+    "value": "Renal and hepatic function were tested and not retained; the population had eGFR down to about 20 mL/min/1.73 m2 and mostly normal liver function (Table 2).",
+    "source": {
+     "ref": "model",
+     "pointer": "/limitations/3"
+    },
+    "population": "742 patients with multiple myeloma in PAVO Part 2, MMY1008, COLUMBA and PLEIADES (subcutaneous and intravenous)"
+   }
+  ],
+  "age": [
+   {
+    "kind": "gap",
+    "text": "Whether age was tested in the Luo 2021 model, and the label's geriatric statement, are not extracted on the platform."
+   }
+  ],
+  "body_size": [
+   {
+    "kind": "covariate_effect",
+    "text": "Clearance scales with body weight as (weight / 78.6 kg) to this power.",
+    "value": 1.24,
+    "source": {
+     "ref": "model",
+     "pointer": "/parameters/fixed_effects/wt_exponent_on_cl/value",
+     "location": "Table S1"
+    },
+    "population": "742 patients with multiple myeloma in PAVO Part 2, MMY1008, COLUMBA and PLEIADES (subcutaneous and intravenous)"
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Central volume scales with body weight to this power.",
+    "value": 0.91,
+    "source": {
+     "ref": "model",
+     "pointer": "/parameters/fixed_effects/wt_exponent_on_v1/value",
+     "location": "Table S1"
+    }
+   },
+   {
+    "kind": "platform_model_scope",
+    "text": "Weight range (kg) inside the model's data.",
+    "value": [
+     28.6,
+     147.6
+    ],
+    "source": {
+     "ref": "scope",
+     "pointer": "/state_rules/0/range"
+    },
+    "link": "/models/daratumumab_pk_luo_2021/scope"
+   }
+  ],
+  "other_covariates": [
+   {
+    "kind": "covariate_effect",
+    "text": "Albumin: clearance scales as (albumin / 37 g/L) to this power (lower albumin, higher clearance).",
+    "value": -1.85,
+    "source": {
+     "ref": "model",
+     "pointer": "/parameters/fixed_effects/alb_exponent_on_cl/value",
+     "location": "Table S1"
+    }
+   },
+   {
+    "kind": "platform_model_scope",
+    "text": "Platform finding on the albumin effect.",
+    "value": "Albumin is a covariate on clearance; the model's studies span 19-53 g/L (model_extract population, Table 2 ranges). The albumin effect may not transfer to GEN501/SIRIUS (check v2).",
+    "source": {
+     "ref": "scope",
+     "pointer": "/state_rules/1/basis"
+    },
+    "link": "/models/daratumumab_pk_luo_2021/scope"
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "IgG myeloma: shift on clearance (clearance = 1 + this value times non-IgG, i.e. 2.26-fold).",
+    "value": 1.26,
+    "source": {
+     "ref": "model",
+     "pointer": "/parameters/fixed_effects/igg_shift_on_cl/value",
+     "location": "Table S1"
+    }
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Sex: shift on central volume.",
+    "value": -0.105,
+    "source": {
+     "ref": "model",
+     "pointer": "/parameters/fixed_effects/sex_shift_on_v1/value",
+     "location": "Table S1"
+    }
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Caveat on the sex effect.",
+    "value": "The sex factor on V1 is read from a garbled line; the reference sex is uncertain.",
+    "source": {
+     "ref": "model",
+     "pointer": "/limitations/1"
+    }
+   }
+  ]
+ },
+ "not_this": "A research summary of sourced findings. Not dosing guidance."
+}
