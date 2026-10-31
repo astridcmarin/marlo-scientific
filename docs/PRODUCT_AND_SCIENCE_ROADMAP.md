@@ -88,6 +88,8 @@ The differentiator already exists in the code; users cannot see it yet.
 - **Open assumptions:** independence is pending (the article does not cite either study). The dose input was confirmed by the author on 30 October 2026 (an IV bolus into the central compartment, as assumed), and citing the article is the agreed attribution (3.0l).
 - **Where Phase 2 stands:** three candidates have now failed. What remains is individual concentration data, or a mechanism that changes clearance between doses.
 
+**31 October 2026, a third outside study (Simulation 3.0m):** MMY-3021 (Moreau 2012; IV, n = 14, day 11 only). Day 11 exposure is consistent at the edge of the interval and not robust (126.9 vs 126.2–175.8); peak concentration is under-predicted. The two studies' day 11 means differ 1.6-fold (CAN-1004 241, MMY-3021 151). There is no day 1 profile, so the main finding, that the rise from day 1 to day 11 is too small, is untested here and stands.
+
 **30 October 2026, model scope (Phase 2.5)** ([MODEL_SCOPE.md](MODEL_SCOPE.md)): what each model may be run on is now a pinned rule set, not prose. Following the owner's decision for lenalidomide, the Patient Lab computes and flags results where an outside check disagrees inside the model's data (showing the observed data), and refuses beyond the model's data. Hughes, Kim, ixazomib and daratumumab have scopes; the ixazomib exposure page is the first page built on one.
 
 ### Phase 3 — Any drug, at an honest level

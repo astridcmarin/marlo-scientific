@@ -1,0 +1,74 @@
+{
+ "schema_version": "observed-summary-v1",
+ "summary_version": "bortezomib-pk-mmy3021-v1.0",
+ "drug": "bortezomib",
+ "recorded_on": "2026-10-31",
+ "source": {
+  "citation": "Moreau P, Karamanesht II, Domnikova N, et al. Pharmacokinetic, pharmacodynamic and covariate analysis of subcutaneous versus intravenous administration of bortezomib in patients with relapsed multiple myeloma. Clin Pharmacokinet 2012;51(12):823-829. doi:10.1007/s40262-012-0010-0",
+  "file_reviewed": {
+   "file": "2011PK_PDanalysisSCClinPharm.pdf (7 pages, text layer)",
+   "sha256": "4481d433e493338548fe624023b1f34789d7dfb7dacb621f62ce824776a02d4d"
+  },
+  "storage": "Supplied by the platform owner; kept on her computer only, not committed.",
+  "extraction": "AI-assisted. Table 1 values and quotes checked against the file text; Table 1 read from the layout text and the rendered page. Independent review pending."
+ },
+ "relationship_to_model": "Not used to build or fit the Lignet 2022 PK model (Hanley 2017 pediatric parameters scaled to adults; PK compared graphically with Reece 2011 only). MMY-3021 is a phase 3 study, not among the five phase 1 studies behind Kuan 2012. The CAN-1004 data in the same paper are already on the platform (bortezomib_pk_can1004_observed_v1.json) and are not used again here.",
+ "design": {
+  "study": "MMY-3021: randomized phase 3 study, subcutaneous versus intravenous bortezomib 1.3 mg/m2 on days 1, 4, 8 and 11 of 21-day cycles, relapsed multiple myeloma after 1-3 prior therapies; PK/PD substudy at selected sites.",
+  "arm_used": "IV only (14 of 14 enrolled IV substudy patients assessable). The SC arm is not used: the model has no absorption step.",
+  "pk_day": "Day 11 of cycle 1 only; no day 1 profile.",
+  "pk_sampling_times_after_dose_h": [
+   0.0333333333333,
+   0.0833333333333,
+   0.25,
+   0.5,
+   1,
+   2,
+   4,
+   6,
+   10,
+   24,
+   32,
+   48,
+   72
+  ],
+  "quotes": {
+   "substudy": {
+    "quote": "a pharmacokinetic/pharmacodynamic substudy, consisting of 32 patients (subcutaneous, n = 18; intravenous, n = 14), was conducted at selected sites",
+    "location": "Methods 2, PDF page 3"
+   },
+   "assessable": {
+    "quote": "In MMY-3021, 17 of 18 subcutaneous and 14 of 14 intravenous patients enrolled in the pharmacokinetic/ pharmacodynamic substudy at selected sites were assessable",
+    "location": "Methods 2, PDF page 3"
+   },
+   "auc_definition": {
+    "quote": "area under the plasma concentration–time curve (AUC) from time zero to the last quantifiable timepoint (AUClast)",
+    "location": "Methods 2, PDF page 3"
+   }
+  }
+ },
+ "table1_iv_day11": {
+  "location": "Table 1, MMY-3021, IV 1.0 mg/mL column, day 11 of cycle 1",
+  "n": 14,
+  "auc_last_ng_h_ml": [
+   151,
+   42.9
+  ],
+  "cmax_ng_ml": [
+   223,
+   101
+  ],
+  "tmax_min_median_range": [
+   2,
+   2,
+   5
+  ],
+  "format": "mean (SD); tmax median (range)"
+ },
+ "limits": [
+  "Day 11 only: the day 1 to day 11 rise cannot be assessed from this study.",
+  "Means and SDs only; no individual concentrations.",
+  "The assay's lower limit of quantification and the number of patients quantifiable at 72 h are not stated, so 'last quantifiable timepoint' may be earlier than 72 h for some patients."
+ ],
+ "clinical_prediction_validated": false
+}

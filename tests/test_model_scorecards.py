@@ -57,15 +57,15 @@ class ScorecardData(unittest.TestCase):
         cards = {c['model_id']: c for c in ms.all_scorecards()['cards']}
         self.assertEqual({r['item'] for r in cards['lenalidomide_hughes_2019']['outside_data_disagreements']},
                          {'Moderate kidney impairment', 'Severe kidney impairment'})
-        self.assertEqual(len(cards['bortezomib_pk_lignet_2022']['outside_data_disagreements']), 3)
+        self.assertEqual(len(cards['bortezomib_pk_lignet_2022']['outside_data_disagreements']), 4)   # v10: MMY-3021 peak
         platelet = cards['bortezomib_platelets_lignet_2022']
         self.assertEqual(platelet['outside_data_disagreements'], [])
         self.assertEqual(platelet['depends_on'][0]['model_id'], 'bortezomib_pk_lignet_2022')
-        self.assertEqual(platelet['depends_on'][0]['disagreements'], 3)
+        self.assertEqual(platelet['depends_on'][0]['disagreements'], 4)
 
     def test_cited_reports_are_found_and_intact(self):
         reports = [r for c in ms.all_scorecards()['cards'] for l in c['layers'] for r in l['reports']]
-        self.assertEqual(len(reports), 13)          # v7 adds ixazomib (2 citations) and daratumumab (3)
+        self.assertEqual(len(reports), 14)          # v7 adds ixazomib (2 citations) and daratumumab (3); v10 adds MMY-3021
         self.assertTrue(all(r['intact'] for r in reports))
 
     def test_a_changed_or_uncited_report_is_not_served(self):

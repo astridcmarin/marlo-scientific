@@ -40,6 +40,8 @@ RESULT_ITEMS = {
     'auc_ratio_day11_over_day1': 'Rise in exposure from day 1 to day 11, 1.3 mg/m², Ogawa 2008',
     'can1004_auc_last_day1': 'Day 1 exposure (AUC to 72 h), 1.3 mg/m², CAN-1004',
     'can1004_auc_last_day11': 'Day 11 exposure (AUC to 72 h), 1.3 mg/m², CAN-1004',
+    'mmy3021_auc_last_day11': 'Day 11 exposure (AUC to 72 h), 1.3 mg/m², MMY-3021 (not robust to the AUC rule)',
+    'mmy3021_cmax_day11': 'Day 11 peak concentration, 1.3 mg/m², MMY-3021',
 }
 RESULT_ITEMS.update({
     'renal.normal.auc_last': 'Exposure (AUC), MM with normal kidney function, 3 mg',

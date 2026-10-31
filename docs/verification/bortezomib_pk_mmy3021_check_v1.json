@@ -1,0 +1,238 @@
+{
+  "schema_version": "bortezomib-pk-external-check-report-v1",
+  "method_version": "bortezomib-pk-mmy3021-check-v1.0",
+  "plan_version": "bortezomib-pk-mmy3021-check-plan-v1.0",
+  "plan_sha256": "d57359a990e176a6d4b796d455195d22ce7875dabe20b1a8a0aabbb3df08ad02",
+  "plan_locked_at_commit": "b921f21",
+  "observed_sha256": "8dadf8ce11d33d32842bdcc61890400f5a8d400b1e41bdadffde0ed2a445d2c9",
+  "model_extract_sha256": "3093fff25dbf44a75aa31b4d41d40d57eabc5cf29ce21c7718276edf8a028e84",
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "dose_mg_m2": 1.3,
+  "sampling_times_h": [
+    0.0333333333333,
+    0.0833333333333,
+    0.25,
+    0.5,
+    1,
+    2,
+    4,
+    6,
+    10,
+    24,
+    32,
+    48,
+    72
+  ],
+  "model_day11_profile_ng_ml": [
+    111.12897276537309,
+    82.36675009486187,
+    32.83235928345555,
+    12.19435986852032,
+    6.390837234448499,
+    4.517649103550514,
+    2.7338782044694896,
+    1.9922190670036946,
+    1.5356155681746073,
+    1.3157084769067366,
+    1.2432632974655338,
+    1.1103768000330048,
+    0.9372028591900932
+  ],
+  "readings": [
+    {
+      "auc_rule": "linear",
+      "terminal_points": 3,
+      "schedule": "mmy3021",
+      "role": "primary",
+      "endpoints": {
+        "auc_last_day11": {
+          "model_emulated": 126.90835779077705,
+          "observed_mean": 151,
+          "observed_sd": 42.9,
+          "n": 14,
+          "interval_95": [
+            126.22991807651589,
+            175.7700819234841
+          ],
+          "ratio_model_to_observed": 0.8404527006011725,
+          "classification": "consistent"
+        },
+        "cmax_day11": {
+          "model_emulated": 111.12897276537309,
+          "observed_mean": 223,
+          "observed_sd": 101,
+          "n": 14,
+          "interval_95": [
+            164.68349011021223,
+            281.31650988978777
+          ],
+          "ratio_model_to_observed": 0.49833620074158336,
+          "classification": "model_under_predicts"
+        }
+      }
+    },
+    {
+      "auc_rule": "linear",
+      "terminal_points": 4,
+      "schedule": "mmy3021",
+      "role": "sensitivity",
+      "endpoints": {
+        "auc_last_day11": {
+          "model_emulated": 126.90835779077705,
+          "observed_mean": 151,
+          "observed_sd": 42.9,
+          "n": 14,
+          "interval_95": [
+            126.22991807651589,
+            175.7700819234841
+          ],
+          "ratio_model_to_observed": 0.8404527006011725,
+          "classification": "consistent"
+        },
+        "cmax_day11": {
+          "model_emulated": 111.12897276537309,
+          "observed_mean": 223,
+          "observed_sd": 101,
+          "n": 14,
+          "interval_95": [
+            164.68349011021223,
+            281.31650988978777
+          ],
+          "ratio_model_to_observed": 0.49833620074158336,
+          "classification": "model_under_predicts"
+        }
+      }
+    },
+    {
+      "auc_rule": "linear_up_log_down",
+      "terminal_points": 3,
+      "schedule": "mmy3021",
+      "role": "sensitivity",
+      "endpoints": {
+        "auc_last_day11": {
+          "model_emulated": 125.25820481520951,
+          "observed_mean": 151,
+          "observed_sd": 42.9,
+          "n": 14,
+          "interval_95": [
+            126.22991807651589,
+            175.7700819234841
+          ],
+          "ratio_model_to_observed": 0.829524535200063,
+          "classification": "model_under_predicts"
+        },
+        "cmax_day11": {
+          "model_emulated": 111.12897276537309,
+          "observed_mean": 223,
+          "observed_sd": 101,
+          "n": 14,
+          "interval_95": [
+            164.68349011021223,
+            281.31650988978777
+          ],
+          "ratio_model_to_observed": 0.49833620074158336,
+          "classification": "model_under_predicts"
+        }
+      }
+    },
+    {
+      "auc_rule": "linear_up_log_down",
+      "terminal_points": 4,
+      "schedule": "mmy3021",
+      "role": "sensitivity",
+      "endpoints": {
+        "auc_last_day11": {
+          "model_emulated": 125.25820481520951,
+          "observed_mean": 151,
+          "observed_sd": 42.9,
+          "n": 14,
+          "interval_95": [
+            126.22991807651589,
+            175.7700819234841
+          ],
+          "ratio_model_to_observed": 0.829524535200063,
+          "classification": "model_under_predicts"
+        },
+        "cmax_day11": {
+          "model_emulated": 111.12897276537309,
+          "observed_mean": 223,
+          "observed_sd": 101,
+          "n": 14,
+          "interval_95": [
+            164.68349011021223,
+            281.31650988978777
+          ],
+          "ratio_model_to_observed": 0.49833620074158336,
+          "classification": "model_under_predicts"
+        }
+      }
+    },
+    {
+      "auc_rule": "linear",
+      "terminal_points": 3,
+      "schedule": "can1004",
+      "role": "sensitivity",
+      "endpoints": {
+        "auc_last_day11": {
+          "model_emulated": 126.95637323657655,
+          "observed_mean": 151,
+          "observed_sd": 42.9,
+          "n": 14,
+          "interval_95": [
+            126.22991807651589,
+            175.7700819234841
+          ],
+          "ratio_model_to_observed": 0.8407706836859374,
+          "classification": "consistent"
+        },
+        "cmax_day11": {
+          "model_emulated": 111.12897276537309,
+          "observed_mean": 223,
+          "observed_sd": 101,
+          "n": 14,
+          "interval_95": [
+            164.68349011021223,
+            281.31650988978777
+          ],
+          "ratio_model_to_observed": 0.49833620074158336,
+          "classification": "model_under_predicts"
+        }
+      }
+    }
+  ],
+  "classifications_across_readings": {
+    "auc_last_day11": [
+      "consistent",
+      "model_under_predicts"
+    ],
+    "cmax_day11": [
+      "model_under_predicts"
+    ]
+  },
+  "side_by_side": {
+    "ogawa_2008_day11": "consistent (3.0f)",
+    "can1004_day11_auc_last": "model_under_predicts (3.0h; model 127 vs 241)",
+    "mmy3021_day11_auc_last": "consistent",
+    "observed_can1004_over_mmy3021_day11_mean": 1.596026490066225
+  },
+  "decision": {
+    "consistent_with_mmy3021_day11": true,
+    "can1004_day11_finding_reproduced": false,
+    "robust_primary": false,
+    "rule": "The model is recorded as consistent with MMY-3021 day 11 exposure if the primary endpoint is consistent under the primary reading. If consistent, the CAN-1004 day 11 under-prediction is recorded as not reproduced in a second independent study, and day 11 evidence across the three studies is recorded as mixed; if under-predicted, it is recorded as reproduced. Either way the day 1 findings and the rise finding (Ogawa, CAN-1004) are unchanged, and the model's status is not upgraded: it still disagrees with both studies that sampled day 1."
+  },
+  "not_this": [
+    "Not validation or qualification of the PK model; no acceptance limits are introduced.",
+    "Not a comparison of individual concentrations; only Table 1 means and SDs are available.",
+    "Not a re-fit: no parameter is estimated or tuned.",
+    "Not a dosing or exposure prediction for any patient.",
+    "Does not test the day 1 to day 11 rise: MMY-3021 sampled day 11 only."
+  ],
+  "known_differences": [
+    "Model AUClast runs to 72 h; observed AUClast runs to the last quantifiable sample, which may be earlier for some patients (assay limit not stated). This biases the observed mean low relative to a 72 h AUC, against the model's favour if anything is borderline.",
+    "MMY-3021 population: relapsed myeloma after 1-3 prior therapies, multinational; the model's parameters are scaled from pediatric data.",
+    "Cycle 1 day 11 only; dexamethasone could be added from cycle 5 and does not affect cycle 1."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256": "e692bd7bf1f0a32d91e5ebb2a5d8a4944613d7bd87cd10570e7d9bbc79274624"
+}
