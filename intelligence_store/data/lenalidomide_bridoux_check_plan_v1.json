@@ -1,0 +1,112 @@
+{
+  "schema_version": "aggregate-consistency-plan-v1",
+  "plan_version": "lenalidomide-bridoux-check-plan-v1.0",
+  "recorded_on": "2026-10-31",
+  "status": "locked_before_observed_values",
+  "prespecification_note": "Written and checksum-pinned before anyone working on the platform has seen the study's per-group pharmacokinetic values. Neither the article nor any regulatory table with its results has been opened. Known at lock, and so not blinded: from the 2016 abstract and the 2017 Celgene review, clearance fell as creatinine clearance fell, and with label-adjusted starting doses the mean AUC of each group was within +/-25% of a target AUC. Because the doses were cut roughly in proportion to the expected exposure rise, this already implies that exposure per mg rises in impaired groups by roughly the inverse of the dose reduction (about 2.5-fold for moderate if 25 mg and 10 mg both met the target). The planner therefore expects both models, which under-predicted the exposure rise in CC-5013-PK-001, to under-predict again; this expectation is recorded so the result can be read against it. No virtual trial of this design has been computed.",
+  "classification": "exploratory_aggregate_external_consistency_check",
+  "not_this": [
+    "Not validation or an acceptance decision; no acceptance limits are introduced.",
+    "Not a comparison of individual concentrations; only group summaries are expected.",
+    "Not a re-fit: no model parameter is estimated or tuned.",
+    "Not a dosing decision or a judgement of the label's dose adjustments."
+  ],
+  "question": "Do the Hughes 2019 and Kim 2026 lenalidomide models reproduce how exposure changes with renal function in patients with multiple myeloma? The only outside study used so far (CC-5013-PK-001) enrolled people with non-malignant renal impairment; both models under-predicted its moderate and severe groups. This check asks whether the same happens in myeloma patients, which bears on whether the population difference explains the disagreement.",
+  "study": {
+    "citation": "Bridoux F, Chen N, Moreau S, Arnulf B, Moumas E, Abraham J, Desport E, Jaccard A, Fermand JP. Pharmacokinetics, safety, and efficacy of lenalidomide plus dexamethasone in patients with multiple myeloma and renal impairment. Cancer Chemother Pharmacol. 2016. PMID 27286995.",
+    "registry": "NCT00779922 (sponsor Poitiers University Hospital; principal investigator F. Bridoux; phase 2; relapsed or refractory multiple myeloma with stable renal function; 39 enrolled; 2008-2012; no results posted, checked 31 October 2026).",
+    "known_design": "Five groups by Cockcroft-Gault creatinine clearance: normal > 80, mild 50-80, moderate 30 to < 50, severe < 30 not on dialysis, end-stage on haemodialysis. Starting doses per the 2017 review: 25 mg daily (normal, mild), 10 mg daily (moderate), 15 mg every other day (severe), 5 mg daily (ESRD); dexamethasone 40 mg weekly. 38 patients analysed."
+  },
+  "models": {
+    "lenalidomide_hughes_2019": "As in lenalidomide_renal_recheck_plan_v1.json: CL/F = 12.0 (FFM/55)^0.75 (CrCL/90)^0.224 exp(eta_CL); V/F = 68.8 (FFM/55) exp(eta_V); OMEGA block from the pinned variability extract.",
+    "lenalidomide_kim_2026": "As in lenalidomide_renal_recheck_plan_v1.json: typical parameters from eGFR (CKD-EPI 2021) and BSA (Du Bois); CL and V1 log-normal with the reported CVs; primary CL/F form linear_multiplicative; total = unbound / 0.614."
+  },
+  "pinned_inputs": {
+    "recheck_plan": {
+      "file": "intelligence_store/data/lenalidomide_renal_recheck_plan_v1.json",
+      "sha256": "1766ddb3c353602a6892f69b6308155acbfd531d3971dd54d0656ea5dcee0a42"
+    },
+    "recheck_report": {
+      "file": "docs/verification/lenalidomide_renal_recheck_v1.json",
+      "sha256": "c98e29919cd9e90981439a37d03883a8cfd834f397b8c0383e723b1f923e2991"
+    },
+    "dose_proportionality": {
+      "file": "intelligence_store/data/lenalidomide_dose_proportionality_evidence_v1.json",
+      "sha256": "ec140c8f5ea9fa5c348d1bbde535a7dfd19dacd17360b0eb3607798e9b5f2952"
+    }
+  },
+  "filling_procedure": {
+    "summary": "Values are taken from the source in two committed stages, so the design is fixed before any exposure value is read.",
+    "stage_1_design": "Read only the methods and the demographics table: per-group n, sex counts, age, weight, height if given, creatinine clearance (mean, SD, range), doses actually given, the day and times of PK sampling, the bioanalytical method, and how AUC and CL/F were defined and summarised. Record them, with page and table, in an observed-design file; commit and push it. No exposure value is read at this stage.",
+    "stage_2_values": "Read the PK results and record only the values named in 'endpoints', with page and table; commit and push; then compute.",
+    "source_order": "The article (supplied by the platform owner or the author). If it gives no per-group values, regulatory reports that tabulate this study's results (for example EMA variation assessments), recorded with the same two stages."
+  },
+  "endpoints": {
+    "exposure_measure_rule": "Use the AUC the article reports per group, in this order of preference: (1) the AUC it compares with the target; (2) steady-state AUC over the dosing interval; (3) AUC 0-24 h on the first day; (4) AUC to infinity after the first dose. If only CL/F is reported, use CL/F (exposure per mg = 1 / CL/F). Whatever is chosen is simulated exactly as defined (same day, interval, regimen and AUC rule), and the same arithmetic is applied to observed and simulated values.",
+    "statistic_rule": "Simulated group statistic matches the reported one: arithmetic mean if means are reported, geometric mean if geometric means are reported.",
+    "primary": "Dose-normalised exposure ratio: for each impaired group (mild, moderate, severe), (group exposure / group dose over the same interval) divided by the same for the reference group. Reference group: normal renal function; if the article pools normal and mild as its reference, the pooled group, as reported.",
+    "secondary": "Dose-normalised exposure per group (absolute, per mg).",
+    "descriptive": [
+      "Constructed covariates per group (FFM; serum creatinine, eGFR, BSA; the fraction outside each model's data ranges).",
+      "The article's own statement about the +/-25% target, quoted, not tested.",
+      "ESRD on haemodialysis: observed values recorded if reported, not simulated (neither model has a dialysis process)."
+    ]
+  },
+  "subject_construction": {
+    "rule": "Per-group values from the article where reported; otherwise the fallbacks below, recorded as assumptions in the report.",
+    "sex": "Exact per-group counts if reported; else the study-wide proportion; else 50% male.",
+    "creatinine_clearance": "Cockcroft-Gault, as the study defined its groups. Normal distribution with the group's mean and SD truncated to its range, if reported; else uniform over the group definition (normal 80-140, mild 50-80, moderate 30-50, severe 10-30 mL/min, with any reported observed range used instead).",
+    "age_years": "Uniform within the group's range if reported; else within the study-wide range; else 50-80.",
+    "weight_kg": "Uniform within the group's range if reported; else within the study-wide range; else 55-95.",
+    "height_cm": "If reported, as reported; else assumed uniform, men 165-185, women 152-172 (the recheck's assumption).",
+    "hughes_covariates": "CrCL = the drawn Cockcroft-Gault creatinine clearance; FFM by Janmahasatian from weight, height and sex.",
+    "kim_covariates": "Serum creatinine back-solved from Cockcroft-Gault with total body weight so that it returns the drawn clearance; eGFR by CKD-EPI 2021 from age, sex and that creatinine; BSA by Du Bois.",
+    "draw_order_per_subject": [
+      "crcl",
+      "age",
+      "weight",
+      "height",
+      "z1",
+      "z2"
+    ]
+  },
+  "virtual_trial": {
+    "group_sizes": "As reported per group (patients with PK data).",
+    "trials": 10000,
+    "seed": 20261101,
+    "seed_per_scenario": "seed + scenario index in the order listed",
+    "dosing": "Each group's regimen as actually given (stage 1); Kim's dose outside its 5-10 mg data is scaled linearly, supported by the pinned dose-proportionality evidence (5-400 mg)."
+  },
+  "classification_rule": {
+    "consistent": "observed within the 5th-95th percentile of simulated values",
+    "model_under_predicts": "observed above the 95th percentile",
+    "model_over_predicts": "observed below the 5th percentile"
+  },
+  "scenarios": {
+    "primary": {},
+    "sensitivity_uniform_crcl": {
+      "change": "Creatinine clearance uniform over each group's range instead of the truncated normal (only if a mean and SD are reported)."
+    },
+    "sensitivity_shorter": {
+      "change": "Heights 10 cm shorter (men 155-175, women 142-162); only if heights are not reported."
+    },
+    "sensitivity_kim_exponential": {
+      "change": "Kim CL/F read with the exponential BSA term (Kim only)."
+    },
+    "sensitivity_ideal_weight_basis": {
+      "change": "Study creatinine clearance assumed computed with Devine ideal body weight: changes Kim's back-solved serum creatinine and so its eGFR (Kim only; Hughes takes the drawn creatinine clearance directly)."
+    }
+  },
+  "decision_rule": {
+    "summary": "For each model and impaired group, report the primary classification, its robustness across the scenarios, and whether it matches the 2.1e recheck against CC-5013-PK-001. Pre-specified reading: if a model under-predicts here as it did in CC-5013-PK-001, the non-cancer population of that study does not explain the disagreement; if it is consistent here but under-predicted there, the population difference becomes a candidate explanation, not a proven one. No scope, warning or flag changes by this check alone; any change is a separate, documented step decided by the platform owner.",
+    "if_values_unusable": "If the article reports no per-group exposure or CL/F, the check is not run; the reason is recorded and nothing is inferred from the abstract's +/-25% statement."
+  },
+  "known_differences": [
+    "Patients received dexamethasone 40 mg weekly; no interaction model is applied (none is established for lenalidomide exposure).",
+    "Doses differ by group (label-adjusted), so the comparison relies on linear pharmacokinetics; this is supported by the pinned dose-proportionality evidence.",
+    "Kim was fitted in Korean patients on maintenance doses of 5-10 mg; this study is French patients with relapsed or refractory disease on 5-25 mg.",
+    "Hughes's data reach down to CrCl 36 mL/min; the severe group lies below it, so that group tests extrapolation.",
+    "Height and within-group distributions may be unreported; their fallbacks are stated above."
+  ],
+  "clinical_prediction_validated": false
+}
