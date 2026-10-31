@@ -69,6 +69,9 @@ class Summaries(unittest.TestCase):
         aucs = [s['value'] for s in len_['kidney']['statements'][:4]]
         self.assertEqual(aucs, [2181, 2767, 6021, 8191])                     # CC-5013-PK-001 Table 4
         self.assertEqual(len_['liver']['statements'][0]['kind'], 'gap')
+        dara = {r['domain']: r for r in sp.build('daratumumab')['rows']}
+        self.assertEqual(dara['kidney']['statements'][0]['kind'], 'covariate_not_retained')
+        self.assertEqual([s['value'] for s in dara['body_size']['statements'][:2]], [1.24, 0.91])
 
 
 class Page(unittest.TestCase):
