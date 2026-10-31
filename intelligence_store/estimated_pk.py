@@ -68,9 +68,17 @@ def calculate_estimated_pk(revision_id, weight_basis, request, disease_code='UNK
                             'but its covariate definitions (including the weight basis) are not independently '
                             'verified against the source study.'),
     }
+    from .lenalidomide_scope import hughes_scope
+    revision = read_revision(revision_id)
+    scope = hughes_scope(copy.deepcopy(revision.payload['state']), weight_basis, disease_code)
+    report['model_scope'] = scope
     if estimate['status'] != 'estimated':
         report['status'] = 'missing_estimator_inputs'
         report['simulation_status'] = 'not_run'
+    elif scope['scope_evaluation']['status'] != 'in_scope':
+        report['status'] = 'outside_model_scope' if scope['scope_evaluation']['status'] == 'out_of_scope' else 'model_scope_cannot_determine'
+        report['simulation_status'] = 'not_run'
+        report['scope_blockers'] = scope_blockers(scope)
     else:
         inputs = to_hughes_model_inputs(estimate)
         calculation = calculate_educational_pk(revision_id, inputs, request, disease_code)
@@ -126,6 +134,21 @@ MODEL_COMPARISON_NOTE = ('Both curves are typical values (random effects at zero
                          'validated for prediction.')
 
 
+def scope_blockers(scope):
+    """Blockers from a model-scope result: one per rule out of scope or undeterminable."""
+    codes = {'out_of_scope': 'outside_model_scope', 'cannot_determine': 'model_scope_cannot_determine'}
+    return [{'code': codes[r['status']], 'message': f"{r['id'].replace('_', ' ')}: {r.get('reason') or 'outside the model scope'}"}
+            for r in scope['scope_evaluation']['rules'] if r['status'] in codes]
+
+
+def scope_summary(scope):
+    """Compact view of a model-scope result for comparison rows."""
+    ev = scope['scope_evaluation']
+    return {'status': ev['status'], 'weakest_rule_tier': ev.get('weakest_rule_tier'), 'flags': ev.get('flags', []),
+            'rules': ev['rules'], 'observed': scope['observed'], 'scope_sha256': scope['scope_sha256'],
+            'scope_version': ev['scope_version']}
+
+
 def _hughes_row(result):
     row = {'model': 'lenalidomide_hughes_2019', 'label': 'Hughes 2019', 'status': result['status'],
            'assumption': {'weight_basis': result['weight_basis']}, 'covariates': {},
@@ -133,6 +156,9 @@ def _hughes_row(result):
            'report_sha256': result['report_sha256']}
     if result['covariate_estimate']['status'] == 'estimated':
         row['covariates'] = {k: v['value'] for k, v in result['covariate_estimate']['estimates'].items()}
+    if 'model_scope' in result:
+        row['scope'] = scope_summary(result['model_scope'])
+        row['blockers'] = list(result.get('scope_blockers', []))
     calc = result['calculation']
     if calc is not None:
         row['blockers'] = [{'code': b['code'], 'message': b['message']} for b in calc['execution_blockers']]
@@ -153,7 +179,7 @@ def _kim_row(result):
            'assumption': {'cl_form': result['cl_form'], 'cl_form_evidence': result['cl_form_evidence']},
            'covariates': ({k: v['value'] for k, v in estimate['estimates'].items()} if estimate['status'] == 'estimated' else {}),
            'warnings': list(estimate['warnings']), 'blockers': copy.deepcopy(result['execution_blockers']),
-           'report_sha256': result['report_sha256']}
+           'report_sha256': result['report_sha256'], 'scope': scope_summary(result['model_scope'])}
     if result['status'] == 'completed':
         exposure = result['exposure']
         row.update(typical_total_cl_f_l_h=result['parameters']['total_clearance_l_h'],

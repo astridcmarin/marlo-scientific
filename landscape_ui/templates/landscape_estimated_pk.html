@@ -1,7 +1,8 @@
 {% extends "landscape_base.html" %}
 {% from "run_record_macros.html" import simulation_banner, run_record_panel %}
 {% block title %}Estimated-covariate PK · Record {{ revision.id }}{% endblock %}
-{% block content %}<p><a class="button secondary" href="{{ url_for('landscape.patient_lab_overview',scenario_id=scenario.id,revision_id=revision.id) }}">Patient Lab overview for this record</a></p>
+{% block content %}
+{% from "_model_scope.html" import scope_panel %}<p><a class="button secondary" href="{{ url_for('landscape.patient_lab_overview',scenario_id=scenario.id,revision_id=revision.id) }}">Patient Lab overview for this record</a></p>
 <link rel="stylesheet" href="{{ url_for('landscape.static',filename='transit-demo.css') }}">
 <h1>Educational PK from this patient record</h1>
 <p><a href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id) }}">Back to patient-state record #{{ revision.id }}</a> · Scenario #{{ scenario.id }} · <a href="{{ url_for('landscape.educational_pk',scenario_id=scenario.id,revision_id=revision.id) }}">Enter covariates directly instead</a></p>
@@ -32,7 +33,8 @@
 {% if report %}
 <section class="panel"><h2>{{ 'Educational calculation completed' if calculation and calculation.points else 'Calculation not run' }}</h2>
 <p>Prediction type: {{ report.prediction_type }}</p>
-{% if not calculation %}<p>The record is missing estimator inputs; no calculation was attempted.</p>{% endif %}
+{% if report.model_scope %}{% set ms = report.model_scope %}{{ scope_panel(dict(ms.scope_evaluation, observed=ms.observed), 'Hughes 2019') }}{% endif %}
+{% if not calculation and report.status == 'missing_estimator_inputs' %}<p>The record is missing estimator inputs; no calculation was attempted.</p>{% endif %}
 {% if calculation and calculation.execution_blockers %}<ul>{% for b in calculation.execution_blockers %}<li>{{ b.code }}: {{ b.message }}</li>{% endfor %}</ul>{% endif %}
 {% if calculation and calculation.points %}<p>Typical CL/F {{ '%.2f'|format(calculation.parameters.apparent_clearance_l_h) }} L/h · V/F {{ '%.1f'|format(calculation.parameters.apparent_volume_l) }} L. AUC over 0–{{ calculation.points[-1].time_h }} h: {{ '%.1f'|format(calculation.auc_0_horizon_ng_h_ml) }} ng·h/mL.</p>{% endif %}
 <p>{{ report.prediction_note }}</p></section>
@@ -88,6 +90,7 @@
 <li><strong>Source.</strong> {{ ro_rows[0].relative_odds.source_reconciliation }}</li>
 <li>Not a toxicity prediction, a monitoring recommendation or a dose recommendation.</li></ul>
 <p class="catalog-digest">Evidence: {{ ro_rows[0].relative_odds.evidence_version }} ({{ ro_rows[0].relative_odds.evidence_sha256 }}) · method {{ ro_rows[0].relative_odds.method_version }}</p></details></section>{% endif %}
+{% for row in models.rows %}{% if row.scope %}{{ scope_panel(row.scope, row.label) }}{% endif %}{% endfor %}
 {% for row in models.rows %}{% if row.blockers or row.warnings %}<h3>{{ row.label }}</h3><ul>{% for b in row.blockers %}<li><strong>Not run — {{ b.code }}:</strong> {{ b.message }}</li>{% endfor %}{% for w in row.warnings %}<li>{{ w }}</li>{% endfor %}</ul>{% endif %}{% endfor %}
 <p class="catalog-digest">Comparison SHA256: {{ models.report_sha256 }}<br>Hughes report SHA256: {{ models.hughes_report_sha256 }}<br>Kim report SHA256: {{ models.kim_report_sha256 }}</p></section>
 {% if ro_record %}{{ run_record_panel(ro_record, 'ro-run-record-heading', 'Run record: relative odds') }}{% endif %}

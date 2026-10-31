@@ -201,8 +201,11 @@ class EstimatedPKTests(unittest.TestCase):
         severe = save_revision(self.scenario.id, full_state(serum_creatinine=180), parent_revision_id=revision.id, title='Severe')
         below = compare_published_models(severe.id, 'ideal_body_weight_devine', 'linear_multiplicative', self.request_mg(5), 'MM')
         self.assertLess(below['rows'][0]['covariates']['creatinine_clearance'], 36)
-        self.assertIn('outside_context_range', [b['code'] for b in below['rows'][0]['blockers']])
+        # Phase 2.5b: below the model's data (36 mL/min) Hughes is refused by its scope before the calculation runs.
+        self.assertIn('outside_model_scope', [b['code'] for b in below['rows'][0]['blockers']])
+        self.assertEqual(below['rows'][0]['scope']['status'], 'out_of_scope')
         self.assertEqual(below['rows'][1]['status'], 'completed')
+        self.assertEqual(below['rows'][1]['scope']['flags'], ['egfr'])      # Kim severe band: computed but flagged
 
     def test_page_compares_models_and_keeps_the_form_explicit(self):
         revision = self.revision(full_state(serum_creatinine=120))
@@ -283,6 +286,22 @@ class EstimatedPKTests(unittest.TestCase):
             self.assertEqual(json.loads(result.stdout)['status'], 'completed_educational_calculation')
 
     # ------------------------------------------------------------ pages
+
+    def test_page_shows_model_scope(self):
+        # Phase 2.5b: in scope, flagged (Hughes moderate band), and refused below the model's data.
+        revision = None
+        for scr, expected, name in ((80, 'checked against outside data', 'in'), (115, 'outside check disagrees', 'flag'),
+                                    (180, 'outside the model', 'out')):
+            revision = save_revision(self.scenario.id, full_state(serum_creatinine=scr), title=f'Scope {scr}',
+                                     parent_revision_id=revision.id if revision else None)
+            text = self.client.post(self.page(revision), data=self.form(revision, 'calculate')).get_data(as_text=True)
+            self.assertIn('Hughes 2019 scope:', text)
+            self.assertIn(expected, text)
+            if name == 'flag':
+                self.assertIn('Observed in CC-5013-PK-001', text)
+                self.assertIn('Educational calculation completed', text)
+            if name == 'out':
+                self.assertIn('Calculation not run', text)
 
     def page(self, revision):
         return f'/landscape/workspace/scenarios/{self.scenario.id}/patient-state/revisions/{revision.id}/estimated-pk'

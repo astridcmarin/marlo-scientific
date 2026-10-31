@@ -1,10 +1,13 @@
 {% extends "landscape_base.html" %}
 {% from "run_record_macros.html" import simulation_banner, run_record_panel %}
+{% from "_model_scope.html" import scope_panel %}
 {% block title %}Saved Kim run #{{ run.id }}{% endblock %}
 {% block content %}<link rel="stylesheet" href="{{ url_for('landscape.static',filename='transit-demo.css') }}">
 <h1>{{ run.title }}</h1>
 <p><a href="{{ url_for('landscape.estimated_pk',scenario_id=scenario.id,revision_id=revision.id) }}">Back to educational PK for record #{{ revision.id }}</a> · Saved {{ run.payload.saved_at_utc }} · <a href="{{ url_for('landscape.saved_kim_run',scenario_id=scenario.id,revision_id=revision.id,run_id=run.id,format='json') }}">Export JSON</a></p>
 {% call simulation_banner(result_type) %}<p>{{ run.payload.scope_note }} This page shows the archived values after checking every checksum and the link to the patient record; the model is not re-run.</p>{% endcall %}
+<section class="panel"><h2>Model scope</h2>{{ scope_panel(scope, 'Kim 2026') }}
+{% if not scope_saved %}<p class="panel-note">This run was saved before model scopes existed (Phase 2.5b). The scope shown is evaluated now with the current scope file; the archived run is unchanged.{% if scope.status == 'out_of_scope' %} Under the current scope this record would not be calculated.{% endif %}</p>{% endif %}</section>
 <section class="panel"><h2>Kim 2026 typical-value result</h2>
 <p>Prediction type: {{ report.prediction_type }}</p>
 <div class="table-scroll"><table><thead><tr><th>Quantity</th><th>Value</th></tr></thead><tbody>

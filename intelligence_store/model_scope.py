@@ -10,7 +10,11 @@ out_of_scope or cannot_determine (input unknown), and an overall status:
 - in_scope: every rule in scope; the supported outputs may be computed;
 - out_of_scope: at least one rule out of scope; no model output is computed;
 - cannot_determine: no rule out of scope but at least one unknown; no model output is computed.
-The overall evidence tier of an in-scope request is the weakest tier among its rules. Nothing is converted or
+The overall evidence tier of an in-scope request is the weakest tier among its rules. The weakest tier,
+external_check_disagrees, is still in scope: the model was fitted on such patients but a locked outside check found
+it inconsistent there, so the output is computed, flagged and shown with the observed data the band names.
+Rules may read covariates derived by the model's own estimator (passed as `derived`); an `optional` rule whose input
+is unknown is reported as not_assessed and does not block. Nothing is converted or
 assumed: a unit that differs from the rule's is an error, and an unknown value stays unknown.
 """
 import hashlib
@@ -20,7 +24,7 @@ from pathlib import Path
 
 SCHEMA_VERSION = 'model-scope-v1'
 EVALUATION_VERSION = 'model-scope-evaluation-v1.0'
-TIER_ORDER = ('externally_checked', 'inside_model_data')
+TIER_ORDER = ('externally_checked', 'inside_model_data', 'external_check_disagrees')
 
 
 class ScopeError(ValueError):
@@ -68,20 +72,25 @@ def _reason(rule, key):
 def _range_rule(rule, value):
     lo, hi = rule['range']
     if value is None:
+        if rule.get('optional'):
+            return {'status': 'not_assessed', 'value': None, 'reason': 'Input unknown; this rule is optional.'}
         return {'status': 'cannot_determine', 'value': None, 'reason': 'Input unknown.'}
     if value < lo:
         return {'status': 'out_of_scope', 'value': value, 'side': 'below', 'reason': _reason(rule, 'below')}
     if value > hi:
         return {'status': 'out_of_scope', 'value': value, 'side': 'above', 'reason': _reason(rule, 'above')}
-    tier = rule.get('tier')
+    row = {'status': 'in_scope', 'value': value, 'tier': rule.get('tier')}
     for band in rule.get('tier_by_band', []):
         if band['range'][0] <= value <= band['range'][1]:
-            tier = band['tier']
+            row['tier'] = band['tier']
+            for key in ('band_note', 'observed'):
+                if key in band:
+                    row[key] = band[key]
             break
-    return {'status': 'in_scope', 'value': value, 'tier': tier}
+    return row
 
 
-def evaluate_rule(rule, state, request):
+def evaluate_rule(rule, state, request, derived=None):
     kind = rule['kind']
     row = {'id': rule['id'], 'kind': kind}
     if kind == 'category':
@@ -95,6 +104,8 @@ def evaluate_rule(rule, state, request):
     elif kind == 'range':
         if 'input' in rule:
             value = request.get(rule['input'])
+        elif 'derived_input' in rule:
+            value = (derived or {}).get(rule['derived_input'])
         elif 'derived' in rule:
             value = _derived(state, rule['derived'])
         else:
@@ -124,8 +135,8 @@ def evaluate_rule(rule, state, request):
     return row
 
 
-def evaluate(scope, state, request):
-    rows = [evaluate_rule(r, state, request) for r in scope['request_rules'] + scope['state_rules']]
+def evaluate(scope, state, request, derived=None):
+    rows = [evaluate_rule(r, state, request, derived) for r in scope['request_rules'] + scope['state_rules']]
     statuses = {r['status'] for r in rows}
     status = ('out_of_scope' if 'out_of_scope' in statuses else 'cannot_determine' if 'cannot_determine' in statuses
               else 'in_scope')
@@ -133,6 +144,7 @@ def evaluate(scope, state, request):
               'status': status, 'rules': rows, 'outputs_not_supported': scope['outputs']['not_supported'],
               'never_claimed': scope['never_claimed'], 'clinical_prediction_validated': False}
     if status == 'in_scope':
-        result['weakest_rule_tier'] = max((r['tier'] for r in rows), key=TIER_ORDER.index)
+        result['weakest_rule_tier'] = max((r['tier'] for r in rows if r['status'] == 'in_scope'), key=TIER_ORDER.index)
         result['outputs_supported'] = scope['outputs']['supported']
+        result['flags'] = [r['id'] for r in rows if r.get('tier') == 'external_check_disagrees']
     return result
