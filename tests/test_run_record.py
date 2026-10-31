@@ -18,7 +18,7 @@ from intelligence_store.estimated_pk import calculate_estimated_pk, primary_weig
 from intelligence_store.kim_pk_runs import read_kim_pk_run
 from intelligence_store.patient_state import SCHEMA_V2, digest
 from intelligence_store.patient_state_revisions import save_revision
-from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, EVIDENCE_V5_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
+from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, EVIDENCE_V5_SHA256, EVIDENCE_V6_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
                                            record_for_estimated_pk, record_for_kim_run, record_for_patient_platelets)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -50,11 +50,34 @@ class EvidenceStatus(unittest.TestCase):
         v5 = EVIDENCE_PATH.with_name('model_evidence_status_v5.json')
         self.assertEqual(hashlib.sha256(v5.read_bytes()).hexdigest(), EVIDENCE_V5_SHA256)
         self.assertEqual(json.loads(v5.read_text())['supersedes']['status_version'], json.loads(v4.read_text())['status_version'])
+        v6 = EVIDENCE_PATH.with_name('model_evidence_status_v6.json')
+        self.assertEqual(hashlib.sha256(v6.read_bytes()).hexdigest(), EVIDENCE_V6_SHA256)
+        self.assertEqual(json.loads(v6.read_text())['supersedes']['status_version'], json.loads(v5.read_text())['status_version'])
         current = load_evidence_status()
-        self.assertEqual(current['supersedes']['status_version'], json.loads(v5.read_text())['status_version'])
+        self.assertEqual(current['supersedes']['status_version'], json.loads(v6.read_text())['status_version'])
+
+    def test_v7_only_adds_ixazomib_and_daratumumab_with_their_locked_results(self):
+        current = load_evidence_status()['models']
+        v6 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v6.json').read_text())['models']
+        self.assertEqual(set(current) - set(v6), {'ixazomib_pk_gupta_2017', 'daratumumab_pk_luo_2021'})
+        for model_id in v6:
+            self.assertEqual(current[model_id], v6[model_id])
+        ix = json.loads((ROOT / 'docs/verification/ixazomib_pk_gupta_check_v1.json').read_text())['classification_by_endpoint']
+        recorded = current['ixazomib_pk_gupta_2017']['layers']['external_consistency']['result_by_endpoint']
+        for key, outcome in recorded.items():
+            if key != 'peak_concentration_five_of_six_groups':
+                self.assertEqual(outcome, ix[key]['primary'], key)
+        cmax = [v['primary'] for k, v in ix.items() if k.endswith('.cmax') and '_vs_' not in k]
+        self.assertEqual(cmax.count('model_under_predicts'), 5)
+        for version, path in (('', 'docs/verification/daratumumab_pk_luo_check_v1.json'), ('v2.', 'docs/verification/daratumumab_pk_luo_check_v2.json')):
+            ce = json.loads((ROOT / path).read_text())['classification_by_endpoint']
+            layer = current['daratumumab_pk_luo_2021']['layers']['external_consistency']
+            recorded = layer['result_by_endpoint'] if not version else layer['further_reports'][0]['results']
+            for key, outcome in recorded.items():
+                self.assertEqual(outcome, ce[key[len(version):]]['primary'], key)
 
     def test_v6_only_adds_the_can1004_report_to_the_bortezomib_pk_component(self):
-        current = load_evidence_status()['models']
+        current = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v6.json').read_text())['models']
         v5 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v5.json').read_text())['models']
         self.assertEqual(set(current), set(v5))
         for model_id in v5:
@@ -115,7 +138,9 @@ class EvidenceStatus(unittest.TestCase):
                     self.assertEqual({k: lead[k]['classification'] for k in layer['result_at_1_3_mg_m2']}, layer['result_at_1_3_mg_m2'])
                 if 'result_by_group' in layer:
                     self.assertEqual(report['primary_endpoint_by_group'], layer['result_by_group'])
-        self.assertEqual(cited, 8)
+                if 'result_by_endpoint' in layer:          # v7 models; checked in detail in the v7 test
+                    self.assertIn('classification_by_endpoint', report)
+        self.assertEqual(cited, 13)
 
     def test_bortezomib_reproduction_matches_the_adopted_reading(self):
         report = json.loads((ROOT / 'docs/verification/bortezomib_platelet_check_v1.json').read_text())

@@ -41,8 +41,10 @@ class LevelRules(unittest.TestCase):
         self.assertEqual(levels['Pomalidomide']['label_exposure_drug'], 'pomalidomide')
         self.assertEqual(levels['Dexamethasone']['id'], 'label_based_exposure')
         self.assertEqual(levels['Melphalan']['id'], 'knowledge_only')          # not eligible (3.1f)
+        self.assertEqual(levels['Daratumumab']['id'], 'published_model_checked')         # evidence status v7
+        self.assertEqual(levels['Daratumumab']['outside_data_disagreements'], 2)
         self.assertTrue(all(levels[d]['id'] == 'knowledge_only' for d in levels
-                            if d not in ('Lenalidomide', 'Bortezomib', 'Pomalidomide', 'Dexamethasone')))
+                            if d not in ('Lenalidomide', 'Bortezomib', 'Pomalidomide', 'Dexamethasone', 'Daratumumab')))
 
 
 class LevelPages(unittest.TestCase):

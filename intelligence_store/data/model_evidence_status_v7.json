@@ -1,0 +1,326 @@
+{
+ "schema_version": "model-evidence-status-v1",
+ "status_version": "model-evidence-status-v1.6",
+ "recorded_on": "2026-10-30",
+ "purpose": "What has and has not been checked for each model used on a Patient Lab result page, in the four validation layers of docs/PATIENT_LAB_2_0.md. Shown in every run record so a result is read together with the evidence behind its model.",
+ "layers": {
+  "software_verification": "The code computes the intended equations.",
+  "transcription_verification": "The parameters and equations match the source.",
+  "reproduction": "The model reproduces results from the data it was fitted to.",
+  "external_consistency": "Agreement with data not used to fit the model."
+ },
+ "never_established": "Clinical prediction validity. Passing every layer supports research use only; clinical_prediction_validated stays false.",
+ "models": {
+  "lenalidomide_hughes_2019": {
+   "name": "Lenalidomide population PK (Hughes et al. 2019)",
+   "citation": "Hughes et al. Br J Clin Pharmacol. 2019;85:924-934",
+   "doi": "10.1111/bcp.13873",
+   "layers": {
+    "software_verification": {
+     "status": "done",
+     "summary": "Solver checked against an independent analytic reference on synthetic cases.",
+     "evidence_report": "docs/verification/synthetic_numerical_crosscheck_step70.json",
+     "evidence_report_file_sha256": "23370e9594595a502069f8c8c800b94701d16ad3ad50bc98f6758b22cbc9bd14"
+    },
+    "transcription_verification": {
+     "status": "partial",
+     "summary": "Main-text parameter table reviewed; the supplementary control stream was not retrieved."
+    },
+    "reproduction": {
+     "status": "not_done",
+     "summary": "No reproduction of the source's own published results has been run on this platform."
+    },
+    "external_consistency": {
+     "status": "done_exploratory",
+     "summary": "Aggregate check of group-mean exposure relative to normal renal function, study CC-5013-PK-001 (EMA assessment): mild consistent; moderate and severe under-predicted.",
+     "classification": "exploratory_aggregate_external_consistency_check",
+     "result_by_group": {
+      "mild": "consistent",
+      "moderate": "model_under_predicts",
+      "severe": "model_under_predicts"
+     },
+     "evidence_report": "docs/verification/hughes_renal_group_check_v1.json",
+     "evidence_report_file_sha256": "70cae05e8dca498bc3e9774177dd4fc406c9508f419ad1f8a64be80c84c0c159"
+    }
+   }
+  },
+  "lenalidomide_kim_2026": {
+   "name": "Lenalidomide population PK in renal impairment (Kim et al. 2026)",
+   "citation": "Kim H, Park SS, Choi S, et al. Drug Des Devel Ther. 2026;20:605741",
+   "doi": "10.2147/DDDT.S605741",
+   "layers": {
+    "software_verification": {
+     "status": "done",
+     "summary": "Exact two-compartment solution checked against numerical integration in the test suite."
+    },
+    "transcription_verification": {
+     "status": "done_with_open_question",
+     "summary": "Tables and printed equations transcribed; the printed CL/F equation form conflicts with the paper's own results, and a multiplicative reading is used until the authors confirm."
+    },
+    "reproduction": {
+     "status": "done",
+     "summary": "Typical total CL/F at each group's median covariates lies within one SD of the authors' Table 2 group means. Same patients as the fit, so this confirms transcription, not predictive performance."
+    },
+    "external_consistency": {
+     "status": "done_exploratory",
+     "summary": "Aggregate check of group-mean exposure relative to normal renal function, study CC-5013-PK-001 (EMA assessment): mild and moderate consistent; severe under-predicted in the primary scenario (consistent in some alternative scenarios).",
+     "classification": "exploratory_aggregate_external_consistency_check",
+     "result_by_group": {
+      "mild": "consistent",
+      "moderate": "consistent",
+      "severe": "model_under_predicts"
+     },
+     "evidence_report": "docs/verification/kim_renal_group_check_v1.json",
+     "evidence_report_file_sha256": "e53f62db6506346a3d5027388b0c9165de51b8fab0c5f9efc1ad7b29d34da4bb"
+    }
+   }
+  },
+  "bortezomib_platelets_lignet_2022": {
+   "name": "Bortezomib thrombocytopenia model (Lignet et al. 2022)",
+   "citation": "Lignet F, et al. CPT Pharmacometrics Syst Pharmacol. 2022;11(5):594-603",
+   "doi": "10.1002/psp4.12743",
+   "layers": {
+    "software_verification": {
+     "status": "done",
+     "summary": "Exact three-compartment PK solution checked against numerical integration; platelet integration repeated at half step size."
+    },
+    "transcription_verification": {
+     "status": "partial",
+     "summary": "AI-assisted transcription from the article and supplement; independent review pending. Units of the drug-effect term and its bound were not stated and were settled by the reproduction check."
+    },
+    "reproduction": {
+     "status": "done",
+     "summary": "Locked check against the fitting data (Lonial 2005): both variants consistent with the observed cycle 1 day 11 fall only with concentrations in ng/mL and the effect term as printed.",
+     "classification": "internal_consistency_check_against_fitting_data",
+     "evidence_report": "docs/verification/bortezomib_platelet_check_v1.json",
+     "evidence_report_file_sha256": "1fc74f8757364d0befe15bf9dad2d54e817398ad056b5f4f13091a9021ab5e9f"
+    },
+    "external_consistency": {
+     "status": "not_done",
+     "summary": "No usable outside data. The Japanese phase I/II study (NCT00752518; Ogawa et al. 2008; sponsor report CR009058; 0.7, 1.0 and 1.3 mg/m2, same schedule) is the only candidate found. Neither the paper nor the public synopsis gives platelet counts over time; the full report, which tabulated hematology values by testing time, is not public.",
+     "search": {
+      "searched_on": "2026-10-15",
+      "candidates": [
+       {
+        "source": "ClinicalTrials.gov NCT00752518",
+        "result": "No results posted (hasResults false); links the sponsor synopsis."
+       },
+       {
+        "source": "Janssen clinical study report synopsis CR009058 (11 pages, dated 19 December 2006)",
+        "file_sha256": "ee2f152f03fe12b735ecb7fa6b5e40de98616ba3074b8a7f8f82df683801b8b2",
+        "storage": "Kept on the platform owner's computer only; not committed.",
+        "result": "No platelet values over time. Page 7 states descriptive statistics of hematology values by testing time and time to nadir and recovery were calculated in the full report. Grade 3 or higher platelet decrease is not among the grade 3 or higher events listed (lowest listed 23.5%); thrombocytopenia is reported once as a serious event (1/34)."
+       },
+       {
+        "source": "Ogawa Y, Tobinai K, Ogura M, et al. Cancer Sci. 2008;99(1):140-144. doi:10.1111/j.1349-7006.2007.00638.x",
+        "file_sha256": "a374b700a9e4e9420f3abb6be63299e9740ea774c49949af97375cfb63c0d3cf",
+        "storage": "Kept on the platform owner's computer only; not committed.",
+        "result": "No platelet values over time; Figure 1 shows only plasma concentrations and 20S proteasome inhibition. Table 2 gives thrombocytopenia by NCI-CTC grade: at 1.3 mg/m2 (n = 25), grade 1/2 in 12 and grade 3/4 in 11 patients; 28 of 34 (82%) overall. Entry required platelets of at least 75 x10^9/L."
+       },
+       {
+        "source": "Shi DS, et al. J Clin Invest. 2014;124(9):3757-3766",
+        "result": "Mouse data only; supports the platelet-production mechanism, cannot test patient counts."
+       }
+      ],
+      "why_incidence_alone_is_not_used": "The model gives one typical curve with no between-patient spread, so it cannot predict the share of patients below a grade threshold; comparing it with incidences would not test it.",
+      "possible_route": "Request the patient-level or full-report hematology data through the sponsor's data-sharing route (Janssen trials are shared through the YODA Project)."
+     }
+    }
+   }
+  },
+  "bortezomib_pk_lignet_2022": {
+   "name": "Bortezomib three-compartment PK (Lignet 2022, from Hanley 2017)",
+   "citation": "Lignet F, et al. CPT Pharmacometrics Syst Pharmacol. 2022;11(5):594-603",
+   "doi": "10.1002/psp4.12743",
+   "role": "Drives the platelet model; not offered as patient PK.",
+   "layers": {
+    "software_verification": {
+     "status": "done",
+     "summary": "Exact three-exponential solution checked against independent numerical integration across doses."
+    },
+    "transcription_verification": {
+     "status": "partial",
+     "summary": "Table 1 per-m2 parameters checked against the pediatric source values and the stated scaling; independent review pending."
+    },
+    "reproduction": {
+     "status": "not_done",
+     "summary": "The source shows PK only graphically against Reece 2011; no reproduction run here."
+    },
+    "external_consistency": {
+     "status": "done_exploratory",
+     "summary": "Ogawa 2008 (Japanese patients), with the model sampled at the study times and analysed the same way. At 1.3 mg/m2: day 11 exposure consistent, near the upper limit (model 248 vs observed mean 187 ng.h/mL, 95% CI to 248); day 1 exposure 2.9-fold too high; the day 1 to day 11 rise 1.9-fold against 5.1-fold observed. Day 1 is over-predicted at all three doses (5.1-fold at 0.7, 3.6-fold at 1.0) and the model's rise is below the observed mean at all three. The single clearance matches repeat-dose, not first-dose, exposure.",
+     "classification": "exploratory_aggregate_external_consistency_check",
+     "result_at_1_3_mg_m2": {
+      "auc_day1": "model_over_predicts",
+      "auc_day11": "consistent",
+      "auc_ratio_day11_over_day1": "model_under_predicts"
+     },
+     "evidence_report": "docs/verification/bortezomib_pk_ogawa_check_v1.json",
+     "evidence_report_file_sha256": "d0d5f464c954d83cca4767af674afc7d8c2ca372d32606f8a2885f6ae418a85d",
+     "further_reports": [
+      {
+       "evidence_report": "docs/verification/bortezomib_pk_can1004_check_v1.json",
+       "evidence_report_file_sha256": "fc9f61cc67c79b4a798935bf5112ed9c28c4d7c4056fb4f8f36ea8e73df8b408",
+       "classification": "exploratory_aggregate_external_consistency_check",
+       "summary": "CAN-1004 (FDA review of NDA 021602 S-027; IV, 1.3 mg/m2, n = 10, sampling to 72 h), with the model sampled at the study times and analysed the same way (plan locked before computation): day 1 exposure consistent (AUC to 72 h 81 vs observed 104 ng.h/mL, 95% CI 33-175); day 11 under-predicted (127 vs 241, 95% CI 182-300); rise from day 1 to day 11 1.6-fold against 2.3-fold (ratio of means). The day 1 over-prediction seen with Ogawa 2008 is not reproduced; the too-small rise is seen in both studies. All classifications hold under four NCA readings.",
+       "results": {
+        "can1004_auc_last_day1": "consistent",
+        "can1004_auc_last_day11": "model_under_predicts"
+       }
+      }
+     ]
+    }
+   }
+  },
+  "lenalidomide_renal_pathways_2026": {
+   "name": "Lenalidomide elimination pathways (filtration, secretion, non-renal; Simulation 2.0a)",
+   "citation": "Platform model built from EMA assessment report EMEA/CHMP/249329/2008, study CC-5013-PK-001",
+   "doi": null,
+   "layers": {
+    "software_verification": {
+     "status": "done",
+     "summary": "Calibration arithmetic, both readings reproducing the calibration group, and reading behaviour are tested."
+    },
+    "transcription_verification": {
+     "status": "partial",
+     "summary": "Group values and quotes checked against the EMA report text in the repository; independent review pending."
+    },
+    "reproduction": {
+     "status": "by_design",
+     "summary": "Calibrated on the normal-renal-function group, so it reproduces that group by construction; this is not evidence of predictive performance."
+    },
+    "external_consistency": {
+     "status": "done_exploratory",
+     "summary": "Calibrated on normal renal function only, then compared with the impaired groups of the same study. Secretion-preserved reading rejected (about 2-fold under-prediction in moderate and severe impairment). Intact-nephron reading (used here) consistent for mild and severe, under-predicts moderate (0.79 of observed AUC) and over-predicts its urine fraction (67% vs 42%): renal elimination appears to fall faster than in proportion to creatinine clearance.",
+     "classification": "exploratory_aggregate_consistency_check",
+     "evidence_report": "docs/verification/lenalidomide_renal_pathways_check_v1.json",
+     "evidence_report_file_sha256": "163b5ca1a95a7f3d745c8e25a93ef58d4bedd0e1e48d6e4bfdfb4a25457a93d5",
+     "further_reports": [
+      {
+       "evidence_report": "docs/verification/lenalidomide_esrd_dialysis_check_v1.json",
+       "evidence_report_file_sha256": "f82caa14d665e4f3d4aeefffef6030da7f3cbd5ced495e0e342bcc86108eed52",
+       "classification": "exploratory_aggregate_consistency_check",
+       "summary": "End-stage kidney disease, non-dialysis day (Simulation 2.0c, plan locked before computation): with non-renal clearance held at the normal-group value, the model over-predicts exposure 1.31-fold with no residual kidney function and is consistent at 5 and 10 mL/min. Inconclusive, because the residual kidney function of the 6 subjects was not reported."
+      }
+     ]
+    }
+   }
+  },
+  "lenalidomide_exposure_safety_2016": {
+   "name": "Lenalidomide exposure-safety odds ratios (sponsor analysis CC-5013-MCL-001-PK; used for relative odds, Simulation 4.0a/4.0b)",
+   "citation": "Sponsor analysis CC-5013-MCL-001-PK as reported in the TGA AusPAR for lenalidomide (February 2016), clinical evaluation report section 4.2.4.1; same analysis also summarised in Chen et al., Clin Pharmacokinet 2017;56:139-152 (doi:10.1007/s40262-016-0432-1)",
+   "doi": null,
+   "layers": {
+    "software_verification": {
+     "status": "done",
+     "summary": "The relative-odds formula, the confidence limits (including their swap below the reference exposure), the between-patient range and its use with each PK model's clearance variability are tested (tests/test_lenalidomide_relative_odds.py)."
+    },
+    "transcription_verification": {
+     "status": "partial",
+     "summary": "TGA odds ratios and quotes checked against the plain-text copy of the AusPAR clinical evaluation report. Chen 2017 quotes were read through a web fetch and are not yet checked against the PDF. Independent review pending."
+    },
+    "reproduction": {
+     "status": "not_done",
+     "summary": "The source logistic regression cannot be reproduced: its intercept, baseline-count coefficients, exact AUC definition and number of myeloma patients were not published. This is also why only relative odds, not probabilities, are shown."
+    },
+    "external_consistency": {
+     "status": "not_done",
+     "summary": "No independent exposure-safety data have been compared. Chen 2017 reports the same sponsor analysis (pooled across diseases, thrombocytopenia odds ratio 3.337), so its agreement is not independent confirmation."
+    }
+   }
+  },
+  "ixazomib_pk_gupta_2017": {
+   "name": "Ixazomib population PK (Gupta et al. 2017)",
+   "citation": "Gupta N, et al. Clin Pharmacokinet. 2017;56(11):1355-1368",
+   "doi": "10.1007/s40262-017-0526-4",
+   "role": "Typical total AUC on the ixazomib exposure page, inside the model scope only (ixazomib_scope_v1.json).",
+   "layers": {
+    "software_verification": {
+     "status": "done",
+     "summary": "Closed-form three-compartment oral solution agrees with Runge-Kutta integration to 5e-12 relative; AUC to 20,000 h equals F x dose / CL; mass balance to 1e-14 (locked report, numerical_checks).",
+     "evidence_report": "docs/verification/ixazomib_pk_gupta_check_v1.json",
+     "evidence_report_file_sha256": "087966b6535d0082c5acf7e7f018eca258b74037a671a3febabae5c523f80506"
+    },
+    "transcription_verification": {
+     "status": "partial",
+     "summary": "Table 3 read from the rendered page and cross-checked against the log-scale estimates; the BSA covariate form is inferred from the stated effects and the meaning of the % CV is unstated. Independent review pending."
+    },
+    "reproduction": {
+     "status": "not_done",
+     "summary": "No reproduction of the source's own results has been run on this platform."
+    },
+    "external_consistency": {
+     "status": "done_exploratory",
+     "summary": "Dedicated renal (NCT01830816) and hepatic (NCT01912222) impairment studies, not used to build the model; plan locked before computation (amendment 1 before any group result). Total AUC0-last consistent in MM with normal renal function (575 vs model median 596 h.ng/mL, robust); under-predicted about 1.4-fold in solid-tumour patients with normal liver function and in both hepatic-impairment groups (robust); severe renal impairment under-predicted in the primary scenario only. Peaks under-predicted 2-4-fold in five of six groups. Impaired/normal ratios not distinguishable from no effect at these group sizes.",
+     "classification": "exploratory_aggregate_external_consistency_check",
+     "result_by_endpoint": {
+      "renal.normal.auc_last": "consistent",
+      "renal.severe_ri.auc_last": "model_under_predicts",
+      "renal.esrd.auc_last": "consistent",
+      "hepatic.normal.auc_last": "model_under_predicts",
+      "hepatic.moderate.auc_last": "model_under_predicts",
+      "hepatic.severe.auc_last": "model_under_predicts",
+      "peak_concentration_five_of_six_groups": "model_under_predicts"
+     },
+     "evidence_report": "docs/verification/ixazomib_pk_gupta_check_v1.json",
+     "evidence_report_file_sha256": "087966b6535d0082c5acf7e7f018eca258b74037a671a3febabae5c523f80506"
+    }
+   }
+  },
+  "daratumumab_pk_luo_2021": {
+   "name": "Daratumumab population PK (Luo et al. 2021)",
+   "citation": "Luo MM, et al. J Clin Pharmacol. 2021;61(5):614-627",
+   "doi": "10.1002/jcph.1771",
+   "role": "Not used on any result page yet; its scope (daratumumab_scope_v1.json) fixes what a future implementation may show.",
+   "layers": {
+    "software_verification": {
+     "status": "done",
+     "summary": "Runge-Kutta solution with linear and saturable elimination: mass balance to 5e-16, step halving changes results by 2e-8, and with Vmax = 0 the AUC equals dose / CL (locked report, numerical_checks).",
+     "evidence_report": "docs/verification/daratumumab_pk_luo_check_v1.json",
+     "evidence_report_file_sha256": "89c8310ea73ab5388553a125ba8389630f047d555019124985000b22632b0a26"
+    },
+    "transcription_verification": {
+     "status": "partial",
+     "summary": "Table S1 transcribed from the supplement; the sex factor on V1 is read from a garbled line and the time course of Vmax (KDES) is assumed exponential. Independent review pending."
+    },
+    "reproduction": {
+     "status": "not_done",
+     "summary": "No reproduction of the source's own results has been run on this platform."
+    },
+    "external_consistency": {
+     "status": "done_exploratory",
+     "summary": "GEN501 and SIRIUS first-dose IV data (Clemens 2017), not used to estimate the parameters (the model's structure came from them); plan locked before computation. Peaks at 8 and 16 mg/kg and AUC to infinity at 8 mg/kg consistent; AUC over the first week at 16 mg/kg over-predicted (observed 0.87 of the model median), all robust across eight scenarios.",
+     "classification": "exploratory_aggregate_external_consistency_check",
+     "result_by_endpoint": {
+      "sirius_8.cmax": "consistent",
+      "sirius_8.auc_inf": "consistent",
+      "gen501_16.cmax": "consistent",
+      "gen501_16.auc_0_7d": "model_over_predicts"
+     },
+     "evidence_report": "docs/verification/daratumumab_pk_luo_check_v1.json",
+     "evidence_report_file_sha256": "89c8310ea73ab5388553a125ba8389630f047d555019124985000b22632b0a26",
+     "further_reports": [
+      {
+       "evidence_report": "docs/verification/daratumumab_pk_luo_check_v2.json",
+       "evidence_report_file_sha256": "40862b42fb00d8095653c39c601955eff7141b98d6119eb0d1b3ee9ab342d028",
+       "classification": "exploratory_aggregate_external_consistency_check",
+       "summary": "Second locked check with each study's own demographics (Clemens 2017 supplement): the GEN501 16 mg/kg first-week over-prediction widens (0.83, robust); SIRIUS 8 mg/kg AUC moves to the upper edge (1.18; under-predicted in the 75% IgG scenario). The albumin covariate predicts the opposite ordering of the two studies.",
+       "results": {
+        "v2.sirius_8.cmax": "consistent",
+        "v2.sirius_8.auc_inf": "consistent",
+        "v2.gen501_16.cmax": "consistent",
+        "v2.gen501_16.auc_0_7d": "model_over_predicts"
+       }
+      }
+     ]
+    }
+   }
+  }
+ },
+ "clinical_prediction_validated": false,
+ "supersedes": {
+  "file": "intelligence_store/data/model_evidence_status_v6.json",
+  "status_version": "model-evidence-status-v1.5",
+  "change": "Adds the ixazomib (Gupta 2017, Simulation 3.2a) and daratumumab (Luo 2021, Simulation 3.2b-c) population PK models with their locked outside-data checks."
+ }
+}

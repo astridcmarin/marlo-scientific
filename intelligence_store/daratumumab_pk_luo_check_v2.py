@@ -22,6 +22,7 @@ METHOD_VERSION = 'daratumumab-pk-luo-check-v2.0'
 PLAN_PATH = Path(__file__).parent / 'data' / 'daratumumab_pk_luo_check_plan_v2.json'
 PLAN_SHA256 = '52952fd5d3347d22a2d1b5691be0c63c51ef1f5fd47cc1fda28ab3aba55d73db'
 PLAN_COMMIT = 'cae3463'
+SUPPLEMENT_SHA256 = '4bf5724fe66bb10d921ce8c8a70eb0bf4f52498f7a5e30272e458a1ce0b6a6cb'
 REPORT_PATH = v1.ROOT / 'docs' / 'verification' / 'daratumumab_pk_luo_check_v2.json'
 STUDY_OF_GROUP = {'sirius_8': 'SIRIUS', 'gen501_16': 'GEN501', 'gen501_8': 'GEN501'}
 
@@ -32,6 +33,8 @@ def load_plan(path=PLAN_PATH):
 
 def load_inputs(plan):
     extract, observed = v1.load_inputs(plan)
+    if plan['data']['supplement']['sha256'] != SUPPLEMENT_SHA256:
+        raise ValueError('Plan and check module pin different supplement data.')
     supplement = v1._pinned(v1.ROOT / plan['data']['supplement']['path'], plan['data']['supplement']['sha256'], 'Supplement')
     return extract, observed, supplement
 
