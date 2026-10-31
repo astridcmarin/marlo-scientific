@@ -77,7 +77,7 @@ The trial records live in the local database (about 440 MB), which this workspac
 
 ```
 PYTHONPATH=. flask --app app/app.py eligibility-corpus-export --list
-PYTHONPATH=. flask --app app/app.py eligibility-corpus-export --cohort-id <id> --output Articles/eligibility_corpus_cohort<id>.json
+PYTHONPATH=. flask --app app/app.py eligibility-corpus-export --cohort-id <id> --output supplemental-information/eligibility_corpus_cohort<id>.json
 ```
 
 The file (`eligibility-corpus-v1`) holds, for each trial in the cohort, the identifier, snapshot, phase, status, dates, conditions, interventions, sponsor, enrolment and the eligibility fields exactly as registered, plus the cohort's query and a checksum of the whole file. It also verifies the cohort's reported size (the 4,037-trial figure has not been checked in the repository so far). ClinicalTrials.gov data are public; whether the corpus itself is committed or kept with the other source files will be decided when its size is known.

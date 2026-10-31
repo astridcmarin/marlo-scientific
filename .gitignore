@@ -31,3 +31,7 @@ logs/
 # Bracketed so the rule holds whether the folder is "articles" or "Articles".
 Guglieri*.pdf
 [Aa]rticles/
+# Local source material (articles, supplements, 3D model downloads) lives in supplemental-information/ on the
+# owner's computer and is never committed. Files that the platform serves are copied into the repository
+# deliberately, with a pinned manifest.
+supplemental-information/
