@@ -106,7 +106,7 @@ The differentiator already exists in the code; users cannot see it yet.
    - **v2 (4.2a–4.2b, 28 October):** a fresh 200-trial sample. Comparators are recorded as written and the eligible side is derived. The pass rule is sized to the sample (precision ≥ 0.90 with lower bound ≥ 0.80; recall ≥ 0.80 with lower bound ≥ 0.70). Extractor v1.1 is frozen before scoring.
    - **Next:** the annotation, which is in progress; then the locked check, then the benchmarking page with passing types only.
 2. **Special-population evidence summary** per drug: kidney, liver, age and body size, in the structure of a clinical pharmacology review, with every value sourced. **Built 30 October 2026** ([SPECIAL_POPULATIONS.md](SPECIAL_POPULATIONS.md)) for ixazomib, pomalidomide, lenalidomide, daratumumab, dexamethasone and bortezomib, at `/landscape/drugs/<drug>/special-populations`. Bortezomib uses a new extract of the 2012 label. Gaps are shown as gaps.
-3. **Dose-optimization view** (FDA Project Optimus): dose-ranging trials, published exposure–response findings and exposure comparisons between dose levels for one drug.
+3. **Dose-optimization view** (FDA Project Optimus): dose-ranging trials, published exposure–response findings and exposure comparisons between dose levels for one drug. **v1 built 30 October 2026 for lenalidomide** ([DOSE_OPTIMISATION.md](DOSE_OPTIMISATION.md)): typical daily exposure and relative grade 3/4 cytopenia odds at each model's own study doses, inside each model's scope, for one synthetic record, with the corpus trials by phase. No dose is ranked. Exposure–efficacy, label dose reductions, combination regimens and trial dose levels are shown as gaps.
 4. **A guided path** for one drug through the whole chain: trials → evidence → exposure → regulatory context.
 
 *Done when:* a trial designer can benchmark a draft protocol's eligibility criteria and see the exposure evidence for a dose choice in one session.
@@ -143,7 +143,7 @@ Multi-organ physiology, disease progression, combination therapies, the body →
 
 Updated 30 October 2026 (evening). Done since the morning checkpoint: benchmarking page (4.1f), credibility records (6.1, 6.1b), ixazomib and daratumumab models with outside checks (3.2a–3.2c), Iwasaki author answers (3.0l), model scope (2.5), special-population summaries (4.2), second checkpoint.
 
-1. **Dose-optimisation view (4.3)** for one drug: the dose levels studied in trials, published exposure–response findings, and model exposure at each dose level within the model's scope. Lenalidomide is the candidate (Hughes and Kim scopes, the 2016 exposure–safety model, dose-ranging trials in the corpus).
+1. **Dose-optimisation view (4.3).** v1 built for lenalidomide. Next: trial dose levels, once a dose extractor passes a locked hand-checked sample, and an exposure–efficacy source.
 2. **v2 annotation and locked check (4.2c).** The 200-trial annotation is in progress, by the platform owner.
 3. **Special-population gaps:** new pinned extracts for the gaps each page lists.
 
