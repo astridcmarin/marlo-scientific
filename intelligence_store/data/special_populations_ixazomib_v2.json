@@ -1,0 +1,332 @@
+{
+ "schema_version": "special-population-summary-v1",
+ "summary_version": "special-populations-ixazomib-v2.0",
+ "drug": "ixazomib",
+ "label": "Ixazomib",
+ "recorded_on": "2026-10-31",
+ "intro": "Ixazomib has dedicated renal and hepatic impairment studies, both independent of its population PK model (Gupta 2017), and the platform has checked that model against them (Simulation 3.2a). The NINLARO prescribing information (revision 7/2024; the same statements appear in the 11/2015 label at first approval) is now extracted, so the label's own statements replace the actions previously quoted from the study articles.",
+ "sources": {
+  "observed": {
+   "file": "intelligence_store/data/ixazomib_impairment_observed_v1.json",
+   "sha256": "95fbf4c6f1269c7d77c44e08bb00b4b58095fc1ee8b8b5c0dd4ae2d640153f14",
+   "title": "Ixazomib renal (Gupta, Br J Haematol 2016) and hepatic (Gupta, Br J Clin Pharmacol 2016) impairment studies"
+  },
+  "model": {
+   "file": "intelligence_store/data/ixazomib_pk_gupta_2017_extract_v1.json",
+   "sha256": "d4fe97e4a8659b993541c9bd960ff6d6c519b4fe913b3ad27de84ce894b233bf",
+   "title": "Gupta 2017 ixazomib population PK model (Clin Pharmacokinet 56:1355)"
+  },
+  "scope": {
+   "file": "intelligence_store/data/ixazomib_scope_v1.json",
+   "sha256": "8e6598e5830f931d4636e372bf0b5448e7351cc7fa67668ea4c79f0fbd8760f0",
+   "title": "Platform scope of the Gupta 2017 model",
+   "extraction": "Platform scope file written from locked results (not an extraction)."
+  },
+  "label": {
+   "file": "intelligence_store/data/ixazomib_label_2024_v1.json",
+   "sha256": "013d5b20a8d1c049bed39d23b44f57110a5f691408f4e50f8423e8f29735dd06",
+   "title": "NINLARO prescribing information, revised 7/2024 (statements identical in the 11/2015 initial-approval label)"
+  }
+ },
+ "domains": {
+  "kidney": [
+   {
+    "kind": "study_exposure_change",
+    "text": "Unbound AUC0-last, severe renal impairment vs normal (geometric least-squares mean ratio, 90% CI), single 3 mg dose.",
+    "value": [
+     1.39,
+     0.88,
+     2.2
+    ],
+    "source": {
+     "ref": "observed",
+     "pointer": "/studies/renal/table3/unbound_auc_last/severe_ri_vs_normal",
+     "location": "Table III"
+    },
+    "population": "Relapsed/refractory MM (37 of 41) or solid tumours (4 of 41); severe RI n = 10 vs normal n = 15"
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Unbound AUC0-last, ESRD on haemodialysis vs normal (ratio, 90% CI).",
+    "value": [
+     1.34,
+     0.78,
+     2.31
+    ],
+    "source": {
+     "ref": "observed",
+     "pointer": "/studies/renal/table3/unbound_auc_last/esrd_vs_normal",
+     "location": "Table III"
+    },
+    "population": "ESRD n = 6 vs normal n = 15"
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Total AUC0-last, severe RI and ESRD combined vs normal (ratio, 90% CI).",
+    "value": [
+     1.39,
+     1.04,
+     1.86
+    ],
+    "source": {
+     "ref": "observed",
+     "pointer": "/studies/renal/table3/total_combined_vs_normal_text/auc_last",
+     "location": "Results text, article page 754"
+    }
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Other findings.",
+    "value": "Plasma protein binding about 99% in all groups. Haemodialysis clearance < 2 mL/min in all ESRD patients; pre- and post-dialyser concentrations similar (Fig. 4).",
+    "source": {
+     "ref": "observed",
+     "pointer": "/studies/renal/other_findings"
+    }
+   },
+   {
+    "kind": "label_action",
+    "text": "Label starting dose for severe renal impairment (creatinine clearance below 30 mL/min) or ESRD requiring dialysis (mg); not dialyzable.",
+    "value": 3,
+    "source": {
+     "ref": "label",
+     "pointer": "/dosing/renal_action/dose_mg",
+     "location": "Section 2.4, PDF page 5"
+    }
+   },
+   {
+    "kind": "label_statement",
+    "text": "Mean AUC increase (%) in severe renal impairment or ESRD requiring dialysis, compared with normal renal function (label).",
+    "value": 39,
+    "source": {
+     "ref": "label",
+     "pointer": "/renal/auc_increase_percent_severe_esrd",
+     "location": "Section 8.7, PDF page 12"
+    }
+   },
+   {
+    "kind": "covariate_not_retained",
+    "text": "Population model: renal function was tested over this range and not retained.",
+    "value": "None. The analysis population's Cockcroft-Gault creatinine clearance was median 86.8 mL/min, range 25.8-297 (Table 2).",
+    "source": {
+     "ref": "model",
+     "pointer": "/covariates/renal_function_covariate",
+     "location": "Gupta 2017 Table 2"
+    }
+   },
+   {
+    "kind": "platform_model_scope",
+    "text": "The platform computes the model only for Cockcroft-Gault creatinine clearance in this range (mL/min); below it, the study groups above are shown instead.",
+    "value": [
+     30,
+     297
+    ],
+    "source": {
+     "ref": "scope",
+     "pointer": "/state_rules/0/range"
+    },
+    "link": "/models/ixazomib_pk_gupta_2017/scope"
+   }
+  ],
+  "liver": [
+   {
+    "kind": "study_exposure_change",
+    "text": "Dose-normalised total AUC0-last, moderate hepatic impairment vs normal (ratio, 90% CI); 2.3 mg vs 4 mg.",
+    "value": [
+     1.27,
+     0.77,
+     2.11
+    ],
+    "source": {
+     "ref": "observed",
+     "pointer": "/studies/hepatic/table3/total_auc_last/moderate_vs_normal",
+     "location": "Table 3"
+    },
+    "population": "Advanced solid tumours (no MM); moderate n = 10 vs normal n = 12"
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Dose-normalised total AUC0-last, severe hepatic impairment vs normal (ratio, 90% CI); 1.5 mg vs 4 mg.",
+    "value": [
+     1.13,
+     0.69,
+     1.84
+    ],
+    "source": {
+     "ref": "observed",
+     "pointer": "/studies/hepatic/table3/total_auc_last/severe_vs_normal",
+     "location": "Table 3"
+    },
+    "population": "Advanced solid tumours; severe n = 11 vs normal n = 12"
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Dose-normalised unbound AUC0-last, moderate and severe combined vs normal (ratio, 90% CI).",
+    "value": [
+     1.27,
+     0.75,
+     2.16
+    ],
+    "source": {
+     "ref": "observed",
+     "pointer": "/studies/hepatic/table3/unbound_auc_last/combined_vs_normal",
+     "location": "Table 3"
+    }
+   },
+   {
+    "kind": "study_exposure_change",
+    "text": "Impairment categories used (NCI Organ Dysfunction Working Group).",
+    "value": {
+     "normal": "NCI-ODWG: total bilirubin and AST <= ULN",
+     "moderate": "NCI-ODWG: total bilirubin > 1.5-3 x ULN, any AST",
+     "severe": "NCI-ODWG: total bilirubin > 3 x ULN, any AST"
+    },
+    "source": {
+     "ref": "observed",
+     "pointer": "/studies/hepatic/design/groups"
+    }
+   },
+   {
+    "kind": "label_action",
+    "text": "Label starting dose for moderate (bilirubin > 1.5-3 x ULN) or severe (> 3 x ULN) hepatic impairment (mg).",
+    "value": 3,
+    "source": {
+     "ref": "label",
+     "pointer": "/dosing/hepatic_action/dose_mg",
+     "location": "Section 2.3, PDF page 5"
+    }
+   },
+   {
+    "kind": "label_statement",
+    "text": "Mean AUC increase (%) in moderate or severe hepatic impairment, compared with normal hepatic function (label).",
+    "value": 20,
+    "source": {
+     "ref": "label",
+     "pointer": "/hepatic/auc_increase_percent_moderate_severe",
+     "location": "Section 8.6, PDF page 12"
+    }
+   },
+   {
+    "kind": "covariate_not_retained",
+    "text": "Population model: hepatic function covariates and their range; moderate and severe impairment were not in the analysis.",
+    "value": "None. Total bilirubin median 7 umol/L, range 1.71-39.3 (0.1-2.3 mg/dL); AST median 22 U/L, range 4-127 (Table 2). Patients with moderate or severe hepatic impairment were not in the analysis (they were studied separately).",
+    "source": {
+     "ref": "model",
+     "pointer": "/covariates/hepatic_function_covariate",
+     "location": "Gupta 2017 Table 2"
+    }
+   },
+   {
+    "kind": "platform_model_scope",
+    "text": "The platform computes the model only for total bilirubin up to this multiple of the upper limit of normal; above it, the study groups above are shown instead.",
+    "value": 1.5,
+    "source": {
+     "ref": "scope",
+     "pointer": "/state_rules/1/max_ratio"
+    },
+    "link": "/models/ixazomib_pk_gupta_2017/scope"
+   }
+  ],
+  "age": [
+   {
+    "kind": "covariate_not_retained",
+    "text": "Age range (years) with no clinically meaningful effect on clearance (label, population PK analysis).",
+    "value": [
+     23,
+     91
+    ],
+    "source": {
+     "ref": "label",
+     "pointer": "/other_intrinsic_factors/age_range_years",
+     "location": "Section 12.3, PDF page 14"
+    },
+    "display": "range"
+   },
+   {
+    "kind": "label_statement",
+    "text": "Geriatric use.",
+    "value": "No overall differences in safety or effectiveness were observed between these subjects and younger subjects",
+    "source": {
+     "ref": "label",
+     "pointer": "/geriatric/quote",
+     "location": "Section 8.5, PDF page 11"
+    }
+   },
+   {
+    "kind": "covariate_not_retained",
+    "text": "Population model: covariates tested and not retained (includes age, 23-91 years).",
+    "value": "Age (23-91 years), race, sex, body weight (correlated with BSA; BSA chosen), mild or moderate renal impairment (creatinine clearance), mild hepatic impairment, smoking status, concomitant CYP-modulating drugs (Abstract; Results 3.2; Supplementary Tables 2-3 not reviewed).",
+    "source": {
+     "ref": "model",
+     "pointer": "/covariates/tested_not_retained",
+     "location": "Gupta 2017 Abstract; Results 3.2"
+    }
+   },
+   {
+    "kind": "platform_model_scope",
+    "text": "Age range (years) inside the model scope.",
+    "value": [
+     23,
+     91
+    ],
+    "source": {
+     "ref": "scope",
+     "pointer": "/state_rules/3/range"
+    },
+    "link": "/models/ixazomib_pk_gupta_2017/scope"
+   }
+  ],
+  "body_size": [
+   {
+    "kind": "covariate_effect",
+    "text": "Population model: body surface area is the only retained covariate, on the second peripheral volume (V4); exponent of the power function.",
+    "value": 2.06,
+    "source": {
+     "ref": "model",
+     "pointer": "/parameters/fixed_effects/bsa_exponent_on_v4/value",
+     "location": "Gupta 2017 Table 3"
+    }
+   },
+   {
+    "kind": "covariate_effect",
+    "text": "Stated size of the effect.",
+    "value": "-37 and +46% at the 5th and 95th percentile (1.5 and 2.25 m2) on V4 relative to median BSA (1.87 m2)",
+    "source": {
+     "ref": "model",
+     "pointer": "/parameters/fixed_effects/bsa_exponent_on_v4/stated",
+     "location": "Gupta 2017 Table 3"
+    }
+   },
+   {
+    "kind": "covariate_not_retained",
+    "text": "Body weight was tested; BSA was retained instead (the two are correlated). Clearance has no body-size covariate.",
+    "value": "Age (23-91 years), race, sex, body weight (correlated with BSA; BSA chosen), mild or moderate renal impairment (creatinine clearance), mild hepatic impairment, smoking status, concomitant CYP-modulating drugs (Abstract; Results 3.2; Supplementary Tables 2-3 not reviewed).",
+    "source": {
+     "ref": "model",
+     "pointer": "/covariates/tested_not_retained"
+    }
+   }
+  ],
+  "other_covariates": [
+   {
+    "kind": "covariate_not_retained",
+    "text": "Sex and race: no clinically meaningful effect on clearance (label).",
+    "value": "There was no clinically meaningful effect of age (range 23-91 years), sex, body surface area (range 1.2-2.7 m2), or race on the clearance of ixazomib based on population PK analysis.",
+    "source": {
+     "ref": "label",
+     "pointer": "/other_intrinsic_factors/quote",
+     "location": "Section 12.3, PDF page 14"
+    }
+   },
+   {
+    "kind": "covariate_not_retained",
+    "text": "Sex, race, smoking and concomitant CYP-modulating drugs were tested and not retained.",
+    "value": "Age (23-91 years), race, sex, body weight (correlated with BSA; BSA chosen), mild or moderate renal impairment (creatinine clearance), mild hepatic impairment, smoking status, concomitant CYP-modulating drugs (Abstract; Results 3.2; Supplementary Tables 2-3 not reviewed).",
+    "source": {
+     "ref": "model",
+     "pointer": "/covariates/tested_not_retained"
+    }
+   }
+  ]
+ },
+ "not_this": "A research summary of sourced findings. Not dosing guidance; doses are quoted from the label only as the label states them."
+}

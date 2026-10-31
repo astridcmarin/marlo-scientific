@@ -83,6 +83,17 @@ class Summaries(unittest.TestCase):
         self.assertEqual(btz['age']['statements'][0]['value'], 25)
         self.assertEqual(btz['kidney']['statements'][2]['value']['dialysis'], 8)
 
+    def test_ixazomib_label_replaces_study_reported_actions(self):
+        from intelligence_store.ixazomib_label import load_label_extract
+        e = load_label_extract()
+        self.assertEqual((e['renal']['auc_increase_percent_severe_esrd'], e['hepatic']['auc_increase_percent_moderate_severe']), (39, 20))
+        ixa = {r['domain']: r for r in sp.build('ixazomib')['rows']}
+        for dom in ('kidney', 'liver'):
+            actions = [st for st in ixa[dom]['statements'] if st['kind'] == 'label_action']
+            self.assertEqual([a['value'] for a in actions], [3])
+            self.assertEqual(actions[0]['source']['ref'], 'label')
+        self.assertIn('cd3b68f8ec285160dadd81140b0d3aae9748971e6176bfef8032564ecc9bf423', sp.SUPERSEDED.values())
+
     def test_lenalidomide_label_extract_is_pinned(self):
         from intelligence_store.lenalidomide_label import load_label_extract
         e = load_label_extract()
