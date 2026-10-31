@@ -122,7 +122,9 @@
                 <h3>Computational pharmacology lab</h3>
                 <p>Build a synthetic patient, then run published models on that record. Results are typical values from a published model, never a prediction for a real person.</p>
                 <ul class="points">
-                    <li>Lenalidomide concentration curves from two population PK models (Hughes 2019, Kim 2026).</li>
+                    <li>Lenalidomide concentration curves from two population PK models (Hughes 2019, Kim 2026), each used only inside its <a href="{{ url_for('model_scope', model_id='lenalidomide_hughes_2019') }}">declared scope</a>. <a href="{{ url_for('landscape.lenalidomide_guide') }}">Follow lenalidomide from trials to dose</a>.</li>
+                    <li>Typical <a href="{{ url_for('landscape.ixazomib_exposure_page') }}">ixazomib exposure</a> (Gupta 2017), shown only where the model's scope allows.</li>
+                    <li>Exposure in special populations for six myeloma drugs, every value checked against its source (for example <a href="{{ url_for('landscape.special_populations', drug='lenalidomide') }}">lenalidomide</a>), and a <a href="{{ url_for('landscape.lenalidomide_dose_optimisation') }}">lenalidomide dose view</a> that ranks no dose.</li>
                     <li>How elimination splits between kidney filtration, tubular secretion and other routes.</li>
                     <li>Relative odds of severe low blood counts, and the bortezomib platelet course (Lignet 2022). Its exposure model disagrees with two outside studies; <a href="{{ url_for('model_scorecard', model_id='bortezomib_pk_lignet_2022') }}">see the scorecard</a>.</li>
                     <li>Label-based exposure curves for approved drugs, each checked against its own label and outside data before it is shown. So far: <a href="{{ url_for('landscape.label_exposure', drug='pomalidomide') }}">pomalidomide</a> and <a href="{{ url_for('landscape.label_exposure', drug='dexamethasone') }}">dexamethasone</a>.</li>

@@ -31,6 +31,8 @@ def register_protein_turnover_pages(bp):
     register_special_population_pages(bp)
     from .dose_optimisation_pages import register_dose_optimisation_pages
     register_dose_optimisation_pages(bp)
+    from .guided_path_pages import register_guided_path_pages
+    register_guided_path_pages(bp)
     from .eligibility_annotation_pages import register_eligibility_annotation_pages
     register_eligibility_annotation_pages(bp)
     from .eligibility_benchmark_pages import register_eligibility_benchmark_pages

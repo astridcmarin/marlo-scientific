@@ -1,0 +1,24 @@
+{% extends "landscape_base.html" %}
+{% block title %}{{ p.title }}{% endblock %}
+{% block content %}
+<p class="eyebrow">Guided path · one drug through the platform</p>
+<h1>{{ p.title }}</h1>
+<section class="scenario-notice"><strong>What the platform holds for lenalidomide, step by step</strong>
+<p>Each step links to the page that holds the evidence and says what has been checked and what is missing. {{ p.not_this }}</p>
+<p>Clinical prediction validated: <strong>false</strong> · <a href="?format=json">Download this path (JSON)</a></p></section>
+
+{% for s in p.steps %}
+<section class="panel" id="{{ s.id }}"><h2>{{ loop.index }}. {{ s.title }}</h2>
+<p class="eyebrow" style="margin-bottom:6px">{{ s.question }}</p>
+<p><strong>On the platform:</strong> {{ s.found }}</p>
+<p><strong>Checked:</strong> {{ s.checked }}</p>
+<p><strong>Missing:</strong> {{ s.missing }}</p>
+<p>{% for label, href in s.hrefs %}<a class="button secondary" href="{{ href }}">{{ label }}</a> {% endfor %}</p>
+{% if s.id == 'exposure' %}
+<div class="table-scroll"><table style="min-width:900px;table-layout:fixed;width:100%"><thead><tr><th style="width:28%">Model</th>{% for l in p.models[0].layers %}<th style="width:11%">{{ l.label }}</th>{% endfor %}<th style="width:28%">Outside data, by renal group</th></tr></thead><tbody>
+{% for m in p.models %}<tr><td style="white-space:normal;overflow-wrap:anywhere"><a style="white-space:normal" href="{{ url_for('model_scorecard', model_id=m.model_id) }}">{{ m.name }}</a></td>{% for l in m.layers %}<td>{{ l.status }}</td>{% endfor %}
+<td>{% for r in m.outside_results %}{{ r.group }}: {{ r.outcome }}{% if not loop.last %}; {% endif %}{% else %}—{% endfor %}</td></tr>{% endfor %}
+</tbody></table></div>{% endif %}
+</section>
+{% endfor %}
+{% endblock %}

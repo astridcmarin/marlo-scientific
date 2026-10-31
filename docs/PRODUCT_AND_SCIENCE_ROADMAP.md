@@ -107,7 +107,7 @@ The differentiator already exists in the code; users cannot see it yet.
    - **Next:** the annotation, which is in progress; then the locked check, then the benchmarking page with passing types only.
 2. **Special-population evidence summary** per drug: kidney, liver, age and body size, in the structure of a clinical pharmacology review, with every value sourced. **Built 30 October 2026** ([SPECIAL_POPULATIONS.md](SPECIAL_POPULATIONS.md)) for ixazomib, pomalidomide, lenalidomide, daratumumab, dexamethasone and bortezomib, at `/landscape/drugs/<drug>/special-populations`. Bortezomib uses a new extract of the 2012 label. Gaps are shown as gaps.
 3. **Dose-optimization view** (FDA Project Optimus): dose-ranging trials, published exposure–response findings and exposure comparisons between dose levels for one drug. **v1 built 30 October 2026 for lenalidomide** ([DOSE_OPTIMISATION.md](DOSE_OPTIMISATION.md)): typical daily exposure and relative grade 3/4 cytopenia odds at each model's own study doses, inside each model's scope, for one synthetic record, with the corpus trials by phase. No dose is ranked. Exposure–efficacy, label dose reductions, combination regimens and trial dose levels are shown as gaps.
-4. **A guided path** for one drug through the whole chain: trials → evidence → exposure → regulatory context.
+4. **A guided path** for one drug through the whole chain: trials → evidence → exposure → regulatory context. **Built 31 October 2026 for lenalidomide** (`guided_path.py`, `/landscape/drugs/lenalidomide/guide`): six steps (trials, drug knowledge and label, special populations, exposure models, dose, credibility and review). Each step is read from pinned sources and says what has been checked and what is missing. It is linked from the landing page, the special-populations page and the dose view.
 
 *Done when:* a trial designer can benchmark a draft protocol's eligibility criteria and see the exposure evidence for a dose choice in one session.
 
@@ -141,11 +141,14 @@ Multi-organ physiology, disease progression, combination therapies, the body →
 
 ## Immediate next steps
 
-Updated 30 October 2026 (evening). Done since the morning checkpoint: benchmarking page (4.1f), credibility records (6.1, 6.1b), ixazomib and daratumumab models with outside checks (3.2a–3.2c), Iwasaki author answers (3.0l), model scope (2.5), special-population summaries (4.2), second checkpoint.
+Updated 31 October 2026. Done on 31 October: dose view (4.3) with the exposure–efficacy evidence search, the REVLIMID label extract, source reconciliation and evidence status v8, the extraction review page, the lenalidomide guided path (4.4). Done on 30 October after the morning checkpoint: benchmarking page (4.1f), credibility records (6.1, 6.1b), ixazomib and daratumumab models with outside checks (3.2a–3.2c), Iwasaki author answers (3.0l), model scope (2.5), special-population summaries (4.2), second checkpoint.
 
-1. **Dose-optimisation view (4.3).** v1 built for lenalidomide. Next: trial dose levels, once a dose extractor passes a locked hand-checked sample, and an exposure–efficacy source.
-2. **v2 annotation and locked check (4.2c).** The 200-trial annotation is in progress, by the platform owner.
-3. **Special-population gaps:** new pinned extracts for the gaps each page lists.
+1. **Owner review of the extractions** (`/models/extraction-review`, 166 values). Needs the platform owner's time; the result changes "review pending" on every source.
+2. **User conversations** with five to ten trial designers, clinical pharmacologists or regulatory professionals, using the lenalidomide guided path as the demonstration.
+3. **Dose-optimisation view (4.3).** v1 built for lenalidomide. Next: trial dose levels, once a dose extractor passes a locked hand-checked sample, and an exposure–efficacy source (candidate: later FDA or EMA myeloma reviews).
+4. **Sources requested:** Chen et al. 2007 (renal study publication), later REVLIMID regulatory reviews, an earlier REVLIMID label.
+5. **v2 annotation and locked check (4.2c).** The 200-trial annotation is in progress, by the platform owner.
+6. **Special-population gaps:** new pinned extracts for the gaps each page lists.
 
 Blocked or waiting:
 - **Drug catalog growth (3.2), including ixazomib:** DailyMed label files cannot be reached from the development environment.

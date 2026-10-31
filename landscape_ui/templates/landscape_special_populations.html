@@ -17,7 +17,7 @@
 <section class="scenario-notice"><strong>Sourced findings side by side — not dosing guidance</strong>
 <p>{{ v.intro }}</p>
 <p>Each finding is labelled with its kind (study, label, population model, platform scope) and the population it comes from. Every value is checked against its pinned source file before this page is shown. {{ v.not_this }}</p>
-<p>Clinical prediction validated: <strong>false</strong>{% if v.drug == 'lenalidomide' %} · <a href="{{ url_for('landscape.lenalidomide_dose_optimisation') }}">Exposure across dose levels</a>{% endif %}</p></section>
+<p>Clinical prediction validated: <strong>false</strong>{% if v.drug == 'lenalidomide' %} · <a href="{{ url_for('landscape.lenalidomide_dose_optimisation') }}">Exposure across dose levels</a> · <a href="{{ url_for('landscape.lenalidomide_guide') }}">Guided path</a>{% endif %}</p></section>
 {% for row in v.rows %}<section class="sp-row" aria-labelledby="sp-{{ row.domain }}"><h2 id="sp-{{ row.domain }}">{{ row.label }}</h2>
 {% if not row.statements %}<p class="sp-st"><span class="sp-kind sp-kind-gap">Not in the platform's pinned sources</span></p>{% endif %}
 {% for s in row.statements %}<div class="sp-st"><p><span class="sp-kind sp-kind-{{ s.kind }}">{{ s.kind_label }}</span>{{ s.text }}</p>
