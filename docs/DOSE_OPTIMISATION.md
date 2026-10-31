@@ -64,18 +64,29 @@ Lenalidomide is the only drug for which the platform holds all three parts:
 
 **Built 30 October 2026 (v1).** `intelligence_store/dose_optimisation.py` (schema `lenalidomide-dose-view-v1`) and the page `/landscape/drugs/lenalidomide/dose-optimisation`, with a JSON download, linked from the lenalidomide special-populations page. Tests: `tests/test_dose_optimisation.py`.
 
-- **No new pinned file was needed.** The dose levels, the reference, the odds ratios, the scopes and the corpus are all read from files the platform already pins. The gap list is in the module.
+- **Sources.** The dose levels, the reference, the odds ratios, the scopes and the corpus are read from files the platform already pins. One new pinned file, `lenalidomide_exposure_response_guglieri_2017_v1.json` (31 October 2026, view v1.1), holds the thesis findings. They are shown on the page and never used in a calculation (see the evidence search below). The gap list is in the module.
 - **Assumptions are fixed to each model's primary reading:** Hughes uses the recorded primary Cockcroft–Gault weight basis, Kim the primary CL/F equation form. Both are shown on the page.
 - **Trials:** 380 of 3,450 corpus trials have an intervention named exactly Lenalidomide or Revlimid. Another 78 mention it only inside a longer name and are counted separately, not matched. Phase 1 and early phase 1 trials are listed with links.
 
 ## Evidence search: lenalidomide exposure–efficacy (31 October 2026)
 
-Done to find out whether the efficacy gap is a gap in the platform or in the published evidence. Nothing found here is pinned or used in a calculation. The quotes were returned by a web-reading tool and have not been checked against an original copy.
+Done to find out whether the efficacy gap is a gap in the platform or in the published evidence. The platform owner supplied the four sources; every quote below was checked against the supplied file. The files are kept on the owner's computer, not committed.
 
-| Source | What it says on efficacy | Status |
+| Source (file SHA-256) | What it says on efficacy | Check |
 |---|---|---|
-| FDA clinical pharmacology and biopharmaceutics review, NDA 21-880 (Revlimid, del 5q MDS; submission 2005), sections 2.2.4.1 and 2.2.4.4 | "Clinical studies assessing the relationship between exposure and efficacy were not performed." "The relationship between dose—concentration and response is largely unknown." "The efficacy of lower doses is unknown." | Read from a third-party OCR copy (docketalarm.com), not an FDA-hosted file; text truncated after section 2.2.5.8 |
-| Chen N, Zhou S, Palmisano M. Clin Pharmacokinet 2017;56:139–152 (review by sponsor authors), "Exposure Response" | In a phase II study of 38 myeloma patients with renal impairment, on lenalidomide with dexamethasone: "no apparent pattern was observed between lenalidomide Cmax and the grade of hematologic AEs or efficacy." The renal dose reductions are described as AUC-matched to the full dose at CrCl ≥ 50 mL/min. | Secondary review, read on PubMed Central through a web tool |
-| Guglieri-López et al., PAGE 24 (2015), abstract 3317: M-protein tumour growth inhibition model, 39 myeloma patients | The drug effect is a function of time on treatment (KD0·e^(−λt)). No dose, concentration or AUC term is reported. | Abstract only; no parameter estimates on the page |
+| FDA clinical pharmacology and biopharmaceutics review, NDA 21-880, Revlimid for del 5q MDS, 2005 (`021880s000_Revlimid_BioPharmR.pdf`, `59be36a9…`) | "Clinical studies assessing the relationship between exposure and efficacy were not performed." "The relationship between dose-concentration and response is largely unknown. … The efficacy of lower doses is unknown. Determination of an optimal dose is an unresolved dosing issue." This concerns MDS at 10 mg, not myeloma. | Scanned file; text located by OCR on PDF pages 10–11 |
+| Chen N, Zhou S, Palmisano M. Clin Pharmacokinet 2017;56:139–152 (`0f2c0098…`), sponsor authors | In a phase II study of myeloma patients with renal impairment on lenalidomide with dexamethasone, "no apparent pattern was observed between lenalidomide Cmax and the grade of hematologic AEs or efficacy". The renal dose reductions are AUC-matched to the full dose. | Text layer |
+| Guglieri-López et al., PAGE 24 (2015), poster 3317 (`6855bc84…`) | M-protein tumour growth inhibition model in 39 patients. The drug effect declines with time on treatment; there is no dose, concentration or AUC term. | Text layer |
+| Guglieri López B, doctoral thesis, Universitat de València, 2017 (`835991d6…`) | Time to progression in 54 patients, 26 events: hazard ratio 1.19 (bootstrap 95% 1.08–1.35) per 100 µg·h/L of AUC above 1,110 µg·h/L (the sample median). **Higher exposure was associated with faster progression.** Time to severe neutropenia, 27 events: hazard ratio 1.02 (1.01–1.03) per 10 ng/mL of Cmax; AUC was not significant. | Text layer; pinned as `lenalidomide_exposure_response_guglieri_2017_v1.json` |
 
-**Conclusion:** no published exposure–efficacy relationship for lenalidomide in myeloma was found that the platform could use. The FDA review of the first approval states that none was studied. The renal dose reductions rest on matching AUC to the full dose, not on an exposure–efficacy model. The efficacy side of the dose view therefore stays a gap. Filling it would need a sponsor exposure–response analysis from a later regulatory review (for example the EMA or FDA reviews for newly diagnosed myeloma or maintenance), checked against an original copy.
+**The thesis is the only myeloma exposure–efficacy analysis found, and the platform does not use it.** It is shown on the dose page as a cited finding, with these reasons for not using it:
+
+1. **Exposure here is mostly dose history.** Concentrations were measured in 15 of 54 patients. For the rest, AUC is a typical value computed from the dose and covariates, so the analysis cannot separate exposure from the doses clinicians chose.
+2. **Doses were not assigned at random.** In routine practice doses are reduced for toxicity, for renal function and over time. Who keeps a high dose depends on how the patient is doing, which opens a time-varying exposure covariate to confounding and reverse causation. The thesis reports no analysis addressing this.
+3. **Some early progressions could not be seen.** Patients entered only after at least one month on lenalidomide, but time was counted from its start. Progressions before enrolment could not be observed, and no correction is reported.
+4. **The study is small and the threshold is data-driven.** 54 patients and 26 events at one centre, with the AUC threshold set at the sample median.
+5. **The direction is the opposite of expectation.** The author proposes acquired resistance; the data do not test it.
+
+Showing it as a dose–hazard curve would suggest that lower doses are more effective. The evidence cannot support that.
+
+**Conclusion:** no usable exposure–efficacy relationship for lenalidomide in myeloma was found. The efficacy side of the dose view stays a gap. A usable source would be a sponsor exposure–response analysis with randomised dose levels or adequate adjustment, for example in a later FDA or EMA review.

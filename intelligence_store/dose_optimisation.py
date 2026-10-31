@@ -10,7 +10,10 @@ Dose levels come from the models' sources, not from the platform: the Hughes 201
 reference dose (hughes_coverage_contract_v1.json) and the Kim 2026 study doses (kim_model.STUDY_DOSES_MG).
 """
 import collections
+import hashlib
+import json
 import math
+from pathlib import Path
 
 from .covariate_estimation import estimate_hughes_covariates, primary_weight_basis_hughes
 from .eligibility_corpus import load_corpus
@@ -25,7 +28,9 @@ from .pk_parameter_reference import _parameter_math, load_parameter_extract
 from .reference_exposure import compare_to_reference, load_reference_exposure
 
 SCHEMA_VERSION = 'lenalidomide-dose-view-v1'
-METHOD_VERSION = 'lenalidomide-dose-view-v1.0'
+METHOD_VERSION = 'lenalidomide-dose-view-v1.1'
+EXPOSURE_RESPONSE_PATH = Path(__file__).parent / 'data' / 'lenalidomide_exposure_response_guglieri_2017_v1.json'
+EXPOSURE_RESPONSE_SHA256 = '676a2b8ff2f0d0d668e62105918ea28b6358cce0f745b72c2fafb4fd0efb6eb5'
 ALIASES = ('Lenalidomide', 'Revlimid')       # drug_aliases_v1.json entry 'lenalidomide' (checked in a test)
 MODELS = {'lenalidomide_hughes_2019': 'Hughes 2019', 'lenalidomide_kim_2026': 'Kim 2026'}
 DOSE_STATUS = {
@@ -34,7 +39,7 @@ DOSE_STATUS = {
     'not_a_study_dose': "Not a dose in the model's study: no value",
 }
 GAPS = [
-    {'id': 'exposure_efficacy', 'text': 'Exposure–efficacy: no pinned source. A literature search on 31 October 2026 found no published lenalidomide exposure–efficacy relationship in myeloma that could be used (see docs/DOSE_OPTIMISATION.md). Without one, the view cannot show a trade-off between dose levels.'},
+    {'id': 'exposure_efficacy', 'text': 'A usable exposure–efficacy relationship: none found. The FDA review of the first approval (MDS) states none was studied; the one myeloma analysis found (below) is shown but not used. Without one, the view cannot show a trade-off between dose levels.'},
     {'id': 'label_dose_reductions', 'text': 'Label dose levels and renal dose reductions: not extracted.'},
     {'id': 'combination_regimens', 'text': 'Exposure–safety in combination regimens (with dexamethasone, bortezomib or daratumumab): the odds ratios come from monotherapy only.'},
     {'id': 'trial_dose_levels', 'text': 'Dose levels used in the trials: the pinned corpus holds intervention names, not arm descriptions or doses (owner decision, 30 October 2026).'},
@@ -47,6 +52,28 @@ LIMITS = [
     'Relative odds are not probabilities: the intercept was not published, so absolute risk is unknown.',
     'Typical values for a synthetic record; not this or any patient\'s exposure, and not a dose recommendation.',
 ]
+
+
+def load_exposure_response():
+    raw = EXPOSURE_RESPONSE_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != EXPOSURE_RESPONSE_SHA256:
+        raise ValueError('Lenalidomide exposure-response evidence is missing or changed.')
+    data = json.loads(raw)
+    if data.get('schema_version') != 'exposure-response-evidence-v1':
+        raise ValueError('Unsupported exposure-response evidence schema.')
+    return data
+
+
+def published_exposure_response():
+    """The thesis findings, for display only: nothing here enters a calculation."""
+    e = load_exposure_response()
+    return {'kind': 'cited_finding_not_used_in_calculation', 'source': e['source']['document'],
+            'source_status': e['source']['publication_status'], 'extraction': e['source']['extraction'],
+            'design': {k: e['design'][k] for k in ('setting', 'population', 'n_patients', 'pk_sampled_patients', 'exposure_definition')},
+            'time_to_progression': {k: e['time_to_progression'][k] for k in ('events', 'hazard_ratios', 'direction', 'quotes', 'location')},
+            'time_to_severe_neutropenia': {k: e['time_to_severe_neutropenia'][k] for k in ('events', 'hazard_ratios', 'auc_tested_not_retained', 'location')},
+            'why_not_used': e['platform_assessment']['reasons'], 'not_this': e['not_this'],
+            'evidence_version': e['evidence_version'], 'evidence_sha256': EXPOSURE_RESPONSE_SHA256}
 
 
 def dose_levels():
@@ -161,7 +188,7 @@ def lenalidomide_dose_view(state, disease_code, weight_basis=None, cl_form=None)
                             'population': ref['population']},
               'endpoints': list(ENDPOINTS),
               'models': [_model_column(m, state, disease_code, weight_basis, cl_form, doses) for m in MODELS],
-              'trials': corpus_trials(), 'gaps': GAPS, 'limits': LIMITS,
+              'trials': corpus_trials(), 'published_exposure_response': published_exposure_response(), 'gaps': GAPS, 'limits': LIMITS,
               'not_this': 'Not dosing guidance: no dose is recommended or ranked.',
               'clinical_prediction_validated': False, 'ready_for_patient_simulation': False}
     result['result_sha256'] = digest(result)

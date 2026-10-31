@@ -1,0 +1,173 @@
+{
+ "schema_version": "exposure-response-evidence-v1",
+ "evidence_version": "lenalidomide-exposure-response-guglieri-2017-v1.0",
+ "drug": "lenalidomide",
+ "recorded_on": "2026-10-31",
+ "source": {
+  "document": "Guglieri López B. Population Pharmacokinetic-Pharmacodynamic Modelling to Optimize Lenalidomide Treatment in Multiple Myeloma Patients. Doctoral thesis, Universitat de València, March 2017 (directors: Merino Sanjuán M, Porta Oltra B, Climente Martí M).",
+  "file_reviewed": {
+   "file": "40e68fca-34579.pdf (265 pages, text layer; title metadata 'Tesis Beatriz Guglieri Lopez 12032017 v11')",
+   "sha256": "835991d68b33446d787c5ade7c224d8194bd08aefaa71d8e3c008b13ef47e054"
+  },
+  "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
+  "extraction": "AI-assisted. Every quote in this file was checked against text extracted from the thesis (pdftotext; line breaks and soft hyphens normalised to single spaces), and every table value against the same text. Independent review pending.",
+  "publication_status": "Whether the PK/PD analyses were published in a peer-reviewed journal was not checked."
+ },
+ "design": {
+  "setting": "Observational, prospective, non-controlled study in routine clinical practice at one centre (Doctor Peset University Hospital, Valencia, Spain), January 2014 to August 2016",
+  "population": "Adults with active multiple myeloma on lenalidomide with dexamethasone, mostly as second or later line; two patients first line",
+  "regimen": "Lenalidomide 25 mg on days 1-21 of 28-day cycles, adjusted for renal impairment per the label and for grade 3/4 toxicity; dexamethasone 40 mg (20 mg at age 75 or over) weekly",
+  "regimen_location": "Section 4.3.2, PDF page 129",
+  "n_patients": 54,
+  "pk_sampled_patients": 15,
+  "exposure_definition": "AUC0-inf and Cmax per dose from the author's population PK model: individual (Bayesian) estimates for the 15 sampled patients, typical values from dose history and covariates for the rest; used as a time-varying covariate",
+  "quotes": {
+   "inclusion": {
+    "quote": "Treated with lenalidomide (Revlimid®) in combination with dexamethasone at any dose level at the moment of inclusion.",
+    "location": "Section 4.3.1, PDF page 128"
+   },
+   "pk_subgroup": {
+    "quote": "Blood samples could only be obtained in 15 patients.",
+    "location": "Section 6.1, PDF page 205"
+   },
+   "population_predicted": {
+    "quote": "the population pharmacokinetic parameters obtained from the selected PK model were used for more than half of the patients included in the study (65%).",
+    "location": "Section 6.5, PDF page 223"
+   },
+   "time_varying": {
+    "quote": "Exposure was then used as a time-varying covariate, thus longitudinal lenalidomide exposure was evaluated as a risk factor of disease progression or severe neutropenia.",
+    "location": "Section 6.4, PDF page 214"
+   },
+   "prior_treatment_required": {
+    "quote": "At least one month receiving lenalidomide",
+    "location": "Section 4.3.1, PDF page 128"
+   }
+  },
+  "setting_location": "Sections 4.1 and 4.2, PDF page 127",
+  "time_zero": "Time to progression counted from the start of lenalidomide (section 6.4.1, PDF pages 214-215), while patients were enrolled after at least one month on it"
+ },
+ "time_to_progression": {
+  "model": "Parametric time-to-event, log-normal baseline hazard; covariates on the hazard",
+  "events": 26,
+  "follow_up_max_days": 1000,
+  "location": "Section 5.3.2.1, Table 5.17 (PDF page 193); NONMEM code PDF page 249",
+  "hazard_ratios": [
+   {
+    "covariate": "serum beta-2-microglobulin",
+    "unit": "per 1 ug/mL increase",
+    "hr": 2.44,
+    "bootstrap_95": [
+     1.95,
+     3.81
+    ]
+   },
+   {
+    "covariate": "autologous stem cell transplantation before lenalidomide",
+    "unit": "yes vs no",
+    "hr": 3.56,
+    "bootstrap_95": [
+     1.65,
+     18.73
+    ]
+   },
+   {
+    "covariate": "monoclonal protein type",
+    "unit": "IgA, light-chain or non-secretory vs IgG",
+    "hr": 3.97,
+    "bootstrap_95": [
+     2.02,
+     14.67
+    ]
+   },
+   {
+    "covariate": "lenalidomide AUC0-inf",
+    "unit": "per 100 ug.h/L increase above 1,110 ug.h/L (none below)",
+    "hr": 1.19,
+    "bootstrap_95": [
+     1.08,
+     1.35
+    ]
+   }
+  ],
+  "auc_threshold_ug_h_l": 1110,
+  "auc_threshold_basis": "Median AUC0-inf of the sample (thesis section 6.4.1); hinge form IF(AUC.GT.1110) in the NONMEM code",
+  "direction": "Higher exposure was associated with a higher hazard of progression, i.e. shorter time to progression.",
+  "quotes": {
+   "events": {
+    "quote": "A total of 26 events (24 progressions and 2 deaths due to progression) were recorded in the 54 patients included for this analysis.",
+    "location": "Section 5.3.2.1, PDF page 188"
+   },
+   "result": {
+    "quote": "patients with lenalidomide AUC0-∞ above 1,110 µg·h/L (median value of the studied sample) had an increased risk of disease progression of 19.7% per each 100 µg·h/L increase of AUC0-∞ (Table 5.17).",
+    "location": "Section 6.4.1, PDF page 215"
+   },
+   "author_caution": {
+    "quote": "Nevertheless, the confidence interval for the effect of AUC0-∞ on the risk of progression was close to one (HR=1.19 95%CI 1.08- 1.35), and thus results should be interpreted carefully.",
+    "location": "Section 6.4.1, PDF page 218"
+   }
+  }
+ },
+ "time_to_severe_neutropenia": {
+  "model": "Parametric time-to-event, exponential baseline hazard; covariates on the hazard",
+  "events": 27,
+  "follow_up_max_days": 600,
+  "location": "Section 5.3.2.2, Table 5.21 (PDF page 201)",
+  "hazard_ratios": [
+   {
+    "covariate": "baseline neutrophil count",
+    "unit": "per 1e9 cells/L increase",
+    "hr": 0.78,
+    "bootstrap_95": [
+     0.52,
+     0.86
+    ]
+   },
+   {
+    "covariate": "age",
+    "unit": "per year",
+    "hr": 1.04,
+    "bootstrap_95": [
+     1.01,
+     1.09
+    ]
+   },
+   {
+    "covariate": "lenalidomide Cmax",
+    "unit": "per 10 ng/mL increase",
+    "hr": 1.02,
+    "bootstrap_95": [
+     1.01,
+     1.03
+    ]
+   }
+  ],
+  "auc_tested_not_retained": "AUC0-inf was not significant in the univariate analysis (dOFV -0.746, p = 0.387; Table 5.19, PDF page 199)",
+  "quotes": {
+   "events": {
+    "quote": "A total of 27 patients experienced severe neutropenia during lenalidomide treatment.",
+    "location": "Section 5.3.2.2, PDF page 196"
+   },
+   "result": {
+    "quote": "Finally, the risk of experiencing severe neutropenia increased by 2% per each 10 ng/mL increase of lenalidomide Cmax.",
+    "location": "Section 5.3.2.2.2, PDF page 200"
+   }
+  }
+ },
+ "platform_assessment": {
+  "recorded_by": "AI-assisted review, 31 October 2026; not the author's view",
+  "use_on_platform": "Shown as a cited finding only. Not used in any calculation, and no dose-level hazard is derived from it.",
+  "reasons": [
+   "Exposure is largely dose history: for 65% of patients it is a typical value computed from dose and covariates, so the analysis cannot separate exposure from the doses that clinicians chose.",
+   "Doses in routine practice are reduced for toxicity, renal function and over time, so who keeps a high dose is not random; a time-varying exposure covariate under these conditions is open to confounding and reverse causation. The thesis does not report an analysis addressing this.",
+   "Patients entered the study only after at least one month on lenalidomide, but time was counted from its start, so early progressions before enrolment could not be observed (prevalent-user design); the thesis does not report a correction.",
+   "54 patients and 26 events at one centre; the AUC threshold is the sample median, chosen from the same data.",
+   "The direction (more exposure, faster progression) is opposite to the usual expectation; the author proposes acquired resistance as an explanation, which the data do not test.",
+   "The neutropenia result concerns Cmax, not AUC (AUC was not significant), with a hazard ratio of 1.02 per 10 ng/mL and lenalidomide given with dexamethasone."
+  ]
+ },
+ "not_this": [
+  "Not evidence that a lower dose is more effective.",
+  "Not a dose recommendation."
+ ],
+ "clinical_prediction_validated": false
+}
