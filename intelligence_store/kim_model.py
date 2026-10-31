@@ -28,8 +28,12 @@ EXTRACT_PATH = DATA / 'kim_2026_model_extract_v1.json'
 EXTRACT_SHA256 = 'c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af'
 FORM_ASSESSMENT_PATH = DATA / 'kim_cl_equation_form_assessment_v1.json'
 FORM_ASSESSMENT_SHA256 = '1de6b91bd9e8f5d633182f8794defc3a85c47f668dfc15ea9bcfe3695bc95d5a'
-FINDINGS_PATH = DATA / 'kim_applicability_findings_v1.json'
-FINDINGS_SHA256 = 'deb1c48cf97a59d6bca251935cb1e57fb4a64c158810bf1583a78aeb157d9af9'
+FINDINGS_PATH = DATA / 'kim_applicability_findings_v2.json'
+FINDINGS_SHA256 = '702bd01dd94178cf80af0648c15e86a41d172bd15fc84a204f090e49abf16450'
+FINDINGS_SCHEMA = 'model-applicability-findings-v2'
+# Superseded on 2026-10-31 (moderate band added after the 2.1e recheck); kept unchanged and pinned.
+SUPERSEDED_FINDINGS_PATH = DATA / 'kim_applicability_findings_v1.json'
+SUPERSEDED_FINDINGS_SHA256 = 'deb1c48cf97a59d6bca251935cb1e57fb4a64c158810bf1583a78aeb157d9af9'
 DOSE_EVIDENCE_PATH = DATA / 'lenalidomide_dose_proportionality_evidence_v1.json'
 DOSE_EVIDENCE_SHA256 = 'ec140c8f5ea9fa5c348d1bbde535a7dfd19dacd17360b0eb3607798e9b5f2952'
 
@@ -55,7 +59,13 @@ def load_form_assessment(path=FORM_ASSESSMENT_PATH):
 
 
 def load_applicability_findings(path=FINDINGS_PATH):
-    return _load_pinned(path, FINDINGS_SHA256, 'model-applicability-findings-v1', 'Kim applicability findings')
+    return _load_pinned(path, FINDINGS_SHA256, FINDINGS_SCHEMA, 'Kim applicability findings')
+
+
+def finding_applies(finding, value):
+    """applies_from <= value < applies_below; without applies_from, every value below applies_below."""
+    lower = finding.get('applies_from')
+    return value < finding['applies_below'] and (lower is None or value >= lower)
 
 
 def load_dose_proportionality_evidence(path=DOSE_EVIDENCE_PATH):
@@ -197,7 +207,7 @@ def estimate_kim_covariates(state):
     findings = load_applicability_findings()
     covariates = {'egfr_indexed': egfr, 'body_surface_area': bsa}
     for finding in findings['findings']:
-        if covariates[finding['covariate']] < finding['applies_below']:
+        if finding_applies(finding, covariates[finding['covariate']]):
             report['warnings'].append(finding['warning'])
             report['applicability_findings'].append({'id': finding['id'], 'status': finding['status'],
                                                      'evidence_report': finding['evidence']['report']})

@@ -84,19 +84,55 @@ class KimApplicabilityFinding(unittest.TestCase):
         self.assertEqual(committed['primary_endpoint_by_group']['severe'], 'model_under_predicts')
         self.assertEqual(finding['status'], 'exploratory_finding_not_validation')
 
-    def test_warning_appears_only_below_egfr_30(self):
+    def test_severe_warning_below_egfr_30(self):
         low = estimate_kim_covariates(state(180))
         self.assertLess(low['estimates']['egfr_indexed']['value'], 30)
         self.assertEqual([f['id'] for f in low['applicability_findings']], ['renal-under-prediction-severe'])
-        self.assertTrue(any('may under-predict' in w for w in low['warnings']))
+        self.assertTrue(any('may under-predict' in w and 'severe' in w for w in low['warnings']))
+        self.assertFalse(any('moderate renal impairment' in w for w in low['warnings']))
+
+    def test_moderate_warning_from_egfr_30_to_below_50(self):
         moderate = estimate_kim_covariates(state(120))
-        self.assertGreater(moderate['estimates']['egfr_indexed']['value'], 30)
-        self.assertEqual(moderate['applicability_findings'], [])
-        self.assertFalse(any('may under-predict' in w for w in moderate['warnings']))
+        egfr = moderate['estimates']['egfr_indexed']['value']
+        self.assertTrue(30 <= egfr < 50, egfr)
+        self.assertEqual([f['id'] for f in moderate['applicability_findings']], ['renal-under-prediction-moderate'])
+        self.assertEqual(moderate['applicability_findings'][0]['evidence_report'], 'docs/verification/lenalidomide_renal_recheck_v1.json')
+        self.assertTrue(any('moderate renal impairment' in w for w in moderate['warnings']))
+        self.assertEqual(moderate['findings_version'], 'kim-applicability-findings-v2.0')
+
+    def test_no_renal_warning_at_or_above_egfr_50(self):
+        mild = estimate_kim_covariates(state(80))
+        self.assertGreaterEqual(mild['estimates']['egfr_indexed']['value'], 50)
+        self.assertEqual(mild['applicability_findings'], [])
+        self.assertFalse(any('may under-predict' in w for w in mild['warnings']))
+
+    def test_band_edges(self):
+        from intelligence_store.kim_model import finding_applies
+        severe, moderate = load_applicability_findings()['findings']
+        self.assertEqual([finding_applies(severe, v) for v in (29.99, 30, 50)], [True, False, False])
+        self.assertEqual([finding_applies(moderate, v) for v in (29.99, 30, 49.99, 50)], [False, True, True, False])
+
+    def test_superseded_findings_kept_unchanged(self):
+        from intelligence_store import kim_model as K
+        self.assertEqual(hashlib.sha256(K.SUPERSEDED_FINDINGS_PATH.read_bytes()).hexdigest(), K.SUPERSEDED_FINDINGS_SHA256)
+        current = load_applicability_findings()
+        self.assertEqual(current['supersedes']['sha256'], K.SUPERSEDED_FINDINGS_SHA256)
+        old = json.loads(K.SUPERSEDED_FINDINGS_PATH.read_text())['findings'][0]
+        carried = {k: v for k, v in current['findings'][0].items() if k != 'recheck'}
+        self.assertEqual(carried, old)
+
+    def test_moderate_finding_cites_the_recheck(self):
+        moderate = load_applicability_findings()['findings'][1]
+        report = moderate['evidence']['report']
+        self.assertEqual(hashlib.sha256((ROOT / report).read_bytes()).hexdigest(), moderate['evidence']['report_file_sha256'])
+        result = json.loads((ROOT / report).read_text())['result_by_model']['lenalidomide_kim_2026']
+        self.assertEqual(result['primary']['moderate'], 'model_under_predicts')
+        self.assertEqual(result['across_scenarios']['moderate'], ['model_under_predicts'])
+        self.assertEqual(moderate['status'], 'exploratory_finding_not_validation')
 
     def test_changed_findings_or_dose_evidence_is_refused(self):
         data = ROOT / 'intelligence_store' / 'data'
-        for name, loader in (('kim_applicability_findings_v1.json', load_applicability_findings),
+        for name, loader in (('kim_applicability_findings_v2.json', load_applicability_findings),
                              ('lenalidomide_dose_proportionality_evidence_v1.json', load_dose_proportionality_evidence)):
             with tempfile.TemporaryDirectory() as tmp:
                 path = Path(tmp) / name

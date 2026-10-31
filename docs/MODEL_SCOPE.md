@@ -88,13 +88,13 @@ Other rules:
 - **Fat-free mass, age, weight, height and serum creatinine:** must be inside the model's data ranges.
 - **Disease:** MM, CLL, AML or ALL. These are in the model's data; the outside study's disease context is unknown, so this rule is "model data only".
 
-**Kim 2026** (`lenalidomide_kim_scope_v1.json`). Covariates are CKD-EPI 2021 eGFR and Du Bois BSA from the Kim estimator.
+**Kim 2026** (`lenalidomide_kim_scope_v2.json`; v1 superseded on 31 October 2026). Covariates are CKD-EPI 2021 eGFR and Du Bois BSA from the Kim estimator.
 
 | eGFR (mL/min/1.73 m²) | Tier | Evidence |
 |---|---|---|
 | 50–94.7 | checked | Mild group's ratio consistent in all 7 scenarios |
-| 30–50 | model data only | Moderate group consistent in the primary scenario only; absolute exposure about 1.3-fold low in 6 of 7 (secondary) |
-| 11.1–30 | **outside check disagrees** | Severe group under-predicted about 1.3-fold (primary); observed group shown |
+| 30–50 | **outside check disagrees** | Moderate group under-predicted about 1.3-fold in the 2.1e recheck, all four scenarios (the first check had it consistent in the primary scenario only); observed group shown. Most of the group's constructed eGFR values were below 30, so this edge is approximate. |
+| 11.1–30 | **outside check disagrees** | Severe group under-predicted about 1.3-fold (primary; confirmed in all four recheck scenarios); observed group shown |
 | < 11.1 or > 94.7 | refused | Beyond the model's data. Above 94.7 Kim had no patients, so records with normal kidney function above that are refused for Kim (Hughes covers them). |
 
 Other rules:

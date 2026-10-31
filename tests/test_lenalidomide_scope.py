@@ -38,9 +38,16 @@ class Files(unittest.TestCase):
         self.assertEqual(hughes['primary_endpoint_by_group'], {'mild': 'consistent', 'moderate': 'model_under_predicts', 'severe': 'model_under_predicts'})
         self.assertEqual(kim['classification_across_scenarios']['mild'], ['consistent'])
         self.assertEqual(kim['primary_endpoint_by_group']['severe'], 'model_under_predicts')
-        self.assertGreater(len(kim['classification_across_scenarios']['moderate']), 1)      # not robust -> model data only
-        bands = {b['tier'] for b in L.load_kim_scope()['state_rules'][0]['tier_by_band']}
-        self.assertEqual(bands, set(ms.TIER_ORDER))
+        self.assertGreater(len(kim['classification_across_scenarios']['moderate']), 1)      # v1: not robust
+        recheck = json.loads((ROOT / 'docs/verification/lenalidomide_renal_recheck_v1.json').read_text())
+        self.assertEqual(recheck['result_by_model']['lenalidomide_kim_2026']['across_scenarios']['moderate'], ['model_under_predicts'])
+        bands = [(b['range'], b['tier']) for b in L.load_kim_scope()['state_rules'][0]['tier_by_band']]
+        self.assertEqual(bands, [([50, 94.7], 'externally_checked'), ([30, 50], 'external_check_disagrees'),
+                                 ([11.1, 30], 'external_check_disagrees')])
+
+    def test_superseded_kim_scope_kept_unchanged(self):
+        self.assertEqual(hashlib.sha256(L.SUPERSEDED_KIM_SCOPE_PATH.read_bytes()).hexdigest(), L.SUPERSEDED_KIM_SCOPE_SHA256)
+        self.assertEqual(L.load_kim_scope()['supersedes']['sha256'], L.SUPERSEDED_KIM_SCOPE_SHA256)
 
 
 class Hughes(unittest.TestCase):
@@ -77,7 +84,13 @@ class Hughes(unittest.TestCase):
 class Kim(unittest.TestCase):
     def test_bands(self):
         self.assertEqual(rule(L.kim_scope(state(80.0), 'MM'), 'egfr')['tier'], 'externally_checked')
-        self.assertEqual(rule(L.kim_scope(state(150.0), 'MM'), 'egfr')['tier'], 'inside_model_data')
+        moderate = L.kim_scope(state(150.0), 'MM')
+        egfr = rule(moderate, 'egfr')
+        self.assertTrue(30 <= egfr['value'] <= 50, egfr['value'])
+        self.assertEqual(moderate['scope_evaluation']['status'], 'in_scope')     # computed, flagged (31 October)
+        self.assertEqual(egfr['tier'], 'external_check_disagrees')
+        self.assertEqual(moderate['scope_evaluation']['flags'], ['egfr'])
+        self.assertEqual(moderate['observed'][0]['groups'][0]['group'], 'moderate')
         severe = L.kim_scope(state(300.0), 'MM')
         self.assertEqual(severe['scope_evaluation']['status'], 'in_scope')        # computed (14 October decision kept)
         self.assertEqual(rule(severe, 'egfr')['tier'], 'external_check_disagrees')
