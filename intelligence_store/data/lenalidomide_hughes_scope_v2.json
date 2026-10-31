@@ -1,0 +1,206 @@
+{
+  "schema_version": "model-scope-v1",
+  "scope_version": "lenalidomide-pk-hughes-2019-scope-v2.0",
+  "model_id": "lenalidomide_hughes_2019",
+  "recorded_on": "2026-10-31",
+  "purpose": "The context of use of the Hughes 2019 lenalidomide model on the platform, as enforceable rules. Written from results already on record; no new computation. Policy chosen by the platform owner on 30 October 2026: where the model was fitted on such patients but a locked outside check found it inconsistent, compute, flag and show the observed data; beyond the model's own data, refuse.",
+  "evidence": {
+    "coverage_contract": {
+      "file": "intelligence_store/data/hughes_coverage_contract_v1.json",
+      "sha256": "b452b4f21d4449ef88fc7821481376c08b16ad8fcd1b90a6664bba7408857fe6"
+    },
+    "external_check_report": {
+      "file": "docs/verification/hughes_renal_group_check_v1.json",
+      "sha256": "70cae05e8dca498bc3e9774177dd4fc406c9508f419ad1f8a64be80c84c0c159"
+    },
+    "observed": {
+      "file": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v2.json",
+      "sha256": "38d164869ff2a4cf43c9b4b437efc0eb172fab29dc80451e3e794b7d7c2c8832"
+    },
+    "study_population": {
+      "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v3.json",
+      "sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292"
+    }
+  },
+  "evidence_tiers": {
+    "externally_checked": "Inside a locked outside check whose primary result was consistent in every scenario.",
+    "inside_model_data": "Inside the data the model was built on, not checked against outside data on this platform.",
+    "external_check_disagrees": "Inside the model's data, but a locked outside check found the model inconsistent here: computed, flagged and shown with the observed data.",
+    "outside": "Beyond the model's data: refused."
+  },
+  "outputs": {
+    "supported": [
+      {
+        "id": "typical_value_concentration_curve",
+        "label": "Typical-value concentration curve and exposure",
+        "tier": "per_rules",
+        "evidence": "The model's own output for the record's estimated covariates; its evidence is the weakest tier among the rules that admitted the record."
+      }
+    ],
+    "not_supported": [
+      {
+        "id": "individual_prediction",
+        "label": "This patient's concentrations",
+        "reason": "Typical values only; between-patient variability is not shown and no measured concentrations are used."
+      }
+    ]
+  },
+  "request_rules": [
+    {
+      "id": "disease",
+      "kind": "category",
+      "input": "disease_code",
+      "in_scope": [
+        "MM",
+        "CLL",
+        "AML",
+        "ALL"
+      ],
+      "tier": "inside_model_data",
+      "basis": "Hughes 2019 pooled MM (20), CLL (49), AML (53) and ALL (3) patients (coverage_contract disease_counts). The outside study (CC-5013-PK-001) enrolled subjects with renal impairment due to non-malignant conditions, mostly cardiovascular or endocrine, with healthy subjects of similar age as controls (observed population; study_population). Its comparisons therefore test how the model extrapolates to a non-cancer population; that difference is one possible contributor to the disagreements and has not been tested.",
+      "outside_reason": {
+        "default": "Disease not represented in the model's data.",
+        "UNKNOWN": "Disease not declared; cannot determine whether the record is inside the model's data."
+      }
+    }
+  ],
+  "state_rules": [
+    {
+      "id": "creatinine_clearance",
+      "kind": "range",
+      "derived_input": "creatinine_clearance",
+      "unit": "mL/min",
+      "range": [
+        36,
+        211
+      ],
+      "tier_by_band": [
+        {
+          "range": [
+            50,
+            211
+          ],
+          "tier": "externally_checked",
+          "band_note": "Normal (> 80 mL/min) and mild (50-80) groups: exposure consistent with study CC-5013-PK-001 in all four scenarios (external_check_report)."
+        },
+        {
+          "range": [
+            36,
+            50
+          ],
+          "tier": "external_check_disagrees",
+          "band_note": "Moderate group (30-50 mL/min): the model under-predicted exposure about 2.1-fold (ratio to normal 2.2-fold) in all four scenarios (external_check_report). Read the curve as substantially too low.",
+          "observed": {
+            "source": "renal_pk_group_evidence",
+            "groups": [
+              "moderate"
+            ],
+            "reference_group": "normal"
+          }
+        }
+      ],
+      "basis": "The model's creatinine clearance covariate (Cockcroft-Gault, with the weight basis assumption recorded in the estimate); model data 36-211 mL/min (coverage_contract covariate_ranges).",
+      "outside_reason": {
+        "below": "Below the model's data (36 mL/min). The outside study observed much higher exposure in moderate and severe renal impairment (shown below); the model under-predicted both groups about 2-2.5-fold.",
+        "above": "Above the model's data (211 mL/min)."
+      },
+      "observed_when_below": {
+        "source": "renal_pk_group_evidence",
+        "groups": [
+          "moderate",
+          "severe_without_dialysis"
+        ],
+        "reference_group": "normal"
+      }
+    },
+    {
+      "id": "fat_free_mass",
+      "kind": "range",
+      "derived_input": "fat_free_mass",
+      "unit": "kg",
+      "range": [
+        32,
+        84
+      ],
+      "tier": "inside_model_data",
+      "basis": "Model data 32-84 kg (coverage_contract covariate_ranges).",
+      "outside_reason": {
+        "default": "Fat-free mass outside the model's data."
+      }
+    },
+    {
+      "id": "age",
+      "kind": "range",
+      "field": "age_years",
+      "unit": "year",
+      "range": [
+        22,
+        79
+      ],
+      "tier": "inside_model_data",
+      "basis": "Model data 22-79 years (coverage_contract state_ranges).",
+      "outside_reason": {
+        "default": "Age outside the model's data."
+      }
+    },
+    {
+      "id": "weight",
+      "kind": "range",
+      "field": "weight",
+      "unit": "kg",
+      "range": [
+        48,
+        152
+      ],
+      "tier": "inside_model_data",
+      "basis": "Model data 48-152 kg (coverage_contract state_ranges).",
+      "outside_reason": {
+        "default": "Weight outside the model's data."
+      }
+    },
+    {
+      "id": "height",
+      "kind": "range",
+      "field": "height",
+      "unit": "cm",
+      "range": [
+        150,
+        196
+      ],
+      "tier": "inside_model_data",
+      "basis": "Model data 150-196 cm (coverage_contract state_ranges).",
+      "outside_reason": {
+        "default": "Height outside the model's data."
+      }
+    },
+    {
+      "id": "serum_creatinine",
+      "kind": "range",
+      "field": "serum_creatinine",
+      "unit": "umol/L",
+      "range": [
+        42,
+        147
+      ],
+      "tier": "inside_model_data",
+      "basis": "Model data 42-147 umol/L (coverage_contract state_ranges).",
+      "outside_reason": {
+        "default": "Serum creatinine outside the model's data."
+      }
+    }
+  ],
+  "enforced_elsewhere": "Dose amounts (2.5-75 mg listed in the source) and schedules are checked by the existing calculation (treatment request validation and coverage review).",
+  "unknown_policy": "A rule whose input is unknown cannot be evaluated; the record is then 'cannot_determine' and no output is computed. Unknown stays unknown.",
+  "never_claimed": [
+    "A prediction for a real patient, a dose recommendation or a judgement of treatment suitability.",
+    "Validation of the model; validation flags stay false."
+  ],
+  "clinical_prediction_validated": false,
+  "supersedes": {
+    "file": "intelligence_store/data/lenalidomide_hughes_scope_v1.json",
+    "sha256": "e89c34106bee1a0187bbcb02c72f0b1faffdc246b388a5f3a2908d2736977b93",
+    "scope_version": "lenalidomide-pk-hughes-2019-scope-v1.0"
+  },
+  "revision": "2026-10-31: the outside study population is recorded (renal impairment due to non-malignant conditions; healthy controls), replacing \"disease context not established\". The observed data move to renal_pk_group_evidence v2, whose groups and values are unchanged. No rule, range or tier changes.",
+  "outside_study_population": "The outside study (CC-5013-PK-001) enrolled subjects with renal impairment due to non-malignant conditions, mostly cardiovascular or endocrine, with healthy subjects of similar age as controls (observed population; study_population). Its comparisons therefore test how the model extrapolates to a non-cancer population; that difference is one possible contributor to the disagreements and has not been tested."
+}

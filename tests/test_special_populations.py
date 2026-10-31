@@ -102,6 +102,19 @@ class Summaries(unittest.TestCase):
         self.assertIn('Revised: 3/2023', e['source']['document'])
         self.assertIn('406618748fe544594f44d8b7e6c8cf7c0677138842f4c3715138a0c22ea4e1c8', sp.SUPERSEDED.values())
 
+    def test_lenalidomide_v3_records_the_renal_study_population(self):
+        view = sp.build('lenalidomide')
+        kidney = {r['domain']: r for r in view['rows']}['kidney']['statements']
+        self.assertIn('non-malignant', kidney[0]['population'])
+        self.assertIn('non-malignant', view['intro'])
+        files = {s['ref']: s['file'] for s in view['sources']}
+        self.assertTrue(files['renal'].endswith('renal_pk_group_evidence_v2.json'))
+        self.assertTrue(files['hughes_scope'].endswith('lenalidomide_hughes_scope_v2.json'))
+        self.assertTrue(files['kim_scope'].endswith('lenalidomide_kim_scope_v3.json'))
+        kim_bands = next(st for st in kidney if st['source']['ref'] == 'kim_scope')['value']
+        self.assertEqual([b['tier'] for b in kim_bands], ['externally_checked', 'external_check_disagrees', 'external_check_disagrees'])
+        self.assertIn('7236f8899c71ff7268db5edffe062dd7a3aa49a0499f3436767f10dcca2e84b3', sp.SUPERSEDED.values())
+
     def test_bortezomib_label_extract_is_pinned(self):
         from intelligence_store.bortezomib_label_special_populations import load_extract
         e = load_extract()

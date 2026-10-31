@@ -12,7 +12,7 @@
 <td>{% if r.status == 'in_scope' %}{{ tiers[r.tier] }}{% elif r.status == 'out_of_scope' %}<strong>out of scope</strong>{% elif r.status == 'not_assessed' %}not assessed{% else %}cannot determine{% endif %}</td>
 <td>{{ r.band_note or r.reason or r.basis or '' }}</td></tr>{% endfor %}
 </tbody></table></div></details>
-{% for obs in s.observed %}<p><strong>Observed in {{ obs.study }} ({{ obs.design }}; other subjects, not this record):</strong> reference group creatinine clearance {{ obs.reference_creatinine_clearance }}, mean AUC to infinity {{ obs.reference_auc_infinity_mean }} ng·h/mL.</p>
+{% for obs in s.observed %}<p><strong>Observed in {{ obs.study }} ({{ obs.design }}; other subjects, not this record):</strong> reference group creatinine clearance {{ obs.reference_creatinine_clearance }}, mean AUC to infinity {{ obs.reference_auc_infinity_mean }} ng·h/mL.{% if obs.population %} Study population: {{ obs.population }}{% endif %}</p>
 <div class="table-scroll"><table><thead><tr><th>Group (creatinine clearance)</th><th>n</th><th>Mean AUC to infinity (SD)</th><th>Ratio to reference</th></tr></thead><tbody>
 {% for g in obs.groups %}<tr><td>{{ g.creatinine_clearance }}</td><td>{{ g.n }}</td><td>{{ g.auc_infinity_mean }} ({{ g.auc_infinity_sd }}) ng·h/mL</td><td>{{ '%.2f'|format(g.ratio_to_reference_mean) }}</td></tr>{% endfor %}
 </tbody></table></div><p class="panel-note">{{ obs.source }}. {{ obs.not_this }}</p>{% endfor %}

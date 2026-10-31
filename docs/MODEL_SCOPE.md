@@ -76,7 +76,7 @@ This adds a third tier, `external_check_disagrees`. It is in scope but flagged, 
 
 The bands follow each locked check's **primary** result (the exposure ratio to normal renal function), as the 14 October Kim finding did. Secondary results are described in the band notes but do not set tiers.
 
-**Hughes 2019** (`lenalidomide_hughes_scope_v1.json`). Covariates come from the Hughes estimator, with the declared weight basis.
+**Hughes 2019** (`lenalidomide_hughes_scope_v2.json`; v1 superseded on 31 October 2026). Covariates come from the Hughes estimator, with the declared weight basis.
 
 | Creatinine clearance (C–G) | Tier | Evidence |
 |---|---|---|
@@ -86,9 +86,9 @@ The bands follow each locked check's **primary** result (the exposure ratio to n
 
 Other rules:
 - **Fat-free mass, age, weight, height and serum creatinine:** must be inside the model's data ranges.
-- **Disease:** MM, CLL, AML or ALL. These are in the model's data; the outside study's disease context is unknown, so this rule is "model data only".
+- **Disease:** MM, CLL, AML or ALL. These are in the model's data. The outside study enrolled people with renal impairment due to non-malignant conditions and healthy controls, not cancer patients, so the outside check does not cover any disease and this rule stays "model data only".
 
-**Kim 2026** (`lenalidomide_kim_scope_v2.json`; v1 superseded on 31 October 2026). Covariates are CKD-EPI 2021 eGFR and Du Bois BSA from the Kim estimator.
+**Kim 2026** (`lenalidomide_kim_scope_v3.json`; v1 and v2 superseded on 31 October 2026). Covariates are CKD-EPI 2021 eGFR and Du Bois BSA from the Kim estimator.
 
 | eGFR (mL/min/1.73 m²) | Tier | Evidence |
 |---|---|---|
@@ -99,7 +99,7 @@ Other rules:
 
 Other rules:
 - **BSA, age, weight and height:** must be inside Kim's ranges.
-- **Disease:** MM only.
+- **Disease:** MM only. The outside study did not enrol myeloma patients (non-malignant renal impairment; healthy controls).
 - **Albumin:** an optional rule (30–52 g/L). If unknown, it is not assessed.
 
 Doses and schedules are still checked by each model's existing execution blockers.

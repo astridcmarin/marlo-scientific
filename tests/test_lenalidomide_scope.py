@@ -45,9 +45,27 @@ class Files(unittest.TestCase):
         self.assertEqual(bands, [([50, 94.7], 'externally_checked'), ([30, 50], 'external_check_disagrees'),
                                  ([11.1, 30], 'external_check_disagrees')])
 
-    def test_superseded_kim_scope_kept_unchanged(self):
-        self.assertEqual(hashlib.sha256(L.SUPERSEDED_KIM_SCOPE_PATH.read_bytes()).hexdigest(), L.SUPERSEDED_KIM_SCOPE_SHA256)
-        self.assertEqual(L.load_kim_scope()['supersedes']['sha256'], L.SUPERSEDED_KIM_SCOPE_SHA256)
+    def test_superseded_scopes_kept_unchanged(self):
+        for name, sha in L.SUPERSEDED_SCOPES.items():
+            self.assertEqual(hashlib.sha256((L.DATA / name).read_bytes()).hexdigest(), sha, name)
+        self.assertEqual(L.load_kim_scope()['supersedes']['sha256'], L.SUPERSEDED_SCOPES['lenalidomide_kim_scope_v2.json'])
+        self.assertEqual(L.load_hughes_scope()['supersedes']['sha256'], L.SUPERSEDED_SCOPES['lenalidomide_hughes_scope_v1.json'])
+
+    def test_only_population_wording_and_evidence_changed(self):
+        import json
+        pairs = (('lenalidomide_hughes_scope_v1.json', L.load_hughes_scope()), ('lenalidomide_kim_scope_v2.json', L.load_kim_scope()))
+        for name, current in pairs:
+            old = json.loads((L.DATA / name).read_text())
+            self.assertEqual(current['state_rules'], old['state_rules'], name)
+            self.assertEqual(current['outputs'], old['outputs'], name)
+            self.assertEqual(current['request_rules'][0]['in_scope'], old['request_rules'][0]['in_scope'], name)
+            self.assertNotIn('not established', current['request_rules'][0]['basis'])
+            self.assertIn('non-malignant', current['request_rules'][0]['basis'])
+            self.assertEqual(current['evidence']['observed']['file'], 'landscape_ui/data/renal_pk/renal_pk_group_evidence_v2.json')
+
+    def test_observed_data_names_the_study_population(self):
+        r = L.hughes_scope(state(115.0), BASIS, 'MM')
+        self.assertIn('non-malignant', r['observed'][0]['population'])
 
 
 class Hughes(unittest.TestCase):

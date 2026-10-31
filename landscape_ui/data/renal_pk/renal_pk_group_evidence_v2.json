@@ -1,0 +1,220 @@
+{
+  "schema_version": "renal-pk-group-evidence-v2",
+  "extraction_version": "renal-pk-group-evidence-v2.0",
+  "study_id": "CC-5013-PK-001",
+  "recorded_on": "2026-10-31",
+  "supersedes": {
+    "file": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+    "sha256": "bb5a71f3a989ddfbf6ef1c6e855a18468f38888cdd3d6cc5835fe8bf6b1bed89",
+    "change": "Study population recorded (v1: not established from the selected source pages). Groups, measurements and source locations unchanged."
+  },
+  "source": {
+    "title": "Withdrawal assessment report for Lenalidomide Celgene Europe",
+    "document_reference": "EMEA/CHMP/249329/2008",
+    "date": "2008-05-30",
+    "url": "https://www.ema.europa.eu/en/documents/withdrawal-report/withdrawal-assessment-report-lenalidomide-celgene-europe_en.pdf",
+    "local_file": "ema_lenalidomide_2008.pdf",
+    "sha256": "c27c16b42062171d3146273e33abd2360dc630cd8f8f513b835010c6842b2661",
+    "retrieved_on": "2026-10-10",
+    "type": "historical_regulatory_assessment",
+    "extraction": "Selected cells transcribed and checked against rendered PDF pages 20 and 21; AI-assisted, not independently reviewed."
+  },
+  "related_publication": {
+    "doi": "10.1177/0091270007309563",
+    "review_scope": "abstract only; publication tables not obtained; numerical extraction source is the EMA report"
+  },
+  "design": {
+    "dose_mg": 25,
+    "route": "oral",
+    "regimen": "single dose per period",
+    "food_state": "fasting",
+    "source_location": "PDF page 20, Study CC-5013-PK-001 paragraph",
+    "total_study_subjects": 30,
+    "included_nondialysis_subjects": 24,
+    "dialysis_subjects_not_extracted": 6,
+    "population_disease_context": "renal impairment due to non-malignant conditions; healthy controls of similar age"
+  },
+  "population": {
+    "summary": "Subjects with renal impairment due to non-malignant conditions, mostly cardiovascular or endocrine disorders, and healthy subjects of similar age with normal renal function as controls. Not patients with myeloma or another haematological cancer.",
+    "impaired_groups": {
+      "statement": "renal impairment due to non-malignant conditions",
+      "quote": "This was an open-label, multicenter, single oral dose study in subjects with renal impairment due to nonmalignant conditions.",
+      "source": "Chen et al. 2007, J Clin Pharmacol 47:1466 (doi 10.1177/0091270007309563)",
+      "location": "Methods, PDF page 2 (journal page 1467)",
+      "pointer": "/sources/chen_2007/quotes/population/quote"
+    },
+    "cause": {
+      "statement": "mostly cardiovascular and/or endocrine disorders",
+      "quote": "The cause of renal impairment in most of the subjects was the result of either cardiovascular and/or endocrine disorders.",
+      "source": "Chen et al. 2007",
+      "location": "Results, PDF page 4 (journal page 1469)",
+      "pointer": "/sources/chen_2007/quotes/cause/quote"
+    },
+    "normal_group": {
+      "statement": "healthy subjects of similar age (control group)",
+      "quote": "As a control group comparator, 7 healthy subjects of similar age with normal renal function (creatinine clearance 83-145 mL/min) were also administered a single oral 25-mg dose of REVLIMID® (lenalidomide).",
+      "source": "REVLIMID prescribing information, about December 2008 (NDA 021880 S-006/016/017)",
+      "location": "Clinical Pharmacology, Special Populations, PDF page 6",
+      "pointer": "/sources/label_2008/quotes/control/quote"
+    },
+    "recorded_in": {
+      "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v3.json",
+      "sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292",
+      "item": "renal_study_population",
+      "item_pointer": "/items/5"
+    },
+    "consequence": "Comparisons of the myeloma-based models (Hughes 2019, Kim 2026) with this study test how the models extrapolate to a non-cancer renal-impairment population. This is one possible contributor to model-versus-study differences; it has not been tested.",
+    "review": "AI-assisted; the quotes are those recorded and checked against the source files in the reconciliation file. Independent review pending."
+  },
+  "groups": [
+    {
+      "group": "normal",
+      "n": 7,
+      "crcl_range": {
+        "lower": 80,
+        "lower_inclusive": false,
+        "upper": null,
+        "upper_inclusive": null,
+        "unit": "mL/min",
+        "source_location": "PDF page 20, Renal Function Groups"
+      },
+      "representative_crcl": null,
+      "fat_free_mass_kg": null,
+      "measurements": {
+        "auc_infinity": {
+          "mean": 2181,
+          "sd": 703,
+          "unit": "ng*h/mL",
+          "source_location": "PDF page 21, Table 4, AUC infinity row"
+        },
+        "cmax": {
+          "mean": 605,
+          "sd": 246,
+          "unit": "ng/mL",
+          "source_location": "PDF page 21, Table 4, Cmax row"
+        },
+        "terminal_half_life": {
+          "mean": 3.34,
+          "sd": 0.878,
+          "unit": "h",
+          "source_location": "PDF page 21, Table 4, t1/2,z row"
+        }
+      }
+    },
+    {
+      "group": "mild",
+      "n": 5,
+      "crcl_range": {
+        "lower": 50,
+        "lower_inclusive": true,
+        "upper": 80,
+        "upper_inclusive": true,
+        "unit": "mL/min",
+        "source_location": "PDF page 20, Renal Function Groups"
+      },
+      "representative_crcl": null,
+      "fat_free_mass_kg": null,
+      "measurements": {
+        "auc_infinity": {
+          "mean": 2767,
+          "sd": 1094,
+          "unit": "ng*h/mL",
+          "source_location": "PDF page 21, Table 4, AUC infinity row"
+        },
+        "cmax": {
+          "mean": 691,
+          "sd": 110,
+          "unit": "ng/mL",
+          "source_location": "PDF page 21, Table 4, Cmax row"
+        },
+        "terminal_half_life": {
+          "mean": 3.67,
+          "sd": 0.703,
+          "unit": "h",
+          "source_location": "PDF page 21, Table 4, t1/2,z row"
+        }
+      }
+    },
+    {
+      "group": "moderate",
+      "n": 6,
+      "crcl_range": {
+        "lower": 30,
+        "lower_inclusive": true,
+        "upper": 50,
+        "upper_inclusive": false,
+        "unit": "mL/min",
+        "source_location": "PDF page 20, Renal Function Groups"
+      },
+      "representative_crcl": null,
+      "fat_free_mass_kg": null,
+      "measurements": {
+        "auc_infinity": {
+          "mean": 6021,
+          "sd": 847,
+          "unit": "ng*h/mL",
+          "source_location": "PDF page 21, Table 4, AUC infinity row"
+        },
+        "cmax": {
+          "mean": 592,
+          "sd": 177,
+          "unit": "ng/mL",
+          "source_location": "PDF page 21, Table 4, Cmax row"
+        },
+        "terminal_half_life": {
+          "mean": 10.6,
+          "sd": 3.33,
+          "unit": "h",
+          "source_location": "PDF page 21, Table 4, t1/2,z row"
+        }
+      }
+    },
+    {
+      "group": "severe_without_dialysis",
+      "n": 6,
+      "crcl_range": {
+        "lower": null,
+        "lower_inclusive": null,
+        "upper": 30,
+        "upper_inclusive": false,
+        "unit": "mL/min",
+        "source_location": "PDF page 20, Renal Function Groups"
+      },
+      "representative_crcl": null,
+      "fat_free_mass_kg": null,
+      "measurements": {
+        "auc_infinity": {
+          "mean": 8191,
+          "sd": 1317,
+          "unit": "ng*h/mL",
+          "source_location": "PDF page 21, Table 4, AUC infinity row"
+        },
+        "cmax": {
+          "mean": 765,
+          "sd": 81.3,
+          "unit": "ng/mL",
+          "source_location": "PDF page 21, Table 4, Cmax row"
+        },
+        "terminal_half_life": {
+          "mean": 9.22,
+          "sd": 2.44,
+          "unit": "h",
+          "source_location": "PDF page 21, Table 4, t1/2,z row"
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Aggregate mean and SD only; no paired subject covariates, raw concentrations or sampling schedule extracted.",
+    "AUC infinity includes extrapolation and is not interchangeable with saved AUC 0-24 h.",
+    "Ratios of group means are descriptive; not mean individual ratios, geometric mean ratios or causal effects.",
+    "Do not replace ranges with midpoints or interpret SD as confidence intervals.",
+    "Dialysis groups are excluded from this extraction; the current model has no dialysis process.",
+    "Historical regulatory report values are not merged with publication abstract summaries.",
+    "The subjects did not have myeloma or another haematological cancer: impaired groups had renal impairment due to non-malignant conditions and the normal group was healthy subjects (population)."
+  ],
+  "comparison_status": "descriptive_group_reference_only",
+  "individual_model_comparison_performed": false,
+  "clinical_prediction_validated": false,
+  "ready_for_patient_simulation": false
+}

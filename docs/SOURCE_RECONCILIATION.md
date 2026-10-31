@@ -56,7 +56,7 @@ So **60 was the label's threshold from the first kidney table**, even though the
 
 The publication: "subjects with renal impairment due to nonmalignant conditions", in most cases caused by "cardiovascular and/or endocrine disorders". The 2008 and 2015 labels say the same. The authors note that the dose recommendations "remain to be evaluated in renally impaired MM and MDS patients". So the outside study behind the Hughes and Kim checks did not enrol cancer patients. The population difference is one possible reason the models disagree with it; this has not been tested.
 
-The pinned EMA extract and the Hughes scope still say the study's disease context is "not established". They are left unchanged here and should be updated in their next versions.
+The pinned EMA extract and the Hughes scope said the study's disease context was "not established". On 31 October 2026 (Patient Lab 2.1g) their next versions record the population: `renal_pk_group_evidence_v2.json`, `lenalidomide_hughes_scope_v2.json` and `lenalidomide_kim_scope_v3.json`. The v1 files are kept unchanged because locked plans and reports cite them.
 
 ## Observed creatinine clearance in each study group (v3)
 
