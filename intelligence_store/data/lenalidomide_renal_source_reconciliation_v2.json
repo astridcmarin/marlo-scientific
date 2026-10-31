@@ -19,8 +19,8 @@
    "pointer": "/regulatory_context"
   },
   "study_abstract": {
-   "document": "Conference abstract of study CC-5013-PK-001 on the effect of renal impairment on lenalidomide pharmacokinetics; the text pasted begins with the number '2520' (likely the abstract number). Meeting, year and authors were not included in the pasted text.",
-   "provenance": "Text pasted into the conversation by the platform owner on 31 October 2026; no file or URL supplied. Only short quotes are stored here.",
+   "document": "Conference abstract of study CC-5013-PK-001 on the effect of renal impairment on lenalidomide pharmacokinetics: J Clin Oncol 2007;25(18_suppl):2520 (ASCO annual meeting supplement), doi:10.1200/jco.2007.25.18_suppl.2520. Title and authors not verified: the journal page could not be retrieved from the development environment.",
+   "provenance": "Text pasted into the conversation by the platform owner on 31 October 2026, who supplied the DOI link. Only short quotes are stored here.",
    "quotes": {
     "stratification": "Thirty male and female subjects aged 39–76 years were stratified into 5 groups based on their creatinine clearance (CLCr) values: normal renal function (NRF) (CLCr > 80 mL/min; N = 7), mild RI (50 = CLCr = 80 mL/min; N = 5), moderate RI (30 = CLCr < 50 mL/min; N = 6), severe RI (CLCr < 30 mL/min, but not on dialysis; N = 6), and end stage renal disease (ESRD, requiring dialysis; N = 6).",
     "purpose": "Results were used to refine initial dosing recommendations based on a subject’s estimated creatinine clearance.",

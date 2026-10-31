@@ -22,7 +22,7 @@ The label's results reproduce from the EMA Table 4 group means:
 
 So this is the same 30-subject study, classified by two clearance methods. The label's numbers come from the measured-clearance groups. The platform's reference (normal group, n = 7, mean AUC 2,181 ng·h/mL) is unaffected.
 
-**Study abstract (added in v2).** The study's conference abstract, pasted by the platform owner with meeting and year not included, confirms the 7/5/6/6/6 stratification by creatinine clearance. It doesn't say how clearance was determined. Its AUC increases reproduce from the EMA means:
+**Study abstract (added in v2).** The study's conference abstract (*J Clin Oncol* 2007;25(18_suppl):2520, the ASCO 2007 meeting supplement; authors not verified) confirms the 7/5/6/6/6 stratification by creatinine clearance. It doesn't say how clearance was determined. Its AUC increases reproduce from the EMA means:
 
 | Group (vs pooled normal and mild) | Abstract | EMA means |
 |---|---|---|
