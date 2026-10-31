@@ -290,9 +290,12 @@ class Records(unittest.TestCase):
         statuses = {a['name']: a['status'] for a in record['assumptions']}
         self.assertIn('assumed', statuses.values())
         self.assertEqual(record['applicability'][0]['status'], 'at_or_above_entry_threshold')
-        low = record_for_patient_platelets(patient_platelet_view(self.platelet_revision(20).id, 1), load_model_extract())
+        from intelligence_store.bortezomib_patient_platelets import SCOPE_SHA256
+        self.assertIn({'label': 'Model scope', 'sha256': SCOPE_SHA256}, record['checksums'])
+        low = record_for_patient_platelets(patient_platelet_view(self.platelet_revision(40).id, 1), load_model_extract())
         self.assertEqual(low['applicability'][0]['status'], 'below_entry_threshold')
         self.assertTrue(low['warnings'])
+        self.assertEqual(patient_platelet_view(self.platelet_revision(20).id, 1)['status'], 'outside_model_scope')   # no record is made
 
     def test_relative_odds_record(self):
         from intelligence_store.estimated_pk import compare_published_models, estimate_for_revision
