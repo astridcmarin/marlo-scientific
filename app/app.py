@@ -673,7 +673,8 @@ def landing():
 @app.route("/models")
 def model_scorecards():
     from intelligence_store.model_scorecards import all_scorecards
-    return render_template("models.html", data=all_scorecards())
+    from intelligence_store.scope_registry import REGISTRY
+    return render_template("models.html", data=all_scorecards(), scopes=REGISTRY)
 
 
 @app.route("/models/<model_id>")
@@ -683,7 +684,8 @@ def model_scorecard(model_id):
         card = scorecard(model_id)
     except KeyError:
         abort(404)
-    return render_template("model_scorecard.html", card=card)
+    from intelligence_store.scope_registry import REGISTRY
+    return render_template("model_scorecard.html", card=card, has_scope=model_id in REGISTRY)
 
 
 @app.route("/models/credibility")
@@ -700,8 +702,29 @@ def credibility_record(model_id):
         rec = record(model_id)
     except KeyError:
         abort(404)
+    from intelligence_store.scope_registry import REGISTRY
     return render_template("credibility_record.html", rec=rec, level_label=level_label,
-                           has_scorecard=model_id in load_evidence_status()["models"])
+                           has_scorecard=model_id in load_evidence_status()["models"], has_scope=model_id in REGISTRY)
+
+
+@app.route("/models/<model_id>/scope")
+def model_scope(model_id):
+    from intelligence_store.credibility_records import model_ids
+    from intelligence_store.run_record import load_evidence_status
+    from intelligence_store.scope_registry import REGISTRY, scope_for
+    if model_id not in REGISTRY:
+        abort(404)
+    return render_template("model_scope.html", entry=scope_for(model_id),
+                           has_scorecard=model_id in load_evidence_status()["models"], has_record=model_id in model_ids())
+
+
+@app.route("/models/<model_id>/scope.json")
+def model_scope_json(model_id):
+    from intelligence_store.scope_registry import REGISTRY, scope_for
+    if model_id not in REGISTRY:
+        abort(404)
+    return Response(json.dumps(scope_for(model_id)["scope"], indent=2, ensure_ascii=False) + "\n", mimetype="application/json",
+                    headers={"Content-Disposition": f'attachment; filename="{model_id}-scope.json"', "X-Content-Type-Options": "nosniff"})
 
 
 @app.route("/models/<model_id>/credibility.json")

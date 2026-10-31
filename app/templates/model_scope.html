@@ -1,0 +1,66 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ entry.label }} | Model scope | Marlo Scientific</title>
+    <link rel="icon" type="image/png" href="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}">
+    {{ site_head_links() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <style>
+    .cr-table{width:100%;border-collapse:collapse;margin:8px 0 16px}
+    .cr-table th,.cr-table td{border-top:1px solid #dbe5e9;padding:8px 10px;text-align:left;vertical-align:top;font-size:15px}
+    .cr-scroll{overflow-x:auto}
+    .cr-table td,.cr-table th{overflow-wrap:anywhere}
+    .tier{white-space:normal}
+    .tier{display:inline-block;font-size:13px;font-weight:600;padding:1px 7px;border-radius:10px;background:#e8f1f3}
+    .tier-external_check_disagrees{background:#fdecd8}
+    .tier-outside{background:#f6dcd7}
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{{ site_header() }}
+<main id="main" class="section">
+<article class="wrap prose prose-wide">
+{% set s = entry.scope %}{% set tl = {'externally_checked': 'Checked against outside data', 'inside_model_data': "Inside the model's own data only", 'external_check_disagrees': 'Outside check disagrees', 'per_rules': 'Weakest tier of the rules that admit the record'} %}
+    <p><a href="{{ url_for('model_scorecards') }}">← Models</a>{% if has_scorecard %} · <a href="{{ url_for('model_scorecard', model_id=entry.model_id) }}">Model scorecard</a>{% endif %}{% if has_record %} · <a href="{{ url_for('credibility_record', model_id=entry.model_id) }}">Credibility record</a>{% endif %}</p>
+    <header class="stack" style="gap:10px">
+        <p class="prose-eyebrow" style="margin-bottom:0">Model scope · context of use as rules</p>
+        <h1>{{ entry.label }}</h1>
+        <p class="prose-lede">{{ s.purpose }}</p>
+        <p><strong>Where the platform applies it:</strong> {{ entry.runtime or 'Nowhere yet: the platform does not compute this model. The scope records what a future implementation may compute and how it must be labelled.' }}</p>
+        <p>Scope version {{ s.scope_version }} · clinical prediction validated: <strong>false</strong></p>
+    </header>
+
+    <section aria-labelledby="sc-tiers"><h2 id="sc-tiers">Evidence tiers</h2>
+    <table class="cr-table"><tbody>{% for k, v in s.evidence_tiers.items() %}<tr><th scope="row" style="width:28%"><span class="tier tier-{{ k }}">{{ tl.get(k, k|replace('_',' ')|capitalize) }}</span></th><td>{{ v }}</td></tr>{% endfor %}</tbody></table></section>
+
+    <section aria-labelledby="sc-out"><h2 id="sc-out">Outputs</h2>
+    <table class="cr-table"><thead><tr><th scope="col">Output</th><th scope="col">Tier</th><th scope="col">Evidence</th></tr></thead><tbody>
+    {% for o in s.outputs.supported %}<tr><td>{{ o.label }}</td><td><span class="tier tier-{{ o.tier }}">{{ tl.get(o.tier, o.tier) }}</span></td><td>{{ o.evidence }}</td></tr>{% endfor %}
+    {% for o in s.outputs.not_supported %}<tr><td>{{ o.label }}</td><td><span class="tier tier-outside">Not computed</span></td><td>{{ o.reason }}</td></tr>{% endfor %}
+    </tbody></table></section>
+
+    <section aria-labelledby="sc-rules"><h2 id="sc-rules">Rules</h2>
+    <div class="cr-scroll"><table class="cr-table" style="min-width:640px"><thead><tr><th scope="col" style="width:16%">Rule</th><th scope="col" style="width:28%">In scope</th><th scope="col">Basis, and what happens outside</th></tr></thead><tbody>
+    {% for r in s.request_rules + s.state_rules %}<tr><td>{{ r.id|replace('_',' ') }}{% if r.optional %} (optional){% endif %}</td>
+    <td>{% if r.kind == 'category' %}{% for v in r.in_scope %}{{ v }}{% if r.tier_by_value %} <span class="tier tier-{{ r.tier_by_value[v] }}">{{ tl[r.tier_by_value[v]] }}</span>{% endif %}{% if not loop.last %}; {% endif %}{% endfor %}{% if not r.tier_by_value %} <span class="tier tier-{{ r.tier }}">{{ tl[r.tier] }}</span>{% endif %}
+    {% elif r.kind == 'ratio_max' %}≤ {{ r.max_ratio }} × {{ r.reference_input|replace('_',' ') }} <span class="tier tier-{{ r.tier }}">{{ tl[r.tier] }}</span>
+    {% else %}{{ r.range[0] }}–{{ r.range[1] }} {{ r.unit }}{% if r.tier_by_band %}<ul>{% for b in r.tier_by_band %}<li>{{ b.range[0] }}–{{ b.range[1] }}: <span class="tier tier-{{ b.tier }}">{{ tl[b.tier] }}</span></li>{% endfor %}</ul>{% else %} <span class="tier tier-{{ r.tier }}">{{ tl[r.tier] }}</span>{% endif %}{% endif %}</td>
+    <td>{% if r.basis %}{{ r.basis }}{% endif %}{% for b in r.tier_by_band or [] %}{% if b.band_note %}<br><em>{{ b.range[0] }}–{{ b.range[1] }}:</em> {{ b.band_note }}{% endif %}{% endfor %}
+    {% for k, v in r.outside_reason.items() %}<br><strong>Outside{% if k not in ('default',) %} ({{ k|lower }}){% endif %}:</strong> {{ v }}{% endfor %}</td></tr>{% endfor %}
+    </tbody></table></div>
+    {% if s.enforced_elsewhere %}<p>{{ s.enforced_elsewhere }}</p>{% endif %}
+    <p>{{ s.unknown_policy }}</p></section>
+
+    <section aria-labelledby="sc-ev"><h2 id="sc-ev">Evidence the rules rely on</h2>
+    <table class="cr-table"><tbody>{% for k, v in s.evidence.items() %}<tr><th scope="row" style="width:28%">{{ k|replace('_',' ') }}</th><td><span class="mono">{{ v.file }}</span><br>SHA-256 {{ v.sha256[:16] }}…</td></tr>{% endfor %}</tbody></table></section>
+
+    <section aria-labelledby="sc-never"><h2 id="sc-never">Never claimed</h2><ul>{% for n in s.never_claimed %}<li>{{ n }}</li>{% endfor %}</ul>
+    <p><a href="{{ url_for('model_scope_json', model_id=entry.model_id) }}">Download this scope (JSON)</a></p></section>
+</article>
+</main>
+</body>
+</html>

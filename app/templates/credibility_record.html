@@ -22,7 +22,7 @@
 {{ site_header() }}
 <main id="main" class="section">
 <article class="wrap prose prose-wide">
-    <p class="cr-noprint"><a href="{{ url_for('credibility_records') }}">← All credibility records</a>{% if has_scorecard %} · <a href="{{ url_for('model_scorecard', model_id=rec.model_id) }}">Model scorecard</a>{% endif %} · <a href="{{ url_for('credibility_record_json', model_id=rec.model_id) }}">Download JSON</a> · <a href="javascript:window.print()">Print</a></p>
+    <p class="cr-noprint"><a href="{{ url_for('credibility_records') }}">← All credibility records</a>{% if has_scorecard %} · <a href="{{ url_for('model_scorecard', model_id=rec.model_id) }}">Model scorecard</a>{% endif %} · <a href="{{ url_for('credibility_record_json', model_id=rec.model_id) }}">Download JSON</a> · <a href="javascript:window.print()">Print</a>{% if has_scope %} · <a href="{{ url_for('model_scope', model_id=rec.model_id) }}">Platform scope</a>{% endif %}</p>
     <header class="stack" style="gap:10px">
         <p class="prose-eyebrow" style="margin-bottom:0">Credibility record · ICH M15 structure</p>
         <h1>{{ rec.name }}</h1>
