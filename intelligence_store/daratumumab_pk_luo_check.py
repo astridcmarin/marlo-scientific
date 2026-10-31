@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PLAN_PATH = Path(__file__).parent / 'data' / 'daratumumab_pk_luo_check_plan_v1.json'
 PLAN_SHA256 = 'de2682e493f8012975d568dbf0999cb09085fb64d82e08356f31e40092effc30'
 PLAN_COMMIT = '817f8e2'
+OBSERVED_SHA256 = '2872913fd369aea906fc4a11623755d8ff3722c75de0d1fbe55e567992632ed0'
 REPORT_PATH = ROOT / 'docs' / 'verification' / 'daratumumab_pk_luo_check_v1.json'
 PERCENTILES = (5, 50, 95)
 P_IGG = 427 / 742
@@ -66,6 +67,8 @@ def load_inputs(plan):
     extract = _pinned(ROOT / plan['data']['model_extract']['path'], plan['data']['model_extract']['sha256'], 'Model extract')
     if plan['data']['model_extract']['sha256'] != model.EXTRACT_SHA256:
         raise ValueError('Plan and model module pin different extracts.')
+    if plan['data']['observed']['sha256'] != OBSERVED_SHA256:
+        raise ValueError('Plan and check module pin different observed data.')
     observed = _pinned(ROOT / plan['data']['observed']['path'], plan['data']['observed']['sha256'], 'Observed data')
     return extract, observed
 

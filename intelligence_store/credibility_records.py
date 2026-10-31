@@ -18,12 +18,14 @@ from pathlib import Path
 from .covariate_estimation import _load_pinned
 from .model_scorecards import LAYER_LABELS, NOT_ESTABLISHED, STATUS_LABELS
 from .patient_state import digest
-from .run_record import EVIDENCE_SHA256, LAYER_ORDER, load_evidence_status
+from .run_record import EVIDENCE_PATH, EVIDENCE_SHA256, LAYER_ORDER, load_evidence_status
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = Path(__file__).parent / 'data'
-CONTEXT_PATH = DATA / 'model_credibility_context_v1.json'
-CONTEXT_SHA256 = '740f68767f4a6d384b7e746b5b0bd3e0ee53c728d84d3a4d456b801f8ade15a6'
+CONTEXT_PATH = DATA / 'model_credibility_context_v2.json'
+CONTEXT_SHA256 = 'c7a37dd2be6ff72939cd3444a7c3e64be5c5a24666b9329d9091ccc533d0dbc4'
+# Superseded, kept unchanged for traceability: model_credibility_context_v1.json
+CONTEXT_V1_SHA256 = '740f68767f4a6d384b7e746b5b0bd3e0ee53c728d84d3a4d456b801f8ade15a6'
 SCHEMA_VERSION = 'model-credibility-record-v1'
 LEVEL_LABELS = {'low': 'Low', 'medium': 'Medium', 'high': 'High', 'low_within_intended_use': 'Low (within the intended use)',
                 'not_applicable': 'Not applicable'}
@@ -77,7 +79,7 @@ def _validation_from_evidence(model_id, evidence):
         layers.append({'layer': name, 'label': LAYER_LABELS[name], 'status': layer['status'],
                        'status_label': STATUS_LABELS.get(layer['status'], (layer['status'], ''))[0],
                        'summary': layer['summary'], 'classification': layer.get('classification'), 'reports': reports})
-    return {'source': f'intelligence_store/data/model_evidence_status_v6.json (sha256 {EVIDENCE_SHA256})', 'layers': layers,
+    return {'source': f'intelligence_store/data/{EVIDENCE_PATH.name} (sha256 {EVIDENCE_SHA256})', 'layers': layers,
             'name': entry['name'], 'citation': entry['citation'], 'doi': entry.get('doi')}
 
 

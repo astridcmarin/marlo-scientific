@@ -27,6 +27,8 @@ ROOT = Path(__file__).resolve().parent.parent
 PLAN_PATH = Path(__file__).parent / 'data' / 'ixazomib_pk_gupta_check_plan_v1_1.json'
 PLAN_SHA256 = '2c91074731f5cecefa6c84fea915aa7aff28e5f8fb58e0e3e37f857e1dc9e4c4'
 PLAN_COMMITS = {'v1.0': '982044c', 'amendment_1': '63c97f1'}
+# Plan v1.0, superseded by v1.1 (amendment 1) and kept unchanged for traceability.
+PLAN_V1_0_SHA256 = '9b8ef3d87dc78b5242f1008c41f4fe0fab39c97aa098786304e5d8de703bae51'
 MIN_QUANTIFIABLE = 3
 REPORT_PATH = ROOT / 'docs' / 'verification' / 'ixazomib_pk_gupta_check_v1.json'
 LLOQ = 0.5

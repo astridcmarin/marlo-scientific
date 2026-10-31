@@ -140,4 +140,5 @@ Doses and schedules are still checked by each model's existing execution blocker
 - ~~Move the Hughes and Kim per-model versions to this format~~: done in 2.5b. The coverage contract and applicability findings remain as the evidence the scopes cite.
 - ~~Write daratumumab's scope~~: done in 2.5c.
 - ~~Show each model's scope on its scorecard and credibility record~~: done in 2.5c (linked pages).
-- **Add ixazomib and daratumumab to the evidence status file and the credibility context**, so they get scorecards and records like the other models.
+- ~~Add ixazomib and daratumumab to the evidence status file and the credibility context~~: done in 6.1b (evidence status v7, credibility context v2).
+- **Add ixazomib to the curated drug catalog** (a new versioned catalog file), so the drug library lists it with its capability level.

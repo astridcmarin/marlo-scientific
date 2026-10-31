@@ -41,7 +41,22 @@ RESULT_ITEMS = {
     'can1004_auc_last_day1': 'Day 1 exposure (AUC to 72 h), 1.3 mg/m², CAN-1004',
     'can1004_auc_last_day11': 'Day 11 exposure (AUC to 72 h), 1.3 mg/m², CAN-1004',
 }
-RESULT_KEYS = ('result_by_group', 'result_at_1_3_mg_m2')
+RESULT_ITEMS.update({
+    'renal.normal.auc_last': 'Exposure (AUC), MM with normal kidney function, 3 mg',
+    'renal.severe_ri.auc_last': 'Exposure (AUC), severe kidney impairment, 3 mg',
+    'renal.esrd.auc_last': 'Exposure (AUC), kidney failure on dialysis, 3 mg',
+    'hepatic.normal.auc_last': 'Exposure (AUC), solid tumours with normal liver function, 4 mg',
+    'hepatic.moderate.auc_last': 'Exposure (AUC), moderate liver impairment, 2.3 mg',
+    'hepatic.severe.auc_last': 'Exposure (AUC), severe liver impairment, 1.5 mg',
+    'peak_concentration_five_of_six_groups': 'Peak concentration (five of six groups)',
+    'sirius_8.cmax': 'Peak after the first infusion, 8 mg/kg, SIRIUS',
+    'sirius_8.auc_inf': 'Exposure (AUC to infinity), 8 mg/kg, SIRIUS',
+    'gen501_16.cmax': 'Peak after the first infusion, 16 mg/kg, GEN501',
+    'gen501_16.auc_0_7d': 'First-week exposure, 16 mg/kg, GEN501',
+})
+RESULT_ITEMS.update({'v2.' + k: v + ' (with study demographics)' for k, v in list(RESULT_ITEMS.items())
+                     if k.startswith(('sirius_8.', 'gen501_16.'))})
+RESULT_KEYS = ('result_by_group', 'result_at_1_3_mg_m2', 'result_by_endpoint')
 
 # What each model is and where the platform uses it. Descriptions only; no scientific values.
 PROFILES = {
@@ -70,6 +85,16 @@ PROFILES = {
         'drug': 'Bortezomib', 'kind': 'Exposure (PK)',
         'what': 'A three-compartment pharmacokinetic model with a single, constant clearance. It drives the platelet model below.',
         'used_on': [('Simulation Lab: bortezomib platelet course', 'landscape.bortezomib_platelets')],
+    },
+    'ixazomib_pk_gupta_2017': {
+        'drug': 'Ixazomib', 'kind': 'Exposure (population PK)',
+        'what': 'A published population pharmacokinetic model of oral ixazomib. The platform uses it only for typical total exposure, inside a declared scope (myeloma, kidney and liver function inside the model\'s data); peak concentrations are not shown.',
+        'used_on': [('Ixazomib exposure page (inside the model scope only)', 'landscape.ixazomib_exposure_page')],
+    },
+    'daratumumab_pk_luo_2021': {
+        'drug': 'Daratumumab', 'kind': 'Exposure (population PK)',
+        'what': 'A published population pharmacokinetic model of daratumumab with linear and saturable (target-mediated) clearance. Implemented and checked, but not used on any result page yet; its scope records what a future page may show.',
+        'used_on': [],
     },
     'bortezomib_platelets_lignet_2022': {
         'drug': 'Bortezomib', 'kind': 'Effect (platelet time course)',
