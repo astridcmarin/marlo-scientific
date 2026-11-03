@@ -115,6 +115,7 @@ Each step is its own PR.
 2. **Explorer mode in v1: yes.**
 3. **"Where it acts" card: later.** Not part of v1.
 4. **Rendering: 3D, using the Human Reference Atlas (decided 31 October 2026, replacing the 2D schematic).** See the next section.
+5. **Context organs: yes (decided 3 November 2026).** Organs off the elimination route are drawn faintly for orientation. See "Context organs" below.
 
 ## Rendering decision: 3D reference organs (amends "What it shows" and step 1.3)
 
@@ -125,7 +126,7 @@ The platform owner chose a 3D view built on the **Human Reference Atlas (HRA) 3D
 **How the flows are drawn in 3D:**
 - Kidneys, ureters and bladder from the HRA models. The heart and blood vessels as the plasma compartment, if the vascular model is usable; otherwise a simple drawn vessel, labelled as schematic.
 - Flow as tubes along the renal vessels and ureters, with thickness proportional to clearance on one fixed scale. Particles move along them at a speed proportional to clearance (off for viewers who prefer reduced motion).
-- Non-renal clearance as an arrow leaving the circulation, labelled "routes not identified". **No liver is drawn**, because no source puts lenalidomide metabolism there.
+- Non-renal clearance as an arrow leaving the circulation, labelled "routes not identified". **The arrow does not point to the liver**, because no source puts lenalidomide metabolism there. (Since decision 5, the liver appears only as a faint context organ.)
 - Evidence status on the organs: the moderate band outlines the kidneys in the warning style, with the text "probably lower than shown". Tapping an organ opens its evidence card.
 - A fixed, labelled camera view by default, so screenshots are comparable. Rotation and zoom are optional.
 
@@ -146,3 +147,27 @@ The platform owner chose a 3D view built on the **Human Reference Atlas (HRA) 3D
 | 1.3a | Assets: the owner downloads the HRA GLB files; asset manifest with checksums and licence; check that the organs line up in one coordinate space |
 | 1.3b | 3D viewer: three.js scene with the organs, a fixed default camera, the 2D fallback and the record mode |
 | 1.3c | Flows and evidence drawn from the step 1.2 data: tubes, particles, organ outlines, evidence cards |
+
+## Context organs (decision 5, 3 November 2026)
+
+The platform owner chose to show the rest of the body's anatomy around the elimination route, so the view reads as a whole body (a dark background, a translucent skin, solid organs inside) rather than a kidney floating alone.
+
+**Two classes of organ, kept visibly apart:**
+
+| Class | Organs (v1) | How drawn | Carries data |
+|---|---|---|---|
+| **Simulation organs** | Gut (dose in), blood (plasma), kidneys, ureters, bladder | Coloured, lit, animated flows, evidence outlines | Yes: flows, shares, evidence status, from `body-map-view-v1` |
+| **Context organs** | Brain, lungs, heart, liver, stomach, small and large intestine, spleen, skeleton if available | Faint, uniform, desaturated "glass"; never coloured, never animated | No. Label: "anatomy for orientation, not simulated" |
+
+**Rules that keep the view honest:**
+- A context organ never changes with the simulation: not with creatinine clearance, not with time, not with the patient record. Its look is fixed in the asset manifest, not computed.
+- Selecting a context organ shows only its name, its UBERON ID and the label above; no drug numbers and no evidence card.
+- The two classes come from data: `body-map-view-v1` lists the simulation nodes; any HRA object not in that list is drawn as context. A test checks that no context organ receives a flow, share or status.
+- The heart appears in both roles only through the blood: the vascular model and heart stand for the plasma compartment; the heart itself carries no number.
+- The page legend states the difference in one line: "Coloured organs carry model results; grey organs are anatomy for orientation."
+
+**Why the line matters.** In a realistic body, a glowing organ reads as "the drug is there" or "the drug acts there". The model has no tissue concentrations and no site-of-action layer, so only organs on the elimination route may look active.
+
+**Assets.** All context organs come from the same HRA male reference body and version as the simulation organs, and are recorded in the same manifest. Each is simplified for the web (step 1.3a), and the simplified copy is recorded as derived from its original. Loading order: simulation organs first, context organs after, so the page is usable before the anatomy finishes loading.
+
+**Effect on the steps.** None added. Step 1.3a covers the extra files; step 1.3b draws both classes; the test above belongs to step 1.3c.
