@@ -153,13 +153,29 @@ def face_planes(vertices, faces):
     return normal, -np.einsum('ij,ij->i', normal, a), double_area / 2.0
 
 
-def cluster_simplify(vertices, faces, cell):
-    """Quadric-based vertex clustering with cubic cells of side `cell` (scene units). Returns (vertices, faces)."""
+def normal_bins(vertices, faces):
+    """Bin each vertex by the dominant signed axis of its normal (6 bins). Used so that the two surfaces of a thin wall
+    (a vessel or heart wall, whose inner and outer faces point in opposite directions) never merge into one vertex."""
+    normals = vertex_normals(vertices, faces)
+    axis = np.argmax(np.abs(normals), axis=1)
+    sign = normals[np.arange(len(normals)), axis] < 0
+    return axis * 2 + sign
+
+
+def cluster_simplify(vertices, faces, cell, separate_sides=True):
+    """Quadric-based vertex clustering with cubic cells of side `cell` (scene units). Returns (vertices, faces).
+
+    With `separate_sides`, vertices in one cell merge only if their normals point the same way (see normal_bins), which
+    keeps thin walls closed at the cost of a little less reduction for the same cell size.
+    """
     if cell <= 0:
         raise GlbError('Cell size must be positive.')
     origin = vertices.min(axis=0)
     keys = np.floor((vertices - origin) / cell).astype(np.int64)
+    if separate_sides:
+        keys = np.c_[keys, normal_bins(vertices, faces)]
     cells, cluster = np.unique(keys, axis=0, return_inverse=True)
+    cells = cells[:, :3]
     cluster = cluster.reshape(-1)
     count = len(cells)
 
@@ -214,6 +230,77 @@ def simplify_to_target(vertices, faces, target_faces, iterations=24):
         v, f = cluster_simplify(vertices, faces, high)
         best = (v, f, high)
     return best
+
+
+def outer_shell(vertices, faces, voxel, smoothing=12):
+    """The outside surface of a set of touching closed parts (an organ built from tiled segments, such as the brain's
+    gyri or the lung's bronchopulmonary segments), without the walls between segments.
+
+    Surface points are voxelised at `voxel` size, the outside is flood-filled from the grid border, and the boundary
+    between outside and inside voxels becomes the new surface, smoothed with Taubin's lambda/mu filter (no shrinkage).
+    Detail finer than about one voxel is lost; that is the intent for faint context organs.
+    """
+    from scipy import ndimage
+
+    a, b, c = vertices[faces[:, 0]], vertices[faces[:, 1]], vertices[faces[:, 2]]
+    longest = np.max(np.linalg.norm(np.stack([b - a, c - b, a - c]), axis=2), axis=0)
+    samples = [vertices]
+    steps_per_face = np.ceil(longest / (voxel * 0.5)).astype(np.int64)
+    for steps in np.unique(steps_per_face[steps_per_face > 1]):
+        chosen = steps_per_face == steps
+        fa, fb, fc = a[chosen], b[chosen], c[chosen]
+        for i in range(0, steps + 1):
+            for j in range(0, steps + 1 - i):
+                u, v = i / steps, j / steps
+                samples.append(fa + u * (fb - fa) + v * (fc - fa))
+    points = np.vstack(samples)
+    origin = points.min(axis=0) - 2 * voxel
+    index = np.floor((points - origin) / voxel).astype(np.int64)
+    shape = index.max(axis=0) + 3
+    surface = np.zeros(shape, dtype=bool)
+    surface[index[:, 0], index[:, 1], index[:, 2]] = True
+    surface = ndimage.binary_dilation(surface)
+    outside_seed = np.zeros(shape, dtype=bool)
+    outside_seed[0, :, :] = outside_seed[-1, :, :] = outside_seed[:, 0, :] = outside_seed[:, -1, :] = True
+    outside_seed[:, :, 0] = outside_seed[:, :, -1] = True
+    outside = ndimage.binary_propagation(outside_seed & ~surface, mask=~surface)
+    solid = ~outside
+
+    # Quads on faces between a solid voxel and an outside voxel, wound outward.
+    quads = []
+    for axis in range(3):
+        lo = [slice(None)] * 3
+        hi = [slice(None)] * 3
+        lo[axis] = slice(0, -1)
+        hi[axis] = slice(1, None)
+        a_solid, b_solid = solid[tuple(lo)], solid[tuple(hi)]
+        for positive, mask in ((True, a_solid & ~b_solid), (False, ~a_solid & b_solid)):
+            cells = np.argwhere(mask)
+            corner = cells.copy()
+            corner[:, axis] += 1  # the shared face sits at the upper side of the lower voxel
+            u, v = [(axis + 1) % 3, (axis + 2) % 3]
+            du, dv = np.zeros(3, dtype=int), np.zeros(3, dtype=int)
+            du[u], dv[v] = 1, 1
+            p0, p1, p2, p3 = corner, corner + du, corner + du + dv, corner + dv
+            quads.append(np.stack([p0, p1, p2, p3], axis=1) if positive else np.stack([p0, p3, p2, p1], axis=1))
+    quads = np.vstack(quads)
+    corners, inverse = np.unique(quads.reshape(-1, 3), axis=0, return_inverse=True)
+    quad_index = inverse.reshape(-1, 4)
+    shell_faces = np.vstack([quad_index[:, [0, 1, 2]], quad_index[:, [0, 2, 3]]]).astype(np.int64)
+    shell_vertices = corners * voxel + origin
+
+    # Taubin smoothing over the shell's edge graph.
+    edges = np.vstack([shell_faces[:, [0, 1]], shell_faces[:, [1, 2]], shell_faces[:, [2, 0]]])
+    edges = np.unique(np.sort(edges, axis=1), axis=0)
+    degree = np.bincount(edges.reshape(-1), minlength=len(shell_vertices)).astype(np.float64)
+    for _ in range(smoothing):
+        for factor in (0.5, -0.53):
+            total = np.zeros_like(shell_vertices)
+            np.add.at(total, edges[:, 0], shell_vertices[edges[:, 1]])
+            np.add.at(total, edges[:, 1], shell_vertices[edges[:, 0]])
+            average = total / np.maximum(degree, 1)[:, None]
+            shell_vertices = shell_vertices + factor * (average - shell_vertices)
+    return _clean(shell_vertices, shell_faces)
 
 
 def vertex_normals(vertices, faces):
