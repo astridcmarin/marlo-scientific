@@ -268,6 +268,17 @@ def record_for_renal_pathways(view, evidence=None):
 
 
 
+def _body_map_flow_assumptions(map_view):
+    """Digital human 1.1: the reference blood flow and the blood-to-plasma ratio behind the extraction per pass."""
+    if 'blood_flow' not in map_view:
+        return []
+    bf, ex = map_view['blood_flow'], map_view['extraction']
+    return [{'name': 'Renal blood flow', 'reading': f"{bf['renal_blood_flow_ml_min']:.0f} mL/min (reference adult male)",
+             'status': 'by_design', 'evidence': bf['basis'] + ' ' + bf['not_this']},
+            {'name': 'Blood-to-plasma ratio', 'reading': f"{ex['blood_to_plasma_ratio']:.3f}", 'status': 'assumed',
+             'evidence': ex['basis']}]
+
+
 def record_for_body_map(map_view, pathways_view, evidence=None):
     """Run record for the record-mode body map (Digital human 1.0, step 1.3b).
 
@@ -280,9 +291,13 @@ def record_for_body_map(map_view, pathways_view, evidence=None):
     record.pop('validation')
     manifest = load_manifest()
     record.update(kind='body_map', title='Lenalidomide elimination body map for this record')
+    record['assumptions'] = record['assumptions'] + _body_map_flow_assumptions(map_view)
     record['checksums'] = ([{'label': 'Body map view', 'sha256': map_view['view_sha256']}] + record['checksums'] +
                            [{'label': '3D asset manifest', 'sha256': MANIFEST_SHA256}] +
-                           [{'label': f"3D model ({o['class']} organs)", 'sha256': o['sha256']} for o in manifest['outputs']])
+                           [{'label': f"3D model ({o['class']} organs)", 'sha256': o['sha256']} for o in manifest['outputs']] +
+                           ([{'label': 'Reference physiology (ICRP 89)', 'sha256': map_view['blood_flow']['source_sha256']},
+                             {'label': 'Blood-to-plasma extract (Chen 2012)', 'sha256': map_view['extraction']['source_sha256']}]
+                            if 'blood_flow' in map_view else []))
     record['limitations'] = record['limitations'] + [
         'The 3D organs are reference anatomy (Human Reference Atlas male body), not this record\'s body; their size, '
         'position and colour carry no result.']
@@ -318,7 +333,7 @@ def record_for_body_map_explorer(map_view, context=None, evidence=None):
                   {'name': 'Normal-group creatinine clearance', 'reading': f"{CALIBRATION_CRCL:g} mL/min", 'status': 'assumed',
                    'evidence': 'The study reports only "> 80 mL/min"; 110 is the primary scenario of the locked plan.'},
                   {'name': 'Bioavailability', 'reading': '1', 'status': 'assumed',
-                   'evidence': '85% urinary recovery of unchanged drug implies at least about 0.85.'}],
+                   'evidence': '85% urinary recovery of unchanged drug implies at least about 0.85.'}] + _body_map_flow_assumptions(map_view),
               'applicability': [{'item': 'creatinine_clearance', 'value': crcl, 'unit': 'mL/min',
                                  'reference': 'calibration and check groups about 10-140 mL/min', 'status': 'within_reported_range'}],
               'warnings': [map_view['band']['status_text']] if map_view['band']['status'] == 'check_disagrees' else [],
@@ -331,7 +346,9 @@ def record_for_body_map_explorer(map_view, context=None, evidence=None):
                             {'label': 'Pathway check report (file)', 'sha256': map_view['model']['report_file_sha256']},
                             {'label': 'Unbound-fraction decision record', 'sha256': map_view['model']['fu_record_sha256']},
                             {'label': '3D asset manifest', 'sha256': MANIFEST_SHA256}] +
-                           [{'label': f"3D model ({o['class']} organs)", 'sha256': o['sha256']} for o in manifest['outputs']]}
+                           [{'label': f"3D model ({o['class']} organs)", 'sha256': o['sha256']} for o in manifest['outputs']] +
+                           [{'label': 'Reference physiology (ICRP 89)', 'sha256': map_view['blood_flow']['source_sha256']},
+                            {'label': 'Blood-to-plasma extract (Chen 2012)', 'sha256': map_view['extraction']['source_sha256']}]}
     load_pathway_report()  # refuses a changed check report, as the record mode does through the 2.0b view
     return _finish(record)
 

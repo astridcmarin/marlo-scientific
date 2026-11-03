@@ -89,7 +89,7 @@ class BodyMapPage(unittest.TestCase):
     def test_json_download_is_the_body_map_view(self):
         rev = self.revision_with(serum_creatinine=80)
         payload = self.client.get(self.url(rev.id, '?format=json')).get_json()
-        self.assertEqual(payload['schema_version'], 'body-map-view-v1')
+        self.assertEqual(payload['schema_version'], 'body-map-view-v2')
         self.assertEqual(payload['mode'], 'record')
         self.assertIs(payload['clinical_prediction_validated'], False)
 

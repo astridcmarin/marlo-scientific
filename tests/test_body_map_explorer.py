@@ -110,7 +110,8 @@ class ExplorerPage(unittest.TestCase):
         html = self.client.get(f'{URL}?crcl=40').get_data(as_text=True)
         for text in ('body-map-viewer', 'Outside check disagrees', 'What the renal-impairment study observed',
                      'Exposure ratios reported by the EMA', 'context, not a check', 'proposes no dose',
-                     'row containing this value', 'Run record', 'Flow diagram', 'body-map-explorer.js'):
+                     'row containing this value', 'Run record', 'Flow diagram', 'body-map-explorer.js',
+                     'leaves in urine in one pass', 'returns by the renal veins'):
             self.assertIn(text, html)
         config = json.loads(re.search(r'<script id="body-map-config" type="application/json">(.*?)</script>', html, re.S).group(1))
         self.assertEqual(config['flows']['band']['id'], 'moderate')

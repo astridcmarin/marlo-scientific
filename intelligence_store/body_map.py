@@ -11,6 +11,12 @@ Nodes carry UBERON anatomy IDs so later drugs and organs reuse one vocabulary. T
 amounts or concentrations in organs: no source gives lenalidomide tissue concentrations.
 
 Plan: docs/DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md (approved 31 October 2026).
+
+Digital human 1.1, step 1.1b (body-map-view-v2): adds reference renal blood flow (ICRP 89 reference male, not
+adjusted for kidney function) and the share of drug reaching the kidneys that leaves in urine in one pass (renal
+extraction). Extraction = renal blood clearance / renal blood flow, where renal blood clearance = renal plasma
+clearance / blood-to-plasma ratio (0.931, Chen 2012, assumed). It inherits the band's evidence status. Plan:
+docs/DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md (approved 3 November 2026).
 """
 import hashlib
 import json
@@ -21,10 +27,11 @@ from .lenalidomide_renal_pathways import (EVIDENCE_SHA256, METHOD_VERSION as PAT
                                           calibrate, load_evidence, pathways)
 from .patient_renal_pathways import CALIBRATION_CRCL, FU, READING
 from .patient_state import digest
+from .reference_physiology import CHEN_SHA256, ICRP_SHA256, load_blood_plasma, renal_flows
 
 DATA = Path(__file__).parent / 'data'
-SCHEMA_VERSION = 'body-map-view-v1'
-METHOD_VERSION = 'lenalidomide-body-map-v1.0'
+SCHEMA_VERSION = 'body-map-view-v2'
+METHOD_VERSION = 'lenalidomide-body-map-v1.1'
 DRUG = 'lenalidomide'
 RANGE = (10.0, 140.0)
 
@@ -110,6 +117,36 @@ def _split(cal, crcl):
     return {k: p[k] for k in ('filtration_ml_min', 'secretion_ml_min', 'renal_ml_min', 'non_renal_ml_min', 'total_ml_min', 'fe')}
 
 
+def _blood_flow():
+    f = renal_flows()
+    return {'renal_blood_flow_ml_min': f['renal_blood_flow_ml_min'], 'per_kidney_blood_flow_ml_min': f['renal_blood_flow_ml_min'] / 2,
+            'renal_plasma_flow_ml_min': f['renal_plasma_flow_ml_min'],
+            'status': 'reference_physiology',
+            'basis': (f"ICRP Publication 89 reference adult male: cardiac output {f['cardiac_output_l_min']:g} L/min, kidneys "
+                      f"{f['kidney_fraction_pct']:g}% of it, red cells {f['red_cell_fraction_pct']:g}% of blood; split equally "
+                      'between the two kidneys.'),
+            'not_this': 'Reference physiology for a reference man, held at the same value at every creatinine clearance: not '
+                        "this patient's blood flow and not adjusted for kidney function.",
+            'source_sha256': ICRP_SHA256}
+
+
+def _extraction(renal_plasma_clearance, status):
+    """Share of the drug reaching the kidneys in arterial blood that leaves in urine in one pass."""
+    bp = load_blood_plasma()['use_on_platform']['blood_to_plasma_ratio']
+    blood_flow = renal_flows()['renal_blood_flow_ml_min']
+    blood_clearance = renal_plasma_clearance / bp
+    ratio = blood_clearance / blood_flow
+    if not 0 <= ratio < 1:
+        raise BodyMapError('Renal extraction outside 0-1: the clearance and the reference blood flow are inconsistent.')
+    return {'ratio': ratio, 'returned_by_renal_veins': 1 - ratio, 'renal_blood_clearance_ml_min': blood_clearance,
+            'blood_to_plasma_ratio': bp, 'blood_to_plasma_status': 'assumed', 'status': status,
+            'formula': 'renal plasma clearance / blood-to-plasma ratio / reference renal blood flow',
+            'basis': ('Blood-to-plasma ratio 0.931: whole-blood to plasma AUC of total radioactivity after [14C]-lenalidomide '
+                      'in 6 healthy men (Chen 2012, Table 2); assumed to apply to lenalidomide and to exchange between red '
+                      'cells and plasma within one pass.'),
+            'source_sha256': CHEN_SHA256}
+
+
 def build_map(crcl, mode, record=None):
     """The map for one creatinine clearance. `mode` is 'explorer' or 'record'; `record` adds the source revision."""
     if isinstance(crcl, bool) or not isinstance(crcl, (int, float)) or not math.isfinite(crcl):
@@ -164,6 +201,8 @@ def build_map(crcl, mode, record=None):
         totals={'total_ml_min': total, 'renal_ml_min': p['renal_ml_min'], 'fraction_excreted_unchanged': p['fe'],
                 'relative_exposure_same_dose': normal['total_ml_min'] / total},
         normal_reference={'crcl_ml_min': CALIBRATION_CRCL, 'total_ml_min': normal['total_ml_min'], 'fraction_excreted_unchanged': normal['fe']},
+        blood_flow=_blood_flow(),
+        extraction=_extraction(p['renal_ml_min'], status),
         drawing_scale={'max_flow_ml_min': normal['total_ml_min'],
                        'rule': 'Arrow width is proportional to clearance on one fixed scale (the normal total), so maps can be compared.'},
         limitations=[

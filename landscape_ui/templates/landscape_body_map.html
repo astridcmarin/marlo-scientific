@@ -49,6 +49,12 @@
 <tr><th>Total clearance</th><td>{{ '%.0f'|format(view.totals.total_ml_min) }}</td><td></td></tr>
 </tbody></table>
 <p>Dose leaving unchanged in urine: <strong>{{ '%.0f'|format(100*view.totals.fraction_excreted_unchanged) }}%</strong> (normal function: {{ '%.0f'|format(100*view.normal_reference.fraction_excreted_unchanged) }}%). Typical exposure at the same dose: about <strong>{{ '%.1f'|format(view.totals.relative_exposure_same_dose) }}×</strong> the normal-function reference.</p>
+<h3 class="bm-sub-heading">Blood flow and one pass through the kidneys</h3>
+<table class="rr-table"><tbody>
+<tr><td>Blood flow to both kidneys <small>(reference adult male, ICRP 89)</small></td><td>{{ '%.0f'|format(view.blood_flow.renal_blood_flow_ml_min) }} mL/min<br><small>{{ '%.0f'|format(view.blood_flow.per_kidney_blood_flow_ml_min) }} each; plasma {{ '%.0f'|format(view.blood_flow.renal_plasma_flow_ml_min) }}</small></td></tr>
+<tr><td>Drug reaching the kidneys that leaves in urine in one pass</td><td><strong>{{ '%.0f'|format(100*view.extraction.ratio) }}%</strong><br><small>{{ '%.0f'|format(100*view.extraction.returned_by_renal_veins) }}% returns by the renal veins</small></td></tr>
+</tbody></table>
+<p class="panel-note">Blood flow is reference physiology, held at the same value at every creatinine clearance, {{ 'not any patient\'s' if explorer else 'not this record\'s' }} blood flow. Extraction = renal clearance ÷ blood-to-plasma ratio ({{ '%.3f'|format(view.extraction.blood_to_plasma_ratio) }}, assumed, Chen 2012) ÷ renal blood flow; it carries the band's evidence status.</p>
 <p class="panel-note">The unbound fraction is not pinned down by the data: filtration is shown with fu 0.77 (in vitro) and 0.60 (ex vivo). Total renal clearance and exposure are the same under both.</p>
 </aside>
 </div>

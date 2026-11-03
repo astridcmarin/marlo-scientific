@@ -92,3 +92,17 @@ The urine total at the end equals the fraction excreted unchanged that 1.0 alrea
    - **Recommended — B, a one-compartment model built on the 2.0a clearance:** clearance from the same pathway model as the map (so every number on the page agrees), with volume and absorption fixed from the EMA normal group, and a locked check against the group AUC, Cmax and half-life in every band. It works in both the explorer and record modes.
    - A — Hughes 2019 or Kim 2026 under their own scopes: published models, but their clearance differs from the map's, so the page would show two clearances for one patient; Kim needs eGFR, which the explorer does not have. Record mode only.
 3. **Order.** **Recommended:** 1.1a–1.1c first (blood flow and extraction, no new model), then 1.1d–1.1e. The first half is useful on its own and needs only sources.
+
+## Steps 1.1a and 1.1b delivered (3 November 2026)
+
+**1.1a — sources pinned.**
+- `intelligence_store/data/reference_physiology_icrp89_v1.json` (ICRP Publication 89, file SHA-256 `99f31655…`, kept on the owner's computer): reference adult male cardiac output **6.5 L/min** (Table 2.39, printed page 28), kidneys **19%** of it (Table 2.40, printed page 29; the Section 7.7.2 table gives the same), red cells **43%** of blood volume (Section 7.3, paragraph 309). Derived: renal blood flow 1235 mL/min, renal plasma flow 704 mL/min.
+- `intelligence_store/data/lenalidomide_blood_plasma_chen_2012_v1.json` (Chen et al. 2012, open access): whole-blood to plasma AUC ratio of total radioactivity **0.931 ± 0.020** (Table 2, page 794); red cells held 36–44% of blood radioactivity against a haematocrit of 41–43% (page 796). Used as the blood-to-plasma ratio, status *assumed*, with three recorded limits (total radioactivity, six healthy men, rapid exchange assumed).
+- Loader: `intelligence_store/reference_physiology.py`.
+
+**1.1b — in the view** (`body-map-view-v2`): `blood_flow` (reference, the same at every creatinine clearance) and `extraction`, the share of drug arriving in renal arterial blood that leaves in urine in one pass, = renal plasma clearance ÷ blood-to-plasma ratio ÷ renal blood flow. It carries the band's evidence status, and the view refuses to build if it fell outside 0–1. The numbers panel, the kidney card and both run records show it, with the two assumptions and the two source checksums.
+
+**Correction to the estimate in this plan.** The plan said "about a quarter" of the drug reaching the kidneys would be removed per pass, dividing renal clearance by renal *plasma* flow. That would be right only if the drug stayed out of red cells. Lenalidomide spreads into them about equally (Chen 2012), so the drug arriving is carried by whole blood, and extraction is about **14%** at normal function (162 mL/min ÷ 0.931 ÷ 1235 mL/min), 8% in the mild band, 5% at 40 mL/min and 3% at 20 mL/min.
+
+**Next:** 1.1c, the blood-flow layer and extraction drawn in 3D.
+
