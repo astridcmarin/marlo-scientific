@@ -21,10 +21,9 @@
         href="{{ url_for('static', filename='style.css') }}"
     >
 
-    <link rel="icon"
-      type="image/png"
-      href="{{ url_for('static', filename='images/favicon.png') }}"
-    >
+    <link rel="icon" href="{{ url_for('landscape.static', filename='images/favicon.ico') }}" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('landscape.static', filename='images/favicon.svg') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('landscape.static', filename='images/apple-touch-icon.png') }}">
 
 </head>
 
