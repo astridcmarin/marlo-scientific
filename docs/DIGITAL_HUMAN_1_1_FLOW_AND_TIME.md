@@ -1,6 +1,6 @@
 # Digital human 1.1 — blood flow, extraction and drug movement over time (design plan)
 
-Written 3 November 2026. Status: **draft for the platform owner's decision** (three decisions at the end). Nothing is computed until the plan is approved and, for step 1.1d, its check plan is locked.
+Written 3 November 2026. Status: **approved by the platform owner on 3 November 2026**, with the three recommended decisions (see the end). Nothing is computed for layer C until its check plan (step 1.1d) is locked.
 
 ## The question it adds
 
@@ -77,7 +77,13 @@ The urine total at the end equals the fraction excreted unchanged that 1.0 alrea
 | 1.1d | Concentration model for layer C: check plan locked, then the model and its check | plan, model, report |
 | 1.1e | Timeline and amounts drawn; docs; checkpoint | page, viewer, docs |
 
-## Decisions for the owner
+## Decisions (taken 3 November 2026)
+
+1. **Renal blood flow: held at the reference value** at every creatinine clearance, labelled as not adjusted for kidney function.
+2. **Time course: a one-compartment model built on the 2.0a clearance** (option B), with a locked check against the CC-5013-PK-001 group values.
+3. **Order: 1.1a–1.1c first** (sources, blood flow, extraction), then 1.1d–1.1e.
+
+## Options as presented
 
 1. **Renal blood flow when kidney function falls.** Renal plasma flow falls in kidney disease, but the relationship to creatinine clearance varies between studies and causes.
    - **Recommended:** hold blood flow at the reference value at every creatinine clearance, labelled "reference physiology, not adjusted for kidney function". Extraction then falls with clearance, which is the direction the data show.
