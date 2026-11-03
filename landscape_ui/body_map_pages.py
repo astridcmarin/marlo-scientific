@@ -11,6 +11,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from intelligence_store.body_map import NODES, record_map
 from intelligence_store.body_map_assets import BodyMapAssetError, load_manifest, viewer_assets
+from intelligence_store.body_map_paths import BodyMapPathError, load_paths
 from intelligence_store.extensions import db
 from intelligence_store.patient_renal_pathways import patient_renal_pathways
 from intelligence_store.patient_state_revisions import read_revision
@@ -41,9 +42,51 @@ def _part_titles(manifest):
     return titles
 
 
-def viewer_config(manifest):
-    assets = viewer_assets(manifest)
+# Flow colours in the 3D view (bright, for the dark panel); same hues as the 2D diagram.
+FLOW_COLORS_3D = {'filtration': [0.31, 0.76, 0.97], 'tubular_secretion': [0.70, 0.53, 1.0],
+                  'renal_excretion': [1.0, 0.79, 0.16], 'absorption': [0.96, 0.56, 0.69]}
+# Largest tube diameter (metres): the whole normal-function clearance through one tube would be this wide.
+TUBE_DIAMETER_AT_SCALE_M = 0.02
+STATUS_OUTLINE = {'calibrated': None, 'checked_consistent': None, 'consistent_primary_only': 'caution',
+                  'check_disagrees': 'warning'}
+
+
+def _fmt(value):
+    return f'{value:.0f}'
+
+
+def evidence_cards(view):
+    """What selecting a simulation organ shows. Numbers are copied from the body-map view; context organs get none."""
+    flows = {f['kind']: f for f in view['flows']}
+    band, totals, normal = view['band'], view['totals'], view['normal_reference']
+    source = ('Simulation 2.0a lenalidomide pathway model (intact-nephron reading, calibrated at creatinine clearance '
+              f"{view['model']['calibration_crcl_ml_min']:g} mL/min); view {view['view_sha256'][:12]}.")
+    f, s, r, n = flows['filtration'], flows['tubular_secretion'], flows['renal_excretion'], flows['non_renal']
     return {
+        'kidney': {'title': 'Kidneys: filtration and tubular secretion', 'status': band['status'], 'status_text': band['status_text'],
+                   'rows': [['Filtration', f"{_fmt(f['value'])} mL/min ({_fmt(f['alternative_value'])} with fu 0.60)"],
+                            ['Tubular secretion', f"{_fmt(s['value'])} mL/min ({_fmt(s['alternative_value'])} with fu 0.60)"],
+                            ['Renal total', f"{_fmt(r['value'])} mL/min, {100 * r['share_of_elimination']:.0f}% of elimination"]],
+                   'basis': [f['basis'], s['basis']], 'source': source},
+        'urine': {'title': 'Ureters and bladder: unchanged drug in urine', 'status': band['status'], 'status_text': band['status_text'],
+                  'rows': [['Into urine', f"{_fmt(r['value'])} mL/min"],
+                           ['Dose leaving unchanged in urine', f"{100 * totals['fraction_excreted_unchanged']:.0f}% (normal function {100 * normal['fraction_excreted_unchanged']:.0f}%)"]],
+                  'basis': [r['basis']], 'source': source},
+        'plasma': {'title': 'Blood (plasma)', 'status': 'calibrated', 'status_text': None,
+                   'rows': [['Total clearance from plasma', f"{_fmt(totals['total_ml_min'])} mL/min"],
+                            ['Non-renal routes', f"{_fmt(n['value'])} mL/min (routes not identified; held constant)"],
+                            ['Typical exposure at the same dose', f"about {totals['relative_exposure_same_dose']:.1f}x the normal-function reference"]],
+                   'basis': ['The heart and vessels stand for the blood; the heart itself carries no separate number.', n['basis']],
+                   'source': source},
+        'gut': {'title': 'Small intestine: oral dose', 'status': None, 'status_text': None,
+                'rows': [['Absorption', 'drawn without a value']],
+                'basis': [flows['absorption']['note']], 'source': source},
+    }
+
+
+def viewer_config(manifest, view=None, paths=None):
+    assets = viewer_assets(manifest)
+    config = {
         'models': [{'url': url_for('landscape.static', filename=m['static_path']), 'class': m['class'],
                     'sha256': m['sha256']} for m in assets['models']],
         'parts': _part_titles(manifest),
@@ -51,6 +94,23 @@ def viewer_config(manifest):
         'context_label': CONTEXT_LABEL,
         'camera_presets': CAMERA_PRESETS,
     }
+    if view is not None and paths is not None and view.get('status') == 'completed':
+        flows = {f['kind']: f for f in view['flows']}
+        config['flows'] = {
+            'paths': paths['paths'], 'anchors': paths['anchors'],
+            'values': {kind: (flows[kind]['value'] if flows[kind]['value'] is not None else None) for kind in flows},
+            'scale_ml_min': view['drawing_scale']['max_flow_ml_min'],
+            'tube_diameter_at_scale_m': TUBE_DIAMETER_AT_SCALE_M,
+            'colors': FLOW_COLORS_3D,
+            'labels': {'renal': f"Into the kidneys: filtration {_fmt(flows['filtration']['value'])} + secretion {_fmt(flows['tubular_secretion']['value'])} mL/min",
+                       'urine': f"Into urine: {_fmt(flows['renal_excretion']['value'])} mL/min ({100 * view['totals']['fraction_excreted_unchanged']:.0f}% of the dose)",
+                       'non_renal': f"Non-renal: {_fmt(flows['non_renal']['value'])} mL/min, routes not identified",
+                       'absorption': 'Absorbed into the blood (no value drawn)'},
+            'band': {'id': view['band']['id'], 'status': view['band']['status'], 'text': view['band']['status_text'],
+                     'outline': STATUS_OUTLINE[view['band']['status']]},
+        }
+        config['cards'] = evidence_cards(view)
+    return config
 
 
 def flow_widths(view):
@@ -82,8 +142,8 @@ def register_body_map_pages(bp):
             if done:
                 try:
                     manifest = load_manifest()
-                    config = viewer_config(manifest)
-                except BodyMapAssetError as exc:
+                    config = viewer_config(manifest, view, load_paths())
+                except (BodyMapAssetError, BodyMapPathError) as exc:
                     assets_error = str(exc)
             pathways_view = patient_renal_pathways(revision_id) if done else None
             response = _response(

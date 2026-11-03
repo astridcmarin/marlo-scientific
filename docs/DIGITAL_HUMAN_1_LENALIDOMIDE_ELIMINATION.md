@@ -210,3 +210,26 @@ The platform owner chose to show the rest of the body's anatomy around the elimi
 - Outside 10–140 mL/min or with missing inputs, no map is drawn and the reason is shown.
 
 **Not yet (step 1.3c):** flows drawn in 3D (tubes and particles), evidence-status outlines on the kidneys, and per-organ evidence cards with numbers.
+
+## Step 1.3c delivered (3 November 2026): flows and evidence in 3D
+
+**Flow paths** (`intelligence_store/data/body_map_flow_paths_v1.json`, built by `intelligence_store/body_map_paths.py` from the pinned route model; a test rebuilds it exactly):
+- **Into each kidney:** from the aorta at the level of that kidney's hilum, through the hilum, to the kidney's centre. Filtration and secretion are two strands, each kidney carrying half of each.
+- **Into urine:** from each renal pelvis down its ureter's centre line (20 slices of the ureter mesh) to the bladder.
+- **Absorption:** from the small intestine straight into the blood (inferior vena cava at kidney level), drawn dotted and without a value, because the view has none (bioavailability taken as 1). It does not pass through the liver: the model has no first-pass step.
+- **Non-renal:** no path, because the routes are not identified. A label at the aorta gives the value and says so. Its leader line points away from the liver.
+- Only simulation organs anchor a path.
+
+**Drawing.** Tubes have a diameter proportional to clearance on the view's fixed scale (the whole normal-function clearance through one tube would be 2 cm), so records can be compared by eye. Particles move along each strand at a speed proportional to its clearance. The flow layer is drawn over the anatomy, as a diagram, so vessels never hide it. Buttons turn the flow, the animation and the labels on and off. With "reduce motion" set in the browser, the flow starts paused.
+
+**Evidence status on the organs.** In the moderate band (outside check disagrees) the kidneys are outlined in orange and a banner states the finding. Where the check was consistent in the primary scenario only, the outline is amber. Calibrated and consistent bands have no outline.
+
+**Evidence cards.** Selecting a simulation organ opens its card, with numbers copied from `body-map-view-v1`:
+- kidneys: filtration and secretion under both unbound fractions, renal total, band status, basis;
+- ureters and bladder: into urine, the fraction excreted unchanged;
+- blood: total clearance, non-renal, relative exposure;
+- small intestine: the absorption note.
+
+Each card names the source model and the view checksum. Context organs have no card, only "anatomy for orientation, not simulated".
+
+**Step 1.3 is complete.** Next in the plan: 1.4 (explorer mode with a creatinine-clearance control, and the observed-data context panel) and 1.5 (docs, links, checkpoint).
