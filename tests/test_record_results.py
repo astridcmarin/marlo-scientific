@@ -29,6 +29,7 @@ class RecordResults(unittest.TestCase):
             for item in group['items']:
                 self.assertIn(item['status'], STATUS_TEXT)
                 self.assertEqual(item['status_text'], STATUS_TEXT[item['status']])
+                self.assertTrue(item['status_label'])
 
     def test_mild_kidney_function(self):
         s = self.statuses(self.revision_with(serum_creatinine=80))
@@ -56,7 +57,7 @@ class RecordResults(unittest.TestCase):
         url = f'/landscape/workspace/scenarios/{self.scenario.id}/patient-state/revisions/{rev.id}'
         html = self.client.get(url).get_data(as_text=True)
         for text in ('Results for this record', 'How much drug is in the blood?', 'Where does the drug leave the body?',
-                     'What happens to blood counts?', 'record-result-flagged', STATUS_TEXT['flagged'],
+                     'What happens to blood counts?', 'record-result-flagged', 'ms-status ms-status-flagged', STATUS_TEXT['flagged'],
                      f'{url}/body-map', f'{url}/renal-pathways', f'{url}/bortezomib-platelets', 'Saved educational runs'):
             self.assertIn(text, html)
 

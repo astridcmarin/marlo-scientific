@@ -26,6 +26,10 @@ STATUS_TEXT = {
     'needs_input': 'Needs more information on this record',
     'not_available': 'Outside what the model covers; not computed',
 }
+STATUS_LABEL = {
+    'checked': 'Checked', 'within_data': 'Within model data', 'partly_checked': 'Partly checked', 'flagged': 'Flagged',
+    'calibrated': 'Calibrated', 'needs_input': 'Needs input', 'not_available': 'Not available',
+}
 QUESTIONS = [
     ('exposure', 'How much drug is in the blood?'),
     ('elimination', 'Where does the drug leave the body?'),
@@ -79,7 +83,8 @@ def record_results(revision_id):
     items = {key: [] for key, _ in QUESTIONS}
 
     def add(question, title, drug, status, detail, endpoint):
-        items[question].append({'title': title, 'drug': drug, 'status': status, 'status_text': STATUS_TEXT[status],
+        items[question].append({'title': title, 'drug': drug, 'status': status, 'status_label': STATUS_LABEL[status],
+                                'status_text': STATUS_TEXT[status],
                                 'detail': detail, 'endpoint': endpoint})
 
     for title, scope in (('Typical concentration curve (Hughes 2019)',

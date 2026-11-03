@@ -1,0 +1,95 @@
+/* Marlo Scientific shared design (layout step 5, 3 November 2026).
+ *
+ * One palette, one type system and one set of components for the whole platform. Reading pages (trials, drugs,
+ * regulatory, evidence) are light; scientific views (3D, models, labs) sit in dark panels. Both use the same tokens.
+ * Builds on the brand colours in brand.css (--ms-*). Evidence-status colours are fixed across the platform and are
+ * always paired with a text label, never colour alone.
+ */
+:root {
+  /* brand: Aurora (chosen 3 November 2026). Midnight ground, solid violet for interface, violet-to-cyan gradient for
+     brand moments only (logo, landing hero, scientific panel edges), never on data. */
+  --ms-navy: #120d2e; --ms-navy-2: #2a1b6b; --ms-ink: #14142b; --ms-body: #3f4160; --ms-muted: #5b5d78;
+  --ms-line: #e2e1ef; --ms-ground: #f6f6fb; --ms-surface: #ffffff;
+  --ms-accent: #5b4fd1; --ms-accent-dark: #4a3fbf; --ms-accent-soft: #eeecfd; --ms-accent-glow: #a99cff;
+  --ms-gradient: linear-gradient(120deg, #120d2e 0%, #3b1d8f 55%, #0e7490 100%);
+  /* compatibility: older rules use --ms-teal / --ms-aqua; they now resolve to the accent */
+  --ms-teal: var(--ms-accent); --ms-teal-dark: var(--ms-accent-dark); --ms-aqua: var(--ms-accent-glow);
+  --ms-font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ms-font-display: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ms-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* evidence status: background, border, text */
+  --ms-checked-bg: #e7f4ee; --ms-checked-line: #9fd2bb; --ms-checked-ink: #1f6b4c;
+  --ms-within-bg: #e8f1fb; --ms-within-line: #a9c9ec; --ms-within-ink: #1d528a;
+  --ms-partly-bg: #fdf3e1; --ms-partly-line: #ecc98b; --ms-partly-ink: #7a5212;
+  --ms-flagged-bg: #fdece6; --ms-flagged-line: #f0b29c; --ms-flagged-ink: #9a3b22;
+  --ms-unavailable-bg: #f1f2f3; --ms-unavailable-line: #cfd4d8; --ms-unavailable-ink: #4b5563;
+  /* scientific (dark) panels */
+  --ms-dark-ground: #07061a; --ms-dark-ground-2: #171245; --ms-dark-card: rgba(12, 10, 38, .86);
+  --ms-dark-line: rgba(169, 156, 255, .32); --ms-dark-ink: #e3e2fb; --ms-dark-muted: #a9abd0; --ms-dark-accent: #a99cff;
+  --ms-radius: 8px; --ms-radius-lg: 12px;
+}
+
+/* type */
+.ms-page, .workspace { font-family: var(--ms-font-body); }
+.ms-page h1, .ms-page h2, .workspace h1, .workspace h2 { font-family: var(--ms-font-display); font-weight: 500; letter-spacing: -0.01em; }
+.ms-mono, .catalog-digest { font-family: var(--ms-font-mono); }
+
+/* cards */
+.ms-card { background: var(--ms-surface); border: 1px solid var(--ms-line); border-radius: var(--ms-radius-lg); padding: 18px 20px; }
+.ms-card h2 { font-size: 17px; margin: 0 0 10px; }
+.ms-eyebrow { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ms-teal); margin: 0 0 4px; }
+
+/* evidence-status label */
+.ms-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; line-height: 1.3; padding: 3px 9px; border-radius: 999px; border: 1px solid; white-space: nowrap; }
+.ms-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.ms-status-checked, .ms-status-calibrated { background: var(--ms-checked-bg); border-color: var(--ms-checked-line); color: var(--ms-checked-ink); }
+.ms-status-within_data { background: var(--ms-within-bg); border-color: var(--ms-within-line); color: var(--ms-within-ink); }
+.ms-status-partly_checked { background: var(--ms-partly-bg); border-color: var(--ms-partly-line); color: var(--ms-partly-ink); }
+.ms-status-flagged { background: var(--ms-flagged-bg); border-color: var(--ms-flagged-line); color: var(--ms-flagged-ink); }
+.ms-status-needs_input, .ms-status-not_available { background: var(--ms-unavailable-bg); border-color: var(--ms-unavailable-line); color: var(--ms-unavailable-ink); }
+
+/* buttons */
+.ms-button { display: inline-block; font: 500 13px var(--ms-font-body); padding: 8px 14px; border-radius: var(--ms-radius); border: 1px solid var(--ms-teal); background: var(--ms-teal); color: #fff; text-decoration: none; }
+.ms-button:hover { background: var(--ms-teal-dark); color: #fff; }
+.ms-button-quiet { background: transparent; color: var(--ms-teal); }
+.ms-button-quiet:hover { background: var(--ms-accent-soft); color: var(--ms-accent-dark); }
+
+/* scientific (dark) panel: everything inside uses the dark tokens */
+.ms-dark { background: radial-gradient(ellipse at 50% 38%, var(--ms-dark-ground-2) 0%, var(--ms-dark-ground) 72%); color: var(--ms-dark-ink); border-radius: var(--ms-radius-lg); }
+.ms-dark .ms-card { background: var(--ms-dark-card); border-color: var(--ms-dark-line); color: var(--ms-dark-ink); }
+.ms-dark .ms-eyebrow { color: var(--ms-dark-accent); }
+.ms-dark .ms-status-checked, .ms-dark .ms-status-calibrated { background: rgba(80, 200, 160, .14); border-color: #4fd1a5; color: #c7f5e3; }
+.ms-dark .ms-status-within_data { background: rgba(100, 160, 255, .14); border-color: #7cb3ff; color: #d3e4ff; }
+.ms-dark .ms-status-partly_checked { background: rgba(255, 200, 80, .14); border-color: #ffc94d; color: #ffe8b0; }
+.ms-dark .ms-status-flagged { background: rgba(255, 120, 60, .16); border-color: #ff8a50; color: #ffd9c2; }
+.ms-dark .ms-status-needs_input, .ms-dark .ms-status-not_available { background: rgba(160, 170, 180, .12); border-color: #8a96a3; color: #d5dbe1; }
+.ms-dark .ms-button { background: rgba(91, 79, 209, .55); border-color: var(--ms-dark-accent); color: #fff; }
+.ms-dark .ms-button-quiet { background: rgba(12, 10, 38, .72); border-color: var(--ms-dark-line); color: var(--ms-dark-ink); }
+
+/* simulation banner: the same everywhere */
+.ms-sim-banner { border-left: 3px solid var(--ms-accent); background: var(--ms-accent-soft); padding: 10px 14px; border-radius: 0; font-size: 13px; }
+.ms-sim-banner strong { color: var(--ms-teal-dark); }
+.ms-dark .ms-sim-banner { background: rgba(124, 200, 255, .08); border-left-color: var(--ms-dark-accent); }
+.ms-dark .ms-sim-banner strong { color: #fff; }
+
+/* brand moments: gradient only here */
+.ms-gradient { background: var(--ms-gradient); color: #fff; }
+.ms-dark-edge { position: relative; }
+.ms-dark-edge::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; border-radius: 12px 12px 0 0; background: var(--ms-gradient); }
+
+/* workspace shell in Aurora */
+body { font-family: var(--ms-font-body); }
+.sidebar { background: linear-gradient(180deg, #120d2e 0%, #1a1248 62%, #0d2c44 100%); color: #e3e2fb; }
+.brand { font-family: var(--ms-font-display); font-weight: 600; }
+.brand-sub { color: #b9b4e8; font-family: var(--ms-font-body); }
+.nav-label { color: #9d97d6; }
+.nav-item { color: #cfccf0; border-radius: 8px; }
+.nav-item:hover { color: #fff; background: rgba(169, 156, 255, .12); }
+.nav-item.active { color: #fff; background: rgba(91, 79, 209, .38); border-color: rgba(169, 156, 255, .45); }
+.sidebar-note { border-top-color: rgba(169, 156, 255, .25); }
+.sidebar-note span:last-child { color: #a9a4d8; }
+.source-dot { background: #a99cff; }
+.topbar > span:first-child { font-family: var(--ms-font-display); }
+.button.primary { background: var(--ms-accent); border-color: var(--ms-accent); }
+.button.primary:hover { background: var(--ms-accent-dark); }
+a { color: var(--ms-accent-dark); }
