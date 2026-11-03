@@ -18,6 +18,10 @@
 <section class="panel rr-panel" aria-labelledby="{{ heading_id }}">
 <h2 id="{{ heading_id }}">{{ heading }}</h2>
 {% if heading_id != 'run-record-heading' %}<p><strong>{{ record.result_type.label }}.</strong> {{ record.result_type.is }} It is not {{ record.result_type.is_not|join(', ') }}. Clinical prediction validated: <strong>false</strong>.</p>{% endif %}
+{% set open_assumptions = record.assumptions|selectattr('status','in',['assumed','unresolved','partial','partly_contradicted','done_with_open_question'])|list %}
+<p class="rr-summary"><strong>{{ record.model.name }}</strong> · status {{ status_badge(record.status) }} · record #{{ record.patient_record.revision_id }} ({{ record.patient_record.data }}) · {{ record.assumptions|length }} assumption{{ '' if record.assumptions|length == 1 else 's' }}{% if open_assumptions %}, {{ open_assumptions|length }} not settled{% endif %}{% if record.warnings %} · {{ record.warnings|length }} warning{{ '' if record.warnings|length == 1 else 's' }}{% endif %}</p>
+{% if record.warnings %}<ul class="rr-warnings">{% for w in record.warnings %}<li role="note">{{ w }}</li>{% endfor %}</ul>{% endif %}
+<details class="rr-details"><summary>Show the full run record: inputs, assumptions, source data, checks and checksums</summary>
 <p class="panel-note">Where this result comes from and how far to trust it. Every value is copied from the calculation's report or from a pinned source file; nothing here is recalculated.</p>
 
 <h3>Model and source</h3>
@@ -39,19 +43,17 @@
 <div class="table-scroll"><table class="rr-table"><caption>Outside a reported range means extrapolation from the source study, not a clinical threshold.</caption><thead><tr><th>Item</th><th>This record</th><th>Source</th><th>Status</th></tr></thead><tbody>
 {% for c in record.applicability %}<tr><td>{{ c.item|replace('_',' ') }}</td><td>{{ value(c.value) }} {{ c.unit }}</td><td>{{ c.reference }}</td><td>{{ status_badge(c.status) }}</td></tr>{% endfor %}
 </tbody></table></div>
-{% if record.warnings %}<ul class="rr-warnings">{% for w in record.warnings %}<li role="note">{{ w }}</li>{% endfor %}</ul>{% endif %}
 
 <h3>What has been checked about this model</h3>
 <div class="table-scroll"><table class="rr-table"><thead><tr><th>Layer</th><th>Status</th><th>What was found</th></tr></thead><tbody>
 {% for layer in record.model.layers %}<tr><td>{{ layer.layer|replace('_',' ')|capitalize }}<br><small>{{ layer.description }}</small></td><td>{{ status_badge(layer.status) }}</td><td>{{ layer.summary }}{% if layer.evidence_report %}<br><small>Report: {{ layer.evidence_report }}</small>{% endif %}{% for extra in layer.further_reports or [] %}<br>{{ extra.summary }}<br><small>Report: {{ extra.evidence_report }}</small>{% endfor %}{% if layer.search %}<details><summary>Sources searched ({{ layer.search.searched_on }})</summary><ul>{% for c in layer.search.candidates %}<li><strong>{{ c.source }}:</strong> {{ c.result }}</li>{% endfor %}</ul><p><small>{{ layer.search.why_incidence_alone_is_not_used }} {{ layer.search.possible_route }}</small></p></details>{% endif %}</td></tr>{% endfor %}
 </tbody></table></div>
 <p class="panel-note"><strong>Not established for any model:</strong> {{ record.model.never_established }}</p>
-{% if site_models_url %}<p class="panel-note"><a href="{{ site_models_url }}/{{ record.model.model_id }}">Full scorecard for this model →</a></p>{% endif %}
-{% if site_models_url %}<p class="panel-note"><a href="{{ site_models_url }}/{{ record.model.model_id }}">Open this model's public scorecard</a></p>{% endif %}
 
-<details><summary>Limitations and checksums</summary>
+<h3>Limitations and checksums</h3>
 {% if record.limitations %}<ul>{% for text in record.limitations %}<li>{{ text }}</li>{% endfor %}</ul>{% endif %}
 <p class="catalog-digest">{% for c in record.checksums %}{{ c.label }}: {{ c.sha256 }}<br>{% endfor %}Model evidence status: {{ record.evidence_status_version }} ({{ record.evidence_status_sha256 }})<br>Run record ({{ record.schema_version }}): {{ record.record_sha256 }}</p>
 </details>
+{% if site_models_url %}<p class="panel-note"><a href="{{ site_models_url }}/{{ record.model.model_id }}">Open this model's public scorecard →</a></p>{% endif %}
 </section>
 {% endmacro %}

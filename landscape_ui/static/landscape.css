@@ -295,3 +295,6 @@ h1 { font-weight:600; }
 .cap-level-meaning,.cap-level-models,.cap-level-note{font-size:.88rem;color:#3d5466}
 .cap-disagree{display:inline-block;padding:1px 7px;border-radius:999px;background:#fdeee8;color:#8a3a1c;font-size:.8rem;font-weight:600}
 .cap-legend{margin:1rem 0}.cap-legend dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem;margin:.75rem 0}.cap-legend dt{font-weight:650}.cap-legend dt span{font-weight:400;color:#53636c}.cap-legend dd{margin:.2rem 0 0;font-size:.88rem;color:#3d5466}
+
+/* Run record: short summary visible, full record folded (layout step 4, 3 November 2026). */
+.rr-summary{font-size:13px;margin:6px 0 8px}.rr-details{border-top:1px solid var(--line);padding-top:8px}.rr-details>summary{cursor:pointer;font-weight:500;color:var(--teal);font-size:13px}.rr-details[open]>summary{margin-bottom:8px}
