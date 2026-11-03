@@ -1,4 +1,4 @@
-"""Digital human 1.0, step 1.3b: the lenalidomide elimination body map page (record mode).
+"""Digital human 1.0, steps 1.3b and 1.4: the lenalidomide elimination body map pages (record and explorer modes).
 
 The 3D organs come from the pinned asset manifest (step 1.3a); the numbers come from body-map-view-v1 (step 1.2), which
 uses the same pathway model and estimate as the 2.0b patient page. The page always carries a 2D flow diagram with the
@@ -9,13 +9,14 @@ import json
 from flask import Response, abort, request, url_for
 from sqlalchemy.exc import SQLAlchemyError
 
-from intelligence_store.body_map import NODES, record_map
+from intelligence_store.body_map import NODES, RANGE, explorer_map, record_map
+from intelligence_store.body_map_context import BodyMapContextError, body_map_context
 from intelligence_store.body_map_assets import BodyMapAssetError, load_manifest, viewer_assets
 from intelligence_store.body_map_paths import BodyMapPathError, load_paths
 from intelligence_store.extensions import db
 from intelligence_store.patient_renal_pathways import patient_renal_pathways
 from intelligence_store.patient_state_revisions import read_revision
-from intelligence_store.run_record import RESULT_TYPES, record_for_body_map
+from intelligence_store.run_record import RESULT_TYPES, record_for_body_map, record_for_body_map_explorer
 from intelligence_store.saved_scenarios import read_scenario
 from .scenario_pages import _error
 from .workspace_pages import _response
@@ -31,6 +32,9 @@ CAMERA_PRESETS = [
 ]
 COLORS = {'filtration': '#1f6f8b', 'tubular_secretion': '#7b4fa0', 'non_renal': '#8a8f98', 'renal_excretion': '#b8892a'}
 MAX_STROKE = 30.0
+# Explorer: the control starts at the calibration point of the pathway model (normal function).
+EXPLORER_DEFAULT_CRCL = 110
+EXPLORER_STEP = 1
 
 
 def _part_titles(manifest):
@@ -119,7 +123,77 @@ def flow_widths(view):
     return {f['kind']: max(1.5, MAX_STROKE * f['value'] / top) for f in view['flows'] if f['value'] is not None}
 
 
+def _context(view):
+    try:
+        return body_map_context(view), None
+    except (BodyMapContextError, ValueError, OSError) as exc:
+        return None, str(exc)
+
+
+def _page_parts(view):
+    done = view['status'] == 'completed'
+    manifest, config, assets_error = None, None, None
+    if done:
+        try:
+            manifest = load_manifest()
+            config = viewer_config(manifest, view, load_paths())
+        except (BodyMapAssetError, BodyMapPathError) as exc:
+            assets_error = str(exc)
+    return done, manifest, config, assets_error
+
+
+def parse_crcl(raw):
+    """The explorer's creatinine clearance from the query string: a finite decimal number, or None if absent."""
+    if raw is None:
+        return None
+    text = raw.strip()
+    if not text or len(text) > 12:
+        raise ValueError('Enter creatinine clearance as a number of mL/min.')
+    try:
+        value = float(text)
+    except ValueError:
+        raise ValueError('Enter creatinine clearance as a number of mL/min.') from None
+    if value != value or value in (float('inf'), float('-inf')):
+        raise ValueError('Enter creatinine clearance as a number of mL/min.')
+    return value
+
+
 def register_body_map_pages(bp):
+    @bp.get('/patient-lab/body-map')
+    def body_map_explorer():
+        if set(request.args) - {'format', 'crcl'} or any(len(request.args.getlist(k)) != 1 for k in request.args):
+            abort(400)
+        fmt = request.args.get('format', 'html')
+        if fmt not in ('html', 'json'):
+            abort(400)
+        try:
+            crcl = parse_crcl(request.args.get('crcl'))
+        except ValueError:
+            abort(400)
+        if crcl is None:
+            crcl = float(EXPLORER_DEFAULT_CRCL)
+        view = explorer_map(crcl)
+        done = view['status'] == 'completed'
+        context, context_error = _context(view) if done else (None, None)
+        headers = {'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'}
+        if fmt == 'json':
+            headers['Content-Disposition'] = f'attachment; filename="body-map-explorer-crcl-{crcl:g}.json"'
+            body = {'body_map_view': view, 'observed_context': context}
+            return Response(json.dumps(body, indent=2, allow_nan=False) + '\n', mimetype='application/json', headers=headers)
+        done, manifest, config, assets_error = _page_parts(view)
+        response = _response(
+            'landscape_body_map.html', scenario=None, revision=None, view=view, done=done, explorer=True,
+            context=context, context_error=context_error,
+            explorer_control={'value': crcl, 'min': RANGE[0], 'max': RANGE[1], 'step': EXPLORER_STEP,
+                              'default': EXPLORER_DEFAULT_CRCL},
+            result_type=RESULT_TYPES['elimination_pathway_split_explorer'], config=config, assets_error=assets_error,
+            legend=LEGEND, presets=CAMERA_PRESETS, colors=COLORS, widths=flow_widths(view) if done else None,
+            flows={f['kind']: f for f in view['flows']} if done else None,
+            attribution=[s['attribution'] for s in manifest['sources'].values()] if manifest else [],
+            record=record_for_body_map_explorer(view, context) if done else None)
+        response.headers.update(headers)
+        return response
+
     @bp.get('/workspace/scenarios/<int:scenario_id>/patient-state/revisions/<int:revision_id>/body-map')
     def patient_body_map(scenario_id, revision_id):
         if set(request.args) - {'format'} or any(len(request.args.getlist(k)) != 1 for k in request.args):
@@ -146,8 +220,10 @@ def register_body_map_pages(bp):
                 except (BodyMapAssetError, BodyMapPathError) as exc:
                     assets_error = str(exc)
             pathways_view = patient_renal_pathways(revision_id) if done else None
+            context, context_error = _context(view) if done else (None, None)
             response = _response(
-                'landscape_body_map.html', scenario=scenario, revision=revision, view=view, done=done,
+                'landscape_body_map.html', scenario=scenario, revision=revision, view=view, done=done, explorer=False,
+                context=context, context_error=context_error,
                 result_type=RESULT_TYPES['elimination_pathway_split'], config=config, assets_error=assets_error,
                 legend=LEGEND, presets=CAMERA_PRESETS, colors=COLORS, widths=flow_widths(view) if done else None,
                 flows={f['kind']: f for f in view['flows']} if done else None,

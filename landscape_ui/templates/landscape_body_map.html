@@ -1,11 +1,24 @@
 {% extends "landscape_base.html" %}
 {% from "run_record_macros.html" import simulation_banner, run_record_panel %}
-{% block title %}Lenalidomide body map · Record {{ revision.id }}{% endblock %}
+{% block title %}Lenalidomide body map · {{ 'Explorer' if explorer else 'Record ' ~ revision.id }}{% endblock %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('landscape.static', filename='body-map/body-map.css') }}">
-<h1>Where lenalidomide leaves the body: body map</h1>
-<p><a href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id) }}">Back to patient-state record #{{ revision.id }}</a> · <a href="{{ url_for('landscape.patient_renal_pathways_page',scenario_id=scenario.id,revision_id=revision.id) }}">Kidney pathways page</a> · <a href="{{ url_for('landscape.patient_body_map',scenario_id=scenario.id,revision_id=revision.id,format='json') }}">Download (JSON)</a></p>
+<h1>Where lenalidomide leaves the body: body map{% if explorer %} explorer{% endif %}</h1>
+{% if explorer %}
+<p><a href="{{ url_for('landscape.patient_directory') }}">Saved synthetic patients</a> · <a href="{{ url_for('landscape.body_map_explorer', crcl='%g'|format(explorer_control.value), format='json') }}">Download (JSON)</a></p>
+{% call simulation_banner(result_type) %}<p>Choose a creatinine clearance and see how the pathway model divides lenalidomide's elimination between the kidneys and other routes, on reference anatomy, next to what the renal-impairment study observed. No patient record is used. Organs are drawn for orientation; no organ's colour or size shows an amount of drug.</p>{% endcall %}
+<form class="bm-explorer" method="get" action="{{ url_for('landscape.body_map_explorer') }}" aria-label="Kidney function">
+<label for="bm-crcl">Creatinine clearance</label>
+<input type="range" id="bm-crcl-range" min="{{ '%g'|format(explorer_control.min) }}" max="{{ '%g'|format(explorer_control.max) }}" step="{{ explorer_control.step }}" value="{{ '%g'|format(explorer_control.value) if explorer_control.min <= explorer_control.value <= explorer_control.max else explorer_control.default }}" aria-label="Creatinine clearance slider, mL/min" data-role="crcl-range">
+<span class="bm-explorer-value"><input type="number" id="bm-crcl" name="crcl" min="{{ '%g'|format(explorer_control.min) }}" max="{{ '%g'|format(explorer_control.max) }}" step="any" value="{{ '%g'|format(explorer_control.value) }}" inputmode="decimal" data-role="crcl-number"> mL/min</span>
+<button type="submit" class="ms-button">Show</button>
+<span class="bm-explorer-bands" aria-hidden="true"><span>10</span><span>severe</span><span>30</span><span>moderate</span><span>50</span><span>mild</span><span>80</span><span>normal</span><span>140</span></span>
+<p class="panel-note">10–140 mL/min, the range the pathway check covered. Stands for creatinine clearance measured from urine, as in the study; it overestimates GFR.</p>
+</form>
+{% else %}
+<p><a href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id) }}">Back to patient-state record #{{ revision.id }}</a> · <a href="{{ url_for('landscape.patient_renal_pathways_page',scenario_id=scenario.id,revision_id=revision.id) }}">Kidney pathways page</a> · <a href="{{ url_for('landscape.body_map_explorer', crcl='%.0f'|format(view.crcl_ml_min)) if done else url_for('landscape.body_map_explorer') }}">Explore other kidney function</a> · <a href="{{ url_for('landscape.patient_body_map',scenario_id=scenario.id,revision_id=revision.id,format='json') }}">Download (JSON)</a></p>
 {% call simulation_banner(result_type) %}<p>The body map shows the elimination route of lenalidomide, from the gut into the blood and out through the kidneys, on reference anatomy. The numbers are the same pathway model and the same estimate as the kidney pathways page. Organs are drawn for orientation; no organ's colour or size shows an amount of drug.</p>{% endcall %}
+{% endif %}
 {% if not done %}
 <section class="panel"><h2>Map not drawn</h2><p role="alert">{{ view.message }}</p></section>
 {% else %}
@@ -41,7 +54,7 @@
 </div>
 <section class="panel" aria-labelledby="bm-flow-heading">
 <h2 id="bm-flow-heading">Flow diagram</h2>
-<p>Line widths are proportional to clearance on one fixed scale (the normal-function total, {{ '%.0f'|format(view.drawing_scale.max_flow_ml_min) }} mL/min), so maps for different records can be compared.</p>
+<p>Line widths are proportional to clearance on one fixed scale (the normal-function total, {{ '%.0f'|format(view.drawing_scale.max_flow_ml_min) }} mL/min), so maps for different {{ 'kidney functions' if explorer else 'records' }} can be compared.</p>
 <svg class="bm-flow" viewBox="0 60 640 160" role="img" aria-labelledby="bm-flow-title"><title id="bm-flow-title">Gut to blood; blood to kidney by filtration {{ '%.0f'|format(flows.filtration.value) }} and tubular secretion {{ '%.0f'|format(flows.tubular_secretion.value) }} mL/min; kidney to urine {{ '%.0f'|format(flows.renal_excretion.value) }} mL/min; blood to non-renal routes {{ '%.0f'|format(flows.non_renal.value) }} mL/min.</title>
 <rect x="10" y="80" width="90" height="56" rx="8" class="bm-node"/><text x="55" y="104" text-anchor="middle">Gut</text><text x="55" y="122" text-anchor="middle" class="bm-sub">oral dose</text>
 <line x1="100" y1="108" x2="160" y2="108" class="bm-absorb"/>
@@ -56,8 +69,9 @@
 <text x="320" y="84" text-anchor="middle" class="bm-sub">filtration</text><text x="320" y="146" text-anchor="middle" class="bm-sub">secretion</text>
 </svg>
 </section>
-<section class="panel"><h2>Limits of this map</h2><ul>{% for item in view.limitations %}<li>{{ item }}</li>{% endfor %}<li>The 3D organs are reference anatomy (Human Reference Atlas male body), not this record's body; their size, position and colour carry no result.</li></ul></section>
+{% include "body_map_context_panel.html" %}
+<section class="panel"><h2>Limits of this map</h2><ul>{% for item in view.limitations %}<li>{{ item }}</li>{% endfor %}<li>The 3D organs are reference anatomy (Human Reference Atlas male body), not {{ 'a patient\'s' if explorer else 'this record\'s' }} body; their size, position and colour carry no result.</li></ul></section>
 {{ run_record_panel(record) }}
 {% endif %}
 {% endblock %}
-{% block scripts %}{% if config %}<script id="body-map-config" type="application/json">{{ config|tojson }}</script><script src="{{ url_for('landscape.static', filename='body-map/body-map-viewer.js') }}" defer></script>{% endif %}{% endblock %}
+{% block scripts %}{% if config %}<script id="body-map-config" type="application/json">{{ config|tojson }}</script><script src="{{ url_for('landscape.static', filename='body-map/body-map-viewer.js') }}" defer></script>{% endif %}{% if explorer %}<script src="{{ url_for('landscape.static', filename='body-map/body-map-explorer.js') }}" defer></script>{% endif %}{% endblock %}

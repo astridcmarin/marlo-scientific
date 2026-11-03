@@ -233,3 +233,24 @@ The platform owner chose to show the rest of the body's anatomy around the elimi
 Each card names the source model and the view checksum. Context organs have no card, only "anatomy for orientation, not simulated".
 
 **Step 1.3 is complete.** Next in the plan: 1.4 (explorer mode with a creatinine-clearance control, and the observed-data context panel) and 1.5 (docs, links, checkpoint).
+
+## Step 1.4 delivered (3 November 2026): explorer mode and the observed-data context
+
+**Explorer route:** `/landscape/patient-lab/body-map?crcl=…` (and `&format=json`). No patient record: the creatinine clearance is chosen with a slider or typed, from 10 to 140 mL/min. It starts at 110 mL/min, the pathway model's calibration point. The page is the record-mode page (3D view, numbers, flow diagram, limits) with the form on top; the form works without JavaScript, and a small script (`body-map-explorer.js`) keeps the slider and the number box in step and shows the new value when the slider is released. Outside 10–140 no map is drawn. The value stands for creatinine clearance measured from urine, as in the study.
+
+**Observed-data context panel** (`intelligence_store/body_map_context.py`, schema `body-map-context-v1`), on both the explorer and the record pages, for the band the value falls in:
+- **Model beside observation:** exposure relative to normal function, dose leaving unchanged in urine, renal clearance and total apparent clearance. The model column is copied from the map. The observed column is copied from the pinned EMA 2008 extract (arithmetic means) and the pinned EMA 2013 extract (geometric means, with their CV or SD). Exposure ratios to the normal group are worked out from the printed means and say so.
+- **Group, not point:** a note says the observed values are group summaries for 5–7 subjects whose measured creatinine clearance fell in the band, not values at the chosen number.
+- **EMA geometric-mean ratios with 90% CIs** for the moderate and severe bands, where Table 4 reports them, with the note that their reference group pools normal and mild subjects.
+- **The EMA regression of renal clearance** (CLr = −17.35 + 1.89 × CLcr) evaluated at the chosen value, next to the map's renal total, labelled "context, not a check": it was fitted to the same subjects as the calibration (issue 3 of this plan).
+- **The label's renal dose steps,** quoted from Table 3 (revision 3/2023), with the row containing the value marked. The panel states that the platform proposes no dose, that the label uses Cockcroft–Gault estimates, and that the label and the regulatory-context note use different thresholds.
+- Sources with their checksums, and a checksum of the panel itself.
+
+**Run record (explorer):** `record_for_body_map_explorer`. No patient record; the entered value is the input. Same assumptions as the record mode except the Cockcroft–Gault weight basis, which does not apply. Checksums of the view, the context, the pathway evidence and report, the unbound-fraction record, the asset manifest and both models. The simulation banner shows "No patient record" in place of "Synthetic patient record".
+
+**What the panel shows that matters:** at moderate kidney function the map's renal clearance (about 59 mL/min at 40) is about twice the group's observed geometric mean (27 mL/min), and its urine fraction (67%) is well above the observed 38–42%. That is the 2.0a finding the moderate-band warning already states; the panel puts the observed numbers next to it.
+
+**Tests:** `tests/test_body_map_explorer.py` (values copied from the extracts, model column equals the map, ratios only where reported, regression labelled, label rows matched without a dose, reproducible checksums, explorer page, JSON, out-of-range and bad requests).
+
+**Next:** 1.5 (docs, links from the drug page and the Patient Lab, checkpoint).
+
