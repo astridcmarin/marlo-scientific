@@ -1,0 +1,2245 @@
+{
+  "schema_version": "body-map-assets-v1",
+  "build_version": "body-map-assets-build-v1.0",
+  "plan": "docs/DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md (rendering decision; decision 5, context organs)",
+  "coordinate_frame": "HRA Visible Human male reference body; metres; +y up; body left is +x.",
+  "sources": {
+    "hra_united_male": {
+      "file": "3d-vh-m-united.glb",
+      "title": "3D Reference Organ Set for United, Male",
+      "publisher": "Human Reference Atlas (HRA), HuBMAP; NIH Common Fund",
+      "body": "Visible Human male (VH_M)",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Human Reference Atlas 3D Reference Object Library (HuBMAP), CC BY 4.0. Simplified for the web.",
+      "source_page": "https://humanatlas.io/3d-reference-library",
+      "sha256": "fae3ac193835e9e24cd13a0d0f11e6788183b290b0691b9b83ec81d907d94581",
+      "bytes": 241633636,
+      "hra_version": null
+    },
+    "innerscene_stomach": {
+      "file": "stomach.glb",
+      "title": "Stomach",
+      "publisher": "Innerscene Corp (innerscene.com)",
+      "licence": "CC0 1.0 (public domain)",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution": "Stomach: Innerscene, CC0. Not part of the reference body; placed by hand (approximate).",
+      "sha256": "0a2c117c754b14296d24f4945e49de2fb991caf3583aeede449c487319109de9",
+      "bytes": 1802672,
+      "ontology_id": "UBERON:0000945",
+      "placement": {
+        "translation": [
+          0.06,
+          0.27,
+          0.02
+        ],
+        "rotation_y_degrees": 180.0,
+        "note": "approximate, by eye"
+      }
+    }
+  },
+  "outputs": [
+    {
+      "file": "landscape_ui/static/body-map/models/body-route-male-v1.glb",
+      "class": "simulation",
+      "sha256": "395db3578b2193b55d0a1c58334c13135b5a183d088192ddf773638531bc210f",
+      "bytes": 3643356,
+      "faces": 203259
+    },
+    {
+      "file": "landscape_ui/static/body-map/models/body-context-male-v1.glb",
+      "class": "context",
+      "sha256": "1b0612a8f4d9fdf6b47253ef148c0165b7650a0fd67a45c3bde275b918763e3e",
+      "bytes": 2816752,
+      "faces": 166294
+    }
+  ],
+  "parts": [
+    {
+      "name": "VH_M_small_intestine",
+      "group": "VH_M_small_intestine",
+      "structure": null,
+      "class": "simulation",
+      "body_map_node": "gut",
+      "labels": [
+        "Sphincter of hepatopancreatic ampulla",
+        "ascending part of duodenum",
+        "descending part of duodenum",
+        "distal part of ileum",
+        "duodenal ampulla",
+        "duodenal papilla",
+        "horizontal part of duodenum",
+        "ileum",
+        "jejunum",
+        "superior part of duodenum"
+      ],
+      "ontology_ids": [
+        "FMA:14928",
+        "FMA:14929",
+        "FMA:14930",
+        "FMA:14966",
+        "FMA:15077",
+        "FMA:7206",
+        "UBERON:0002115",
+        "UBERON:0002116",
+        "UBERON:0004914",
+        "UBERON:0013644"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 10,
+      "source_faces": 33524,
+      "faces": 14967,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.00687,
+      "bbox": [
+        [
+          -0.061454,
+          0.09983,
+          0.00197
+        ],
+        [
+          0.12627,
+          0.365201,
+          0.123987
+        ]
+      ],
+      "bbox_shift_m": 0.000294
+    },
+    {
+      "name": "VH_M_blood_vasculature:arteries",
+      "group": "VH_M_blood_vasculature",
+      "structure": "arteries",
+      "class": "simulation",
+      "body_map_node": "plasma",
+      "labels": [
+        "Anterior descending branch of left pulmonary artery",
+        "Celiac trunk",
+        "Diagonal branch of anterior descending branch of left coronary artery",
+        "Hepatic artery proper",
+        "Left central retinal artery",
+        "Left colic artery",
+        "Left hepatic artery",
+        "Left long posterior ciliary artery",
+        "Left marginal artery",
+        "Posterior interventricular branch of right coronary artery",
+        "Right central retinal artery",
+        "Right colic artery",
+        "Right hepatic artery",
+        "Right long posterior ciliary artery",
+        "arch of aorta",
+        "ascending aorta",
+        "brachiocephalic artery",
+        "common hepatic artery",
+        "cystic artery",
+        "descending aorta",
+        "ileocolic artery",
+        "inferior mesenteric artery",
+        "left common carotid artery plus branches",
+        "left coronary artery",
+        "left pulmonary artery",
+        "left renal artery",
+        "left subclavian artery",
+        "marginal branch of right coronary artery",
+        "marginal colic artery",
+        "middle colic artery",
+        "ophthalmic artery",
+        "pulmonary trunk",
+        "right coronary artery",
+        "right pulmonary artery",
+        "right renal artery",
+        "sigmoid artery",
+        "splenic artery",
+        "superior mesenteric artery",
+        "superior rectal artery"
+      ],
+      "ontology_ids": [
+        "FMA:14772",
+        "FMA:14778",
+        "FMA:14779",
+        "FMA:14811",
+        "FMA:14812",
+        "FMA:14824",
+        "FMA:14826",
+        "FMA:3818",
+        "FMA:3840",
+        "FMA:3860",
+        "FMA:3902",
+        "FMA:49880",
+        "FMA:49881",
+        "FMA:49957",
+        "FMA:49958",
+        "FMA:8636",
+        "UBERON:0001182",
+        "UBERON:0001183",
+        "UBERON:0001185",
+        "UBERON:0001186",
+        "UBERON:0001194",
+        "UBERON:0001196",
+        "UBERON:0001496",
+        "UBERON:0001508",
+        "UBERON:0001514",
+        "UBERON:0001529",
+        "UBERON:0001536",
+        "UBERON:0001584",
+        "UBERON:0001619",
+        "UBERON:0001625",
+        "UBERON:0001626",
+        "UBERON:0001651",
+        "UBERON:0001652",
+        "UBERON:0002333",
+        "UBERON:0005436",
+        "UBERON:0035040",
+        "UBERON:0035180",
+        "UBERON:0035548",
+        "UBERON:0039222"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 48,
+      "source_faces": 240046,
+      "faces": 34320,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.002568,
+      "bbox": [
+        [
+          -0.063632,
+          0.024142,
+          -0.088679
+        ],
+        [
+          0.10391,
+          0.818606,
+          0.093658
+        ]
+      ],
+      "bbox_shift_m": 0.001647
+    },
+    {
+      "name": "VH_M_blood_vasculature:unlabelled vessels",
+      "group": "VH_M_blood_vasculature",
+      "structure": "unlabelled vessels",
+      "class": "simulation",
+      "body_map_node": "plasma",
+      "labels": [],
+      "ontology_ids": [
+        "-"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 6,
+      "source_faces": 5056,
+      "faces": 724,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.006343,
+      "bbox": [
+        [
+          -0.075005,
+          0.33018,
+          -0.018696
+        ],
+        [
+          0.00945,
+          0.387193,
+          0.040024
+        ]
+      ],
+      "bbox_shift_m": 0.002346
+    },
+    {
+      "name": "VH_M_blood_vasculature:veins",
+      "group": "VH_M_blood_vasculature",
+      "structure": "veins",
+      "class": "simulation",
+      "body_map_node": "plasma",
+      "labels": [
+        "Anterior cardiac vein",
+        "Inferior pancreaticoduodenal vein",
+        "Left brachiocephalic vein",
+        "Left central retinal vein",
+        "Left colic vein",
+        "Left common iliac vein",
+        "Left hepatic vein",
+        "Left inferior ophthalmic vein",
+        "Left middle rectal vein",
+        "Left superior ophthalmic vein",
+        "Middle hepatic vein",
+        "Oblique vein of left atrium",
+        "Posterior vein of left ventricle",
+        "Right brachiocephalic vein",
+        "Right central retinal vein",
+        "Right colic vein",
+        "Right common iliac vein",
+        "Right hepatic vein",
+        "Right inferior ophthalmic vein",
+        "Right middle rectal vein",
+        "Right superior ophthalmic vein",
+        "coronary sinus",
+        "cystic vein",
+        "external iliac vein",
+        "great vein of heart",
+        "hepatic portal vein",
+        "ileocolic vein",
+        "inferior mesenteric vein",
+        "inferior vena cava",
+        "internal iliac vein",
+        "internal pudendal vein",
+        "left Inferior rectal vein",
+        "left inferior pulmonary vein",
+        "left renal vein",
+        "left superior pulmonary vein",
+        "median sacral vein",
+        "middle cardiac vein",
+        "middle colic vein",
+        "ophthalmic vein",
+        "right Inferior rectal vein",
+        "right inferior pulmonary vein",
+        "right renal vein",
+        "right superior pulmonary vein",
+        "sigmoid vein",
+        "small cardiac vein",
+        "splenic vein",
+        "superior vena cava"
+      ],
+      "ontology_ids": [
+        "FMA:0329299",
+        "FMA:10951",
+        "FMA:14338",
+        "FMA:14339",
+        "FMA:14340",
+        "FMA:15394",
+        "FMA:15395",
+        "FMA:15407",
+        "FMA:18894",
+        "FMA:18895",
+        "FMA:21313",
+        "FMA:21314",
+        "FMA:21387",
+        "FMA:21388",
+        "FMA:4712",
+        "FMA:4715",
+        "FMA:4720",
+        "FMA:4751",
+        "FMA:4761",
+        "FMA:49911",
+        "FMA:49913",
+        "FMA:49914",
+        "FMA:49916",
+        "FMA:51248",
+        "FMA:51249",
+        "FMA:51250",
+        "FMA:51251",
+        "FMA:51884",
+        "FMA:51885",
+        "FMA:76767",
+        "UBERON:0001141",
+        "UBERON:0001142",
+        "UBERON:0001215",
+        "UBERON:0001218",
+        "UBERON:0001219",
+        "UBERON:0001316",
+        "UBERON:0001317",
+        "UBERON:0001639",
+        "UBERON:0003713",
+        "UBERON:0005438",
+        "UBERON:0006687",
+        "UBERON:0006958",
+        "UBERON:0009687",
+        "UBERON:0011191",
+        "UBERON:0018252",
+        "UBERON:0035374",
+        "UBERON:0035392"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 52,
+      "source_faces": 171436,
+      "faces": 24402,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.004471,
+      "bbox": [
+        [
+          -0.111797,
+          -0.04305,
+          -0.090444
+        ],
+        [
+          0.124392,
+          0.828788,
+          0.096814
+        ]
+      ],
+      "bbox_shift_m": 9.6e-05
+    },
+    {
+      "name": "VH_M_heart",
+      "group": "VH_M_heart",
+      "structure": null,
+      "class": "simulation",
+      "body_map_node": "plasma",
+      "labels": [
+        "Anterior papillary muscle of left ventricle",
+        "Anterolateral head of lateral papillary muscle of left ventricle",
+        "Posterior papillary muscle of right ventricle",
+        "Posteromedial head of posterior papillary muscle of left ventricle",
+        "Septal papillary muscle of right ventricle",
+        "aortic valve",
+        "heart left ventricle",
+        "heart right ventricle",
+        "interventricular septum",
+        "left cardiac atrium",
+        "mitral valve",
+        "pulmonary valve",
+        "right cardiac atrium",
+        "tricuspid valve"
+      ],
+      "ontology_ids": [
+        "FMA:7261",
+        "FMA:7262",
+        "FMA:7264",
+        "FMA:7265",
+        "FMA:7267",
+        "UBERON:0002078",
+        "UBERON:0002079",
+        "UBERON:0002080",
+        "UBERON:0002084",
+        "UBERON:0002094",
+        "UBERON:0002134",
+        "UBERON:0002135",
+        "UBERON:0002137",
+        "UBERON:0002146"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 14,
+      "source_faces": 164119,
+      "faces": 39718,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.002909,
+      "bbox": [
+        [
+          -0.043447,
+          0.423371,
+          -0.015027
+        ],
+        [
+          0.080903,
+          0.528873,
+          0.090189
+        ]
+      ],
+      "bbox_shift_m": 6.7e-05
+    },
+    {
+      "name": "VH_M_left_kidney:hilum of kidney",
+      "group": "VH_M_left_kidney",
+      "structure": "hilum of kidney",
+      "class": "simulation",
+      "body_map_node": "kidney",
+      "labels": [
+        "hilum of kidney"
+      ],
+      "ontology_ids": [
+        "UBERON:0008716"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 1,
+      "source_faces": 4421,
+      "faces": 1583,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.001979,
+      "bbox": [
+        [
+          0.052513,
+          0.281661,
+          -0.031525
+        ],
+        [
+          0.081097,
+          0.326711,
+          0.000124
+        ]
+      ],
+      "bbox_shift_m": 0.000542
+    },
+    {
+      "name": "VH_M_left_kidney:kidney capsule",
+      "group": "VH_M_left_kidney",
+      "structure": "kidney capsule",
+      "class": "simulation",
+      "body_map_node": "kidney",
+      "labels": [
+        "kidney capsule"
+      ],
+      "ontology_ids": [
+        "UBERON:0002015"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 1,
+      "source_faces": 11222,
+      "faces": 4011,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.005062,
+      "bbox": [
+        [
+          0.033726,
+          0.249828,
+          -0.06865
+        ],
+        [
+          0.109449,
+          0.356399,
+          0.013789
+        ]
+      ],
+      "bbox_shift_m": 2.3e-05
+    },
+    {
+      "name": "VH_M_left_kidney:renal cortex",
+      "group": "VH_M_left_kidney",
+      "structure": "renal cortex",
+      "class": "simulation",
+      "body_map_node": "kidney",
+      "labels": [
+        "outer cortex of kidney",
+        "renal column"
+      ],
+      "ontology_ids": [
+        "UBERON:0001284",
+        "UBERON:0002189"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 2,
+      "source_faces": 42997,
+      "faces": 15199,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.002798,
+      "bbox": [
+        [
+          0.034508,
+          0.250987,
+          -0.06736
+        ],
+        [
+          0.108684,
+          0.355471,
+          0.013451
+        ]
+      ],
+      "bbox_shift_m": 0.0
+    },
+    {
+      "name": "VH_M_left_kidney:renal papillae",
+      "group": "VH_M_left_kidney",
+      "structure": "renal papillae",
+      "class": "simulation",
+      "body_map_node": "kidney",
+      "labels": [
+        "renal papilla"
+      ],
+      "ontology_ids": [
+        "UBERON:0001228"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 9,
+      "source_faces": 1206,
+      "faces": 421,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.001575,
+      "bbox": [
+        [
+          0.061531,
+          0.278609,
+          -0.042636
+        ],
+        [
+          0.085222,
+          0.330638,
+          -0.00689
+        ]
+      ],
+      "bbox_shift_m": 0.000689
+    },
+    {
+      "name": "VH_M_left_kidney:renal pyramids",
+      "group": "VH_M_left_kidney",
+      "structure": "renal pyramids",
+      "class": "simulation",
+      "body_map_node": "kidney",
+      "labels": [
+        "renal pyramid"
+      ],
+      "ontology_ids": [
+        "UBERON:0004200"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 9,
+      "source_faces": 23846,
+      "faces": 8455,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.002197,
+      "bbox": [
+        [
+          0.040923,
+          0.258214,
+          -0.06151
+        ],
+        [
+          0.099469,
+          0.34808,
+          0.004895
+        ]
+      ],
+      "bbox_shift_m": 0.000265
+    },
+    {
+      "name": "VH_M_right_kidney:hilum of kidney",
+      "group": "VH_M_right_kidney",
+      "structure": "hilum of kidney",
+      "class": "simulation",
+      "body_map_node": "kidney",
+      "labels": [
+        "hilum of kidney"
+      ],
+      "ontology_ids": [
+        "UBERON:0008716"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 1,
+      "source_faces": 5897,
+      "faces": 2071,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.002046,
+      "bbox": [
+        [
+          -0.072351,
+          0.259231,
+          -0.01209
+        ],
+        [
+          -0.038882,
+          0.318767,
+          0.018668
+        ]
+      ],
+      "bbox_shift_m": 0.000121
+    },
+    {
+      "name": "VH_M_right_kidney:kidney capsule",
+      "group": "VH_M_right_kidney",
+      "structure": "kidney capsule",
+      "class": "simulation",
+      "body_map_node": "kidney",
+      "labels": [
+        "kidney capsule"
+      ],
+      "ontology_ids": [
+        "UBERON:0002015"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 1,
+      "source_faces": 9500,
+      "faces": 3351,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.005111,
+      "bbox": [
+        [
+          -0.096931,
+          0.229041,
+          -0.051374
+        ],
+        [
+          -0.031316,
+          0.341578,
+          0.02499
+        ]
+      ],
+      "bbox_shift_m": 0.000119
+    },
+    {
+      "name": "VH_M_right_kidney:renal cortex",
+      "group": "VH_M_right_kidney",
+      "structure": "renal cortex",
+      "class": "simulation",
+      "body_map_node": "kidney",
+      "labels": [
+        "outer cortex of kidney",
+        "renal column"
+      ],
+      "ontology_ids": [
+        "UBERON:0001284",
+        "UBERON:0002189"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 2,
+      "source_faces": 41497,
+      "faces": 14569,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.002748,
+      "bbox": [
+        [
+          -0.096807,
+          0.229137,
+          -0.051267
+        ],
+        [
+          -0.031502,
+          0.341481,
+          0.024811
+        ]
+      ],
+      "bbox_shift_m": 4.4e-05
+    },
+    {
+      "name": "VH_M_right_kidney:renal papillae",
+      "group": "VH_M_right_kidney",
+      "structure": "renal papillae",
+      "class": "simulation",
+      "body_map_node": "kidney",
+      "labels": [
+        "renal papilla"
+      ],
+      "ontology_ids": [
+        "UBERON:0001228"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 10,
+      "source_faces": 1798,
+      "faces": 604,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.001398,
+      "bbox": [
+        [
+          -0.070107,
+          0.25924,
+          -0.027946
+        ],
+        [
+          -0.055001,
+          0.314242,
+          0.012402
+        ]
+      ],
+      "bbox_shift_m": 0.000662
+    },
+    {
+      "name": "VH_M_right_kidney:renal pyramids",
+      "group": "VH_M_right_kidney",
+      "structure": "renal pyramids",
+      "class": "simulation",
+      "body_map_node": "kidney",
+      "labels": [
+        "renal pyramid"
+      ],
+      "ontology_ids": [
+        "UBERON:0004200"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 10,
+      "source_faces": 25396,
+      "faces": 8873,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.001935,
+      "bbox": [
+        [
+          -0.087347,
+          0.236626,
+          -0.042846
+        ],
+        [
+          -0.040226,
+          0.334494,
+          0.018355
+        ]
+      ],
+      "bbox_shift_m": 8.8e-05
+    },
+    {
+      "name": "VH_M_renal_pelvis_ureter:left ureter",
+      "group": "VH_M_renal_pelvis_ureter",
+      "structure": "left ureter",
+      "class": "simulation",
+      "body_map_node": "urine",
+      "labels": [
+        "left ureter"
+      ],
+      "ontology_ids": [
+        "UBERON:0001223"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 1,
+      "source_faces": 12860,
+      "faces": 3249,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.00305,
+      "bbox": [
+        [
+          0.019761,
+          0.037486,
+          -0.023487
+        ],
+        [
+          0.058637,
+          0.293558,
+          0.026906
+        ]
+      ],
+      "bbox_shift_m": 0.001509
+    },
+    {
+      "name": "VH_M_renal_pelvis_ureter:renal pelvis and calyces",
+      "group": "VH_M_renal_pelvis_ureter",
+      "structure": "renal pelvis and calyces",
+      "class": "simulation",
+      "body_map_node": "urine",
+      "labels": [
+        "major calyx",
+        "minor calyx",
+        "renal pelvis"
+      ],
+      "ontology_ids": [
+        "UBERON:0001224",
+        "UBERON:0001226",
+        "UBERON:0001227"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 25,
+      "source_faces": 35706,
+      "faces": 9062,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.001661,
+      "bbox": [
+        [
+          -0.070527,
+          0.259333,
+          -0.042893
+        ],
+        [
+          0.083667,
+          0.331198,
+          0.018001
+        ]
+      ],
+      "bbox_shift_m": 0.000166
+    },
+    {
+      "name": "VH_M_renal_pelvis_ureter:right ureter",
+      "group": "VH_M_renal_pelvis_ureter",
+      "structure": "right ureter",
+      "class": "simulation",
+      "body_map_node": "urine",
+      "labels": [
+        "right ureter"
+      ],
+      "ontology_ids": [
+        "UBERON:0001222"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 1,
+      "source_faces": 10462,
+      "faces": 2645,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.003221,
+      "bbox": [
+        [
+          -0.048386,
+          0.045282,
+          -0.020306
+        ],
+        [
+          -0.011698,
+          0.268015,
+          0.031462
+        ]
+      ],
+      "bbox_shift_m": 0.00049
+    },
+    {
+      "name": "VH_M_urinary_bladder",
+      "group": "VH_M_urinary_bladder",
+      "structure": null,
+      "class": "simulation",
+      "body_map_node": "urine",
+      "labels": [
+        "Left ureteral orifice",
+        "Right ureteral orifice",
+        "fundus of urinary bladder",
+        "trigone of urinary bladder",
+        "urinary bladder neck smooth muscle"
+      ],
+      "ontology_ids": [
+        "FMA:15939",
+        "FMA:15940",
+        "UBERON:0001257",
+        "UBERON:0004230",
+        "UBERON:0006082"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 6,
+      "source_faces": 10073,
+      "faces": 10071,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.0,
+      "bbox": [
+        [
+          -0.036883,
+          0.010439,
+          -0.017449
+        ],
+        [
+          0.026926,
+          0.050304,
+          0.054864
+        ]
+      ],
+      "bbox_shift_m": 0.0
+    },
+    {
+      "name": "VH_M_urethra",
+      "group": "VH_M_urethra",
+      "structure": null,
+      "class": "simulation",
+      "body_map_node": "urine",
+      "labels": [
+        "prostatic urethra"
+      ],
+      "ontology_ids": [
+        "-",
+        "UBERON:0001335"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 2,
+      "source_faces": 4964,
+      "faces": 4964,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.0,
+      "bbox": [
+        [
+          -0.005723,
+          -0.109066,
+          -0.015273
+        ],
+        [
+          0.012047,
+          0.017676,
+          0.111697
+        ]
+      ],
+      "bbox_shift_m": 0.0
+    },
+    {
+      "name": "VH_M_skin",
+      "group": "VH_M_skin",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "skin of body"
+      ],
+      "ontology_ids": [
+        "UBERON:0002097"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 1,
+      "source_faces": 829184,
+      "faces": 29561,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.015342,
+      "bbox": [
+        [
+          -0.520882,
+          -0.912992,
+          -0.166988
+        ],
+        [
+          0.522406,
+          0.911209,
+          0.158405
+        ]
+      ],
+      "bbox_shift_m": 0.000223
+    },
+    {
+      "name": "Allen_brain",
+      "group": "Allen_brain",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "anterior cingulate gyrus",
+        "anterior commissure",
+        "anterior olfactory nucleus",
+        "anterior parahippocampal gyrus",
+        "anterior segment of paracentral lobule",
+        "cerebellar vermis",
+        "cerebral peduncle",
+        "corpus callosum",
+        "cuneus cortex",
+        "fornix of brain",
+        "fourth ventricle",
+        "frontal operculum",
+        "gyrus rectus",
+        "hypothalamus",
+        "inferior colliculus",
+        "inferior occipital gyrus",
+        "inferior temporal gyrus",
+        "intermediate orbital gyrus",
+        "isthmus of cingulate gyrus",
+        "lateral orbital gyrus",
+        "left putamen",
+        "lingual gyrus",
+        "medial orbital gyrus",
+        "middle frontal gyrus",
+        "middle temporal gyrus",
+        "occipital fusiform gyrus",
+        "occipital pole",
+        "olfactory bulb",
+        "opercular part of inferior frontal gyrus",
+        "optic chiasma",
+        "optic radiation",
+        "optic tract",
+        "parietal operculum",
+        "pineal body",
+        "piriform cortex",
+        "planum polare",
+        "planum temporale",
+        "pontine nuclear group",
+        "pontine tegmentum",
+        "postcentral gyrus",
+        "posterior cingulate gyrus",
+        "posterior parahippocampal gyrus",
+        "precuneus cortex",
+        "primary motor cortex",
+        "red nucleus",
+        "right putamen",
+        "subcallosal area",
+        "substantia nigra",
+        "superior colliculus",
+        "superior frontal gyrus",
+        "superior occipital gyrus",
+        "superior temporal gyrus",
+        "temporal pole",
+        "triangular part of inferior frontal gyrus"
+      ],
+      "ontology_ids": [
+        "-",
+        "UBERON:0000052",
+        "UBERON:0000935",
+        "UBERON:0000959",
+        "UBERON:0001898",
+        "UBERON:0001905",
+        "UBERON:0001908",
+        "UBERON:0001945",
+        "UBERON:0001946",
+        "UBERON:0001947",
+        "UBERON:0002038",
+        "UBERON:0002151",
+        "UBERON:0002264",
+        "UBERON:0002266",
+        "UBERON:0002336",
+        "UBERON:0002422",
+        "UBERON:0002564",
+        "UBERON:0002570",
+        "UBERON:0002576",
+        "UBERON:0002581",
+        "UBERON:0002623",
+        "UBERON:0002629",
+        "UBERON:0002644",
+        "UBERON:0002657",
+        "UBERON:0002661",
+        "UBERON:0002702",
+        "UBERON:0002703",
+        "UBERON:0002738",
+        "UBERON:0002740",
+        "UBERON:0002751",
+        "UBERON:0002756",
+        "UBERON:0002769",
+        "UBERON:0002771",
+        "UBERON:0002902",
+        "UBERON:0002911",
+        "UBERON:0002943",
+        "UBERON:0002947",
+        "UBERON:0002948",
+        "UBERON:0002980",
+        "UBERON:0003020",
+        "UBERON:0003023",
+        "UBERON:0004671",
+        "UBERON:0004720",
+        "UBERON:0004725",
+        "UBERON:0006092",
+        "UBERON:0006093",
+        "UBERON:0008884",
+        "UBERON:0008885",
+        "UBERON:0014608",
+        "UBERON:0022264",
+        "UBERON:0022268",
+        "UBERON:0022364",
+        "UBERON:0022383",
+        "UBERON:0023861",
+        "UBERON:0035932"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 283,
+      "source_faces": 656268,
+      "faces": 14751,
+      "method": "outer shell, voxel 3 mm, then clustering",
+      "cell_m": 0.003913,
+      "bbox": [
+        [
+          -0.071627,
+          0.753081,
+          -0.088089
+        ],
+        [
+          0.073043,
+          0.90694,
+          0.086831
+        ]
+      ],
+      "bbox_shift_m": 0.004944
+    },
+    {
+      "name": "VH_M_spinal_cord",
+      "group": "VH_M_spinal_cord",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "C1 segment of cervical spinal cord",
+        "C2 segment of cervical spinal cord",
+        "C3 segment of cervical spinal cord",
+        "C4 segment of cervical spinal cord",
+        "C5 segment of cervical spinal cord",
+        "C6 segment of cervical spinal cord",
+        "C7 segment of cervical spinal cord",
+        "C8 segment of cervical spinal cord",
+        "eighth thoracic spinal cord segment",
+        "eleventh thoracic spinal cord segment",
+        "fifth lumbar spinal cord segment",
+        "fifth sacral spinal cord segment",
+        "fifth thoracic spinal cord segment",
+        "first lumbar spinal cord segment",
+        "first sacral spinal cord segment",
+        "first thoracic spinal cord segment",
+        "fourth lumbar spinal cord segment",
+        "fourth sacral spinal cord segment",
+        "fourth thoracic spinal cord segment",
+        "ninth thoracic spinal cord segment",
+        "second lumbar spinal cord segment",
+        "second sacral spinal cord segment",
+        "second thoracic spinal cord segment",
+        "seventh thoracic spinal cord segment",
+        "sixth thoracic spinal cord segment",
+        "tenth thoracic spinal cord segment",
+        "third lumbar spinal cord segment",
+        "third sacral spinal cord segment",
+        "third thoracic spinal cord segment",
+        "twelfth thoracic spinal cord segment"
+      ],
+      "ontology_ids": [
+        "UBERON:0006447",
+        "UBERON:0006448",
+        "UBERON:0006449",
+        "UBERON:0006450",
+        "UBERON:0006451",
+        "UBERON:0006452",
+        "UBERON:0006453",
+        "UBERON:0006454",
+        "UBERON:0006455",
+        "UBERON:0006456",
+        "UBERON:0006457",
+        "UBERON:0006458",
+        "UBERON:0006459",
+        "UBERON:0006460",
+        "UBERON:0006461",
+        "UBERON:0006462",
+        "UBERON:0006463",
+        "UBERON:0006464",
+        "UBERON:0006465",
+        "UBERON:0006466",
+        "UBERON:0006467",
+        "UBERON:0006468",
+        "UBERON:0006469",
+        "UBERON:0006470",
+        "UBERON:0006488",
+        "UBERON:0006489",
+        "UBERON:0006490",
+        "UBERON:0006491",
+        "UBERON:0006492",
+        "UBERON:0006493"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 30,
+      "source_faces": 16358,
+      "faces": 2961,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.003783,
+      "bbox": [
+        [
+          -0.013562,
+          0.284495,
+          -0.081464
+        ],
+        [
+          0.007288,
+          0.749662,
+          -0.001877
+        ]
+      ],
+      "bbox_shift_m": 0.00014
+    },
+    {
+      "name": "VH_M_lungs",
+      "group": "VH_M_lungs",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "Inferior lingular bronchopulmonary segment",
+        "Left Anterior Bronchopulmonary Segment",
+        "Left Medial Basal Bronchopulmonary Segment",
+        "Left apical bronchopulmonary segment",
+        "Left posterior basal segmental bronchus",
+        "Left posterior bronchopulmonary segment",
+        "Left superior bronchopulmonary segment",
+        "Right Anterior Bronchopulmonary Segment",
+        "Right Apical Bronchopulmonary Segment",
+        "Right Lateral Basal Bronchopulmonary Segment",
+        "Right Lateral Bronchopulmonary Segment",
+        "Right Medial Basal Bronchopulmonary Segment",
+        "Right Medial Bronchopulmonary Segment",
+        "Right Posterior Basal Bronchopulmonary Segment",
+        "Right Posterior Bronchopulmonary Segment",
+        "Right Superior Bronchopulmonary Segment",
+        "Right anterior basal bronchopulmonary segment",
+        "Superior lingular bronchopulmonary segment",
+        "left Lateral Basal Bronchopulmonary Segment",
+        "left anterior basal bronchopulmonary segment",
+        "left lung hilus",
+        "right lung hilus"
+      ],
+      "ontology_ids": [
+        "FMA:7338",
+        "FMA:7339",
+        "FMA:7359",
+        "FMA:7360",
+        "FMA:7361",
+        "FMA:7362",
+        "FMA:7363",
+        "FMA:7364",
+        "FMA:7365",
+        "FMA:7366",
+        "FMA:7373",
+        "FMA:7374",
+        "FMA:7375",
+        "FMA:7376",
+        "FMA:7377",
+        "FMA:7378",
+        "FMA:7379",
+        "FMA:7385",
+        "FMA:7386",
+        "FMA:7508",
+        "UBERON:0004887",
+        "UBERON:0004888"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 27,
+      "source_faces": 19449,
+      "faces": 11962,
+      "method": "outer shell, voxel 4 mm, then clustering",
+      "cell_m": 0.008152,
+      "bbox": [
+        [
+          -0.129389,
+          0.38099,
+          -0.096769
+        ],
+        [
+          0.139529,
+          0.622222,
+          0.104853
+        ]
+      ],
+      "bbox_shift_m": 0.007473
+    },
+    {
+      "name": "VH_M_tracheobronchial_tree",
+      "group": "VH_M_tracheobronchial_tree",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "Cartilage of left main bronchus",
+        "Cartilage of lobar bronchus",
+        "Cartilage of right main bronchus",
+        "Cartilage of segmental bronchus",
+        "Inferior lingular bronchus",
+        "Interlobar bronchus",
+        "Lateral segmental bronchus",
+        "Left Main Bronchus",
+        "Left anterior basal segmental bronchus",
+        "Left anterior segmental bronchus",
+        "Left apical segmental bronchus",
+        "Left lateral basal segmental bronchus",
+        "Left medial basal segmental bronchus",
+        "Left posterior basal segmental bronchus",
+        "Left superior segmental bronchus",
+        "Medial segmental bronchus",
+        "Middle lobar bronchus",
+        "Right Main Bronchus",
+        "Right anterior segmental bronchus",
+        "Right inferior lobar bronchus",
+        "Right lateral basal segmental bronchus",
+        "Right medial basal segmental bronchus",
+        "Right posterior basal segmental bronchus",
+        "Right posterior segmental bronchus",
+        "Right superior lobar bronchus",
+        "Right superior segmental bronchus",
+        "Superior lingular bronchus",
+        "bronchus",
+        "carina of trachea",
+        "lobar bronchus of left lung lower lobe",
+        "lobar bronchus of left lung upper lobe",
+        "trachea",
+        "trachea cartilage"
+      ],
+      "ontology_ids": [
+        "-",
+        "FMA:13143",
+        "FMA:13144",
+        "FMA:62659",
+        "FMA:62662",
+        "FMA:7397",
+        "FMA:7399",
+        "FMA:7400",
+        "FMA:7401",
+        "FMA:7402",
+        "FMA:7403",
+        "FMA:7404",
+        "FMA:7415",
+        "FMA:7416",
+        "FMA:7417",
+        "FMA:7419",
+        "FMA:7420",
+        "FMA:7426",
+        "FMA:7428",
+        "FMA:7430",
+        "FMA:7431",
+        "FMA:7504",
+        "FMA:7505",
+        "FMA:7506",
+        "FMA:7507",
+        "FMA:7508",
+        "UBERON:0002177",
+        "UBERON:0002178",
+        "UBERON:0002185",
+        "UBERON:0003126",
+        "UBERON:0003604",
+        "UBERON:0006679",
+        "UBERON:0012065",
+        "UBERON:0012066"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 38,
+      "source_faces": 255381,
+      "faces": 9970,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.017852,
+      "bbox": [
+        [
+          -0.106481,
+          0.421041,
+          -0.072979
+        ],
+        [
+          0.119066,
+          0.660297,
+          0.058373
+        ]
+      ],
+      "bbox_shift_m": 0.005766
+    },
+    {
+      "name": "VH_M_larynx",
+      "group": "VH_M_larynx",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "Left arytenoid cartilage",
+        "Left corniculate cartilage",
+        "Right arytenoid cartilage",
+        "Right corniculate cartilage",
+        "cricoid cartilage",
+        "epiglottic cartilage",
+        "thyroid cartilage"
+      ],
+      "ontology_ids": [
+        "FMA:55113",
+        "FMA:55114",
+        "FMA:55115",
+        "FMA:55116",
+        "UBERON:0001738",
+        "UBERON:0001742",
+        "UBERON:0002375"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 7,
+      "source_faces": 13238,
+      "faces": 2950,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.003691,
+      "bbox": [
+        [
+          -0.028433,
+          0.627674,
+          0.021708
+        ],
+        [
+          0.025329,
+          0.700176,
+          0.060272
+        ]
+      ],
+      "bbox_shift_m": 0.000109
+    },
+    {
+      "name": "VH_M_liver",
+      "group": "VH_M_liver",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "Suprarenal impression of liver",
+        "bare area of liver",
+        "capsule of the liver",
+        "caudate lobe of liver",
+        "colic impression of liver",
+        "coronary ligament of liver",
+        "diaphragmatic surface of liver",
+        "duodenal impression of liver",
+        "esophageal impression of liver",
+        "falciform ligament",
+        "gastric impression of liver",
+        "hepatoduodenal ligament",
+        "ligamentum venosum",
+        "porta hepatis",
+        "quadrate lobe of liver",
+        "renal impression of liver",
+        "round ligament of liver",
+        "triangular ligament of liver"
+      ],
+      "ontology_ids": [
+        "-",
+        "FMA:14484",
+        "FMA:14485",
+        "FMA:14486",
+        "FMA:14487",
+        "FMA:14488",
+        "FMA:14489",
+        "FMA:15729",
+        "FMA:15758",
+        "UBERON:0001116",
+        "UBERON:0001117",
+        "UBERON:0001149",
+        "UBERON:0001247",
+        "UBERON:0006587",
+        "UBERON:0006588",
+        "UBERON:0012472",
+        "UBERON:0013138",
+        "UBERON:0016479",
+        "UBERON:0035444"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 26,
+      "source_faces": 60369,
+      "faces": 9856,
+      "method": "outer shell, voxel 3 mm, then clustering",
+      "cell_m": 0.006097,
+      "bbox": [
+        [
+          -0.136511,
+          0.276591,
+          -0.092566
+        ],
+        [
+          0.062274,
+          0.460308,
+          0.117679
+        ]
+      ],
+      "bbox_shift_m": 0.00578
+    },
+    {
+      "name": "VH_M_gallbladder_",
+      "group": "VH_M_gallbladder_",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "gallbladder"
+      ],
+      "ontology_ids": [
+        "UBERON:0002110"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 1,
+      "source_faces": 1990,
+      "faces": 1488,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.003021,
+      "bbox": [
+        [
+          -0.097096,
+          0.330983,
+          0.021415
+        ],
+        [
+          -0.054662,
+          0.372705,
+          0.094202
+        ]
+      ],
+      "bbox_shift_m": 3.1e-05
+    },
+    {
+      "name": "VH_M_biliary_tree",
+      "group": "VH_M_biliary_tree",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "Ventral pancreatic duct",
+        "common bile duct",
+        "common hepatic duct",
+        "cystic duct",
+        "dorsal pancreatic duct",
+        "hepatopancreatic ampulla",
+        "left hepatic duct",
+        "right hepatic duct"
+      ],
+      "ontology_ids": [
+        "UBERON:0001064",
+        "UBERON:0001152",
+        "UBERON:0001174",
+        "UBERON:0001175",
+        "UBERON:0001176",
+        "UBERON:0001177",
+        "UBERON:0004913",
+        "UBERON:0005429"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 8,
+      "source_faces": 30922,
+      "faces": 2977,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.003909,
+      "bbox": [
+        [
+          -0.061781,
+          0.307132,
+          -0.021321
+        ],
+        [
+          0.07178,
+          0.389632,
+          0.043886
+        ]
+      ],
+      "bbox_shift_m": 0.000831
+    },
+    {
+      "name": "VH_M_pancreas",
+      "group": "VH_M_pancreas",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "Neck of pancreas",
+        "body of pancreas",
+        "head of pancreas",
+        "tail of pancreas",
+        "uncinate process of pancreas"
+      ],
+      "ontology_ids": [
+        "FMA:14517",
+        "UBERON:0001069",
+        "UBERON:0001150",
+        "UBERON:0001151",
+        "UBERON:0010373"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 5,
+      "source_faces": 38930,
+      "faces": 3932,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.003612,
+      "bbox": [
+        [
+          -0.034093,
+          0.303611,
+          -0.032517
+        ],
+        [
+          0.077439,
+          0.375687,
+          0.051185
+        ]
+      ],
+      "bbox_shift_m": 9.8e-05
+    },
+    {
+      "name": "VH_M_colon",
+      "group": "VH_M_colon",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "ascending colon",
+        "caecum",
+        "descending colon",
+        "hepatic flexure of colon",
+        "ileocecal valve",
+        "rectum",
+        "sigmoid colon",
+        "splenic flexure of colon",
+        "transverse colon",
+        "vermiform appendix"
+      ],
+      "ontology_ids": [
+        "UBERON:0000569",
+        "UBERON:0001052",
+        "UBERON:0001153",
+        "UBERON:0001154",
+        "UBERON:0001156",
+        "UBERON:0001157",
+        "UBERON:0001158",
+        "UBERON:0001159",
+        "UBERON:0022276",
+        "UBERON:0022277"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 10,
+      "source_faces": 34178,
+      "faces": 9960,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.011789,
+      "bbox": [
+        [
+          -0.116077,
+          -0.038777,
+          -0.08581
+        ],
+        [
+          0.143266,
+          0.411596,
+          0.138979
+        ]
+      ],
+      "bbox_shift_m": 0.000217
+    },
+    {
+      "name": "VH_M_spleen",
+      "group": "VH_M_spleen",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "colic surface of spleen",
+        "diaphragmatic surface of spleen",
+        "gastric surface of spleen",
+        "hilum of spleen",
+        "renal surface of spleen"
+      ],
+      "ontology_ids": [
+        "FMA:15828",
+        "FMA:15837",
+        "FMA:15838",
+        "FMA:15839",
+        "UBERON:0001248"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 5,
+      "source_faces": 16872,
+      "faces": 2954,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.0057,
+      "bbox": [
+        [
+          0.025998,
+          0.310745,
+          -0.080839
+        ],
+        [
+          0.136271,
+          0.429882,
+          0.007693
+        ]
+      ],
+      "bbox_shift_m": 0.000499
+    },
+    {
+      "name": "VH_M_thymus",
+      "group": "VH_M_thymus",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "left thymus lobe",
+        "right thymus lobe"
+      ],
+      "ontology_ids": [
+        "UBERON:0005457",
+        "UBERON:0005469"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 2,
+      "source_faces": 2730,
+      "faces": 1488,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.002937,
+      "bbox": [
+        [
+          -0.026592,
+          0.500142,
+          0.025749
+        ],
+        [
+          0.010474,
+          0.57555,
+          0.060692
+        ]
+      ],
+      "bbox_shift_m": 0.00028
+    },
+    {
+      "name": "VH_M_vertebral_column",
+      "group": "VH_M_vertebral_column",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "intervertebral disk of axis",
+        "intervertebral disk of eighth thoracic vertebra",
+        "intervertebral disk of eleventh thoracic vertebra",
+        "intervertebral disk of fifth cervical vertebra",
+        "intervertebral disk of fifth thoracic vertebra",
+        "intervertebral disk of first lumbar vertebra",
+        "intervertebral disk of first thoracic vertebra",
+        "intervertebral disk of fourth cervical vertebra",
+        "intervertebral disk of fourth lumbar vertebra",
+        "intervertebral disk of fourth thoracic vertebra",
+        "intervertebral disk of ninth thoracic vertebra",
+        "intervertebral disk of second lumbar vertebra",
+        "intervertebral disk of second thoracic vertebra",
+        "intervertebral disk of seventh cervical vertebra",
+        "intervertebral disk of seventh thoracic vertebra",
+        "intervertebral disk of sixth cervical vertebra",
+        "intervertebral disk of sixth thoracic vertebra",
+        "intervertebral disk of tenth thoracic vertebra",
+        "intervertebral disk of third cervical vertebra",
+        "intervertebral disk of third lumbar vertebra",
+        "intervertebral disk of third thoracic vertebra",
+        "intervertebral disk of twelfth thoracic vertebra",
+        "lumbar vertebra 1",
+        "lumbar vertebra 2",
+        "lumbar vertebra 3",
+        "lumbar vertebra 4",
+        "lumbar vertebra 5",
+        "mammalian cervical vertebra 3",
+        "mammalian cervical vertebra 4",
+        "mammalian cervical vertebra 5",
+        "mammalian cervical vertebra 6",
+        "mammalian cervical vertebra 7",
+        "nucleus pulposus of intervertebral disk of eighth thoracic vertebra",
+        "nucleus pulposus of intervertebral disk of eleventh thoracic vertebra",
+        "nucleus pulposus of intervertebral disk of fifth cervical vertebra",
+        "nucleus pulposus of intervertebral disk of fifth thoracic vertebra",
+        "nucleus pulposus of intervertebral disk of first lumbar vertebra",
+        "nucleus pulposus of intervertebral disk of first thoracic vertebra",
+        "nucleus pulposus of intervertebral disk of fourth cervical vertebra",
+        "nucleus pulposus of intervertebral disk of fourth lumbar vertebra",
+        "nucleus pulposus of intervertebral disk of fourth thoracic vertebra",
+        "nucleus pulposus of intervertebral disk of ninth thoracic vertebra",
+        "nucleus pulposus of intervertebral disk of second lumbar vertebra",
+        "nucleus pulposus of intervertebral disk of second thoracic vertebra",
+        "nucleus pulposus of intervertebral disk of seventh cervical vertebra",
+        "nucleus pulposus of intervertebral disk of seventh thoracic vertebra",
+        "nucleus pulposus of intervertebral disk of sixth cervical vertebra",
+        "nucleus pulposus of intervertebral disk of sixth thoracic vertebra",
+        "nucleus pulposus of intervertebral disk of tenth thoracic vertebra",
+        "nucleus pulposus of intervertebral disk of third cervical vertebra",
+        "nucleus pulposus of intervertebral disk of third lumbar vertebra",
+        "nucleus pulposus of intervertebral disk of third thoracic vertebra",
+        "nucleus pulposus of intervertebral disk of twelfth thoracic vertebra",
+        "thoracic vertebra 1",
+        "thoracic vertebra 10",
+        "thoracic vertebra 11",
+        "thoracic vertebra 12",
+        "thoracic vertebra 2",
+        "thoracic vertebra 3",
+        "thoracic vertebra 4",
+        "thoracic vertebra 5",
+        "thoracic vertebra 6",
+        "thoracic vertebra 7",
+        "thoracic vertebra 8",
+        "thoracic vertebra 9",
+        "vertebral bone 1",
+        "vertebral bone 2"
+      ],
+      "ontology_ids": [
+        "FMA:10458",
+        "FMA:10459",
+        "FMA:13495",
+        "FMA:13497",
+        "FMA:13500",
+        "FMA:13501",
+        "FMA:13502",
+        "FMA:13503",
+        "FMA:13504",
+        "FMA:13505",
+        "FMA:13506",
+        "FMA:13507",
+        "FMA:13508",
+        "FMA:13509",
+        "FMA:13510",
+        "FMA:13511",
+        "FMA:13512",
+        "FMA:13513",
+        "FMA:13514",
+        "FMA:13515",
+        "FMA:13516",
+        "FMA:13517",
+        "FMA:13518",
+        "FMA:13519",
+        "FMA:16033",
+        "FMA:16034",
+        "FMA:16035",
+        "FMA:16036",
+        "FMA:16063",
+        "FMA:16064",
+        "FMA:16065",
+        "FMA:16066",
+        "FMA:24927",
+        "FMA:24928",
+        "FMA:24929",
+        "FMA:24930",
+        "FMA:24931",
+        "UBERON:0001092",
+        "UBERON:0001093",
+        "UBERON:0004612",
+        "UBERON:0004613",
+        "UBERON:0004614",
+        "UBERON:0004615",
+        "UBERON:0004616",
+        "UBERON:0004617",
+        "UBERON:0004618",
+        "UBERON:0004619",
+        "UBERON:0004620",
+        "UBERON:0004621",
+        "UBERON:0004626",
+        "UBERON:0004627",
+        "UBERON:0004628",
+        "UBERON:0004629",
+        "UBERON:0004630",
+        "UBERON:0004631",
+        "UBERON:0004632",
+        "UBERON:0004633",
+        "UBERON:0004634",
+        "UBERON:0004635",
+        "UBERON:0004636",
+        "UBERON:0007260",
+        "UBERON:0007261",
+        "UBERON:0007262",
+        "UBERON:0007263",
+        "UBERON:0007264",
+        "UBERON:0007265",
+        "UBERON:0011050"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 67,
+      "source_faces": 591588,
+      "faces": 24837,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.008106,
+      "bbox": [
+        [
+          -0.049514,
+          0.147105,
+          -0.116156
+        ],
+        [
+          0.060179,
+          0.76318,
+          0.018519
+        ]
+      ],
+      "bbox_shift_m": 0.001319
+    },
+    {
+      "name": "VH_M_pelvis",
+      "group": "VH_M_pelvis",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "coccyx",
+        "compact bone tissue",
+        "fused sacrum",
+        "trabecular bone tissue"
+      ],
+      "ontology_ids": [
+        "UBERON:0001350",
+        "UBERON:0001439",
+        "UBERON:0002483",
+        "UBERON:0003690"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 14,
+      "source_faces": 73862,
+      "faces": 11928,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.010056,
+      "bbox": [
+        [
+          -0.136418,
+          -0.034684,
+          -0.11646
+        ],
+        [
+          0.147384,
+          0.183837,
+          0.0541
+        ]
+      ],
+      "bbox_shift_m": 0.002286
+    },
+    {
+      "name": "VH_M_lower_limb",
+      "group": "VH_M_lower_limb",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "Articular cartilage of distal epiphysis of left femur",
+        "Articular cartilage of distal epiphysis of right femur",
+        "Articular disk of knee joint",
+        "Intercondylar fossa of left femur",
+        "Intercondylar fossa of right femur",
+        "Lateral condyle of left femur",
+        "Lateral condyle of right femur",
+        "Left anterior cruciate ligament",
+        "Left femur",
+        "Left fibula",
+        "Left fibular collateral ligament",
+        "Left patella",
+        "Left patellar ligament",
+        "Left posterior cruciate ligament",
+        "Left tibia",
+        "Left tibial collateral ligament",
+        "Medial condyle of left femur",
+        "Medial condyle of right femur",
+        "Patellar surface of left femur",
+        "Patellar surface of right femur",
+        "Right anterior cruciate ligament",
+        "Right femur",
+        "Right fibula",
+        "Right fibular collateral ligament",
+        "Right patella",
+        "Right patellar ligament",
+        "Right posterior cruciate ligament",
+        "Right tibia",
+        "Right tibial collateral ligament",
+        "anterolateral ligament of knee",
+        "distal-most point of medial condyle of femur"
+      ],
+      "ontology_ids": [
+        "-",
+        "FMA:24474",
+        "FMA:24475",
+        "FMA:24477",
+        "FMA:24478",
+        "FMA:24480",
+        "FMA:24481",
+        "FMA:24486",
+        "FMA:24487",
+        "FMA:32860",
+        "FMA:32861",
+        "FMA:32862",
+        "FMA:32863",
+        "FMA:33189",
+        "FMA:33190",
+        "FMA:43746",
+        "FMA:43747",
+        "FMA:43749",
+        "FMA:43750",
+        "FMA:44585",
+        "FMA:44586",
+        "FMA:44601",
+        "FMA:44602",
+        "FMA:44609",
+        "FMA:44610",
+        "FMA:44615",
+        "FMA:44616",
+        "FMA:44618",
+        "FMA:44619",
+        "FMA:64019",
+        "UBERON:0014899",
+        "UBERON:7500033"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 52,
+      "source_faces": 55732,
+      "faces": 14956,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.008269,
+      "bbox": [
+        [
+          -0.238068,
+          -0.833467,
+          -0.113642
+        ],
+        [
+          0.243268,
+          0.055128,
+          0.054762
+        ]
+      ],
+      "bbox_shift_m": 0.000153
+    },
+    {
+      "name": "VH_M_prostate_gland",
+      "group": "VH_M_prostate_gland",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "Anterior fibromuscular stroma of prostate",
+        "Verumontanum",
+        "apex of prostate",
+        "base of prostate",
+        "central zone of prostate",
+        "peripheral zone of prostate",
+        "prostate duct",
+        "prostatic utricle",
+        "transition zone of prostate"
+      ],
+      "ontology_ids": [
+        "-",
+        "FMA:19719",
+        "FMA:74238",
+        "UBERON:0002485",
+        "UBERON:0011199",
+        "UBERON:0035331",
+        "UBERON:0035441",
+        "UBERON:8410025",
+        "UBERON:8410026",
+        "UBERON:8410027"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 14,
+      "source_faces": 140231,
+      "faces": 2900,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.004476,
+      "bbox": [
+        [
+          -0.014382,
+          -0.008116,
+          -0.030332
+        ],
+        [
+          0.015273,
+          0.027546,
+          0.000344
+        ]
+      ],
+      "bbox_shift_m": 0.000164
+    },
+    {
+      "name": "VH_M_male_genital_duct",
+      "group": "VH_M_male_genital_duct",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "Left deferent duct",
+        "Right deferent duct",
+        "ejaculatory duct",
+        "seminal vesicle"
+      ],
+      "ontology_ids": [
+        "FMA:19235",
+        "FMA:19236",
+        "UBERON:0000998",
+        "UBERON:0000999"
+      ],
+      "source": "hra_united_male",
+      "placement": "reference_body",
+      "source_meshes": 4,
+      "source_faces": 84445,
+      "faces": 2937,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.002486,
+      "bbox": [
+        [
+          -0.037444,
+          0.001071,
+          -0.042604
+        ],
+        [
+          0.04558,
+          0.062333,
+          -0.002315
+        ]
+      ],
+      "bbox_shift_m": 0.000181
+    },
+    {
+      "name": "stomach",
+      "group": "stomach",
+      "structure": null,
+      "class": "context",
+      "body_map_node": null,
+      "labels": [
+        "stomach"
+      ],
+      "ontology_ids": [
+        "UBERON:0000945"
+      ],
+      "source": "innerscene_stomach",
+      "placement": "approximate_by_hand",
+      "source_meshes": 1,
+      "source_faces": 6346,
+      "faces": 3926,
+      "method": "quadric clustering, sides kept apart",
+      "cell_m": 0.004518,
+      "bbox": [
+        [
+          -0.008424,
+          0.27,
+          -0.053864
+        ],
+        [
+          0.128448,
+          0.444476,
+          0.093842
+        ]
+      ],
+      "bbox_shift_m": null
+    }
+  ],
+  "excluded": [
+    {
+      "name": "VH_M_eyes",
+      "reason": "Too small to read at whole-body scale; 0.7 million triangles."
+    },
+    {
+      "name": "VH_M_hyoid",
+      "reason": "Too small to read at whole-body scale."
+    },
+    {
+      "name": "VH_M_mouth",
+      "reason": "Mouth and teeth: 1.9 million triangles, little value at whole-body scale."
+    },
+    {
+      "name": "VH_M_muscles_of_eye",
+      "reason": "Too small to read at whole-body scale."
+    },
+    {
+      "name": "VH_M_muscles_of_knee",
+      "reason": "Isolated muscles; misleading without the rest of the musculature."
+    },
+    {
+      "name": "VH_M_muscles_of_larynx",
+      "reason": "Too small to read at whole-body scale."
+    },
+    {
+      "name": "VH_M_nerves_of_eye",
+      "reason": "Too small to read at whole-body scale."
+    },
+    {
+      "name": "VH_M_palatine_tonsil",
+      "reason": "Too small to read at whole-body scale."
+    },
+    {
+      "name": "VH_M_subcutaneous_abdominal_adipose_tissue",
+      "reason": "Fat layer; would hide the organs behind it."
+    },
+    {
+      "name": "VH_M_visceral_adipose",
+      "reason": "Fat around the abdominal organs; would hide the elimination route."
+    },
+    {
+      "name": "Yao_lymph_node",
+      "reason": "A single lymph node; misleading without the rest of the lymphatic system."
+    }
+  ],
+  "checks": {
+    "all_parts_inside_skin_bounding_box_1cm": true,
+    "left_kidney_on_body_left_plus_x": true,
+    "right_kidney_on_body_right_minus_x": true,
+    "kidneys_match_separate_hra_files": {
+      "VH_M_left_kidney": {
+        "reference_file": "VH_M_Kidney_L.glb",
+        "max_difference_m": 2.3e-05,
+        "within_tolerance": true
+      },
+      "VH_M_right_kidney": {
+        "reference_file": "vh_m_kidney_r-nih3d.glb",
+        "max_difference_m": 0.000119,
+        "within_tolerance": true
+      }
+    },
+    "kidney_reference_tolerance_m": 0.002,
+    "max_bbox_shift_m": {
+      "simulation": 0.002346,
+      "context": 0.007473
+    },
+    "max_bbox_shift_limit_m": {
+      "simulation": 0.003,
+      "context": 0.008
+    },
+    "max_bbox_shift_within_limit": true,
+    "context_parts_with_body_map_node": 0,
+    "simulation_nodes_drawn": [
+      "gut",
+      "kidney",
+      "plasma",
+      "urine"
+    ]
+  },
+  "not_this": "Geometry for drawing only. Organ shapes and positions are reference anatomy, not the simulated patient; no part carries a drug amount or concentration."
+}
