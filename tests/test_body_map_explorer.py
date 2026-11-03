@@ -2,6 +2,7 @@
 import json
 import re
 import unittest
+from pathlib import Path
 
 from flask import Flask
 
@@ -113,6 +114,15 @@ class ExplorerPage(unittest.TestCase):
             self.assertIn(text, html)
         config = json.loads(re.search(r'<script id="body-map-config" type="application/json">(.*?)</script>', html, re.S).group(1))
         self.assertEqual(config['flows']['band']['id'], 'moderate')
+
+    def test_reloading_controls_keep_the_scroll_position(self):
+        html = self.client.get(f'{URL}?crcl=40').get_data(as_text=True)
+        self.assertIn('marlo-scroll.js', html)
+        root = Path(__file__).resolve().parents[1] / 'landscape_ui' / 'static'
+        self.assertIn('form.requestSubmit', (root / 'body-map' / 'body-map-explorer.js').read_text())
+        script = (root / 'marlo-scroll.js').read_text()
+        self.assertIn('sessionStorage', script)
+        self.assertNotIn('http', script.replace('location.href', ''))
 
     def test_json_has_view_and_context(self):
         response = self.client.get(f'{URL}?crcl=65&format=json')

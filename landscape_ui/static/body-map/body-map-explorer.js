@@ -8,7 +8,8 @@
   var number = form.querySelector('[data-role="crcl-number"]');
   if (!range || !number) return;
   range.addEventListener('input', function () { number.value = range.value; });
-  range.addEventListener('change', function () { form.submit(); });
+  // requestSubmit fires the form's submit event, so the page keeps its scroll position (marlo-scroll.js)
+  range.addEventListener('change', function () { if (form.requestSubmit) form.requestSubmit(); else form.submit(); });
   number.addEventListener('input', function () {
     var v = parseFloat(number.value);
     if (isFinite(v) && v >= parseFloat(range.min) && v <= parseFloat(range.max)) range.value = String(v);
