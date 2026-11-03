@@ -48,28 +48,31 @@
 
   /* ---------------------------------------------------------------- styles */
   function style(part) {
+    // c colour, a opacity, rim edge glow, body surface shading, pass (0 solid, 1-2 translucent sorted, 3 skin glow),
+    // spec highlight strength. Colours carry no result: only the kidney outline follows the evidence band.
     var e = part.extras, g = e.group || '', s = e.structure || '';
     if (e['class'] === 'context') {
-      if (g === 'VH_M_skin') return { c: [0.35, 0.6, 1.0], a: 0.30, rim: 1.5, body: 0.05, pass: 3 };
-      if (/vertebral|pelvis|lower_limb/.test(g)) return { c: [0.75, 0.8, 0.85], a: 0.16, rim: 0.5, body: 0.35, pass: 2 };
-      return { c: [0.6, 0.72, 0.85], a: 0.16, rim: 0.8, body: 0.28, pass: 2 };
+      if (g === 'VH_M_skin') return { c: [0.35, 0.6, 1.0], a: 0.30, rim: 1.5, body: 0.05, pass: 3, spec: 0 };
+      if (/vertebral|pelvis|lower_limb/.test(g)) return { c: [0.78, 0.82, 0.88], a: 0.22, rim: 0.5, body: 0.45, pass: 2, spec: 0.1 };
+      return { c: [0.66, 0.76, 0.95], a: 0.2, rim: 0.9, body: 0.4, pass: 2, spec: 0.1 };
     }
-    if (s === 'arteries') return { c: [0.92, 0.16, 0.16], a: 1, rim: 0.35, body: 1, pass: 0 };
-    if (s === 'veins') return { c: [0.25, 0.42, 1.0], a: 1, rim: 0.35, body: 1, pass: 0 };
-    if (s === 'unlabelled vessels') return { c: [0.6, 0.35, 0.6], a: 1, rim: 0.3, body: 1, pass: 0 };
-    if (g === 'VH_M_heart') return { c: [0.85, 0.22, 0.25], a: 1, rim: 0.35, body: 1, pass: 0 };
+    if (s === 'arteries') return { c: [0.88, 0.14, 0.16], a: 1, rim: 0.3, body: 1, pass: 0, spec: 0.55 };
+    if (s === 'veins') return { c: [0.22, 0.4, 0.95], a: 1, rim: 0.3, body: 1, pass: 0, spec: 0.55 };
+    if (s === 'unlabelled vessels') return { c: [0.6, 0.35, 0.62], a: 1, rim: 0.3, body: 1, pass: 0, spec: 0.4 };
+    if (g === 'VH_M_heart') return { c: [0.8, 0.2, 0.24], a: 1, rim: 0.3, body: 1, pass: 0, spec: 0.35 };
     if (/kidney/.test(g)) {
       var outline = config.flows && config.flows.band.outline;
-      if (s === 'kidney capsule' && outline === 'warning') return { c: [1.0, 0.45, 0.2], a: 0.6, rim: 2.4, body: 0.35, pass: 1, warn: [1.0, 0.5, 0.2] };
-      if (s === 'kidney capsule' && outline === 'caution') return { c: [1.0, 0.75, 0.3], a: 0.5, rim: 1.8, body: 0.4, pass: 1, warn: [1.0, 0.8, 0.3] };
-      if (s === 'kidney capsule') return { c: [0.98, 0.62, 0.58], a: 0.35, rim: 0.9, body: 0.5, pass: 1 };
-      if (s === 'renal pyramids') return { c: [0.95, 0.3, 0.32], a: 1, rim: 0.4, body: 1, pass: 0 };
-      if (s === 'renal papillae') return { c: [1.0, 0.75, 0.35], a: 1, rim: 0.4, body: 1, pass: 0 };
-      return { c: [0.95, 0.6, 0.55], a: 0.5, rim: 0.6, body: 0.6, pass: 1 };
+      if (s === 'kidney capsule' && outline === 'warning') return { c: [1.0, 0.45, 0.2], a: 0.6, rim: 2.6, body: 0.25, pass: 3, warn: [1.0, 0.5, 0.2], spec: 0 };
+      if (s === 'kidney capsule' && outline === 'caution') return { c: [1.0, 0.75, 0.3], a: 0.5, rim: 2.0, body: 0.25, pass: 3, warn: [1.0, 0.8, 0.3], spec: 0 };
+      if (s === 'kidney capsule') return { c: [0.96, 0.7, 0.66], a: 0.35, rim: 1.1, body: 0.3, pass: 3, spec: 0 };
+      if (s === 'renal pyramids') return { c: [0.86, 0.28, 0.32], a: 1, rim: 0.3, body: 1, pass: 0, spec: 0.2 };
+      if (s === 'renal papillae') return { c: [1.0, 0.62, 0.6], a: 1, rim: 0.3, body: 1, pass: 0, spec: 0.2 };
+      if (s === 'renal cortex') return { c: [1.0, 0.62, 0.56], a: 0.2, rim: 0.6, body: 0.8, pass: 1, spec: 0.12 };
+      return { c: [0.9, 0.62, 0.55], a: 0.6, rim: 0.5, body: 0.75, pass: 1, spec: 0.15 };
     }
-    if (/ureter|urinary_bladder|urethra/.test(g)) return { c: [1.0, 0.8, 0.32], a: 1, rim: 0.4, body: 1, pass: 0 };
-    if (g === 'VH_M_small_intestine') return { c: [0.85, 0.45, 0.6], a: 0.22, rim: 0.7, body: 0.45, pass: 1 };
-    return { c: [1, 1, 1], a: 1, rim: 0, body: 1, pass: 0 };
+    if (/ureter|urinary_bladder|urethra/.test(g)) return { c: [0.98, 0.78, 0.3], a: 1, rim: 0.3, body: 1, pass: 0, spec: 0.45 };
+    if (g === 'VH_M_small_intestine') return { c: [0.86, 0.48, 0.62], a: 0.2, rim: 0.7, body: 0.45, pass: 3, spec: 0 };
+    return { c: [1, 1, 1], a: 1, rim: 0, body: 1, pass: 0, spec: 0.2 };
   }
 
   /* ---------------------------------------------------------------- WebGL */
@@ -84,10 +87,16 @@
   }
   var VS = 'attribute vec3 p;attribute vec3 n;uniform mat3 R;uniform vec3 C;uniform float S,A;varying vec3 vn;' +
     'void main(){vec3 q=R*(p-C);vn=R*n;gl_Position=vec4(q.x*S/A,q.y*S,-q.z*0.6,1.);}';
-  var FS = 'precision mediump float;varying vec3 vn;uniform vec3 col,rimCol;uniform float alpha,rim,body,pick;uniform vec3 pickCol;' +
-    'void main(){if(pick>0.5){gl_FragColor=vec4(pickCol,1.);return;}vec3 n=normalize(vn);float f=pow(1.-abs(n.z),2.2);' +
-    'vec3 L=normalize(vec3(-.4,.5,.8));float d=max(dot(n,L),0.);float s=pow(max(dot(reflect(-L,n),vec3(0,0,1)),0.),28.);' +
-    'vec3 c=col*(0.28+0.72*d)*body+rimCol*f*rim+vec3(1.)*s*.22*body;gl_FragColor=vec4(c,alpha*min(1.,body+f*rim));}';
+  // Lighting (rendering pass, 3 November 2026): a key light from upper left, a cool fill from the right, a back light
+  // for edges, a sky/ground ambient, and a specular highlight whose strength depends on the material.
+  var FS = 'precision mediump float;varying vec3 vn;uniform vec3 col,rimCol;uniform float alpha,rim,body,pick,spec;uniform vec3 pickCol;' +
+    'void main(){if(pick>0.5){gl_FragColor=vec4(pickCol,1.);return;}vec3 n=normalize(vn);if(!gl_FrontFacing)n=-n;float f=pow(1.-abs(n.z),2.2);' +
+    'vec3 K=normalize(vec3(-.45,.55,.75)),Fl=normalize(vec3(.7,.1,.6)),B=normalize(vec3(.2,.3,-.9));' +
+    'float dk=max(dot(n,K),0.),df=max(dot(n,Fl),0.),db=pow(max(dot(n,B),0.),2.);' +
+    'vec3 amb=mix(vec3(.16,.14,.24),vec3(.30,.32,.42),n.y*.5+.5);' +
+    'vec3 light=amb+vec3(1.,.97,.92)*dk*.78+vec3(.55,.68,1.)*df*.28+vec3(.6,.75,1.)*db*.35;' +
+    'vec3 H=normalize(K+vec3(0,0,1));float sp=pow(max(dot(n,H),0.),40.)*spec;' +
+    'vec3 c=col*light*body+rimCol*f*rim+vec3(1.)*sp*body;gl_FragColor=vec4(c,alpha*min(1.,body+f*rim));}';
   function shader(type, src) {
     var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
     if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
@@ -98,7 +107,7 @@
   gl.attachShader(program, shader(gl.FRAGMENT_SHADER, FS));
   gl.linkProgram(program);
   gl.useProgram(program);
-  var U = {}; ['R', 'C', 'S', 'A', 'col', 'rimCol', 'alpha', 'rim', 'body', 'pick', 'pickCol'].forEach(function (k) { U[k] = gl.getUniformLocation(program, k); });
+  var U = {}; ['R', 'C', 'S', 'A', 'col', 'rimCol', 'alpha', 'rim', 'body', 'pick', 'pickCol', 'spec'].forEach(function (k) { U[k] = gl.getUniformLocation(program, k); });
   var aP = gl.getAttribLocation(program, 'p'), aN = gl.getAttribLocation(program, 'n');
   gl.enableVertexAttribArray(aP); gl.enableVertexAttribArray(aN);
 
@@ -111,6 +120,11 @@
     part.ib = buf(gl.ELEMENT_ARRAY_BUFFER, indices);
     part.count = indices.length;
     part.st = style(part);
+    var lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
+    for (var v = 0; v < part.positions.length; v += 3) for (var c = 0; c < 3; c++) {
+      var x = part.positions[v + c]; if (x < lo[c]) lo[c] = x; if (x > hi[c]) hi[c] = x;
+    }
+    part.centre = [(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, (lo[2] + hi[2]) / 2];
     part.id = parts.length + 1;
     part.idColor = [(part.id & 255) / 255, ((part.id >> 8) & 255) / 255, 0];
     parts.push(part);
@@ -125,7 +139,7 @@
     return [cy, sy * sp, -sy * cp, 0, cp, sp, sy, -cy * sp, cy * cp];
   }
   function resize() {
-    var r = window.devicePixelRatio || 1, w = canvas.clientWidth, h = canvas.clientHeight;
+    var r = Math.min(2, window.devicePixelRatio || 1), w = canvas.clientWidth, h = canvas.clientHeight;
     if (canvas.width !== Math.round(w * r) || canvas.height !== Math.round(h * r)) {
       canvas.width = Math.round(w * r); canvas.height = Math.round(h * r);
     }
@@ -149,21 +163,45 @@
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.uniform1f(U.pick, 0);
     setCommon();
-    [0, 1, 2, 3].forEach(function (pass) {
-      if (pass === 0) { gl.enable(gl.DEPTH_TEST); gl.depthMask(true); gl.disable(gl.BLEND); }
-      else { gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE); gl.depthMask(false); }
-      parts.forEach(function (part) {
-        if (part.st.pass !== pass) return;
-        var boost = selected === part ? 1.6 : 1;
-        gl.uniform3fv(U.col, part.st.c);
-        gl.uniform3fv(U.rimCol, part.st.warn || [0.55, 0.8, 1.0]);
-        gl.uniform1f(U.alpha, Math.min(1, part.st.a * boost));
-        gl.uniform1f(U.rim, part.st.rim * boost);
-        gl.uniform1f(U.body, part.st.body);
-        bind(part);
-        gl.drawElements(gl.TRIANGLES, part.count, gl.UNSIGNED_INT, 0);
-      });
-    });
+    function drawPart(part, alphaScale) {
+      var boost = selected === part ? 1.6 : 1;
+      gl.uniform3fv(U.col, part.st.c);
+      gl.uniform3fv(U.rimCol, part.st.warn || [0.55, 0.8, 1.0]);
+      gl.uniform1f(U.alpha, Math.min(1, part.st.a * boost * alphaScale));
+      gl.uniform1f(U.rim, part.st.rim * boost);
+      gl.uniform1f(U.body, part.st.body);
+      gl.uniform1f(U.spec, part.st.spec || 0);
+      bind(part);
+      gl.drawElements(gl.TRIANGLES, part.count, gl.UNSIGNED_INT, 0);
+    }
+    var R = rotation();
+    var depth = function (part) {
+      var q = sub(part.centre, [cam.cx, cam.cy, 0]);
+      return R[2] * q[0] + R[5] * q[1] + R[8] * q[2];
+    };
+    function translucent(pass) {
+      // Farthest first, ordinary alpha blending, so nearer layers cover farther ones instead of adding up to a white
+      // haze. Back faces before front faces, so each organ's own far side sits behind it.
+      gl.enable(gl.BLEND); gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+      gl.depthMask(false); gl.enable(gl.CULL_FACE);
+      parts.filter(function (p) { return p.st.pass === pass; }).sort(function (a, b) { return depth(a) - depth(b); })
+        .forEach(function (part) {
+          gl.cullFace(gl.FRONT); drawPart(part, 0.6);
+          gl.cullFace(gl.BACK); drawPart(part, 1);
+        });
+      gl.disable(gl.CULL_FACE);
+    }
+    // Context anatomy first, as a backdrop: it is for orientation, so it never veils the organs that carry results.
+    gl.enable(gl.DEPTH_TEST);
+    translucent(2);
+    // Simulation organs on top of it: solid ones with depth, then the translucent ones.
+    gl.depthMask(true); gl.disable(gl.BLEND);
+    parts.forEach(function (part) { if (part.st.pass === 0) drawPart(part, 1); });
+    translucent(1);
+    // 3: glowing layers added on top: the skin, the small intestine (dose in, behind which the vessels must stay
+    // visible) and the kidney capsule (whose edge colour shows the evidence band).
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+    parts.forEach(function (part) { if (part.st.pass === 3) drawPart(part, 1); });
     gl.depthMask(true);
     if (flowsOn) {
       // The flow layer is a diagram drawn over the anatomy: clear depth so vessels and organs never hide it.
@@ -346,6 +384,9 @@
         var tube = { kind: kind, dashed: values[i] === null, color: color, count: mesh.indices.length };
         function buf(target, data) { var b = gl.createBuffer(); gl.bindBuffer(target, b); gl.bufferData(target, data, gl.STATIC_DRAW); return b; }
         tube.pb = buf(gl.ARRAY_BUFFER, mesh.positions); tube.nb = buf(gl.ARRAY_BUFFER, mesh.normals); tube.ib = buf(gl.ELEMENT_ARRAY_BUFFER, mesh.indices);
+        var halo = tubeMesh(strandLine, radii[i] * 2.2 + 0.0008, 10);
+        tube.halo = { count: halo.indices.length, pb: buf(gl.ARRAY_BUFFER, halo.positions), nb: buf(gl.ARRAY_BUFFER, halo.normals),
+                      ib: buf(gl.ELEMENT_ARRAY_BUFFER, halo.indices) };
         if (values[i] !== null) tubes.push(tube);
         var acc = lengths(strandLine), value = values[i] === null ? F.scale_ml_min * 0.15 : values[i] * path.share_per_path;
         // Particle speed is proportional to clearance on the fixed scale; spacing is constant.
@@ -359,14 +400,27 @@
   }
 
   function drawTubes() {
+    function drawMesh(m) {
+      gl.bindBuffer(gl.ARRAY_BUFFER, m.pb); gl.vertexAttribPointer(aP, 3, gl.FLOAT, false, 0, 0);
+      gl.bindBuffer(gl.ARRAY_BUFFER, m.nb); gl.vertexAttribPointer(aN, 3, gl.FLOAT, false, 0, 0);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.ib);
+      gl.drawElements(gl.TRIANGLES, m.count, gl.UNSIGNED_INT, 0);
+    }
+    gl.uniform1f(U.spec, 0.6);
     tubes.forEach(function (tube) {
       gl.uniform3fv(U.col, tube.color); gl.uniform3fv(U.rimCol, tube.color);
       gl.uniform1f(U.alpha, 1); gl.uniform1f(U.rim, 0.6); gl.uniform1f(U.body, 0.95);
-      gl.bindBuffer(gl.ARRAY_BUFFER, tube.pb); gl.vertexAttribPointer(aP, 3, gl.FLOAT, false, 0, 0);
-      gl.bindBuffer(gl.ARRAY_BUFFER, tube.nb); gl.vertexAttribPointer(aN, 3, gl.FLOAT, false, 0, 0);
-      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, tube.ib);
-      gl.drawElements(gl.TRIANGLES, tube.count, gl.UNSIGNED_INT, 0);
+      drawMesh(tube);
     });
+    // Glow: a wider, faint tube around each one, added on top (decoration; its width is not a value).
+    gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE); gl.depthMask(false);
+    gl.uniform1f(U.spec, 0);
+    tubes.forEach(function (tube) {
+      gl.uniform3fv(U.col, tube.color); gl.uniform3fv(U.rimCol, tube.color);
+      gl.uniform1f(U.alpha, 0.22); gl.uniform1f(U.rim, 0); gl.uniform1f(U.body, 0.9);
+      drawMesh(tube.halo);
+    });
+    gl.disable(gl.BLEND); gl.depthMask(true);
   }
 
   var PVS = 'attribute vec3 p;uniform mat3 R;uniform vec3 C;uniform float S,A,size;void main(){vec3 q=R*(p-C);gl_Position=vec4(q.x*S/A,q.y*S,-q.z*0.6-0.002,1.);gl_PointSize=size;}';

@@ -287,3 +287,12 @@ Each card names the source model and the view checksum. Context organs have no c
 
 Nothing in the numbers, bands or evidence changes; this is drawing geometry only.
 
+## Rendering pass (3 November 2026)
+
+Display only; no geometry, number or evidence status changes.
+- **Transparency:** translucent organs are drawn farthest first with ordinary alpha blending (back faces before front faces), instead of being added together, which washed overlapping layers out to a white haze. Context anatomy is drawn first as a backdrop, so it never veils the organs that carry results. The skin, the small intestine and the kidney capsule stay as glowing layers on top; the capsule's edge colour still shows the evidence band (orange where the outside check disagrees, amber where it agrees in the primary scenario only).
+- **Lighting:** a key light, a cool fill light, a back light for edges, a sky/ground ambient, and a specular highlight set per material (glossy vessels, matte organs).
+- **Kidney materials:** a lighter, more translucent cortex so the pyramids show; papillae pink instead of the urine yellow, which now marks only the collecting system, ureters and bladder.
+- **Flow tubes:** a faint glow around each tube. Its width is decoration and carries no value; the tube itself keeps the clearance-proportional width.
+- **Sharpness:** drawn at the screen's pixel density, capped at 2× so phones stay fast.
+
