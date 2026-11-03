@@ -1,18 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 <defs>
 <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#211763"/><stop offset="1" stop-color="#0a0720"/></linearGradient>
-<linearGradient id="b1" x1="60" y1="380" x2="250" y2="190" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4a3fbf"/><stop offset="1" stop-color="#8f7dff"/></linearGradient>
-<linearGradient id="b2" x1="240" y1="180" x2="300" y2="385" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f4f1ff"/><stop offset=".55" stop-color="#c2b6ff"/><stop offset="1" stop-color="#7d6cf5"/></linearGradient>
-<linearGradient id="b3" x1="280" y1="385" x2="390" y2="260" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#352592"/><stop offset="1" stop-color="#4f86e8"/></linearGradient>
-<linearGradient id="b4" x1="370" y1="250" x2="430" y2="385" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ecfcff"/><stop offset=".5" stop-color="#8ad9fd"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>
+<linearGradient id="g" x1="100" y1="0" x2="430" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#7c6cff"/><stop offset=".55" stop-color="#8fa2ff"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>
 <radialGradient id="dot" cx=".35" cy=".32" r=".8"><stop offset="0" stop-color="#effcff"/><stop offset=".5" stop-color="#5fd0ff"/><stop offset="1" stop-color="#1b7fc0"/></radialGradient>
+<radialGradient id="halo"><stop offset="0" stop-color="#7dd3fc" stop-opacity=".55"/><stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/></radialGradient>
 </defs>
 <rect width="512" height="512" rx="112" fill="url(#bg)"/>
-<g transform="translate(256 262) scale(1.1) translate(-262 -282)" stroke-width="9" stroke-linejoin="round">
-<path d="M66 380 C138 368 178 194 236 178 L258 226 C210 246 164 362 66 380 Z" fill="url(#b1)" stroke="url(#b1)"/>
-<path d="M236 178 C266 170 286 198 294 240 C304 300 314 352 326 384 L282 384 C272 332 266 266 258 226 Z" fill="url(#b2)" stroke="url(#b2)"/>
-<path d="M282 384 C314 334 340 264 372 252 L388 292 C364 304 340 350 326 384 Z" fill="url(#b3)" stroke="url(#b3)"/>
-<path d="M372 252 C396 246 410 268 416 298 C422 334 430 364 446 384 L420 384 C410 348 400 312 388 292 Z" fill="url(#b4)" stroke="url(#b4)"/>
-<circle cx="478" cy="354" r="24" stroke="none" fill="url(#dot)"/>
-</g>
+<path d="M104 112 V404 H424" fill="none" stroke="#6b66b8" stroke-opacity=".55" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M128 392 C150 300 166 160 200 160 C240 160 248 312 280 312 C304 312 312 222 342 222 C380 222 396 344 426 366" fill="none" stroke="url(#g)" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="200" cy="160" r="52" fill="url(#halo)"/>
+<circle cx="200" cy="160" r="24" fill="url(#dot)"/>
 </svg>
