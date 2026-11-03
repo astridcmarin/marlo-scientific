@@ -1,4 +1,4 @@
-"""Rebuild intelligence_store/data/body_map_flow_paths_v1.json from the committed route model (step 1.3c).
+"""Rebuild intelligence_store/data/body_map_flow_paths_v2.json from the committed route model and the pinned vessel centre lines.
 
     PYTHONPATH=. python scripts/build_body_map_flow_paths.py
 

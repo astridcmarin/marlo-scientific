@@ -459,15 +459,34 @@
     if (!overlay) return;
     var w = canvas.clientWidth, h = canvas.clientHeight;
     overlay.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    var placed = [];
     Object.keys(labelNodes).forEach(function (key) {
       var n = labelNodes[key], a = project(F.anchors[n.spec.anchor]);
       var show = labelsOn && a[0] > 0 && a[0] < w && a[1] > 0 && a[1] < h;
-      var lx = Math.max(8, Math.min(w - 8, a[0] + n.spec.dx)), ly = Math.max(56, Math.min(h - 40, a[1] + n.spec.dy));
       n.div.hidden = !show; n.line.style.display = show ? '' : 'none';
       if (!show) return;
-      n.div.style.left = lx + 'px'; n.div.style.top = ly + 'px';
-      n.div.style.transform = n.spec.dx < 0 ? 'translate(-100%,-50%)' : 'translate(0,-50%)';
-      n.line.setAttribute('x1', a[0]); n.line.setAttribute('y1', a[1]); n.line.setAttribute('x2', lx); n.line.setAttribute('y2', ly);
+      // keep the whole label inside the view: measure it, then clamp on the side it hangs from
+      var bw = n.div.offsetWidth, bh = n.div.offsetHeight, left = n.spec.dx < 0;
+      var lx = a[0] + n.spec.dx;
+      lx = left ? Math.max(8 + bw, Math.min(w - 8, lx)) : Math.max(8, Math.min(w - 8 - bw, lx));
+      var ly = Math.max(56 + bh / 2, Math.min(h - 40 - bh / 2, a[1] + n.spec.dy));
+      placed.push({ n: n, a: a, lx: lx, ly: ly, bw: bw, bh: bh, left: left });
+    });
+    // labels hanging on the same side must not overlap: push later ones down (or up near the bottom)
+    placed.sort(function (p, q) { return p.ly - q.ly; });
+    placed.forEach(function (p, i) {
+      for (var j = 0; j < i; j++) {
+        var q = placed[j];
+        var x0 = p.left ? p.lx - p.bw : p.lx, x1 = x0 + p.bw, y0 = q.left ? q.lx - q.bw : q.lx, y1 = y0 + q.bw;
+        if (x0 < y1 && y0 < x1 && Math.abs(p.ly - q.ly) < (p.bh + q.bh) / 2 + 6) p.ly = q.ly + (p.bh + q.bh) / 2 + 6;
+      }
+      if (p.ly > h - 40 - p.bh / 2) p.ly = h - 40 - p.bh / 2;
+    });
+    placed.forEach(function (p) {
+      p.n.div.style.left = p.lx + 'px'; p.n.div.style.top = p.ly + 'px';
+      p.n.div.style.transform = p.left ? 'translate(-100%,-50%)' : 'translate(0,-50%)';
+      p.n.line.setAttribute('x1', p.a[0]); p.n.line.setAttribute('y1', p.a[1]);
+      p.n.line.setAttribute('x2', p.lx); p.n.line.setAttribute('y2', p.ly);
     });
   }
 

@@ -19,6 +19,30 @@ class PathsFile(unittest.TestCase):
         rebuilt = body_map_paths.compute_paths((ROOT / body_map_paths.SOURCE_MODEL).read_bytes())
         self.assertEqual(rebuilt, self.paths)
 
+    def test_kidney_flows_start_in_the_aorta_and_follow_the_renal_arteries(self):
+        import hashlib
+        vessels = body_map_paths.load_vessel_lines()
+        aorta = vessels['aorta']['points']
+        for side in ('left', 'right'):
+            path = next(p for p in self.paths['paths'] if p['id'] == f'renal_inflow_{side}')
+            artery = vessels['renal_arteries'][side]['points']
+            self.assertEqual(path['points'][1:-1], artery)
+            start = path['points'][0]
+            nearest = min(aorta, key=lambda q: abs(q[1] - start[1]))
+            # on the aorta's centre line (within 2 mm), not in front of it as in paths v1
+            self.assertLess(max(abs(a - b) for a, b in zip(start[::2], nearest[::2])), 0.002)
+            self.assertLess(abs(start[1] - artery[0][1]), 1e-4)
+        self.assertEqual(self.paths['vessel_lines']['sha256'], body_map_paths.VESSELS_SHA256)
+        v1 = (ROOT / 'intelligence_store/data/body_map_flow_paths_v1.json').read_bytes()
+        self.assertEqual(hashlib.sha256(v1).hexdigest(), body_map_paths.PATHS_V1_SHA256)
+
+    def test_vessel_sides_are_assigned_by_position(self):
+        vessels = body_map_paths.load_vessel_lines()
+        self.assertGreater(vessels['renal_arteries']['left']['points'][-1][0], 0)
+        self.assertLess(vessels['renal_arteries']['right']['points'][-1][0], 0)
+        self.assertEqual(vessels['renal_arteries']['left']['atlas_node'], 'VH_M_right_renal_artery')
+        self.assertIn('opposite to the kidneys', vessels['naming_note'])
+
     def test_source_model_is_the_pinned_route_model(self):
         route = next(o for o in load_manifest()['outputs'] if o['class'] == 'simulation')
         self.assertEqual(self.paths['source_model']['file'], route['file'])

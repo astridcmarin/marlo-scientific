@@ -272,3 +272,18 @@ Each card names the source model and the view checksum. Context organs have no c
 
 **Candidates for Digital human 1.1+** (each needs its own plan): a plasma time-course panel from Hughes or Kim under their own scopes; a female reference body; a static, sourced "where it acts" card (cereblon, IKZF1/3) from the knowledge layer; a second drug through the same generic `body-map-view-v1` data.
 
+## Correction (3 November 2026): kidney flows start in the aorta and follow the renal arteries (flow paths v2)
+
+**What was wrong.** In paths v1 each kidney flow started 2–4 cm in front of the aorta and ran straight to the kidney's hilum, below the renal arteries, so on screen the strands looked displaced from the vessels they stand for. The cause: the route model merges all arteries into one part, and v1 took "the aorta" as the middle of every artery near the midline at that height, which the superior mesenteric and other front arteries pulled forward.
+
+**Fix.**
+- `scripts/build_body_map_vessel_lines.py` reads the original Atlas file (checked against its SHA-256 `fae3ac19…`; it stays on the owner's computer) and writes centre lines for the abdominal aorta, both renal arteries and the inferior vena cava to `intelligence_store/data/body_map_vessel_lines_v1.json` (pinned).
+- Flow paths v2 (`body_map_flow_paths_v2.json`, method `body-map-flow-paths-build-v2.0`): each kidney flow starts on the aorta's centre line at its renal artery's origin, follows that artery's centre line, and ends at the kidney's centre. Absorption ends on the vena cava's centre line at renal-artery level. Urine paths are unchanged. v1 is kept unchanged for traceability.
+- Tests check that each kidney flow starts within 2 mm of the aorta's centre line and runs along the renal artery.
+
+**Atlas naming.** The Atlas node called "left renal artery" lies on the body's right and "right renal artery" on the body's left, opposite to the kidneys (whose sides were confirmed in step 1.3a). Sides are assigned by position, and the Atlas name is kept in the file. Worth reporting to the HRA team.
+
+**Labels.** Flow labels are now measured and kept inside the view, and labels on the same side no longer overlap (they did in the side view).
+
+Nothing in the numbers, bands or evidence changes; this is drawing geometry only.
+
