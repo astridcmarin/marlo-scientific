@@ -150,7 +150,7 @@ class PatientView(unittest.TestCase):
         rev = self.with_platelets(160, self.revision)
         base = f'/landscape/workspace/scenarios/{self.scenario.id}/patient-state/revisions/{rev.id}'
         detail = self.client.get(base).get_data(as_text=True)
-        self.assertIn('Bortezomib platelet curve', detail)
+        self.assertIn('Platelet time course (Lignet 2022)', detail)
         text = self.client.get(base + '/bortezomib-platelets?cycles=2').get_data(as_text=True)
         for expected in ('Hypothetical typical effect curve', 'Baseline platelet count',
                          'Observed in the source study', 'Common Toxicity Criteria version 2.0', 'grade 2', 'CTCAE v5.0'):

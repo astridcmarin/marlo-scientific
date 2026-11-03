@@ -176,8 +176,14 @@ def register_patient_state_pages(bp):
                 response.headers['Content-Disposition']=f'attachment; filename="patient_state_revision_{revision_id}.json"'
                 response.headers['Cache-Control']='no-store';response.headers['X-Content-Type-Options']='nosniff'
                 return response
+            results,results_error=None,None
+            try:
+                from intelligence_store.record_results import record_results
+                results=record_results(revision_id)
+            except (ValueError,OSError,KeyError,TypeError):
+                results_error='Result statuses are unavailable for this record; the result pages can still be opened.'
             return _response('landscape_patient_state_detail.html',scenario=scenario,revision=row,
-                             payload=row.payload,labels=LABELS)
+                             payload=row.payload,labels=LABELS,results=results,results_error=results_error)
         except ValueError as exc:
             return _error(exc)
         except SQLAlchemyError:

@@ -130,7 +130,7 @@ class BodyMapPage(unittest.TestCase):
     def test_detail_page_links_to_the_body_map(self):
         rev = self.revision_with(serum_creatinine=80)
         detail = self.client.get(f'/landscape/workspace/scenarios/{self.scenario.id}/patient-state/revisions/{rev.id}')
-        self.assertIn('Lenalidomide body map (3D)', detail.get_data(as_text=True))
+        self.assertIn('Body map (3D)', detail.get_data(as_text=True))
 
 
 class StaticViewer(unittest.TestCase):

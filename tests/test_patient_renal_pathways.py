@@ -73,7 +73,7 @@ class PatientPathways(unittest.TestCase):
             self.assertIn(text, html)
         self.assertEqual(self.client.get(url + '?format=json').get_json()['status'], 'completed')
         detail = self.client.get(f'/landscape/workspace/scenarios/{self.scenario.id}/patient-state/revisions/{rev.id}').get_data(as_text=True)
-        self.assertIn('Lenalidomide elimination pathways', detail)
+        self.assertIn('Elimination pathways', detail)
 
 
 if __name__ == '__main__':
