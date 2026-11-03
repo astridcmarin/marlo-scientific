@@ -104,5 +104,12 @@ The urine total at the end equals the fraction excreted unchanged that 1.0 alrea
 
 **Correction to the estimate in this plan.** The plan said "about a quarter" of the drug reaching the kidneys would be removed per pass, dividing renal clearance by renal *plasma* flow. That would be right only if the drug stayed out of red cells. Lenalidomide spreads into them about equally (Chen 2012), so the drug arriving is carried by whole blood, and extraction is about **14%** at normal function (162 mL/min ÷ 0.931 ÷ 1235 mL/min), 8% in the mild band, 5% at 40 mL/min and 3% at 20 mL/min.
 
-**Next:** 1.1c, the blood-flow layer and extraction drawn in 3D.
+## Step 1.1c delivered (3 November 2026): blood flow in 3D
+
+- **"Blood flow" button** in the 3D toolbar (off by default, so the drug layer stays the main picture). When on, small red dots move in along each renal artery (aorta → artery → kidney) and blue dots back out along each renal vein to the inferior vena cava, with a label: blood to each kidney (reference adult), and the share of drug arriving that is removed per pass.
+- **Constant width and speed.** Reference blood flow is the same at every creatinine clearance, so nothing about the blood layer changes with the record or the slider; only the drug strands and the extraction in the label do.
+- **Geometry:** renal vein centre lines extracted from the named Atlas veins (`body_map_renal_vein_lines_v1.json`, pinned; built by `scripts/build_body_map_vessel_lines.py --veins` from the source checked against its SHA-256). Blood paths are built from pinned files (`body_map_paths.blood_paths`); a test checks that the way in follows the renal artery and the way out ends on the vena cava's centre line.
+- **Fix found on the way:** with more buttons the toolbar wraps onto two rows, and the evidence banner covered the second row so its buttons could not be clicked. The banner and the organ card now sit below the toolbar, however many rows it has.
+
+**Next:** 1.1d, the time-course model: its check plan is written and locked before anything is computed.
 

@@ -72,3 +72,4 @@
 .bm-label-match td { background:var(--ms-accent-soft,#eeecfd); font-weight:500; }
 @media (max-width:700px) { .bm-explorer { grid-template-columns:1fr; } .bm-explorer-bands { grid-column:1; } }
 .bm-sub-heading { font-size:14px; margin:16px 0 6px; }
+.bm-flow-blood { border-color:#ff7a7a; max-width:260px; }

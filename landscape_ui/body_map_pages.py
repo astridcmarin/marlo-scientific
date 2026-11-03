@@ -12,7 +12,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from intelligence_store.body_map import NODES, RANGE, explorer_map, record_map
 from intelligence_store.body_map_context import BodyMapContextError, body_map_context
 from intelligence_store.body_map_assets import BodyMapAssetError, load_manifest, viewer_assets
-from intelligence_store.body_map_paths import BodyMapPathError, load_paths
+from intelligence_store.body_map_paths import BodyMapPathError, blood_paths, load_paths
 from intelligence_store.extensions import db
 from intelligence_store.patient_renal_pathways import patient_renal_pathways
 from intelligence_store.patient_state_revisions import read_revision
@@ -116,6 +116,17 @@ def viewer_config(manifest, view=None, paths=None):
                      'outline': STATUS_OUTLINE[view['band']['status']]},
         }
         config['cards'] = evidence_cards(view)
+        if 'blood_flow' in view:
+            bf, ex = view['blood_flow'], view['extraction']
+            # Digital human 1.1c: reference blood flow, drawn as a quiet layer of moving dots at constant width and
+            # speed (it is the same at every creatinine clearance, so nothing about it changes with the record).
+            config['blood'] = {
+                'paths': blood_paths(paths),
+                'colors': {'arterial': [1.0, 0.3, 0.3], 'venous': [0.35, 0.55, 1.0]},
+                'label': (f"Blood to each kidney: {_fmt(bf['per_kidney_blood_flow_ml_min'])} mL/min (reference adult"
+                          f"{'' if view.get('mode') == 'explorer' else ', not this record'}) · {100 * ex['ratio']:.0f}% of the "
+                          f"drug arriving is removed per pass, {100 * ex['returned_by_renal_veins']:.0f}% returns"),
+            }
     return config
 
 

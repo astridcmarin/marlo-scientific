@@ -33,6 +33,8 @@ PATHS_SHA256 = '8f6df6c623513cdae9404799cd498bd2946bb0dc725a4b17f8b31e25b0a1149a
 PATHS_V1_SHA256 = 'd85eb44f468773921647d13448be67df6fff91e61dbd3d2b7f3abd2a3c81cbda'
 VESSELS_FILE = DATA / 'body_map_vessel_lines_v1.json'
 VESSELS_SHA256 = '310244d195951b1e6ff6e9864f78ae41bc0b5bc248d51451a2f5ff98d55b0238'
+VEINS_FILE = DATA / 'body_map_renal_vein_lines_v1.json'
+VEINS_SHA256 = '12f9b5763291d4121ed7178a4c34e196a8c72a49a5cd2a24383aa4e6f981ec41'
 SCHEMA_VERSION = 'body-map-flow-paths-v1'
 METHOD_VERSION = 'body-map-flow-paths-build-v2.0'
 SOURCE_MODEL = 'landscape_ui/static/body-map/models/body-route-male-v1.glb'
@@ -125,6 +127,34 @@ def compute_paths(raw, vessels=None):
         'paths': [dict(p, points=[rounded(x) for x in p['points']]) for p in paths],
         'anchors': {k: rounded(v) for k, v in sorted(anchors.items())},
     }
+
+
+def load_vein_lines():
+    raw = VEINS_FILE.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != VEINS_SHA256:
+        raise BodyMapPathError('The renal vein centre lines are missing or changed; blood flow is not drawn.')
+    return json.loads(raw)
+
+
+def blood_paths(paths=None, vessels=None, veins=None):
+    """Digital human 1.1c: where reference blood flow is drawn (drawing geometry only; no value is attached here).
+
+    In: along each kidney flow path (aorta, renal artery, kidney). Out: from the kidney's centre along its renal vein
+    to the inferior vena cava at the vein's own height. Built from pinned files, so it is the same on every page.
+    """
+    paths = paths or load_paths()
+    vessels = vessels or load_vessel_lines()
+    veins = veins or load_vein_lines()
+    rounded = lambda p: [round(float(x), DECIMALS) for x in p]
+    out = []
+    for side in ('left', 'right'):
+        inflow = next(p for p in paths['paths'] if p['id'] == f'renal_inflow_{side}')
+        out.append({'id': f'blood_in_{side}', 'kind': 'arterial', 'side': side, 'points': inflow['points']})
+        vein = veins['renal_veins'][side]['points']
+        ivc = _at_height(vessels['inferior_vena_cava']['points'], float(vein[0][1]))
+        out.append({'id': f'blood_out_{side}', 'kind': 'venous', 'side': side,
+                    'points': [inflow['points'][-1]] + list(reversed(vein)) + [rounded(ivc)]})
+    return out
 
 
 def load_paths():

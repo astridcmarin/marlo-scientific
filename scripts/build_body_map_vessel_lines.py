@@ -1,6 +1,7 @@
 """Extract vessel centre lines for the body map flow paths from the HRA United male set (Digital human 1.0, paths v2).
 
     PYTHONPATH=. python scripts/build_body_map_vessel_lines.py /path/to/3d-vh-m-united.glb
+    PYTHONPATH=. python scripts/build_body_map_vessel_lines.py /path/to/3d-vh-m-united.glb --veins   (renal veins, 1.1c)
 
 The route model merges all arteries into one part, so the renal arteries and the aorta cannot be told apart in it
 (paths v1 placed the start of each kidney flow 2-4 cm in front of the aorta). This script reads the original Atlas
@@ -22,6 +23,7 @@ from intelligence_store import glb_mesh
 
 SOURCE_SHA256 = 'fae3ac193835e9e24cd13a0d0f11e6788183b290b0691b9b83ec81d907d94581'
 OUT = Path(__file__).resolve().parents[1] / 'intelligence_store' / 'data' / 'body_map_vessel_lines_v1.json'
+VEINS_OUT = Path(__file__).resolve().parents[1] / 'intelligence_store' / 'data' / 'body_map_renal_vein_lines_v1.json'
 DECIMALS = 4
 HEIGHT_RANGE = (0.24, 0.36)      # metres; covers both renal artery origins and both kidney hila
 HEIGHT_STEP = 0.005
@@ -87,7 +89,37 @@ def build(raw):
     }
 
 
+def build_veins(raw):
+    """Renal vein centre lines (Digital human 1.1c, blood-flow layer), ordered from the midline outwards."""
+    if hashlib.sha256(raw).hexdigest() != SOURCE_SHA256:
+        raise SystemExit('This is not the pinned HRA United male file (SHA-256 differs).')
+    gltf, binary = glb_mesh.read_glb(raw)
+    by_name = {}
+    for part in glb_mesh.mesh_nodes(gltf, binary):
+        by_name.setdefault(part['name'], []).append(part['vertices'])
+    rounded = lambda pts: [[round(float(c), DECIMALS) for c in p] for p in pts]
+    veins = {}
+    for atlas_name in ('VH_M_renal_vein_L', 'VH_M_renal_vein_R'):
+        v = np.vstack(by_name[atlas_name])
+        body_side = 'left' if np.median(v[:, 0]) > 0 else 'right'
+        veins[body_side] = {'atlas_node': atlas_name, 'points': rounded(_slices_across(v))}
+    return {
+        'schema_version': 'body-map-vessel-lines-v1',
+        'source': {'file': '3d-vh-m-united.glb', 'set': 'HRA 3D Reference Organ Set for United, Male', 'sha256': SOURCE_SHA256,
+                   'licence': 'CC BY 4.0', 'storage': "Kept on the platform owner's computer; not committed."},
+        'coordinate_frame': 'HRA Visible Human male reference body; metres; +y up; body left is +x.',
+        'method': f'Middle of the bounding box of each renal vein in {ARTERY_BINS} slices across the body, ordered from the midline out.',
+        'not_this': 'Drawing geometry only: not measurements of vessel size, position or flow.',
+        'renal_veins': veins,
+        'naming_note': 'The Atlas renal vein names (L, R) match their positions (body left is +x); sides are still assigned by position.',
+    }
+
+
 if __name__ == '__main__':
-    data = build(Path(sys.argv[1]).read_bytes())
-    OUT.write_text(json.dumps(data, indent=1) + '\n')
-    print(hashlib.sha256(OUT.read_bytes()).hexdigest())
+    raw = Path(sys.argv[1]).read_bytes()
+    if len(sys.argv) > 2 and sys.argv[2] == '--veins':
+        VEINS_OUT.write_text(json.dumps(build_veins(raw), indent=1) + '\n')
+        print(hashlib.sha256(VEINS_OUT.read_bytes()).hexdigest())
+    else:
+        OUT.write_text(json.dumps(build(raw), indent=1) + '\n')
+        print(hashlib.sha256(OUT.read_bytes()).hexdigest())

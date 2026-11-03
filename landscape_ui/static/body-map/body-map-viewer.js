@@ -297,7 +297,8 @@
 
   /* ---------------------------------------------------------------- flows (step 1.3c) */
   var F = config.flows || null;
-  var flowsOn = !!F, labelsOn = !!F, tubes = [], strands = [];
+  var B = (F && config.blood) || null;
+  var flowsOn = !!F, labelsOn = !!F, tubes = [], strands = [], bloodStrands = [], bloodOn = false;
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var playing = !!F && !reducedMotion, clock = 0, last = null;
 
@@ -394,9 +395,13 @@
                        count: Math.max(3, Math.round(acc[acc.length - 1] / 0.012)), dashed: values[i] === null });
       });
     });
-    var total = strands.reduce(function (a, s) { return a + s.count; }, 0);
+    if (B) B.paths.forEach(function (path) {
+      var line = smooth(path.points, 8), acc = lengths(line);
+      // Constant speed and spacing: reference blood flow is the same on every page, so it carries no record value.
+      bloodStrands.push({ line: line, acc: acc, length: acc[acc.length - 1], color: B.colors[path.kind], speed: 0.05,
+                          count: Math.max(4, Math.round(acc[acc.length - 1] / 0.004)) });
+    });
     particleBuffer = gl.createBuffer();
-    particleData = new Float32Array(total * 3);
   }
 
   function drawTubes() {
@@ -424,13 +429,13 @@
   }
 
   var PVS = 'attribute vec3 p;uniform mat3 R;uniform vec3 C;uniform float S,A,size;void main(){vec3 q=R*(p-C);gl_Position=vec4(q.x*S/A,q.y*S,-q.z*0.6-0.002,1.);gl_PointSize=size;}';
-  var PFS = 'precision mediump float;uniform vec3 col;void main(){vec2 d=gl_PointCoord-vec2(.5);float r=dot(d,d);if(r>.25)discard;gl_FragColor=vec4(mix(vec3(1.),col*1.15,smoothstep(0.,.04,r)),1.-smoothstep(.14,.25,r));}';
+  var PFS = 'precision mediump float;uniform vec3 col;uniform float fade;void main(){vec2 d=gl_PointCoord-vec2(.5);float r=dot(d,d);if(r>.25)discard;gl_FragColor=vec4(mix(vec3(1.),col*1.15,smoothstep(0.,.04,r)),(1.-smoothstep(.14,.25,r))*fade);}';
   var pProgram = null, PU = {}, pA = -1, particleBuffer = null, particleData = null;
   if (F) {
     pProgram = gl.createProgram();
     gl.attachShader(pProgram, shader(gl.VERTEX_SHADER, PVS)); gl.attachShader(pProgram, shader(gl.FRAGMENT_SHADER, PFS));
     gl.linkProgram(pProgram);
-    ['R', 'C', 'S', 'A', 'size', 'col'].forEach(function (k) { PU[k] = gl.getUniformLocation(pProgram, k); });
+    ['R', 'C', 'S', 'A', 'size', 'col', 'fade'].forEach(function (k) { PU[k] = gl.getUniformLocation(pProgram, k); });
     pA = gl.getAttribLocation(pProgram, 'p');
   }
 
@@ -446,21 +451,26 @@
     gl.useProgram(pProgram);
     gl.uniformMatrix3fv(PU.R, false, rotation()); gl.uniform3fv(PU.C, [cam.cx, cam.cy, 0]);
     gl.uniform1f(PU.S, cam.scale); gl.uniform1f(PU.A, canvas.width / canvas.height);
-    gl.uniform1f(PU.size, Math.max(3, Math.min(9, 1.6 * cam.scale)) * (window.devicePixelRatio || 1));
+    var dpr = Math.min(2, window.devicePixelRatio || 1), size = Math.max(3, Math.min(9, 1.6 * cam.scale));
     gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE); gl.enable(gl.DEPTH_TEST); gl.depthMask(false);
     gl.disableVertexAttribArray(aN);
-    strands.forEach(function (strand) {
+    function drawStrand(strand) {
       var data = new Float32Array(strand.count * 3), spacing = strand.length / strand.count;
-      for (var k = 0; k < strand.count; k++) {
-        var d = (k * spacing + clock * strand.speed) % strand.length;
-        data.set(at(strand, d), k * 3);
-      }
+      for (var k = 0; k < strand.count; k++) data.set(at(strand, (k * spacing + clock * strand.speed) % strand.length), k * 3);
       gl.uniform3fv(PU.col, strand.color);
       gl.bindBuffer(gl.ARRAY_BUFFER, particleBuffer);
       gl.bufferData(gl.ARRAY_BUFFER, data, gl.DYNAMIC_DRAW);
       gl.vertexAttribPointer(pA, 3, gl.FLOAT, false, 0, 0);
       gl.drawArrays(gl.POINTS, 0, strand.count);
-    });
+    }
+    if (bloodOn) {
+      // the blood layer: smaller, fainter dots, drawn before the drug so the drug stays on top
+      gl.uniform1f(PU.size, 0.8 * size * dpr); gl.uniform1f(PU.fade, 0.9); gl.disable(gl.DEPTH_TEST);
+      bloodStrands.forEach(drawStrand);
+      gl.enable(gl.DEPTH_TEST);
+    }
+    gl.uniform1f(PU.size, size * dpr); gl.uniform1f(PU.fade, 1);
+    strands.forEach(drawStrand);
     gl.enableVertexAttribArray(aN);
     gl.depthMask(true);
     gl.useProgram(program);
@@ -481,7 +491,7 @@
     { key: 'urine', anchor: 'bladder', dx: 150, dy: 0 },
     { key: 'non_renal', anchor: 'aorta_renal_level', dx: 160, dy: 75 },
     { key: 'absorption', anchor: 'gut', dx: -170, dy: 70 },
-  ] : [];
+  ].concat(B ? [{ key: 'blood', anchor: 'kidney_right', dx: -150, dy: -95, onlyWith: 'blood' }] : []) : [];
   function project(p) {
     var R = rotation(), q = sub(p, [cam.cx, cam.cy, 0]);
     var x = R[0] * q[0] + R[3] * q[1] + R[6] * q[2], y = R[1] * q[0] + R[4] * q[1] + R[7] * q[2];
@@ -498,7 +508,7 @@
       overlay.appendChild(line);
       var div = document.createElement('div');
       div.className = 'bm-flow-label bm-flow-' + l.key;
-      div.textContent = F.labels[l.key];
+      div.textContent = l.key === 'blood' ? B.label : F.labels[l.key];
       root.insertBefore(div, overlay.nextSibling);
       labelNodes[l.key] = { div: div, line: line, spec: l };
     });
@@ -509,14 +519,24 @@
       root.insertBefore(banner, overlay.nextSibling);
     }
   }
+  function belowToolbar() {
+    // the toolbar can wrap onto two rows (narrow windows, more buttons): keep the banner and the card below it
+    var toolbar = root.querySelector('.bm-toolbar');
+    if (!toolbar) return;
+    var top = toolbar.offsetTop + toolbar.offsetHeight + 8;
+    var banner = root.querySelector('.bm-band-banner');
+    if (banner) banner.style.top = top + 'px';
+    card.style.top = (banner && !banner.hidden ? top + banner.offsetHeight + 8 : top) + 'px';
+  }
   function placeLabels() {
+    belowToolbar();
     if (!overlay) return;
     var w = canvas.clientWidth, h = canvas.clientHeight;
     overlay.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
     var placed = [];
     Object.keys(labelNodes).forEach(function (key) {
       var n = labelNodes[key], a = project(F.anchors[n.spec.anchor]);
-      var show = labelsOn && a[0] > 0 && a[0] < w && a[1] > 0 && a[1] < h;
+      var show = labelsOn && (n.spec.onlyWith !== 'blood' || bloodOn) && a[0] > 0 && a[0] < w && a[1] > 0 && a[1] < h;
       n.div.hidden = !show; n.line.style.display = show ? '' : 'none';
       if (!show) return;
       // keep the whole label inside the view: measure it, then clamp on the side it hangs from
@@ -560,6 +580,7 @@
       if (playing) requestAnimationFrame(tick);
     });
     button('Labels', true, function (b) { labelsOn = !labelsOn; b.setAttribute('aria-pressed', String(labelsOn)); redraw(); });
+    if (B) button('Blood flow', false, function (b) { bloodOn = !bloodOn; b.setAttribute('aria-pressed', String(bloodOn)); redraw(); });
   }
 
   /* ---------------------------------------------------------------- interaction */

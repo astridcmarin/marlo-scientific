@@ -36,6 +36,21 @@ class PathsFile(unittest.TestCase):
         v1 = (ROOT / 'intelligence_store/data/body_map_flow_paths_v1.json').read_bytes()
         self.assertEqual(hashlib.sha256(v1).hexdigest(), body_map_paths.PATHS_V1_SHA256)
 
+    def test_blood_paths_follow_the_renal_arteries_in_and_the_renal_veins_out(self):
+        import hashlib
+        blood = {p['id']: p for p in body_map_paths.blood_paths()}
+        vessels = body_map_paths.load_vessel_lines()
+        self.assertEqual(hashlib.sha256(body_map_paths.VEINS_FILE.read_bytes()).hexdigest(), body_map_paths.VEINS_SHA256)
+        for side in ('left', 'right'):
+            inflow = next(p for p in self.paths['paths'] if p['id'] == f'renal_inflow_{side}')
+            self.assertEqual(blood[f'blood_in_{side}']['points'], inflow['points'])
+            out = blood[f'blood_out_{side}']['points']
+            self.assertEqual(out[0], inflow['points'][-1])
+            end = out[-1]
+            ivc = min(vessels['inferior_vena_cava']['points'], key=lambda q: abs(q[1] - end[1]))
+            self.assertLess(max(abs(a - b) for a, b in zip(end[::2], ivc[::2])), 0.003)
+        self.assertEqual({p['kind'] for p in blood.values()}, {'arterial', 'venous'})
+
     def test_vessel_sides_are_assigned_by_position(self):
         vessels = body_map_paths.load_vessel_lines()
         self.assertGreater(vessels['renal_arteries']['left']['points'][-1][0], 0)
@@ -124,6 +139,10 @@ class ViewerScript(unittest.TestCase):
     def test_respects_reduced_motion(self):
         self.assertIn('prefers-reduced-motion: reduce', self.script)
         self.assertIn('playing = !!F && !reducedMotion', self.script)
+
+    def test_blood_flow_layer_is_a_separate_toggle(self):
+        self.assertIn("button('Blood flow', false", self.script)
+        self.assertIn('bloodOn', self.script)
 
     def test_context_organs_get_no_evidence_card(self):
         self.assertIn('e.body_map_node && config.cards ? config.cards[e.body_map_node] : null', self.script)
