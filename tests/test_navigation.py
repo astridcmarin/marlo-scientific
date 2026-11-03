@@ -57,6 +57,7 @@ class NavigationTests(unittest.TestCase):
             '/landscape/patient-lab/transit-demo': ('Simulation Lab', 'Experiments'),
             '/landscape/patient-lab/model-library': ('Drug and model library', 'Models and evidence'),
             '/landscape/patient-lab/published-renal-pk': ('Published renal PK evidence', 'Models and evidence'),
+            '/landscape/patient-lab/body-map': ('Body map explorer', 'Patient Lab'),
         }
         for path, (item, section) in cases.items():
             with self.subTest(path=path):

@@ -254,3 +254,21 @@ Each card names the source model and the view checksum. Context organs have no c
 
 **Next:** 1.5 (docs, links from the drug page and the Patient Lab, checkpoint).
 
+## Step 1.5 delivered (3 November 2026): links, docs and the end of Digital human 1.0
+
+**Links to the body map:**
+- **Sidebar:** "Body map explorer" under Patient Lab, on every workspace page.
+- **Lenalidomide drug page:** "Body map explorer" in the drug hub under *Exposure and effect tools*; the record-mode map stays listed under *On synthetic patients*.
+- **Saved Patient Lab:** a "Lenalidomide body map explorer" button beside the other Patient Lab tools.
+- **Each patient record:** "Body map (3D)" under *Where does the drug leave the body?* in the record's results (layout step 3), and the record-mode map links to the explorer at the record's creatinine clearance.
+
+**Status of Digital human 1.0.** All planned steps (1.0–1.5) are delivered. The body map answers its question (*where does lenalidomide leave the body, and how does that change as kidney function falls?*) with the 2.0a pathway model, on Human Reference Atlas anatomy, with every number's evidence status and the study's observed values beside it. It makes no new scientific claim: no outside check was added, and the validation flags stay false.
+
+**Open items carried forward:**
+- The HRA release version of the United male set (`hra_version: null` in the asset manifest).
+- The three points for the owner in step 1.3a (heart drawn with the blood, small intestine as the gut, the hand-placed stomach).
+- The moderate-band disagreement remains the main scientific limitation. Lower renal elimination than the intact-nephron reading predicts is the known finding; a revised reading needs its own locked plan and an independent check (for example Bridoux 2016, once obtained).
+- Exact-reproduction checks of five locked reports differ in the last floating-point digits on macOS; they pass on the CI platform (Linux). A tolerance-based comparison off CI is a candidate fix.
+
+**Candidates for Digital human 1.1+** (each needs its own plan): a plasma time-course panel from Hughes or Kim under their own scopes; a female reference body; a static, sourced "where it acts" card (cereblon, IKZF1/3) from the knowledge layer; a second drug through the same generic `body-map-view-v1` data.
+
