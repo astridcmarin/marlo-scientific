@@ -21,7 +21,7 @@
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-{{ site_header() }}
+{{ site_header(active='models') }}
 <main id="main" class="section">
 <article class="wrap prose prose-wide">
 {% macro rng(x) %}{% if x[1] is none %}{{ x[0] }} or more{% elif x[0] is none %}up to {{ x[1] }}{% else %}{{ x[0] }}–{{ x[1] }}{% endif %}{% endmacro %}{% set s = entry.scope %}{% set tl = {'externally_checked': 'Checked against outside data', 'inside_model_data': "Inside the model's own data only", 'external_check_disagrees': 'Outside check disagrees', 'per_rules': 'Weakest tier of the rules that admit the record'} %}

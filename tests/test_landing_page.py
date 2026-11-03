@@ -66,17 +66,19 @@ class LandingPageTests(unittest.TestCase):
 
 
     def test_one_brand_and_navigation_across_landing_explorer_and_workspace(self):
-        sections = ('>Clinical trials</a>', '>Drugs &amp; regulatory</a>', '>Patient Lab</a>', '>Simulation Lab</a>')
+        sections = ('>Clinical trials</a>', '>Drugs &amp; regulatory</a>', '>Models and evidence</a>', '>Patient Lab</a>',
+                    '>Simulation Lab</a>')
         landing = self.client.get('/').get_data(as_text=True)
         explorer = self.client.get('/trials').get_data(as_text=True)
         for page in (landing, explorer):
             for text in sections + ('Marlo Scientific', 'images/marlo-mark.png'):
                 self.assertIn(text, page)
         workspace = self.client.get('/landscape/simulation-lab').get_data(as_text=True)
-        for text in ('Marlo Scientific', 'images/marlo-mark.png', 'Clinical &amp; Pharmaceutical Intelligence',
-                     '<p class="nav-label">Clinical trials</p>', '<p class="nav-label">Drugs &amp; regulatory</p>',
-                     '<p class="nav-label">Pharmacology lab</p>', '<p class="nav-label">Your work</p>',
-                     'class="brand" href="/"', 'Marlo Scientific · Pharmacology lab'):
+        for text in ('Marlo Scientific', 'images/marlo-mark.png', 'Clinical, regulatory &amp; pharmacology research',
+                     '<p class="nav-label">Diseases and trials</p>', '<p class="nav-label">Drugs &amp; regulatory</p>',
+                     '<p class="nav-label">Models and evidence</p>', '<p class="nav-label">Patient Lab</p>',
+                     '<p class="nav-label">Experiments</p>', '<p class="nav-label">Your work</p>',
+                     'class="brand" href="/"', 'Marlo Scientific · Experiments'):
             self.assertIn(text, workspace)
         self.assertNotIn('Clinical Intelligence<span', workspace)
         self.assertNotIn('v2 ·', workspace)

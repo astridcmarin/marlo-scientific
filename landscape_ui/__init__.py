@@ -1657,6 +1657,7 @@ register_mechanism_map_pages(bp)
 SITE_SECTIONS = (
     ('trials', 'Clinical trials', 'home'),
     ('drugs', 'Drugs & regulatory', 'landscape.drug_knowledge'),
+    ('models', 'Models and evidence', 'model_scorecards'),
     ('patient', 'Patient Lab', 'landscape.patient_directory'),
     ('simulation', 'Simulation Lab', 'landscape.simulation_lab'),
 )
@@ -1673,7 +1674,8 @@ def _site_context():
     landing = link('landing')
     return {'site_home_url': landing or link('landscape.index'), 'site_sections': sections,
             'site_about_url': landing + '#about' if landing else None,
-            'site_intended_use_url': link('intended_use'), 'site_models_url': link('model_scorecards')}
+            'site_intended_use_url': link('intended_use'), 'site_models_url': link('model_scorecards'),
+            'site_credibility_url': link('credibility_records'), 'site_extraction_review_url': link('extraction_review')}
 
 
 def register_landscape(app):
