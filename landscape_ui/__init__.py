@@ -1622,6 +1622,8 @@ from .patient_platelet_pages import register_patient_platelet_pages
 register_patient_platelet_pages(bp)
 from .patient_renal_pathway_pages import register_patient_renal_pathway_pages
 register_patient_renal_pathway_pages(bp)
+from .body_map_pages import register_body_map_pages
+register_body_map_pages(bp)
 
 from .educational_pk_compare_pages import register_educational_pk_compare_pages
 register_educational_pk_compare_pages(bp)

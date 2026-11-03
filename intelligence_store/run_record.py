@@ -260,6 +260,27 @@ def record_for_renal_pathways(view, evidence=None):
 
 
 
+def record_for_body_map(map_view, pathways_view, evidence=None):
+    """Run record for the record-mode body map (Digital human 1.0, step 1.3b).
+
+    The numbers are those of the 2.0b pathways view for the same revision, so the record is that view's record with the
+    body-map view and the pinned 3D assets added to its checksums.
+    """
+    from .body_map_assets import MANIFEST_SHA256, load_manifest
+    record = record_for_renal_pathways(pathways_view, evidence)
+    record.pop('record_sha256')
+    record.pop('validation')
+    manifest = load_manifest()
+    record.update(kind='body_map', title='Lenalidomide elimination body map for this record')
+    record['checksums'] = ([{'label': 'Body map view', 'sha256': map_view['view_sha256']}] + record['checksums'] +
+                           [{'label': '3D asset manifest', 'sha256': MANIFEST_SHA256}] +
+                           [{'label': f"3D model ({o['class']} organs)", 'sha256': o['sha256']} for o in manifest['outputs']])
+    record['limitations'] = record['limitations'] + [
+        'The 3D organs are reference anatomy (Human Reference Atlas male body), not this record\'s body; their size, '
+        'position and colour carry no result.']
+    return _finish(record)
+
+
 def record_for_relative_odds(models, estimate, evidence=None):
     """Run record for the relative-odds rows of `estimated_pk.compare_published_models` (Simulation 4.0a/4.0b).
 
