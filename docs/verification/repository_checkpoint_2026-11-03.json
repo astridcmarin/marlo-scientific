@@ -73,8 +73,8 @@
   },
   {
    "id": "locked_report_tests_platform_dependent",
-   "status": "open",
-   "detail": "Five exact-reproduction tests fail on macOS in the last digits; reports unchanged. Candidate fix: exact on CI, relative tolerance about 1e-12 elsewhere."
+   "status": "fixed_in_patch_0013",
+   "detail": "Five exact-reproduction tests failed on macOS in the last digits; reports unchanged. tests/report_reproduction.py: exact on Linux (CI); elsewhere floats within 1e-12 relative, everything else exact; MARLO_EXACT_REPORTS=1 forces exact."
   },
   {
    "id": "trailing_blank_line",
@@ -97,7 +97,8 @@
   "patches 0004, 0009, 0010 Aurora shared design",
   "patches 0005-0008 logo and favicon",
   "patch 0011 body map 1.4 explorer and observed-data context",
-  "patch 0012 body map 1.5 links, docs, this checkpoint"
+  "patch 0012 body map 1.5 links, docs, this checkpoint",
+  "patch 0013 locked-report comparison tolerant of last-digit rounding off the CI platform"
  ],
  "remaining_gates": [
   "restore GitHub access; push offline-work; CI; pull requests (#111 open)",

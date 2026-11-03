@@ -7,6 +7,11 @@ from pathlib import Path
 
 from intelligence_store import renal_group_recheck as rc
 
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+from report_reproduction import assert_reproduces  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -50,7 +55,7 @@ class LockedResult(unittest.TestCase):
         cls.report = rc.run_check()
 
     def test_committed_report_reproduces_exactly(self):
-        self.assertEqual(self.report, json.loads(rc.REPORT_PATH.read_text()))
+        assert_reproduces(self, self.report, json.loads(rc.REPORT_PATH.read_text()))
 
     def test_findings(self):
         r = self.report['result_by_model']

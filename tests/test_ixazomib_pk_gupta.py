@@ -8,6 +8,11 @@ from pathlib import Path
 from intelligence_store import ixazomib_pk_gupta as model
 from intelligence_store import ixazomib_pk_gupta_check as c
 
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+from report_reproduction import assert_reproduces  # noqa: E402
+
 DATA = Path(model.__file__).parent / 'data'
 
 
@@ -98,8 +103,7 @@ class Check(unittest.TestCase):
 
     def test_committed_report_regenerates_exactly(self):
         committed = json.loads(c.REPORT_PATH.read_text())
-        fresh = json.loads(json.dumps(c.run_check()))
-        self.assertEqual(fresh, committed)
+        assert_reproduces(self, c.run_check(), committed)
         self.assertEqual(committed['plan_sha256'], c.PLAN_SHA256)
         self.assertTrue(all(committed['numerical_checks'][k] for k in ('closed_form_vs_runge_kutta_pass', 'auc_pass', 'mass_balance_pass')))
         self.assertFalse(committed['decision']['registration_may_be_proposed'])

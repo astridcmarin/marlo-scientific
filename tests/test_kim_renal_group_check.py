@@ -13,6 +13,11 @@ from intelligence_store.kim_model import (estimate_kim_covariates, load_applicab
 from intelligence_store.kim_renal_group_check import (PLAN_SHA256, backsolve_serum_creatinine, draw_subject, load_plan,
                                                       run_check, scenario_settings)
 
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+from report_reproduction import assert_reproduces  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / 'docs' / 'verification' / 'kim_renal_group_check_v1.json'
 
@@ -55,7 +60,7 @@ class CommittedReport(unittest.TestCase):
     def test_committed_report_reproduces_exactly(self):
         committed = json.loads(REPORT.read_text())
         self.assertEqual(committed['plan_sha256'], PLAN_SHA256)
-        self.assertEqual(run_check()['report_sha256'], committed['report_sha256'])
+        assert_reproduces(self, run_check(), committed)
         body = {k: v for k, v in committed.items() if k != 'report_sha256'}
         self.assertEqual(digest(body), committed['report_sha256'])
         self.assertFalse(committed['clinical_prediction_validated'])

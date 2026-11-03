@@ -51,7 +51,7 @@ This is a software and repository verification. It does not validate any model s
 ## Findings
 
 1. **No CI run on this tree.** The account flag blocks pushes, so nothing since #110 has run on the CI platform. The owner's local run and this workspace's run together cover the suite, but on two different platforms. **Gate:** when the account is restored, push `offline-work`, open the pull requests and let CI run before merging.
-2. **Locked-report tests depend on the platform's floating-point results.** Five exact-reproduction checks fail on macOS in the last digits. The reports themselves are unchanged. Candidate fix: keep exact comparison on the CI platform and compare within a relative tolerance of about 10⁻¹² elsewhere, in its own small change.
+2. **Locked-report tests depended on the platform's floating-point results — fixed in patch 0013.** Five exact-reproduction checks failed on macOS in the last digits; the reports themselves are unchanged. The tests now use `tests/report_reproduction.py`: exact on Linux (the CI platform, where the reports were made); elsewhere every key, text, count and input checksum must still match exactly and only floating-point numbers may differ, by at most 10⁻¹² relative. `MARLO_EXACT_REPORTS=1` forces exact comparison anywhere.
 3. **Patch hygiene.** Patch 0011 added one blank line at the end of the body map plan; removed in 0012.
 
 ## Scientific state

@@ -10,6 +10,11 @@ from intelligence_store.renal_group_check import (PLAN_SHA256, _classify, load_o
 from intelligence_store.covariate_estimation import (CovariateEstimationError, estimate_hughes_covariates,
                                                      load_applicability_findings)
 
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+from report_reproduction import assert_reproduces  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / 'docs' / 'verification' / 'hughes_renal_group_check_v1.json'
 
@@ -47,8 +52,7 @@ class CommittedReport(unittest.TestCase):
     def test_committed_report_reproduces_exactly(self):
         committed = json.loads(REPORT.read_text())
         self.assertEqual(committed['plan_sha256'], PLAN_SHA256)
-        fresh = run_check()
-        self.assertEqual(fresh['report_sha256'], committed['report_sha256'])
+        assert_reproduces(self, run_check(), committed)
         body = {k: v for k, v in committed.items() if k != 'report_sha256'}
         self.assertEqual(digest(body), committed['report_sha256'])
 

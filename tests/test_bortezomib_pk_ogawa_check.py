@@ -8,6 +8,11 @@ import unittest
 
 from intelligence_store import bortezomib_pk_ogawa_check as check
 
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+from report_reproduction import assert_reproduces  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 TIMES = [0.0833333333333, 0.25, 0.5, 1, 2, 4, 6, 8, 12, 24, 48]
 
@@ -53,7 +58,7 @@ class LockedCheck(unittest.TestCase):
 
     def test_committed_report_reproduces_exactly(self):
         committed = json.loads(check.REPORT_PATH.read_text())
-        self.assertEqual(check.run_check(), committed)
+        assert_reproduces(self, check.run_check(), committed)
 
     def test_day1_profile_holds_only_the_first_dose(self):
         from intelligence_store.bortezomib_pk import concentration_curve
