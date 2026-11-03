@@ -171,3 +171,27 @@ The platform owner chose to show the rest of the body's anatomy around the elimi
 **Assets.** All context organs come from the same HRA male reference body and version as the simulation organs, and are recorded in the same manifest. Each is simplified for the web (step 1.3a), and the simplified copy is recorded as derived from its original. Loading order: simulation organs first, context organs after, so the page is usable before the anatomy finishes loading.
 
 **Effect on the steps.** None added. Step 1.3a covers the extra files; step 1.3b draws both classes; the test above belongs to step 1.3c.
+
+## Step 1.3a delivered (3 November 2026): the 3D assets
+
+**Source.** The HRA *3D Reference Organ Set for United, Male* (`3d-vh-m-united.glb`, 241.6 MB, 6.9 million triangles, CC BY 4.0), checked against the owner's SHA-256 (`fae3ac19…`). It holds every organ in one body and one coordinate frame (metres, +y up, body left +x). Its kidneys match the HRA's separate kidney files to within 0.12 mm, which confirms the frame independently. The set has no stomach; one from Innerscene (CC0) is placed by hand and labelled approximate.
+
+**Output** (built by `scripts/build_body_map_assets.py`, pinned in `intelligence_store/data/body_map_assets_v1.json`, loaded by `intelligence_store/body_map_assets.py`):
+
+| File | Class | Size | Triangles | Parts |
+|---|---|---|---|---|
+| `landscape_ui/static/body-map/models/body-route-male-v1.glb` | simulation | 3.6 MB | 203,259 | 20 |
+| `landscape_ui/static/body-map/models/body-context-male-v1.glb` | context | 2.8 MB | 166,294 | 19 |
+
+- **Simulation parts** name their `body-map-view-v1` node: small intestine → gut; arteries, veins, unlabelled vessels and heart → plasma; each kidney's capsule, cortex, pyramids, papillae and hilum → kidney; renal pelvis and calyces, ureters, bladder and urethra → urine.
+- **Context parts** name none: skin, brain, spinal cord, lungs, airways, larynx, liver, gallbladder, biliary tree, pancreas, colon, spleen, thymus, spine, pelvis, legs, prostate, genital ducts, stomach.
+- **Left out, each with a reason in the manifest:** fat layers (they hide the organs), mouth and teeth, eyes and their muscles and nerves, knee and larynx muscles, tonsils, one lymph node, hyoid. The Atlas skeleton is partial (spine, pelvis, legs; no ribs, skull or arms).
+- **Simplification.** Quadric-based vertex clustering in numpy (`intelligence_store/glb_mesh.py`). Vertices on opposite sides of a thin wall are never merged, which keeps vessel and heart walls closed. Organs built from tiled segments (brain, lungs, liver) are reduced to their outer shell (voxel 3–4 mm, smoothed), because their inner walls stack up in a translucent view. Each part records its method and how far its bounding box moved: at most 2.3 mm for simulation parts (limit 3 mm) and 7.5 mm for context parts (limit 8 mm).
+- **Checks recorded in the manifest:** all parts inside the skin's bounding box; kidneys on the correct sides; kidneys match the separate HRA files; no context part names a body-map node. The build writes nothing if a check fails.
+
+**Three points for the owner to confirm** (where the build had to choose between parts of decision 5):
+1. **Heart.** The table lists it as context, while the rules say the heart and vessels stand for the plasma compartment. The build follows the rules: the heart is in the plasma group and is coloured with the blood. The viewer attaches no number to the heart itself (step 1.3c).
+2. **Small intestine.** The table lists the intestines as context, while the simulation row lists the gut as the dose-in site. The build makes the small intestine the gut (simulation) and the colon context.
+3. **Stomach.** The decision says context organs come from the same reference body. The Atlas has no stomach, so this one is a different source, placed by eye, and marked `approximate_by_hand` in the manifest.
+
+**Open:** the HRA release version of the United set is not recorded yet (`hra_version: null`); the owner reads it from the download page.
