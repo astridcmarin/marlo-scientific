@@ -1,0 +1,63 @@
+{% extends "landscape_base.html" %}
+{% from "run_record_macros.html" import simulation_banner, run_record_panel %}
+{% block title %}Lenalidomide body map · Record {{ revision.id }}{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('landscape.static', filename='body-map/body-map.css') }}">
+<h1>Where lenalidomide leaves the body: body map</h1>
+<p><a href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id) }}">Back to patient-state record #{{ revision.id }}</a> · <a href="{{ url_for('landscape.patient_renal_pathways_page',scenario_id=scenario.id,revision_id=revision.id) }}">Kidney pathways page</a> · <a href="{{ url_for('landscape.patient_body_map',scenario_id=scenario.id,revision_id=revision.id,format='json') }}">Download (JSON)</a></p>
+{% call simulation_banner(result_type) %}<p>The body map shows the elimination route of lenalidomide, from the gut into the blood and out through the kidneys, on reference anatomy. The numbers are the same pathway model and the same estimate as the kidney pathways page. Organs are drawn for orientation; no organ's colour or size shows an amount of drug.</p>{% endcall %}
+{% if not done %}
+<section class="panel"><h2>Map not drawn</h2><p role="alert">{{ view.message }}</p></section>
+{% else %}
+{% if view.band.status == 'check_disagrees' %}<p role="alert" class="bm-alert">{{ view.band.status_text }}</p>{% endif %}
+<div class="bm-layout">
+<section class="bm-stage" aria-labelledby="bm-3d-heading">
+<h2 id="bm-3d-heading" class="bm-visually-hidden">3D anatomy</h2>
+{% if assets_error %}<p role="alert" class="bm-alert">{{ assets_error }} The flow diagram below shows the same numbers.</p>
+{% else %}
+<div id="body-map-viewer" class="bm-viewer" data-state="loading">
+<div class="bm-toolbar" role="group" aria-label="Camera">{% for p in presets %}<button type="button" data-preset="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ p.label }}</button>{% endfor %}<span class="bm-toolbar-gap"></span><button type="button" data-zoom="out" aria-label="Zoom out">−</button><button type="button" data-zoom="in" aria-label="Zoom in">+</button></div>
+<canvas aria-label="3D anatomy of the lenalidomide elimination route on a reference male body. Drag to turn; select an organ to identify it. The same numbers are in the table and the flow diagram." role="img"></canvas>
+<p class="bm-status" data-role="status" role="status"></p>
+<div class="bm-card" data-role="card" hidden><button type="button" class="bm-card-close" data-role="card-close" aria-label="Close">×</button><p class="bm-card-title" data-role="card-title"></p><p data-role="card-class"></p><p class="bm-card-ids" data-role="card-ids"></p></div>
+<p class="bm-legend"><span class="bm-swatch bm-sw-sim" aria-hidden="true"></span>Coloured: carries model results <span class="bm-swatch bm-sw-ctx" aria-hidden="true"></span>Grey: anatomy for orientation<span class="bm-visually-hidden"> ({{ legend }})</span></p>
+</div>
+{% endif %}
+<p class="bm-attribution">{% for a in attribution %}{{ a }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+</section>
+<aside class="panel bm-numbers" aria-labelledby="bm-numbers-heading">
+<h2 id="bm-numbers-heading">Elimination at creatinine clearance {{ '%.0f'|format(view.crcl_ml_min) }} mL/min</h2>
+<p class="bm-band"><strong>{{ view.band.id|capitalize }} kidney function</strong> ({{ '%g'|format(view.band.range_ml_min[0]) }}–{{ '%g'|format(view.band.range_ml_min[1]) }} mL/min). {{ view.band.status_text }}</p>
+<table class="rr-table"><thead><tr><th>Route</th><th>mL/min</th><th>Share</th></tr></thead><tbody>
+<tr><td><span style="color:{{ colors.filtration }}">■</span> Filtration</td><td>{{ '%.0f'|format(flows.filtration.value) }}<br><small>{{ '%.0f'|format(flows.filtration.alternative_value) }} with fu 0.60</small></td><td>{{ '%.0f'|format(100*flows.filtration.share_of_elimination) }}%<br><small>{{ '%.0f'|format(100*flows.filtration.alternative_share) }}%</small></td></tr>
+<tr><td><span style="color:{{ colors.tubular_secretion }}">■</span> Tubular secretion</td><td>{{ '%.0f'|format(flows.tubular_secretion.value) }}<br><small>{{ '%.0f'|format(flows.tubular_secretion.alternative_value) }} with fu 0.60</small></td><td>{{ '%.0f'|format(100*flows.tubular_secretion.share_of_elimination) }}%<br><small>{{ '%.0f'|format(100*flows.tubular_secretion.alternative_share) }}%</small></td></tr>
+<tr><td><span style="color:{{ colors.renal_excretion }}">■</span> Into urine (renal total)</td><td>{{ '%.0f'|format(flows.renal_excretion.value) }}</td><td>{{ '%.0f'|format(100*flows.renal_excretion.share_of_elimination) }}%</td></tr>
+<tr><td><span style="color:{{ colors.non_renal }}">■</span> Non-renal routes</td><td>{{ '%.0f'|format(flows.non_renal.value) }}</td><td>{{ '%.0f'|format(100*flows.non_renal.share_of_elimination) }}%</td></tr>
+<tr><th>Total clearance</th><td>{{ '%.0f'|format(view.totals.total_ml_min) }}</td><td></td></tr>
+</tbody></table>
+<p>Dose leaving unchanged in urine: <strong>{{ '%.0f'|format(100*view.totals.fraction_excreted_unchanged) }}%</strong> (normal function: {{ '%.0f'|format(100*view.normal_reference.fraction_excreted_unchanged) }}%). Typical exposure at the same dose: about <strong>{{ '%.1f'|format(view.totals.relative_exposure_same_dose) }}×</strong> the normal-function reference.</p>
+<p class="panel-note">The unbound fraction is not pinned down by the data: filtration is shown with fu 0.77 (in vitro) and 0.60 (ex vivo). Total renal clearance and exposure are the same under both.</p>
+</aside>
+</div>
+<section class="panel" aria-labelledby="bm-flow-heading">
+<h2 id="bm-flow-heading">Flow diagram</h2>
+<p>Line widths are proportional to clearance on one fixed scale (the normal-function total, {{ '%.0f'|format(view.drawing_scale.max_flow_ml_min) }} mL/min), so maps for different records can be compared.</p>
+<svg class="bm-flow" viewBox="0 60 640 160" role="img" aria-labelledby="bm-flow-title"><title id="bm-flow-title">Gut to blood; blood to kidney by filtration {{ '%.0f'|format(flows.filtration.value) }} and tubular secretion {{ '%.0f'|format(flows.tubular_secretion.value) }} mL/min; kidney to urine {{ '%.0f'|format(flows.renal_excretion.value) }} mL/min; blood to non-renal routes {{ '%.0f'|format(flows.non_renal.value) }} mL/min.</title>
+<rect x="10" y="80" width="90" height="56" rx="8" class="bm-node"/><text x="55" y="104" text-anchor="middle">Gut</text><text x="55" y="122" text-anchor="middle" class="bm-sub">oral dose</text>
+<line x1="100" y1="108" x2="160" y2="108" class="bm-absorb"/>
+<rect x="160" y="80" width="100" height="56" rx="8" class="bm-node"/><text x="210" y="104" text-anchor="middle">Blood</text><text x="210" y="122" text-anchor="middle" class="bm-sub">plasma</text>
+<line x1="260" y1="94" x2="380" y2="94" stroke="{{ colors.filtration }}" stroke-width="{{ widths.filtration }}" stroke-opacity="0.85"/>
+<line x1="260" y1="122" x2="380" y2="122" stroke="{{ colors.tubular_secretion }}" stroke-width="{{ widths.tubular_secretion }}" stroke-opacity="0.85"/>
+<rect x="380" y="70" width="100" height="76" rx="8" class="bm-node"/><text x="430" y="104" text-anchor="middle">Kidney</text><text x="430" y="122" text-anchor="middle" class="bm-sub">glomerulus, tubule</text>
+<line x1="480" y1="108" x2="540" y2="108" stroke="{{ colors.renal_excretion }}" stroke-width="{{ widths.renal_excretion }}" stroke-opacity="0.85"/>
+<rect x="540" y="80" width="90" height="56" rx="8" class="bm-node"/><text x="585" y="104" text-anchor="middle">Urine</text><text x="585" y="122" text-anchor="middle" class="bm-sub">unchanged drug</text>
+<line x1="210" y1="136" x2="210" y2="170" stroke="{{ colors.non_renal }}" stroke-width="{{ widths.non_renal }}" stroke-opacity="0.85"/>
+<rect x="150" y="170" width="120" height="40" rx="8" class="bm-node"/><text x="210" y="195" text-anchor="middle">Non-renal routes</text>
+<text x="320" y="84" text-anchor="middle" class="bm-sub">filtration</text><text x="320" y="146" text-anchor="middle" class="bm-sub">secretion</text>
+</svg>
+</section>
+<section class="panel"><h2>Limits of this map</h2><ul>{% for item in view.limitations %}<li>{{ item }}</li>{% endfor %}<li>The 3D organs are reference anatomy (Human Reference Atlas male body), not this record's body; their size, position and colour carry no result.</li></ul></section>
+{{ run_record_panel(record) }}
+{% endif %}
+{% endblock %}
+{% block scripts %}{% if config %}<script id="body-map-config" type="application/json">{{ config|tojson }}</script><script src="{{ url_for('landscape.static', filename='body-map/body-map-viewer.js') }}" defer></script>{% endif %}{% endblock %}

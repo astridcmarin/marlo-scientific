@@ -133,7 +133,7 @@ The platform owner chose a 3D view built on the **Human Reference Atlas (HRA) 3D
 **What it does not imply.** A realistic organ is not a concentration. Organs are not shaded by drug amount, because no source gives tissue levels.
 
 **Engineering:**
-- **three.js** is installed from npm and served from the platform's own static files (no external CDN at runtime). Models load with its GLTF loader.
+- **Renderer (changed in step 1.3b):** a small WebGL viewer written for the platform (`landscape_ui/static/body-map/body-map-viewer.js`), served from the platform's own static files, in place of three.js. The planned three.js could not be installed in the build workspace, and the assets from step 1.3a need only positions, normals and indices, so no library is needed. No external code at runtime, and no third-party licence to track. three.js remains an option if later steps need more than this.
 - **The GLB files** are recorded in an asset manifest with file name, HRA version, sex, source URL, licence and SHA-256. The page refuses to load a changed file, as with the reference data.
 - **Attribution** on the page and in the manifest: "Human Reference Atlas 3D Reference Object Library (HuBMAP), CC BY 4.0".
 - **One body for all organs:** female or male, chosen once, because organ positions and sizes differ between the two reference bodies.
@@ -195,3 +195,18 @@ The platform owner chose to show the rest of the body's anatomy around the elimi
 3. **Stomach.** The decision says context organs come from the same reference body. The Atlas has no stomach, so this one is a different source, placed by eye, and marked `approximate_by_hand` in the manifest.
 
 **Open:** the HRA release version of the United set is not recorded yet (`hra_version: null`); the owner reads it from the download page.
+
+## Step 1.3b delivered (3 November 2026): the record-mode page with the 3D viewer
+
+**Route:** `/landscape/workspace/scenarios/<scenario>/patient-state/revisions/<revision>/body-map` (and `?format=json` for the `body-map-view-v1` data). Linked from the patient-state record as "Lenalidomide body map (3D)".
+
+**What the page shows**
+- The shared simulation banner and, in the moderate band, the "outside check disagrees" alert above the view.
+- **3D view:** the step 1.3a models on a dark panel. Four fixed camera presets (whole body, abdomen, kidneys, side), with whole body as the default so screenshots are comparable. Drag turns the body; zoom buttons. Selecting an organ shows its name, whether it is a simulation organ (and which body-map node it draws) or "anatomy for orientation, not simulated", and its UBERON IDs. The stomach's card says it is placed by hand.
+- **Checksums before drawing:** the browser computes each model's SHA-256 and compares it with the pinned manifest. A changed file is refused and the 3D view is not drawn. Browsers that cannot check (no secure connection) or have no WebGL show a message instead.
+- **Numbers beside the view:** filtration and secretion (with fu 0.77 and 0.60), renal total, non-renal, total clearance, the fraction excreted unchanged and the relative exposure. All come from `body-map-view-v1`; the viewer draws no number itself.
+- **Flow diagram (2D, server-drawn):** the same flows as line widths on the fixed normal-total scale. It is always on the page, so every number is available without the 3D view.
+- **Limits** and the **run record**, which is the 2.0b pathways record plus the body-map view, the asset manifest and both model checksums.
+- Outside 10–140 mL/min or with missing inputs, no map is drawn and the reason is shown.
+
+**Not yet (step 1.3c):** flows drawn in 3D (tubes and particles), evidence-status outlines on the kidneys, and per-organ evidence cards with numbers.
