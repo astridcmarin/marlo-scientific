@@ -93,3 +93,38 @@ body { font-family: var(--ms-font-body); }
 .button.primary { background: var(--ms-accent); border-color: var(--ms-accent); }
 .button.primary:hover { background: var(--ms-accent-dark); }
 a { color: var(--ms-accent-dark); }
+
+/* Design pass 2 (3 November 2026): simulation notices and run records in the shared style. Markup is unchanged
+   apart from the banner chips; every page with a .scenario-notice or a run record picks this up. */
+.scenario-notice { border: 1px solid #d9d5f7; border-left: 4px solid var(--ms-accent); border-radius: 0 var(--ms-radius-lg) var(--ms-radius-lg) 0; background: linear-gradient(90deg, var(--ms-accent-soft) 0%, #f7f6ff 100%); padding: 14px 18px; }
+.scenario-notice p { color: var(--ms-body); }
+.scenario-notice > p:first-child { margin-top: 0; }
+.scenario-notice strong { color: var(--ms-ink); }
+.rr-banner-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 4px !important; }
+.rr-banner-chips span { display: inline-flex; align-items: center; gap: 6px; font: 500 11px var(--ms-font-body); letter-spacing: .02em; padding: 3px 10px; border-radius: 999px; background: #fff; border: 1px solid #cfc9f5; color: var(--ms-accent-dark); }
+.rr-banner-chips span:first-child { background: var(--ms-accent); border-color: var(--ms-accent); color: #fff; }
+.rr-banner-chips span:first-child::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #7dd3fc; }
+.rr-banner-validation { font-family: var(--ms-font-mono); font-size: 11px !important; color: var(--ms-muted) !important; }
+.rr-banner-validation strong { color: var(--ms-flagged-ink); }
+
+.rr-panel { border-radius: var(--ms-radius-lg); border-color: var(--ms-line); position: relative; overflow: hidden; }
+.rr-panel::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--ms-gradient); }
+.rr-panel > h2 { font-family: var(--ms-font-display); }
+.rr-panel h3 { font-family: var(--ms-font-display); font-weight: 500; color: var(--ms-ink); }
+.rr-summary { line-height: 1.9; background: var(--ms-ground); border: 1px solid var(--ms-line); border-radius: var(--ms-radius); padding: 9px 12px; }
+.rr-warnings { list-style: none; padding: 0; }
+.rr-warnings li { border-left: 3px solid var(--ms-flagged-line); background: var(--ms-flagged-bg); color: var(--ms-flagged-ink); padding: 7px 11px; border-radius: 0 var(--ms-radius) var(--ms-radius) 0; }
+.rr-details { border-top-color: var(--ms-line); }
+.rr-details > summary { color: var(--ms-accent-dark); }
+.rr-details > summary:hover { color: var(--ms-accent); }
+.rr-table th { background: var(--ms-ground); color: var(--ms-muted); }
+.rr-panel .catalog-digest { background: var(--ms-ground); border-radius: var(--ms-radius); padding: 10px 12px; font-size: 11px; color: var(--ms-muted); }
+
+/* run-record status labels use the platform's evidence-status colours, always with their words */
+.rr-status { display: inline-flex; align-items: center; gap: 5px; font: 500 11px var(--ms-font-body); padding: 2px 8px; border-radius: 999px; }
+.rr-status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.rr-ok { background: var(--ms-checked-bg); border-color: var(--ms-checked-line); color: var(--ms-checked-ink); }
+.rr-open { background: var(--ms-partly-bg); border-color: var(--ms-partly-line); color: var(--ms-partly-ink); }
+.rr-gap { background: var(--ms-unavailable-bg); border-color: var(--ms-unavailable-line); color: var(--ms-unavailable-ink); }
+.rr-flag { background: var(--ms-flagged-bg); border-color: var(--ms-flagged-line); color: var(--ms-flagged-ink); }
+.rr-table caption { text-align: left; font-size: 12px; color: var(--ms-muted); padding: 0 0 8px; }

@@ -4,11 +4,11 @@
 
 {% macro simulation_banner(result_type) %}
 <section class="scenario-notice rr-banner" aria-label="What this result is">
-<p class="rr-banner-flags"><strong>Simulated</strong> · <strong>Synthetic patient record</strong> · <strong>Not a clinical prediction</strong></p>
+<p class="rr-banner-flags rr-banner-chips"><span>Simulated</span><span>Synthetic patient record</span><span>Not a clinical prediction</span></p>
 <p><strong>{{ result_type.label }}.</strong> {{ result_type.is }}</p>
 {{ caller() }}
 <p>It is not {% for item in result_type.is_not %}{{ item }}{% if loop.revindex == 2 %}, or {% elif not loop.last %}, {% endif %}{% endfor %}.</p>
-<p class="rr-banner-flags">Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong></p>
+<p class="rr-banner-flags rr-banner-validation">Clinical prediction validated: <strong>false</strong> · Patient simulation ready: <strong>false</strong></p>
 </section>
 {% endmacro %}
 
