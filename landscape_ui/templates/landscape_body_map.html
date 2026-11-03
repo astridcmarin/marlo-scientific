@@ -19,7 +19,7 @@
 <div class="bm-toolbar" role="group" aria-label="Camera">{% for p in presets %}<button type="button" data-preset="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ p.label }}</button>{% endfor %}<span class="bm-toolbar-gap"></span><button type="button" data-zoom="out" aria-label="Zoom out">−</button><button type="button" data-zoom="in" aria-label="Zoom in">+</button></div>
 <canvas aria-label="3D anatomy of the lenalidomide elimination route on a reference male body. Drag to turn; select an organ to identify it. The same numbers are in the table and the flow diagram." role="img"></canvas>
 <p class="bm-status" data-role="status" role="status"></p>
-<div class="bm-card" data-role="card" hidden><button type="button" class="bm-card-close" data-role="card-close" aria-label="Close">×</button><p class="bm-card-title" data-role="card-title"></p><p data-role="card-class"></p><p class="bm-card-ids" data-role="card-ids"></p></div>
+<div class="bm-card" data-role="card" hidden><button type="button" class="bm-card-close" data-role="card-close" aria-label="Close">×</button><p class="bm-card-title" data-role="card-title"></p><p data-role="card-class"></p><div data-role="card-evidence"></div><p class="bm-card-ids" data-role="card-ids"></p></div>
 <p class="bm-legend"><span class="bm-swatch bm-sw-sim" aria-hidden="true"></span>Coloured: carries model results <span class="bm-swatch bm-sw-ctx" aria-hidden="true"></span>Grey: anatomy for orientation<span class="bm-visually-hidden"> ({{ legend }})</span></p>
 </div>
 {% endif %}

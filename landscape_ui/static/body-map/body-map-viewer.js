@@ -59,6 +59,9 @@
     if (s === 'unlabelled vessels') return { c: [0.6, 0.35, 0.6], a: 1, rim: 0.3, body: 1, pass: 0 };
     if (g === 'VH_M_heart') return { c: [0.85, 0.22, 0.25], a: 1, rim: 0.35, body: 1, pass: 0 };
     if (/kidney/.test(g)) {
+      var outline = config.flows && config.flows.band.outline;
+      if (s === 'kidney capsule' && outline === 'warning') return { c: [1.0, 0.45, 0.2], a: 0.6, rim: 2.4, body: 0.35, pass: 1, warn: [1.0, 0.5, 0.2] };
+      if (s === 'kidney capsule' && outline === 'caution') return { c: [1.0, 0.75, 0.3], a: 0.5, rim: 1.8, body: 0.4, pass: 1, warn: [1.0, 0.8, 0.3] };
       if (s === 'kidney capsule') return { c: [0.98, 0.62, 0.58], a: 0.35, rim: 0.9, body: 0.5, pass: 1 };
       if (s === 'renal pyramids') return { c: [0.95, 0.3, 0.32], a: 1, rim: 0.4, body: 1, pass: 0 };
       if (s === 'renal papillae') return { c: [1.0, 0.75, 0.35], a: 1, rim: 0.4, body: 1, pass: 0 };
@@ -81,10 +84,10 @@
   }
   var VS = 'attribute vec3 p;attribute vec3 n;uniform mat3 R;uniform vec3 C;uniform float S,A;varying vec3 vn;' +
     'void main(){vec3 q=R*(p-C);vn=R*n;gl_Position=vec4(q.x*S/A,q.y*S,-q.z*0.6,1.);}';
-  var FS = 'precision mediump float;varying vec3 vn;uniform vec3 col;uniform float alpha,rim,body,pick;uniform vec3 pickCol;' +
+  var FS = 'precision mediump float;varying vec3 vn;uniform vec3 col,rimCol;uniform float alpha,rim,body,pick;uniform vec3 pickCol;' +
     'void main(){if(pick>0.5){gl_FragColor=vec4(pickCol,1.);return;}vec3 n=normalize(vn);float f=pow(1.-abs(n.z),2.2);' +
     'vec3 L=normalize(vec3(-.4,.5,.8));float d=max(dot(n,L),0.);float s=pow(max(dot(reflect(-L,n),vec3(0,0,1)),0.),28.);' +
-    'vec3 c=col*(0.28+0.72*d)*body+vec3(.55,.8,1.)*f*rim+vec3(1.)*s*.22*body;gl_FragColor=vec4(c,alpha*min(1.,body+f*rim));}';
+    'vec3 c=col*(0.28+0.72*d)*body+rimCol*f*rim+vec3(1.)*s*.22*body;gl_FragColor=vec4(c,alpha*min(1.,body+f*rim));}';
   function shader(type, src) {
     var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
     if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
@@ -95,7 +98,7 @@
   gl.attachShader(program, shader(gl.FRAGMENT_SHADER, FS));
   gl.linkProgram(program);
   gl.useProgram(program);
-  var U = {}; ['R', 'C', 'S', 'A', 'col', 'alpha', 'rim', 'body', 'pick', 'pickCol'].forEach(function (k) { U[k] = gl.getUniformLocation(program, k); });
+  var U = {}; ['R', 'C', 'S', 'A', 'col', 'rimCol', 'alpha', 'rim', 'body', 'pick', 'pickCol'].forEach(function (k) { U[k] = gl.getUniformLocation(program, k); });
   var aP = gl.getAttribLocation(program, 'p'), aN = gl.getAttribLocation(program, 'n');
   gl.enableVertexAttribArray(aP); gl.enableVertexAttribArray(aN);
 
@@ -153,6 +156,7 @@
         if (part.st.pass !== pass) return;
         var boost = selected === part ? 1.6 : 1;
         gl.uniform3fv(U.col, part.st.c);
+        gl.uniform3fv(U.rimCol, part.st.warn || [0.55, 0.8, 1.0]);
         gl.uniform1f(U.alpha, Math.min(1, part.st.a * boost));
         gl.uniform1f(U.rim, part.st.rim * boost);
         gl.uniform1f(U.body, part.st.body);
@@ -161,6 +165,14 @@
       });
     });
     gl.depthMask(true);
+    if (flowsOn) {
+      // The flow layer is a diagram drawn over the anatomy: clear depth so vessels and organs never hide it.
+      gl.clear(gl.DEPTH_BUFFER_BIT);
+      gl.enable(gl.DEPTH_TEST); gl.disable(gl.BLEND);
+      drawTubes();
+      drawParticles();
+    }
+    placeLabels();
   }
   var pending = false;
   function redraw() { if (!pending) { pending = true; requestAnimationFrame(function () { pending = false; draw(); }); } }
@@ -215,15 +227,266 @@
     var e = part.extras;
     var info = config.parts[part.name] || {};
     var node = e.body_map_node ? config.node_labels[e.body_map_node] : null;
+    var evidence = e.body_map_node && config.cards ? config.cards[e.body_map_node] : null;
     card.querySelector('[data-role="card-title"]').textContent = info.title || part.name;
     card.querySelector('[data-role="card-class"]').textContent = node
-      ? 'Simulation organ: draws "' + node + '". Its numbers are in the table beside the view.'
+      ? 'Simulation organ: draws "' + node + '".' + (evidence ? '' : ' Its numbers are in the table beside the view.')
       : config.context_label;
+    var body = card.querySelector('[data-role="card-evidence"]');
+    body.textContent = '';
+    if (evidence) {
+      var h = document.createElement('p'); h.className = 'bm-card-sub'; h.textContent = evidence.title; body.appendChild(h);
+      var dl = document.createElement('dl');
+      evidence.rows.forEach(function (row) {
+        var dt = document.createElement('dt'); dt.textContent = row[0];
+        var dd = document.createElement('dd'); dd.textContent = row[1];
+        dl.appendChild(dt); dl.appendChild(dd);
+      });
+      body.appendChild(dl);
+      if (evidence.status_text) {
+        var st = document.createElement('p');
+        st.className = 'bm-card-status bm-status-' + evidence.status; st.textContent = evidence.status_text; body.appendChild(st);
+      }
+      evidence.basis.forEach(function (b) { var p = document.createElement('p'); p.className = 'bm-card-basis'; p.textContent = b; body.appendChild(p); });
+      var src = document.createElement('p'); src.className = 'bm-card-ids'; src.textContent = 'Source: ' + evidence.source; body.appendChild(src);
+    }
     var ids = (e.ontology_ids || []).filter(function (id) { return id.indexOf('UBERON:') === 0; });
     card.querySelector('[data-role="card-ids"]').textContent = (ids.length ? 'Anatomy IDs: ' + ids.slice(0, 3).join(', ') +
       (ids.length > 3 ? ' and ' + (ids.length - 3) + ' more' : '') : '') +
       (e.placement === 'approximate_by_hand' ? ' · placed by hand, approximate' : '');
     card.hidden = false;
+  }
+
+  /* ---------------------------------------------------------------- flows (step 1.3c) */
+  var F = config.flows || null;
+  var flowsOn = !!F, labelsOn = !!F, tubes = [], strands = [];
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var playing = !!F && !reducedMotion, clock = 0, last = null;
+
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+  function mul(a, k) { return [a[0] * k, a[1] * k, a[2] * k]; }
+  function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+  function norm(a) { var l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; }
+
+  function smooth(points, perSegment) {
+    // Catmull-Rom through the path points, so tubes and particles follow a smooth line.
+    if (points.length < 3) {
+      var out2 = [];
+      for (var k = 0; k <= perSegment; k++) out2.push(add(points[0], mul(sub(points[1], points[0]), k / perSegment)));
+      return out2;
+    }
+    var out = [], p = [points[0]].concat(points, [points[points.length - 1]]);
+    for (var i = 1; i < p.length - 2; i++) {
+      for (var j = 0; j < perSegment; j++) {
+        var t = j / perSegment, t2 = t * t, t3 = t2 * t;
+        out.push([0, 1, 2].map(function (c) {
+          return 0.5 * (2 * p[i][c] + (-p[i - 1][c] + p[i + 1][c]) * t + (2 * p[i - 1][c] - 5 * p[i][c] + 4 * p[i + 1][c] - p[i + 2][c]) * t2 +
+                        (-p[i - 1][c] + 3 * p[i][c] - 3 * p[i + 1][c] + p[i + 2][c]) * t3);
+        }));
+      }
+    }
+    out.push(points[points.length - 1]);
+    return out;
+  }
+
+  function frames(line) {
+    // Tangents and parallel-transported normals along a polyline.
+    var t = line.map(function (_, i) { return norm(sub(line[Math.min(i + 1, line.length - 1)], line[Math.max(i - 1, 0)])); });
+    var n = [norm(cross(t[0], Math.abs(t[0][1]) < 0.9 ? [0, 1, 0] : [1, 0, 0]))];
+    for (var i = 1; i < line.length; i++) {
+      var b = cross(t[i - 1], t[i]);
+      var nb = Math.hypot(b[0], b[1], b[2]);
+      if (nb < 1e-9) { n.push(n[i - 1]); continue; }
+      n.push(norm(cross(cross(t[i], n[i - 1]), t[i])));
+    }
+    return { t: t, n: n };
+  }
+
+  function tubeMesh(line, radius, sides) {
+    var fr = frames(line), pos = [], nor = [], idx = [];
+    line.forEach(function (c, i) {
+      var nn = fr.n[i], bb = cross(fr.t[i], nn);
+      for (var k = 0; k < sides; k++) {
+        var a = 2 * Math.PI * k / sides, d = add(mul(nn, Math.cos(a)), mul(bb, Math.sin(a)));
+        pos.push.apply(pos, add(c, mul(d, radius))); nor.push.apply(nor, d);
+      }
+    });
+    for (var i = 0; i < line.length - 1; i++) {
+      for (var k = 0; k < sides; k++) {
+        var a0 = i * sides + k, a1 = i * sides + (k + 1) % sides, b0 = a0 + sides, b1 = a1 + sides;
+        idx.push(a0, b0, a1, a1, b0, b1);
+      }
+    }
+    return { positions: new Float32Array(pos), normals: new Float32Array(nor), indices: new Uint32Array(idx) };
+  }
+
+  function lengths(line) {
+    var acc = [0];
+    for (var i = 1; i < line.length; i++) { var d = sub(line[i], line[i - 1]); acc.push(acc[i - 1] + Math.hypot(d[0], d[1], d[2])); }
+    return acc;
+  }
+
+  function buildFlows() {
+    if (!F) return;
+    F.paths.forEach(function (path) {
+      var line = smooth(path.points, 8);
+      var fr = frames(line);
+      var values = path.flows.map(function (kind) { return F.values[kind]; });
+      var radii = values.map(function (v) { return v === null ? 0.0012 : Math.max(0.0008, 0.5 * F.tube_diameter_at_scale_m * v * path.share_per_path / F.scale_ml_min); });
+      var total = radii.reduce(function (a, b) { return a + b; }, 0);
+      var offset = -total;
+      path.flows.forEach(function (kind, i) {
+        offset += radii[i];
+        var shift = path.flows.length > 1 ? offset : 0;
+        var strandLine = line.map(function (c, j) { return add(c, mul(fr.n[j], shift)); });
+        offset += radii[i] + 0.0006;
+        var mesh = tubeMesh(strandLine, radii[i], 10);
+        var color = F.colors[kind];
+        var tube = { kind: kind, dashed: values[i] === null, color: color, count: mesh.indices.length };
+        function buf(target, data) { var b = gl.createBuffer(); gl.bindBuffer(target, b); gl.bufferData(target, data, gl.STATIC_DRAW); return b; }
+        tube.pb = buf(gl.ARRAY_BUFFER, mesh.positions); tube.nb = buf(gl.ARRAY_BUFFER, mesh.normals); tube.ib = buf(gl.ELEMENT_ARRAY_BUFFER, mesh.indices);
+        if (values[i] !== null) tubes.push(tube);
+        var acc = lengths(strandLine), value = values[i] === null ? F.scale_ml_min * 0.15 : values[i] * path.share_per_path;
+        // Particle speed is proportional to clearance on the fixed scale; spacing is constant.
+        strands.push({ line: strandLine, acc: acc, length: acc[acc.length - 1], color: color, speed: 0.06 * value / (F.scale_ml_min * 0.5),
+                       count: Math.max(3, Math.round(acc[acc.length - 1] / 0.012)), dashed: values[i] === null });
+      });
+    });
+    var total = strands.reduce(function (a, s) { return a + s.count; }, 0);
+    particleBuffer = gl.createBuffer();
+    particleData = new Float32Array(total * 3);
+  }
+
+  function drawTubes() {
+    tubes.forEach(function (tube) {
+      gl.uniform3fv(U.col, tube.color); gl.uniform3fv(U.rimCol, tube.color);
+      gl.uniform1f(U.alpha, 1); gl.uniform1f(U.rim, 0.6); gl.uniform1f(U.body, 0.95);
+      gl.bindBuffer(gl.ARRAY_BUFFER, tube.pb); gl.vertexAttribPointer(aP, 3, gl.FLOAT, false, 0, 0);
+      gl.bindBuffer(gl.ARRAY_BUFFER, tube.nb); gl.vertexAttribPointer(aN, 3, gl.FLOAT, false, 0, 0);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, tube.ib);
+      gl.drawElements(gl.TRIANGLES, tube.count, gl.UNSIGNED_INT, 0);
+    });
+  }
+
+  var PVS = 'attribute vec3 p;uniform mat3 R;uniform vec3 C;uniform float S,A,size;void main(){vec3 q=R*(p-C);gl_Position=vec4(q.x*S/A,q.y*S,-q.z*0.6-0.002,1.);gl_PointSize=size;}';
+  var PFS = 'precision mediump float;uniform vec3 col;void main(){vec2 d=gl_PointCoord-vec2(.5);float r=dot(d,d);if(r>.25)discard;gl_FragColor=vec4(mix(vec3(1.),col*1.15,smoothstep(0.,.04,r)),1.-smoothstep(.14,.25,r));}';
+  var pProgram = null, PU = {}, pA = -1, particleBuffer = null, particleData = null;
+  if (F) {
+    pProgram = gl.createProgram();
+    gl.attachShader(pProgram, shader(gl.VERTEX_SHADER, PVS)); gl.attachShader(pProgram, shader(gl.FRAGMENT_SHADER, PFS));
+    gl.linkProgram(pProgram);
+    ['R', 'C', 'S', 'A', 'size', 'col'].forEach(function (k) { PU[k] = gl.getUniformLocation(pProgram, k); });
+    pA = gl.getAttribLocation(pProgram, 'p');
+  }
+
+  function at(strand, distance) {
+    var acc = strand.acc, line = strand.line, i = 1;
+    while (i < acc.length - 1 && acc[i] < distance) i++;
+    var span = acc[i] - acc[i - 1] || 1, t = (distance - acc[i - 1]) / span;
+    return add(line[i - 1], mul(sub(line[i], line[i - 1]), Math.max(0, Math.min(1, t))));
+  }
+
+  function drawParticles() {
+    if (!pProgram || !strands.length) return;
+    gl.useProgram(pProgram);
+    gl.uniformMatrix3fv(PU.R, false, rotation()); gl.uniform3fv(PU.C, [cam.cx, cam.cy, 0]);
+    gl.uniform1f(PU.S, cam.scale); gl.uniform1f(PU.A, canvas.width / canvas.height);
+    gl.uniform1f(PU.size, Math.max(3, Math.min(9, 1.6 * cam.scale)) * (window.devicePixelRatio || 1));
+    gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE); gl.enable(gl.DEPTH_TEST); gl.depthMask(false);
+    gl.disableVertexAttribArray(aN);
+    strands.forEach(function (strand) {
+      var data = new Float32Array(strand.count * 3), spacing = strand.length / strand.count;
+      for (var k = 0; k < strand.count; k++) {
+        var d = (k * spacing + clock * strand.speed) % strand.length;
+        data.set(at(strand, d), k * 3);
+      }
+      gl.uniform3fv(PU.col, strand.color);
+      gl.bindBuffer(gl.ARRAY_BUFFER, particleBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, data, gl.DYNAMIC_DRAW);
+      gl.vertexAttribPointer(pA, 3, gl.FLOAT, false, 0, 0);
+      gl.drawArrays(gl.POINTS, 0, strand.count);
+    });
+    gl.enableVertexAttribArray(aN);
+    gl.depthMask(true);
+    gl.useProgram(program);
+  }
+
+  function tick(now) {
+    if (!playing) { last = null; return; }
+    if (last !== null) clock += Math.min(0.1, (now - last) / 1000);
+    last = now;
+    draw();
+    requestAnimationFrame(tick);
+  }
+
+  /* labels: HTML text with leader lines, anchored to points in the body */
+  var overlay = null, labelNodes = {};
+  var LABELS = F ? [
+    { key: 'renal', anchor: 'aorta_renal_level', dx: 150, dy: -110 },
+    { key: 'urine', anchor: 'bladder', dx: 150, dy: 0 },
+    { key: 'non_renal', anchor: 'aorta_renal_level', dx: 160, dy: 75 },
+    { key: 'absorption', anchor: 'gut', dx: -170, dy: 70 },
+  ] : [];
+  function project(p) {
+    var R = rotation(), q = sub(p, [cam.cx, cam.cy, 0]);
+    var x = R[0] * q[0] + R[3] * q[1] + R[6] * q[2], y = R[1] * q[0] + R[4] * q[1] + R[7] * q[2];
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    return [(x * cam.scale / (w / h) + 1) / 2 * w, (1 - y * cam.scale) / 2 * h];
+  }
+  function setupLabels() {
+    if (!F) return;
+    overlay = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    overlay.setAttribute('class', 'bm-overlay'); overlay.setAttribute('aria-hidden', 'true');
+    root.insertBefore(overlay, canvas.nextSibling);
+    LABELS.forEach(function (l) {
+      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      overlay.appendChild(line);
+      var div = document.createElement('div');
+      div.className = 'bm-flow-label bm-flow-' + l.key;
+      div.textContent = F.labels[l.key];
+      root.insertBefore(div, overlay.nextSibling);
+      labelNodes[l.key] = { div: div, line: line, spec: l };
+    });
+    if (F.band.outline) {
+      var banner = document.createElement('p');
+      banner.className = 'bm-band-banner bm-band-' + F.band.outline;
+      banner.textContent = F.band.text;
+      root.insertBefore(banner, overlay.nextSibling);
+    }
+  }
+  function placeLabels() {
+    if (!overlay) return;
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    overlay.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    Object.keys(labelNodes).forEach(function (key) {
+      var n = labelNodes[key], a = project(F.anchors[n.spec.anchor]);
+      var show = labelsOn && a[0] > 0 && a[0] < w && a[1] > 0 && a[1] < h;
+      var lx = Math.max(8, Math.min(w - 8, a[0] + n.spec.dx)), ly = Math.max(56, Math.min(h - 40, a[1] + n.spec.dy));
+      n.div.hidden = !show; n.line.style.display = show ? '' : 'none';
+      if (!show) return;
+      n.div.style.left = lx + 'px'; n.div.style.top = ly + 'px';
+      n.div.style.transform = n.spec.dx < 0 ? 'translate(-100%,-50%)' : 'translate(0,-50%)';
+      n.line.setAttribute('x1', a[0]); n.line.setAttribute('y1', a[1]); n.line.setAttribute('x2', lx); n.line.setAttribute('y2', ly);
+    });
+  }
+
+  function addFlowControls() {
+    if (!F) return;
+    var toolbar = root.querySelector('.bm-toolbar'), gap = toolbar.querySelector('.bm-toolbar-gap');
+    function button(label, pressed, onClick) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.textContent = label; b.setAttribute('aria-pressed', String(pressed));
+      b.addEventListener('click', function () { onClick(b); });
+      toolbar.insertBefore(b, gap);
+      return b;
+    }
+    button('Flow', true, function (b) { flowsOn = !flowsOn; b.setAttribute('aria-pressed', String(flowsOn)); redraw(); });
+    button(reducedMotion ? 'Animate' : 'Pause', !reducedMotion, function (b) {
+      playing = !playing; b.textContent = playing ? 'Pause' : 'Animate'; b.setAttribute('aria-pressed', String(playing));
+      if (playing) requestAnimationFrame(tick);
+    });
+    button('Labels', true, function (b) { labelsOn = !labelsOn; b.setAttribute('aria-pressed', String(labelsOn)); redraw(); });
   }
 
   /* ---------------------------------------------------------------- interaction */
@@ -282,6 +545,11 @@
     });
   }, Promise.resolve()).then(function () {
     say('');
+    buildFlows();
+    setupLabels();
+    addFlowControls();
+    redraw();
+    if (playing) requestAnimationFrame(tick);
     root.dataset.state = 'ready';
   }).catch(function (err) {
     parts = [];

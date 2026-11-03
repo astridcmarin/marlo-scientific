@@ -31,3 +31,22 @@
 .bm-absorb { stroke:#c9a3b6; stroke-width:3; stroke-dasharray:5 4; }
 .bm-visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 @media (max-width:900px) { .bm-layout { grid-template-columns:1fr; } .bm-viewer canvas { height:70vh; } }
+.bm-overlay { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+.bm-overlay line { stroke:rgba(207,227,247,.55); stroke-width:1; stroke-dasharray:3 3; }
+.bm-flow-label { position:absolute; z-index:2; max-width:220px; padding:5px 9px; border-radius:6px; background:rgba(6,11,20,.82); border:1px solid rgba(124,200,255,.3); font-size:12px; line-height:1.4; color:#e6f1fb; pointer-events:none; }
+.bm-flow-renal { border-color:#4fc3f7; }
+.bm-flow-urine { border-color:#ffca28; }
+.bm-flow-absorption { border-color:#f48fb1; border-style:dashed; }
+.bm-flow-non_renal { border-color:#8a8f98; border-style:dashed; }
+.bm-band-banner { position:absolute; top:52px; left:12px; max-width:min(420px,60%); margin:0; padding:7px 11px; border-radius:6px; font-size:12px; line-height:1.45; z-index:2; background:rgba(40,16,6,.85); color:#ffd9c2; border:1px solid #ff8a50; }
+.bm-band-caution { background:rgba(40,30,6,.85); color:#ffe8b0; border-color:#ffc94d; }
+.bm-card { max-height:calc(100% - 80px); overflow:auto; background:#081424; z-index:4; }
+.bm-card-sub { font-weight:600; color:#cfe3f7; margin-top:8px !important; }
+.bm-card dl { display:grid; grid-template-columns:auto 1fr; gap:3px 10px; margin:4px 0 8px; }
+.bm-card dt { color:#9fb7cf; }
+.bm-card dd { margin:0; color:#fff; }
+.bm-card-status { padding:6px 8px; border-radius:5px; font-size:12px; }
+.bm-status-check_disagrees { background:rgba(255,120,60,.18); border:1px solid #ff8a50; color:#ffd9c2; }
+.bm-status-consistent_primary_only { background:rgba(255,200,80,.15); border:1px solid #ffc94d; color:#ffe8b0; }
+.bm-status-checked_consistent, .bm-status-calibrated { background:rgba(80,200,160,.12); border:1px solid #4fd1a5; color:#c7f5e3; }
+.bm-card-basis { color:#b8cde2; font-size:12px; }

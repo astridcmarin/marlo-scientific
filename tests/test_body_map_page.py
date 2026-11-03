@@ -61,6 +61,20 @@ class BodyMapPage(unittest.TestCase):
         self.assertEqual(set(config['parts']), {p['name'] for p in manifest['parts']})
         self.assertEqual(set(config['node_labels']), {'gut', 'plasma', 'kidney', 'glomerulus', 'tubule', 'urine', 'non_renal'})
 
+    def test_viewer_config_carries_flows_and_cards(self):
+        rev = self.revision_with(serum_creatinine=120)
+        config = self.config(self.client.get(self.url(rev.id)).get_data(as_text=True))
+        flows = config['flows']
+        self.assertEqual(flows['band']['status'], 'check_disagrees')
+        self.assertEqual(flows['band']['outline'], 'warning')
+        self.assertEqual({p['id'] for p in flows['paths']},
+                         {'renal_inflow_left', 'renal_inflow_right', 'urine_left', 'urine_right', 'absorption'})
+        self.assertIsNone(flows['values']['absorption'])
+        self.assertIn('routes not identified', flows['labels']['non_renal'])
+        self.assertEqual(set(config['cards']), {'gut', 'plasma', 'kidney', 'urine'})
+        view = record_map(rev.id)
+        self.assertEqual(flows['scale_ml_min'], view['drawing_scale']['max_flow_ml_min'])
+
     def test_numbers_match_the_body_map_view(self):
         rev = self.revision_with(serum_creatinine=80)
         view = record_map(rev.id)
@@ -131,7 +145,8 @@ class StaticViewer(unittest.TestCase):
         self.assertIn('does not match its recorded checksum', self.script)
 
     def test_no_external_resources(self):
-        self.assertNotRegex(self.script, r'https?://')
+        # The SVG namespace identifier is not a resource; nothing else may name a URL.
+        self.assertNotRegex(self.script.replace('http://www.w3.org/2000/svg', ''), r'https?://')
 
     def test_presets_start_with_a_fixed_whole_body_view(self):
         self.assertEqual(CAMERA_PRESETS[0], {'id': 'body', 'label': 'Whole body', 'yaw': 0.0, 'pitch': 0.0,
