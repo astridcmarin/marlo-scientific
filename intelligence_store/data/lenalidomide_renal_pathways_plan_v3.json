@@ -1,0 +1,95 @@
+{
+ "schema_version": "lenalidomide-renal-pathways-plan-v3",
+ "plan_version": "lenalidomide-renal-pathways-plan-v3.0",
+ "step": "Simulation 2.0e",
+ "recorded_on": "2026-11-04",
+ "status": "locked_before_computation",
+ "drug": "lenalidomide",
+ "model": "lenalidomide_renal_pathways_2026",
+ "why": "The AI review of 4 November 2026 found that the 2.0a result depends on bioavailability F, which 2.0a took as 1 without varying it. Renal clearance (amount in urine / AUC) does not depend on F; the non-renal clearance derived from CL/F does. This plan re-runs the 2.0a comparison across the range of F the data allow and fixes, before computation, what the body map says for each outcome.",
+ "what_is_known_before_computation": "Not blind. All CC-5013-PK-001, Bridoux 2016 and Kim 2026 values have been seen. The reviewer reported, and the assistant re-computed, the reading A classifications at F = 1, 0.95, 0.90 and 0.85 for the moderate and severe groups (primary creatinine clearances): moderate under-predicted at 1 and 0.95, consistent at 0.90 and 0.85; severe consistent at 1 and 0.95, over-predicted at 0.90 and 0.85. The mass-balance values were read before this plan. The purpose of locking is to fix the display decision and the reporting, not to make the result unknown.",
+ "datasets": [
+  {
+   "id": "cc5013_pk001",
+   "role": "checked_not_blind"
+  },
+  {
+   "id": "bridoux_2016",
+   "role": "checked_not_blind"
+  },
+  {
+   "id": "kim_2026_patients",
+   "role": "checked_not_blind"
+  }
+ ],
+ "pinned_inputs": {
+  "pathway_evidence": {
+   "file": "intelligence_store/data/lenalidomide_renal_pathways_evidence_v1.json",
+   "sha256": "e7c62bc477bfc6170f42f1f01e5935ea222bec0fbf513da718178030c42d2c8f"
+  },
+  "pathway_plan_v1": {
+   "file": "intelligence_store/data/lenalidomide_renal_pathways_plan_v1.json",
+   "sha256": "591e032c7bf96f80b8bcae217a171b258923875bdfd7a37cd81baa86939f194a"
+  },
+  "mass_balance": {
+   "file": "intelligence_store/data/lenalidomide_mass_balance_chen_2012_v1.json",
+   "sha256": "fac0021e7354b96deb0201ea00a17837fb58b6c2ed2786d15b0706cb3a34430a"
+  },
+  "chen_2007_demographics": {
+   "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v3.json",
+   "sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292"
+  },
+  "bridoux_design": {
+   "file": "intelligence_store/data/lenalidomide_bridoux_design_v1.json",
+   "sha256": "1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac"
+  },
+  "bridoux_observed": {
+   "file": "intelligence_store/data/lenalidomide_bridoux_observed_v2.json",
+   "sha256": "cc8c41123d6305dd3ab783ae53e87d0ab8c15f32f04b21cc45d4c9a2bc4de8ee"
+  },
+  "kim_extract": {
+   "file": "intelligence_store/data/kim_2026_model_extract_v1.json",
+   "sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af"
+  }
+ },
+ "model_with_F": {
+  "renal_ml_min_normal": "fe_normal * dose / AUC_normal (unchanged; does not depend on F)",
+  "non_renal_ml_min": "F * dose / AUC_normal - renal_normal (true, not apparent); a scenario with a negative value is reported as impossible",
+  "reading": "A (intact nephron): filtration fu * CrCl and secretion scaled with CrCl / CrCl_ref, as in 2.0a; fu 0.77, CrCl_ref 110",
+  "prediction": "AUC_group = F * dose / (renal(CrCl) + non_renal); CL/F_group = (renal(CrCl) + non_renal) / F",
+  "note": "At F = 1 this is exactly the 2.0a reading A model."
+ },
+ "scenarios": {
+  "F_best_supported": [
+   1.0,
+   0.95,
+   0.9
+  ],
+  "F_best_supported_basis": "Chen 2012: 90.3% (range 87.0-94.6%) of the radioactive dose recovered in urine, so absorption was at least about 0.90; metabolism minimal.",
+  "F_lower_bound": 0.85,
+  "F_lower_bound_basis": "Unchanged drug in urine, about 84-85% of the dose (EMA 2008; Chen 2012 citing reference 15). Reported, does not decide.",
+  "creatinine_clearance_primary": "as 2.0a primary: normal 110, mild 65, moderate 40, severe 20 mL/min",
+  "creatinine_clearance_secondary": "Chen 2007 Table I means: normal 102.2, mild 64.6, moderate 39.1, severe 23.9 mL/min (reported, does not decide)"
+ },
+ "comparisons": {
+  "cc5013_pk001": "Mild, moderate, severe without dialysis: AUC against the 95% CI of the arithmetic mean (t, n-1), exactly as 2.0a. Predicted and observed fraction excreted unchanged reported.",
+  "myeloma": "Bridoux 2016 (AUC24, 90% CI of the geometric mean) and Kim 2026 (total CL/F, 90% CI of the mean, de-indexed median eGFR), exactly as the 2.0d comparator, at each F. Reported; they decide only the wording of the myeloma note (D4).",
+  "esrd": "Non-dialysis day at residual CrCl 0, 5 and 10 mL/min, as 2.0c, at each F. Descriptive."
+ },
+ "decision_rule": {
+  "D1_band_status": "For the moderate and severe bands separately, take the CC-5013-PK-001 primary classifications at F = 1.0, 0.95 and 0.90. If they are identical, the band keeps its 2.0a status and its text says the result holds for absorption of 90-100%. If they differ, the band gets the status depends_on_bioavailability, drawn in the amber of a partial result, with a text that gives the classification at each F. The result at F = 0.85 is stated in the limitations either way.",
+  "D2_recorded_finding": "The 2.0a finding that renal elimination falls faster than in proportion to creatinine clearance is recorded as not established if the moderate group is consistent at any F in the best-supported range; otherwise as holding for absorption of 90-100%.",
+  "D3_non_renal_arrow": "The non-renal arrow keeps its F = 1 value as drawn width but carries the range over the best-supported F and the status depends_on_bioavailability whenever that range spans more than a factor of 1.5.",
+  "D4_myeloma_note": "The note says whether the main-scenario consistency with Bridoux and Kim in the band holds at every F in the best-supported range, and names any F at which it does not.",
+  "not_changed": "Model scopes and patient-record outputs (2.0b) are not changed by this plan; a change to them would be a separate documented step."
+ },
+ "known_limitations": [
+  "F is bounded, not measured: absolute bioavailability needs intravenous data, which do not exist for lenalidomide in the pinned sources.",
+  "Healthy volunteers in the mass-balance study (6 men); CC-5013-PK-001 subjects had non-malignant kidney disease.",
+  "F is assumed the same in every kidney-function group.",
+  "At fu 0.77 the moderate group's renal clearance (29.1 mL/min) is at or below filtration alone (30.1), so reading A cannot reproduce its urine fraction at any F (finding 2 of the review).",
+  "Statistics differ between comparisons (arithmetic means and 95% CIs for CC-5013-PK-001; geometric means and 90% CIs for Bridoux), as in 2.0a and 2.0d."
+ ],
+ "clinical_prediction_validated": false,
+ "ready_for_patient_simulation": false
+}

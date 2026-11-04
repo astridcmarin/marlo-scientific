@@ -13,6 +13,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 ## How far can the results be trusted?
 
 - **What the checks found:** page `/models/findings`. Every locked check in one line, failures included, and whether it was blind (`check_findings.py`, `check_findings_v1.json`).
+- [Reviews](reviews/): AI reviews of the platform's work (not independent), with what was done about each finding.
 - [Dataset ledger](DATASET_LEDGER.md): which data each model was built from, tuned on or checked against, and the gate that refuses a blind check on seen data.
 - [Extraction review](EXTRACTION_REVIEW.md): the owner's review of the 166 extracted values that feed calculations (rounds 1–2, all match), and where the review status is shown.
 - [Model scope](MODEL_SCOPE.md): each model's context of use as enforced rules, with evidence tiers.

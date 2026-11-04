@@ -167,3 +167,16 @@ A separate AI reviewer agent, with no access to the conversation in which this w
 - It also showed that at fu 0.77 the moderate group's renal clearance (29.1 mL/min) is at or below filtration alone (30.1), which no secretion term can reach.
 
 Wording was corrected in this document, the Digital human 1.1 document, the status-by-drug page, the body map (band text, myeloma note, limitations), findings v2 and evidence status v15. The dataset ledger v3 adds two missing uses. No model, result, scope or warning band changed. **Next: 2.0e**, a locked re-check of 2.0a across F = 0.85–1.0, deciding in advance what the moderate-band warning says.
+
+## Simulation 2.0e: bioavailability re-check — plan locked (4 November 2026)
+
+`intelligence_store/data/lenalidomide_renal_pathways_plan_v3.json`, pinned in `tests/test_renal_pathways_plan_v3.py`. Not blind: every value it uses has been seen, and the review already gave the 2.0a classifications at four values of F. The lock fixes what the body map will say, before computation.
+
+- **The bound on F, newly pinned** (`lenalidomide_mass_balance_chen_2012_v1.json`): in the radiolabel study, 90.3% of the radioactive dose (range 87.0–94.6%) was recovered in urine, and more than 90% of that was lenalidomide, so absorption was at least about 0.90. Unchanged drug in urine (about 84–85%) is the hard lower bound.
+- **Scenarios:** F = 1.0, 0.95 and 0.90 decide (the best-supported range); 0.85 is reported only.
+- **Decided in advance:**
+  - **Band status:** if the moderate or severe classification changes across F = 0.90–1.0, that band's status becomes *depends on bioavailability* (amber), with the result at each F.
+  - **The faster-than-proportional finding:** "not established" if moderate is consistent at any F in that range.
+  - **The non-renal arrow:** carries its range across F.
+  - **The myeloma note:** says whether its result holds across F.
+- Scopes and patient-record outputs are not changed by this plan.
