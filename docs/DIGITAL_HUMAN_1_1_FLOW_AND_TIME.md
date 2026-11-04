@@ -163,3 +163,27 @@ Module `intelligence_store/body_map_time_course.py`; report `docs/verification/l
 - **Which version the body map shows** (decided in advance): v2 replaces v1 only if its peak is consistent in at least three of the four groups and its half-life in at least as many groups as v1's. Otherwise v1 stays, with its warning. Either way, each band shows its version's classifications.
 - **Limits:** Kim's distribution comes from Korean patients on maintenance doses of 5–10 mg; CC-5013-PK-001 was a single 25 mg dose in people without cancer. Still a consistency check, not validation.
 
+
+## Step 1.1d, version 2 result (4 November 2026): better peaks in two groups, not enough to replace v1
+
+Code added to `intelligence_store/body_map_time_course.py` (`run_check_v2`); report `docs/verification/lenalidomide_body_map_time_course_check_v2.json`. Built and run exactly as plan v2 states. Numerical checks pass in all three scenarios (closed form against RK4, mass balance, urine total equal to the map's fraction excreted).
+
+**Primary (CC-5013-PK-001, single 25 mg; Kim distribution, the map's clearance):**
+
+| Group | Cmax v2 / v1 / observed (90% CI) | Half-life v2 / v1 / observed (90% CI) |
+|---|---|---|
+| Normal | 443 / 367 / 568 (431–749): **consistent** (v1 under) | 3.6 / 3.6 / 3.3 h (2.8–3.9): consistent |
+| Mild | 484 / 384 / 684 (588–796): under-predicts | 4.8 / 5.2 / 3.6 h (3.0–4.4): over-predicts |
+| Moderate | 519 / 398 / 568 (436–740): **consistent** (v1 under) | 6.4 / 7.5 / 10.0 h (7.1–14.1): **under-predicts** (v1 consistent) |
+| Severe | 544 / 407 / 761 (695–833): under-predicts | 8.4 / 10.1 / 8.9 h (7.1–11.3): consistent |
+
+**Secondary (Bridoux 2016, day 5; not blind):** mild peak over-predicted (496 vs 396); moderate consistent; severe peak under-predicted (336 vs 426); all half-lives consistent.
+
+**Sensitivities.** Central volume at BSA 1.9 m² (40.5 L) makes every peak lower and worse. Absorption set from the normal group's tmax (ka 1.75 /h) gives consistent peaks in the normal and moderate groups and, in Bridoux, in every group but mild; it uses seen data, so it cannot count toward the decision.
+
+**Decision, as pre-specified.** v2's peak is consistent in 2 of 4 groups (3 needed) and its half-life in 1 of 3 impaired groups (v1: 2). **The body map keeps v1**, with its warning that the peak is under-predicted in every band. v1 and v2 reports are both kept.
+
+**Reading.**
+- The smaller central volume raised the peaks by about a fifth to a third, as expected, but the mild and severe peaks are still too low; volume alone does not close the gap.
+- The two-compartment decline is faster than observed in the moderate group: with Kim's distribution, the terminal phase is set mostly by the map's clearance, which is higher than this group's observed clearance (AUC is under-predicted in moderate and severe in both versions). That is the clearance model's known gap in these bands, already flagged by the Bridoux check, not a new finding.
+- Any further structural change would be a v3, needs a third untouched dataset to be judged blind, and should wait until the kidney model's moderate and severe gap is addressed.

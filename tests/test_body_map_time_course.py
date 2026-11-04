@@ -61,5 +61,40 @@ class LockedReport(unittest.TestCase):
         self.assertFalse(self.committed['clinical_prediction_validated'])
 
 
+class LockedReportV2(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.committed = json.loads(tc.REPORT_V2_PATH.read_text())
+        cls.fresh = tc.run_check_v2()
+
+    def test_committed_report_reproduces(self):
+        assert_reproduces(self, self.fresh, self.committed)
+        body = {k: v for k, v in self.committed.items() if k != 'report_sha256'}
+        self.assertEqual(digest(body), self.committed['report_sha256'])
+
+    def test_numerical_checks_pass_in_every_scenario(self):
+        for name, s in self.committed['scenarios'].items():
+            checks = s['numerical_checks']
+            self.assertTrue(all(checks[k] for k in ('closed_form_vs_rk4_pass', 'mass_balance_pass', 'urine_total_equals_fe_pass')), name)
+
+    def test_kim_volumes_on_the_total_scale(self):
+        d = self.committed['scenarios']['primary']['parameters']
+        self.assertAlmostEqual(d['vc_l'], 29.963, places=3)
+        self.assertGreater(self.committed['scenarios']['sensitivity_bsa_1_9']['parameters']['vc_l'], d['vc_l'])
+
+    def test_display_decision_keeps_v1(self):
+        dd = self.committed['display_decision']
+        self.assertEqual((dd['v2_cmax_consistent_groups'], dd['v2_half_life_consistent_impaired'],
+                          dd['v1_half_life_consistent_impaired']), (2, 1, 2))
+        self.assertEqual(dd['body_map_shows'], 'v1')
+
+    def test_recorded_primary_result(self):
+        r = self.committed['result']['primary']
+        self.assertEqual(r['primary_cmax'], {'normal': 'consistent', 'mild': 'model_under_predicts',
+                                             'moderate': 'consistent', 'severe': 'model_under_predicts'})
+        self.assertEqual(r['primary_half_life']['moderate'], 'model_under_predicts')
+        self.assertFalse(self.committed['clinical_prediction_validated'])
+
+
 if __name__ == '__main__':
     unittest.main()
