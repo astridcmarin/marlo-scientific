@@ -137,8 +137,13 @@ def _cited(evidence=None):
 
 
 def cited_report(name, evidence=None):
-    """Raw bytes of a cited report, or None if it is not cited, not under docs/verification, or changed."""
+    """Raw bytes of a cited report, or None if it is not cited, not under docs/verification, or changed. A report is
+    cited if the evidence status file or the pinned check-findings file lists it with its checksum."""
     entry = _cited(evidence).get(name)
+    if entry is None:
+        from .check_findings import load_findings
+        entry = next(((f['report'], f['report_file_sha256']) for f in load_findings()['findings']
+                      if Path(f['report']).name == name), None)
     if entry is None or not entry[0].startswith(REPORT_DIR) or Path(entry[0]).name != name:
         return None
     path = ROOT / entry[0]

@@ -702,6 +702,16 @@ def credibility_records():
     return render_template("credibility_records.html", records=all_records(), never=NOT_ESTABLISHED)
 
 
+@app.route("/models/findings")
+def check_findings():
+    from intelligence_store.check_findings import FindingsError, findings_view
+    try:
+        view = findings_view()
+    except FindingsError as exc:
+        return Response(str(exc), status=503, mimetype="text/plain", headers={"Cache-Control": "no-store"})
+    return render_template("findings.html", v=view)
+
+
 @app.route("/models/extraction-review")
 def extraction_review():
     from intelligence_store.extraction_review import DECISIONS, ReviewError, queue_view

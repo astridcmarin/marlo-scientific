@@ -1,0 +1,59 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
+{% set cls = {'ok': 'ok', 'warn': 'part', 'gap': 'gap', 'neutral': 'neutral'} %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>What the checks found | Marlo Scientific</title>
+    <link rel="icon" href="{{ url_for('landscape.static', filename='images/favicon.ico', v=2) }}" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('landscape.static', filename='images/favicon.svg', v=2) }}">
+    <link rel="apple-touch-icon" href="{{ url_for('landscape.static', filename='images/apple-touch-icon.png', v=2) }}">
+    {{ site_head_links() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <style>
+    .fd-summary{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 4px}
+    .fd-list{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-direction:column;gap:12px}
+    .fd-list li{border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:6px}
+    .fd-head{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between}
+    .fd-q{font-weight:600}
+    .fd-meta{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+    .fd-blind{font-size:13px;font-weight:600}
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{{ site_header(active='models') }}
+<main id="main" class="section">
+<article class="wrap prose prose-wide">
+    <p><a href="{{ url_for('model_scorecards') }}">← Model scorecards</a></p>
+    <p class="prose-eyebrow">Models and evidence</p>
+    <h1>What the checks found</h1>
+    <p class="prose-lede">Every check the platform has run against outside data, its own source data or its own rules, in one line each, including the ones that failed. Each check followed a plan fixed before anything was computed; the link opens its full report.</p>
+    <div class="fd-summary" role="list" aria-label="Summary">
+        <span role="listitem" class="status status-ok">{{ v.counts.ok }} consistent or passed</span>
+        <span role="listitem" class="status status-part">{{ v.counts.warn }} mixed or not adopted</span>
+        <span role="listitem" class="status status-gap">{{ v.counts.gap }} disagree or failed</span>
+        <span role="listitem" class="status status-neutral">{{ v.counts.neutral }} inconclusive</span>
+    </div>
+    <p>{{ v.total }} checks. <strong>{{ v.blind }} of them were blind</strong>: planned before anyone working on the platform had seen the data. The others say so in their plans. Which data each model has seen is recorded in the dataset ledger. A consistent result means the model agreed with that data under the plan's rule; it is not a clinical validation.</p>
+
+    {% for a in v.areas %}
+    <h2>{{ a.area }}</h2>
+    <ol class="fd-list">
+    {% for r in a.rows %}
+        <li>
+            <div class="fd-head"><span class="fd-q">{{ r.question }}</span><span class="status status-{{ cls[r.tone] }}" title="{{ r.outcome_label }}">{{ r.outcome|replace('_', ' ')|capitalize }}</span></div>
+            <p style="margin:0">{{ r.headline }}</p>
+            <p class="fd-meta"><span class="fd-blind">{{ r.blindness_label }}</span> · Step {{ r.step }} · {{ r.date }} · <a href="{{ url_for('model_report', name=r.report_name) }}">{{ r.report_name }}</a></p>
+        </li>
+    {% endfor %}
+    </ol>
+    {% endfor %}
+
+    <p class="prose-note">Findings {{ v.findings_version }} · SHA-256 {{ v.findings_sha256[:16] }}… · every report's checksum was verified when this page was built. Blindness from the dataset ledger (SHA-256 {{ v.ledger_sha256[:16] }}…). See also the <a href="{{ url_for('model_scorecards') }}">model scorecards</a> and <a href="{{ url_for('credibility_records') }}">credibility records</a>.</p>
+</article>
+</main>
+{% include "site_footer.html" %}
+</body>
+</html>
