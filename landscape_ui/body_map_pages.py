@@ -59,6 +59,12 @@ def _fmt(value):
     return f'{value:.0f}'
 
 
+def band_text(band):
+    """The band's status sentence, with the myeloma-study note for the moderate and severe bands."""
+    note = band.get('myeloma_note')
+    return band['status_text'] + (' ' + note['text'] if note else '')
+
+
 def evidence_cards(view):
     """What selecting a simulation organ shows. Numbers are copied from the body-map view; context organs get none."""
     flows = {f['kind']: f for f in view['flows']}
@@ -67,14 +73,14 @@ def evidence_cards(view):
               f"{view['model']['calibration_crcl_ml_min']:g} mL/min); view {view['view_sha256'][:12]}.")
     f, s, r, n = flows['filtration'], flows['tubular_secretion'], flows['renal_excretion'], flows['non_renal']
     return {
-        'kidney': {'title': 'Kidneys: filtration and tubular secretion', 'status': band['status'], 'status_text': band['status_text'],
+        'kidney': {'title': 'Kidneys: filtration and tubular secretion', 'status': band['status'], 'status_text': band_text(band),
                    'rows': [['Filtration', f"{_fmt(f['value'])} mL/min ({_fmt(f['alternative_value'])} with fu 0.60)"],
                             ['Tubular secretion', f"{_fmt(s['value'])} mL/min ({_fmt(s['alternative_value'])} with fu 0.60)"],
                             ['Renal total', f"{_fmt(r['value'])} mL/min, {100 * r['share_of_elimination']:.0f}% of elimination"],
                             ['Blood flow (reference)', f"{_fmt(view['blood_flow']['renal_blood_flow_ml_min'])} mL/min, both kidneys"],
                             ['Removed in one pass', f"{100 * view['extraction']['ratio']:.0f}% of the drug arriving; {100 * view['extraction']['returned_by_renal_veins']:.0f}% returns"]],
                    'basis': [f['basis'], s['basis'], view['blood_flow']['not_this'], view['extraction']['basis']], 'source': source},
-        'urine': {'title': 'Ureters and bladder: unchanged drug in urine', 'status': band['status'], 'status_text': band['status_text'],
+        'urine': {'title': 'Ureters and bladder: unchanged drug in urine', 'status': band['status'], 'status_text': band_text(band),
                   'rows': [['Into urine', f"{_fmt(r['value'])} mL/min"],
                            ['Dose leaving unchanged in urine', f"{100 * totals['fraction_excreted_unchanged']:.0f}% (normal function {100 * normal['fraction_excreted_unchanged']:.0f}%)"]],
                   'basis': [r['basis']], 'source': source},
@@ -103,17 +109,17 @@ def flow_cards(view):
     f, s, r, a = flows['filtration'], flows['tubular_secretion'], flows['renal_excretion'], flows['absorption']
     each = ' Drawn as two strands, one into each kidney, each carrying half.'
     return {
-        'filtration': {'title': 'Filtration at the glomerulus', 'status': band['status'], 'status_text': band['status_text'],
+        'filtration': {'title': 'Filtration at the glomerulus', 'status': band['status'], 'status_text': band_text(band),
                        'what': 'Plasma water, with the unbound drug in it, is pressed out of the glomerular capillaries into the tubule.' + each,
                        'rows': [['Clearance', f"{_fmt(f['value'])} mL/min ({_fmt(f['alternative_value'])} with fu 0.60)"],
                                 ['Share of elimination', f"{100 * f['share_of_elimination']:.0f}%"]],
                        'basis': [f['basis']], 'source': source},
-        'tubular_secretion': {'title': 'Tubular secretion', 'status': band['status'], 'status_text': band['status_text'],
+        'tubular_secretion': {'title': 'Tubular secretion', 'status': band['status'], 'status_text': band_text(band),
                               'what': 'Drug carried actively from the blood into the tubule, on top of filtration; the transporters are not identified.' + each,
                               'rows': [['Clearance', f"{_fmt(s['value'])} mL/min ({_fmt(s['alternative_value'])} with fu 0.60)"],
                                        ['Share of elimination', f"{100 * s['share_of_elimination']:.0f}%"]],
                               'basis': [s['basis']], 'source': source},
-        'renal_excretion': {'title': 'Into urine', 'status': band['status'], 'status_text': band['status_text'],
+        'renal_excretion': {'title': 'Into urine', 'status': band['status'], 'status_text': band_text(band),
                             'what': 'Filtered and secreted drug leaves the kidneys unchanged, down each ureter to the bladder.',
                             'rows': [['Renal clearance', f"{_fmt(r['value'])} mL/min"],
                                      ['Dose leaving unchanged in urine', f"{100 * totals['fraction_excreted_unchanged']:.0f}%"]],
@@ -146,7 +152,7 @@ def viewer_config(manifest, view=None, paths=None):
                        'urine': f"Into urine: {_fmt(flows['renal_excretion']['value'])} mL/min ({100 * view['totals']['fraction_excreted_unchanged']:.0f}% of the dose)",
                        'non_renal': f"Non-renal: {_fmt(flows['non_renal']['value'])} mL/min, routes not identified",
                        'absorption': 'Absorbed into the blood (no value drawn)'},
-            'band': {'id': view['band']['id'], 'status': view['band']['status'], 'text': view['band']['status_text'],
+            'band': {'id': view['band']['id'], 'status': view['band']['status'], 'text': band_text(view['band']),
                      'outline': STATUS_OUTLINE[view['band']['status']]},
         }
         config['cards'] = evidence_cards(view)

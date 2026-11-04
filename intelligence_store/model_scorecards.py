@@ -65,6 +65,11 @@ RESULT_ITEMS.update({'v2.' + k: v + ' (with study demographics)' for k, v in lis
                      if k.startswith(('sirius_8.', 'gen501_16.'))})
 RESULT_ITEMS.update({'recheck.' + g: RESULT_ITEMS[g] + ' (recheck with study-matched subjects)' for g in ('mild', 'moderate', 'severe')})
 RESULT_ITEMS.update({'bridoux.' + g: RESULT_ITEMS[g] + ' (myeloma patients, Bridoux 2016)' for g in ('mild', 'moderate', 'severe')})
+_MYELOMA = {'normal': 'Normal kidney function', 'mild': 'Mild kidney impairment', 'moderate': 'Moderate kidney impairment',
+            'severe': 'Severe kidney impairment', 'control': 'eGFR 60 or more'}
+RESULT_ITEMS.update({f'pathways_myeloma.{study}.{g}': f'{_MYELOMA[g]} (myeloma patients, {name}; seen, not used to fit)'
+                     for study, name, groups in (('bridoux', 'Bridoux 2016', ('normal', 'mild', 'moderate', 'severe')),
+                                                 ('kim', 'Kim 2026', ('control', 'moderate', 'severe'))) for g in groups})
 RESULT_KEYS = ('result_by_group', 'result_at_1_3_mg_m2', 'result_by_endpoint')
 
 # What each model is and where the platform uses it. Descriptions only; no scientific values.

@@ -13,8 +13,10 @@ from .covariate_estimation import _load_pinned
 from .patient_state import digest
 
 SCHEMA_VERSION = 'patient-lab-run-record-v1'
-EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v13.json'
-EVIDENCE_SHA256 = '943876d68dfe5cbb2ba3636bd106711423fda88f0399a98f87ab41f90d11d524'
+EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v14.json'
+EVIDENCE_SHA256 = '4fdac3a8bb50ead46b0f85633ac1be93ffd0dab393b8009faa502c126ce5d1fb'
+# Superseded, kept unchanged for traceability: model_evidence_status_v13.json
+EVIDENCE_V13_SHA256 = '943876d68dfe5cbb2ba3636bd106711423fda88f0399a98f87ab41f90d11d524'
 # Superseded, kept unchanged for traceability: model_evidence_status_v12.json
 EVIDENCE_V12_SHA256 = '94f9b9c857fe33e0a660a2d16135ad6a1d3e98018048480eb6869814675a50be'
 # Superseded, kept unchanged for traceability: model_evidence_status_v11.json
@@ -329,7 +331,8 @@ def record_for_body_map_explorer(map_view, context=None, evidence=None):
               'derived_inputs': [],
               'assumptions': [
                   {'name': 'How secretion changes with kidney function', 'reading': 'intact nephron: in proportion to creatinine clearance',
-                   'status': 'partly_contradicted', 'evidence': map_view['band']['status_text']},
+                   'status': 'partly_contradicted', 'evidence': map_view['band']['status_text'] + (
+                       ' ' + map_view['band']['myeloma_note']['text'] if map_view['band'].get('myeloma_note') else '')},
                   {'name': 'Unbound fraction', 'reading': f"{FU} (alternative split shown with 0.60)", 'status': 'sourced',
                    'evidence': '23% plasma protein binding in myeloma patients (EMA 2008, page 20); ex vivo about 40% (EMA 2013, page 20). Exposure is the same under both.'},
                   {'name': 'Normal-group creatinine clearance', 'reading': f"{CALIBRATION_CRCL:g} mL/min", 'status': 'assumed',
@@ -345,8 +348,10 @@ def record_for_body_map_explorer(map_view, context=None, evidence=None):
               'checksums': [{'label': 'Body map view', 'sha256': map_view['view_sha256']}] +
                            ([{'label': 'Observed-data context', 'sha256': context['context_sha256']}] if context else []) +
                            [{'label': 'Pathway evidence', 'sha256': map_view['model']['evidence_sha256']},
-                            {'label': 'Pathway check report (file)', 'sha256': map_view['model']['report_file_sha256']},
-                            {'label': 'Unbound-fraction decision record', 'sha256': map_view['model']['fu_record_sha256']},
+                            {'label': 'Pathway check report (file)', 'sha256': map_view['model']['report_file_sha256']}] +
+                           ([{'label': 'Myeloma comparison, Simulation 2.0d report (file)',
+                              'sha256': map_view['band']['myeloma_note']['report_file_sha256']}] if map_view['band'].get('myeloma_note') else []) +
+                           [{'label': 'Unbound-fraction decision record', 'sha256': map_view['model']['fu_record_sha256']},
                             {'label': '3D asset manifest', 'sha256': MANIFEST_SHA256}] +
                            [{'label': f"3D model ({o['class']} organs)", 'sha256': o['sha256']} for o in manifest['outputs']] +
                            [{'label': 'Reference physiology (ICRP 89)', 'sha256': map_view['blood_flow']['source_sha256']},

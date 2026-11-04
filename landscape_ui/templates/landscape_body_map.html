@@ -22,7 +22,7 @@
 {% if not done %}
 <section class="panel"><h2>Map not drawn</h2><p role="alert">{{ view.message }}</p></section>
 {% else %}
-{% if view.band.status == 'check_disagrees' %}<p role="alert" class="bm-alert">{{ view.band.status_text }}</p>{% endif %}
+{% if view.band.status == 'check_disagrees' %}<p role="alert" class="bm-alert">{{ view.band.status_text }}{% if view.band.myeloma_note %} {{ view.band.myeloma_note.text }}{% endif %}</p>{% endif %}
 <div class="bm-layout">
 <section class="bm-stage" aria-labelledby="bm-3d-heading">
 <h2 id="bm-3d-heading" class="bm-visually-hidden">3D anatomy</h2>
@@ -41,7 +41,7 @@
 </section>
 <aside class="panel bm-numbers" aria-labelledby="bm-numbers-heading">
 <h2 id="bm-numbers-heading">Elimination at creatinine clearance {{ '%.0f'|format(view.crcl_ml_min) }} mL/min</h2>
-<p class="bm-band"><strong>{{ view.band.id|capitalize }} kidney function</strong> ({{ '%g'|format(view.band.range_ml_min[0]) }}–{{ '%g'|format(view.band.range_ml_min[1]) }} mL/min). {{ view.band.status_text }}</p>
+<p class="bm-band"><strong>{{ view.band.id|capitalize }} kidney function</strong> ({{ '%g'|format(view.band.range_ml_min[0]) }}–{{ '%g'|format(view.band.range_ml_min[1]) }} mL/min). {{ view.band.status_text }}{% if view.band.myeloma_note %} <span class="bm-myeloma-note">{{ view.band.myeloma_note.text }}</span>{% endif %}</p>
 <table class="rr-table"><thead><tr><th>Route</th><th>mL/min</th><th>Share</th></tr></thead><tbody>
 <tr><td><span style="color:{{ colors.filtration }}">■</span> Filtration</td><td>{{ '%.0f'|format(flows.filtration.value) }}<br><small>{{ '%.0f'|format(flows.filtration.alternative_value) }} with fu 0.60</small></td><td>{{ '%.0f'|format(100*flows.filtration.share_of_elimination) }}%<br><small>{{ '%.0f'|format(100*flows.filtration.alternative_share) }}%</small></td></tr>
 <tr><td><span style="color:{{ colors.tubular_secretion }}">■</span> Tubular secretion</td><td>{{ '%.0f'|format(flows.tubular_secretion.value) }}<br><small>{{ '%.0f'|format(flows.tubular_secretion.alternative_value) }} with fu 0.60</small></td><td>{{ '%.0f'|format(100*flows.tubular_secretion.share_of_elimination) }}%<br><small>{{ '%.0f'|format(100*flows.tubular_secretion.alternative_share) }}%</small></td></tr>

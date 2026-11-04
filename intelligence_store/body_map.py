@@ -36,6 +36,10 @@ DRUG = 'lenalidomide'
 RANGE = (10.0, 140.0)
 
 PATHWAY_REPORT_SHA256 = '163b5ca1a95a7f3d745c8e25a93ef58d4bedd0e1e48d6e4bfdfb4a25457a93d5'
+# Simulation 2.0d report: its comparator (the current model, k = 1) against two myeloma studies not used to fit it.
+MYELOMA_REPORT_PATH = Path(__file__).resolve().parent.parent / 'docs' / 'verification' / 'lenalidomide_renal_pathways_check_v2.json'
+MYELOMA_REPORT_SHA256 = '277108de99726588a04c11468e7004f93068d6fa0ca3372ae5c564dbe756dbdd'
+MYELOMA_GROUPS = {'moderate': {'bridoux': 'moderate', 'kim': 'moderate'}, 'severe': {'bridoux': 'severe', 'kim': 'severe'}}
 FU_RECORD_PATH = DATA / 'lenalidomide_pathway_unbound_fraction_assessment_v1.json'
 FU_RECORD_SHA256 = '8796799193207c3fffb9001e6a6d1cd6ad45f165c94a5986c944cf47a2faa7df'
 
@@ -97,6 +101,29 @@ def band_for(crcl):
         if above and below:
             return band
     return None
+
+
+def myeloma_note(band_id):
+    """For the moderate and severe bands: how the current model compares with Bridoux 2016 and Kim 2026 (Simulation 2.0d
+    comparator, pre-specified). Read from the pinned report; None for other bands."""
+    groups = MYELOMA_GROUPS.get(band_id)
+    if groups is None:
+        return None
+    raw = MYELOMA_REPORT_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != MYELOMA_REPORT_SHA256:
+        raise BodyMapError('The renal pathways v2 report is missing or changed; the map was not built.')
+    primary = json.loads(raw)['primary']
+    cls = {study: primary[study]['v1'][group]['classification'] for study, group in groups.items()}
+    if set(cls.values()) == {'consistent'}:
+        finding = ('In two studies of myeloma patients never used to fit it (Bridoux 2016, Kim 2026), the model is consistent '
+                   'with the observed exposure in this band.')
+    else:
+        finding = ('In two studies of myeloma patients never used to fit it: Bridoux 2016 ' + cls['bridoux'].replace('_', ' ') +
+                   ', Kim 2026 ' + cls['kim'].replace('_', ' ') + '.')
+    return {'text': ('That check is CC-5013-PK-001, the study the model was built from, in people without cancer. ' + finding +
+                     ' Both studies had been seen before this comparison, so it is not a blind test; why the studies differ is not known.'),
+            'classifications': cls, 'report': 'docs/verification/lenalidomide_renal_pathways_check_v2.json',
+            'report_file_sha256': MYELOMA_REPORT_SHA256}
 
 
 def band_status(band, report=None):
@@ -196,7 +223,8 @@ def build_map(crcl, mode, record=None):
     ]
     view.update(
         status='completed',
-        band={'id': band['id'], 'range_ml_min': band['range'], 'status': status, 'status_text': STATUS_TEXT[status]},
+        band={'id': band['id'], 'range_ml_min': band['range'], 'status': status, 'status_text': STATUS_TEXT[status],
+              'myeloma_note': myeloma_note(band['id'])},
         flows=flows,
         totals={'total_ml_min': total, 'renal_ml_min': p['renal_ml_min'], 'fraction_excreted_unchanged': p['fe'],
                 'relative_exposure_same_dose': normal['total_ml_min'] / total},

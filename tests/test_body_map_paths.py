@@ -116,8 +116,17 @@ class EvidenceCards(unittest.TestCase):
         view = build_map(40, 'explorer')
         card = self.cards(40)['kidney']
         self.assertEqual(card['status'], 'check_disagrees')
-        self.assertEqual(card['status_text'], view['band']['status_text'])
+        self.assertEqual(card['status_text'], view['band']['status_text'] + ' ' + view['band']['myeloma_note']['text'])
         self.assertTrue(all('with fu 0.60' in row[1] for row in card['rows'][:2]))
+
+    def test_myeloma_note_only_in_moderate_and_severe(self):
+        for crcl, expected in ((20, True), (40, True), (65, False), (100, False)):
+            note = build_map(crcl, 'explorer')['band']['myeloma_note']
+            self.assertEqual(note is not None, expected, crcl)
+            if note:
+                self.assertEqual(note['classifications'], {'bridoux': 'consistent', 'kim': 'consistent'})
+                self.assertIn('not a blind test', note['text'])
+                self.assertIn('CC-5013-PK-001', note['text'])
 
     def test_card_numbers_are_the_view_numbers(self):
         view = build_map(70, 'explorer')

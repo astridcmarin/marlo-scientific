@@ -74,7 +74,7 @@ class ScorecardData(unittest.TestCase):
 
     def test_cited_reports_are_found_and_intact(self):
         reports = [r for c in ms.all_scorecards()['cards'] for l in c['layers'] for r in l['reports']]
-        self.assertEqual(len(reports), 19)          # v7 adds ixazomib (2 citations) and daratumumab (3); v10 MMY-3021; v11 Reece; v12 recheck (2 models); v13 Bridoux (2 models)
+        self.assertEqual(len(reports), 20)          # v14 adds the 2.0d report; v7 adds ixazomib (2 citations) and daratumumab (3); v10 MMY-3021; v11 Reece; v12 recheck (2 models); v13 Bridoux (2 models)
         self.assertTrue(all(r['intact'] for r in reports))
 
     def test_a_changed_or_uncited_report_is_not_served(self):
