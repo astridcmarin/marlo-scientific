@@ -153,3 +153,13 @@ Module `intelligence_store/body_map_time_course.py`; report `docs/verification/l
 
 **Next:** decide whether 1.1e shows this time course with its warning, or whether a v2 plan for a two-compartment version comes first.
 
+## Step 1.1d, version 2: plan locked (4 November 2026)
+
+`intelligence_store/data/lenalidomide_body_map_time_course_plan_v2.json`, pinned after the v1 result and before v2 is built. v1's plan and report are kept unchanged.
+- **Why:** v1's single volume (the terminal Vz/F, 56 L) spread the dose too widely just after absorption, so its peak was too low in every group, including the normal group.
+- **Model:** two compartments. Distribution and absorption are taken from the published two-compartment lenalidomide model, Kim 2026, converted to total concentrations with Kim's unbound fraction: central volume 30.0 L, peripheral 13.0 L, intercompartmental clearance 4.94 L/h, absorption 1.16 /h. Clearance is still the body map's own. **Nothing is fitted to the data already seen**, which is the safeguard against tuning a model to values we know.
+- **Scenarios:** primary as above; central volume at a Western body size (BSA 1.9 m²); absorption set from the normal group's tmax, as in v1 (the one place seen data would set a parameter).
+- **Comparison:** as v1 (peak and half-life, 90% CI of each geometric mean), now classifying the normal group too, since v2 takes nothing from it; Bridoux as the non-blind secondary; v1 and v2 side by side.
+- **Which version the body map shows** (decided in advance): v2 replaces v1 only if its peak is consistent in at least three of the four groups and its half-life in at least as many groups as v1's. Otherwise v1 stays, with its warning. Either way, each band shows its version's classifications.
+- **Limits:** Kim's distribution comes from Korean patients on maintenance doses of 5–10 mg; CC-5013-PK-001 was a single 25 mg dose in people without cancer. Still a consistency check, not validation.
+

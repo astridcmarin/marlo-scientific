@@ -1,0 +1,111 @@
+{
+ "schema_version": "check-plan-v1",
+ "plan_version": "lenalidomide-body-map-time-course-plan-v2.0",
+ "recorded_on": "2026-11-04",
+ "status": "locked_before_computation",
+ "supersedes": {
+  "file": "intelligence_store/data/lenalidomide_body_map_time_course_plan_v1.json",
+  "sha256": "a92c4d1c88186cc0a6509e2ee5ab6a93efe64d81ec42cc9c07792913570751cc",
+  "reason": "The v1 one-compartment model, with V/F fixed at the terminal volume (56 L), under-predicted the peak in every group including the normal group it was set up from (docs/verification/lenalidomide_body_map_time_course_check_v1.json). The v1 plan and report are kept unchanged."
+ },
+ "prespecification_note": "Written and pinned after the v1 result and before the v2 model has been built or run. All observed values were seen before this plan (as for v1), and the v1 result is known. To avoid tuning to what has been seen, v2 fits nothing to CC-5013-PK-001 or Bridoux: its distribution and absorption come from a published two-compartment lenalidomide model (Kim 2026), and its clearance is the body map's own. The check remains a consistency check, not validation.",
+ "classification": "exploratory_aggregate_internal_consistency_check",
+ "question": "Does a two-compartment time course, with distribution and absorption taken from Kim 2026 and clearance from the body map, reproduce the observed peak concentration and half-life in each kidney-function group better than v1?",
+ "model": {
+  "structure": "two compartments (central and peripheral), first-order absorption into the central compartment, elimination from the central compartment; linear",
+  "clearance": "CL/F(CrCl) = total clearance of the 2.0a pathway model, intact-nephron reading, at that creatinine clearance, as the body map view computes it (unchanged from v1)",
+  "distribution_and_absorption": {
+   "source": "Kim 2026 typical parameters (intelligence_store/data/kim_2026_model_extract_v1.json, Table 3), on the unbound scale, converted to the total-concentration scale by multiplying volumes and intercompartmental clearance by Kim's unbound fraction (0.614), as Kim's own total-concentration output does",
+   "central_volume_l": {
+    "unbound": 48.8,
+    "total": 29.9632,
+    "note": "at Kim's reference BSA (1.64 m2) in the primary scenario"
+   },
+   "peripheral_volume_l": {
+    "unbound": 21.2,
+    "total": 13.0168
+   },
+   "intercompartmental_clearance_l_h": {
+    "unbound": 8.05,
+    "total": 4.9427
+   },
+   "absorption_rate_per_h": 1.16,
+   "not_used_from_kim": "Kim's clearance equation (the body map's clearance is used instead)"
+  },
+  "routes": "renal and non-renal elimination share the central concentration in the pathway model's proportions (unchanged from v1)",
+  "solution": "sum of exponentials (the platform's tested kim_model.central_amount_unit_dose); checked against RK4 and mass balance"
+ },
+ "scenarios": {
+  "primary": {},
+  "sensitivity_bsa_1_9": {
+   "change": "Central volume at BSA 1.9 m2 with Kim's BSA coefficient (a Western adult size; CC-5013-PK-001 weights 53-119 kg)"
+  },
+  "sensitivity_tmax_absorption": {
+   "change": "Absorption rate solved so the curve peaks at the normal group's median tmax (1.0 h) at the calibration point, as in v1; this one parameter is then set from seen data"
+  }
+ },
+ "pinned_inputs": {
+  "ema_2013_extract": {
+   "file": "intelligence_store/data/lenalidomide_renal_pk_ema_2013_v1.json",
+   "sha256": "04f2e629ded43713062e0d68d668939a4a2cecd5a9db7ce349874e81529f6501"
+  },
+  "chen_2007_demographics": {
+   "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v3.json",
+   "sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292",
+   "use": "group mean measured creatinine clearance (Table I): normal 102.2, mild 64.6, moderate 39.1, severe 23.9 mL/min"
+  },
+  "pathway_evidence": {
+   "file": "intelligence_store/data/lenalidomide_renal_pathways_evidence_v1.json",
+   "sha256": "e7c62bc477bfc6170f42f1f01e5935ea222bec0fbf513da718178030c42d2c8f"
+  },
+  "bridoux_design": {
+   "file": "intelligence_store/data/lenalidomide_bridoux_design_v1.json",
+   "sha256": "1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac"
+  },
+  "bridoux_observed_note": "Bridoux Table 2 Cmax and t1/2 are not in the pinned observed file (which holds AUC24 only); if used, they are added in a new versioned observed file with page and table, before the secondary comparison is computed.",
+  "kim_extract": {
+   "file": "intelligence_store/data/kim_2026_model_extract_v1.json",
+   "sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af"
+  },
+  "bridoux_observed_v2": {
+   "file": "intelligence_store/data/lenalidomide_bridoux_observed_v2.json",
+   "sha256": "cc8c41123d6305dd3ab783ae53e87d0ab8c15f32f04b21cc45d4c9a2bc4de8ee"
+  },
+  "v1_report": {
+   "file": "docs/verification/lenalidomide_body_map_time_course_check_v1.json",
+   "sha256": "c5b98b878bdb206e2ed46d8ea203a8950f3a8ac06e3a87372dd5c92d6cb4aaf7"
+  }
+ },
+ "endpoints": {
+  "primary": "As v1: Cmax and terminal half-life (ln 2 / beta) after 25 mg in the mild, moderate and severe groups of CC-5013-PK-001 (EMA 2013 Table 3), model at each group's mean measured creatinine clearance (Chen 2007 Table I); now also the normal group's Cmax and half-life, classified, since v2 sets nothing from the normal group in the primary scenario.",
+  "reported_not_classified": "AUCinf per group (follows from the clearance).",
+  "secondary": "As v1: Bridoux 2016 day 5 Cmax (superposition over the regimen given) and half-life, groups at their mean Cockcroft-Gault creatinine clearance; not blind.",
+  "excluded": "ESRD groups."
+ },
+ "classification_rule": {
+  "interval": "90% confidence interval of the observed geometric mean: GM x exp(+/- t(0.95, n-1) x s / sqrt(n)), with s = sqrt(ln(1 + CV^2)) from the reported geometric CV and the group's n",
+  "consistent": "model typical value inside the interval",
+  "model_under_predicts": "model value below the interval",
+  "model_over_predicts": "model value above the interval",
+  "also_reported": "model / observed ratio"
+ },
+ "decision_rule": {
+  "comparison_with_v1": "Report, for each endpoint and group, v1 and v2 side by side.",
+  "which_version_the_body_map_shows": "v2 replaces v1 on the body map only if, in the primary scenario, v2's Cmax is consistent in at least three of the four CC-5013-PK-001 groups and its half-life classifications are consistent in at least as many groups as v1's (two of three impaired groups). Otherwise the body map shows v1. Whichever is shown carries, in each band, the classifications of that version in that band, with a warning where any is inconsistent.",
+  "scope": "Nothing about the clearance model, its scope or its evidence status changes because of this check; any change is a separate step for the platform owner.",
+  "if_numerical_checks_fail": "v2 is not shown and the failure is reported."
+ },
+ "software_checks": [
+  "sum-of-exponentials agrees with RK4 within 0.1% from 0.25 to 48 h",
+  "amounts (gut, central, peripheral, urine, non-renal) sum to the dose within 1e-9 relative",
+  "cumulative urine at 120 h / dose equals the pathway model's fraction excreted unchanged within 0.5%",
+  "total-scale parameters equal Kim's unbound values times 0.614 exactly"
+ ],
+ "known_limitations": [
+  "Kim's distribution and absorption come from Korean patients on maintenance doses (5-10 mg), largely with renal impairment; CC-5013-PK-001 is a single 25 mg fasting dose in people without cancer.",
+  "Kim's peripheral distribution is applied unchanged across kidney function.",
+  "Typical values at group mean creatinine clearance compared with geometric means of individuals.",
+  "Same studies as before, all values seen: consistency, not validation."
+ ],
+ "clinical_prediction_validated": false
+}
