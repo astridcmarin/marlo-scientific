@@ -56,7 +56,7 @@ def lenalidomide_path():
          'found': f"REVLIMID prescribing information, revision 3/2023: myeloma starting dose {label['multiple_myeloma_dosing']['combination_starting_dose']['dose_mg']} mg "
                   f"days 1-21 with dexamethasone; maintenance {label['multiple_myeloma_dosing']['maintenance_starting_dose']['dose_mg']} mg; "
                   f"{len(label['renal_dose_adjustments']['rows'])} renal dose-adjustment rows (Table 3). Mechanism, safety and interaction records in the drug catalog.",
-         'checked': 'Label quotes checked against the file text; Table 3 also against the rendered page. AI-assisted, owner review pending.',
+         'checked': 'Label quotes checked against the file text; Table 3 also against the rendered page. AI-assisted; the dosing values and Table 3 were reviewed against the label by the platform owner (extraction review rounds 1 and 2, November 2026). Not an independent review.',
          'missing': 'Adverse reactions, warnings and clinical studies sections of the label are not extracted.',
          'links': [('Drug knowledge', 'landscape.drug_knowledge_detail', {'entity': 'lenalidomide'}), ('Regulatory evidence', 'landscape.regulatory', {}),
                    ('Safety', 'landscape.safety', {})]},

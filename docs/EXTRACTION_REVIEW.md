@@ -74,3 +74,14 @@ Page `/models/extraction-review/round-2` (linked from the full queue while any v
 - That text was written by the AI assistant from the extracts, so the page says to check against the source document itself, not against it.
 - The queue and the record format are unchanged: a round 2 record is an ordinary record against queue v1, and once pinned after round 1 in `REVIEW_RECORDS`, its decisions replace round 1's for the items it covers.
 - The browser draft is kept separately from round 1's (its own storage key), and the download is named `extraction_review_round2_DATE.json`.
+
+### Round 2 result (reviewed and pinned 4 November 2026)
+
+Record `intelligence_store/data/extraction_review_record_2026-11-04_round2_v1.json`, reviewer Astrid, pinned after round 1 in `REVIEW_RECORDS`. All 23 items marked **matches**. With rounds 1 and 2 together, **all 166 listed values match their sources**; none was found wrong, and no extract changes.
+
+What this establishes, and what it does not:
+- Transcription of the 166 listed values has been checked by the platform owner against the original documents. Pages may say "reviewed against the source by the platform owner", never "independently verified": the reviewer is not independent of the platform.
+- Values not on the queue (derived values, uncertainty statistics, quotes that feed no calculation) are not covered.
+- Nothing about whether a source is right, or a model applicable, follows from this. Validation flags are unchanged.
+
+**Next:** show this status in the source sections of the model, special-population and dose pages, next to "AI-assisted" (the guided path's label step already says so).

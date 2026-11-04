@@ -78,11 +78,14 @@ class Records(unittest.TestCase):
         st = [i['status'] for g in view['groups'] for i in g['items'] if i['id'] == self.first][0]
         self.assertEqual((st['decision'], st['note']), ('wrong', 'Source shows 12.1'))
 
-    def test_round_1_record_pinned(self):
-        self.assertEqual([n for n, _ in er.REVIEW_RECORDS], ['extraction_review_record_2026-11-03_v1.json'])
+    def test_rounds_1_and_2_pinned(self):
+        self.assertEqual([n for n, _ in er.REVIEW_RECORDS], ['extraction_review_record_2026-11-03_v1.json',
+                                                            'extraction_review_record_2026-11-04_round2_v1.json'])
+        round_1 = er.queue_view(er.REVIEW_RECORDS[:1])
+        self.assertEqual(round_1['counts'], {'unreviewed': 1, 'matches': 143, 'wrong': 12, 'cannot_check': 10})
         view = er.queue_view()
-        self.assertEqual(view['counts'], {'unreviewed': 1, 'matches': 143, 'wrong': 12, 'cannot_check': 10})
-        self.assertEqual(view['records'][0]['reviewer'], 'Astrid')
+        self.assertEqual(view['counts'], {'unreviewed': 0, 'matches': 166, 'wrong': 0, 'cannot_check': 0})
+        self.assertEqual({r['reviewer'] for r in view['records']}, {'Astrid'})
 
 
 class Round2(unittest.TestCase):
@@ -91,7 +94,9 @@ class Round2(unittest.TestCase):
         ids = [i['id'] for g in view['groups'] for i in g['items']]
         self.assertEqual(len(ids), 23)
         self.assertIn('pomalidomide_label:/scenarios/ketoconazole_strong_cyp3a4_pgp_inhibitor/auc_fold', ids)
-        self.assertTrue(all(i['status'] is None or i['status']['decision'] != 'matches' for g in view['groups'] for i in g['items']))
+        self.assertTrue(all(i['status']['decision'] == 'matches' for g in view['groups'] for i in g['items']))
+        before = er.round_2_view(er.REVIEW_RECORDS[:1])
+        self.assertTrue(all(i['status'] is None or i['status']['decision'] != 'matches' for g in before['groups'] for i in g['items']))
         self.assertTrue(all(i['where_to_look'] and i['how_stored'] for g in view['groups'] for i in g['items']))
 
     def test_conversions_stated_agree_with_stored_values(self):
@@ -120,7 +125,7 @@ class Page(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertIn(b'Download review record', r.data)
         self.assertEqual(r.data.count(b'type="radio"'), 166 * 3)
-        self.assertIn(b'/models/extraction-review/round-2', r.data)
+        self.assertNotIn(b'Round 2: re-check', r.data)
         r2 = self.client.get('/models/extraction-review/round-2')
         self.assertEqual(r2.status_code, 200)
         self.assertEqual(r2.data.count(b'type="radio"'), 23 * 3)
