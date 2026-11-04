@@ -153,7 +153,22 @@ What this does not change by itself: the plan's decision rule says scope and war
 - **Two-stage filling.** Stage 1 reads only the design and demographics and commits them. Stage 2 then reads only the named PK values. Only after that is anything computed.
 - **Endpoint.** The primary endpoint is the dose-normalised exposure ratio of each impaired group to the normal group, simulated exactly as the article defines its AUC, with the same rule and scenarios as the 2.1e recheck.
 - **Pre-specified reading.** If the models under-predict here too, the non-cancer population of CC-5013-PK-001 does not explain the disagreement. If they are consistent here, the population difference becomes a candidate explanation. No scope or warning changes from the check alone.
-- **Waiting on:** the article. A request to the first author could not be delivered; a co-author or a library copy are the next routes. Two EMA variation reports and an Australian evaluation report in the owner's folder may also tabulate the study; they have not been opened.
+- **Article:** supplied by the platform owner on 3 November 2026 (result below).
+
+**2.1h — Result (2026-11-04): in myeloma patients both models under-predict again.** The article was supplied by the platform owner and filled in two committed stages, then the locked virtual trial was run (10,000 trials, seed 20261101, all five scenarios).
+- **Stage 1** (`lenalidomide_bridoux_design_v1.json`): 38 patients; per-group sex, age range and CrCl/eGFR mean and SD (Table 1); label-adjusted doses; AUC24 on day 5. Weight, height and CrCl ranges are not reported, so the plan's fallbacks apply. **Deviation:** while locating Table 1, part of the Results text was seen before stage 1 was committed (the relative AUC24 values and a regression slope). The plan was already locked and is unchanged; the deviation is recorded in the file and in the report.
+- **Stage 2** (`lenalidomide_bridoux_observed_v1.json`): geometric mean AUC24 per group from Table 2 (normal 1747, mild 2605, moderate 1800, severe 2329 as AUC48/2, ESRD 2020 h·ng/mL), committed before the trial was run.
+- **Endpoint:** dose-normalised AUC24 of each impaired group relative to normal. Observed: mild 1.49, moderate 2.58, severe 4.44.
+
+| Model | Mild | Moderate | Severe |
+|---|---|---|---|
+| Hughes 2019 | consistent (median 1.13) | **under-predicts** (median 1.22; observed 2.1× higher), robust | **under-predicts** (median 1.50; observed 3.0×), robust |
+| Kim 2026 | consistent (median 1.56) | **under-predicts** (median 2.16, 95th percentile 2.57 against 2.58), not robust: consistent in one sensitivity scenario | **under-predicts** (median 2.88; observed 1.5×), robust |
+
+- **Same as the 2.1e recheck against CC-5013-PK-001** for every model and group.
+- **Pre-specified reading:** both models under-predict the exposure rise in myeloma patients as they did in people with non-malignant renal impairment, so the population of CC-5013-PK-001 does not explain the disagreement. Hughes's severe group is an extrapolation (its data reach down to CrCl 36 mL/min). Kim's moderate result sits on the edge of the band.
+- **No scope, warning or flag changes by this check alone** (decision rule). The existing moderate-band warnings for both models stand; any change is a separate step for the owner.
+- Report: `docs/verification/lenalidomide_bridoux_check_v1.json`; module `intelligence_store/lenalidomide_bridoux_check.py`; tests `tests/test_bridoux_check.py`.
 
 **2.1i — EMA 2013 re-analysis of the renal study extracted (2026-10-31).** The CHMP assessment of Revlimid variation II/0056 (EMA/297642/2013, pages 17–21) re-analyses CC-5013-PK-001, the same subjects as the 2008 extract. It is now pinned as `lenalidomide_renal_pk_ema_2013_v1.json`. The tables are images, so the values were transcribed from pages rendered at 200 dpi; the tests check that they hang together.
 - **What it adds:**
