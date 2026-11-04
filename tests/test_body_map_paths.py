@@ -126,6 +126,17 @@ class EvidenceCards(unittest.TestCase):
         self.assertTrue(rows['Filtration'].startswith(f"{flows['filtration']['value']:.0f} mL/min"))
         self.assertTrue(dict(self.cards(70)['plasma']['rows'])['Total clearance from plasma'].startswith(f"{view['totals']['total_ml_min']:.0f}"))
 
+    def test_flow_cards_carry_the_view_numbers_and_status(self):
+        from landscape_ui.body_map_pages import flow_cards
+        view = build_map(40, 'explorer')
+        flows = {f['kind']: f for f in view['flows']}
+        cards = flow_cards(view)
+        self.assertEqual(set(cards), {'filtration', 'tubular_secretion', 'renal_excretion', 'absorption'})
+        self.assertTrue(dict(cards['filtration']['rows'])['Clearance'].startswith(f"{flows['filtration']['value']:.0f} mL/min"))
+        self.assertEqual(cards['tubular_secretion']['status'], 'check_disagrees')
+        self.assertIsNone(cards['absorption']['status'])
+        self.assertEqual(dict(cards['absorption']['rows'])['Value'], 'none drawn')
+
     def test_outline_follows_the_band_status(self):
         from landscape_ui.body_map_pages import STATUS_OUTLINE
         self.assertEqual(STATUS_OUTLINE[build_map(40, 'explorer')['band']['status']], 'warning')
@@ -139,6 +150,11 @@ class ViewerScript(unittest.TestCase):
     def test_respects_reduced_motion(self):
         self.assertIn('prefers-reduced-motion: reduce', self.script)
         self.assertIn('playing = !!F && !reducedMotion', self.script)
+
+    def test_flows_can_be_selected_and_have_a_key_with_a_scale(self):
+        self.assertIn('pickTubes.push(tube)', self.script)
+        self.assertIn('return { flow: pickTubes[pixel[0] - 1].kind }', self.script)
+        self.assertIn('scale_reference_ml_min', self.script)
 
     def test_blood_flow_layer_is_a_separate_toggle(self):
         self.assertIn("button('Blood flow', false", self.script)

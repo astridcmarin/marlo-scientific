@@ -90,6 +90,40 @@ def evidence_cards(view):
     }
 
 
+# The scale bar shows how thick a tube carrying this clearance is drawn (one strand, at the current zoom).
+SCALE_REFERENCE_ML_MIN = 25
+
+
+def flow_cards(view):
+    """What selecting a flow tube shows: the process, its value, its evidence status and its basis (from the view)."""
+    flows = {f['kind']: f for f in view['flows']}
+    band, totals = view['band'], view['totals']
+    source = ('Simulation 2.0a lenalidomide pathway model (intact-nephron reading, calibrated at creatinine clearance '
+              f"{view['model']['calibration_crcl_ml_min']:g} mL/min); view {view['view_sha256'][:12]}.")
+    f, s, r, a = flows['filtration'], flows['tubular_secretion'], flows['renal_excretion'], flows['absorption']
+    each = ' Drawn as two strands, one into each kidney, each carrying half.'
+    return {
+        'filtration': {'title': 'Filtration at the glomerulus', 'status': band['status'], 'status_text': band['status_text'],
+                       'what': 'Plasma water, with the unbound drug in it, is pressed out of the glomerular capillaries into the tubule.' + each,
+                       'rows': [['Clearance', f"{_fmt(f['value'])} mL/min ({_fmt(f['alternative_value'])} with fu 0.60)"],
+                                ['Share of elimination', f"{100 * f['share_of_elimination']:.0f}%"]],
+                       'basis': [f['basis']], 'source': source},
+        'tubular_secretion': {'title': 'Tubular secretion', 'status': band['status'], 'status_text': band['status_text'],
+                              'what': 'Drug carried actively from the blood into the tubule, on top of filtration; the transporters are not identified.' + each,
+                              'rows': [['Clearance', f"{_fmt(s['value'])} mL/min ({_fmt(s['alternative_value'])} with fu 0.60)"],
+                                       ['Share of elimination', f"{100 * s['share_of_elimination']:.0f}%"]],
+                              'basis': [s['basis']], 'source': source},
+        'renal_excretion': {'title': 'Into urine', 'status': band['status'], 'status_text': band['status_text'],
+                            'what': 'Filtered and secreted drug leaves the kidneys unchanged, down each ureter to the bladder.',
+                            'rows': [['Renal clearance', f"{_fmt(r['value'])} mL/min"],
+                                     ['Dose leaving unchanged in urine', f"{100 * totals['fraction_excreted_unchanged']:.0f}%"]],
+                            'basis': [r['basis']], 'source': source},
+        'absorption': {'title': 'Absorption from the gut', 'status': None, 'status_text': None,
+                       'what': 'The oral dose passes from the small intestine into the blood. Drawn dashed and without a value: the model has no absorption rate.',
+                       'rows': [['Value', 'none drawn']], 'basis': [a['note']], 'source': source},
+    }
+
+
 def viewer_config(manifest, view=None, paths=None):
     assets = viewer_assets(manifest)
     config = {
@@ -116,6 +150,13 @@ def viewer_config(manifest, view=None, paths=None):
                      'outline': STATUS_OUTLINE[view['band']['status']]},
         }
         config['cards'] = evidence_cards(view)
+        config['flow_cards'] = flow_cards(view)
+        config['flow_key'] = [
+            {'kind': 'filtration', 'label': 'Filtration (glomerulus)'},
+            {'kind': 'tubular_secretion', 'label': 'Tubular secretion'},
+            {'kind': 'renal_excretion', 'label': 'Into urine'},
+            {'kind': 'absorption', 'label': 'Absorption (no value)', 'dashed': True}]
+        config['flows']['scale_reference_ml_min'] = SCALE_REFERENCE_ML_MIN
         if 'blood_flow' in view:
             bf, ex = view['blood_flow'], view['extraction']
             # Digital human 1.1c: reference blood flow, drawn as a quiet layer of moving dots at constant width and

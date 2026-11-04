@@ -238,12 +238,28 @@
     gl.enable(gl.DEPTH_TEST); gl.depthMask(true); gl.disable(gl.BLEND);
     gl.uniform1f(U.pick, 1);
     setCommon();
+    var pixel = new Uint8Array(4);
+    if (flowsOn && pickTubes.length) {
+      // Flows are drawn over the anatomy, so they are picked first, through their wider glow tube (easier to hit).
+      pickTubes.forEach(function (tube, i) {
+        gl.uniform3fv(U.pickCol, [(i + 1) / 255, 0, 1]);
+        gl.bindBuffer(gl.ARRAY_BUFFER, tube.halo.pb); gl.vertexAttribPointer(aP, 3, gl.FLOAT, false, 0, 0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, tube.halo.nb); gl.vertexAttribPointer(aN, 3, gl.FLOAT, false, 0, 0);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, tube.halo.ib);
+        gl.drawElements(gl.TRIANGLES, tube.halo.count, gl.UNSIGNED_INT, 0);
+      });
+      gl.readPixels(x, y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+      if (pixel[3] && pixel[2] === 255 && pixel[0]) {
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.uniform1f(U.pick, 0);
+        return { flow: pickTubes[pixel[0] - 1].kind };
+      }
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    }
     // Simulation parts are picked first through translucent context organs: draw them, then context behind.
     parts.forEach(function (part) {
       if (part.extras['class'] !== 'simulation') return;
       gl.uniform3fv(U.pickCol, part.idColor); bind(part); gl.drawElements(gl.TRIANGLES, part.count, gl.UNSIGNED_INT, 0);
     });
-    var pixel = new Uint8Array(4);
     gl.readPixels(x, y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
     if (!pixel[3]) {
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -259,7 +275,36 @@
     return id ? parts[id - 1] : null;
   }
 
+  function fillEvidence(body, evidence) {
+    if (!evidence.what) { var h = document.createElement('p'); h.className = 'bm-card-sub'; h.textContent = evidence.title; body.appendChild(h); }
+    if (evidence.what) { var w = document.createElement('p'); w.textContent = evidence.what; body.appendChild(w); }
+    var dl = document.createElement('dl');
+    evidence.rows.forEach(function (row) {
+      var dt = document.createElement('dt'); dt.textContent = row[0];
+      var dd = document.createElement('dd'); dd.textContent = row[1];
+      dl.appendChild(dt); dl.appendChild(dd);
+    });
+    body.appendChild(dl);
+    if (evidence.status_text) {
+      var st = document.createElement('p');
+      st.className = 'bm-card-status bm-status-' + evidence.status; st.textContent = evidence.status_text; body.appendChild(st);
+    }
+    evidence.basis.forEach(function (b) { var p = document.createElement('p'); p.className = 'bm-card-basis'; p.textContent = b; body.appendChild(p); });
+    var src = document.createElement('p'); src.className = 'bm-card-ids'; src.textContent = 'Source: ' + evidence.source; body.appendChild(src);
+  }
   function showCard(part) {
+    if (part && part.flow) {
+      selected = null; redraw();
+      var fc = (config.flow_cards || {})[part.flow];
+      if (!fc) { card.hidden = true; return; }
+      card.querySelector('[data-role="card-title"]').textContent = fc.title;
+      card.querySelector('[data-role="card-class"]').textContent = 'Flow: a clearance on the elimination route, drawn as a diagram over the anatomy.';
+      var fb = card.querySelector('[data-role="card-evidence"]'); fb.textContent = '';
+      fillEvidence(fb, fc);
+      card.querySelector('[data-role="card-ids"]').textContent = '';
+      card.hidden = false;
+      return;
+    }
     selected = part;
     redraw();
     if (!part) { card.hidden = true; return; }
@@ -273,22 +318,7 @@
       : config.context_label;
     var body = card.querySelector('[data-role="card-evidence"]');
     body.textContent = '';
-    if (evidence) {
-      var h = document.createElement('p'); h.className = 'bm-card-sub'; h.textContent = evidence.title; body.appendChild(h);
-      var dl = document.createElement('dl');
-      evidence.rows.forEach(function (row) {
-        var dt = document.createElement('dt'); dt.textContent = row[0];
-        var dd = document.createElement('dd'); dd.textContent = row[1];
-        dl.appendChild(dt); dl.appendChild(dd);
-      });
-      body.appendChild(dl);
-      if (evidence.status_text) {
-        var st = document.createElement('p');
-        st.className = 'bm-card-status bm-status-' + evidence.status; st.textContent = evidence.status_text; body.appendChild(st);
-      }
-      evidence.basis.forEach(function (b) { var p = document.createElement('p'); p.className = 'bm-card-basis'; p.textContent = b; body.appendChild(p); });
-      var src = document.createElement('p'); src.className = 'bm-card-ids'; src.textContent = 'Source: ' + evidence.source; body.appendChild(src);
-    }
+    if (evidence) fillEvidence(body, evidence);
     var ids = (e.ontology_ids || []).filter(function (id) { return id.indexOf('UBERON:') === 0; });
     card.querySelector('[data-role="card-ids"]').textContent = (ids.length ? 'Anatomy IDs: ' + ids.slice(0, 3).join(', ') +
       (ids.length > 3 ? ' and ' + (ids.length - 3) + ' more' : '') : '') +
@@ -299,7 +329,7 @@
   /* ---------------------------------------------------------------- flows (step 1.3c) */
   var F = config.flows || null;
   var B = (F && config.blood) || null;
-  var flowsOn = !!F, labelsOn = !!F, tubes = [], strands = [], bloodStrands = [], bloodOn = false;
+  var flowsOn = !!F, labelsOn = !!F, tubes = [], pickTubes = [], strands = [], bloodStrands = [], bloodOn = false;
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var playing = !!F && !reducedMotion, clock = 0, last = null;
 
@@ -390,6 +420,7 @@
         tube.halo = { count: halo.indices.length, pb: buf(gl.ARRAY_BUFFER, halo.positions), nb: buf(gl.ARRAY_BUFFER, halo.normals),
                       ib: buf(gl.ELEMENT_ARRAY_BUFFER, halo.indices) };
         if (values[i] !== null) tubes.push(tube);
+        pickTubes.push(tube);   // every strand can be selected, including the one drawn without a value
         var acc = lengths(strandLine), value = values[i] === null ? F.scale_ml_min * 0.15 : values[i] * path.share_per_path;
         // Particle speed is proportional to clearance on the fixed scale; spacing is constant.
         strands.push({ line: strandLine, acc: acc, length: acc[acc.length - 1], color: color, speed: 0.06 * value / (F.scale_ml_min * 0.5),
@@ -505,6 +536,40 @@
     var w = canvas.clientWidth, h = canvas.clientHeight;
     return [(x * cam.scale / (w / h) + 1) / 2 * w, (1 - y * cam.scale) / 2 * h];
   }
+  var key = null, scaleBar = null, scaleText = null;
+  function css(c) { return 'rgb(' + c.map(function (v) { return Math.round(255 * Math.min(1, v)); }).join(',') + ')'; }
+  function setupKey() {
+    // Flow key: what each colour is, and a scale bar for tube thickness at the current zoom (step 1.1, 4 November 2026).
+    if (!F || !config.flow_key) return;
+    key = document.createElement('div'); key.className = 'bm-flow-key';
+    config.flow_key.forEach(function (k) {
+      var row = document.createElement('span'); row.className = 'bm-key-row';
+      var sw = document.createElement('i'); sw.className = 'bm-key-swatch' + (k.dashed ? ' bm-key-dashed' : '');
+      sw.style.setProperty('--c', css(F.colors[k.kind])); row.appendChild(sw);
+      row.appendChild(document.createTextNode(k.label)); key.appendChild(row);
+    });
+    if (B) {
+      var br = document.createElement('span'); br.className = 'bm-key-row bm-key-blood'; br.hidden = true;
+      br.innerHTML = '<i class="bm-key-dot" style="--c:rgb(255,77,77)"></i><i class="bm-key-dot" style="--c:rgb(89,140,255)"></i>Blood in / out (reference)';
+      key.appendChild(br);
+    }
+    var sc = document.createElement('span'); sc.className = 'bm-key-row bm-key-scale';
+    scaleBar = document.createElement('i'); scaleBar.className = 'bm-key-bar';
+    scaleText = document.createElement('span');
+    sc.appendChild(scaleBar); sc.appendChild(scaleText); key.appendChild(sc);
+    // below the 3D view, so it never covers anatomy or labels
+    root.parentNode.insertBefore(key, root.nextSibling);
+  }
+  function updateKey() {
+    if (!key) return;
+    key.hidden = !flowsOn;
+    var br = key.querySelector('.bm-key-blood'); if (br) br.hidden = !bloodOn;
+    // a strand carrying the reference clearance is this thick on screen (same rule as the tubes: diameter on one fixed scale)
+    var ref = F.scale_reference_ml_min || 25;
+    var px = F.tube_diameter_at_scale_m * ref / F.scale_ml_min * cam.scale * canvas.clientHeight / 2;
+    scaleBar.style.height = Math.max(1, px).toFixed(1) + 'px';
+    scaleText.textContent = (px < 1 ? 'thinner than 1 px here' : 'this thickness') + ' = ' + ref + ' mL/min in one strand';
+  }
   function setupLabels() {
     if (!F) return;
     overlay = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -537,6 +602,7 @@
   }
   function placeLabels() {
     belowToolbar();
+    updateKey();
     if (!overlay) return;
     var w = canvas.clientWidth, h = canvas.clientHeight;
     overlay.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
@@ -726,6 +792,7 @@
     say('');
     buildFlows();
     setupLabels();
+    setupKey();
     addFlowControls();
     redraw();
     if (playing) requestAnimationFrame(tick);

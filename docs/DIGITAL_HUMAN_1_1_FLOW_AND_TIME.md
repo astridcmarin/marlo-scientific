@@ -113,3 +113,11 @@ The urine total at the end equals the fraction excreted unchanged that 1.0 alrea
 
 **Next:** 1.1d, the time-course model: its check plan is written and locked before anything is computed.
 
+## Reading the diagram (4 November 2026)
+
+- **Moving around the view:** Shift-drag, right-drag or two fingers move it; pinch, Cmd/Ctrl + scroll and the zoom buttons zoom towards the pointer; arrow keys move and Shift + arrows turn; plain scrolling still scrolls the page.
+- **Flow key** in a strip under the 3D view: the colour of each flow (filtration, tubular secretion, into urine, absorption drawn dashed with no value, and blood in and out when that layer is on).
+- **Scale bar** in the key: how thick a strand carrying 25 mL/min is drawn at the current zoom, on the same fixed scale as the tubes, so "thicker means more" can be read and compared between kidney functions.
+- **Flows can be selected:** clicking a strand opens its card, as for organs: what the process is, its clearance and share of elimination (both unbound fractions for filtration and secretion), the band's evidence status and the basis. Absorption's card says it has no value. Strands are picked through their wider glow, so they are easy to hit.
+- **Absorption** is drawn pink and dashed, matching its label.
+
