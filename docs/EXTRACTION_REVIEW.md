@@ -84,4 +84,12 @@ What this establishes, and what it does not:
 - Values not on the queue (derived values, uncertainty statistics, quotes that feed no calculation) are not covered.
 - Nothing about whether a source is right, or a model applicable, follows from this. Validation flags are unchanged.
 
-**Next:** show this status in the source sections of the model, special-population and dose pages, next to "AI-assisted" (the guided path's label step already says so).
+**Shown on the platform (4 November 2026).** `owner_review()` in `extraction_review.py` reports, for a pinned file, how many of its listed values match, by whom and when. It is computed from the pinned records each time, so a later round changes it. It appears:
+- on the model scorecards (Hughes, Kim, exposure–safety, ixazomib, daratumumab), under the transcription layer;
+- in the source list of the special-population pages;
+- in the sources of the pomalidomide and dexamethasone label-exposure pages;
+- in a "Source review" panel on the lenalidomide dose view.
+
+Wording when every value matches: "Owner review: all N values the platform uses from FILE match the source (checked by the platform owner, DATES). Not an independent review."
+
+Only the exact file reviewed is covered. A later version of a file shows nothing until its values are reviewed. For example, the lenalidomide special-population page uses `renal_pk_group_evidence_v2.json`, but round 1 reviewed v1. Models with no file in the queue (the bortezomib models, the kidney pathway model) show nothing. The evidence-status summaries ("independent review pending") are unchanged, because no independent review has taken place.

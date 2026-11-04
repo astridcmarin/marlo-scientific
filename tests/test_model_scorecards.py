@@ -110,6 +110,9 @@ class ScorecardPages(unittest.TestCase):
         self.assertIn('checksum verified', page)
         self.assertIn('Where outside data disagree', page)
         self.assertIn('Model too high', page)
+        self.assertNotIn('Owner review:', page)   # no reviewed extract for this model
+        kim = self.client.get('/models/lenalidomide_kim_2026').get_data(as_text=True)
+        self.assertIn('Owner review: all 15 values the platform uses from kim_2026_model_extract_v1.json match the source', kim)
         evidence = load_evidence_status()['models']['bortezomib_pk_lignet_2022']
         self.assertIn(evidence['layers']['external_consistency']['summary'].split('.')[0], page)
         links = re.findall(r'href="(/models/reports/[^"]+)"', page)

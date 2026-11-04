@@ -114,6 +114,30 @@ class Round2(unittest.TestCase):
                 er.round_2_view()
 
 
+class OwnerReview(unittest.TestCase):
+    def test_every_key_resolves_to_queued_files(self):
+        queued = {g['file'] for g in er.load_queue()['groups']}
+        for key, files in er.KEY_FILES.items():
+            self.assertTrue(set(files) <= queued, key)
+
+    def test_all_match_after_rounds_1_and_2(self):
+        for key in er.KEY_FILES:
+            for r in er.owner_review(key):
+                self.assertTrue(r['all_match'], key)
+                self.assertIn('Not an independent review', r['text'])
+
+    def test_round_1_alone_reports_the_open_items(self):
+        view = er.queue_view(er.REVIEW_RECORDS[:1])
+        [r] = er.owner_review('label:pomalidomide', view)
+        self.assertFalse(r['all_match'])
+        self.assertEqual(r['counts'], {'matches': 18, 'wrong': 12, 'cannot_check': 3, 'unreviewed': 1})
+        self.assertIn('12 found wrong', r['text'])
+
+    def test_only_the_exact_file_is_covered(self):
+        self.assertEqual(er.owner_review('landscape_ui/data/renal_pk/renal_pk_group_evidence_v2.json'), [])
+        self.assertEqual(len(er.owner_review('landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json')), 1)
+
+
 class Page(unittest.TestCase):
     def setUp(self):
         from app.app import app

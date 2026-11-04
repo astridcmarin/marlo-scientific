@@ -47,6 +47,7 @@
                 <li>
                     <div class="check-head"><h3>{{ layer.label }}</h3><span class="status status-{{ layer.tone }}">{{ layer.status_label }}</span></div>
                     <p>{{ layer.summary }}</p>
+                    {% if layer.id == 'transcription_verification' %}{% for r in owner_review('model:' ~ card.model_id) %}<p class="report-ref owner-review"><strong>{{ r.text }}</strong> <a href="{{ site_extraction_review_url }}">Extraction review</a></p>{% endfor %}{% endif %}
                     {% if layer.results %}
                     <table class="result-table"><caption class="sr-only">Recorded results</caption><thead><tr><th scope="col">Compared</th><th scope="col">Result</th></tr></thead><tbody>
                     {% for r in layer.results %}<tr><td>{{ r.item }}</td><td><span class="status status-{{ r.tone }}">{{ r.outcome_label }}</span></td></tr>{% endfor %}

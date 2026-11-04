@@ -27,6 +27,6 @@
 {% if s.link %}<p class="sp-src"><a href="{{ s.link }}">See the model scope</a></p>{% endif %}
 </div>{% endfor %}</section>{% endfor %}
 <section class="panel"><h2>Sources</h2><ul>
-{% for s in v.sources %}<li><strong>{{ s.title }}</strong><br><span class="sp-src">{{ s.file }} · SHA-256 {{ s.sha256[:16] }}… · {{ s.extraction }}</span></li>{% endfor %}</ul>
+{% for s in v.sources %}<li><strong>{{ s.title }}</strong><br><span class="sp-src">{{ s.file }} · SHA-256 {{ s.sha256[:16] }}… · {{ s.extraction }}</span>{% for r in owner_review(s.file) %}<br><span class="sp-src owner-review"><strong>{{ r.text }}</strong></span>{% endfor %}</li>{% endfor %}</ul>
 <p><a href="?format=json">Download this summary (JSON)</a></p></section>
 {% endblock %}
