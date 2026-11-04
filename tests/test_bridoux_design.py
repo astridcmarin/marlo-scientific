@@ -50,6 +50,14 @@ class Stage2Values(unittest.TestCase):
         self.assertEqual(obs['statistic'], 'geometric mean (geometric CV, %)')
         self.assertEqual(obs['groups']['severe']['dose_mg_per_24h'], 7.5)
 
+    def test_v2_only_adds_cmax_and_half_life(self):
+        v1, v2 = bc.load_observed(), bc.load_observed_v2()
+        self.assertEqual(v2['supersedes']['sha256'], bc.OBSERVED_SHA256)
+        for g, row in v1['groups'].items():
+            extra = {k: v for k, v in v2['groups'][g].items() if k not in row}
+            self.assertEqual(set(extra), {'cmax_gm_ng_ml', 'cmax_gcv_pct', 't_half_gm_h', 't_half_gcv_pct'})
+            self.assertEqual({k: v2['groups'][g][k] for k in row}, row)
+
 
 if __name__ == '__main__':
     unittest.main()

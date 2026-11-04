@@ -15,6 +15,9 @@ DESIGN_PATH = DATA / 'lenalidomide_bridoux_design_v1.json'
 DESIGN_SHA256 = '1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac'
 OBSERVED_PATH = DATA / 'lenalidomide_bridoux_observed_v1.json'
 OBSERVED_SHA256 = 'b757b38d84788fe7587d7b7a5a737d464928a0b24f7eead517a74b732845b89e'
+# v2 adds Cmax and t1/2 from the same Table 2 for the Digital human 1.1d time-course check; the 2.1h check uses v1.
+OBSERVED_V2_PATH = DATA / 'lenalidomide_bridoux_observed_v2.json'
+OBSERVED_V2_SHA256 = 'cc8c41123d6305dd3ab783ae53e87d0ab8c15f32f04b21cc45d4c9a2bc4de8ee'
 
 
 def load_design(path=DESIGN_PATH):
@@ -36,6 +39,16 @@ def load_observed(path=OBSERVED_PATH):
         raise ValueError('Unsupported observed-exposure schema.')
     return data
 
+
+
+def load_observed_v2(path=OBSERVED_V2_PATH):
+    raw = Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != OBSERVED_V2_SHA256:
+        raise ValueError('Bridoux observed-exposure file v2 is missing or changed.')
+    data = json.loads(raw)
+    if data.get('schema_version') != 'observed-group-exposure-v1':
+        raise ValueError('Unsupported observed-exposure schema.')
+    return data
 
 # ---------------------------------------------------------------- the virtual trial (stage 2, after both files above)
 import copy  # noqa: E402
