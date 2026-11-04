@@ -13,8 +13,10 @@ from .covariate_estimation import _load_pinned
 from .patient_state import digest
 
 SCHEMA_VERSION = 'patient-lab-run-record-v1'
-EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v14.json'
-EVIDENCE_SHA256 = '4fdac3a8bb50ead46b0f85633ac1be93ffd0dab393b8009faa502c126ce5d1fb'
+EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v15.json'
+EVIDENCE_SHA256 = '4098d7f40cd9cd4f01db53837609cf93a8133d8602e22384215f9ab0d1c5ec35'
+# Superseded, kept unchanged for traceability: model_evidence_status_v14.json
+EVIDENCE_V14_SHA256 = '4fdac3a8bb50ead46b0f85633ac1be93ffd0dab393b8009faa502c126ce5d1fb'
 # Superseded, kept unchanged for traceability: model_evidence_status_v13.json
 EVIDENCE_V13_SHA256 = '943876d68dfe5cbb2ba3636bd106711423fda88f0399a98f87ab41f90d11d524'
 # Superseded, kept unchanged for traceability: model_evidence_status_v12.json

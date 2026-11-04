@@ -68,8 +68,10 @@ STATUS_TEXT = {
     'calibrated': 'Calibrated: the model was fitted to the normal-function group.',
     'checked_consistent': 'Checked: consistent with the observed group in every scenario of the locked check.',
     'consistent_primary_only': 'Consistent with the observed group in the primary scenario only; not in every scenario of the locked check.',
-    'check_disagrees': ('Outside check disagrees: the model under-predicts exposure here; renal elimination is probably lower, '
-                        'and exposure higher, than shown.'),
+    'check_disagrees': ('Source study disagrees: in this band of CC-5013-PK-001 (the study the model was calibrated on, whose '
+                        'impaired groups were not used for fitting) the model predicts less exposure than observed. That result '
+                        'assumes all of the dose is absorbed; a review on 4 November 2026 found that it changes at lower absorption '
+                        'that the data allow, and a locked re-check is planned.'),
 }
 
 
@@ -112,17 +114,27 @@ def myeloma_note(band_id):
     raw = MYELOMA_REPORT_PATH.read_bytes()
     if hashlib.sha256(raw).hexdigest() != MYELOMA_REPORT_SHA256:
         raise BodyMapError('The renal pathways v2 report is missing or changed; the map was not built.')
-    primary = json.loads(raw)['primary']
-    cls = {study: primary[study]['v1'][group]['classification'] for study, group in groups.items()}
+    report = json.loads(raw)
+    cls = {study: report['primary'][study]['v1'][group]['classification'] for study, group in groups.items()}
+    sens = {name: {study: s[study]['v1'][group]['classification'] for study, group in groups.items()}
+            for name, s in report['sensitivity'].items()}
     if set(cls.values()) == {'consistent'}:
-        finding = ('In two studies of myeloma patients never used to fit it (Bridoux 2016, Kim 2026), the model is consistent '
-                   'with the observed exposure in this band.')
+        finding = ('In two studies of myeloma patients never used to fit it, the model is consistent with the observed values '
+                   'in this band in the main scenario (Bridoux 2016: exposure, AUC24; Kim 2026: clearance, CL/F).')
     else:
-        finding = ('In two studies of myeloma patients never used to fit it: Bridoux 2016 ' + cls['bridoux'].replace('_', ' ') +
-                   ', Kim 2026 ' + cls['kim'].replace('_', ' ') + '.')
+        finding = ('In two studies of myeloma patients never used to fit it, main scenario: Bridoux 2016 ' +
+                   cls['bridoux'].replace('_', ' ') + ', Kim 2026 ' + cls['kim'].replace('_', ' ') + '.')
+    word = {'model_over_predicts': 'model too high', 'model_under_predicts': 'model too low'}
+    off = [f"{'Bridoux' if study == 'bridoux' else 'Kim'}: {word.get(c, c.replace('_', ' '))}"
+           for s in sens.values() for study, c in s.items() if c != 'consistent']
+    robustness = (f' In {sum(1 for s in sens.values() if set(s.values()) != {"consistent"})} of {len(sens)} sensitivity '
+                  f'scenarios it is not ({"; ".join(sorted(set(off)))}).' if off else ' The sensitivity scenarios agree.')
+    groups_note = (' Kim\'s groups are defined by eGFR; its moderate group (eGFR 30 to 60) is centred near 50 mL/min, the top '
+                   'of this band.' if band_id == 'moderate' else '')
     return {'text': ('That check is CC-5013-PK-001, the study the model was built from, in people without cancer. ' + finding +
-                     ' Both studies had been seen before this comparison, so it is not a blind test; why the studies differ is not known.'),
-            'classifications': cls, 'report': 'docs/verification/lenalidomide_renal_pathways_check_v2.json',
+                     robustness + groups_note + ' Both studies had been seen before this comparison, so it is not a blind test; '
+                     'why the studies differ is not known.'),
+            'classifications': cls, 'sensitivity': sens, 'report': 'docs/verification/lenalidomide_renal_pathways_check_v2.json',
             'report_file_sha256': MYELOMA_REPORT_SHA256}
 
 
@@ -191,7 +203,7 @@ def build_map(crcl, mode, record=None):
     if not RANGE[0] <= crcl <= RANGE[1]:
         view.update(status='outside_range',
                     message=(f'Creatinine clearance {crcl:.0f} mL/min is outside {RANGE[0]:g}-{RANGE[1]:g} mL/min, the range the '
-                             'pathway check covered; the map is not drawn.'))
+                             'map is drawn for; the map is not drawn.'))
         view['view_sha256'] = digest(view)
         return view
     evidence = load_evidence()
@@ -239,7 +251,11 @@ def build_map(crcl, mode, record=None):
             'Creatinine clearance stands in for GFR and overestimates it.',
             'The filtration/secretion split depends on the unbound fraction, which the data do not pin down; both values are shown. '
             'Total renal clearance and exposure are the same under both.',
-            'Non-renal clearance is held constant; the moderate group of the check suggests it may not be.',
+            'Non-renal clearance is held constant. It is derived as total minus renal clearance assuming all of the dose is '
+            'absorbed (bioavailability 1); the data allow about 0.85 to 1, and at 0.90 it would be about 10 rather than 29 mL/min. '
+            'The non-renal arrow and the moderate-band result are not separable from bioavailability with these data.',
+            'The map is drawn from 10 to 140 mL/min; the study\'s groups were centred at about 24 (severe) to 102 (normal) mL/min, '
+            'so the ends of the range extrapolate.',
             'Not a measurement of kidney function, an exposure prediction for a patient, or a dose recommendation.'])
     view['view_sha256'] = digest(view)
     return view

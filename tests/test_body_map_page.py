@@ -41,7 +41,7 @@ class BodyMapPage(unittest.TestCase):
         response = self.client.get(self.url(rev.id))
         self.assertEqual(response.status_code, 200)
         html = response.get_data(as_text=True)
-        for text in ('body-map-viewer', 'Not a clinical prediction', 'Outside check disagrees', 'Flow diagram',
+        for text in ('body-map-viewer', 'Not a clinical prediction', 'Source study disagrees', 'Flow diagram',
                      'Tubular secretion', 'with fu 0.60', 'Run record', 'Coloured: carries model results',
                      'Grey: anatomy for orientation', 'Human Reference Atlas', 'placed by hand (approximate)',
                      'body-map-viewer.js', 'Limits of this map'):

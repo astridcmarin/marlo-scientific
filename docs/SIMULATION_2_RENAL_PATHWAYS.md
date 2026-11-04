@@ -1,6 +1,6 @@
 # Simulation 2.0 — lenalidomide elimination pathways (kidney-focused)
 
-Status: **2.0a–2.0c done**: pathway model, locked check, patient organ view, and end-stage kidney disease and dialysis.
+Status: **2.0a–2.0d done**: pathway model, locked check, patient organ view, end-stage kidney disease and dialysis, and the steeper-secretion test (not adopted). An AI review on 4 November 2026 found that the 2.0a moderate-band result depends on the assumed bioavailability; see the review section at the end.
 
 ## Why this, and not a full PBPK model
 
@@ -37,14 +37,15 @@ A full PBPK model would also need organ volumes, tissue partition coefficients a
 
 **What it shows:**
 - **Secretion falls with kidney function.** Reading B under-predicts exposure about two-fold in moderate and severe impairment in every scenario. Keeping secretion intact cannot explain the data.
-- **Reading A is close but not enough.** It fits mild and severe impairment, but under-predicts moderate (0.79 of observed) and over-predicts the urine fraction there (67% vs 42%). That result depends on the assumed group creatinine clearances: A is consistent in moderate impairment when normal CrCl is set to 130, or when the impaired groups sit at the lower ends of their ranges.
-- **Recorded finding (plan rule):** renal elimination of lenalidomide appears to fall *faster* than in proportion to creatinine clearance. That is consistent with Hughes 2019 under-predicting exposure in moderate and severe impairment, since its clearance also scales with CrCl. A plausible mechanism is reduced tubular transporter activity in kidney disease, but the source cannot show this.
+- **Reading A is close but not enough.** It fits mild impairment in every scenario and severe impairment in the primary scenario only (not with normal CrCl at 90 or with the impaired groups at the ends of their ranges), but under-predicts moderate (0.79 of observed) and over-predicts the urine fraction there (67% vs 42%). That result depends on the assumed group creatinine clearances: A is consistent in moderate impairment when normal CrCl is set to 130, or when the impaired groups sit at the lower ends of their ranges.
+- **Recorded finding (plan rule):** renal elimination of lenalidomide appears to fall *faster* than in proportion to creatinine clearance. [Corrected 4 November 2026: this sentence first said the finding was consistent with Hughes 2019 under-predicting, "since its clearance also scales with CrCl". Hughes scales clearance as CrCl^0.224, far flatter than proportional, so its under-prediction shows only that the decline is steeper than that, not steeper than proportional.] **This finding also depends on bioavailability F, taken as 1:** at F = 0.90, inside the range the data allow, reading A is consistent in the moderate group and over-predicts the severe group (review of 4 November). A plausible mechanism is reduced tubular transporter activity in kidney disease, but the source cannot show this.
 - **Neither reading is "supported"** under the plan's rule (consistent in all three groups, primary scenario).
 
 **Limits:**
-- Group means of 5–7 subjects, with group creatinine clearance known only as a range.
+- Group means of 5–7 subjects. When 2.0a was planned, group creatinine clearance was known only as a range; Chen 2007 Table I means (normal 102.2 mL/min) were added on 31 October and are used by 2.0d. The body map still calibrates at 110.
 - Measured creatinine clearance overestimates GFR.
-- Bioavailability is taken as 1 (urinary recovery implies at least about 0.85).
+- Bioavailability is taken as 1 (urinary recovery implies at least about 0.85). Renal clearance (Ae/AUC) does not depend on F, but the non-renal clearance derived from CL/F does: 28.7 mL/min at F = 1, 9.6 at F = 0.90, about 0 at F = 0.85. The non-renal route and the moderate-band finding are therefore not separable from F with these data.
+- The EMA report states renal clearance as "at least 190 mL/min"; the model's 162 mL/min (85% of the mean CL/F) is not reconciled with that statement.
 - No SD for the urine fractions.
 
 CLI: `flask --app app/app.py lenalidomide-renal-pathways-check`.
@@ -92,7 +93,7 @@ This is the platform's first organ-level view: it shows where the drug goes, not
 **Inconclusive under the plan's rule.** The ESRD subjects' residual kidney function is not reported. The data fit a constant non-renal route if a little kidney function remained, which is common in dialysis patients, but not if none did.
 
 **Descriptive results:**
-- **Non-renal clearance implied by each group's own data:** normal 29, mild 47, moderate 40, severe 29 mL/min. There is no trend with kidney function; the spread is what groups of 5–7 people produce. The constant non-renal assumption therefore stands, and the moderate-group shortfall in 2.0a is better explained by renal elimination falling faster than creatinine clearance.
+- **Non-renal clearance implied by each group's own data:** normal 29, mild 47, moderate 40, severe 29 mL/min. There is no trend with kidney function. [Corrected 4 November 2026: the original text said the spread "is what groups of 5–7 people produce", which was asserted, not computed (the urine fractions have no reported spread). It also concluded the moderate shortfall was better explained by renal elimination falling faster; that conclusion now also depends on bioavailability, see 2.0a.] The moderate group's implied non-renal clearance (40 mL/min) is higher than normal, which would lower exposure, so it cannot explain the moderate under-prediction.
 - **Dialysis:** with the subjects' own non-dialysis clearance (37.5 mL/min) applied through the dialysis day, their own routes eliminated 15.4 mg. One 4-hour session started 3 h after dosing therefore removed about **9.6 mg, 39% of the dose**, and exposure that day was 0.61 times the non-dialysis day. Dialyser clearance itself cannot be computed: concentrations during the session were not reported.
 
 **Patient page:** for an estimated creatinine clearance below 10 mL/min, the 2.0b page now warns that the model fits end-stage disease only with some residual function, and that dialysis is an extra route not drawn.
@@ -109,7 +110,7 @@ Report `docs/verification/lenalidomide_esrd_dialysis_check_v1.json`; CLI `lenali
 
 `intelligence_store/data/lenalidomide_renal_pathways_plan_v2.json`, pinned in `tests/test_renal_pathways_plan_v2.py` before the model is built or run.
 
-**Why.** Every check of the 2.0a model in moderate and severe impairment finds clearance too high: CC-5013-PK-001 itself, Bridoux 2016 and the body-map time course. In CC-5013-PK-001's moderate group, 42% of the dose left unchanged in urine against the model's 67%. Renal clearance (about 30 mL/min) was close to what filtration of unbound drug alone would give. The hypothesis is that tubular secretion falls faster than filtration as kidney function declines; this is the problem in the model's structure, not something specific to myeloma.
+**Why.** Every check of the 2.0a model in moderate and severe impairment finds clearance too high: CC-5013-PK-001 itself, Bridoux 2016 and the body-map time course. In CC-5013-PK-001's moderate group, 42% of the dose left unchanged in urine against the model's 67%. Renal clearance (about 30 mL/min) was close to what filtration of unbound drug alone would give. The hypothesis is that tubular secretion falls faster than filtration as kidney function declines. [Corrected 4 November 2026: this paragraph also said "this is the problem in the model's structure, not something specific to myeloma", which the 2.0d result contradicts, and cited Bridoux and the time course as showing clearance too high; neither did for this model. The plan stays as locked.]
 
 **Model.** Secretion = S_ref × (CrCl / 110)^k. Everything else is the 2.0a calibration the body map uses, so k = 1 is the current model. **One parameter, k, is fitted, on CC-5013-PK-001's impaired groups only** (mean AUC; measured creatinine clearance from Chen 2007). No other form is tried under this plan.
 
@@ -157,3 +158,12 @@ Module `intelligence_store/lenalidomide_renal_pathways_v2.py`; report `docs/veri
 - **Body map, moderate and severe bands** (alert, numbers panel, kidney and flow cards in 3D): "That check is CC-5013-PK-001, the study the model was built from, in people without cancer. In two studies of myeloma patients never used to fit it (Bridoux 2016, Kim 2026), the model is consistent with the observed exposure in this band. Both studies had been seen before this comparison, so it is not a blind test; why the studies differ is not known." The text is generated from the pinned 2.0d report (`body_map.myeloma_note`), so it would change with a different result. The band status, its colour and the run-record warning are unchanged.
 - **Run records** of the body map carry the note under the secretion assumption and the 2.0d report's checksum.
 - **Model scorecard** (evidence status v14, v13 kept): the 2.0d report is a further report on the pathway model's external-consistency layer, listing all seven pre-specified comparisons, including the two disagreements (Bridoux normal and mild, exposure too high).
+
+## AI review of 4 November 2026
+
+A separate AI reviewer agent, with no access to the conversation in which this work was done, reviewed 2.0a–2.0d, the body map and the time course ([record](reviews/2026-11-04_ai_review_renal_pathways.md)). It is not an independent review. Its main finding:
+- **The 2.0a result depends on bioavailability F, which was taken as 1.** Renal clearance does not depend on F, but the non-renal clearance derived from CL/F does. At F = 0.90, inside what the data allow (about 0.85 to 1), the intact-nephron reading is consistent in the moderate group and over-predicts the severe group.
+- The finding that renal elimination falls faster than in proportion to creatinine clearance is therefore not robust, and neither is the reason 2.0d was run.
+- It also showed that at fu 0.77 the moderate group's renal clearance (29.1 mL/min) is at or below filtration alone (30.1), which no secretion term can reach.
+
+Wording was corrected in this document, the Digital human 1.1 document, the status-by-drug page, the body map (band text, myeloma note, limitations), findings v2 and evidence status v15. The dataset ledger v3 adds two missing uses. No model, result, scope or warning band changed. **Next: 2.0e**, a locked re-check of 2.0a across F = 0.85–1.0, deciding in advance what the moderate-band warning says.

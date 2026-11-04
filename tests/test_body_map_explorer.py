@@ -108,7 +108,7 @@ class ExplorerPage(unittest.TestCase):
 
     def test_page_shows_map_context_and_record(self):
         html = self.client.get(f'{URL}?crcl=40').get_data(as_text=True)
-        for text in ('body-map-viewer', 'Outside check disagrees', 'What the renal-impairment study observed',
+        for text in ('body-map-viewer', 'Source study disagrees', 'What the renal-impairment study observed',
                      'In two studies of myeloma patients never used to fit it', 'not a blind test',
                      'Exposure ratios reported by the EMA', 'context, not a check', 'proposes no dose',
                      'row containing this value', 'Run record', 'Flow diagram', 'body-map-explorer.js',

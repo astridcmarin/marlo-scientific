@@ -76,12 +76,24 @@ class Gate(unittest.TestCase):
         import hashlib
         v1_path = dl.LEDGER_PATH.with_name('dataset_ledger_v1.json')
         self.assertEqual(hashlib.sha256(v1_path.read_bytes()).hexdigest(), dl.LEDGER_V1_SHA256)
-        v1, v2 = json.loads(v1_path.read_text()), dl.load_ledger()
+        v2_path = dl.LEDGER_PATH.with_name('dataset_ledger_v2.json')
+        self.assertEqual(hashlib.sha256(v2_path.read_bytes()).hexdigest(), dl.LEDGER_V2_SHA256)
+        v1, v2 = json.loads(v1_path.read_text()), json.loads(v2_path.read_text())
         self.assertEqual(v2['uses'], v1['uses'])
         added = set(v2['datasets']) - set(v1['datasets'])
         self.assertEqual(added, {'kyprolis_label', 'xpovio_label', 'thalomid_label', 'sarclisa_label', 'empliciti_label'})
         self.assertTrue(all(v2['datasets'][d]['values_first_seen'] == '2026-11-04' for d in added))
         self.assertEqual({d: v2['datasets'][d] for d in v1['datasets']}, v1['datasets'])
+
+    def test_v3_only_adds_three_time_course_uses(self):
+        v2 = json.loads(dl.LEDGER_PATH.with_name('dataset_ledger_v2.json').read_text())
+        v3 = dl.load_ledger()
+        self.assertEqual(v3['datasets'], v2['datasets'])
+        self.assertEqual(v3['uses'][:len(v2['uses'])], v2['uses'])
+        added = v3['uses'][len(v2['uses']):]
+        self.assertEqual({(u['dataset'], u['role']) for u in added},
+                         {('kim_2026_patients', 'built_from'), ('cc5013_pk001', 'checked_not_blind'), ('bridoux_2016', 'checked_not_blind')})
+        self.assertTrue(all(u['model'] == 'lenalidomide_body_map_time_course' for u in added))
 
     def test_changed_ledger_is_refused(self):
         with self.assertRaises(dl.LedgerError):

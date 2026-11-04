@@ -70,7 +70,7 @@ class MapData(unittest.TestCase):
         v = bm.explorer_map(37)
         self.assertEqual(v['band']['status'], 'check_disagrees')
         self.assertTrue(all(flow(v, k)['status'] == 'check_disagrees' for k in ('filtration', 'tubular_secretion', 'renal_excretion')))
-        self.assertIn('probably lower', v['band']['status_text'])
+        self.assertIn('assumes all of the dose is absorbed', v['band']['status_text'])
 
     def test_not_drawn_outside_the_checked_range(self):
         for crcl in (5, 9.99, 140.01, 200):
