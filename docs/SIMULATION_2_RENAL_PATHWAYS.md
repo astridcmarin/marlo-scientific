@@ -104,3 +104,25 @@ Report `docs/verification/lenalidomide_esrd_dialysis_check_v1.json`; CLI `lenali
 - **A dialysis route on the patient page,** if session-level concentration data can be found; today only the total removed by one session is known.
 - **Why renal elimination falls faster than creatinine clearance:** literature on lenalidomide's tubular transporters.
 
+
+## Simulation 2.0d: secretion that falls faster than filtration — plan locked (4 November 2026)
+
+`intelligence_store/data/lenalidomide_renal_pathways_plan_v2.json`, pinned in `tests/test_renal_pathways_plan_v2.py` before the model is built or run.
+
+**Why.** Every check of the 2.0a model in moderate and severe impairment finds clearance too high: CC-5013-PK-001 itself, Bridoux 2016 and the body-map time course. In CC-5013-PK-001's moderate group, 42% of the dose left unchanged in urine against the model's 67%. Renal clearance (about 30 mL/min) was close to what filtration of unbound drug alone would give. The hypothesis is that tubular secretion falls faster than filtration as kidney function declines; this is the problem in the model's structure, not something specific to myeloma.
+
+**Model.** Secretion = S_ref × (CrCl / 110)^k. Everything else is the 2.0a calibration the body map uses, so k = 1 is the current model. **One parameter, k, is fitted, on CC-5013-PK-001's impaired groups only** (mean AUC; measured creatinine clearance from Chen 2007). No other form is tried under this plan.
+
+**Checks.** Both use data the analyst has seen but no fit has used; neither is blind, and the report will say so.
+- **Bridoux 2016** (French myeloma patients, steady state): AUC24 per group, against the 90% CI of the geometric mean.
+- **Kim 2026 Table 2** (Korean myeloma patients, steady state): total CL/F per group, against the 90% CI of the mean. Kim groups are by eGFR; the input is the median eGFR de-indexed by median BSA.
+- The current model (k = 1) is classified side by side.
+
+**Decision, fixed in advance.** v2 replaces v1 wherever the pathway model is used only if:
+- k is not at a bound;
+- v2 is consistent in the moderate and severe groups of **both** studies (four of four);
+- v2 does no worse than v1 in the other groups.
+
+Three of four means v2 is reported but not adopted. Otherwise the result is recorded as a failure of this form. The existing warnings stay in both cases. If adopted, the time course is re-checked under its own plan before its warnings change, and pages say "consistent with two myeloma studies not used to fit it", never "validated".
+
+**Search for unseen data (4 November 2026).** Kim 2026 and its PAGE 2025 abstract (same patients), the Guglieri-López 2017 thesis (15 patients with PK; set aside on 14 October), and the REVLIMID EMA reports II-0056 (its renal section is CC-5013-PK-001) and II-0107 (no PK section) were searched by headings and table titles only. None holds unseen group-level renal-impairment data.

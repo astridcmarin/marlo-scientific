@@ -1,0 +1,119 @@
+{
+ "schema_version": "lenalidomide-renal-pathways-plan-v2",
+ "plan_version": "lenalidomide-renal-pathways-plan-v2.0",
+ "step": "Simulation 2.0d",
+ "recorded_on": "2026-11-04",
+ "status": "locked_before_computation",
+ "drug": "lenalidomide",
+ "why": "Every check of the 2.0a pathway model (reading A, intact nephron) in moderate and severe renal impairment finds clearance too high: CC-5013-PK-001 itself (2.0a report: renal elimination falls faster than proportional), Bridoux 2016 (2.1h), and the body-map time course v1 and v2 (1.1d). In CC-5013-PK-001's moderate group the fraction excreted unchanged was 42% against the model's 67%, and renal clearance (about 30 mL/min) was close to filtration of unbound drug alone. The working hypothesis is that tubular secretion falls faster than filtration as kidney function declines. This plan tests one form of that hypothesis.",
+ "what_is_known_before_computation": "The analyst has seen the CC-5013-PK-001 group values (used to fit), the Bridoux 2016 group values (2.1h, 1.1d) and the Kim 2026 Table 2 group values (extracted 13 October 2026). None of the three has been used to fit any parameter of the pathway model. Bridoux and Kim are therefore checks on data that is seen but not fitted, and the report must say so; no check in this plan is blind. A search on 4 November 2026 of the sources available (Kim 2026 and its PAGE 2025 abstract, the Guglieri-Lopez 2017 thesis, REVLIMID EMA variation reports II-0056 and II-0107) found no unseen group-level renal impairment data.",
+ "model": {
+  "name": "lenalidomide renal pathways v2 (secretion falls faster than filtration)",
+  "equations": {
+   "filtration_ml_min": "fu * CrCl",
+   "secretion_ml_min": "S_ref * (CrCl / CrCl_ref) ^ k",
+   "renal_ml_min": "filtration + secretion",
+   "total_ml_min": "renal + non_renal",
+   "auc_ng_h_ml": "dose_mg * 1e6 / (total_ml_min * 60)"
+  },
+  "fixed_from_2_0a": "fu 0.77, CrCl_ref 110 mL/min, and the calibration of filtration, secretion (S_ref) and non-renal clearance on the CC-5013-PK-001 normal group, exactly as the body map computes them (calibrate() in lenalidomide_renal_pathways.py). At k = 1 the model is the 2.0a reading A model the body map shows.",
+  "fitted": {
+   "parameter": "k",
+   "meaning": "how steeply secretion falls with creatinine clearance; k = 1 is the intact-nephron reading, k > 1 means secretion falls faster than filtration",
+   "bounds": [
+    0.0,
+    8.0
+   ],
+   "data": "CC-5013-PK-001 impaired groups only (mild, moderate, severe without dialysis): arithmetic mean AUC (pathway evidence v1), n per group",
+   "creatinine_clearance_inputs": "group mean measured creatinine clearance from Chen 2007 Table I (24-hour urine): mild 64.6, moderate 39.1, severe 23.9 mL/min",
+   "objective": "minimise the sum over groups of n * (ln AUC_model - ln AUC_observed)^2",
+   "method": "grid over the bounds at step 0.01, then golden-section refinement to 1e-9 around the best grid point",
+   "report": "k, the in-sample AUC ratios, and the model's fraction excreted unchanged against the observed (42%, 69%, 44%), reported but not used in fitting",
+   "boundary_rule": "If k is within 0.01 of a bound, the fit is reported as at the boundary and the model is not adopted, whatever the checks show."
+  },
+  "not_changed": "Non-renal clearance, unbound fraction, and the structure of filtration. No second parameter is fitted. No other functional form is tried in this plan; a different form would be a new plan."
+ },
+ "pinned_inputs": {
+  "pathway_evidence": {
+   "file": "intelligence_store/data/lenalidomide_renal_pathways_evidence_v1.json",
+   "sha256": "e7c62bc477bfc6170f42f1f01e5935ea222bec0fbf513da718178030c42d2c8f"
+  },
+  "pathway_plan_v1": {
+   "file": "intelligence_store/data/lenalidomide_renal_pathways_plan_v1.json",
+   "sha256": "591e032c7bf96f80b8bcae217a171b258923875bdfd7a37cd81baa86939f194a"
+  },
+  "chen_2007_demographics": {
+   "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v3.json",
+   "sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292"
+  },
+  "bridoux_design": {
+   "file": "intelligence_store/data/lenalidomide_bridoux_design_v1.json",
+   "sha256": "1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac"
+  },
+  "bridoux_observed": {
+   "file": "intelligence_store/data/lenalidomide_bridoux_observed_v2.json",
+   "sha256": "cc8c41123d6305dd3ab783ae53e87d0ab8c15f32f04b21cc45d4c9a2bc4de8ee"
+  },
+  "kim_extract": {
+   "file": "intelligence_store/data/kim_2026_model_extract_v1.json",
+   "sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af"
+  }
+ },
+ "checks": {
+  "bridoux_2016": {
+   "population": "French multiple myeloma patients, steady state, day 5",
+   "groups": [
+    "normal",
+    "mild",
+    "moderate",
+    "severe"
+   ],
+   "esrd": "not compared (no dialysis process in the model)",
+   "model_input": "group mean Cockcroft-Gault creatinine clearance (Bridoux Table 1)",
+   "endpoint": "AUC24 at steady state = dose per 24 h / total clearance",
+   "observed": "geometric mean and geometric CV% (Bridoux Table 2, observed file v2)",
+   "rule": "consistent if the model value lies inside the 90% CI of the observed geometric mean, GM * exp(+/- t(0.95, n-1) * s / sqrt(n)), s = sqrt(ln(1 + CV^2)); otherwise model_over_predicts or model_under_predicts"
+  },
+  "kim_2026": {
+   "population": "Korean multiple myeloma patients, steady state, day 3",
+   "groups": [
+    "control",
+    "moderate",
+    "severe"
+   ],
+   "model_input": "Kim groups are defined by CKD-EPI 2021 eGFR (mL/min/1.73 m2). Input: the group median eGFR de-indexed with the group median BSA (eGFR * BSA / 1.73), used in place of creatinine clearance: control 77.4 and 1.75, moderate 52.1 and 1.65, severe 25.2 and 1.60 (Table 1).",
+   "endpoint": "total apparent clearance CL/F, L/h",
+   "observed": "arithmetic mean and SD of non-compartmental total CL/F (Table 2); n 8, 11, 11",
+   "rule": "consistent if the model value lies inside the 90% CI of the observed mean, mean +/- t(0.95, n-1) * SD / sqrt(n)",
+   "caveat": "Model values at group medians are compared with group means of individual NCA estimates; eGFR stands in for creatinine clearance. Both are recorded limitations."
+  },
+  "comparator": "The 2.0a model (k = 1) is classified in the same way, side by side."
+ },
+ "decision_rule": {
+  "adopt": "v2 replaces v1 wherever the pathway model is used (body map view, elimination split, numbers panel, run records) only if: k is not at a bound; v2 is consistent in the moderate and severe groups of both Bridoux and Kim (four of four); and in Bridoux normal and mild and Kim control, v2 is consistent in at least as many groups as v1.",
+  "partial": "If three of the four moderate and severe comparisons are consistent, v2 is reported and not adopted; the existing warnings stay.",
+  "fail": "Otherwise the result is recorded as a failure of this form; the existing warnings stay.",
+  "after_adoption": "Adoption changes clearance in the body-map time course; that course is re-checked under its own plan before its warnings change. The model scope pages state that the checks used data seen but not fitted.",
+  "wording": "If adopted, pages say 'consistent with two myeloma studies not used to fit it (both seen before fitting)', never 'validated'."
+ },
+ "sensitivity_scenarios": {
+  "calibration_at_chen_normal_mean": "normal group calibrated at its measured mean creatinine clearance, 102.2 mL/min, instead of 110",
+  "fit_on_renal_clearance": "k fitted to renal clearance (fraction excreted unchanged * total clearance) instead of AUC",
+  "kim_indexed_egfr": "Kim groups at their indexed median eGFR, without de-indexing",
+  "use": "Reported beside the primary result; they do not decide adoption."
+ },
+ "numerical_checks": [
+  "At k = 1, v2 equals the 2.0a reading A clearances to 1e-12 relative",
+  "secretion is non-negative and decreasing in creatinine clearance falling, for all k in the bounds",
+  "the fit objective at the reported k is not above its value at any grid point"
+ ],
+ "known_limitations": [
+  "Group means from small groups (n 5 to 11); one fitted parameter on three points.",
+  "CC-5013-PK-001 subjects did not have cancer; Bridoux and Kim are myeloma patients. Non-renal clearance and protein binding are assumed the same across populations.",
+  "Three different kidney measures: measured 24-hour creatinine clearance (fit), Cockcroft-Gault (Bridoux), de-indexed CKD-EPI eGFR (Kim).",
+  "The power form is one of several ways secretion could fall faster than filtration; it is chosen for having a single parameter that reduces to the current model at k = 1.",
+  "Checks on seen data cannot rule out that the form was chosen with that data in mind; this plan fixes one form in advance to limit that."
+ ],
+ "clinical_prediction_validated": false,
+ "ready_for_patient_simulation": false
+}
