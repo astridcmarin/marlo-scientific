@@ -13,6 +13,8 @@ DATA = Path(__file__).parent / 'data'
 PLAN_PATH = DATA / 'lenalidomide_bridoux_check_plan_v1.json'
 DESIGN_PATH = DATA / 'lenalidomide_bridoux_design_v1.json'
 DESIGN_SHA256 = '1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac'
+OBSERVED_PATH = DATA / 'lenalidomide_bridoux_observed_v1.json'
+OBSERVED_SHA256 = 'b757b38d84788fe7587d7b7a5a737d464928a0b24f7eead517a74b732845b89e'
 
 
 def load_design(path=DESIGN_PATH):
@@ -22,4 +24,14 @@ def load_design(path=DESIGN_PATH):
     data = json.loads(raw)
     if data.get('schema_version') != 'observed-design-v1':
         raise ValueError('Unsupported observed-design schema.')
+    return data
+
+
+def load_observed(path=OBSERVED_PATH):
+    raw = Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != OBSERVED_SHA256:
+        raise ValueError('Bridoux observed-exposure file is missing or changed.')
+    data = json.loads(raw)
+    if data.get('schema_version') != 'observed-group-exposure-v1':
+        raise ValueError('Unsupported observed-exposure schema.')
     return data

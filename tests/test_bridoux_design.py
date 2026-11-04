@@ -40,5 +40,16 @@ class Stage1Design(unittest.TestCase):
                          'not reported per group or study-wide: uniform 55-95 kg')
 
 
+
+class Stage2Values(unittest.TestCase):
+    def test_observed_values_are_pinned_and_match_the_design(self):
+        obs, design = bc.load_observed(), bc.load_design()
+        self.assertEqual(obs['design_file']['sha256'], bc.DESIGN_SHA256)
+        for g in ('normal', 'mild', 'moderate', 'severe', 'esrd'):
+            self.assertEqual(obs['groups'][g]['n'], design['design']['per_group']['n_enrolled'][g])
+        self.assertEqual(obs['statistic'], 'geometric mean (geometric CV, %)')
+        self.assertEqual(obs['groups']['severe']['dose_mg_per_24h'], 7.5)
+
+
 if __name__ == '__main__':
     unittest.main()
