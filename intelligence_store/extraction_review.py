@@ -131,6 +131,45 @@ def queue_view(records=None):
     return view
 
 
+ROUND_2_PATH = DATA / 'extraction_review_round_2_v1.json'
+ROUND_2_SHA256 = '3c44305907fcdba4d742d7b31aa81a9a6ca13f24a70b3b9149b2255fbbffae4d'
+
+
+def load_round_2():
+    raw = ROUND_2_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != ROUND_2_SHA256:
+        raise ReviewError('The round 2 list is missing or changed.')
+    rnd = json.loads(raw)
+    if rnd['queue_sha256'] != QUEUE_SHA256:
+        raise ReviewError('The round 2 list was made against a different review queue.')
+    first = dict(REVIEW_RECORDS).get(rnd['follows_record'])
+    if first is None:
+        raise ReviewError('The round 1 record the round 2 list follows is not pinned.')
+    decided = next(r for r in load_records() if r['file'] == rnd['follows_record'])['decisions']
+    expected = {i for i in item_ids() if decided.get(i, {}).get('decision') != 'matches'}
+    if {i['id'] for i in rnd['items']} != expected:
+        raise ReviewError('The round 2 list is not exactly the items round 1 did not mark as matching.')
+    return rnd
+
+
+def round_2_view(records=None):
+    """The queue view limited to the round 2 items, each with where to look and how the stored value was obtained."""
+    rnd = load_round_2()
+    aid = {i['id']: i for i in rnd['items']}
+    view = queue_view(records)
+    groups = []
+    for g in view['groups']:
+        items = [dict(i, where_to_look=aid[i['id']]['where_to_look'], how_stored=aid[i['id']]['how_stored'])
+                 for i in g['items'] if i['id'] in aid]
+        if items:
+            groups.append(dict(g, items=items, reviewed=sum(1 for i in items if i['status'])))
+    view = dict(view, groups=groups, round=2, round_purpose=rnd['purpose'], round_caution=rnd['caution'],
+                round_sha256=ROUND_2_SHA256, round_total=len(aid))
+    view.pop('view_sha256', None)
+    view['view_sha256'] = digest(view)
+    return view
+
+
 def register_extraction_review_commands(app):
     import click
 

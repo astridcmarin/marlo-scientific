@@ -85,6 +85,30 @@ class Records(unittest.TestCase):
         self.assertEqual(view['records'][0]['reviewer'], 'Astrid')
 
 
+class Round2(unittest.TestCase):
+    def test_round_2_lists_exactly_the_items_not_matching_in_round_1(self):
+        view = er.round_2_view()
+        ids = [i['id'] for g in view['groups'] for i in g['items']]
+        self.assertEqual(len(ids), 23)
+        self.assertIn('pomalidomide_label:/scenarios/ketoconazole_strong_cyp3a4_pgp_inhibitor/auc_fold', ids)
+        self.assertTrue(all(i['status'] is None or i['status']['decision'] != 'matches' for g in view['groups'] for i in g['items']))
+        self.assertTrue(all(i['where_to_look'] and i['how_stored'] for g in view['groups'] for i in g['items']))
+
+    def test_conversions_stated_agree_with_stored_values(self):
+        view = er.round_2_view()
+        item = {i['id']: i for g in view['groups'] for i in g['items']}
+        dialysis = item['pomalidomide_label:/scenarios/renal_severe_requiring_dialysis/auc_fold']
+        self.assertEqual(dialysis['value'], 1.38)
+        self.assertIn('+38% → 1.38', dialysis['how_stored'])
+        smoking = item['pomalidomide_label:/scenarios/smoking_25_per_day/auc_fold']
+        self.assertIn('−32% → 0.68', smoking['how_stored'])
+
+    def test_changed_round_2_list_is_refused(self):
+        with mock.patch.object(er, 'ROUND_2_SHA256', '0' * 64):
+            with self.assertRaises(er.ReviewError):
+                er.round_2_view()
+
+
 class Page(unittest.TestCase):
     def setUp(self):
         from app.app import app
@@ -96,6 +120,11 @@ class Page(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertIn(b'Download review record', r.data)
         self.assertEqual(r.data.count(b'type="radio"'), 166 * 3)
+        self.assertIn(b'/models/extraction-review/round-2', r.data)
+        r2 = self.client.get('/models/extraction-review/round-2')
+        self.assertEqual(r2.status_code, 200)
+        self.assertEqual(r2.data.count(b'type="radio"'), 23 * 3)
+        self.assertIn(b'How stored:', r2.data)
         j = json.loads(self.client.get('/models/extraction-review.json').data)
         self.assertEqual(j['total'], 166)
 

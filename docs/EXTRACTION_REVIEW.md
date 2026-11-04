@@ -67,4 +67,10 @@ So no extract is corrected and no new extract version is made. The queue was at 
 - Pomalidomide: moderate or severe renal impairment not on dialysis ("not significantly affected", stored as 1.0); high-fat meal ("decreased mean plasma Cmax and AUC by about 27% and 8%", stored as 0.73 and 0.92).
 - REVLIMID Table 3: three dose cells and two CLcr bounds. The bounds are the "below 30" rows, stored as a range with no lower end, so the queue showed only "30" under an index label.
 
-**Next: round 2.** A queue v2 should show, next to each converted value, the source's own words and the conversion ("label: increased 38%; stored as 1.38-fold"), label range ends in words ("upper end of CLcr range, < 30 mL/min"), and re-list the 23 items not marked matches. A round 2 record would then supersede these items' status. Until then the page shows them as recorded in round 1.
+## Round 2 (opened 4 November 2026)
+
+Page `/models/extraction-review/round-2` (linked from the full queue while any value is not marked matching). It lists the 23 items round 1 did not mark as matching, from `intelligence_store/data/extraction_review_round_2_v1.json` (pinned in `extraction_review.py` as `ROUND_2_SHA256`). The page refuses to load unless that list is exactly the round 1 items not marked matching.
+- Each item adds **where to look** (the source sentence or table cell, in words) and **how stored** (the conversion, e.g. "+38% → 1.38").
+- That text was written by the AI assistant from the extracts, so the page says to check against the source document itself, not against it.
+- The queue and the record format are unchanged: a round 2 record is an ordinary record against queue v1, and once pinned after round 1 in `REVIEW_RECORDS`, its decisions replace round 1's for the items it covers.
+- The browser draft is kept separately from round 1's (its own storage key), and the download is named `extraction_review_round2_DATE.json`.
