@@ -1,0 +1,1175 @@
+{
+ "schema_version": "lenalidomide-renal-pathways-check-report-v2",
+ "method_version": "lenalidomide-renal-pathways-v2.0",
+ "plan_version": "lenalidomide-renal-pathways-plan-v2.0",
+ "plan_sha256": "fd97319efd3b44e84e6e3ef994179803b86d262c544e2feb6a71be66eb0c6ad8",
+ "input_sha256": {
+  "pathway_evidence": "e7c62bc477bfc6170f42f1f01e5935ea222bec0fbf513da718178030c42d2c8f",
+  "pathway_plan_v1": "591e032c7bf96f80b8bcae217a171b258923875bdfd7a37cd81baa86939f194a",
+  "chen_2007_demographics": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292",
+  "bridoux_design": "1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac",
+  "bridoux_observed": "cc8c41123d6305dd3ab783ae53e87d0ab8c15f32f04b21cc45d4c9a2bc4de8ee",
+  "kim_extract": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af"
+ },
+ "classification": "checks_on_seen_but_unfitted_data_not_blind",
+ "what_is_known_before_computation": "The analyst has seen the CC-5013-PK-001 group values (used to fit), the Bridoux 2016 group values (2.1h, 1.1d) and the Kim 2026 Table 2 group values (extracted 13 October 2026). None of the three has been used to fit any parameter of the pathway model. Bridoux and Kim are therefore checks on data that is seen but not fitted, and the report must say so; no check in this plan is blind. A search on 4 November 2026 of the sources available (Kim 2026 and its PAGE 2025 abstract, the Guglieri-Lopez 2017 thesis, REVLIMID EMA variation reports II-0056 and II-0107) found no unseen group-level renal impairment data.",
+ "numerical_checks": {
+  "k1_equals_2_0a_reading_a_max_relative_difference": 0.0,
+  "k1_equals_2_0a_pass": true,
+  "secretion_non_negative_and_falls_with_crcl_pass": true
+ },
+ "primary": {
+  "calibration": {
+   "crcl_ml_min": 110.0,
+   "fu": 0.77,
+   "total_ml_min": 191.04386367109888,
+   "renal_ml_min": 162.38728412043403,
+   "non_renal_ml_min": 28.656579550664844,
+   "filtration_ml_min": 84.7,
+   "secretion_ml_min": 77.68728412043403
+  },
+  "fit": {
+   "k": 1.4787070807546172,
+   "objective": 0.47986988672319697,
+   "grid_min_objective": 0.47987141381080645,
+   "not_above_grid": true,
+   "at_bound": false
+  },
+  "in_sample": [
+   {
+    "group": "mild",
+    "crcl_ml_min": 64.6,
+    "auc_observed": 2767,
+    "auc_v2": 3662.67626572397,
+    "auc_v1": 3359.613499509873,
+    "fe_observed": 0.69,
+    "fe_v2": 0.7480965429350777,
+    "fe_v1": 0.7689399243803388
+   },
+   {
+    "group": "moderate",
+    "crcl_ml_min": 39.1,
+    "auc_observed": 6021,
+    "auc_v2": 5511.912033345332,
+    "auc_v1": 4823.765959585804,
+    "fe_observed": 0.42,
+    "fe_v2": 0.6209138904164144,
+    "fe_v1": 0.6682416809088166
+   },
+   {
+    "group": "severe_without_dialysis",
+    "crcl_ml_min": 23.9,
+    "auc_observed": 8191,
+    "auc_v2": 7550.030619753059,
+    "auc_v1": 6516.63724025533,
+    "fe_observed": 0.44,
+    "fe_v2": 0.4807406726442186,
+    "fe_v1": 0.5518131196523155
+   }
+  ],
+  "bridoux": {
+   "v2": {
+    "normal": {
+     "crcl_ml_min_cockcroft_gault": 107.2,
+     "dose_mg_per_24h": 25.0,
+     "n": 10,
+     "endpoint": "auc24_ng_h_ml",
+     "model": 2240.364709891702,
+     "observed_gm": 1747,
+     "observed_gcv_pct": 26.8,
+     "observed_ci90": [
+      1499.649580788606,
+      2035.148103328959
+     ],
+     "model_over_observed": 1.2824068173392686,
+     "model_fe": 0.845917145124367,
+     "classification": "model_over_predicts"
+    },
+    "mild": {
+     "crcl_ml_min_cockcroft_gault": 64.3,
+     "dose_mg_per_24h": 25.0,
+     "n": 10,
+     "endpoint": "auc24_ng_h_ml",
+     "model": 3677.986964392865,
+     "observed_gm": 2605,
+     "observed_gcv_pct": 28.5,
+     "observed_ci90": [
+      2215.411841334108,
+      3063.098640798767
+     ],
+     "model_over_observed": 1.4118951878667427,
+     "model_fe": 0.7470435375245622,
+     "classification": "model_over_predicts"
+    },
+    "moderate": {
+     "crcl_ml_min_cockcroft_gault": 40.1,
+     "dose_mg_per_24h": 10.0,
+     "n": 7,
+     "endpoint": "auc24_ng_h_ml",
+     "model": 2164.3832845585066,
+     "observed_gm": 1800,
+     "observed_gcv_pct": 13.5,
+     "observed_ci90": [
+      1630.8198221573798,
+      1986.730818438218
+     ],
+     "model_over_observed": 1.2024351580880592,
+     "model_fe": 0.6278570693675193,
+     "classification": "model_over_predicts"
+    },
+    "severe": {
+     "crcl_ml_min_cockcroft_gault": 21.6,
+     "dose_mg_per_24h": 7.5,
+     "n": 5,
+     "endpoint": "auc24_ng_h_ml",
+     "model": 2390.655794586383,
+     "observed_gm": 2329,
+     "observed_gcv_pct": 28.4,
+     "observed_ci90": [
+      1785.876517069064,
+      3037.299022724219
+     ],
+     "model_over_observed": 1.0264730762500571,
+     "model_fe": 0.4519358563534196,
+     "classification": "consistent"
+    }
+   },
+   "v1": {
+    "normal": {
+     "crcl_ml_min_cockcroft_gault": 107.2,
+     "dose_mg_per_24h": 25.0,
+     "n": 10,
+     "endpoint": "auc24_ng_h_ml",
+     "model": 2229.2324846682773,
+     "observed_gm": 1747,
+     "observed_gcv_pct": 26.8,
+     "observed_ci90": [
+      1499.649580788606,
+      2035.148103328959
+     ],
+     "model_over_observed": 1.2760346220196206,
+     "model_fe": 0.8466827727188254,
+     "classification": "model_over_predicts"
+    },
+    "mild": {
+     "crcl_ml_min_cockcroft_gault": 64.3,
+     "dose_mg_per_24h": 25.0,
+     "n": 10,
+     "endpoint": "auc24_ng_h_ml",
+     "model": 3371.6534326470387,
+     "observed_gm": 2605,
+     "observed_gcv_pct": 28.5,
+     "observed_ci90": [
+      2215.411841334108,
+      3063.098640798767
+     ],
+     "model_over_observed": 1.294300741899055,
+     "model_fe": 0.7681118684561871,
+     "classification": "model_over_predicts"
+    },
+    "moderate": {
+     "crcl_ml_min_cockcroft_gault": 40.1,
+     "dose_mg_per_24h": 10.0,
+     "n": 7,
+     "endpoint": "auc24_ng_h_ml",
+     "model": 1897.0841158446178,
+     "observed_gm": 1800,
+     "observed_gcv_pct": 13.5,
+     "observed_ci90": [
+      1630.8198221573798,
+      1986.730818438218
+     ],
+     "model_over_observed": 1.0539356199136767,
+     "model_fe": 0.6738163487199762,
+     "classification": "consistent"
+    },
+    "severe": {
+     "crcl_ml_min_cockcroft_gault": 21.6,
+     "dose_mg_per_24h": 7.5,
+     "n": 5,
+     "endpoint": "auc24_ng_h_ml",
+     "model": 2064.6299483648877,
+     "observed_gm": 2329,
+     "observed_gcv_pct": 28.4,
+     "observed_ci90": [
+      1785.876517069064,
+      3037.299022724219
+     ],
+     "model_over_observed": 0.8864877408178994,
+     "model_fe": 0.5266781411359723,
+     "classification": "consistent"
+    }
+   }
+  },
+  "kim": {
+   "v2": {
+    "control": {
+     "input_ml_min": 78.29479768786128,
+     "input_basis": "median eGFR de-indexed by median BSA",
+     "n": 8,
+     "endpoint": "total_cl_f_l_h",
+     "model": 8.15600750264952,
+     "observed_mean": 8.01,
+     "observed_sd": 2.63,
+     "observed_ci90": [
+      6.248334766417627,
+      9.771665233582372
+     ],
+     "model_over_observed": 1.0182281526403894,
+     "classification": "consistent"
+    },
+    "moderate": {
+     "input_ml_min": 49.69075144508671,
+     "input_basis": "median eGFR de-indexed by median BSA",
+     "n": 11,
+     "endpoint": "total_cl_f_l_h",
+     "model": 5.4544828346730405,
+     "observed_mean": 5.74,
+     "observed_sd": 1.7,
+     "observed_ci90": [
+      4.810988096772419,
+      6.669011903227582
+     ],
+     "model_over_observed": 0.9502583335667317,
+     "classification": "consistent"
+    },
+    "severe": {
+     "input_ml_min": 23.30635838150289,
+     "input_basis": "median eGFR de-indexed by median BSA",
+     "n": 11,
+     "endpoint": "total_cl_f_l_h",
+     "model": 3.26601394528552,
+     "observed_mean": 3.39,
+     "observed_sd": 0.8,
+     "observed_ci90": [
+      2.952817927892903,
+      3.8271820721070973
+     ],
+     "model_over_observed": 0.9634259425621003,
+     "classification": "consistent"
+    }
+   },
+   "v1": {
+    "control": {
+     "input_ml_min": 78.29479768786128,
+     "input_basis": "median eGFR de-indexed by median BSA",
+     "n": 8,
+     "endpoint": "total_cl_f_l_h",
+     "model": 8.654347258834779,
+     "observed_mean": 8.01,
+     "observed_sd": 2.63,
+     "observed_ci90": [
+      6.248334766417627,
+      9.771665233582372
+     ],
+     "model_over_observed": 1.0804428537871136,
+     "classification": "consistent"
+    },
+    "moderate": {
+     "input_ml_min": 49.69075144508671,
+     "input_basis": "median eGFR de-indexed by median BSA",
+     "n": 11,
+     "endpoint": "total_cl_f_l_h",
+     "model": 6.120747231078707,
+     "observed_mean": 5.74,
+     "observed_sd": 1.7,
+     "observed_ci90": [
+      4.810988096772419,
+      6.669011903227582
+     ],
+     "model_over_observed": 1.066332270222771,
+     "classification": "consistent"
+    },
+    "severe": {
+     "input_ml_min": 23.30635838150289,
+     "input_basis": "median eGFR de-indexed by median BSA",
+     "n": 11,
+     "endpoint": "total_cl_f_l_h",
+     "model": 3.7837527222997647,
+     "observed_mean": 3.39,
+     "observed_sd": 0.8,
+     "observed_ci90": [
+      2.952817927892903,
+      3.8271820721070973
+     ],
+     "model_over_observed": 1.1161512455161546,
+     "classification": "consistent"
+    }
+   }
+  }
+ },
+ "sensitivity": {
+  "calibration_at_chen_normal_mean": {
+   "calibration": {
+    "crcl_ml_min": 102.2,
+    "fu": 0.77,
+    "total_ml_min": 191.04386367109888,
+    "renal_ml_min": 162.38728412043403,
+    "non_renal_ml_min": 28.656579550664844,
+    "filtration_ml_min": 78.694,
+    "secretion_ml_min": 83.69328412043403
+   },
+   "fit": {
+    "k": 1.675051036882632,
+    "objective": 0.38639606295698736,
+    "grid_min_objective": 0.3864141738792521,
+    "not_above_grid": true,
+    "at_bound": false
+   },
+   "in_sample": [
+    {
+     "group": "mild",
+     "crcl_ml_min": 64.6,
+     "auc_observed": 2767,
+     "auc_v2": 3554.7913762981707,
+     "auc_v1": 3173.3798405466973,
+     "fe_observed": 0.69,
+     "fe_v2": 0.7555164115338259,
+     "fe_v1": 0.7817482915717539
+    },
+    {
+     "group": "moderate",
+     "crcl_ml_min": 39.1,
+     "auc_observed": 6021,
+     "auc_v2": 5518.5594089671085,
+     "auc_v1": 4589.68804694739,
+     "fe_observed": 0.42,
+     "fe_v2": 0.6204567119004739,
+     "fe_v1": 0.6843405744877997
+    },
+    {
+     "group": "severe_without_dialysis",
+     "crcl_ml_min": 23.9,
+     "auc_observed": 8191,
+     "auc_v2": 7659.49528694613,
+     "auc_v1": 6253.280965072239,
+     "fe_observed": 0.44,
+     "fe_v2": 0.4732121535800459,
+     "fe_v1": 0.5699256557721979
+    }
+   ],
+   "bridoux": {
+    "v2": {
+     "normal": {
+      "crcl_ml_min_cockcroft_gault": 107.2,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2064.084039346925,
+      "observed_gm": 1747,
+      "observed_gcv_pct": 26.8,
+      "observed_ci90": [
+       1499.649580788606,
+       2035.148103328959
+      ],
+      "model_over_observed": 1.1815020259570261,
+      "model_fe": 0.8580409876652734,
+      "classification": "model_over_predicts"
+     },
+     "mild": {
+      "crcl_ml_min_cockcroft_gault": 64.3,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 3571.0132513633876,
+      "observed_gm": 2605,
+      "observed_gcv_pct": 28.5,
+      "observed_ci90": [
+       2215.411841334108,
+       3063.098640798767
+      ],
+      "model_over_observed": 1.3708304227882486,
+      "model_fe": 0.7544007392459843,
+      "classification": "model_over_predicts"
+     },
+     "moderate": {
+      "crcl_ml_min_cockcroft_gault": 40.1,
+      "dose_mg_per_24h": 10.0,
+      "n": 7,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2164.6123441309355,
+      "observed_gm": 1800,
+      "observed_gcv_pct": 13.5,
+      "observed_ci90": [
+       1630.8198221573798,
+       1986.730818438218
+      ],
+      "model_over_observed": 1.2025624134060753,
+      "model_fe": 0.6278176849843644,
+      "classification": "model_over_predicts"
+     },
+     "severe": {
+      "crcl_ml_min_cockcroft_gault": 21.6,
+      "dose_mg_per_24h": 7.5,
+      "n": 5,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2427.962216277028,
+      "observed_gm": 2329,
+      "observed_gcv_pct": 28.4,
+      "observed_ci90": [
+       1785.876517069064,
+       3037.299022724219
+      ],
+      "model_over_observed": 1.0424912908016435,
+      "model_fe": 0.4433832608259906,
+      "classification": "consistent"
+     }
+    },
+    "v1": {
+     "normal": {
+      "crcl_ml_min_cockcroft_gault": 107.2,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2093.923907937999,
+      "observed_gm": 1747,
+      "observed_gcv_pct": 26.8,
+      "observed_ci90": [
+       1499.649580788606,
+       2035.148103328959
+      ],
+      "model_over_observed": 1.1985826605254717,
+      "model_fe": 0.8559887271019258,
+      "classification": "model_over_predicts"
+     },
+     "mild": {
+      "crcl_ml_min_cockcroft_gault": 64.3,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 3184.942487675931,
+      "observed_gm": 2605,
+      "observed_gcv_pct": 28.5,
+      "observed_ci90": [
+       2215.411841334108,
+       3063.098640798767
+      ],
+      "model_over_observed": 1.2226266747316432,
+      "model_fe": 0.7809530613702935,
+      "classification": "model_over_predicts"
+     },
+     "moderate": {
+      "crcl_ml_min_cockcroft_gault": 40.1,
+      "dose_mg_per_24h": 10.0,
+      "n": 7,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 1804.2958615804916,
+      "observed_gm": 1800,
+      "observed_gcv_pct": 13.5,
+      "observed_ci90": [
+       1630.8198221573798,
+       1986.730818438218
+      ],
+      "model_over_observed": 1.0023865897669397,
+      "model_fe": 0.6897703126580996,
+      "classification": "consistent"
+     },
+     "severe": {
+      "crcl_ml_min_cockcroft_gault": 21.6,
+      "dose_mg_per_24h": 7.5,
+      "n": 5,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 1984.8459483526265,
+      "observed_gm": 2329,
+      "observed_gcv_pct": 28.4,
+      "observed_ci90": [
+       1785.876517069064,
+       3037.299022724219
+      ],
+      "model_over_observed": 0.8522309782535966,
+      "model_fe": 0.5449688334817452,
+      "classification": "consistent"
+     }
+    }
+   },
+   "kim": {
+    "v2": {
+     "control": {
+      "input_ml_min": 78.29479768786128,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 8,
+      "endpoint": "total_cl_f_l_h",
+      "model": 8.550336545054892,
+      "observed_mean": 8.01,
+      "observed_sd": 2.63,
+      "observed_ci90": [
+       6.248334766417627,
+       9.771665233582372
+      ],
+      "model_over_observed": 1.0674577459494248,
+      "classification": "consistent"
+     },
+     "moderate": {
+      "input_ml_min": 49.69075144508671,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 5.515680727489632,
+      "observed_mean": 5.74,
+      "observed_sd": 1.7,
+      "observed_ci90": [
+       4.810988096772419,
+       6.669011903227582
+      ],
+      "model_over_observed": 0.9609199873675316,
+      "classification": "consistent"
+     },
+     "severe": {
+      "input_ml_min": 23.30635838150289,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 3.2183293505185286,
+      "observed_mean": 3.39,
+      "observed_sd": 0.8,
+      "observed_ci90": [
+       2.952817927892903,
+       3.8271820721070973
+      ],
+      "model_over_observed": 0.949359690418445,
+      "classification": "consistent"
+     }
+    },
+    "v1": {
+     "control": {
+      "input_ml_min": 78.29479768786128,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 8,
+      "endpoint": "total_cl_f_l_h",
+      "model": 9.183629346791728,
+      "observed_mean": 8.01,
+      "observed_sd": 2.63,
+      "observed_ci90": [
+       6.248334766417627,
+       9.771665233582372
+      ],
+      "model_over_observed": 1.1465205177018387,
+      "classification": "consistent"
+     },
+     "moderate": {
+      "input_ml_min": 49.69075144508671,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 6.456662585019048,
+      "observed_mean": 5.74,
+      "observed_sd": 1.7,
+      "observed_ci90": [
+       4.810988096772419,
+       6.669011903227582
+      ],
+      "model_over_observed": 1.124854108888336,
+      "classification": "consistent"
+     },
+     "severe": {
+      "input_ml_min": 23.30635838150289,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 3.941306460110205,
+      "observed_mean": 3.39,
+      "observed_sd": 0.8,
+      "observed_ci90": [
+       2.952817927892903,
+       3.8271820721070973
+      ],
+      "model_over_observed": 1.162627274368792,
+      "classification": "model_over_predicts"
+     }
+    }
+   }
+  },
+  "fit_on_renal_clearance": {
+   "calibration": {
+    "crcl_ml_min": 110.0,
+    "fu": 0.77,
+    "total_ml_min": 191.04386367109888,
+    "renal_ml_min": 162.38728412043403,
+    "non_renal_ml_min": 28.656579550664844,
+    "filtration_ml_min": 84.7,
+    "secretion_ml_min": 77.68728412043403
+   },
+   "fit": {
+    "k": 2.181819911658055,
+    "objective": 1.0428433375853448,
+    "grid_min_objective": 1.0428459414508642,
+    "not_above_grid": true,
+    "at_bound": false
+   },
+   "in_sample": [
+    {
+     "group": "mild",
+     "crcl_ml_min": 64.6,
+     "auc_observed": 2767,
+     "auc_v2": 4056.3097177234044,
+     "auc_v1": 3359.613499509873,
+     "fe_observed": 0.69,
+     "fe_v2": 0.7210240909406186,
+     "fe_v1": 0.7689399243803388
+    },
+    {
+     "group": "moderate",
+     "crcl_ml_min": 39.1,
+     "auc_observed": 6021,
+     "auc_v2": 6228.535593351311,
+     "auc_v1": 4823.765959585804,
+     "fe_observed": 0.42,
+     "fe_v2": 0.5716275382839536,
+     "fe_v1": 0.6682416809088166
+    },
+    {
+     "group": "severe_without_dialysis",
+     "crcl_ml_min": 23.9,
+     "auc_observed": 8191,
+     "auc_v2": 8360.403120297995,
+     "auc_v1": 6516.63724025533,
+     "fe_observed": 0.44,
+     "fe_v2": 0.42500666297812945,
+     "fe_v1": 0.5518131196523155
+    }
+   ],
+   "bridoux": {
+    "v2": {
+     "normal": {
+      "crcl_ml_min_cockcroft_gault": 107.2,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2256.6665044609954,
+      "observed_gm": 1747,
+      "observed_gcv_pct": 26.8,
+      "observed_ci90": [
+       1499.649580788606,
+       2035.148103328959
+      ],
+      "model_over_observed": 1.2917381250492246,
+      "model_fe": 0.8447959763094225,
+      "classification": "model_over_predicts"
+     },
+     "mild": {
+      "crcl_ml_min_cockcroft_gault": 64.3,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 4075.224243117662,
+      "observed_gm": 2605,
+      "observed_gcv_pct": 28.5,
+      "observed_ci90": [
+       2215.411841334108,
+       3063.098640798767
+      ],
+      "model_over_observed": 1.5643855059952636,
+      "model_fe": 0.7197232294967219,
+      "classification": "model_over_predicts"
+     },
+     "moderate": {
+      "crcl_ml_min_cockcroft_gault": 40.1,
+      "dose_mg_per_24h": 10.0,
+      "n": 7,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2446.4078180717092,
+      "observed_gm": 1800,
+      "observed_gcv_pct": 13.5,
+      "observed_ci90": [
+       1630.8198221573798,
+       1986.730818438218
+      ],
+      "model_over_observed": 1.359115454484283,
+      "model_fe": 0.5793659184883581,
+      "classification": "model_over_predicts"
+     },
+     "severe": {
+      "crcl_ml_min_cockcroft_gault": 21.6,
+      "dose_mg_per_24h": 7.5,
+      "n": 5,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2630.654680546498,
+      "observed_gm": 2329,
+      "observed_gcv_pct": 28.4,
+      "observed_ci90": [
+       1785.876517069064,
+       3037.299022724219
+      ],
+      "model_over_observed": 1.1295211165936017,
+      "model_fe": 0.39691547901272367,
+      "classification": "consistent"
+     }
+    },
+    "v1": {
+     "normal": {
+      "crcl_ml_min_cockcroft_gault": 107.2,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2229.2324846682773,
+      "observed_gm": 1747,
+      "observed_gcv_pct": 26.8,
+      "observed_ci90": [
+       1499.649580788606,
+       2035.148103328959
+      ],
+      "model_over_observed": 1.2760346220196206,
+      "model_fe": 0.8466827727188254,
+      "classification": "model_over_predicts"
+     },
+     "mild": {
+      "crcl_ml_min_cockcroft_gault": 64.3,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 3371.6534326470387,
+      "observed_gm": 2605,
+      "observed_gcv_pct": 28.5,
+      "observed_ci90": [
+       2215.411841334108,
+       3063.098640798767
+      ],
+      "model_over_observed": 1.294300741899055,
+      "model_fe": 0.7681118684561871,
+      "classification": "model_over_predicts"
+     },
+     "moderate": {
+      "crcl_ml_min_cockcroft_gault": 40.1,
+      "dose_mg_per_24h": 10.0,
+      "n": 7,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 1897.0841158446178,
+      "observed_gm": 1800,
+      "observed_gcv_pct": 13.5,
+      "observed_ci90": [
+       1630.8198221573798,
+       1986.730818438218
+      ],
+      "model_over_observed": 1.0539356199136767,
+      "model_fe": 0.6738163487199762,
+      "classification": "consistent"
+     },
+     "severe": {
+      "crcl_ml_min_cockcroft_gault": 21.6,
+      "dose_mg_per_24h": 7.5,
+      "n": 5,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2064.6299483648877,
+      "observed_gm": 2329,
+      "observed_gcv_pct": 28.4,
+      "observed_ci90": [
+       1785.876517069064,
+       3037.299022724219
+      ],
+      "model_over_observed": 0.8864877408178994,
+      "model_fe": 0.5266781411359723,
+      "classification": "consistent"
+     }
+    }
+   },
+   "kim": {
+    "v2": {
+     "control": {
+      "input_ml_min": 78.29479768786128,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 8,
+      "endpoint": "total_cl_f_l_h",
+      "model": 7.556518170668581,
+      "observed_mean": 8.01,
+      "observed_sd": 2.63,
+      "observed_ci90": [
+       6.248334766417627,
+       9.771665233582372
+      ],
+      "model_over_observed": 0.943385539409311,
+      "classification": "consistent"
+     },
+     "moderate": {
+      "input_ml_min": 49.69075144508671,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 4.838331035568557,
+      "observed_mean": 5.74,
+      "observed_sd": 1.7,
+      "observed_ci90": [
+       4.810988096772419,
+       6.669011903227582
+      ],
+      "model_over_observed": 0.8429148145589821,
+      "classification": "consistent"
+     },
+     "severe": {
+      "input_ml_min": 23.30635838150289,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 2.953957941834797,
+      "observed_mean": 3.39,
+      "observed_sd": 0.8,
+      "observed_ci90": [
+       2.952817927892903,
+       3.8271820721070973
+      ],
+      "model_over_observed": 0.8713740241400582,
+      "classification": "consistent"
+     }
+    },
+    "v1": {
+     "control": {
+      "input_ml_min": 78.29479768786128,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 8,
+      "endpoint": "total_cl_f_l_h",
+      "model": 8.654347258834779,
+      "observed_mean": 8.01,
+      "observed_sd": 2.63,
+      "observed_ci90": [
+       6.248334766417627,
+       9.771665233582372
+      ],
+      "model_over_observed": 1.0804428537871136,
+      "classification": "consistent"
+     },
+     "moderate": {
+      "input_ml_min": 49.69075144508671,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 6.120747231078707,
+      "observed_mean": 5.74,
+      "observed_sd": 1.7,
+      "observed_ci90": [
+       4.810988096772419,
+       6.669011903227582
+      ],
+      "model_over_observed": 1.066332270222771,
+      "classification": "consistent"
+     },
+     "severe": {
+      "input_ml_min": 23.30635838150289,
+      "input_basis": "median eGFR de-indexed by median BSA",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 3.7837527222997647,
+      "observed_mean": 3.39,
+      "observed_sd": 0.8,
+      "observed_ci90": [
+       2.952817927892903,
+       3.8271820721070973
+      ],
+      "model_over_observed": 1.1161512455161546,
+      "classification": "consistent"
+     }
+    }
+   }
+  },
+  "kim_indexed_egfr": {
+   "calibration": {
+    "crcl_ml_min": 110.0,
+    "fu": 0.77,
+    "total_ml_min": 191.04386367109888,
+    "renal_ml_min": 162.38728412043403,
+    "non_renal_ml_min": 28.656579550664844,
+    "filtration_ml_min": 84.7,
+    "secretion_ml_min": 77.68728412043403
+   },
+   "fit": {
+    "k": 1.4787070807546172,
+    "objective": 0.47986988672319697,
+    "grid_min_objective": 0.47987141381080645,
+    "not_above_grid": true,
+    "at_bound": false
+   },
+   "in_sample": [
+    {
+     "group": "mild",
+     "crcl_ml_min": 64.6,
+     "auc_observed": 2767,
+     "auc_v2": 3662.67626572397,
+     "auc_v1": 3359.613499509873,
+     "fe_observed": 0.69,
+     "fe_v2": 0.7480965429350777,
+     "fe_v1": 0.7689399243803388
+    },
+    {
+     "group": "moderate",
+     "crcl_ml_min": 39.1,
+     "auc_observed": 6021,
+     "auc_v2": 5511.912033345332,
+     "auc_v1": 4823.765959585804,
+     "fe_observed": 0.42,
+     "fe_v2": 0.6209138904164144,
+     "fe_v1": 0.6682416809088166
+    },
+    {
+     "group": "severe_without_dialysis",
+     "crcl_ml_min": 23.9,
+     "auc_observed": 8191,
+     "auc_v2": 7550.030619753059,
+     "auc_v1": 6516.63724025533,
+     "fe_observed": 0.44,
+     "fe_v2": 0.4807406726442186,
+     "fe_v1": 0.5518131196523155
+    }
+   ],
+   "bridoux": {
+    "v2": {
+     "normal": {
+      "crcl_ml_min_cockcroft_gault": 107.2,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2240.364709891702,
+      "observed_gm": 1747,
+      "observed_gcv_pct": 26.8,
+      "observed_ci90": [
+       1499.649580788606,
+       2035.148103328959
+      ],
+      "model_over_observed": 1.2824068173392686,
+      "model_fe": 0.845917145124367,
+      "classification": "model_over_predicts"
+     },
+     "mild": {
+      "crcl_ml_min_cockcroft_gault": 64.3,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 3677.986964392865,
+      "observed_gm": 2605,
+      "observed_gcv_pct": 28.5,
+      "observed_ci90": [
+       2215.411841334108,
+       3063.098640798767
+      ],
+      "model_over_observed": 1.4118951878667427,
+      "model_fe": 0.7470435375245622,
+      "classification": "model_over_predicts"
+     },
+     "moderate": {
+      "crcl_ml_min_cockcroft_gault": 40.1,
+      "dose_mg_per_24h": 10.0,
+      "n": 7,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2164.3832845585066,
+      "observed_gm": 1800,
+      "observed_gcv_pct": 13.5,
+      "observed_ci90": [
+       1630.8198221573798,
+       1986.730818438218
+      ],
+      "model_over_observed": 1.2024351580880592,
+      "model_fe": 0.6278570693675193,
+      "classification": "model_over_predicts"
+     },
+     "severe": {
+      "crcl_ml_min_cockcroft_gault": 21.6,
+      "dose_mg_per_24h": 7.5,
+      "n": 5,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2390.655794586383,
+      "observed_gm": 2329,
+      "observed_gcv_pct": 28.4,
+      "observed_ci90": [
+       1785.876517069064,
+       3037.299022724219
+      ],
+      "model_over_observed": 1.0264730762500571,
+      "model_fe": 0.4519358563534196,
+      "classification": "consistent"
+     }
+    },
+    "v1": {
+     "normal": {
+      "crcl_ml_min_cockcroft_gault": 107.2,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2229.2324846682773,
+      "observed_gm": 1747,
+      "observed_gcv_pct": 26.8,
+      "observed_ci90": [
+       1499.649580788606,
+       2035.148103328959
+      ],
+      "model_over_observed": 1.2760346220196206,
+      "model_fe": 0.8466827727188254,
+      "classification": "model_over_predicts"
+     },
+     "mild": {
+      "crcl_ml_min_cockcroft_gault": 64.3,
+      "dose_mg_per_24h": 25.0,
+      "n": 10,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 3371.6534326470387,
+      "observed_gm": 2605,
+      "observed_gcv_pct": 28.5,
+      "observed_ci90": [
+       2215.411841334108,
+       3063.098640798767
+      ],
+      "model_over_observed": 1.294300741899055,
+      "model_fe": 0.7681118684561871,
+      "classification": "model_over_predicts"
+     },
+     "moderate": {
+      "crcl_ml_min_cockcroft_gault": 40.1,
+      "dose_mg_per_24h": 10.0,
+      "n": 7,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 1897.0841158446178,
+      "observed_gm": 1800,
+      "observed_gcv_pct": 13.5,
+      "observed_ci90": [
+       1630.8198221573798,
+       1986.730818438218
+      ],
+      "model_over_observed": 1.0539356199136767,
+      "model_fe": 0.6738163487199762,
+      "classification": "consistent"
+     },
+     "severe": {
+      "crcl_ml_min_cockcroft_gault": 21.6,
+      "dose_mg_per_24h": 7.5,
+      "n": 5,
+      "endpoint": "auc24_ng_h_ml",
+      "model": 2064.6299483648877,
+      "observed_gm": 2329,
+      "observed_gcv_pct": 28.4,
+      "observed_ci90": [
+       1785.876517069064,
+       3037.299022724219
+      ],
+      "model_over_observed": 0.8864877408178994,
+      "model_fe": 0.5266781411359723,
+      "classification": "consistent"
+     }
+    }
+   },
+   "kim": {
+    "v2": {
+     "control": {
+      "input_ml_min": 77.4,
+      "input_basis": "median eGFR (indexed)",
+      "n": 8,
+      "endpoint": "total_cl_f_l_h",
+      "model": 8.067152084510612,
+      "observed_mean": 8.01,
+      "observed_sd": 2.63,
+      "observed_ci90": [
+       6.248334766417627,
+       9.771665233582372
+      ],
+      "model_over_observed": 1.0071350916992026,
+      "classification": "consistent"
+     },
+     "moderate": {
+      "input_ml_min": 52.1,
+      "input_basis": "median eGFR (indexed)",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 5.670173655137771,
+      "observed_mean": 5.74,
+      "observed_sd": 1.7,
+      "observed_ci90": [
+       4.810988096772419,
+       6.669011903227582
+      ],
+      "model_over_observed": 0.9878351315571029,
+      "classification": "consistent"
+     },
+     "severe": {
+      "input_ml_min": 25.2,
+      "input_basis": "median eGFR (indexed)",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 3.411034953457243,
+      "observed_mean": 3.39,
+      "observed_sd": 0.8,
+      "observed_ci90": [
+       2.952817927892903,
+       3.8271820721070973
+      ],
+      "model_over_observed": 1.0062050010198356,
+      "classification": "consistent"
+     }
+    },
+    "v1": {
+     "control": {
+      "input_ml_min": 77.4,
+      "input_basis": "median eGFR (indexed)",
+      "n": 8,
+      "endpoint": "total_cl_f_l_h",
+      "model": 8.575090658997123,
+      "observed_mean": 8.01,
+      "observed_sd": 2.63,
+      "observed_ci90": [
+       6.248334766417627,
+       9.771665233582372
+      ],
+      "model_over_observed": 1.0705481471906522,
+      "classification": "consistent"
+     },
+     "moderate": {
+      "input_ml_min": 52.1,
+      "input_basis": "median eGFR (indexed)",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 6.334146138135135,
+      "observed_mean": 5.74,
+      "observed_sd": 1.7,
+      "observed_ci90": [
+       4.810988096772419,
+       6.669011903227582
+      ],
+      "model_over_observed": 1.1035097801629155,
+      "classification": "consistent"
+     },
+     "severe": {
+      "input_ml_min": 25.2,
+      "input_basis": "median eGFR (indexed)",
+      "n": 11,
+      "endpoint": "total_cl_f_l_h",
+      "model": 3.9514818056771297,
+      "observed_mean": 3.39,
+      "observed_sd": 0.8,
+      "observed_ci90": [
+       2.952817927892903,
+       3.8271820721070973
+      ],
+      "model_over_observed": 1.1656288512321915,
+      "classification": "model_over_predicts"
+     }
+    }
+   }
+  }
+ },
+ "decision": {
+  "rule": "v2 replaces v1 wherever the pathway model is used (body map view, elimination split, numbers panel, run records) only if: k is not at a bound; v2 is consistent in the moderate and severe groups of both Bridoux and Kim (four of four); and in Bridoux normal and mild and Kim control, v2 is consistent in at least as many groups as v1.",
+  "k": 1.4787070807546172,
+  "k_at_bound": false,
+  "deciding_comparisons": {
+   "bridoux_moderate": "model_over_predicts",
+   "bridoux_severe": "consistent",
+   "kim_moderate": "consistent",
+   "kim_severe": "consistent"
+  },
+  "deciding_consistent": 3,
+  "other_groups_consistent": {
+   "v2": 1,
+   "v1": 1
+  },
+  "outcome": "partial_reported_not_adopted",
+  "sensitivity_deciding_consistent": {
+   "calibration_at_chen_normal_mean": 3,
+   "fit_on_renal_clearance": 3,
+   "kim_indexed_egfr": 3
+  }
+ },
+ "known_limitations": [
+  "Group means from small groups (n 5 to 11); one fitted parameter on three points.",
+  "CC-5013-PK-001 subjects did not have cancer; Bridoux and Kim are myeloma patients. Non-renal clearance and protein binding are assumed the same across populations.",
+  "Three different kidney measures: measured 24-hour creatinine clearance (fit), Cockcroft-Gault (Bridoux), de-indexed CKD-EPI eGFR (Kim).",
+  "The power form is one of several ways secretion could fall faster than filtration; it is chosen for having a single parameter that reduces to the current model at k = 1.",
+  "Checks on seen data cannot rule out that the form was chosen with that data in mind; this plan fixes one form in advance to limit that."
+ ],
+ "clinical_prediction_validated": false,
+ "ready_for_patient_simulation": false,
+ "report_sha256": "8dd079b2cc38952078f993e2fe3329bbfdfe62fc47285573abbc85802039ee0f"
+}

@@ -126,3 +126,29 @@ Report `docs/verification/lenalidomide_esrd_dialysis_check_v1.json`; CLI `lenali
 Three of four means v2 is reported but not adopted. Otherwise the result is recorded as a failure of this form. The existing warnings stay in both cases. If adopted, the time course is re-checked under its own plan before its warnings change, and pages say "consistent with two myeloma studies not used to fit it", never "validated".
 
 **Search for unseen data (4 November 2026).** Kim 2026 and its PAGE 2025 abstract (same patients), the Guglieri-López 2017 thesis (15 patients with PK; set aside on 14 October), and the REVLIMID EMA reports II-0056 (its renal section is CC-5013-PK-001) and II-0107 (no PK section) were searched by headings and table titles only. None holds unseen group-level renal-impairment data.
+
+## Simulation 2.0d result (4 November 2026): partial, not adopted — and the current model fits the myeloma studies
+
+Module `intelligence_store/lenalidomide_renal_pathways_v2.py`; report `docs/verification/lenalidomide_renal_pathways_check_v2.json`. Built and run exactly as the locked plan states, after the plan was applied on the owner's computer. Numerical checks pass (k = 1 reproduces the 2.0a model exactly; secretion stays non-negative and falls with creatinine clearance; the fit is at least as good as every grid point).
+
+**Fit (CC-5013-PK-001 impaired groups):** k = 1.48, not at a bound. In-sample AUC moves toward observed (moderate 5,512 vs 6,021 observed, against 4,824 at k = 1; severe 7,550 vs 8,191, against 6,517), but the moderate group's fraction excreted unchanged stays far off (62% vs 42% observed).
+
+**Checks (seen, never fitted; not blind):**
+
+| Study, group | Observed (90% CI) | v2 (k = 1.48) | v1, current (k = 1) |
+|---|---|---|---|
+| Bridoux, normal | AUC24 1,747 (1,500–2,035) | 2,240: over | 2,229: over |
+| Bridoux, mild | 2,605 (2,215–3,063) | 3,678: over | 3,372: over |
+| **Bridoux, moderate** | 1,800 (1,631–1,987) | **2,164: over** | 1,897: consistent |
+| **Bridoux, severe** | 2,329 (1,786–3,037) | 2,391: consistent | 2,065: consistent |
+| Kim, control | CL/F 8.01 L/h (6.25–9.77) | 8.16: consistent | 8.65: consistent |
+| **Kim, moderate** | 5.74 (4.81–6.67) | 5.45: consistent | 6.12: consistent |
+| **Kim, severe** | 3.39 (2.95–3.83) | 3.27: consistent | 3.78: consistent |
+
+**Decision, as pre-specified:** three of the four deciding comparisons are consistent (Bridoux moderate is over-predicted), so **v2 is reported and not adopted**. All three sensitivity scenarios give the same three of four (k 1.48–2.18). Nothing on the platform changes.
+
+**What this shows, and a correction.**
+- **The current model (k = 1) is consistent with both myeloma studies in the moderate and severe groups**, four of four, in the same pre-specified comparison. The plan's rationale said Bridoux showed the 2.0a model's clearance too high there. That was wrong: the 2.1h Bridoux check compared the **Hughes and Kim** models, not the pathway model. The pathway model's moderate and severe gap is seen in **CC-5013-PK-001**, the study it was built from, whose subjects did not have cancer.
+- So the question changes. Steeper secretion loss fits CC-5013-PK-001 better and the myeloma studies worse. The gap may come from that study's population or methods (for example, its moderate group's mean weight of 96 kg, or creatinine clearance from 24-hour urine collection), not from how myeloma kidneys handle the drug. This is a hypothesis, not a finding.
+- **Both versions over-predict exposure in Bridoux's normal and mild groups** (myeloma patients with good kidney function cleared the drug faster than the CC-5013-PK-001 calibration implies). That is a calibration question for later.
+- **What the pages may say now:** the existing moderate and severe warnings stay, because they come from the locked 2.0a check. This report adds, for the current model, the pre-specified comparator result: consistent with Bridoux and Kim (myeloma, seen but not fitted) in the moderate and severe groups. Whether and how scope pages show that next to the warning is an owner decision.
