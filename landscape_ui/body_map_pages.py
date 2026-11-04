@@ -48,7 +48,7 @@ def _part_titles(manifest):
 
 # Flow colours in the 3D view (bright, for the dark panel); same hues as the 2D diagram.
 FLOW_COLORS_3D = {'filtration': [0.31, 0.76, 0.97], 'tubular_secretion': [0.70, 0.53, 1.0],
-                  'renal_excretion': [1.0, 0.79, 0.16], 'absorption': [0.96, 0.56, 0.69]}
+                  'renal_excretion': [1.0, 0.79, 0.16], 'absorption': [1.0, 0.36, 0.72]}
 # Largest tube diameter (metres): the whole normal-function clearance through one tube would be this wide.
 TUBE_DIAMETER_AT_SCALE_M = 0.02
 STATUS_OUTLINE = {'calibrated': None, 'checked_consistent': None, 'consistent_primary_only': 'caution',

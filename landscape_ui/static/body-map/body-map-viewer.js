@@ -132,7 +132,8 @@
 
   /* ---------------------------------------------------------------- camera */
   var PRESETS = config.camera_presets;
-  var cam = Object.assign({}, PRESETS[0]);
+  var cam = Object.assign({ cz: 0 }, PRESETS[0]);
+  function centre() { return [cam.cx, cam.cy, cam.cz || 0]; }
   function rotation() {
     var cy = Math.cos(cam.yaw), sy = Math.sin(cam.yaw), cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
     // yaw about y, then pitch about x; column-major for WebGL
@@ -146,7 +147,7 @@
   }
   function setCommon() {
     gl.uniformMatrix3fv(U.R, false, rotation());
-    gl.uniform3fv(U.C, [cam.cx, cam.cy, 0]);
+    gl.uniform3fv(U.C, centre());
     gl.uniform1f(U.S, cam.scale);
     gl.uniform1f(U.A, canvas.width / canvas.height);
   }
@@ -176,7 +177,7 @@
     }
     var R = rotation();
     var depth = function (part) {
-      var q = sub(part.centre, [cam.cx, cam.cy, 0]);
+      var q = sub(part.centre, centre());
       return R[2] * q[0] + R[5] * q[1] + R[8] * q[2];
     };
     function translucent(pass) {
@@ -398,7 +399,7 @@
     if (B) B.paths.forEach(function (path) {
       var line = smooth(path.points, 8), acc = lengths(line);
       // Constant speed and spacing: reference blood flow is the same on every page, so it carries no record value.
-      bloodStrands.push({ line: line, acc: acc, length: acc[acc.length - 1], color: B.colors[path.kind], speed: 0.05,
+      bloodStrands.push({ blood: true, line: line, acc: acc, length: acc[acc.length - 1], color: B.colors[path.kind], speed: 0.05,
                           count: Math.max(4, Math.round(acc[acc.length - 1] / 0.004)) });
     });
     particleBuffer = gl.createBuffer();
@@ -429,13 +430,13 @@
   }
 
   var PVS = 'attribute vec3 p;uniform mat3 R;uniform vec3 C;uniform float S,A,size;void main(){vec3 q=R*(p-C);gl_Position=vec4(q.x*S/A,q.y*S,-q.z*0.6-0.002,1.);gl_PointSize=size;}';
-  var PFS = 'precision mediump float;uniform vec3 col;uniform float fade;void main(){vec2 d=gl_PointCoord-vec2(.5);float r=dot(d,d);if(r>.25)discard;gl_FragColor=vec4(mix(vec3(1.),col*1.15,smoothstep(0.,.04,r)),(1.-smoothstep(.14,.25,r))*fade);}';
+  var PFS = 'precision mediump float;uniform vec3 col;uniform float fade,core;void main(){vec2 d=gl_PointCoord-vec2(.5);float r=dot(d,d);if(r>.25)discard;gl_FragColor=vec4(mix(mix(col,vec3(1.),core),col*1.15,smoothstep(0.,.04,r)),(1.-smoothstep(.14,.25,r))*fade);}';
   var pProgram = null, PU = {}, pA = -1, particleBuffer = null, particleData = null;
   if (F) {
     pProgram = gl.createProgram();
     gl.attachShader(pProgram, shader(gl.VERTEX_SHADER, PVS)); gl.attachShader(pProgram, shader(gl.FRAGMENT_SHADER, PFS));
     gl.linkProgram(pProgram);
-    ['R', 'C', 'S', 'A', 'size', 'col', 'fade'].forEach(function (k) { PU[k] = gl.getUniformLocation(pProgram, k); });
+    ['R', 'C', 'S', 'A', 'size', 'col', 'fade', 'core'].forEach(function (k) { PU[k] = gl.getUniformLocation(pProgram, k); });
     pA = gl.getAttribLocation(pProgram, 'p');
   }
 
@@ -449,15 +450,21 @@
   function drawParticles() {
     if (!pProgram || !strands.length) return;
     gl.useProgram(pProgram);
-    gl.uniformMatrix3fv(PU.R, false, rotation()); gl.uniform3fv(PU.C, [cam.cx, cam.cy, 0]);
+    gl.uniformMatrix3fv(PU.R, false, rotation()); gl.uniform3fv(PU.C, centre());
     gl.uniform1f(PU.S, cam.scale); gl.uniform1f(PU.A, canvas.width / canvas.height);
-    var dpr = Math.min(2, window.devicePixelRatio || 1), size = Math.max(3, Math.min(9, 1.6 * cam.scale));
+    var dpr = Math.min(2, window.devicePixelRatio || 1), pointSize = Math.max(3, Math.min(9, 1.6 * cam.scale)) * dpr;
     gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE); gl.enable(gl.DEPTH_TEST); gl.depthMask(false);
     gl.disableVertexAttribArray(aN);
     function drawStrand(strand) {
       var data = new Float32Array(strand.count * 3), spacing = strand.length / strand.count;
-      for (var k = 0; k < strand.count; k++) data.set(at(strand, (k * spacing + clock * strand.speed) % strand.length), k * 3);
+      for (var k = 0; k < strand.count; k++) {
+        var gap = strand.dashed ? Math.floor(k / 3) * 2 * spacing : 0;   // groups of 3 dots with a gap after each
+        data.set(at(strand, (k * spacing + gap + clock * strand.speed) % strand.length), k * 3);
+      }
       gl.uniform3fv(PU.col, strand.color);
+      // a path drawn without a value (absorption): smaller, all-colour dots in short groups, so it reads as dashed
+      gl.uniform1f(PU.core, strand.dashed ? 0 : 1);
+      gl.uniform1f(PU.size, (strand.dashed ? 0.9 : strand.blood ? 0.8 : 1) * pointSize);
       gl.bindBuffer(gl.ARRAY_BUFFER, particleBuffer);
       gl.bufferData(gl.ARRAY_BUFFER, data, gl.DYNAMIC_DRAW);
       gl.vertexAttribPointer(pA, 3, gl.FLOAT, false, 0, 0);
@@ -465,11 +472,11 @@
     }
     if (bloodOn) {
       // the blood layer: smaller, fainter dots, drawn before the drug so the drug stays on top
-      gl.uniform1f(PU.size, 0.8 * size * dpr); gl.uniform1f(PU.fade, 0.9); gl.disable(gl.DEPTH_TEST);
+      gl.uniform1f(PU.fade, 0.9); gl.disable(gl.DEPTH_TEST);
       bloodStrands.forEach(drawStrand);
       gl.enable(gl.DEPTH_TEST);
     }
-    gl.uniform1f(PU.size, size * dpr); gl.uniform1f(PU.fade, 1);
+    gl.uniform1f(PU.fade, 1);
     strands.forEach(drawStrand);
     gl.enableVertexAttribArray(aN);
     gl.depthMask(true);
@@ -493,7 +500,7 @@
     { key: 'absorption', anchor: 'gut', dx: -170, dy: 70 },
   ].concat(B ? [{ key: 'blood', anchor: 'kidney_right', dx: -150, dy: -95, onlyWith: 'blood' }] : []) : [];
   function project(p) {
-    var R = rotation(), q = sub(p, [cam.cx, cam.cy, 0]);
+    var R = rotation(), q = sub(p, centre());
     var x = R[0] * q[0] + R[3] * q[1] + R[6] * q[2], y = R[1] * q[0] + R[4] * q[1] + R[7] * q[2];
     var w = canvas.clientWidth, h = canvas.clientHeight;
     return [(x * cam.scale / (w / h) + 1) / 2 * w, (1 - y * cam.scale) / 2 * h];
@@ -534,6 +541,9 @@
     var w = canvas.clientWidth, h = canvas.clientHeight;
     overlay.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
     var placed = [];
+    // labels stay below the toolbar and the evidence banner
+    var banner = root.querySelector('.bm-band-banner'), toolbar = root.querySelector('.bm-toolbar');
+    var topLimit = banner && !banner.hidden ? banner.offsetTop + banner.offsetHeight + 8 : (toolbar ? toolbar.offsetTop + toolbar.offsetHeight + 8 : 56);
     Object.keys(labelNodes).forEach(function (key) {
       var n = labelNodes[key], a = project(F.anchors[n.spec.anchor]);
       var show = labelsOn && (n.spec.onlyWith !== 'blood' || bloodOn) && a[0] > 0 && a[0] < w && a[1] > 0 && a[1] < h;
@@ -543,7 +553,7 @@
       var bw = n.div.offsetWidth, bh = n.div.offsetHeight, left = n.spec.dx < 0;
       var lx = a[0] + n.spec.dx;
       lx = left ? Math.max(8 + bw, Math.min(w - 8, lx)) : Math.max(8, Math.min(w - 8 - bw, lx));
-      var ly = Math.max(56 + bh / 2, Math.min(h - 40 - bh / 2, a[1] + n.spec.dy));
+      var ly = Math.max(topLimit + bh / 2, Math.min(h - 40 - bh / 2, a[1] + n.spec.dy));
       placed.push({ n: n, a: a, lx: lx, ly: ly, bw: bw, bh: bh, left: left });
     });
     // labels hanging on the same side must not overlap: push later ones down (or up near the bottom)
@@ -584,38 +594,113 @@
   }
 
   /* ---------------------------------------------------------------- interaction */
-  var drag = null;
+  // Navigation (4 November 2026): drag turns the body; Shift-drag, right-drag or two fingers move it; pinch, Ctrl/Cmd +
+  // scroll or the + and - buttons zoom towards the pointer; arrow keys move, Shift + arrows turn. Plain scrolling still
+  // scrolls the page.
+  function axes() {
+    var R = rotation();
+    return { right: [R[0], R[3], R[6]], up: [R[1], R[4], R[7]] };
+  }
+  function pan(dxPx, dyPx) {
+    var w = canvas.clientWidth, h = canvas.clientHeight, ax = axes();
+    var dRight = 2 * dxPx / w * (w / h) / cam.scale, dUp = -2 * dyPx / h / cam.scale;
+    var c = sub(centre(), add(mul(ax.right, dRight), mul(ax.up, dUp)));
+    cam.cx = c[0]; cam.cy = c[1]; cam.cz = c[2];
+    redraw();
+  }
+  function zoomAt(factor, clientX, clientY) {
+    var r = canvas.getBoundingClientRect(), w = r.width, h = r.height, ax = axes();
+    var next = Math.max(0.6, Math.min(16, cam.scale * factor));
+    if (clientX !== undefined) {
+      // keep the point under the pointer where it is
+      var nx = 2 * (clientX - r.left) / w - 1, ny = 1 - 2 * (clientY - r.top) / h;
+      var off = add(mul(ax.right, nx * (w / h) / cam.scale), mul(ax.up, ny / cam.scale));
+      var c = add(centre(), mul(off, 1 - cam.scale / next));
+      cam.cx = c[0]; cam.cy = c[1]; cam.cz = c[2];
+    }
+    cam.scale = next;
+    redraw();
+  }
+  var drag = null, touches = {}, pinch = null;
+  canvas.addEventListener('contextmenu', function (ev) { ev.preventDefault(); });
   canvas.addEventListener('pointerdown', function (ev) {
-    drag = { x: ev.clientX, y: ev.clientY, yaw: cam.yaw, pitch: cam.pitch, moved: false };
+    touches[ev.pointerId] = { x: ev.clientX, y: ev.clientY };
+    var ids = Object.keys(touches);
+    if (ids.length === 2) {
+      var a = touches[ids[0]], b = touches[ids[1]];
+      pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2 };
+      drag = null;
+    } else {
+      drag = { x: ev.clientX, y: ev.clientY, yaw: cam.yaw, pitch: cam.pitch, moved: false,
+               move: ev.shiftKey || ev.button === 2 || ev.button === 1 };
+    }
     canvas.setPointerCapture(ev.pointerId);
   });
   canvas.addEventListener('pointermove', function (ev) {
+    if (touches[ev.pointerId]) touches[ev.pointerId] = { x: ev.clientX, y: ev.clientY };
+    if (pinch) {
+      var ids = Object.keys(touches); if (ids.length < 2) return;
+      var a = touches[ids[0]], b = touches[ids[1]];
+      var d = Math.hypot(a.x - b.x, a.y - b.y), mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+      pan(mx - pinch.mx, my - pinch.my);
+      if (pinch.d > 0) zoomAt(d / pinch.d, mx, my);
+      pinch = { d: d, mx: mx, my: my };
+      return;
+    }
     if (!drag) return;
     var dx = ev.clientX - drag.x, dy = ev.clientY - drag.y;
     if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true;
     if (!drag.moved) return;
+    if (drag.move) {
+      pan(ev.clientX - (drag.lastX === undefined ? drag.x : drag.lastX), ev.clientY - (drag.lastY === undefined ? drag.y : drag.lastY));
+      drag.lastX = ev.clientX; drag.lastY = ev.clientY;
+      return;
+    }
     cam.yaw = drag.yaw + dx * 0.01;
     cam.pitch = Math.max(-0.6, Math.min(0.6, drag.pitch + dy * 0.005));
     redraw();
   });
+  function endPointer(ev) {
+    delete touches[ev.pointerId];
+    if (Object.keys(touches).length < 2) pinch = null;
+  }
   canvas.addEventListener('pointerup', function (ev) {
-    if (drag && !drag.moved && parts.length) {
+    var wasPinch = !!pinch;
+    endPointer(ev);
+    if (!wasPinch && drag && !drag.moved && !drag.move && parts.length) {
       var r = canvas.getBoundingClientRect(), scale = canvas.width / r.width;
       showCard(pickAt(Math.round((ev.clientX - r.left) * scale), Math.round((r.bottom - ev.clientY) * scale)));
     }
     drag = null;
   });
+  canvas.addEventListener('pointercancel', function (ev) { endPointer(ev); drag = null; });
+  canvas.addEventListener('wheel', function (ev) {
+    // trackpad pinch arrives as Ctrl + wheel; Cmd/Ctrl + scroll zooms; plain scrolling is left to the page
+    if (!ev.ctrlKey && !ev.metaKey) return;
+    ev.preventDefault();
+    zoomAt(Math.exp(-ev.deltaY * 0.01), ev.clientX, ev.clientY);
+  }, { passive: false });
+  canvas.tabIndex = 0;
+  canvas.addEventListener('keydown', function (ev) {
+    var step = 40, k = ev.key;
+    if (ev.shiftKey && (k === 'ArrowLeft' || k === 'ArrowRight')) { cam.yaw += (k === 'ArrowLeft' ? -0.15 : 0.15); redraw(); }
+    else if (ev.shiftKey && (k === 'ArrowUp' || k === 'ArrowDown')) { cam.pitch = Math.max(-0.6, Math.min(0.6, cam.pitch + (k === 'ArrowUp' ? -0.1 : 0.1))); redraw(); }
+    else if (k === 'ArrowLeft') pan(step, 0); else if (k === 'ArrowRight') pan(-step, 0);
+    else if (k === 'ArrowUp') pan(0, step); else if (k === 'ArrowDown') pan(0, -step);
+    else if (k === '+' || k === '=') zoomAt(1.25); else if (k === '-' || k === '_') zoomAt(0.8);
+    else return;
+    ev.preventDefault();
+  });
   root.querySelectorAll('[data-preset]').forEach(function (button) {
     button.addEventListener('click', function () {
-      cam = Object.assign({}, PRESETS[Number(button.dataset.preset)]);
+      cam = Object.assign({ cz: 0 }, PRESETS[Number(button.dataset.preset)]);
       root.querySelectorAll('[data-preset]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === button)); });
       redraw();
     });
   });
   root.querySelectorAll('[data-zoom]').forEach(function (button) {
     button.addEventListener('click', function () {
-      cam.scale = Math.max(0.6, Math.min(12, cam.scale * (button.dataset.zoom === 'in' ? 1.25 : 0.8)));
-      redraw();
+      zoomAt(button.dataset.zoom === 'in' ? 1.25 : 0.8);
     });
   });
   window.addEventListener('resize', redraw);

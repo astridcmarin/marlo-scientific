@@ -73,3 +73,6 @@
 @media (max-width:700px) { .bm-explorer { grid-template-columns:1fr; } .bm-explorer-bands { grid-column:1; } }
 .bm-sub-heading { font-size:14px; margin:16px 0 6px; }
 .bm-flow-blood { border-color:#ff7a7a; max-width:260px; }
+.bm-help { font-size:12px; color:var(--ms-muted,#5b5d78); margin:8px 2px 0; }
+.bm-help kbd { font:11px var(--ms-font-mono,monospace); padding:0 4px; border:1px solid var(--ms-line,#e2e1ef); border-radius:4px; background:#fff; }
+.bm-viewer canvas:focus-visible { outline:2px solid var(--ms-accent-glow,#a99cff); outline-offset:-2px; }

@@ -30,12 +30,13 @@
 {% else %}
 <div id="body-map-viewer" class="bm-viewer" data-state="loading">
 <div class="bm-toolbar" role="group" aria-label="Camera">{% for p in presets %}<button type="button" data-preset="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ p.label }}</button>{% endfor %}<span class="bm-toolbar-gap"></span><button type="button" data-zoom="out" aria-label="Zoom out">−</button><button type="button" data-zoom="in" aria-label="Zoom in">+</button></div>
-<canvas aria-label="3D anatomy of the lenalidomide elimination route on a reference male body. Drag to turn; select an organ to identify it. The same numbers are in the table and the flow diagram." role="img"></canvas>
+<canvas aria-label="3D anatomy of the lenalidomide elimination route on a reference male body. Drag to turn, Shift-drag or right-drag to move, pinch or Command/Control and scroll to zoom, arrow keys to move; select an organ to identify it. The same numbers are in the table and the flow diagram." role="img"></canvas>
 <p class="bm-status" data-role="status" role="status"></p>
 <div class="bm-card" data-role="card" hidden><button type="button" class="bm-card-close" data-role="card-close" aria-label="Close">×</button><p class="bm-card-title" data-role="card-title"></p><p data-role="card-class"></p><div data-role="card-evidence"></div><p class="bm-card-ids" data-role="card-ids"></p></div>
 <p class="bm-legend"><span class="bm-swatch bm-sw-sim" aria-hidden="true"></span>Coloured: carries model results <span class="bm-swatch bm-sw-ctx" aria-hidden="true"></span>Grey: anatomy for orientation<span class="bm-visually-hidden"> ({{ legend }})</span></p>
 </div>
 {% endif %}
+<p class="bm-help">Drag to turn · <kbd>Shift</kbd>-drag, right-drag or two fingers to move · pinch or <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + scroll to zoom at the pointer · arrow keys move, <kbd>Shift</kbd> + arrows turn · the view buttons reset</p>
 <p class="bm-attribution">{% for a in attribution %}{{ a }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
 </section>
 <aside class="panel bm-numbers" aria-labelledby="bm-numbers-heading">
