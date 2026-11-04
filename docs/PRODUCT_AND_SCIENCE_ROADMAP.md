@@ -55,7 +55,7 @@ Not differentiating on their own, so not the lead message: trial search, dashboa
 | Interface | Landing page, shared Aurora design, logo and favicon, sidebar by research workflow. |
 | Online | Not deployed. No accounts. GitHub account flagged since 3 November: 41 commits on `offline-work` delivered as patches and then a git bundle, not yet run in CI. |
 
-Latest verification: [repository checkpoint, 3 November 2026](REPOSITORY_CHECKPOINT.md). No model is validated for clinical prediction.
+Latest verification: [repository checkpoint, 4 November 2026](REPOSITORY_CHECKPOINT.md): all 1,243 tests pass on the owner's Mac; CI not run. No model is validated for clinical prediction.
 
 ## Phases
 
@@ -159,12 +159,15 @@ Multi-organ physiology, disease progression, combination therapies, the body →
 
 Updated 4 November 2026. Done since 31 October: Digital human 1.0–1.1d; the Bridoux check (first blind model check); the kidney-model test 2.0d and the myeloma note on the body map; extraction review rounds 1–2 and review status on pages; the dataset ledger; what the checks found; five label extracts (3.2d); the git bundle workflow.
 
-1. **User conversations** with five to ten trial designers, clinical pharmacologists or regulatory professionals, using the lenalidomide guided path and `/models/findings` as the demonstration. Still the most important open step, and it needs no code.
-2. **Extraction review round 3** for the 74 values of the five new labels; then **special-population pages** for carfilzomib, selinexor, thalidomide, isatuximab and elotuzumab.
-3. **Label-consistency plans** for selinexor, then carfilzomib, then thalidomide, each locked before any curve is computed; outside data needed for any that pass.
-4. **v2 eligibility annotation** (the owner's; the only unseen dataset), then its locked check.
-5. **Digital human 1.1e:** the timeline drawn, with warnings.
-6. **Independent review** of a sample of the extractions and one check report, by someone outside the platform.
+**Re-assessment (4 November 2026, with the owner).** The platform has grown faster than it has been used or consolidated: 26 checks, of which 3 were blind; two drugs with a curve that passed both its checks; about 160 pinned data files and 30 docs. Until user conversations are possible, the next few weeks consolidate and review rather than add:
+
+1. **Known-good state.** Full suite passing on the owner's Mac (1,243 tests) and the 4 November checkpoint. Done.
+2. **Consolidation.** A docs index grouped by question; a plain-language status page per drug; superseded files kept but moved out of the way.
+3. **Reviewer's checklist.** The questions an FDA clinical pharmacology review asks (renal and hepatic impairment guidances, review structure, ICH M15), scored against the lenalidomide workflow; the gaps become the next work.
+4. **Fresh-reviewer pass.** One model and its check reports given to a separate reviewer agent that has not seen the work, asked only to find errors and overclaims. Labelled as an AI review, not an independent one.
+5. **v2 eligibility annotation** (the owner's, in progress; the only unseen dataset), then its locked check.
+
+Paused until then: special-population pages and label curves for the five new drugs (extraction review round 3 when the owner has time), Digital human 1.1e, and further kidney or bortezomib modelling without new data. Later: user conversations with five to ten trial designers, clinical pharmacologists or regulatory professionals; an independent human reviewer.
 
 Blocked or waiting:
 - **Lenalidomide kidney model:** every renal-impairment dataset available has been seen; a further check needs unseen data (dataset ledger).

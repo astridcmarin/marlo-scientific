@@ -1,0 +1,41 @@
+{
+ "schema_version": "repository-checkpoint-v1",
+ "checkpoint": "2026-11-04",
+ "classification": "software_and_repository_verification",
+ "tree": {
+  "branch": "offline-work",
+  "commit": "91fcca0",
+  "base": "main 45c4afe",
+  "commits_since_base": 42,
+  "ci_run": false
+ },
+ "unit_tests": {
+  "where": "owner's Mac",
+  "ran": 1243,
+  "passed": 1241,
+  "skipped": 2,
+  "failed": 0,
+  "seconds": 273.553
+ },
+ "compileall": "pass",
+ "migrations": {
+  "revisions": 9,
+  "changed_since_previous": false
+ },
+ "pinned_data": {
+  "files": 158,
+  "pinned": 157,
+  "unpinned_by_design": [
+   "bortezomib_observation_template_v1.json"
+  ]
+ },
+ "validation_flags_true": [],
+ "locked_checks": 26,
+ "blind_checks": 3,
+ "findings": [
+  "No CI run on 42 commits",
+  "2.0d plan rationale misattributed the Bridoux finding; corrected in docs",
+  "A bundle re-sent under the same name arrived stale; now sent under unique names with size checked"
+ ],
+ "clinical_prediction_validated": false
+}

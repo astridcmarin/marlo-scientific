@@ -11,7 +11,7 @@ Several step documents describe installer scripts (`scripts/install_*.py`) from 
 - [Protocol benchmarking](PROTOCOL_BENCHMARKING.md) — Phase 4.1 design and results: eligibility-criteria thresholds across similar trials, rule-based extraction validated against a hand-annotated sample before anything is shown. v1 failed its locked check (28 October 2026); v2 is locked with a fresh 200-trial sample. Annotation guides: [v1](ELIGIBILITY_ANNOTATION_GUIDE.md), [v2](ELIGIBILITY_ANNOTATION_GUIDE_V2.md).
 - [Credibility records](CREDIBILITY_RECORDS.md) — Phase 6.1: one record per model in the ICH M15 structure, at `/models/credibility` (30 October 2026).
 - [Patient Lab 2.0](PATIENT_LAB_2_0.md) — current computational-pharmacology work: scope, non-goals, architecture, step status, and the recorded scientific decisions (Hughes 2019 lenalidomide model, Cockcroft–Gault weight basis, typical value vs population band).
-- [Repository checkpoint](REPOSITORY_CHECKPOINT.md) — 3 November 2026 verification, findings and remaining gates ([record](verification/repository_checkpoint_2026-11-03.json); earlier checkpoints in [history](history/REPOSITORY_CHECKPOINT_2026-10-31.md), step-number history in [history](history/REPOSITORY_CHECKPOINT_2026-10-13.md)).
+- [Repository checkpoint](REPOSITORY_CHECKPOINT.md) — 4 November 2026 verification (full suite passing on the owner's Mac), findings and remaining gates ([record](verification/repository_checkpoint_2026-11-04.json); earlier checkpoints in [history](history/REPOSITORY_CHECKPOINT_2026-11-03.md), step-number history in [history](history/REPOSITORY_CHECKPOINT_2026-10-13.md)).
 
 ## Patient Lab foundations
 

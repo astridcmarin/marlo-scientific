@@ -1,73 +1,56 @@
-# Repository checkpoint — 3 November 2026
+# Repository checkpoint — 4 November 2026
 
-**Verified tree:** branch `offline-work` at the commit that adds this file, on top of `main` at `45c4afe` (after PR #110). The owner's GitHub account was flagged on 3 November, so the work since #110 was delivered as patch files (0001–0012) and applied on the owner's computer; it has not been pushed or run in CI.
-**Machine-readable record:** [`verification/repository_checkpoint_2026-11-03.json`](verification/repository_checkpoint_2026-11-03.json).
-**Previous checkpoint:** 31 October, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-10-31.md).
+**Verified tree:** branch `offline-work` at `91fcca0` ("What the checks found; roadmap brought up to 4 November"), 42 commits on top of `main` at `45c4afe` (after PR #110). The GitHub account has been flagged since 3 November, so these commits were delivered as patch files (0001–0040) and then as a git bundle. They have not been pushed or run in CI.
+**Machine-readable record:** [`verification/repository_checkpoint_2026-11-04.json`](verification/repository_checkpoint_2026-11-04.json).
+**Previous checkpoint:** 3 November, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-11-03.md).
 
 This is a software and repository verification. It does not validate any model scientifically, and it is not a clinical-readiness review.
 
 ## What was delivered since the previous checkpoint
 
-**Merged on GitHub (PRs #96–#110)**
-
 | Area | What | Main files |
 |---|---|---|
-| Bortezomib platelets (2.5d, #96) | Model scope: baseline 30 or more; below 30 refused; stale "7-fold" claim corrected | `bortezomib_platelets_scope_v1.json` |
-| Checkpoint (#97) | 31 October verification | `docs/history/REPOSITORY_CHECKPOINT_2026-10-31.md` |
-| Kim protein binding (#98) | Assessed; no change to the model | `kim_protein_binding_assessment_v1.json` |
-| Bridoux check plan (2.1h, #99) | Locked before the source's values are seen | `lenalidomide_bridoux_check_plan_v1.json` |
-| EMA 2013 renal extract (2.1i, #100) | Geometric means, ratios with 90% CIs and regressions for CC-5013-PK-001 | `lenalidomide_renal_pk_ema_2013_v1.json` |
-| Digital human 1.0 plan and steps 1.1–1.3c (#101–#103, #105–#109) | Lenalidomide elimination body map: unbound-fraction decision, view data, 3D Human Reference Atlas assets, WebGL viewer, flows and evidence in 3D | `body_map*.py`, `glb_mesh.py`, `body_map_assets_v1.json`, `body_map_flow_paths_v1.json` |
-| Repository (#104) | `supplemental-information/` ignored (local source material) | `.gitignore` |
-| Navigation (#110) | Sidebar by research workflow, six sections | `landscape_base.html` |
-
-**Offline patches (0001–0012, applied on the owner's computer)**
-
-| Patch | What |
-|---|---|
-| 0001 | Drug hubs: everything Marlo has for a drug on its drug page (`drug_hub.py`) |
-| 0002 | Patient record results grouped by question, with a status before opening (`record_results.py`) |
-| 0003 | Run record: summary visible, full record folded |
-| 0004, 0009, 0010 | Shared design in the Aurora palette: colours, type and status labels; simulation notices and run records; body map viewer and Simulation Lab in dark panels (`marlo-design.css`) |
-| 0005–0008 | Logo (concentration-curve mark) and favicon, served at `/favicon.ico` |
-| 0011 | Body map 1.4: explorer mode and the observed-data context panel (`body_map_context.py`) |
-| 0012 | Body map 1.5: links from the sidebar, drug page and Patient Lab; docs; this checkpoint |
+| Body map | Flows along vessel centre lines; rendering pass; navigation (pan, zoom at pointer); flow key, scale bar, selectable flows | `body_map_vessel_lines_v1.json`, `body_map_flow_paths_v2.json`, `body-map-viewer.js` |
+| Digital human 1.1a–1.1c | Reference blood flow (ICRP 89), blood-to-plasma ratio (Chen 2012), per-pass extraction, blood-flow layer | `reference_physiology.py`, `body_map.py` (view v2) |
+| Digital human 1.1d | Time course v1 and v2, each under a plan locked before computation; v2 not adopted | `body_map_time_course.py`, two plans, two reports |
+| Bridoux 2016 (2.1h) | Two-stage blind check of Hughes and Kim; evidence status v13 | `lenalidomide_bridoux_check.py`, design and observed files |
+| Simulation 2.0d | Kidney pathway v2 (secretion falls faster): plan locked, run, not adopted; myeloma comparison shown beside the warnings; evidence status v14 | `lenalidomide_renal_pathways_v2.py`, `body_map.myeloma_note` |
+| Extraction review | Rounds 1 and 2 pinned (166 of 166 values match); round-2 page; review status on model, label, special-population and dose pages | `extraction_review.py`, two records |
+| Dataset ledger | Which data each model was built from, tuned on or checked against; gate refusing blind checks on seen data; v2 adds five labels | `dataset_ledger.py`, `dataset_ledger_v1.json`, `_v2.json` |
+| Label extracts (3.2d) | Carfilzomib, selinexor, thalidomide, isatuximab, elotuzumab: 74 quoted values | `drug_label_extracts.py`, five extracts, build script |
+| What the checks found | `/models/findings`: 26 locked checks in one line each, with blindness from the ledger | `check_findings.py`, `check_findings_v1.json` |
+| Other | Scroll position kept on reload; locked-report tests tolerant of last-digit differences off Linux; roadmap updated | `marlo-scroll.js`, `tests/report_reproduction.py` |
 
 ## Checks
 
 | Check | Result |
 |---|---|
-| Unit tests | **Pass, with five platform-specific failures on macOS.** On the owner's Mac (after patch 0011): 1,151 tests ran; 5 failed, 2 skipped. All five failures are exact-reproduction checks of locked reports (Ogawa, Gupta, Kim renal group, Hughes renal group, renal recheck) that differ only in the last floating-point digits (for example 112.0091918012 against 112.009191801). The same five pass here on Linux, as they do in CI. The suite defines 1,151 test methods (static count). CI has not run on this tree. |
+| Unit tests | **Pass.** On the owner's Mac, at this tree: 1,243 tests ran in 274 s; all passed, 2 skipped. First full-suite run since the 3 November checkpoint (subsets were run after each patch). CI has not run on this tree. |
 | Compile all modules | **Pass.** `compileall` on `app`, `intelligence_store`, `landscape_ui`, `scripts` and `intelligence_migrations`. |
-| Migration chain | **Pass.** 9 revisions; one root (`3538c7d69211`) and one head (`585bc7cb8d18`). No schema change since 16 October. |
-| Pinned data | **Pass.** 135 tracked data files in `intelligence_store/data/` outside `curation/`; 133 match a checksum in code. The other two are known: the observation template (unpinned by design) and the eligibility corpus (pinned by its decompressed content). Of 131 named checksum constants in code, 127 match a tracked file; the other four are the same known ones as on 31 October. |
-| Locked plans and reports | **Pass.** No calculation module behind a locked report changed since 31 October. The other check reports, regenerated by the unit tests, reproduce exactly here. The three slow ones, not regenerated by the unit tests, were regenerated for this checkpoint and are byte-identical to the committed files: Iwasaki (`529772d9…`), daratumumab v1 (`ac3369f7…`) and v2 (`24b12ab8…`). |
+| Migration chain | **Unchanged.** 9 revisions; no schema change since 16 October. |
+| Pinned data | **Pass.** 158 data files in `intelligence_store/data/` outside `curation/`; 157 match a checksum in code. The exception is the observation template, unpinned by design. |
+| Locked plans and reports | **Pass.** Every check report is listed in the dataset ledger and in the findings file with its checksum, and both are tested. New plans this period were pinned before their computation (1.1d v1 and v2, 2.0d). |
 | Validation flags | **Pass.** No tracked JSON sets `clinical_prediction_validated` or `ready_for_patient_simulation` to true. |
-| Page smoke test | **Partly run.** The body map explorer was started here with the database layer stubbed and checked in a browser (3D view, checksums verified before drawing, numbers, observed-data panel). Database-backed pages ran in the owner's local test suite, not in CI. |
-| Repository hygiene | **Pass.** No source articles or private correspondence tracked; no database or `instance/` files. The only PDF is the public EMA lenalidomide report. The only email addresses are in the font licence. |
-
-**How the checks were run.** In the cloud workspace the database layer was stubbed so every non-database module, test and report could run; the full suite, including database-backed tests, ran on the owner's Mac.
+| Repository hygiene | **Pass.** No source articles, labels or private correspondence tracked. The only PDF is the public EMA lenalidomide report. Label PDFs and articles stay in `supplemental-information/`, which is ignored. |
 
 ## Findings
 
-1. **No CI run on this tree.** The account flag blocks pushes, so nothing since #110 has run on the CI platform. The owner's local run and this workspace's run together cover the suite, but on two different platforms. **Gate:** when the account is restored, push `offline-work`, open the pull requests and let CI run before merging.
-2. **Locked-report tests depended on the platform's floating-point results — fixed in patch 0013.** Five exact-reproduction checks failed on macOS in the last digits; the reports themselves are unchanged. The tests now use `tests/report_reproduction.py`: exact on Linux (the CI platform, where the reports were made); elsewhere every key, text, count and input checksum must still match exactly and only floating-point numbers may differ, by at most 10⁻¹² relative. `MARLO_EXACT_REPORTS=1` forces exact comparison anywhere.
-3. **Patch hygiene.** Patch 0011 added one blank line at the end of the body map plan; removed in 0012.
+1. **No CI run on 42 commits.** **Gate:** when the account is restored, push `offline-work`, let CI run, then open the pull requests.
+2. **A plan rationale was wrong (2.0d).** The plan said the Bridoux check had found the pathway model's clearance too high; that check compared Hughes and Kim. The plan stays as locked; the correction is in `SIMULATION_2_RENAL_PATHWAYS.md`. The dataset ledger and findings page now make this kind of misattribution easier to catch.
+3. **Delivery mishap.** One bundle re-sent under the same file name arrived as the previous copy. Bundles are now sent under a unique name and their size is checked on the owner's computer.
 
 ## Scientific state
 
-Unchanged from 31 October for every model; see [`history/REPOSITORY_CHECKPOINT_2026-10-31.md`](history/REPOSITORY_CHECKPOINT_2026-10-31.md). Since then:
-- **Digital human 1.0 is complete** (steps 1.0–1.5). It displays the 2.0a lenalidomide pathway model and adds no new claim. Its observed-data panel shows the known moderate-band disagreement in numbers: at 40 mL/min the model's renal clearance is about 59 mL/min against an observed group geometric mean of 27 mL/min.
-- The EMA 2013 extract is in place; the Bridoux 2016 check is locked but waits for the source.
-
-No model is validated for clinical prediction.
+- 26 locked checks; 3 blind (Bridoux for Hughes and Kim, NEOFORDEX for dexamethasone, eligibility sample v1). See `/models/findings`.
+- Lenalidomide: Hughes and Kim under-predict moderate and severe kidney impairment in two studies; the pathway model is consistent with both myeloma studies there but not with CC-5013-PK-001. No unseen renal data remains.
+- Bortezomib exposure model: contradicted by every study tested; three candidate fixes failed.
+- No model is validated for clinical prediction.
 
 ## Remaining gates
 
-- **GitHub access:** restore the account; push `offline-work`; CI; pull requests (#111 is still open).
-- **Owner work:** extraction review round 1 (then validate and pin the record); v2 eligibility annotation; the HRA release version for the asset manifest; the three body map points from step 1.3a.
-- **Sources:** Bridoux 2016 (interlibrary loan, NLM or purchase), then the locked check.
-- **Independent review** of the AI-assisted extractions: none yet.
+- **GitHub access:** restore; push; CI; pull requests (#111 still open).
+- **Owner work:** v2 eligibility annotation (the only unseen dataset); extraction review round 3 for the 74 new label values.
+- **Independent review:** none yet, of extractions or of any model.
 - **Authors:** Hughes (Cockcroft–Gault weight basis); Kim (CL/F equation form); Iwasaki (human data).
 - **Platform:** accounts and deployment.
 
