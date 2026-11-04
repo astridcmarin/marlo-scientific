@@ -1,73 +1,65 @@
 # Documentation index
 
-Start with the roadmap and the current Patient Lab plan. Step numbers are historical delivery labels and are not unique; module and schema versions are the stable identifiers (see the repository checkpoint).
+Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historical delivery labels and are not unique across tracks; module and schema versions are the stable identifiers.
 
-Several step documents describe installer scripts (`scripts/install_*.py`) from when features arrived as packages. Those features are integrated into the code, and the installers were retired on 13 October 2026; they remain in git history.
+## Start here
 
-## Current direction
+- [Product and science roadmap](PRODUCT_AND_SCIENCE_ROADMAP.md): positioning, users, phases, current status and next steps (updated 4 November 2026; the 10 October version is in history/).
+- [Status by drug](STATUS_BY_DRUG.md): for each drug, in plain language, what the platform has, what was checked, what is known to be wrong and what is missing.
+- [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (4 November 2026: all 1,243 tests passing on the owner's Mac; CI not run), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-04.json); earlier checkpoints in [history](history/).
+- Conventions for working in the repository: `CLAUDE.md` at the root.
 
-- [Product and science roadmap](PRODUCT_AND_SCIENCE_ROADMAP.md) — positioning (evidence reference for drug development), users, differentiators, phases and next steps (19 October 2026; the 10 October version is in history/).
-- [Label-based exposure engine](LABEL_EXPOSURE_ENGINE.md) — Phase 3.1 evidence and design plan: one-compartment typical-value curves from label section 12.3, eligibility rules, internal-consistency check, pomalidomide pilot (20 October 2026). Inputs (3.1b): `label_pk_pomalidomide_v1.json`, `pomalidomide_popk_li_2017_extract_v1.json`, locked plan `label_exposure_consistency_plan_v1.json`. Engine and consistency check (3.1c): `label_exposure.py`, [report](verification/label_exposure_pomalidomide_consistency_v1.json), CLI `label-exposure-consistency`. Outside model check against Li 2017 (3.1d): `label_exposure_li_check.py`, [report](verification/label_exposure_pomalidomide_li_check_v1.json), plan `label_exposure_pomalidomide_li_check_plan_v1.json`, CLI `label-exposure-li-check`. Page (3.1e): `label_exposure_view.py`, `landscape_ui/label_exposure_pages.py`, `/landscape/patient-lab/label-exposure/pomalidomide`. Melphalan (3.1f, not eligible): `label_exposure_iv.py`, [report](verification/label_exposure_melphalan_consistency_v1.json), plan `label_exposure_consistency_plan_melphalan_v1.json`. Dexamethasone (3.1f, passes, not yet shown): `label_exposure_single_dose.py`, [report](verification/label_exposure_dexamethasone_consistency_v1.json), plan `label_exposure_consistency_plan_dexamethasone_v1.json`. Outside check (3.1g): `label_exposure_dexamethasone_check.py`, [report](verification/label_exposure_dexamethasone_outside_check_v1.json), plan `label_exposure_dexamethasone_outside_check_plan_v1.json`.
-- [Protocol benchmarking](PROTOCOL_BENCHMARKING.md) — Phase 4.1 design and results: eligibility-criteria thresholds across similar trials, rule-based extraction validated against a hand-annotated sample before anything is shown. v1 failed its locked check (28 October 2026); v2 is locked with a fresh 200-trial sample. Annotation guides: [v1](ELIGIBILITY_ANNOTATION_GUIDE.md), [v2](ELIGIBILITY_ANNOTATION_GUIDE_V2.md).
-- [Credibility records](CREDIBILITY_RECORDS.md) — Phase 6.1: one record per model in the ICH M15 structure, at `/models/credibility` (30 October 2026).
-- [Patient Lab 2.0](PATIENT_LAB_2_0.md) — current computational-pharmacology work: scope, non-goals, architecture, step status, and the recorded scientific decisions (Hughes 2019 lenalidomide model, Cockcroft–Gault weight basis, typical value vs population band).
-- [Repository checkpoint](REPOSITORY_CHECKPOINT.md) — 4 November 2026 verification (full suite passing on the owner's Mac), findings and remaining gates ([record](verification/repository_checkpoint_2026-11-04.json); earlier checkpoints in [history](history/REPOSITORY_CHECKPOINT_2026-11-03.md), step-number history in [history](history/REPOSITORY_CHECKPOINT_2026-10-13.md)).
+## How far can the results be trusted?
 
-## Patient Lab foundations
+- **What the checks found:** page `/models/findings`. Every locked check in one line, failures included, and whether it was blind (`check_findings.py`, `check_findings_v1.json`).
+- [Dataset ledger](DATASET_LEDGER.md): which data each model was built from, tuned on or checked against, and the gate that refuses a blind check on seen data.
+- [Extraction review](EXTRACTION_REVIEW.md): the owner's review of the 166 extracted values that feed calculations (rounds 1–2, all match), and where the review status is shown.
+- [Model scope](MODEL_SCOPE.md): each model's context of use as enforced rules, with evidence tiers.
+- [Credibility records](CREDIBILITY_RECORDS.md): one record per model in the ICH M15 structure (`/models/credibility`); model scorecards at `/models`.
+- [Source reconciliation](SOURCE_RECONCILIATION.md): lenalidomide renal sources compared (measured vs Cockcroft–Gault clearance; corrections to two plans).
 
-- [Synthetic patient-state schema v1](PATIENT_STATE_SCHEMA.md) — fields, units, provenance and preview contract.
-- [Step 65 — source-equation check](patient-lab-step65/SOURCE_EQUATION_CHECK.md) and [source assessment data](patient-lab-step65/hughes_source_assessment.json).
-- [Step 66 — data access assessment](patient-lab-step66/DATA_ACCESS_ASSESSMENT.md), [original-materials checklist](patient-lab-step66/ORIGINAL_MATERIALS_CHECKLIST.md) and [inventory](patient-lab-step66/data_access_inventory.json). The checklist includes the open question on the Hughes `CRCL2` covariate.
-- [Step 67 — verification and validation protocol (draft)](patient_lab/step67/VERIFICATION_VALIDATION_PROTOCOL.md) and [protocol data](patient_lab/step67/validation_protocol_draft.json).
+## Lenalidomide
 
-## Verification records
+- [Patient Lab 2.0](PATIENT_LAB_2_0.md): the Hughes and Kim population models, their checks against CC-5013-PK-001 and Bridoux 2016 (2.0g, 2.1c, 2.1e, 2.1h), and the recorded decisions (Cockcroft–Gault weight basis, typical value vs population band).
+- [Kidney pathways](SIMULATION_2_RENAL_PATHWAYS.md): filtration, secretion and non-renal clearance (2.0a), end-stage kidney disease (2.0c), and the steeper-secretion test that was not adopted (2.0d).
+- [Dose view](DOSE_OPTIMISATION.md): exposure and relative cytopenia odds at each model's study doses (4.3).
+- Guided path: `guided_path.py`, page `/landscape/drugs/lenalidomide/guide` (4.4).
+- [Digital human 1.0](DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md) and [1.1](DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md): the elimination body map, blood flow, per-pass extraction and the checked time course.
 
-- [Numerical verification summary](NUMERICAL_VERIFICATION.json).
-- [Synthetic RK4–analytic cross-check (Step 70)](verification/synthetic_numerical_crosscheck_step70.json) — output of `scripts/pk_numerical_crosscheck.py`.
-- [Hughes renal-group consistency check (2.0g)](verification/hughes_renal_group_check_v1.json) — exploratory check against study CC-5013-PK-001; plan locked in `intelligence_store/data/hughes_renal_group_check_plan_v1.json`. Finding recorded in `intelligence_store/data/hughes_applicability_findings_v1.json`.
-- [Kim renal-group consistency check (2.1c)](verification/kim_renal_group_check_v1.json) — the same study and design for the Kim 2026 model, with eGFR built from assumed demographics; plan locked in `intelligence_store/data/kim_renal_group_check_plan_v1.json`. Finding recorded in `intelligence_store/data/kim_applicability_findings_v1.json`.
-- [Lenalidomide renal recheck with study-matched subjects (2.1e)](verification/lenalidomide_renal_recheck_v1.json) — both models, virtual subjects drawn from Chen et al. 2007 Table I; plan locked in `intelligence_store/data/lenalidomide_renal_recheck_plan_v1.json`. Kim moderate changes to under-predicts.
-- [Kim applicability findings v2 (2.1f)](../intelligence_store/data/kim_applicability_findings_v2.json) — under-prediction warning extended to eGFR 30–50; Kim scope v2 flags that band.
-- [Renal study evidence v2 (2.1g)](../landscape_ui/data/renal_pk/renal_pk_group_evidence_v2.json) — CC-5013-PK-001 population recorded (non-malignant renal impairment; healthy controls); Hughes scope v2, Kim scope v3 and lenalidomide special-population summary v3 follow.
-- [Bortezomib platelet model scope (2.5d)](MODEL_SCOPE.md#bortezomib-platelet-model-phase-25d-31-october-2026) — baselines below 30 ×10⁹/L refused; the curve's tier and the inherited PK caveat; corrected first-dose exposure text.
-- [EMA 2013 renal PK re-analysis (2.1i)](../intelligence_store/data/lenalidomide_renal_pk_ema_2013_v1.json) — CC-5013-PK-001 geometric means, ratios with 90% CIs, regressions on measured CrCl, enantiomers.
-- [What the checks found](../app/templates/findings.html) — page `/models/findings`: every locked check in one line with its result and whether it was blind (`check_findings.py`, `check_findings_v1.json`).
-- [Dataset ledger](DATASET_LEDGER.md) — which datasets each model was built from, tuned on or checked against, which checks were blind (three datasets so far), and the gate that refuses a blind check on seen data.
-- [Bridoux 2016 check plan (2.1h)](../intelligence_store/data/lenalidomide_bridoux_check_plan_v1.json) — lenalidomide renal check in myeloma patients, locked before the study's PK values were seen. Result 4 November 2026 ([report](verification/lenalidomide_bridoux_check_v1.json)): both models under-predict the moderate and severe groups again, as against CC-5013-PK-001; see [Patient Lab 2.0](PATIENT_LAB_2_0.md), 2.1h.
-- Lenalidomide reference exposure — `intelligence_store/data/lenalidomide_reference_exposure_v1.json` (measured 25 mg AUC, normal renal function; context ratio only).
-- Lenalidomide dose proportionality — `intelligence_store/data/lenalidomide_dose_proportionality_evidence_v1.json` (EMA assessment p.20, checked against the pinned PDF).
+## Bortezomib
 
-## Scientific decision records kept as data
+- [Platelet time course and exposure model](SIMULATION_3_BORTEZOMIB_PLATELETS.md): the Lignet 2022 models, the outside checks (Ogawa, CAN-1004, MMY-3021, Reece) and the three failed candidates (Kuan, falling clearance, Iwasaki).
+- Research tools: [proteasome target activity](BORTEZOMIB_PROTEASOME_STEP104.md), [peak-evidence review](BORTEZOMIB_EVIDENCE_STEP105.md), [figure review](BORTEZOMIB_FIGURES_STEP106.md), [study-regimen time course](BORTEZOMIB_TIMECOURSE_STEP107.md), [elimination assumptions](BORTEZOMIB_ASSUMPTIONS_STEP108.md), [observation intake](BORTEZOMIB_OBSERVATION_INTAKE_STEPS106_108.md), [discoverable research tools](DRUG_RESEARCH_TOOLS_STEP109.md).
 
-- Kim 2026 model extract and CL/F equation-form assessment — `intelligence_store/data/kim_2026_model_extract_v1.json`, `kim_cl_equation_form_assessment_v1.json` (see Patient Lab 2.0, section 2.1).
-- Covariate formula registries — `covariate_formula_registry_v2.json` is current; `v1` is kept because estimates made before v2 cite it.
+## Other drugs
 
-- Lenalidomide assay quality review — `intelligence_store/data/lenalidomide_assay_quality_review_v1.json`: the Lu Fig. 2D assay is retained as qualitative evidence and not used for quantitative calibration.
-- Hughes Cockcroft–Gault weight-basis assessment — `intelligence_store/data/hughes_weight_basis_assessment_v1.json` (see Patient Lab 2.0).
+- [Ixazomib](SIMULATION_3_2_IXAZOMIB.md): Gupta 2017 checked against the dedicated kidney and liver studies (3.2a).
+- [Daratumumab](SIMULATION_3_2B_DARATUMUMAB.md): Luo 2021 checked against GEN501 and SIRIUS (3.2b–3.2c).
+- [Label-based exposure engine](LABEL_EXPOSURE_ENGINE.md): pomalidomide and dexamethasone (shown), melphalan (not eligible), and the five labels extracted on 4 November 2026 (3.2d: carfilzomib, selinexor, thalidomide, isatuximab, elotuzumab).
+- [Special populations](SPECIAL_POPULATIONS.md): kidney, liver, age and body size per drug, every value resolved against its pinned source (4.2).
+- [Exposure–effect evidence scan](SIMULATION_4_EVIDENCE_SCAN.md): why no drug yet has a patient-dependent exposure–effect model (4.0).
 
-## Bortezomib research tools
+## Trial design
 
-- [Step 104 — proteasome target activity](BORTEZOMIB_PROTEASOME_STEP104.md)
-- [Step 105 — peak-evidence review](BORTEZOMIB_EVIDENCE_STEP105.md)
-- [Step 106 — provisional figure review](BORTEZOMIB_FIGURES_STEP106.md)
-- [Step 107 — study-regimen time course](BORTEZOMIB_TIMECOURSE_STEP107.md)
-- [Step 108 — elimination-assumption comparison](BORTEZOMIB_ASSUMPTIONS_STEP108.md)
-- [Observation intake v1](BORTEZOMIB_OBSERVATION_INTAKE_STEPS106_108.md) — separate workflow that reused the numbers 106–108.
-- [Simulation 4.0 — evidence scan](SIMULATION_4_EVIDENCE_SCAN.md): search for a patient-dependent exposure–effect model; no curated drug meets all criteria; carfilzomib fails on patient dependence (body surface area is its only PK covariate); next route is the public FDA/EMA reviews for a lenalidomide exposure–safety model.
-- [Simulation 2.0 — lenalidomide elimination pathways](SIMULATION_2_RENAL_PATHWAYS.md): filtration, tubular secretion and non-renal clearance, calibrated on normal renal function and checked against the renal-impairment groups (2.0a; [report](verification/lenalidomide_renal_pathways_check_v1.json)); patient organ view (2.0b); end-stage disease and dialysis (2.0c; [report](verification/lenalidomide_esrd_dialysis_check_v1.json)).
-- [Digital human 1.0 — lenalidomide elimination body map](DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md): first piece of the computational-human interface; plan approved 31 October 2026, delivered 3 November 2026 (steps 1.1–1.5). 3D view on Human Reference Atlas anatomy at `/landscape/workspace/scenarios/<id>/patient-state/revisions/<id>/body-map` (record) and `/landscape/patient-lab/body-map?crcl=…` (explorer), with the observed-data panel (`body_map_context.py`).
-- [Digital human 1.1 — blood flow, extraction and drug movement over time (design plan)](DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md): approved 3 November 2026. Reference blood flow, renal extraction per pass, and a checked time course; no organ concentrations.
-- [Simulation 3.0 — bortezomib platelet time course](SIMULATION_3_BORTEZOMIB_PLATELETS.md): Lignet 2022 model transcription, open questions and Lonial 2005 observed values (`intelligence_store/data/bortezomib_platelet_*_v1.json`). PK engine and label comparison: `bortezomib_pk.py`, `bortezomib_label_pk_v1.json`. Locked reading check: [report](verification/bortezomib_platelet_check_v1.json), plan `bortezomib_platelet_check_plan_v1.json`. Run record and model evidence status: `intelligence_store/run_record.py`, `model_evidence_status_v2.json` (Patient Lab 2.0f; outside-data search 3.0e). PK component outside check against Ogawa 2008 (3.0f): [report](verification/bortezomib_pk_ogawa_check_v1.json), plan `bortezomib_pk_ogawa_check_plan_v1.json`, CLI `bortezomib-pk-ogawa-check`.
-- [Simulation 3.2a — ixazomib](SIMULATION_3_2_IXAZOMIB.md): Gupta 2017 population PK model (`ixazomib_pk_gupta.py`, closed-form solution) checked against the independent renal and hepatic impairment studies under a locked plan: [report](verification/ixazomib_pk_gupta_check_v1.json), plans `ixazomib_pk_gupta_check_plan_v1.json` and `_v1_1.json` (amendment 1), CLI `ixazomib-pk-gupta-check`. Not registered.
-- [Phase 2.5 — Enforceable model scope](MODEL_SCOPE.md): context of use as pinned rules (`model_scope.py`, schema `model-scope-v1`); scopes for ixazomib (`ixazomib_scope_v1.json`, `ixazomib_exposure.py`, page `/landscape/patient-lab/ixazomib-exposure`, CLI `ixazomib-exposure`), Hughes and Kim (gated in the Patient Lab, `lenalidomide_scope.py`) and daratumumab; public pages at `/models/<id>/scope`.
-- [Phase 4.2 — Special-population summaries](SPECIAL_POPULATIONS.md): kidney, liver, age, body size per drug; every value resolved against its pinned source (`special_populations.py`); six drugs (ixazomib, pomalidomide, lenalidomide, daratumumab, dexamethasone, bortezomib), at `/landscape/drugs/<drug>/special-populations`.
-- Phase 4.4 — Lenalidomide guided path: `guided_path.py`, page `/landscape/drugs/lenalidomide/guide` (trials → label → special populations → exposure → dose → credibility and review; read from pinned sources).
-- [Extraction review](EXTRACTION_REVIEW.md): owner review of the 166 AI-extracted values that feed calculations (`extraction_review.py`, queue `extraction_review_queue_v1.json`, page `/models/extraction-review`, CLI `extraction-review-check`).
-- [Source reconciliation: lenalidomide renal evidence](SOURCE_RECONCILIATION.md): EMA table versus label group sizes (measured versus Cockcroft–Gault clearance), a correction to the Hughes and Kim check plans, and the 50 versus 60 mL/min dose-step difference (`lenalidomide_renal_source_reconciliation_v1.json`, evidence status v8).
-- [Phase 4.3 — Dose-optimisation view](DOSE_OPTIMISATION.md): lenalidomide exposure and relative grade 3/4 cytopenia odds at each model's own study doses, inside each model's scope, for one synthetic record (`dose_optimisation.py`, page `/landscape/drugs/lenalidomide/dose-optimisation`); corpus trials by phase. No dose recommended or ranked; exposure–efficacy is a gap.
-- [Simulation 3.2b — daratumumab](SIMULATION_3_2B_DARATUMUMAB.md): Luo 2021 population PK model (`daratumumab_pk_luo.py`, linear plus saturable elimination) checked against GEN501 and SIRIUS first-dose IV data (Clemens 2017) under a locked plan: [report](verification/daratumumab_pk_luo_check_v1.json), plan `daratumumab_pk_luo_check_plan_v1.json`, CLI `daratumumab-pk-luo-check`; second check with study demographics (3.2c): [report](verification/daratumumab_pk_luo_check_v2.json), plan `daratumumab_pk_luo_check_plan_v2.json`, CLI `daratumumab-pk-luo-check-v2`. Not registered.
-- [Step 109 — discoverable drug research tools](DRUG_RESEARCH_TOOLS_STEP109.md)
+- [Protocol benchmarking](PROTOCOL_BENCHMARKING.md): eligibility criteria across similar trials; v1 failed its locked check, v2 waits for annotation (4.1).
+- Annotation guides: [v2, current](ELIGIBILITY_ANNOTATION_GUIDE_V2.md) and [v1](ELIGIBILITY_ANNOTATION_GUIDE.md).
+
+## Data, schemas and verification foundations
+
+- [Data files](DATA_FILES.md): every pinned JSON file by family, with the latest version and the earlier ones (generated; a test keeps it current).
+- [Synthetic patient-state schema v1](PATIENT_STATE_SCHEMA.md).
+- [Numerical verification summary](NUMERICAL_VERIFICATION.json) and the [RK4–analytic cross-check (Step 70)](verification/synthetic_numerical_crosscheck_step70.json).
+- Check reports: `docs/verification/`. Each one is listed, with its plan and data, in the dataset ledger and on the findings page.
+- Early Patient Lab records: [source-equation check (Step 65)](patient-lab-step65/SOURCE_EQUATION_CHECK.md), [data access assessment (Step 66)](patient-lab-step66/DATA_ACCESS_ASSESSMENT.md) and [original-materials checklist](patient-lab-step66/ORIGINAL_MATERIALS_CHECKLIST.md), [verification and validation protocol, draft (Step 67)](patient_lab/step67/VERIFICATION_VALIDATION_PROTOCOL.md).
+- Scientific decision records kept as data, in `intelligence_store/data/`:
+  - the Kim CL/F equation-form assessment;
+  - the Hughes weight-basis assessment;
+  - the lenalidomide assay quality review;
+  - the dose-proportionality evidence;
+  - the reference exposure;
+  - the covariate formula registries (v2 current; v1 kept because earlier estimates cite it).
 
 ## History
 
-- [Computational human direction — Step 26 proposal](history/FUTURE_PATIENT_LAB_ARCHITECTURE_STEP26.md). Historical; its "Patient Lab 2.0" meant the versioned patient state, not the current plan.
+- [history/](history/): earlier roadmaps and checkpoints, and the [Step 26 computational-human proposal](history/FUTURE_PATIENT_LAB_ARCHITECTURE_STEP26.md) (historical; its "Patient Lab 2.0" meant the versioned patient state, not the current plan).
+- Installer scripts (`scripts/install_*.py`) from when features arrived as packages were retired on 13 October 2026; they remain in git history.

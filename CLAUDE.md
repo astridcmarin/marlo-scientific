@@ -6,13 +6,15 @@ Research and educational platform: clinical-trial intelligence, drug/regulatory 
 
 - `docs/README.md` — index of all documentation.
 - `docs/PRODUCT_AND_SCIENCE_ROADMAP.md` — product direction and phases.
+- `docs/STATUS_BY_DRUG.md` — plain-language status per drug; `/models/findings` lists every locked check.
 - `docs/PATIENT_LAB_2_0.md` — current Patient Lab work: scope, non-goals, architecture, step status, and recorded scientific decisions (Hughes 2019 lenalidomide model, Cockcroft–Gault weight basis).
 - `docs/REPOSITORY_CHECKPOINT.md` — latest verification, findings and remaining gates; step-number history is in `docs/history/REPOSITORY_CHECKPOINT_2026-10-13.md` (step numbers are not unique; use module/schema versions).
 
 ## Conventions
 
-- Reference data in `intelligence_store/data/*.json` is SHA-256 pinned by its loader. Changing a file means a new versioned file and a new pin, never an edit in place.
+- Reference data in `intelligence_store/data/*.json` is SHA-256 pinned by its loader. Changing a file means a new versioned file and a new pin, never an edit in place. After adding a data file, run `python3 scripts/data_file_index.py` (a test checks `docs/DATA_FILES.md` is current).
 - Every value carries provenance: origin, method/formula and version, source location, assumptions. Unknown stays unknown; no silent defaults or unit conversions.
+- A new check needs an entry in the dataset ledger (new ledger version) and a line in the check-findings file; tests fail otherwise. A plan that claims a blind check must pass `dataset_ledger.assert_blind_allowed`.
 - Synthetic inputs only. Outputs keep `ready_for_patient_simulation` / validation flags false unless a documented review changes them.
 - Tests use `unittest`: `python -m unittest discover -s tests`. Dependencies are in `requirements.txt`.
 - Commits and pull requests: do not add `Co-Authored-By` trailers, session links or "Generated with" footers to commit messages or PR descriptions.
