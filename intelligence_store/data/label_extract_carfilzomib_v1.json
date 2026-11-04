@@ -1,0 +1,230 @@
+{
+ "schema_version": "drug-label-extract-v1",
+ "extract_version": "carfilzomib-label-extract-v1.0",
+ "drug": "carfilzomib",
+ "brand": "KYPROLIS",
+ "recorded_on": "2026-11-04",
+ "modality": "small molecule (epoxyketone peptide)",
+ "route": "intravenous",
+ "source": {
+  "document": "KYPROLIS (carfilzomib) for injection, for intravenous use. Full prescribing information. Onyx Pharmaceuticals, Inc. (Amgen).",
+  "dailymed_set_id": "ea66eb30-e665-4693-99a1-a9d3b4bbe2d6",
+  "revised": "6/2025 (as printed on the label)",
+  "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ea66eb30-e665-4693-99a1-a9d3b4bbe2d6",
+  "file_reviewed": {
+   "file": "KYPROLIS (carfilzomib) label - DailyMed [20250626_ea66eb30-e665-4693-99a1-a9d3b4bbe2d6].pdf (72 pages)",
+   "sha256": "4e0d9b05ec6f1ed7daf3f943f03d87d0fecc444486890fcc401f3a6d90c62469"
+  },
+  "storage": "Kept on the platform owner's computer only; not committed.",
+  "extraction": "AI-assisted from the PDF text layer (pdftotext). Every quote is checked by the build script against the text layer (spaces and hyphens ignored, as the text layer drops hyphens at line breaks), and its PDF page recorded; table cells marked text_and_rendered_page were also read from the rendered page because the text layout is scrambled. Independent review pending."
+ },
+ "dosing": {
+  "weekly_20_70_mg_m2": {
+   "regimen": "20 mg/m2 Cycle 1 Day 1, then 70 mg/m2; 30-minute infusion, Days 1, 8, 15 of 28-day cycles",
+   "dose_mg_m2": [
+    20,
+    70
+   ],
+   "quote": "The recommended starting dosage of Kyprolis is 20 mg/m2 on Cycle 1, Day 1. If tolerated, escalate the dose to 70 mg/m2 on Cycle 1, Day 8. Administer Kyprolis intravenously as a 30-minute infusion on Days 1, 8, and 15 of each 28-day cycle",
+   "location": "section 2.2, PDF page 5",
+   "check": "text"
+  },
+  "twice_weekly_20_56_mg_m2": {
+   "regimen": "20 mg/m2 Cycle 1 Days 1-2, then 56 mg/m2; 30-minute infusion, Days 1, 2, 8, 9, 15, 16 of 28-day cycles",
+   "dose_mg_m2": [
+    20,
+    56
+   ],
+   "quote": "The recommended starting dosage of Kyprolis is 20 mg/m2 on Cycle 1, Days 1 and 2. If tolerated, escalate the dose to 56 mg/m2 on Cycle 1, Day 8. Administer Kyprolis intravenously as a 30-minute infusion on Days 1, 2, 8, 9, 15, and 16 of each 28-day cycle",
+   "location": "section 2.2, PDF page 6",
+   "check": "text"
+  },
+  "hepatic_mild_moderate": {
+   "modification": "reduce dose by 25%",
+   "quote": "For patients with mild (total bilirubin 1 to 1.5 × ULN and any AST or total bilirubin ≤ ULN and AST > ULN) or moderate (total bilirubin > 1.5 to 3 × ULN and any AST) hepatic impairment, reduce the dose of Kyprolis by 25%",
+   "location": "section 2.4, PDF page 10",
+   "check": "text"
+  },
+  "esrd_hemodialysis": {
+   "modification": "administer after hemodialysis",
+   "quote": "For patients with end stage renal disease who are on hemodialysis, administer Kyprolis after the hemodialysis procedure.",
+   "location": "section 2.5, PDF page 10",
+   "check": "text"
+  }
+ },
+ "pk": {
+  "auc_c1_avg_ng_h_ml": {
+   "by_regimen": {
+    "20/27 twice weekly, 2-10 min": [
+     95,
+     40
+    ],
+    "20/56 twice weekly, 30 min": [
+     170,
+     35
+    ],
+    "20/70 once weekly, 30 min": [
+     114,
+     36
+    ]
+   },
+   "format": "mean (CV%)",
+   "statistic": "estimated mean average daily AUC, first cycle",
+   "quote": "Table 21: Carfilzomib Exposure Parameters for Different Dosing Regimens",
+   "location": "section 12.3, PDF page 39",
+   "check": "text_and_rendered_page"
+  },
+  "auc_ss_ng_h_ml": {
+   "by_regimen": {
+    "20/27 twice weekly, 2-10 min": [
+     111,
+     34
+    ],
+    "20/56 twice weekly, 30 min": [
+     228,
+     28
+    ],
+    "20/70 once weekly, 30 min": [
+     150,
+     35
+    ]
+   },
+   "format": "mean (CV%)",
+   "statistic": "average daily AUC at steady state",
+   "quote": "Table 21: Carfilzomib Exposure Parameters for Different Dosing Regimens",
+   "location": "section 12.3, PDF page 39",
+   "check": "text_and_rendered_page"
+  },
+  "cmax_c1_ng_ml": {
+   "by_regimen": {
+    "20/27 twice weekly, 2-10 min": [
+     1282,
+     17
+    ],
+    "20/56 twice weekly, 30 min": [
+     1166,
+     29
+    ],
+    "20/70 once weekly, 30 min": [
+     1595,
+     36
+    ]
+   },
+   "format": "mean (CV%)",
+   "statistic": "Cmax at the highest dose in the first cycle",
+   "quote": "Table 21: Carfilzomib Exposure Parameters for Different Dosing Regimens",
+   "location": "section 12.3, PDF page 39",
+   "check": "text_and_rendered_page"
+  },
+  "table_21_definition": {
+   "note": "AUCC1,avg and AUCss are average daily AUCs, not AUC per dose.",
+   "quote": "Table 21 lists the estimated mean average daily area under the curve in the first cycle (AUCC1,avg), average daily area under the curve at steady-state (AUCss) and Cmax at the highest dose in the first cycle (Cmax,C1) for the different dosing regimens.",
+   "location": "section 12.3, PDF page 39",
+   "check": "text"
+  },
+  "infusion_duration_effect": {
+   "cmax_30min_vs_2_10min": "2- to 3-fold lower",
+   "auc": "similar",
+   "quote": "A 30-minute infusion resulted in a similar AUC0-INF, but 2- to 3-fold lower Cmax than that observed with a 2- to 10-minute infusion at the same dose.",
+   "location": "section 12.3, PDF page 39",
+   "check": "text"
+  },
+  "accumulation": {
+   "stated": "none",
+   "quote": "There was no evidence of carfilzomib accumulation following repeated administration of carfilzomib 70 mg/m2 as a 30-minute once weekly infusion or 15 and 20 mg/m2 as a 2- to 10-minute twice weekly infusion.",
+   "location": "section 12.3, PDF page 39",
+   "check": "text"
+  },
+  "vss_l": {
+   "value": 28,
+   "note": "mean, 20 mg/m2 dose",
+   "quote": "The mean steady-state volume of distribution of a 20 mg/m2 dose of carfilzomib was 28 L.",
+   "location": "section 12.3, PDF page 39",
+   "check": "text"
+  },
+  "protein_binding_percent": {
+   "value": 97,
+   "quote": "Carfilzomib is 97% bound to human plasma proteins over the concentration range of 0.4 to 4 micromolar in vitro.",
+   "location": "section 12.3, PDF page 39",
+   "check": "text"
+  },
+  "half_life_h": {
+   "upper_bound": 1,
+   "note": "Day 1 of Cycle 1, doses of 15 mg/m2 or more",
+   "quote": "Carfilzomib has a half-life of ≤ 1 hour on Day 1 of Cycle 1 following intravenous doses ≥ 15 mg/m2.",
+   "location": "section 12.3, PDF page 39",
+   "check": "text"
+  },
+  "cl_l_h": {
+   "range": [
+    151,
+    263
+   ],
+   "quote": "The systemic clearance ranged from 151 to 263 L/hour.",
+   "location": "section 12.3, PDF page 39",
+   "check": "text"
+  },
+  "excretion": {
+   "urine_metabolites_24h_percent": 25,
+   "parent_urine_and_feces_percent": 0.3,
+   "quote": "Approximately 25% of the administered dose of carfilzomib was excreted in urine as metabolites in 24 hours. Urinary and fecal excretion of the parent compound was negligible (0.3% of total dose).",
+   "location": "section 12.3, PDF pages 39-40",
+   "check": "text"
+  }
+ },
+ "special_populations": {
+  "covariates_no_effect": {
+   "factors": [
+    "age 35-89 years",
+    "sex",
+    "race or ethnicity",
+    "mild to severe renal impairment (CLcr 15-89 mL/min)"
+   ],
+   "quote": "Age (35-89 years), sex, race or ethnicity (80% White, 11% Black, 6% Asians, 3% Hispanics), and mild to severe renal impairment (creatinine clearance 15-89 mL/min) did not have clinically meaningful effects on the pharmacokinetics of carfilzomib.",
+   "location": "section 12.3, PDF page 40",
+   "check": "text"
+  },
+  "hepatic_mild_moderate_auc_fold": {
+   "value": 1.5,
+   "stated_as": "approximately 50% higher AUC",
+   "quote": "Compared to patients with normal hepatic function, patients with mild (total bilirubin 1 to 1.5 × ULN and any AST or total bilirubin ≤ ULN and AST > ULN) and moderate (total bilirubin > 1.5 to 3 × ULN and any AST) hepatic impairment had approximately 50% higher carfilzomib AUC.",
+   "location": "section 12.3, PDF page 40",
+   "check": "text"
+  },
+  "hepatic_severe": {
+   "value": null,
+   "stated_as": "not evaluated",
+   "quote": "The pharmacokinetics of carfilzomib has not been evaluated in patients with severe hepatic impairment (total bilirubin > 3 × ULN and any AST).",
+   "location": "section 12.3, PDF page 40",
+   "check": "text"
+  },
+  "esrd_hemodialysis_auc_fold": {
+   "value": 1.33,
+   "stated_as": "33% higher AUC",
+   "quote": "Relative to patients with normal renal function, ESRD patients on hemodialysis showed 33% higher carfilzomib AUC.",
+   "location": "section 12.3, PDF page 40",
+   "check": "text"
+  }
+ },
+ "interactions": {
+  "midazolam": {
+   "effect_on": "midazolam (CYP3A substrate)",
+   "result": "not affected",
+   "quote": "Midazolam (a sensitive CYP3A substrate) pharmacokinetics was not affected by concomitant administration of carfilzomib.",
+   "location": "section 12.3, PDF page 40",
+   "check": "text"
+  },
+  "pgp_inhibitors_inducers": {
+   "result": "unlikely to be affected (in vitro P-gp substrate; IV and extensively metabolized)",
+   "quote": "However, given that Kyprolis is administered intravenously and is extensively metabolized, the pharmacokinetics of Kyprolis is unlikely to be affected by P-gp inhibitors or inducers.",
+   "location": "section 12.3, PDF page 40",
+   "check": "text"
+  }
+ },
+ "not_stated": [
+  "A single clearance value (only a range, 151-263 L/h) or the population it applies to.",
+  "The infusion duration and dose behind the 28 L volume beyond \"a 20 mg/m2 dose\".",
+  "Exposure in renal impairment other than on hemodialysis, as numbers (stated only as not clinically meaningful)."
+ ],
+ "clinical_prediction_validated": false
+}

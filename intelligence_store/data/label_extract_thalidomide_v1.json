@@ -1,0 +1,228 @@
+{
+ "schema_version": "drug-label-extract-v1",
+ "extract_version": "thalidomide-label-extract-v1.0",
+ "drug": "thalidomide",
+ "brand": "THALOMID",
+ "recorded_on": "2026-11-04",
+ "modality": "small molecule",
+ "route": "oral",
+ "source": {
+  "document": "THALOMID (thalidomide) capsules, for oral use. Full prescribing information. Celgene Corporation; marketed by Bristol-Myers Squibb Company.",
+  "dailymed_set_id": "2eda833b-1357-4ed4-a093-194524fcb061",
+  "revised": "9/2026 (as printed on the label)",
+  "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2eda833b-1357-4ed4-a093-194524fcb061",
+  "file_reviewed": {
+   "file": "THALOMID (thalidomide) label - DailyMed [20261025_2eda833b-1357-4ed4-a093-194524fcb061].pdf (55 pages)",
+   "sha256": "995777eeaf6701f886d3365dde2fee9fb1c62d0c811eeeff659e7f4f8c4bdac6"
+  },
+  "storage": "Kept on the platform owner's computer only; not committed.",
+  "extraction": "AI-assisted from the PDF text layer (pdftotext). Every quote is checked by the build script against the text layer (spaces and hyphens ignored, as the text layer drops hyphens at line breaks), and its PDF page recorded; table cells marked text_and_rendered_page were also read from the rendered page because the text layout is scrambled. Independent review pending."
+ },
+ "dosing": {
+  "mm_200_mg_daily": {
+   "dose_mg": 200,
+   "interval_h": 24,
+   "combination": "dexamethasone",
+   "quote": "The recommended dose of THALOMID in combination with dexamethasone is 200 mg once daily (in 28-day treatment cycles) orally with water, preferably at bedtime and at least 1 hour after the evening meal.",
+   "location": "section 2.2, PDF page 6",
+   "check": "text"
+  }
+ },
+ "pk": {
+  "single_dose_table_healthy": {
+   "by_dose_mg": {
+    "50": {
+     "auc_inf_ug_h_ml": [
+      4.9,
+      16
+     ],
+     "cmax_ug_ml": [
+      0.62,
+      52
+     ],
+     "tmax_h": [
+      2.9,
+      66
+     ],
+     "t_half_h": [
+      5.52,
+      37
+     ]
+    },
+    "200": {
+     "auc_inf_ug_h_ml": [
+      18.9,
+      17
+     ],
+     "cmax_ug_ml": [
+      1.76,
+      30
+     ],
+     "tmax_h": [
+      3.5,
+      57
+     ],
+     "t_half_h": [
+      5.53,
+      25
+     ]
+    },
+    "400": {
+     "auc_inf_ug_h_ml": [
+      36.4,
+      26
+     ],
+     "cmax_ug_ml": [
+      2.82,
+      28
+     ],
+     "tmax_h": [
+      4.3,
+      37
+     ],
+     "t_half_h": [
+      7.29,
+      36
+     ]
+    }
+   },
+   "format": "mean (%CV)",
+   "population": "healthy subjects, n=14",
+   "quote": "Table 5: Pharmacokinetic Parameter Values for THALOMID Mean (%CV)",
+   "location": "section 12.3, PDF page 27",
+   "check": "text"
+  },
+  "single_dose_table_hansen": {
+   "by_dose_mg": {
+    "400": {
+     "auc_inf_ug_h_ml": [
+      46.4,
+      44.1
+     ],
+     "cmax_ug_ml": [
+      3.44,
+      52.6
+     ],
+     "tmax_h": [
+      5.7,
+      27
+     ],
+     "t_half_h": [
+      6.86,
+      17
+     ]
+    }
+   },
+   "format": "mean (%CV)",
+   "population": "patients with Hansen's disease, n=6; recorded, not for myeloma use",
+   "quote": "Table 5: Pharmacokinetic Parameter Values for THALOMID Mean (%CV)",
+   "location": "section 12.3, PDF page 27",
+   "check": "text"
+  },
+  "linearity": {
+   "auc": "proportional to dose (healthy subjects)",
+   "cmax": "less than proportional",
+   "quote": "While the extent of absorption (as measured by area under the curve [AUC]) is proportional to dose in healthy subjects, the observed peak concentration (Cmax) increased in a less than proportional manner (see Table 5 below).",
+   "location": "section 12.3, PDF page 27",
+   "check": "text"
+  },
+  "tmax_h": {
+   "range": [
+    2,
+    5
+   ],
+   "quote": "The maximum plasma concentrations are reached approximately 2-5 hours after administration.",
+   "location": "section 12.3, PDF page 27",
+   "check": "text"
+  },
+  "bioavailability": {
+   "value": null,
+   "stated_as": "not characterized",
+   "quote": "The absolute bioavailability of thalidomide from thalidomide capsules has not yet been characterized in human subjects due to its poor aqueous solubility.",
+   "location": "section 12.3, PDF page 27",
+   "check": "text"
+  },
+  "food": {
+   "auc_cmax_change": "minor (<10%)",
+   "tmax_h": 6,
+   "quote": "Coadministration of THALOMID (thalidomide) with a high-fat meal causes minor (<10%) changes in the observed AUC and Cmax values; however, it causes an increase in Tmax to approximately 6 hours.",
+   "location": "section 12.3, PDF page 27",
+   "check": "text"
+  },
+  "protein_binding_percent": {
+   "r_enantiomer": 55,
+   "s_enantiomer": 66,
+   "statistic": "geometric mean",
+   "quote": "In human plasma, the geometric mean plasma protein binding was 55% and 66%, respectively, for (+)-(R)- and (-)-(S)-thalidomide.",
+   "location": "section 12.3, PDF page 27",
+   "check": "text"
+  },
+  "half_life_h": {
+   "range": [
+    5.5,
+    7.3
+   ],
+   "note": "single doses 50-400 mg",
+   "quote": "The mean elimination half-life of thalidomide in plasma following single oral doses between 50 mg and 400 mg was 5.5 to 7.3 hours.",
+   "location": "section 12.3, PDF page 28",
+   "check": "text"
+  },
+  "fraction_excreted_unchanged_urine": {
+   "upper_bound": 0.035,
+   "quote": "Unchanged thalidomide is not eliminated by the kidney to a notable degree (<3.5% of the dose).",
+   "location": "section 12.3, PDF page 28",
+   "check": "text"
+  },
+  "cl_l_h_mm_by_weight": {
+   "range": [
+    6,
+    12
+   ],
+   "weight_kg_range": [
+    47,
+    133
+   ],
+   "slope_l_h_per_10_kg": 0.605,
+   "population": "MM patients",
+   "quote": "In MM patients with body weight from 47-133 kg, thalidomide clearance ranged from approximately 6-12 L/h, representing an increase in thalidomide clearance of 0.605 L/h per 10 kg body weight increase.",
+   "location": "section 12.3, PDF page 28",
+   "check": "text"
+  }
+ },
+ "special_populations": {
+  "renal": {
+   "value": null,
+   "stated_as": "not expected to influence exposure (not studied)",
+   "quote": "Patients with Renal Impairment: Renal impairment is not expected to influence drug exposure since <3.5% of the dose is excreted in the urine as unchanged drug.",
+   "location": "section 12.3, PDF page 28",
+   "check": "text"
+  },
+  "hepatic": {
+   "value": null,
+   "stated_as": "not studied",
+   "quote": "Patients with Hepatic Impairment: No clinical studies have been conducted in patients with hepatic impairment.",
+   "location": "section 12.3, PDF page 28",
+   "check": "text"
+  },
+  "age_sex": {
+   "stated_as": "no age-related changes (20-69 years); no significant sex differences",
+   "quote": "Analysis of the data from pharmacokinetic studies in healthy volunteers and patients with Hansen's disease ranging in age from 20 to 69 years does not reveal any age-related changes.",
+   "location": "section 12.3, PDF page 28",
+   "check": "text"
+  }
+ },
+ "interactions": {
+  "cyp450": {
+   "result": "not a CYP450 substrate, inhibitor or inducer; interactions not anticipated",
+   "quote": "Pharmacokinetic drug-drug interactions with substrates, inhibitors or inducers of CYP450 are not anticipated.",
+   "location": "section 12.3, PDF page 28",
+   "check": "text"
+  }
+ },
+ "not_stated": [
+  "Exposure in multiple myeloma patients at the 200 mg dose (Table 5 is healthy subjects and Hansen's disease).",
+  "Absolute bioavailability.",
+  "Clearance in healthy subjects as a number."
+ ],
+ "clinical_prediction_validated": false
+}

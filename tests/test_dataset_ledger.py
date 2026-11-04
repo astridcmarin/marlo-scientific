@@ -72,6 +72,17 @@ class Gate(unittest.TestCase):
         plan['datasets'][0]['role'] = 'checked_not_blind'
         self.assertIs(dl.validate_plan_datasets(plan), plan)
 
+    def test_v1_kept_and_v2_only_adds_the_five_labels(self):
+        import hashlib
+        v1_path = dl.LEDGER_PATH.with_name('dataset_ledger_v1.json')
+        self.assertEqual(hashlib.sha256(v1_path.read_bytes()).hexdigest(), dl.LEDGER_V1_SHA256)
+        v1, v2 = json.loads(v1_path.read_text()), dl.load_ledger()
+        self.assertEqual(v2['uses'], v1['uses'])
+        added = set(v2['datasets']) - set(v1['datasets'])
+        self.assertEqual(added, {'kyprolis_label', 'xpovio_label', 'thalomid_label', 'sarclisa_label', 'empliciti_label'})
+        self.assertTrue(all(v2['datasets'][d]['values_first_seen'] == '2026-11-04' for d in added))
+        self.assertEqual({d: v2['datasets'][d] for d in v1['datasets']}, v1['datasets'])
+
     def test_changed_ledger_is_refused(self):
         with self.assertRaises(dl.LedgerError):
             dl.load_ledger(sha256='0' * 64)

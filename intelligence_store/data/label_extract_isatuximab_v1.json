@@ -1,0 +1,121 @@
+{
+ "schema_version": "drug-label-extract-v1",
+ "extract_version": "isatuximab-label-extract-v1.0",
+ "drug": "isatuximab",
+ "brand": "SARCLISA",
+ "recorded_on": "2026-11-04",
+ "modality": "monoclonal antibody (anti-CD38)",
+ "route": "intravenous",
+ "source": {
+  "document": "SARCLISA (isatuximab-irfc) injection, for intravenous use. Full prescribing information. sanofi-aventis U.S. LLC.",
+  "dailymed_set_id": "a0473462-6f9d-4eca-a5bf-8620aea68e8a",
+  "revised": "6/2026 (as printed on the label)",
+  "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=a0473462-6f9d-4eca-a5bf-8620aea68e8a",
+  "file_reviewed": {
+   "file": "SARCLISA (isatuximab) label - DailyMed [20260709_a0473462-6f9d-4eca-a5bf-8620aea68e8a].pdf (39 pages)",
+   "sha256": "9d175beaa7b700e5663c304d6606ff5082906385a8a05497bb6c064d081912de"
+  },
+  "storage": "Kept on the platform owner's computer only; not committed.",
+  "extraction": "AI-assisted from the PDF text layer (pdftotext). Every quote is checked by the build script against the text layer (spaces and hyphens ignored, as the text layer drops hyphens at line breaks), and its PDF page recorded; table cells marked text_and_rendered_page were also read from the rendered page because the text layout is scrambled. Independent review pending."
+ },
+ "dosing": {
+  "dose_10_mg_kg": {
+   "dose_mg_kg": 10,
+   "basis": "actual body weight",
+   "quote": "The recommended dose of SARCLISA is 10 mg/kg actual body weight administered as an intravenous infusion",
+   "location": "section 2.1, PDF page 3",
+   "check": "text"
+  }
+ },
+ "pk": {
+  "steady_state_ipd": {
+   "cmax_ug_ml": [
+    351,
+    36.0
+   ],
+   "auc_ug_h_ml": [
+    72600,
+    51.7
+   ],
+   "format": "mean (CV%), predicted",
+   "combination": "pomalidomide and dexamethasone",
+   "quote": "the steady-state mean (CV%) predicted maximum plasma concentration (Cmax) and area under the plasma concentration-time curve (AUC) of isatuximab-irfc were 351 µg/mL (36.0%) and 72,600 µg∙h/mL (51.7%), respectively.",
+   "location": "section 12.3, PDF page 19",
+   "check": "text"
+  },
+  "steady_state_ikd": {
+   "cmax_ug_ml": [
+    655,
+    30.8
+   ],
+   "auc_ug_h_ml": [
+    159000,
+    37.1
+   ],
+   "format": "mean (CV%), predicted",
+   "combination": "carfilzomib and dexamethasone",
+   "quote": "the steady state mean (CV%) predicted Cmax and AUC of isatuximab-irfc were 655 µg/mL (30.8%) and 159,000 µg∙h/mL (37.1%), respectively.",
+   "location": "section 12.3, PDF page 19",
+   "check": "text"
+  },
+  "time_to_steady_state": {
+   "weeks_median": 18,
+   "accumulation_fold": 3.1,
+   "quote": "The median time to reach steady state of isatuximab-irfc was 18 weeks with a 3.1-fold accumulation.",
+   "location": "section 12.3, PDF page 19",
+   "check": "text"
+  },
+  "nonlinearity": {
+   "stated_as": "greater than dose proportional AUC, 1-20 mg/kg every 2 weeks; clearance decreases with dose and with multiple doses",
+   "quote": "Isatuximab-irfc AUC increases in a greater than dose proportional manner over a dosage range from 1 mg/kg to 20 mg/kg (0.1 to 2 times the approved recommended dosage) every 2 weeks.",
+   "location": "section 12.3, PDF page 19",
+   "check": "text"
+  },
+  "clearance_time_dependence": {
+   "stated_as": "total clearance decreased with increasing dose and with multiple doses",
+   "quote": "Isatuximab-irfc total clearance decreased with increasing dose and with multiple doses.",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "v_total_l": {
+   "value": 8.13,
+   "cv_percent": 26.2,
+   "statistic": "mean (CV%), predicted",
+   "quote": "The mean (CV%) predicted total volume of distribution of isatuximab-irfc is of 8.13 L (26.2%).",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  }
+ },
+ "special_populations": {
+  "covariates_no_effect": {
+   "factors": [
+    "age 36-85 years",
+    "sex",
+    "renal impairment including ESRD or dialysis (eGFR <90 mL/min/1.73 m2)",
+    "mild hepatic impairment"
+   ],
+   "quote": "The following factors have no clinically meaningful effect on the exposure of isatuximab-irfc: age (36 to 85 years, 70 patients were ≥75 years old), sex, renal impairment including patients with End-Stage Renal Disease (ESRD) or on dialysis (eGFR <90 mL/min/1.73 m2), and mild hepatic impairment",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "hepatic_moderate_severe": {
+   "value": null,
+   "stated_as": "unknown",
+   "quote": "The effect of moderate (total bilirubin >1.5 to 3 × ULN and any AST) and severe (total bilirubin >3 × ULN and any AST) hepatic impairment on isatuximab-irfc pharmacokinetics is unknown.",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "body_weight": {
+   "stated_as": "clearance increases with body weight",
+   "quote": "The clearance of isatuximab-irfc increased with increasing body weight.",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  }
+ },
+ "interactions": {},
+ "not_stated": [
+  "A clearance value; the label states only that clearance falls with dose and over time.",
+  "Observed (rather than model-predicted) exposure."
+ ],
+ "clinical_prediction_validated": false
+}

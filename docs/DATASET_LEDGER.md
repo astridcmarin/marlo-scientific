@@ -8,9 +8,9 @@ The platform's main safeguard is that checks follow plans locked before computat
 
 ## What it is
 
-`intelligence_store/data/dataset_ledger_v1.json`, pinned in `intelligence_store/dataset_ledger.py`.
+`intelligence_store/data/dataset_ledger_v2.json`, pinned in `intelligence_store/dataset_ledger.py`. v1 is kept unchanged; v2 adds the five labels extracted on 4 November 2026 (Phase 3.2d) as seen datasets, with no uses yet.
 
-- **Datasets** (21): each with its sources, pinned files and `values_first_seen`, the date anyone working on the platform first read its values (null if never).
+- **Datasets** (26 in v2; 21 in v1): each with its sources, pinned files and `values_first_seen`, the date anyone working on the platform first read its values (null if never).
 - **Uses** (42): for each model or tool, every dataset it was built from, tuned on, reproduced, or checked against, with the step, plan and report.
 - **Roles:**
 

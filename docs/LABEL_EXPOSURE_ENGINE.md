@@ -203,3 +203,17 @@ On a drug's page, at the *Label-based exposure* level:
 - Two-compartment or PBPK models from label data.
 - Interactions not stated in the label, or combinations of fold-changes (for example, renal impairment *and* an inhibitor) unless the label studied them together.
 - Effect, efficacy or toxicity. Exposure only.
+
+## 3.2d — Five more labels extracted (4 November 2026)
+
+The platform owner downloaded five current DailyMed labels, so catalog growth no longer waits on DailyMed access from the development environment. They were extracted by `scripts/build_label_extracts_2026_11.py` and pinned in `intelligence_store/drug_label_extracts.py`. Each value carries its quoted sentence, section and PDF page. The build refused any quote not found in the label's text layer, and three tables with scrambled text layout (KYPROLIS Table 21, XPOVIO Tables 4 and 9) were also read from the rendered page.
+
+| Drug (label, revision) | Values | Label-engine candidate? |
+|---|---|---|
+| Carfilzomib (KYPROLIS, 6/2025, IV) | 21 | Yes, through the IV engine. Not blind: a rough hand comparison of the clearance range with Table 21 was made while reading. |
+| Selinexor (XPOVIO, 4/2026, oral) | 20 | Yes: single-dose table at 60, 80 and 100 mg; CL/F 18.6 L/h, V/F 133 L. |
+| Thalidomide (THALOMID, 9/2026, oral) | 15 | Doubtful: Cmax rises less than in proportion to dose (solubility-limited absorption); exposure data are from healthy and Hansen's-disease subjects, with myeloma clearance only as a weight relationship. |
+| Isatuximab (SARCLISA, 6/2026) | 10 | No: antibody with clearance that falls with dose and time. Special-population summary only. |
+| Elotuzumab (EMPLICITI, 3/2022) | 8 | No: target-mediated clearance. Special-population summary only. |
+
+Nothing is computed yet, and no drug's capability level changes. The labels are in the dataset ledger (v2) as seen on 4 November. The extracts still need the owner's review (they are not yet in the review queue). **Next:** special-population summaries for all five; then label-consistency plans for selinexor, carfilzomib and thalidomide, each locked before any curve is computed.
