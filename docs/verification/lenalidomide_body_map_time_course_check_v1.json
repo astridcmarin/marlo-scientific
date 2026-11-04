@@ -1,0 +1,423 @@
+{
+ "schema_version": "lenalidomide-body-map-time-course-check-v1",
+ "method_version": "lenalidomide-body-map-time-course-v1.0",
+ "plan_version": "lenalidomide-body-map-time-course-plan-v1.0",
+ "plan_sha256": "a92c4d1c88186cc0a6509e2ee5ab6a93efe64d81ec42cc9c07792913570751cc",
+ "bridoux_design_sha256": "1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac",
+ "bridoux_observed_sha256": "cc8c41123d6305dd3ab783ae53e87d0ab8c15f32f04b21cc45d4c9a2bc4de8ee",
+ "classification": "exploratory_aggregate_internal_consistency_check",
+ "classification_rule": {
+  "interval": "90% confidence interval of the observed geometric mean: GM x exp(+/- t(0.95, n-1) x s / sqrt(n)), with s = sqrt(ln(1 + CV^2)) from the reported geometric CV and the group's n",
+  "consistent": "model typical value inside the interval",
+  "model_under_predicts": "model value below the interval",
+  "model_over_predicts": "model value above the interval",
+  "also_reported": "model / observed ratio"
+ },
+ "parameters": {
+  "volume_l": 56,
+  "ka_per_h": 2.8318954728742556,
+  "ke_at_calibration_per_h": 0.2046898539333202,
+  "tmax_at_calibration_h": 1.0,
+  "calibration_crcl_ml_min": 110.0,
+  "dose_mg": 25
+ },
+ "primary": {
+  "normal": {
+   "crcl_ml_min": 102.2,
+   "model_tmax_h": 1.018877649877729,
+   "rows": [
+    {
+     "endpoint": "cmax_ng_ml",
+     "model": 366.9756911332365,
+     "observed_gm": 568,
+     "observed_gcv_pct": 39,
+     "n": 7,
+     "observed_ci90": [
+      430.8507187806268,
+      748.8069206733021
+     ],
+     "classification": "model_under_predicts",
+     "model_over_observed": 0.6460839632627403,
+     "role": "reported_calibration_group"
+    },
+    {
+     "endpoint": "terminal_half_life_h",
+     "model": 3.603523128542379,
+     "observed_gm": 3.26,
+     "observed_gcv_pct": 23,
+     "n": 7,
+     "observed_ci90": [
+      2.759294914925654,
+      3.8515636521898733
+     ],
+     "classification": "consistent",
+     "model_over_observed": 1.1053751928044109,
+     "role": "reported_calibration_group"
+    },
+    {
+     "endpoint": "auc_infinity_ng_h_ml",
+     "model": 2320.886137177131,
+     "observed_gm": 2091,
+     "observed_gcv_pct": 32,
+     "n": 7,
+     "observed_ci90": [
+      1662.4987082059197,
+      2629.9455021642293
+     ],
+     "classification": "consistent",
+     "model_over_observed": 1.1099407638341132,
+     "role": "reported_calibration_group"
+    }
+   ]
+  },
+  "mild": {
+   "crcl_ml_min": 64.6,
+   "model_tmax_h": 1.1334685390986348,
+   "rows": [
+    {
+     "endpoint": "cmax_ng_ml",
+     "model": 384.0078740702237,
+     "observed_gm": 684,
+     "observed_gcv_pct": 16,
+     "n": 5,
+     "observed_ci90": [
+      587.7950557521169,
+      795.9508938049026
+     ],
+     "classification": "model_under_predicts",
+     "model_over_observed": 0.5614150205705025,
+     "role": "classified"
+    },
+    {
+     "endpoint": "terminal_half_life_h",
+     "model": 5.216302839902335,
+     "observed_gm": 3.61,
+     "observed_gcv_pct": 20,
+     "n": 5,
+     "observed_ci90": [
+      2.9888722648029193,
+      4.360206407435519
+     ],
+     "classification": "model_over_predicts",
+     "model_over_observed": 1.4449592354300098,
+     "role": "classified"
+    },
+    {
+     "endpoint": "auc_infinity_ng_h_ml",
+     "model": 3359.6134995098732,
+     "observed_gm": 2627,
+     "observed_gcv_pct": 36,
+     "n": 5,
+     "observed_ci90": [
+      1883.2963542023385,
+      3664.388233217253
+     ],
+     "classification": "consistent",
+     "model_over_observed": 1.2788783781918056,
+     "role": "reported_follows_from_clearance"
+    }
+   ]
+  },
+  "moderate": {
+   "crcl_ml_min": 39.1,
+   "model_tmax_h": 1.2488290609764905,
+   "rows": [
+    {
+     "endpoint": "cmax_ng_ml",
+     "model": 397.7020564552996,
+     "observed_gm": 568,
+     "observed_gcv_pct": 33,
+     "n": 6,
+     "observed_ci90": [
+      435.99666895284105,
+      739.9689561272685
+     ],
+     "classification": "model_under_predicts",
+     "model_over_observed": 0.7001796768579218,
+     "role": "classified"
+    },
+    {
+     "endpoint": "terminal_half_life_h",
+     "model": 7.489618695032184,
+     "observed_gm": 9.97,
+     "observed_gcv_pct": 44,
+     "n": 6,
+     "observed_ci90": [
+      7.053402532130583,
+      14.092616938732196
+     ],
+     "classification": "consistent",
+     "model_over_observed": 0.7512155160513725,
+     "role": "classified"
+    },
+    {
+     "endpoint": "auc_infinity_ng_h_ml",
+     "model": 4823.765959585805,
+     "observed_gm": 5964,
+     "observed_gcv_pct": 16,
+     "n": 6,
+     "observed_ci90": [
+      5232.817689653654,
+      6797.350511623544
+     ],
+     "classification": "model_under_predicts",
+     "model_over_observed": 0.8088138765234415,
+     "role": "reported_follows_from_clearance"
+    }
+   ]
+  },
+  "severe": {
+   "crcl_ml_min": 23.9,
+   "model_tmax_h": 1.3468172378083811,
+   "rows": [
+    {
+     "endpoint": "cmax_ng_ml",
+     "model": 407.0818978787822,
+     "observed_gm": 761,
+     "observed_gcv_pct": 11,
+     "n": 6,
+     "observed_ci90": [
+      695.3497148392393,
+      832.8485474879203
+     ],
+     "classification": "model_under_predicts",
+     "model_over_observed": 0.5349302206028675,
+     "role": "classified"
+    },
+    {
+     "endpoint": "terminal_half_life_h",
+     "model": 10.118054754785431,
+     "observed_gm": 8.93,
+     "observed_gcv_pct": 29,
+     "n": 6,
+     "observed_ci90": [
+      7.068514194835234,
+      11.281706141053995
+     ],
+     "classification": "consistent",
+     "model_over_observed": 1.1330408460006083,
+     "role": "classified"
+    },
+    {
+     "endpoint": "auc_infinity_ng_h_ml",
+     "model": 6516.63724025533,
+     "observed_gm": 8088,
+     "observed_gcv_pct": 18,
+     "n": 6,
+     "observed_ci90": [
+      6983.045082314652,
+      9367.796316491316
+     ],
+     "classification": "model_under_predicts",
+     "model_over_observed": 0.8057167705558024,
+     "role": "reported_follows_from_clearance"
+    }
+   ]
+  }
+ },
+ "secondary": {
+  "normal": {
+   "crcl_ml_min_cockcroft_gault": 107.2,
+   "dose_mg": 25.0,
+   "rows": [
+    {
+     "endpoint": "day5_cmax_ng_ml",
+     "model": 368.16239832692764,
+     "observed_gm": 461,
+     "observed_gcv_pct": 40.1,
+     "n": 10,
+     "observed_ci90": [
+      368.54222802796136,
+      576.6530504175387
+     ],
+     "classification": "model_under_predicts",
+     "model_over_observed": 0.7986169161104721,
+     "role": "reported_reference_group"
+    },
+    {
+     "endpoint": "terminal_half_life_h",
+     "model": 3.461217113895426,
+     "observed_gm": 3.14,
+     "observed_gcv_pct": 29.0,
+     "n": 10,
+     "observed_ci90": [
+      2.663117100668044,
+      3.702278055113204
+     ],
+     "classification": "consistent",
+     "model_over_observed": 1.1022984439157406,
+     "role": "reported_reference_group"
+    }
+   ]
+  },
+  "mild": {
+   "crcl_ml_min_cockcroft_gault": 64.3,
+   "dose_mg": 25.0,
+   "rows": [
+    {
+     "endpoint": "day5_cmax_ng_ml",
+     "model": 401.702676015986,
+     "observed_gm": 396,
+     "observed_gcv_pct": 31.9,
+     "n": 10,
+     "observed_ci90": [
+      330.6159661243959,
+      474.3146613221855
+     ],
+     "classification": "consistent",
+     "model_over_observed": 1.0144006970100656,
+     "role": "classified_secondary_not_blind"
+    },
+    {
+     "endpoint": "terminal_half_life_h",
+     "model": 5.234996638288607,
+     "observed_gm": 4.75,
+     "observed_gcv_pct": 28.5,
+     "n": 10,
+     "observed_ci90": [
+      4.039618520666799,
+      5.585304623337483
+     ],
+     "classification": "consistent",
+     "model_over_observed": 1.1021045554291804,
+     "role": "classified_secondary_not_blind"
+    }
+   ]
+  },
+  "moderate": {
+   "crcl_ml_min_cockcroft_gault": 40.1,
+   "dose_mg": 10.0,
+   "rows": [
+    {
+     "endpoint": "day5_cmax_ng_ml",
+     "model": 178.04578089626693,
+     "observed_gm": 232,
+     "observed_gcv_pct": 23.2,
+     "n": 7,
+     "observed_ci90": [
+      196.08976558713545,
+      274.4865334447171
+     ],
+     "classification": "model_under_predicts",
+     "model_over_observed": 0.7674387107597712,
+     "role": "classified_secondary_not_blind"
+    },
+    {
+     "endpoint": "terminal_half_life_h",
+     "model": 7.363767634623421,
+     "observed_gm": 6.9,
+     "observed_gcv_pct": 19.1,
+     "n": 7,
+     "observed_ci90": [
+      6.004418314188255,
+      7.929161079183815
+     ],
+     "classification": "consistent",
+     "model_over_observed": 1.067212700670061,
+     "role": "classified_secondary_not_blind"
+    }
+   ]
+  },
+  "severe": {
+   "crcl_ml_min_cockcroft_gault": 21.6,
+   "dose_mg": 15.0,
+   "rows": [
+    {
+     "endpoint": "day5_cmax_ng_ml",
+     "model": 256.8147157437844,
+     "observed_gm": 426,
+     "observed_gcv_pct": 18.5,
+     "n": 5,
+     "observed_ci90": [
+      357.64605199767436,
+      507.41787581980645
+     ],
+     "classification": "model_under_predicts",
+     "model_over_observed": 0.6028514454079447,
+     "role": "classified_secondary_not_blind"
+    },
+    {
+     "endpoint": "terminal_half_life_h",
+     "model": 10.685490126145314,
+     "observed_gm": 9.47,
+     "observed_gcv_pct": 22.8,
+     "n": 5,
+     "observed_ci90": [
+      7.640812184423133,
+      11.737089963135999
+     ],
+     "classification": "consistent",
+     "model_over_observed": 1.128351650068143,
+     "role": "classified_secondary_not_blind"
+    }
+   ]
+  }
+ },
+ "result": {
+  "primary": {
+   "mild": {
+    "cmax_ng_ml": "model_under_predicts",
+    "terminal_half_life_h": "model_over_predicts"
+   },
+   "moderate": {
+    "cmax_ng_ml": "model_under_predicts",
+    "terminal_half_life_h": "consistent"
+   },
+   "severe": {
+    "cmax_ng_ml": "model_under_predicts",
+    "terminal_half_life_h": "consistent"
+   }
+  },
+  "secondary_not_blind": {
+   "mild": {
+    "day5_cmax_ng_ml": "consistent",
+    "terminal_half_life_h": "consistent"
+   },
+   "moderate": {
+    "day5_cmax_ng_ml": "model_under_predicts",
+    "terminal_half_life_h": "consistent"
+   },
+   "severe": {
+    "day5_cmax_ng_ml": "model_under_predicts",
+    "terminal_half_life_h": "consistent"
+   }
+  }
+ },
+ "numerical_checks": {
+  "closed_form_vs_rk4_pass": true,
+  "mass_balance_pass": true,
+  "urine_total_equals_fe_pass": true,
+  "calibration_tmax_pass": true,
+  "per_group": {
+   "normal": {
+    "rk4_max_relative_difference": 4.15703509376654e-09,
+    "mass_balance_max_relative_error": 2.842170943040401e-16,
+    "urine_at_120h_over_fe": 0.9999999998986027
+   },
+   "mild": {
+    "rk4_max_relative_difference": 4.032024958783013e-09,
+    "mass_balance_max_relative_error": 2.842170943040401e-16,
+    "urine_at_120h_over_fe": 0.9999998753370624
+   },
+   "moderate": {
+    "rk4_max_relative_difference": 3.950442359972662e-09,
+    "mass_balance_max_relative_error": 1.4210854715202004e-16,
+    "urine_at_120h_over_fe": 0.9999844663314493
+   },
+   "severe": {
+    "rk4_max_relative_difference": 3.902987729384111e-09,
+    "mass_balance_max_relative_error": 1.4210854715202004e-16,
+    "urine_at_120h_over_fe": 0.999724308601059
+   }
+  }
+ },
+ "decision_rule": "The time course is shown on the body map with the classification of its band. Where Cmax or half-life is inconsistent in a band, the time-course panel carries that band's warning. Nothing about the clearance model, its scope or its evidence status changes because of this check; any change is a separate step for the platform owner.",
+ "known_limitations": [
+  "Volume held constant across kidney function; the observed Vz/F is lower in the severe group (40 vs 56 L).",
+  "Typical value at the group's mean creatinine clearance, compared with a geometric mean of individuals; with clearance non-linear in creatinine clearance only through the pathway split, the difference is small but not zero.",
+  "Same study as the pathway model's calibration (primary) and as the 2.1h check (secondary): consistency, not validation.",
+  "One compartment: an early distribution phase, if present, is not represented."
+ ],
+ "clinical_prediction_validated": false,
+ "report_sha256": "5b9378f1719276bac633c5be3054b3bfb3d96063331fa8be768d722df0aecac0"
+}

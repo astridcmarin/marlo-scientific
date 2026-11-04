@@ -131,3 +131,25 @@ The urine total at the end equals the fraction excreted unchanged that 1.0 alrea
 - **Not blind:** every observed value was seen before this plan (2.0a, 2.1e, 2.1h), so this is a consistency check, not validation; the plan says so.
 - **Decision rule:** the time course is shown with its band's classification; an inconsistent band carries a warning on the time-course panel. Nothing about the clearance model changes because of this check.
 
+## Step 1.1d result (4 November 2026): half-lives mostly consistent, peaks too low everywhere
+
+Module `intelligence_store/body_map_time_course.py`; report `docs/verification/lenalidomide_body_map_time_course_check_v1.json`. Built and run exactly as the locked plan states. Fixed parameters: V/F 56 L; ka 2.83 /h (so the curve peaks at 1.0 h at the calibration point). Numerical checks pass (closed form against RK4, mass balance, urine total equal to the map's fraction excreted, calibration tmax).
+
+**Primary (CC-5013-PK-001, single 25 mg; model at each group's mean measured creatinine clearance):**
+
+| Group | Cmax model / observed (90% CI) | Half-life model / observed (90% CI) |
+|---|---|---|
+| Normal (calibration, not classified) | 367 / 568 (431–749) | 3.6 / 3.3 h (2.8–3.9) |
+| Mild | 384 / 684 (588–796): **under-predicts** | 5.2 / 3.6 h (3.0–4.4): **over-predicts** |
+| Moderate | 398 / 568 (436–740): **under-predicts** | 7.5 / 10.0 h (7.1–14.1): consistent |
+| Severe | 407 / 761 (695–833): **under-predicts** | 10.1 / 8.9 h (7.1–11.3): consistent |
+
+**Secondary (Bridoux 2016, day 5; not blind):** mild consistent for both; moderate and severe peaks under-predicted (178 vs 232, 257 vs 426 ng/mL); all half-lives consistent.
+
+**Reading.**
+- **The peak is too low in every group, including the normal group the volume came from** (about 0.55–0.7 of observed). That points at the structure, not at kidney function: the plan fixed V/F at the *terminal* volume (Vz/F), which in a one-compartment model spreads the dose over a larger volume than the drug occupies just after absorption. A smaller central volume (two compartments, or a volume chosen to match the normal group's peak) would raise the peak; that is a new model and needs its own plan.
+- **The decline is mostly right.** Half-lives are consistent in the moderate and severe groups of both studies, and in Bridoux's mild group; CC-5013-PK-001's mild group declines faster than the model, as its clearance there is higher than the pathway model gives.
+- **Under the decision rule** the time course may be shown, but every band's panel carries the warning that the peak is under-predicted (by about a third to a half). The amounts leaving in urine and by other routes over time depend on clearance and half-life, not on the peak height, so they are the better-supported part of the picture. Nothing about the clearance model changes.
+
+**Next:** decide whether 1.1e shows this time course with its warning, or whether a v2 plan for a two-compartment version comes first.
+
