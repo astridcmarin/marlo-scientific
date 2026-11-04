@@ -52,7 +52,7 @@ FLOW_COLORS_3D = {'filtration': [0.31, 0.76, 0.97], 'tubular_secretion': [0.70, 
 # Largest tube diameter (metres): the whole normal-function clearance through one tube would be this wide.
 TUBE_DIAMETER_AT_SCALE_M = 0.02
 STATUS_OUTLINE = {'calibrated': None, 'checked_consistent': None, 'consistent_primary_only': 'caution',
-                  'check_disagrees': 'warning'}
+                  'check_disagrees': 'warning', 'depends_on_bioavailability': 'caution'}
 
 
 def _fmt(value):

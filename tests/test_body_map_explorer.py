@@ -40,7 +40,7 @@ class ObservedContext(unittest.TestCase):
         self.assertEqual(rows['Renal clearance']['model'], next(f['value'] for f in view['flows'] if f['kind'] == 'renal_excretion'))
         self.assertEqual(rows['Total apparent clearance (CL/F)']['model'], view['totals']['total_ml_min'])
         self.assertEqual(ctx['view_sha256'], view['view_sha256'])
-        self.assertEqual(ctx['band_status'], 'check_disagrees')
+        self.assertEqual(ctx['band_status'], 'depends_on_bioavailability')
 
     def test_ratios_only_where_the_ema_reported_them(self):
         self.assertIsNone(body_map_context(explorer_map(110))['geometric_mean_ratios'])
@@ -108,7 +108,7 @@ class ExplorerPage(unittest.TestCase):
 
     def test_page_shows_map_context_and_record(self):
         html = self.client.get(f'{URL}?crcl=40').get_data(as_text=True)
-        for text in ('body-map-viewer', 'Source study disagrees', 'What the renal-impairment study observed',
+        for text in ('body-map-viewer', 'depends on how much of the dose is absorbed', 'What the renal-impairment study observed',
                      'In two studies of myeloma patients never used to fit it', 'not a blind test',
                      'Exposure ratios reported by the EMA', 'context, not a check', 'proposes no dose',
                      'row containing this value', 'Run record', 'Flow diagram', 'body-map-explorer.js',

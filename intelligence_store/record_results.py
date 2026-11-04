@@ -20,7 +20,7 @@ import copy
 STATUS_TEXT = {
     'checked': 'Checked: outside data agree in this range',
     'within_data': 'Within the model\'s data; not checked against outside data here',
-    'partly_checked': 'Consistent with outside data in the primary scenario only',
+    'partly_checked': 'Consistent only in some scenarios or under some assumptions; the page says which',
     'flagged': 'Outside check disagrees here; the page shows the warning',
     'calibrated': 'At the model\'s calibration point',
     'needs_input': 'Needs more information on this record',
@@ -65,7 +65,8 @@ def _from_scope(evaluation):
 
 
 BAND_STATUS = {'calibrated': 'calibrated', 'checked_consistent': 'checked',
-               'consistent_primary_only': 'partly_checked', 'check_disagrees': 'flagged'}
+               'consistent_primary_only': 'partly_checked', 'check_disagrees': 'flagged',
+               'depends_on_bioavailability': 'partly_checked'}
 
 
 def record_results(revision_id):

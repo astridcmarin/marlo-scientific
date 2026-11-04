@@ -53,7 +53,7 @@ class Extraction(unittest.TestCase):
         self.assertEqual(ratios, sorted(ratios))
 
     def test_extraction_carries_the_band_status(self):
-        self.assertEqual(explorer_map(40)['extraction']['status'], 'check_disagrees')
+        self.assertEqual(explorer_map(40)['extraction']['status'], 'depends_on_bioavailability')
         self.assertEqual(explorer_map(110)['extraction']['status'], 'calibrated')
 
     def test_inconsistent_extraction_is_refused(self):

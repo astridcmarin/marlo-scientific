@@ -13,8 +13,10 @@ from .covariate_estimation import _load_pinned
 from .patient_state import digest
 
 SCHEMA_VERSION = 'patient-lab-run-record-v1'
-EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v15.json'
-EVIDENCE_SHA256 = '4098d7f40cd9cd4f01db53837609cf93a8133d8602e22384215f9ab0d1c5ec35'
+EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v16.json'
+EVIDENCE_SHA256 = '61d3663a7cfa66850735af16a3baa6cc11aeeac674b738457c56abd513c22030'
+# Superseded, kept unchanged for traceability: model_evidence_status_v15.json
+EVIDENCE_V15_SHA256 = '4098d7f40cd9cd4f01db53837609cf93a8133d8602e22384215f9ab0d1c5ec35'
 # Superseded, kept unchanged for traceability: model_evidence_status_v14.json
 EVIDENCE_V14_SHA256 = '4fdac3a8bb50ead46b0f85633ac1be93ffd0dab393b8009faa502c126ce5d1fb'
 # Superseded, kept unchanged for traceability: model_evidence_status_v13.json
@@ -343,7 +345,8 @@ def record_for_body_map_explorer(map_view, context=None, evidence=None):
                    'evidence': '85% urinary recovery of unchanged drug implies at least about 0.85.'}] + _body_map_flow_assumptions(map_view),
               'applicability': [{'item': 'creatinine_clearance', 'value': crcl, 'unit': 'mL/min',
                                  'reference': 'calibration and check groups about 10-140 mL/min', 'status': 'within_reported_range'}],
-              'warnings': [map_view['band']['status_text']] if map_view['band']['status'] == 'check_disagrees' else [],
+              'warnings': ([map_view['band']['status_text']] if map_view['band']['status'] in ('check_disagrees', 'depends_on_bioavailability')
+                           else []),
               'limitations': list(map_view['limitations']) + [
                   'No patient record: the creatinine clearance is entered directly, so no estimate from serum creatinine is involved.',
                   'The 3D organs are reference anatomy (Human Reference Atlas male body); their size, position and colour carry no result.'],

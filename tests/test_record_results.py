@@ -39,7 +39,7 @@ class RecordResults(unittest.TestCase):
 
     def test_moderate_kidney_function_is_flagged(self):
         s = self.statuses(self.revision_with(serum_creatinine=120))
-        self.assertEqual(s['Elimination pathways'], 'flagged')
+        self.assertEqual(s['Elimination pathways'], 'partly_checked')   # 2.0e: depends on bioavailability
         self.assertEqual(s['Typical concentration curve (Hughes 2019)'], 'flagged')
 
     def test_below_the_models_data_is_not_available(self):

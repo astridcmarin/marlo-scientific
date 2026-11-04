@@ -115,7 +115,7 @@ class EvidenceCards(unittest.TestCase):
     def test_kidney_card_carries_the_band_status_and_both_unbound_fractions(self):
         view = build_map(40, 'explorer')
         card = self.cards(40)['kidney']
-        self.assertEqual(card['status'], 'check_disagrees')
+        self.assertEqual(card['status'], 'depends_on_bioavailability')
         self.assertEqual(card['status_text'], view['band']['status_text'] + ' ' + view['band']['myeloma_note']['text'])
         self.assertTrue(all('with fu 0.60' in row[1] for row in card['rows'][:2]))
 
@@ -142,13 +142,13 @@ class EvidenceCards(unittest.TestCase):
         cards = flow_cards(view)
         self.assertEqual(set(cards), {'filtration', 'tubular_secretion', 'renal_excretion', 'absorption'})
         self.assertTrue(dict(cards['filtration']['rows'])['Clearance'].startswith(f"{flows['filtration']['value']:.0f} mL/min"))
-        self.assertEqual(cards['tubular_secretion']['status'], 'check_disagrees')
+        self.assertEqual(cards['tubular_secretion']['status'], 'depends_on_bioavailability')
         self.assertIsNone(cards['absorption']['status'])
         self.assertEqual(dict(cards['absorption']['rows'])['Value'], 'none drawn')
 
     def test_outline_follows_the_band_status(self):
         from landscape_ui.body_map_pages import STATUS_OUTLINE
-        self.assertEqual(STATUS_OUTLINE[build_map(40, 'explorer')['band']['status']], 'warning')
+        self.assertEqual(STATUS_OUTLINE[build_map(40, 'explorer')['band']['status']], 'caution')
         self.assertIsNone(STATUS_OUTLINE[build_map(110, 'explorer')['band']['status']])
 
 

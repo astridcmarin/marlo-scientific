@@ -87,13 +87,25 @@ class Gate(unittest.TestCase):
 
     def test_v3_only_adds_three_time_course_uses(self):
         v2 = json.loads(dl.LEDGER_PATH.with_name('dataset_ledger_v2.json').read_text())
-        v3 = dl.load_ledger()
+        v3_path = dl.LEDGER_PATH.with_name('dataset_ledger_v3.json')
+        import hashlib
+        self.assertEqual(hashlib.sha256(v3_path.read_bytes()).hexdigest(), dl.LEDGER_V3_SHA256)
+        v3 = json.loads(v3_path.read_text())
         self.assertEqual(v3['datasets'], v2['datasets'])
         self.assertEqual(v3['uses'][:len(v2['uses'])], v2['uses'])
         added = v3['uses'][len(v2['uses']):]
         self.assertEqual({(u['dataset'], u['role']) for u in added},
                          {('kim_2026_patients', 'built_from'), ('cc5013_pk001', 'checked_not_blind'), ('bridoux_2016', 'checked_not_blind')})
         self.assertTrue(all(u['model'] == 'lenalidomide_body_map_time_course' for u in added))
+
+    def test_v4_adds_the_mass_balance_and_2_0e(self):
+        v3 = json.loads(dl.LEDGER_PATH.with_name('dataset_ledger_v3.json').read_text())
+        v4 = dl.load_ledger()
+        self.assertEqual(set(v4['datasets']) - set(v3['datasets']), {'chen_2012_mass_balance'})
+        self.assertEqual(v4['uses'][:len(v3['uses'])], v3['uses'])
+        added = v4['uses'][len(v3['uses']):]
+        self.assertTrue(all(u['report'].endswith('lenalidomide_renal_pathways_check_v3.json') for u in added))
+        self.assertFalse(any(u['role'] in dl.BLIND_ROLES for u in added))
 
     def test_changed_ledger_is_refused(self):
         with self.assertRaises(dl.LedgerError):

@@ -1,0 +1,790 @@
+{
+ "schema_version": "lenalidomide-renal-pathways-check-report-v3",
+ "method_version": "lenalidomide-renal-pathways-f-v1.0",
+ "plan_version": "lenalidomide-renal-pathways-plan-v3.0",
+ "plan_sha256": "ccbd8fcbf2674e8e167fdc7acfbf5916fe6ebe15eab938ccc4bbc2c5c9f47bc9",
+ "input_sha256": {
+  "pathway_evidence": "e7c62bc477bfc6170f42f1f01e5935ea222bec0fbf513da718178030c42d2c8f",
+  "pathway_plan_v1": "591e032c7bf96f80b8bcae217a171b258923875bdfd7a37cd81baa86939f194a",
+  "mass_balance": "fac0021e7354b96deb0201ea00a17837fb58b6c2ed2786d15b0706cb3a34430a",
+  "chen_2007_demographics": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292",
+  "bridoux_design": "1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac",
+  "bridoux_observed": "cc8c41123d6305dd3ab783ae53e87d0ab8c15f32f04b21cc45d4c9a2bc4de8ee",
+  "kim_extract": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af"
+ },
+ "classification": "checks_on_seen_data_not_blind",
+ "what_is_known_before_computation": "Not blind. All CC-5013-PK-001, Bridoux 2016 and Kim 2026 values have been seen. The reviewer reported, and the assistant re-computed, the reading A classifications at F = 1, 0.95, 0.90 and 0.85 for the moderate and severe groups (primary creatinine clearances): moderate under-predicted at 1 and 0.95, consistent at 0.90 and 0.85; severe consistent at 1 and 0.95, over-predicted at 0.90 and 0.85. The mass-balance values were read before this plan. The purpose of locking is to fix the display decision and the reporting, not to make the result unknown.",
+ "numerical_checks": {
+  "F1_reproduces_2_0a_max_relative_difference": 0.0,
+  "pass": true
+ },
+ "scenarios": {
+  "1.00": {
+   "calibration": {
+    "F": 1.0,
+    "crcl_ml_min": 110.0,
+    "renal_ml_min": 162.38728412043403,
+    "non_renal_ml_min": 28.656579550664844,
+    "filtration_ml_min": 84.7,
+    "secretion_ml_min": 77.68728412043403,
+    "cl_apparent_ml_min": 191.04386367109888
+   },
+   "possible": true,
+   "cc5013_primary": {
+    "mild": {
+     "crcl_ml_min": 65.0,
+     "model_auc": 3343.693379790941,
+     "observed_mean": 2767,
+     "ci95": [
+      1408.619585965082,
+      4125.380414034918
+     ],
+     "classification": "consistent",
+     "model_fe": 0.7700348432055748,
+     "observed_fe": 0.69
+    },
+    "moderate": {
+     "crcl_ml_min": 40.0,
+     "model_auc": 4750.693069306931,
+     "observed_mean": 6021,
+     "ci95": [
+      5132.128013008101,
+      6909.871986991899
+     ],
+     "classification": "model_under_predicts",
+     "model_fe": 0.6732673267326731,
+     "observed_fe": 0.42
+    },
+    "severe_without_dialysis": {
+     "crcl_ml_min": 20.0,
+     "model_auc": 7161.492537313432,
+     "observed_mean": 8191,
+     "ci95": [
+      6808.893262256988,
+      9573.106737743012
+     ],
+     "classification": "consistent",
+     "model_fe": 0.507462686567164,
+     "observed_fe": 0.44
+    }
+   },
+   "cc5013_secondary": {
+    "mild": {
+     "crcl_ml_min": 64.6,
+     "model_auc": 3173.3798405466973,
+     "observed_mean": 2767,
+     "ci95": [
+      1408.619585965082,
+      4125.380414034918
+     ],
+     "classification": "consistent",
+     "model_fe": 0.7817482915717539,
+     "observed_fe": 0.69
+    },
+    "moderate": {
+     "crcl_ml_min": 39.1,
+     "model_auc": 4589.68804694739,
+     "observed_mean": 6021,
+     "ci95": [
+      5132.128013008101,
+      6909.871986991899
+     ],
+     "classification": "model_under_predicts",
+     "model_fe": 0.6843405744877997,
+     "observed_fe": 0.42
+    },
+    "severe_without_dialysis": {
+     "crcl_ml_min": 23.9,
+     "model_auc": 6253.280965072239,
+     "observed_mean": 8191,
+     "ci95": [
+      6808.893262256988,
+      9573.106737743012
+     ],
+     "classification": "model_under_predicts",
+     "model_fe": 0.5699256557721979,
+     "observed_fe": 0.44
+    }
+   },
+   "myeloma": {
+    "bridoux": {
+     "normal": {
+      "crcl_ml_min": 107.2,
+      "model": 2229.2324846682773,
+      "observed_gm": 1747,
+      "ci90": [
+       1499.649580788606,
+       2035.148103328959
+      ],
+      "classification": "model_over_predicts"
+     },
+     "mild": {
+      "crcl_ml_min": 64.3,
+      "model": 3371.6534326470387,
+      "observed_gm": 2605,
+      "ci90": [
+       2215.411841334108,
+       3063.098640798767
+      ],
+      "classification": "model_over_predicts"
+     },
+     "moderate": {
+      "crcl_ml_min": 40.1,
+      "model": 1897.0841158446178,
+      "observed_gm": 1800,
+      "ci90": [
+       1630.8198221573798,
+       1986.730818438218
+      ],
+      "classification": "consistent"
+     },
+     "severe": {
+      "crcl_ml_min": 21.6,
+      "model": 2064.6299483648877,
+      "observed_gm": 2329,
+      "ci90": [
+       1785.876517069064,
+       3037.299022724219
+      ],
+      "classification": "consistent"
+     }
+    },
+    "kim": {
+     "control": {
+      "input_ml_min": 78.29479768786128,
+      "model": 8.654347258834779,
+      "observed_mean": 8.01,
+      "ci90": [
+       6.248334766417627,
+       9.771665233582372
+      ],
+      "classification": "consistent"
+     },
+     "moderate": {
+      "input_ml_min": 49.69075144508671,
+      "model": 6.120747231078707,
+      "observed_mean": 5.74,
+      "ci90": [
+       4.810988096772419,
+       6.669011903227582
+      ],
+      "classification": "consistent"
+     },
+     "severe": {
+      "input_ml_min": 23.30635838150289,
+      "model": 3.7837527222997647,
+      "observed_mean": 3.39,
+      "ci90": [
+       2.952817927892903,
+       3.8271820721070973
+      ],
+      "classification": "consistent"
+     }
+    }
+   },
+   "esrd_auc_by_residual_crcl": {
+    "0": 14539.999999999995,
+    "5": 11561.92771084337,
+    "10": 9596.399999999998
+   }
+  },
+  "0.95": {
+   "calibration": {
+    "F": 0.95,
+    "crcl_ml_min": 110.0,
+    "renal_ml_min": 162.38728412043403,
+    "non_renal_ml_min": 19.104386367109896,
+    "filtration_ml_min": 84.7,
+    "secretion_ml_min": 77.68728412043403,
+    "cl_apparent_ml_min": 191.04386367109888
+   },
+   "possible": true,
+   "cc5013_primary": {
+    "mild": {
+     "crcl_ml_min": 65.0,
+     "model_auc": 3440.2188679245282,
+     "observed_mean": 2767,
+     "ci95": [
+      1408.619585965082,
+      4125.380414034918
+     ],
+     "classification": "consistent",
+     "model_fe": 0.7922641509433961,
+     "observed_fe": 0.69
+    },
+    "moderate": {
+     "crcl_ml_min": 40.0,
+     "model_auc": 5064.766666666667,
+     "observed_mean": 6021,
+     "ci95": [
+      5132.128013008101,
+      6909.871986991899
+     ],
+     "classification": "model_under_predicts",
+     "model_fe": 0.7177777777777776,
+     "observed_fe": 0.42
+    },
+    "severe_without_dialysis": {
+     "crcl_ml_min": 20.0,
+     "model_auc": 8139.803571428571,
+     "observed_mean": 8191,
+     "ci95": [
+      6808.893262256988,
+      9573.106737743012
+     ],
+     "classification": "consistent",
+     "model_fe": 0.5767857142857141,
+     "observed_fe": 0.44
+    }
+   },
+   "cc5013_secondary": {
+    "mild": {
+     "crcl_ml_min": 64.6,
+     "model_auc": 3251.240442192539,
+     "observed_mean": 2767,
+     "ci95": [
+      1408.619585965082,
+      4125.380414034918
+     ],
+     "classification": "consistent",
+     "model_fe": 0.8009289114079532,
+     "observed_fe": 0.69
+    },
+    "moderate": {
+     "crcl_ml_min": 39.1,
+     "model_auc": 4872.932688988609,
+     "observed_mean": 6021,
+     "ci95": [
+      5132.128013008101,
+      6909.871986991899
+     ],
+     "classification": "model_under_predicts",
+     "model_fe": 0.7265734668047403,
+     "observed_fe": 0.42
+    },
+    "severe_without_dialysis": {
+     "crcl_ml_min": 23.9,
+     "model_auc": 6934.772883576224,
+     "observed_mean": 8191,
+     "ci95": [
+      6808.893262256988,
+      9573.106737743012
+     ],
+     "classification": "consistent",
+     "model_fe": 0.6320370067136072,
+     "observed_fe": 0.44
+    }
+   },
+   "myeloma": {
+    "bridoux": {
+     "normal": {
+      "crcl_ml_min": 107.2,
+      "model": 2231.8301997649824,
+      "observed_gm": 1747,
+      "ci90": [
+       1499.649580788606,
+       2035.148103328959
+      ],
+      "classification": "model_over_predicts"
+     },
+     "mild": {
+      "crcl_ml_min": 64.3,
+      "model": 3471.39593328764,
+      "observed_gm": 2605,
+      "ci90": [
+       2215.411841334108,
+       3063.098640798767
+      ],
+      "classification": "model_over_predicts"
+     },
+     "moderate": {
+      "crcl_ml_min": 40.1,
+      "model": 2022.0871686813794,
+      "observed_gm": 1800,
+      "ci90": [
+       1630.8198221573798,
+       1986.730818438218
+      ],
+      "classification": "model_over_predicts"
+     },
+     "severe": {
+      "crcl_ml_min": 21.6,
+      "model": 2328.8266348773836,
+      "observed_gm": 2329,
+      "ci90": [
+       1785.876517069064,
+       3037.299022724219
+      ],
+      "classification": "consistent"
+     }
+    },
+    "kim": {
+     "control": {
+      "input_ml_min": 78.29479768786128,
+      "model": 8.506542808233139,
+      "observed_mean": 8.01,
+      "ci90": [
+       6.248334766417627,
+       9.771665233582372
+      ],
+      "classification": "consistent"
+     },
+     "moderate": {
+      "input_ml_min": 49.69075144508671,
+      "model": 5.839595410595169,
+      "observed_mean": 5.74,
+      "ci90": [
+       4.810988096772419,
+       6.669011903227582
+      ],
+      "classification": "consistent"
+     },
+     "severe": {
+      "input_ml_min": 23.30635838150289,
+      "model": 3.3796011908278607,
+      "observed_mean": 3.39,
+      "ci90": [
+       2.952817927892903,
+       3.8271820721070973
+      ],
+      "classification": "consistent"
+     }
+    }
+   },
+   "esrd_auc_by_residual_crcl": {
+    "0": 20719.499999999993,
+    "5": 14945.213114754095,
+    "10": 11687.923076923073
+   }
+  },
+  "0.90": {
+   "calibration": {
+    "F": 0.9,
+    "crcl_ml_min": 110.0,
+    "renal_ml_min": 162.38728412043403,
+    "non_renal_ml_min": 9.552193183554948,
+    "filtration_ml_min": 84.7,
+    "secretion_ml_min": 77.68728412043403,
+    "cl_apparent_ml_min": 191.04386367109888
+   },
+   "possible": true,
+   "cc5013_primary": {
+    "mild": {
+     "crcl_ml_min": 65.0,
+     "model_auc": 3554.222222222222,
+     "observed_mean": 2767,
+     "ci95": [
+      1408.619585965082,
+      4125.380414034918
+     ],
+     "classification": "consistent",
+     "model_fe": 0.8185185185185185,
+     "observed_fe": 0.69
+    },
+    "moderate": {
+     "crcl_ml_min": 40.0,
+     "model_auc": 5466.303797468356,
+     "observed_mean": 6021,
+     "ci95": [
+      5132.128013008101,
+      6909.871986991899
+     ],
+     "classification": "consistent",
+     "model_fe": 0.7746835443037974,
+     "observed_fe": 0.42
+    },
+    "severe_without_dialysis": {
+     "crcl_ml_min": 20.0,
+     "model_auc": 9596.400000000001,
+     "observed_mean": 8191,
+     "ci95": [
+      6808.893262256988,
+      9573.106737743012
+     ],
+     "classification": "model_over_predicts",
+     "model_fe": 0.6799999999999999,
+     "observed_fe": 0.44
+    }
+   },
+   "cc5013_secondary": {
+    "mild": {
+     "crcl_ml_min": 64.6,
+     "model_auc": 3342.35888037321,
+     "observed_mean": 2767,
+     "ci95": [
+      1408.619585965082,
+      4125.380414034918
+     ],
+     "classification": "consistent",
+     "model_fe": 0.8233755414861712,
+     "observed_fe": 0.69
+    },
+    "moderate": {
+     "crcl_ml_min": 39.1,
+     "model_auc": 5231.66983961403,
+     "observed_mean": 6021,
+     "ci95": [
+      5132.128013008101,
+      6909.871986991899
+     ],
+     "classification": "consistent",
+     "model_fe": 0.7800625896466292,
+     "observed_fe": 0.42
+    },
+    "severe_without_dialysis": {
+     "crcl_ml_min": 23.9,
+     "model_auc": 7890.201769911505,
+     "observed_mean": 8191,
+     "ci95": [
+      6808.893262256988,
+      9573.106737743012
+     ],
+     "classification": "consistent",
+     "model_fe": 0.7191150442477876,
+     "observed_fe": 0.44
+    }
+   },
+   "myeloma": {
+    "bridoux": {
+     "normal": {
+      "crcl_ml_min": 107.2,
+      "model": 2234.723659697785,
+      "observed_gm": 1747,
+      "ci90": [
+       1499.649580788606,
+       2035.148103328959
+      ],
+      "classification": "model_over_predicts"
+     },
+     "mild": {
+      "crcl_ml_min": 64.3,
+      "model": 3589.377441609177,
+      "observed_gm": 2605,
+      "ci90": [
+       2215.411841334108,
+       3063.098640798767
+      ],
+      "classification": "model_over_predicts"
+     },
+     "moderate": {
+      "crcl_ml_min": 40.1,
+      "model": 2181.8264494126565,
+      "observed_gm": 1800,
+      "ci90": [
+       1630.8198221573798,
+       1986.730818438218
+      ],
+      "classification": "model_over_predicts"
+     },
+     "severe": {
+      "crcl_ml_min": 21.6,
+      "model": 2714.823973176865,
+      "observed_gm": 2329,
+      "ci90": [
+       1785.876517069064,
+       3037.299022724219
+      ],
+      "classification": "consistent"
+     }
+    },
+    "kim": {
+     "control": {
+      "input_ml_min": 78.29479768786128,
+      "model": 8.342315640897985,
+      "observed_mean": 8.01,
+      "ci90": [
+       6.248334766417627,
+       9.771665233582372
+      ],
+      "classification": "consistent"
+     },
+     "moderate": {
+      "input_ml_min": 49.69075144508671,
+      "model": 5.5272044989467926,
+      "observed_mean": 5.74,
+      "ci90": [
+       4.810988096772419,
+       6.669011903227582
+      ],
+      "classification": "consistent"
+     },
+     "severe": {
+      "input_ml_min": 23.30635838150289,
+      "model": 2.930543933636856,
+      "observed_mean": 3.39,
+      "ci90": [
+       2.952817927892903,
+       3.8271820721070973
+      ],
+      "classification": "model_under_predicts"
+     }
+    }
+   },
+   "esrd_auc_by_residual_crcl": {
+    "0": 39257.999999999985,
+    "5": 22145.53846153846,
+    "10": 15422.785714285714
+   }
+  },
+  "0.85": {
+   "calibration": {
+    "F": 0.85,
+    "crcl_ml_min": 110.0,
+    "renal_ml_min": 162.38728412043403,
+    "non_renal_ml_min": 0.0,
+    "filtration_ml_min": 84.7,
+    "secretion_ml_min": 77.68728412043403,
+    "cl_apparent_ml_min": 191.04386367109888
+   },
+   "possible": true,
+   "cc5013_primary": {
+    "mild": {
+     "crcl_ml_min": 65.0,
+     "model_auc": 3690.923076923077,
+     "observed_mean": 2767,
+     "ci95": [
+      1408.619585965082,
+      4125.380414034918
+     ],
+     "classification": "consistent",
+     "model_fe": 0.85,
+     "observed_fe": 0.69
+    },
+    "moderate": {
+     "crcl_ml_min": 40.0,
+     "model_auc": 5997.750000000001,
+     "observed_mean": 6021,
+     "ci95": [
+      5132.128013008101,
+      6909.871986991899
+     ],
+     "classification": "consistent",
+     "model_fe": 0.85,
+     "observed_fe": 0.42
+    },
+    "severe_without_dialysis": {
+     "crcl_ml_min": 20.0,
+     "model_auc": 11995.500000000002,
+     "observed_mean": 8191,
+     "ci95": [
+      6808.893262256988,
+      9573.106737743012
+     ],
+     "classification": "model_over_predicts",
+     "model_fe": 0.85,
+     "observed_fe": 0.44
+    }
+   },
+   "cc5013_secondary": {
+    "mild": {
+     "crcl_ml_min": 64.6,
+     "model_auc": 3450.4365325077406,
+     "observed_mean": 2767,
+     "ci95": [
+      1408.619585965082,
+      4125.380414034918
+     ],
+     "classification": "consistent",
+     "model_fe": 0.85,
+     "observed_fe": 0.69
+    },
+    "moderate": {
+     "crcl_ml_min": 39.1,
+     "model_auc": 5700.721227621483,
+     "observed_mean": 6021,
+     "ci95": [
+      5132.128013008101,
+      6909.871986991899
+     ],
+     "classification": "consistent",
+     "model_fe": 0.85,
+     "observed_fe": 0.42
+    },
+    "severe_without_dialysis": {
+     "crcl_ml_min": 23.9,
+     "model_auc": 9326.284518828454,
+     "observed_mean": 8191,
+     "ci95": [
+      6808.893262256988,
+      9573.106737743012
+     ],
+     "classification": "consistent",
+     "model_fe": 0.85,
+     "observed_fe": 0.44
+    }
+   },
+   "myeloma": {
+    "bridoux": {
+     "normal": {
+      "crcl_ml_min": 107.2,
+      "model": 2237.966417910448,
+      "observed_gm": 1747,
+      "ci90": [
+       1499.649580788606,
+       2035.148103328959
+      ],
+      "classification": "model_over_predicts"
+     },
+     "mild": {
+      "crcl_ml_min": 64.3,
+      "model": 3731.104199066875,
+      "observed_gm": 2605,
+      "ci90": [
+       2215.411841334108,
+       3063.098640798767
+      ],
+      "classification": "model_over_predicts"
+     },
+     "moderate": {
+      "crcl_ml_min": 40.1,
+      "model": 2393.117206982544,
+      "observed_gm": 1800,
+      "ci90": [
+       1630.8198221573798,
+       1986.730818438218
+      ],
+      "classification": "model_over_predicts"
+     },
+     "severe": {
+      "crcl_ml_min": 21.6,
+      "model": 3332.0833333333335,
+      "observed_gm": 2329,
+      "ci90": [
+       1785.876517069064,
+       3037.299022724219
+      ],
+      "classification": "model_over_predicts"
+     }
+    },
+    "kim": {
+     "control": {
+      "input_ml_min": 78.29479768786128,
+      "model": 8.158767630346928,
+      "observed_mean": 8.01,
+      "ci90": [
+       6.248334766417627,
+       9.771665233582372
+      ],
+      "classification": "consistent"
+     },
+     "moderate": {
+      "input_ml_min": 49.69075144508671,
+      "model": 5.178061715339784,
+      "observed_mean": 5.74,
+      "ci90": [
+       4.810988096772419,
+       6.669011903227582
+      ],
+      "classification": "consistent"
+     },
+     "severe": {
+      "input_ml_min": 23.30635838150289,
+      "model": 2.428656410893969,
+      "observed_mean": 3.39,
+      "ci90": [
+       2.952817927892903,
+       3.8271820721070973
+      ],
+      "classification": "model_under_predicts"
+     }
+    }
+   },
+   "esrd_auc_by_residual_crcl": {
+    "0": null,
+    "5": 47982.00000000001,
+    "10": 23991.000000000004
+   }
+  }
+ },
+ "decision": {
+  "D1_band_status": {
+   "moderate": {
+    "by_F": {
+     "1.00": "model_under_predicts",
+     "0.95": "model_under_predicts",
+     "0.90": "consistent"
+    },
+    "at_lower_bound": "consistent",
+    "status": "depends_on_bioavailability"
+   },
+   "severe": {
+    "by_F": {
+     "1.00": "consistent",
+     "0.95": "consistent",
+     "0.90": "model_over_predicts"
+    },
+    "at_lower_bound": "model_over_predicts",
+    "status": "depends_on_bioavailability"
+   }
+  },
+  "D2_faster_than_proportional": "not_established",
+  "D3_non_renal": {
+   "range_ml_min": [
+    9.552193183554948,
+    28.656579550664844
+   ],
+   "at_F_1": 28.656579550664844,
+   "status": "depends_on_bioavailability"
+  },
+  "D4_myeloma_note": {
+   "moderate": {
+    "by_F": {
+     "1.00": {
+      "bridoux": "consistent",
+      "kim": "consistent"
+     },
+     "0.95": {
+      "bridoux": "model_over_predicts",
+      "kim": "consistent"
+     },
+     "0.90": {
+      "bridoux": "model_over_predicts",
+      "kim": "consistent"
+     }
+    },
+    "holds_at_every_F": false,
+    "not_at": [
+     "0.95",
+     "0.90"
+    ]
+   },
+   "severe": {
+    "by_F": {
+     "1.00": {
+      "bridoux": "consistent",
+      "kim": "consistent"
+     },
+     "0.95": {
+      "bridoux": "consistent",
+      "kim": "consistent"
+     },
+     "0.90": {
+      "bridoux": "consistent",
+      "kim": "model_under_predicts"
+     }
+    },
+    "holds_at_every_F": false,
+    "not_at": [
+     "0.90"
+    ]
+   }
+  },
+  "rules": {
+   "D1_band_status": "For the moderate and severe bands separately, take the CC-5013-PK-001 primary classifications at F = 1.0, 0.95 and 0.90. If they are identical, the band keeps its 2.0a status and its text says the result holds for absorption of 90-100%. If they differ, the band gets the status depends_on_bioavailability, drawn in the amber of a partial result, with a text that gives the classification at each F. The result at F = 0.85 is stated in the limitations either way.",
+   "D2_recorded_finding": "The 2.0a finding that renal elimination falls faster than in proportion to creatinine clearance is recorded as not established if the moderate group is consistent at any F in the best-supported range; otherwise as holding for absorption of 90-100%.",
+   "D3_non_renal_arrow": "The non-renal arrow keeps its F = 1 value as drawn width but carries the range over the best-supported F and the status depends_on_bioavailability whenever that range spans more than a factor of 1.5.",
+   "D4_myeloma_note": "The note says whether the main-scenario consistency with Bridoux and Kim in the band holds at every F in the best-supported range, and names any F at which it does not.",
+   "not_changed": "Model scopes and patient-record outputs (2.0b) are not changed by this plan; a change to them would be a separate documented step."
+  }
+ },
+ "known_limitations": [
+  "F is bounded, not measured: absolute bioavailability needs intravenous data, which do not exist for lenalidomide in the pinned sources.",
+  "Healthy volunteers in the mass-balance study (6 men); CC-5013-PK-001 subjects had non-malignant kidney disease.",
+  "F is assumed the same in every kidney-function group.",
+  "At fu 0.77 the moderate group's renal clearance (29.1 mL/min) is at or below filtration alone (30.1), so reading A cannot reproduce its urine fraction at any F (finding 2 of the review).",
+  "Statistics differ between comparisons (arithmetic means and 95% CIs for CC-5013-PK-001; geometric means and 90% CIs for Bridoux), as in 2.0a and 2.0d."
+ ],
+ "clinical_prediction_validated": false,
+ "ready_for_patient_simulation": false,
+ "report_sha256": "fe8a835d585a92a943b0f151a3e36e4b6726b1f63f72a1146046f440757ac67f"
+}

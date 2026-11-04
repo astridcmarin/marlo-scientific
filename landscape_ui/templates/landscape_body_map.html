@@ -22,7 +22,7 @@
 {% if not done %}
 <section class="panel"><h2>Map not drawn</h2><p role="alert">{{ view.message }}</p></section>
 {% else %}
-{% if view.band.status == 'check_disagrees' %}<p role="alert" class="bm-alert">{{ view.band.status_text }}{% if view.band.myeloma_note %} {{ view.band.myeloma_note.text }}{% endif %}</p>{% endif %}
+{% if view.band.status in ('check_disagrees', 'depends_on_bioavailability') %}<p role="alert" class="bm-alert">{{ view.band.status_text }}{% if view.band.myeloma_note %} {{ view.band.myeloma_note.text }}{% endif %}</p>{% endif %}
 <div class="bm-layout">
 <section class="bm-stage" aria-labelledby="bm-3d-heading">
 <h2 id="bm-3d-heading" class="bm-visually-hidden">3D anatomy</h2>

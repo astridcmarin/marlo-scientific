@@ -180,3 +180,27 @@ Wording was corrected in this document, the Digital human 1.1 document, the stat
   - **The non-renal arrow:** carries its range across F.
   - **The myeloma note:** says whether its result holds across F.
 - Scopes and patient-record outputs are not changed by this plan.
+
+## Simulation 2.0e result (4 November 2026): no single bioavailability fits every study
+
+Module `intelligence_store/lenalidomide_renal_pathways_f.py`; report `docs/verification/lenalidomide_renal_pathways_check_v3.json`. Run as plan v3 states, after the plan was applied on the owner's computer. At F = 1 the model reproduces 2.0a exactly. At F = 0.85 the non-renal clearance is zero, which is the hard lower bound by construction.
+
+| Absorbed (F) | Non-renal (mL/min) | CC-5013-PK-001 moderate | CC-5013-PK-001 severe | Bridoux moderate | Kim severe (CL/F) | End-stage, no residual function (observed 95% CI 8,883–13,359) |
+|---|---|---|---|---|---|---|
+| 1.00 | 28.7 | too little exposure | consistent | consistent | consistent | 14,540 |
+| 0.95 | 19.1 | too little exposure | consistent | too much exposure | consistent | 20,719 |
+| 0.90 | 9.6 | consistent | too much exposure | too much exposure | clearance too low | 39,258 |
+| 0.85 | 0 | consistent | too much exposure | too much exposure | clearance too low | not computable |
+
+**Reading.**
+- Lower absorption fits CC-5013-PK-001's moderate group. It fits that study's severe group, both myeloma studies and the end-stage group worse.
+- The end-stage group argues most strongly for near-complete absorption: even with 10 mL/min of residual kidney function, F = 0.90 predicts 15,423 against an upper limit of 13,359.
+- So no single value of F reconciles the moderate group of CC-5013-PK-001 with the rest. Together with the review's finding 2 (that group's renal clearance is at or below filtration alone), the moderate group looks more like an outlier, or a study-specific effect, than evidence about how lenalidomide is eliminated. That is a reading, not a finding.
+
+**Decisions, as fixed in plan v3:**
+- **D1:** both the moderate and severe bands now have the status *depends on bioavailability* (amber), with text giving the result at each F.
+- **D2:** the 2.0a finding that renal elimination falls faster than in proportion to creatinine clearance is recorded as **not established**.
+- **D3:** the non-renal arrow carries its range, 10–29 mL/min, across 90–100% absorbed.
+- **D4:** the myeloma note says its consistency holds at full absorption only (moderate: not at 95% or 90%; severe: not at 90%).
+
+Scopes and patient-record outputs are unchanged, except that the record summary's elimination row now shows *partly checked* rather than *flagged* for these bands, because it reads the band status. Recorded in findings v3, evidence status v16 and dataset ledger v4 (which adds the mass-balance study).

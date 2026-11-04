@@ -14,11 +14,11 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
   - Hughes against CC-5013-PK-001 *(finding: hughes_cc5013)*.
   - Kim against CC-5013-PK-001 *(finding: kim_cc5013)*.
   - Both again with study-matched virtual subjects *(finding: renal_recheck)*, and against myeloma patients, the first blind model check, with a recorded deviation *(finding: bridoux_hughes_kim)*.
-  - The pathway model against its own study's impaired groups *(finding: pathways_2_0a)*, end-stage kidney disease *(finding: pathways_esrd)* and two myeloma studies *(finding: pathways_2_0d)*.
+  - The pathway model against its own study's impaired groups *(finding: pathways_2_0a)*, end-stage kidney disease *(finding: pathways_esrd)*, two myeloma studies *(finding: pathways_2_0d)*, and across the bioavailability the data allow *(finding: pathways_2_0e)*.
   - The body map's time course *(finding: time_course_v1)* *(finding: time_course_v2)*.
 - **Known to be wrong:**
   - Hughes and Kim predict too little exposure in moderate and severe kidney impairment, in two studies.
-  - The pathway model under-predicts the moderate group of CC-5013-PK-001 (severe is consistent in the primary scenario only), and that result depends on assuming bioavailability of 1. In the two myeloma studies it is consistent in the moderate and severe groups in the primary scenario; Kim's severe group is over-predicted in 2 of 3 sensitivity scenarios.
+  - The pathway model's moderate and severe results depend on bioavailability, which was not measured (absorption at least about 90%): no single value fits CC-5013-PK-001's moderate group and the other studies at once (2.0e). Both bands are marked accordingly; the earlier finding that renal elimination falls faster than in proportion to kidney function is not established.
   - The body map's peak concentration is too low.
 - **Missing:**
   - unseen kidney-impairment data (all available sets have been seen);

@@ -49,7 +49,7 @@
 .bm-card dd { margin:0; color:#fff; }
 .bm-card-status { padding:6px 8px; border-radius:5px; font-size:12px; }
 .bm-status-check_disagrees { background:rgba(255,120,60,.18); border:1px solid #ff8a50; color:#ffd9c2; }
-.bm-status-consistent_primary_only { background:rgba(255,200,80,.15); border:1px solid #ffc94d; color:#ffe8b0; }
+.bm-status-consistent_primary_only, .bm-status-depends_on_bioavailability { background:rgba(255,200,80,.15); border:1px solid #ffc94d; color:#ffe8b0; }
 .bm-status-checked_consistent, .bm-status-calibrated { background:rgba(80,200,160,.12); border:1px solid #4fd1a5; color:#c7f5e3; }
 .bm-card-basis { color:#bdbbe0; font-size:12px; }
 .bm-viewer::before { content:""; position:absolute; inset:0 0 auto 0; height:3px; background:linear-gradient(120deg,#3b1d8f 0%,#7c6cff 45%,#38bdf8 100%); z-index:5; pointer-events:none; }

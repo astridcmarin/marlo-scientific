@@ -41,7 +41,7 @@ class BodyMapPage(unittest.TestCase):
         response = self.client.get(self.url(rev.id))
         self.assertEqual(response.status_code, 200)
         html = response.get_data(as_text=True)
-        for text in ('body-map-viewer', 'Not a clinical prediction', 'Source study disagrees', 'Flow diagram',
+        for text in ('body-map-viewer', 'Not a clinical prediction', 'depends on how much of the dose is absorbed', 'Flow diagram',
                      'Tubular secretion', 'with fu 0.60', 'Run record', 'Coloured: carries model results',
                      'Grey: anatomy for orientation', 'Human Reference Atlas', 'placed by hand (approximate)',
                      'body-map-viewer.js', 'Limits of this map'):
@@ -65,8 +65,8 @@ class BodyMapPage(unittest.TestCase):
         rev = self.revision_with(serum_creatinine=120)
         config = self.config(self.client.get(self.url(rev.id)).get_data(as_text=True))
         flows = config['flows']
-        self.assertEqual(flows['band']['status'], 'check_disagrees')
-        self.assertEqual(flows['band']['outline'], 'warning')
+        self.assertEqual(flows['band']['status'], 'depends_on_bioavailability')
+        self.assertEqual(flows['band']['outline'], 'caution')
         self.assertEqual({p['id'] for p in flows['paths']},
                          {'renal_inflow_left', 'renal_inflow_right', 'urine_left', 'urine_right', 'absorption'})
         self.assertIsNone(flows['values']['absorption'])

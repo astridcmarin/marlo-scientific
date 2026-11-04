@@ -70,6 +70,8 @@ _MYELOMA = {'normal': 'Normal kidney function', 'mild': 'Mild kidney impairment'
 RESULT_ITEMS.update({f'pathways_myeloma.{study}.{g}': f'{_MYELOMA[g]} (myeloma patients, {name}; seen, not used to fit)'
                      for study, name, groups in (('bridoux', 'Bridoux 2016', ('normal', 'mild', 'moderate', 'severe')),
                                                  ('kim', 'Kim 2026', ('control', 'moderate', 'severe'))) for g in groups})
+RESULT_ITEMS.update({f'pathways_bioavailability.F{F}.{band}': f'{band.capitalize()} kidney impairment, bioavailability {F} (CC-5013-PK-001)'
+                     for F in ('1.00', '0.95', '0.90') for band in ('moderate', 'severe')})
 RESULT_KEYS = ('result_by_group', 'result_at_1_3_mg_m2', 'result_by_endpoint')
 
 # What each model is and where the platform uses it. Descriptions only; no scientific values.

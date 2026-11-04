@@ -13,8 +13,10 @@ from .dataset_ledger import BLIND_ROLES, LEDGER_SHA256, load_ledger
 from .patient_state import digest
 
 ROOT = Path(__file__).resolve().parent.parent
-FINDINGS_PATH = Path(__file__).parent / 'data' / 'check_findings_v2.json'
-FINDINGS_SHA256 = 'b9beb8a6f1b9d50837fcfae4a96850fa8e006cfed12563d9a43236cdc7f3919b'
+FINDINGS_PATH = Path(__file__).parent / 'data' / 'check_findings_v3.json'
+FINDINGS_SHA256 = '39cda90c1ebb6afa80d9dbb47a66ddb98acb20dac2f3e5bcf4f4a05ea3f40332'
+# Superseded, kept unchanged: check_findings_v2.json (v3 adds 2.0e)
+FINDINGS_V2_SHA256 = 'b9beb8a6f1b9d50837fcfae4a96850fa8e006cfed12563d9a43236cdc7f3919b'
 # Superseded, kept unchanged for traceability: check_findings_v1.json (two headlines corrected in v2)
 FINDINGS_V1_SHA256 = '6f7ecdbfa2991d94a87588711f4eb029dd50d6573a5fd07968738d7014f7b0b8'
 TONE = {'consistent': 'ok', 'passed': 'ok', 'mixed': 'warn', 'not_adopted': 'warn', 'inconclusive': 'neutral',
