@@ -1,0 +1,669 @@
+{
+ "schema_version": "extraction-review-record-v1",
+ "queue_version": "extraction-review-queue-v1.0",
+ "queue_sha256": "3ebad5506b7e1c9ed95a581f485389b4ef421727013aa826071aab79daab3961",
+ "reviewer": "Astrid",
+ "reviewed_on": "2026-11-03",
+ "decisions": {
+  "lenalidomide_hughes_parameters:/parameters/apparent_clearance/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_hughes_parameters:/parameters/apparent_volume/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_hughes_parameters:/parameters/transit_rate/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_hughes_parameters:/parameters/crcl_exponent/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_hughes_parameters:/parameters/ffm_clearance_exponent/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_hughes_parameters:/parameters/ffm_volume_exponent/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_hughes_parameters:/parameters/reference_ffm/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_hughes_parameters:/parameters/reference_crcl/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_hughes_variability:/random_effects/omega_matrix/0": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_hughes_variability:/random_effects/omega_matrix/1": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_hughes_variability:/random_effects/omega_matrix/2": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_hughes_variability:/residual_error/ruv_prop": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/parameters/unbound_clearance_l_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/parameters/unbound_peripheral_volume_l/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/parameters/unbound_intercompartmental_clearance_l_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/parameters/unbound_central_volume_l/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/parameters/absorption_rate_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/parameters/fraction_unbound/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/parameters/cl_egfr_coefficient/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/parameters/cl_bsa_coefficient/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/parameters/v1_bsa_coefficient/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/parameters/reference_egfr/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/parameters/reference_bsa/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/random_effects/reported/cl_pct_cv": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/random_effects/reported/v1_pct_cv": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/random_effects/reported/cl_shrinkage_pct": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_kim_parameters:/random_effects/reported/v1_shrinkage_pct": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/0/n": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/0/crcl_range/lower": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/0/measurements/auc_infinity/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/0/measurements/auc_infinity/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/0/measurements/cmax/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/0/measurements/cmax/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/0/measurements/terminal_half_life/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/0/measurements/terminal_half_life/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/1/n": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/1/crcl_range/lower": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/1/crcl_range/upper": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/1/measurements/auc_infinity/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/1/measurements/auc_infinity/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/1/measurements/cmax/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/1/measurements/cmax/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/1/measurements/terminal_half_life/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/1/measurements/terminal_half_life/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/2/n": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/2/crcl_range/lower": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/2/crcl_range/upper": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/2/measurements/auc_infinity/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/2/measurements/auc_infinity/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/2/measurements/cmax/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/2/measurements/cmax/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/2/measurements/terminal_half_life/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/2/measurements/terminal_half_life/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/3/n": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/3/crcl_range/upper": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/3/measurements/auc_infinity/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/3/measurements/auc_infinity/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/3/measurements/cmax/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/3/measurements/cmax/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/3/measurements/terminal_half_life/mean": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_renal_groups:/groups/3/measurements/terminal_half_life/sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_exposure_safety:/odds_ratios_multiple_myeloma/grade_3_4_thrombocytopenia/odds_ratio_per_unit_ln_auc": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_exposure_safety:/odds_ratios_multiple_myeloma/grade_3_4_thrombocytopenia/ci95": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_exposure_safety:/odds_ratios_multiple_myeloma/grade_3_4_neutropenia/odds_ratio_per_unit_ln_auc": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_exposure_safety:/odds_ratios_multiple_myeloma/grade_3_4_neutropenia/ci95": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label:/multiple_myeloma_dosing/combination_starting_dose/dose_mg": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label:/multiple_myeloma_dosing/combination_dose_floor/dose_mg": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label:/multiple_myeloma_dosing/maintenance_starting_dose/dose_mg": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label:/multiple_myeloma_dosing/capsule_strengths_mg": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label:/renal_dose_adjustments/rows/0/crcl_ml_min": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label:/renal_dose_adjustments/rows/0/mm_combination": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label:/renal_dose_adjustments/rows/0/mm_maintenance_and_mds": {
+   "decision": "cannot_check",
+   "note": ""
+  },
+  "lenalidomide_label:/renal_dose_adjustments/rows/1/crcl_ml_min/1": {
+   "decision": "cannot_check",
+   "note": ""
+  },
+  "lenalidomide_label:/renal_dose_adjustments/rows/1/mm_combination": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label:/renal_dose_adjustments/rows/1/mm_maintenance_and_mds": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label:/renal_dose_adjustments/rows/2/crcl_ml_min/1": {
+   "decision": "cannot_check",
+   "note": ""
+  },
+  "lenalidomide_label:/renal_dose_adjustments/rows/2/mm_combination": {
+   "decision": "cannot_check",
+   "note": ""
+  },
+  "lenalidomide_label:/renal_dose_adjustments/rows/2/mm_maintenance_and_mds": {
+   "decision": "cannot_check",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/fixed_effects/ka_per_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/fixed_effects/cl_l_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/fixed_effects/v2_l/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/fixed_effects/f/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/fixed_effects/q3_l_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/fixed_effects/v3_l/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/fixed_effects/q4_l_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/fixed_effects/v4_l/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/fixed_effects/tlag_h/value": {
+   "decision": "cannot_check",
+   "note": "-1.52"
+  },
+  "ixazomib_parameters:/parameters/fixed_effects/bsa_exponent_on_v4/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/random_effects/iiv_cl_cv_percent/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/random_effects/iiv_f_cv_percent/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/random_effects/correlation_log_cl_log_f/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/random_effects/iiv_v4_cv_percent/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/residual_error/initial_sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/residual_error/steady_state_sd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "ixazomib_parameters:/parameters/residual_error/time_constant_sd_per_h": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/regimen/dose_mg": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/regimen/interval_h": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/auc_tau_ss_mm_4mg_ng_h_ml/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/auc_tau_ss_mm_4mg_ng_h_ml/cv_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/cmax_ss_mm_4mg_ng_ml/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/cmax_ss_mm_4mg_ng_ml/cv_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/auc_ss_ks_5mg_ng_h_ml/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/auc_ss_ks_5mg_ng_h_ml/cv_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/tmax_h/range": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/vd_f_l/range": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/cl_f_l_h/range": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/half_life_h_patients/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/half_life_h_healthy/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/fraction_excreted_unchanged/urine": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/fraction_excreted_unchanged/feces": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/values/protein_binding_percent/range": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/scenarios/renal_moderate_or_severe_no_dialysis/auc_fold": {
+   "decision": "cannot_check",
+   "note": ""
+  },
+  "pomalidomide_label:/scenarios/renal_severe_requiring_dialysis/auc_fold": {
+   "decision": "wrong",
+   "note": "0.38"
+  },
+  "pomalidomide_label:/scenarios/renal_esrd_non_dialysis_days/auc_fold": {
+   "decision": "wrong",
+   "note": "0.40"
+  },
+  "pomalidomide_label:/scenarios/hepatic_child_pugh_a/auc_fold": {
+   "decision": "wrong",
+   "note": "0.51"
+  },
+  "pomalidomide_label:/scenarios/hepatic_child_pugh_c/auc_fold": {
+   "decision": "wrong",
+   "note": "0.72"
+  },
+  "pomalidomide_label:/scenarios/hepatic_child_pugh_b/auc_fold": {
+   "decision": "wrong",
+   "note": "0.58"
+  },
+  "pomalidomide_label:/scenarios/fluvoxamine_strong_cyp1a2_inhibitor/auc_fold": {
+   "decision": "matches",
+   "note": "125%"
+  },
+  "pomalidomide_label:/scenarios/fluvoxamine_strong_cyp1a2_inhibitor/ci90_fold": {
+   "decision": "wrong",
+   "note": "98% to 157%"
+  },
+  "pomalidomide_label:/scenarios/fluvoxamine_with_ketoconazole/auc_fold": {
+   "decision": "wrong",
+   "note": "146%"
+  },
+  "pomalidomide_label:/scenarios/fluvoxamine_with_ketoconazole/ci90_fold": {
+   "decision": "wrong",
+   "note": "126% to 167%"
+  },
+  "pomalidomide_label:/scenarios/carbamazepine_strong_cyp3a4_inducer/auc_fold": {
+   "decision": "wrong",
+   "note": "20%"
+  },
+  "pomalidomide_label:/scenarios/carbamazepine_strong_cyp3a4_inducer/ci90_fold": {
+   "decision": "wrong",
+   "note": "13% to 27%"
+  },
+  "pomalidomide_label:/scenarios/smoking_25_per_day/auc_fold": {
+   "decision": "wrong",
+   "note": "32%"
+  },
+  "pomalidomide_label:/scenarios/smoking_25_per_day/cmax_fold": {
+   "decision": "wrong",
+   "note": "14%"
+  },
+  "pomalidomide_label:/scenarios/high_fat_meal/tmax_delay_h": {
+   "decision": "matches",
+   "note": ""
+  },
+  "pomalidomide_label:/scenarios/high_fat_meal/cmax_fold": {
+   "decision": "cannot_check",
+   "note": ""
+  },
+  "pomalidomide_label:/scenarios/high_fat_meal/auc_fold": {
+   "decision": "cannot_check",
+   "note": ""
+  },
+  "dexamethasone_label:/regimen/dose_mg": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/regimen/alternative_dose_mg": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/values/cmax_single_20mg_ng_ml/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/values/cmax_single_20mg_ng_ml/cv_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/values/auc_inf_single_20mg_ng_h_ml/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/values/auc_inf_single_20mg_ng_h_ml/cv_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/values/tmax_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/values/tmax_h/range": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/values/half_life_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/values/half_life_h/cv_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/values/cl_f_l_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/values/protein_binding_percent/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/linearity/range_mg": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/scenarios/itraconazole_strong_cyp3a4_inhibitor/auc_fold": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/scenarios/aprepitant_moderate_cyp3a4_inhibitor/auc_fold": {
+   "decision": "matches",
+   "note": ""
+  },
+  "dexamethasone_label:/scenarios/high_fat_meal/auc_fold": {
+   "decision": "cannot_check",
+   "note": "meal had no effect on AUC"
+  },
+  "dexamethasone_label:/scenarios/high_fat_meal/cmax_fold": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/cl_l_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/alb_exponent_on_cl/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/wt_exponent_on_cl/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/igg_shift_on_cl/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/v1_l/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/wt_exponent_on_v1/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/sex_shift_on_v1/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/v2_l/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/q_l_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/vmax_mg_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/kdes_per_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/km_ug_ml/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/ka_per_h/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/fixed_effects/f_sc/value": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/random_effects/iiv_cl_cv_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/random_effects/iiv_v1_cv_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/random_effects/iiv_vmax_cv_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/random_effects/iiv_kdes_cv_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/random_effects/iiv_ka_cv_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "daratumumab_parameters:/parameters/residual_error/additive_log_scale_cv_percent": {
+   "decision": "matches",
+   "note": ""
+  }
+ }
+}

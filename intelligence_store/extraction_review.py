@@ -21,7 +21,9 @@ QUEUE_SHA256 = '3ebad5506b7e1c9ed95a581f485389b4ef421727013aa826071aab79daab3961
 RECORD_SCHEMA = 'extraction-review-record-v1'
 DECISIONS = ('matches', 'wrong', 'cannot_check')
 # Pinned review records, oldest first: (file name in intelligence_store/data, sha256).
-REVIEW_RECORDS = ()
+REVIEW_RECORDS = (
+    ('extraction_review_record_2026-11-03_v1.json', '8bf417fb74bce88361db9a1c7f171dc8e12f96d2be1f8b100b250635b9ffb478'),  # round 1, Astrid, 3 November 2026
+)
 
 
 class ReviewError(ValueError):

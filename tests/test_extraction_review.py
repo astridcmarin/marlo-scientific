@@ -78,9 +78,11 @@ class Records(unittest.TestCase):
         st = [i['status'] for g in view['groups'] for i in g['items'] if i['id'] == self.first][0]
         self.assertEqual((st['decision'], st['note']), ('wrong', 'Source shows 12.1'))
 
-    def test_no_records_pinned_yet(self):
-        self.assertEqual(er.REVIEW_RECORDS, ())
-        self.assertEqual(er.queue_view()['counts']['unreviewed'], 166)
+    def test_round_1_record_pinned(self):
+        self.assertEqual([n for n, _ in er.REVIEW_RECORDS], ['extraction_review_record_2026-11-03_v1.json'])
+        view = er.queue_view()
+        self.assertEqual(view['counts'], {'unreviewed': 1, 'matches': 143, 'wrong': 12, 'cannot_check': 10})
+        self.assertEqual(view['records'][0]['reviewer'], 'Astrid')
 
 
 class Page(unittest.TestCase):
