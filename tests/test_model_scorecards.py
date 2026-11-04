@@ -58,10 +58,14 @@ class ScorecardData(unittest.TestCase):
         self.assertEqual({r['item'] for r in cards['lenalidomide_hughes_2019']['outside_data_disagreements']},
                          {'Moderate kidney impairment', 'Severe kidney impairment',
                           'Moderate kidney impairment (recheck with study-matched subjects)',
-                          'Severe kidney impairment (recheck with study-matched subjects)'})
-        self.assertEqual({r['item'] for r in cards['lenalidomide_kim_2026']['outside_data_disagreements']},   # v12
+                          'Severe kidney impairment (recheck with study-matched subjects)',
+                          'Moderate kidney impairment (myeloma patients, Bridoux 2016)',
+                          'Severe kidney impairment (myeloma patients, Bridoux 2016)'})
+        self.assertEqual({r['item'] for r in cards['lenalidomide_kim_2026']['outside_data_disagreements']},   # v13
                          {'Severe kidney impairment', 'Moderate kidney impairment (recheck with study-matched subjects)',
-                          'Severe kidney impairment (recheck with study-matched subjects)'})
+                          'Severe kidney impairment (recheck with study-matched subjects)',
+                          'Moderate kidney impairment (myeloma patients, Bridoux 2016)',
+                          'Severe kidney impairment (myeloma patients, Bridoux 2016)'})
         self.assertEqual(len(cards['bortezomib_pk_lignet_2022']['outside_data_disagreements']), 4)   # v10: MMY-3021 peak
         platelet = cards['bortezomib_platelets_lignet_2022']
         self.assertEqual(platelet['outside_data_disagreements'], [])
@@ -70,7 +74,7 @@ class ScorecardData(unittest.TestCase):
 
     def test_cited_reports_are_found_and_intact(self):
         reports = [r for c in ms.all_scorecards()['cards'] for l in c['layers'] for r in l['reports']]
-        self.assertEqual(len(reports), 17)          # v7 adds ixazomib (2 citations) and daratumumab (3); v10 MMY-3021; v11 Reece; v12 recheck (2 models)
+        self.assertEqual(len(reports), 19)          # v7 adds ixazomib (2 citations) and daratumumab (3); v10 MMY-3021; v11 Reece; v12 recheck (2 models); v13 Bridoux (2 models)
         self.assertTrue(all(r['intact'] for r in reports))
 
     def test_a_changed_or_uncited_report_is_not_served(self):

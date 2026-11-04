@@ -10,6 +10,7 @@
  "kim_extract_sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af",
  "trials": 10000,
  "seed": 20261101,
+ "classification": "exploratory_aggregate_external_consistency_check",
  "classification_rule": {
   "consistent": "observed within the 5th-95th percentile of simulated values",
   "model_under_predicts": "observed above the 95th percentile",
@@ -1306,5 +1307,5 @@
   "Height and within-group distributions may be unreported; their fallbacks are stated above."
  ],
  "clinical_prediction_validated": false,
- "report_sha256": "b681982316bf0fbc0695a1b9dc8ba7aa0f6c97292d351c661768b382e6d3bfb9"
+ "report_sha256": "032865f1b59c7b1e49d1a6e73c433de63ca4db66b2232a76c2d53c7627f35569"
 }

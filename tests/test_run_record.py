@@ -18,7 +18,7 @@ from intelligence_store.estimated_pk import calculate_estimated_pk, primary_weig
 from intelligence_store.kim_pk_runs import read_kim_pk_run
 from intelligence_store.patient_state import SCHEMA_V2, digest
 from intelligence_store.patient_state_revisions import save_revision
-from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, EVIDENCE_V5_SHA256, EVIDENCE_V6_SHA256, EVIDENCE_V7_SHA256, EVIDENCE_V8_SHA256, EVIDENCE_V9_SHA256, EVIDENCE_V10_SHA256, EVIDENCE_V11_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
+from intelligence_store.run_record import (record_for_relative_odds, EVIDENCE_PATH, EVIDENCE_V1_SHA256, EVIDENCE_V2_SHA256, EVIDENCE_V3_SHA256, EVIDENCE_V4_SHA256, EVIDENCE_V5_SHA256, EVIDENCE_V6_SHA256, EVIDENCE_V7_SHA256, EVIDENCE_V8_SHA256, EVIDENCE_V9_SHA256, EVIDENCE_V10_SHA256, EVIDENCE_V11_SHA256, EVIDENCE_V12_SHA256, LAYER_ORDER, SCHEMA_VERSION, load_evidence_status,
                                            record_for_estimated_pk, record_for_kim_run, record_for_patient_platelets)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -68,11 +68,33 @@ class EvidenceStatus(unittest.TestCase):
         v11 = EVIDENCE_PATH.with_name('model_evidence_status_v11.json')
         self.assertEqual(hashlib.sha256(v11.read_bytes()).hexdigest(), EVIDENCE_V11_SHA256)
         self.assertEqual(json.loads(v11.read_text())['supersedes']['status_version'], json.loads(v10.read_text())['status_version'])
+        v12 = EVIDENCE_PATH.with_name('model_evidence_status_v12.json')
+        self.assertEqual(hashlib.sha256(v12.read_bytes()).hexdigest(), EVIDENCE_V12_SHA256)
+        self.assertEqual(json.loads(v12.read_text())['supersedes']['status_version'], json.loads(v11.read_text())['status_version'])
         current = load_evidence_status()
-        self.assertEqual(current['supersedes']['status_version'], json.loads(v11.read_text())['status_version'])
+        self.assertEqual(current['supersedes']['status_version'], json.loads(v12.read_text())['status_version'])
+
+    def test_v13_only_adds_the_bridoux_check(self):
+        current = load_evidence_status()['models']
+        v12 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v12.json').read_text())['models']
+        changed = ('lenalidomide_hughes_2019', 'lenalidomide_kim_2026')
+        for model_id in v12:
+            for layer in v12[model_id]['layers']:
+                if model_id in changed and layer == 'external_consistency':
+                    new = dict(current[model_id]['layers'][layer])
+                    extra = new.pop('further_reports')
+                    old = dict(v12[model_id]['layers'][layer])
+                    self.assertEqual(extra[:-1], old.pop('further_reports'))
+                    self.assertEqual(new, old)
+                    report = json.loads((ROOT / extra[-1]['evidence_report']).read_text())
+                    self.assertEqual({k.split('.', 1)[1]: v for k, v in extra[-1]['results'].items()},
+                                     report['result_by_model'][model_id]['primary'])
+                    self.assertIn('does not change the model', extra[-1]['summary'])
+                else:
+                    self.assertEqual(current[model_id]['layers'][layer], v12[model_id]['layers'][layer])
 
     def test_v12_only_adds_the_renal_recheck(self):
-        current = load_evidence_status()['models']
+        current = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v12.json').read_text())['models']
         v11 = json.loads(EVIDENCE_PATH.with_name('model_evidence_status_v11.json').read_text())['models']
         changed = ('lenalidomide_hughes_2019', 'lenalidomide_kim_2026')
         for model_id in v11:
@@ -223,7 +245,7 @@ class EvidenceStatus(unittest.TestCase):
                     self.assertEqual(report['primary_endpoint_by_group'], layer['result_by_group'])
                 if 'result_by_endpoint' in layer:          # v7 models; checked in detail in the v7 test
                     self.assertIn('classification_by_endpoint', report)
-        self.assertEqual(cited, 17)          # v12: one recheck report cited by two models
+        self.assertEqual(cited, 19)          # v13: the Bridoux report cited by two more models' layers
 
     def test_bortezomib_reproduction_matches_the_adopted_reading(self):
         report = json.loads((ROOT / 'docs/verification/bortezomib_platelet_check_v1.json').read_text())
