@@ -1,0 +1,80 @@
+{
+ "schema_version": "check-plan-v1",
+ "plan_version": "lenalidomide-body-map-time-course-plan-v1.0",
+ "recorded_on": "2026-11-04",
+ "status": "locked_before_computation",
+ "prespecification_note": "Written and pinned before the time-course model has been built or run. The observed values below were all seen before this plan: the CC-5013-PK-001 group values (EMA 2013) were extracted on 31 October and used to check clearance in 2.0a and 2.1e; the Bridoux 2016 values were read on 4 November for the 2.1h check. So this is a consistency check within studies already used, not an independent or blind test, and the report says so.",
+ "classification": "exploratory_aggregate_internal_consistency_check",
+ "question": "Does a one-compartment time course built on the body map's own clearance reproduce the observed peak concentration and half-life in each kidney-function group, given volume and absorption fixed from the normal group?",
+ "plan_doc": "docs/DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md (decision 2, option B; approved 3 November 2026)",
+ "model": {
+  "structure": "one compartment, first-order absorption, first-order elimination; linear",
+  "clearance": "CL/F(CrCl) = total clearance of the 2.0a pathway model under the intact-nephron reading at that creatinine clearance (renal + non-renal), bioavailability taken as 1, exactly as the body map view computes it",
+  "volume": "V/F fixed at the normal group's geometric mean Vz/F, EMA 2013 Table 3 (56 L), at every creatinine clearance (assumption: volume does not change with kidney function; Table 3 gives 50-60 L for normal to moderate and 40 L for severe)",
+  "absorption": "ka solved so that the model's tmax equals the normal group's median tmax (EMA 2013 Table 3, 1.0 h) with ke = CL/F(110 mL/min) / V/F, the pathway model's calibration point; the faster of the two roots is taken (absorption faster than elimination); no lag time",
+  "routes": "at every time, renal and non-renal elimination rates are CLr x C and CLnr x C, with CLr and CLnr from the same pathway model, so the cumulative urine and non-renal amounts end at the fraction excreted unchanged the map already shows",
+  "solution": "closed form (Bateman); checked against a numerical integration (RK4, step 0.01 h) and mass balance",
+  "no_random_effects": "typical values only"
+ },
+ "pinned_inputs": {
+  "ema_2013_extract": {
+   "file": "intelligence_store/data/lenalidomide_renal_pk_ema_2013_v1.json",
+   "sha256": "04f2e629ded43713062e0d68d668939a4a2cecd5a9db7ce349874e81529f6501"
+  },
+  "chen_2007_demographics": {
+   "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v3.json",
+   "sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292",
+   "use": "group mean measured creatinine clearance (Table I): normal 102.2, mild 64.6, moderate 39.1, severe 23.9 mL/min"
+  },
+  "pathway_evidence": {
+   "file": "intelligence_store/data/lenalidomide_renal_pathways_evidence_v1.json",
+   "sha256": "e7c62bc477bfc6170f42f1f01e5935ea222bec0fbf513da718178030c42d2c8f"
+  },
+  "bridoux_design": {
+   "file": "intelligence_store/data/lenalidomide_bridoux_design_v1.json",
+   "sha256": "1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac"
+  },
+  "bridoux_observed_note": "Bridoux Table 2 Cmax and t1/2 are not in the pinned observed file (which holds AUC24 only); if used, they are added in a new versioned observed file with page and table, before the secondary comparison is computed."
+ },
+ "endpoints": {
+  "primary": {
+   "study": "CC-5013-PK-001 (single 25 mg oral dose, fasting)",
+   "values": "EMA 2013 Table 3 geometric means (geometric CV) of Cmax and terminal half-life for the mild, moderate and severe groups",
+   "model_at": "each group's mean measured creatinine clearance (Chen 2007 Table I)",
+   "model_value": "typical Cmax and terminal half-life of the one-compartment curve after 25 mg"
+  },
+  "consistency_not_a_test": "AUCinf per group (follows from the 2.0a clearance, already checked in 2.0a and 2.1e) and the normal group's Cmax and half-life (the calibration group) are reported, not classified.",
+  "secondary": {
+   "study": "Bridoux 2016 (myeloma, day 5 of label-adjusted daily or alternate-day dosing)",
+   "values": "Table 2 geometric mean Cmax and t1/2 for mild, moderate and severe",
+   "model_at": "each group's mean Cockcroft-Gault creatinine clearance (Table 1), used as the model's creatinine clearance (the pathway model was calibrated on measured clearance; this difference is recorded)",
+   "model_value": "Cmax on day 5 of the group's regimen (superposition) and terminal half-life",
+   "note": "Not blind: these values were seen on 4 November 2026. Reported with the same classification rule, labelled secondary."
+  },
+  "excluded": "ESRD groups (no dialysis process in the model)."
+ },
+ "classification_rule": {
+  "interval": "90% confidence interval of the observed geometric mean: GM x exp(+/- t(0.95, n-1) x s / sqrt(n)), with s = sqrt(ln(1 + CV^2)) from the reported geometric CV and the group's n",
+  "consistent": "model typical value inside the interval",
+  "model_under_predicts": "model value below the interval",
+  "model_over_predicts": "model value above the interval",
+  "also_reported": "model / observed ratio"
+ },
+ "decision_rule": {
+  "summary": "The time course is shown on the body map with the classification of its band. Where Cmax or half-life is inconsistent in a band, the time-course panel carries that band's warning. Nothing about the clearance model, its scope or its evidence status changes because of this check; any change is a separate step for the platform owner.",
+  "if_numerical_checks_fail": "The model is not shown and the failure is reported."
+ },
+ "software_checks": [
+  "closed form agrees with RK4 within 0.1% for concentrations from 0.25 to 48 h",
+  "amount in body + cumulative urine + cumulative non-renal = dose within 1e-9 relative, at every time",
+  "cumulative urine at 120 h / dose equals the pathway model's fraction excreted unchanged within 0.5%",
+  "tmax at the calibration point equals the normal group's median tmax within 0.01 h"
+ ],
+ "known_limitations": [
+  "Volume held constant across kidney function; the observed Vz/F is lower in the severe group (40 vs 56 L).",
+  "Typical value at the group's mean creatinine clearance, compared with a geometric mean of individuals; with clearance non-linear in creatinine clearance only through the pathway split, the difference is small but not zero.",
+  "Same study as the pathway model's calibration (primary) and as the 2.1h check (secondary): consistency, not validation.",
+  "One compartment: an early distribution phase, if present, is not represented."
+ ],
+ "clinical_prediction_validated": false
+}

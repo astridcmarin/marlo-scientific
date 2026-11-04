@@ -121,3 +121,13 @@ The urine total at the end equals the fraction excreted unchanged that 1.0 alrea
 - **Flows can be selected:** clicking a strand opens its card, as for organs: what the process is, its clearance and share of elimination (both unbound fractions for filtration and secretion), the band's evidence status and the basis. Absorption's card says it has no value. Strands are picked through their wider glow, so they are easy to hit.
 - **Absorption** is drawn pink and dashed, matching its label.
 
+## Step 1.1d: time-course check plan locked (4 November 2026)
+
+`intelligence_store/data/lenalidomide_body_map_time_course_plan_v1.json`, pinned before the model is built or run.
+- **Model:** one compartment with first-order absorption, on the body map's own clearance at each creatinine clearance (2.0a, intact-nephron reading). Volume fixed at the normal group's geometric mean Vz/F (56 L, EMA 2013); absorption rate solved so the curve peaks at the normal group's median tmax (1.0 h) at the calibration point. Renal and non-renal routes share the curve, so the urine total ends at the fraction excreted the map shows.
+- **Primary comparison:** peak concentration and half-life after 25 mg in the mild, moderate and severe groups of CC-5013-PK-001 (EMA 2013 Table 3), with the model at each group's mean measured creatinine clearance (Chen 2007 Table I). AUC and the normal group are reported, not classified (they are the clearance check and the calibration).
+- **Secondary:** day 5 peak and half-life in Bridoux 2016.
+- **Rule:** consistent if the model value lies in the 90% confidence interval of the observed geometric mean (from its CV and n).
+- **Not blind:** every observed value was seen before this plan (2.0a, 2.1e, 2.1h), so this is a consistency check, not validation; the plan says so.
+- **Decision rule:** the time course is shown with its band's classification; an inconsistent band carries a warning on the time-course panel. Nothing about the clearance model changes because of this check.
+
