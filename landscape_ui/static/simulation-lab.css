@@ -1,1 +1,27 @@
-.simulation-intro{max-width:850px;font-size:1.1rem;line-height:1.6}.simulation-feature{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;padding:28px;background:#edf5f4;border:1px solid #bdd3d0;margin:24px 0}.simulation-feature h2{margin-top:6px}.simulation-scope{padding:20px;background:#fff;border-left:3px solid #007b83;line-height:1.6}.simulation-sections{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}.simulation-sections a{padding:8px 12px;border:1px solid #c1d0d2;text-decoration:none}.simulation-section{scroll-margin-top:24px;margin:32px 0}.simulation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.simulation-card{display:flex;flex-direction:column;margin:0}.simulation-card h3{margin-top:0}.simulation-card .button{align-self:flex-start;margin-top:auto}.simulation-question{font-size:1.05rem;line-height:1.5}.simulation-note{color:#52666b;font-size:.92rem;line-height:1.5}@media(max-width:1100px){.simulation-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.simulation-feature{grid-template-columns:1fr}}@media(max-width:650px){.simulation-grid{grid-template-columns:1fr}.simulation-feature{padding:18px}.simulation-sections a{flex:1 1 40%}}
+/* Simulation Lab directory. Design pass 3 (3 November 2026): the connected prototype sits in a dark scientific panel
+   (Aurora tokens from marlo-design.css); concept cards and section links use the shared card and chip styles. */
+.simulation-intro{max-width:850px;font-size:1.1rem;line-height:1.6;color:var(--ms-body,#3f4160)}
+.simulation-feature{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;padding:28px;margin:24px 0;position:relative;overflow:hidden;border-radius:var(--ms-radius-lg,12px);background:radial-gradient(ellipse at 20% 0%,var(--ms-dark-ground-2,#171245) 0%,var(--ms-dark-ground,#07061a) 78%);color:var(--ms-dark-ink,#e3e2fb);border:1px solid var(--ms-dark-line,rgba(169,156,255,.32))}
+.simulation-feature::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--ms-gradient)}
+.simulation-feature h2{margin-top:6px;color:#fff}
+.simulation-feature p{color:var(--ms-dark-ink,#e3e2fb)}
+.simulation-feature .eyebrow{color:var(--ms-dark-accent,#a99cff)}
+.simulation-feature .button.primary{background:var(--ms-accent);border-color:var(--ms-dark-accent,#a99cff);color:#fff}
+.simulation-feature .button.primary:hover{background:var(--ms-accent-dark)}
+.simulation-scope{padding:18px 20px;line-height:1.6;border-radius:var(--ms-radius,8px);background:var(--ms-dark-card,rgba(12,10,38,.86));border:1px solid var(--ms-dark-line,rgba(169,156,255,.32));border-left:3px solid var(--ms-dark-accent,#a99cff)}
+.simulation-scope strong{color:#fff}
+.simulation-scope p:last-child{font-family:var(--ms-font-mono);font-size:12px;color:var(--ms-dark-muted,#a9abd0)}
+.simulation-sections{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}
+.simulation-sections a{padding:6px 14px;border:1px solid #d9d5f7;border-radius:999px;background:#fff;text-decoration:none;font-size:13px;color:var(--ms-accent-dark)}
+.simulation-sections a:hover{background:var(--ms-accent-soft);border-color:var(--ms-accent)}
+.simulation-section{scroll-margin-top:24px;margin:32px 0}
+.simulation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.simulation-card{display:flex;flex-direction:column;margin:0;border-radius:var(--ms-radius-lg,12px);transition:border-color .15s,box-shadow .15s}
+.simulation-card:hover{border-color:#cfc9f5;box-shadow:0 6px 20px rgba(42,27,107,.08)}
+.simulation-card h3{margin-top:0;font-family:var(--ms-font-display);font-weight:500}
+.simulation-card .button{align-self:flex-start;margin-top:auto}
+.simulation-question{font-size:1.05rem;line-height:1.5}
+.simulation-note{color:var(--ms-muted,#5b5d78);font-size:.92rem;line-height:1.5}
+@media(max-width:1100px){.simulation-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.simulation-feature{grid-template-columns:1fr}}
+@media(max-width:650px){.simulation-grid{grid-template-columns:1fr}.simulation-feature{padding:18px}.simulation-sections a{flex:1 1 40%}}
+@media(prefers-reduced-motion:reduce){.simulation-card{transition:none}}

@@ -24,7 +24,8 @@ class TransitRegimenPageTests(unittest.TestCase):
         self.assertEqual(report.json,transit_regimen_demo())
         self.assertEqual(report.data,self.client.get(self.path+'?format=json&cohort_id=4').data)
         self.assertIn('generic-transit-regimen-demo.json',report.headers['Content-Disposition'])
-        self.assertNotIn('<script',body)
+        # no page-specific script; only the shared scroll-position helper (marlo-scroll.js) on every page
+        self.assertNotIn('<script',body.replace('<script src="/landscape/static/marlo-scroll.js" defer></script>',''))
 
     def test_override_inputs_duplicate_queries_and_post_are_rejected(self):
         for q in ('dose=25','drug=lenalidomide','revision_id=1','interval=8','format=csv',

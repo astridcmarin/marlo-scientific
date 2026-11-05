@@ -122,7 +122,7 @@ class EducationalPKPageTests(unittest.TestCase):
         self.assertEqual(export_revision(self.revision.id),before)
         self.assertEqual(len(list(db.session.scalars(select(PatientStateRevision)))),1)
         detail=self.client.get(f'/landscape/workspace/scenarios/{self.scenario.id}/patient-state/revisions/{self.revision.id}')
-        self.assertIn('Open educational PK calculation',detail.get_data(as_text=True))
+        self.assertIn('Typical concentration curve (Hughes 2019)',detail.get_data(as_text=True))
 
     def test_blocked_scope_has_no_curve_and_preserves_declared_context(self):
         self.baseline()

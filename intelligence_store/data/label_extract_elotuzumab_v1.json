@@ -1,0 +1,106 @@
+{
+ "schema_version": "drug-label-extract-v1",
+ "extract_version": "elotuzumab-label-extract-v1.0",
+ "drug": "elotuzumab",
+ "brand": "EMPLICITI",
+ "recorded_on": "2026-11-04",
+ "modality": "monoclonal antibody (anti-SLAMF7)",
+ "route": "intravenous",
+ "source": {
+  "document": "EMPLICITI (elotuzumab) for injection, for intravenous use. Full prescribing information. Bristol-Myers Squibb Company.",
+  "dailymed_set_id": "80686b7e-f6f4-4154-b5c0-c846425e2d91",
+  "revised": "3/2022 (as printed on the label)",
+  "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=80686b7e-f6f4-4154-b5c0-c846425e2d91",
+  "file_reviewed": {
+   "file": "EMPLICITI (elotuzumab) label - DailyMed [20240628_80686b7e-f6f4-4154-b5c0-c846425e2d91].pdf (33 pages)",
+   "sha256": "2186dc0f6d77030708a720bdecfece1f28d34756da883cd78a59a1101a931378"
+  },
+  "storage": "Kept on the platform owner's computer only; not committed.",
+  "extraction": "AI-assisted from the PDF text layer (pdftotext). Every quote is checked by the build script against the text layer (spaces and hyphens ignored, as the text layer drops hyphens at line breaks), and its PDF page recorded; table cells marked text_and_rendered_page were also read from the rendered page because the text layout is scrambled. Independent review pending."
+ },
+ "dosing": {
+  "erd_10_mg_kg": {
+   "dose_mg_kg": 10,
+   "schedule": "weekly for cycles 1-2, then every 2 weeks",
+   "combination": "lenalidomide and dexamethasone",
+   "quote": "The recommended dosage of EMPLICITI is 10 mg/kg administered intravenously every week for the first two cycles (28-day cycle) and every 2 weeks thereafter in conjunction with the recommended dosing of lenalidomide and low-dose dexamethasone",
+   "location": "section 2.1, PDF page 3",
+   "check": "text"
+  }
+ },
+ "pk": {
+  "nonlinearity": {
+   "stated_as": "nonlinear; greater than proportional AUC; target-mediated clearance",
+   "quote": "Elotuzumab exhibits nonlinear pharmacokinetics (PK) resulting in greater than proportional increases in area under the concentration-time curve (AUC) indicative of target-mediated clearance.",
+   "location": "section 12.3, PDF page 18",
+   "check": "text"
+  },
+  "trough_ss_erd_ug_ml": {
+   "value": 194,
+   "cv_percent": 52,
+   "statistic": "geometric mean (CV%), predicted",
+   "quote": "The administration of the recommended 10 mg/kg EMPLICITI regimen with lenalidomide and dexamethasone is predicted to result in geometric mean (CV%) steady-state trough concentrations of 194 μg/mL (52%).",
+   "location": "section 12.3, PDF page 18",
+   "check": "text"
+  },
+  "trough_ss_epd_ug_ml": {
+   "value": 124,
+   "cv_percent": 59,
+   "statistic": "geometric mean (CV%), predicted",
+   "quote": "The administration of the recommended EMPLICITI regimen with pomalidomide and dexamethasone is predicted to result in geometric mean (CV%) steady-state trough concentrations of 124 μg/mL (59%).",
+   "location": "section 12.3, PDF page 18",
+   "check": "text"
+  },
+  "clearance_by_dose_ml_day_kg": {
+   "at_0_5_mg_kg": [
+    17.5,
+    21.2
+   ],
+   "at_20_mg_kg": [
+    5.8,
+    31
+   ],
+   "statistic": "geometric mean (CV%)",
+   "quote": "The clearance of elotuzumab in combination with lenalidomide and dexamethasone decreased from a geometric mean (CV%) of 17.5 (21.2%) to 5.8 (31%) mL/day/kg with an increase in dose from 0.5 (i.e., 0.05 times the recommended dosage) to 20 mg/kg",
+   "location": "section 12.3, PDF page 18",
+   "check": "text"
+  }
+ },
+ "special_populations": {
+  "covariates_no_effect": {
+   "factors": [
+    "age 37-88 years",
+    "sex",
+    "race",
+    "LDH",
+    "albumin",
+    "renal impairment CLcr 15-89 mL/min",
+    "ESRD with or without hemodialysis",
+    "mild hepatic impairment",
+    "coadministered lenalidomide/dexamethasone or pomalidomide/dexamethasone"
+   ],
+   "quote": "Clinically significant differences were not observed in the PK of elotuzumab based on age (37 to 88 years), sex, race, baseline lactate dehydrogenase, albumin, renal impairment (creatinine clearance (CLcr) 15 to 89 mL/min), end-stage renal disease (CLcr <15 mL/min) with or without hemodialysis",
+   "location": "section 12.3, PDF page 18",
+   "check": "text"
+  },
+  "hepatic_moderate_severe": {
+   "value": null,
+   "stated_as": "unknown",
+   "quote": "The PK of elotuzumab in patients with moderate (total bilirubin > 1.5 to 3 times the ULN and AST any value) to severe (total bilirubin > 3 times the ULN and AST any value) hepatic impairment is unknown.",
+   "location": "section 12.3, PDF page 18",
+   "check": "text"
+  },
+  "body_weight": {
+   "stated_as": "clearance increases with body weight, supporting weight-based dosing",
+   "quote": "The clearance of elotuzumab increased with increasing body weight supporting a weight-based dose.",
+   "location": "section 12.3, PDF page 18",
+   "check": "text"
+  }
+ },
+ "interactions": {},
+ "not_stated": [
+  "Cmax or AUC at the recommended dose.",
+  "Volume of distribution."
+ ],
+ "clinical_prediction_validated": false
+}

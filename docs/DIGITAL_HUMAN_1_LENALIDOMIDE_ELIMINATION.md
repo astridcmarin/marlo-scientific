@@ -233,3 +233,66 @@ The platform owner chose to show the rest of the body's anatomy around the elimi
 Each card names the source model and the view checksum. Context organs have no card, only "anatomy for orientation, not simulated".
 
 **Step 1.3 is complete.** Next in the plan: 1.4 (explorer mode with a creatinine-clearance control, and the observed-data context panel) and 1.5 (docs, links, checkpoint).
+
+## Step 1.4 delivered (3 November 2026): explorer mode and the observed-data context
+
+**Explorer route:** `/landscape/patient-lab/body-map?crcl=…` (and `&format=json`). No patient record: the creatinine clearance is chosen with a slider or typed, from 10 to 140 mL/min. It starts at 110 mL/min, the pathway model's calibration point. The page is the record-mode page (3D view, numbers, flow diagram, limits) with the form on top; the form works without JavaScript, and a small script (`body-map-explorer.js`) keeps the slider and the number box in step and shows the new value when the slider is released. Outside 10–140 no map is drawn. The value stands for creatinine clearance measured from urine, as in the study.
+
+**Observed-data context panel** (`intelligence_store/body_map_context.py`, schema `body-map-context-v1`), on both the explorer and the record pages, for the band the value falls in:
+- **Model beside observation:** exposure relative to normal function, dose leaving unchanged in urine, renal clearance and total apparent clearance. The model column is copied from the map. The observed column is copied from the pinned EMA 2008 extract (arithmetic means) and the pinned EMA 2013 extract (geometric means, with their CV or SD). Exposure ratios to the normal group are worked out from the printed means and say so.
+- **Group, not point:** a note says the observed values are group summaries for 5–7 subjects whose measured creatinine clearance fell in the band, not values at the chosen number.
+- **EMA geometric-mean ratios with 90% CIs** for the moderate and severe bands, where Table 4 reports them, with the note that their reference group pools normal and mild subjects.
+- **The EMA regression of renal clearance** (CLr = −17.35 + 1.89 × CLcr) evaluated at the chosen value, next to the map's renal total, labelled "context, not a check": it was fitted to the same subjects as the calibration (issue 3 of this plan).
+- **The label's renal dose steps,** quoted from Table 3 (revision 3/2023), with the row containing the value marked. The panel states that the platform proposes no dose, that the label uses Cockcroft–Gault estimates, and that the label and the regulatory-context note use different thresholds.
+- Sources with their checksums, and a checksum of the panel itself.
+
+**Run record (explorer):** `record_for_body_map_explorer`. No patient record; the entered value is the input. Same assumptions as the record mode except the Cockcroft–Gault weight basis, which does not apply. Checksums of the view, the context, the pathway evidence and report, the unbound-fraction record, the asset manifest and both models. The simulation banner shows "No patient record" in place of "Synthetic patient record".
+
+**What the panel shows that matters:** at moderate kidney function the map's renal clearance (about 59 mL/min at 40) is about twice the group's observed geometric mean (27 mL/min), and its urine fraction (67%) is well above the observed 38–42%. That is the 2.0a finding the moderate-band warning already states; the panel puts the observed numbers next to it.
+
+**Tests:** `tests/test_body_map_explorer.py` (values copied from the extracts, model column equals the map, ratios only where reported, regression labelled, label rows matched without a dose, reproducible checksums, explorer page, JSON, out-of-range and bad requests).
+
+**Next:** 1.5 (docs, links from the drug page and the Patient Lab, checkpoint).
+
+## Step 1.5 delivered (3 November 2026): links, docs and the end of Digital human 1.0
+
+**Links to the body map:**
+- **Sidebar:** "Body map explorer" under Patient Lab, on every workspace page.
+- **Lenalidomide drug page:** "Body map explorer" in the drug hub under *Exposure and effect tools*; the record-mode map stays listed under *On synthetic patients*.
+- **Saved Patient Lab:** a "Lenalidomide body map explorer" button beside the other Patient Lab tools.
+- **Each patient record:** "Body map (3D)" under *Where does the drug leave the body?* in the record's results (layout step 3), and the record-mode map links to the explorer at the record's creatinine clearance.
+
+**Status of Digital human 1.0.** All planned steps (1.0–1.5) are delivered. The body map answers its question (*where does lenalidomide leave the body, and how does that change as kidney function falls?*) with the 2.0a pathway model, on Human Reference Atlas anatomy, with every number's evidence status and the study's observed values beside it. It makes no new scientific claim: no outside check was added, and the validation flags stay false.
+
+**Open items carried forward:**
+- The HRA release version of the United male set (`hra_version: null` in the asset manifest).
+- The three points for the owner in step 1.3a (heart drawn with the blood, small intestine as the gut, the hand-placed stomach).
+- The moderate-band disagreement remains the main scientific limitation. Lower renal elimination than the intact-nephron reading predicts is the known finding; a revised reading needs its own locked plan and an independent check (for example Bridoux 2016, once obtained).
+- Exact-reproduction checks of five locked reports differ in the last floating-point digits on macOS; they pass on the CI platform (Linux). A tolerance-based comparison off CI is a candidate fix.
+
+**Candidates for Digital human 1.1+** (each needs its own plan): a plasma time-course panel from Hughes or Kim under their own scopes; a female reference body; a static, sourced "where it acts" card (cereblon, IKZF1/3) from the knowledge layer; a second drug through the same generic `body-map-view-v1` data.
+
+## Correction (3 November 2026): kidney flows start in the aorta and follow the renal arteries (flow paths v2)
+
+**What was wrong.** In paths v1 each kidney flow started 2–4 cm in front of the aorta and ran straight to the kidney's hilum, below the renal arteries, so on screen the strands looked displaced from the vessels they stand for. The cause: the route model merges all arteries into one part, and v1 took "the aorta" as the middle of every artery near the midline at that height, which the superior mesenteric and other front arteries pulled forward.
+
+**Fix.**
+- `scripts/build_body_map_vessel_lines.py` reads the original Atlas file (checked against its SHA-256 `fae3ac19…`; it stays on the owner's computer) and writes centre lines for the abdominal aorta, both renal arteries and the inferior vena cava to `intelligence_store/data/body_map_vessel_lines_v1.json` (pinned).
+- Flow paths v2 (`body_map_flow_paths_v2.json`, method `body-map-flow-paths-build-v2.0`): each kidney flow starts on the aorta's centre line at its renal artery's origin, follows that artery's centre line, and ends at the kidney's centre. Absorption ends on the vena cava's centre line at renal-artery level. Urine paths are unchanged. v1 is kept unchanged for traceability.
+- Tests check that each kidney flow starts within 2 mm of the aorta's centre line and runs along the renal artery.
+
+**Atlas naming.** The Atlas node called "left renal artery" lies on the body's right and "right renal artery" on the body's left, opposite to the kidneys (whose sides were confirmed in step 1.3a). Sides are assigned by position, and the Atlas name is kept in the file. Worth reporting to the HRA team.
+
+**Labels.** Flow labels are now measured and kept inside the view, and labels on the same side no longer overlap (they did in the side view).
+
+Nothing in the numbers, bands or evidence changes; this is drawing geometry only.
+
+## Rendering pass (3 November 2026)
+
+Display only; no geometry, number or evidence status changes.
+- **Transparency:** translucent organs are drawn farthest first with ordinary alpha blending (back faces before front faces), instead of being added together, which washed overlapping layers out to a white haze. Context anatomy is drawn first as a backdrop, so it never veils the organs that carry results. The skin, the small intestine and the kidney capsule stay as glowing layers on top; the capsule's edge colour still shows the evidence band (orange where the outside check disagrees, amber where it agrees in the primary scenario only).
+- **Lighting:** a key light, a cool fill light, a back light for edges, a sky/ground ambient, and a specular highlight set per material (glossy vessels, matte organs).
+- **Kidney materials:** a lighter, more translucent cortex so the pyramids show; papillae pink instead of the urine yellow, which now marks only the collecting system, ureters and bladder.
+- **Flow tubes:** a faint glow around each tube. Its width is decoration and carries no value; the tube itself keeps the clearance-proportional width.
+- **Sharpness:** drawn at the screen's pixel density, capped at 2× so phones stay fast.
+

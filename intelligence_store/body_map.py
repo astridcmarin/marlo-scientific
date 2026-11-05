@@ -11,6 +11,12 @@ Nodes carry UBERON anatomy IDs so later drugs and organs reuse one vocabulary. T
 amounts or concentrations in organs: no source gives lenalidomide tissue concentrations.
 
 Plan: docs/DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md (approved 31 October 2026).
+
+Digital human 1.1, step 1.1b (body-map-view-v2): adds reference renal blood flow (ICRP 89 reference male, not
+adjusted for kidney function) and the share of drug reaching the kidneys that leaves in urine in one pass (renal
+extraction). Extraction = renal blood clearance / renal blood flow, where renal blood clearance = renal plasma
+clearance / blood-to-plasma ratio (0.931, Chen 2012, assumed). It inherits the band's evidence status. Plan:
+docs/DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md (approved 3 November 2026).
 """
 import hashlib
 import json
@@ -21,14 +27,23 @@ from .lenalidomide_renal_pathways import (EVIDENCE_SHA256, METHOD_VERSION as PAT
                                           calibrate, load_evidence, pathways)
 from .patient_renal_pathways import CALIBRATION_CRCL, FU, READING
 from .patient_state import digest
+from .reference_physiology import CHEN_SHA256, ICRP_SHA256, load_blood_plasma, renal_flows
 
 DATA = Path(__file__).parent / 'data'
-SCHEMA_VERSION = 'body-map-view-v1'
-METHOD_VERSION = 'lenalidomide-body-map-v1.0'
+SCHEMA_VERSION = 'body-map-view-v2'
+METHOD_VERSION = 'lenalidomide-body-map-v1.1'
 DRUG = 'lenalidomide'
 RANGE = (10.0, 140.0)
 
 PATHWAY_REPORT_SHA256 = '163b5ca1a95a7f3d745c8e25a93ef58d4bedd0e1e48d6e4bfdfb4a25457a93d5'
+# Simulation 2.0d report: its comparator (the current model, k = 1) against two myeloma studies not used to fit it.
+MYELOMA_REPORT_PATH = Path(__file__).resolve().parent.parent / 'docs' / 'verification' / 'lenalidomide_renal_pathways_check_v2.json'
+MYELOMA_REPORT_SHA256 = '277108de99726588a04c11468e7004f93068d6fa0ca3372ae5c564dbe756dbdd'
+# Simulation 2.0e report: the 2.0a comparison across bioavailability F (plan v3). It decides the moderate and severe band status.
+F_REPORT_PATH = Path(__file__).resolve().parent.parent / 'docs' / 'verification' / 'lenalidomide_renal_pathways_check_v3.json'
+F_REPORT_SHA256 = 'a60437cc58e174c88b79434a6eee104455995bf64cd0f935f8c39f4877615533'
+F_BANDS = {'moderate': 'moderate', 'severe': 'severe'}
+MYELOMA_GROUPS = {'moderate': {'bridoux': 'moderate', 'kim': 'moderate'}, 'severe': {'bridoux': 'severe', 'kim': 'severe'}}
 FU_RECORD_PATH = DATA / 'lenalidomide_pathway_unbound_fraction_assessment_v1.json'
 FU_RECORD_SHA256 = '8796799193207c3fffb9001e6a6d1cd6ad45f165c94a5986c944cf47a2faa7df'
 
@@ -57,8 +72,9 @@ STATUS_TEXT = {
     'calibrated': 'Calibrated: the model was fitted to the normal-function group.',
     'checked_consistent': 'Checked: consistent with the observed group in every scenario of the locked check.',
     'consistent_primary_only': 'Consistent with the observed group in the primary scenario only; not in every scenario of the locked check.',
-    'check_disagrees': ('Outside check disagrees: the model under-predicts exposure here; renal elimination is probably lower, '
-                        'and exposure higher, than shown.'),
+    'check_disagrees': ('Source study disagrees: in this band of CC-5013-PK-001 (the study the model was calibrated on, whose '
+                        'impaired groups were not used for fitting) the model predicts less exposure than observed.'),
+    'depends_on_bioavailability': ('The result in this band depends on how much of the dose is absorbed, which was not measured.'),
 }
 
 
@@ -92,10 +108,83 @@ def band_for(crcl):
     return None
 
 
+def myeloma_note(band_id):
+    """For the moderate and severe bands: how the current model compares with Bridoux 2016 and Kim 2026 (Simulation 2.0d
+    comparator, pre-specified). Read from the pinned report; None for other bands."""
+    groups = MYELOMA_GROUPS.get(band_id)
+    if groups is None:
+        return None
+    raw = MYELOMA_REPORT_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != MYELOMA_REPORT_SHA256:
+        raise BodyMapError('The renal pathways v2 report is missing or changed; the map was not built.')
+    report = json.loads(raw)
+    cls = {study: report['primary'][study]['v1'][group]['classification'] for study, group in groups.items()}
+    sens = {name: {study: s[study]['v1'][group]['classification'] for study, group in groups.items()}
+            for name, s in report['sensitivity'].items()}
+    if set(cls.values()) == {'consistent'}:
+        finding = ('In two studies of myeloma patients never used to fit it, the model is consistent with the observed values '
+                   'in this band in the main scenario (Bridoux 2016: exposure, AUC24; Kim 2026: clearance, CL/F).')
+    else:
+        finding = ('In two studies of myeloma patients never used to fit it, main scenario: Bridoux 2016 ' +
+                   cls['bridoux'].replace('_', ' ') + ', Kim 2026 ' + cls['kim'].replace('_', ' ') + '.')
+    sens_word = {('bridoux', 'model_over_predicts'): 'Bridoux: exposure too high', ('bridoux', 'model_under_predicts'): 'Bridoux: exposure too low',
+                 ('kim', 'model_over_predicts'): 'Kim: clearance too high', ('kim', 'model_under_predicts'): 'Kim: clearance too low'}
+    off = [sens_word[(study, c)] for s in sens.values() for study, c in s.items() if c != 'consistent']
+    robustness = (f' In {sum(1 for s in sens.values() if set(s.values()) != {"consistent"})} of {len(sens)} sensitivity '
+                  f'scenarios it is not ({"; ".join(sorted(set(off)))}).' if off else ' The sensitivity scenarios agree.')
+    groups_note = (' Kim\'s groups are defined by eGFR; its moderate group (eGFR 30 to 60) is centred near 50 mL/min, the top '
+                   'of this band.' if band_id == 'moderate' else '')
+    d4 = load_f_report()['decision']['D4_myeloma_note'][band_id]
+    word = {('bridoux', 'model_over_predicts'): 'Bridoux: exposure too high', ('bridoux', 'model_under_predicts'): 'Bridoux: exposure too low',
+            ('kim', 'model_over_predicts'): 'Kim: clearance too high', ('kim', 'model_under_predicts'): 'Kim: clearance too low'}
+    f_note = (' This assumes all of the dose is absorbed; it does not hold at ' + ', '.join(
+        f"{float(F) * 100:.0f}% absorbed (" + '; '.join(word[(st, c)] for st, c in d4['by_F'][F].items() if c != 'consistent') + ')'
+        for F in d4['not_at']) + '.') if d4['not_at'] else ''
+    return {'text': ('That check is CC-5013-PK-001, the study the model was built from, in people without cancer. ' + finding +
+                     robustness + f_note + groups_note + ' Both studies had been seen before this comparison, so it is not a blind test; '
+                     'why the studies differ is not known.'),
+            'classifications': cls, 'sensitivity': sens, 'report': 'docs/verification/lenalidomide_renal_pathways_check_v2.json',
+            'report_file_sha256': MYELOMA_REPORT_SHA256}
+
+
+def load_f_report():
+    raw = F_REPORT_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != F_REPORT_SHA256:
+        raise BodyMapError('The 2.0e bioavailability report is missing or changed; the map was not built.')
+    return json.loads(raw)
+
+
+_WORD = {'model_under_predicts': 'predicts too little exposure', 'model_over_predicts': 'predicts too much exposure',
+         'consistent': 'is consistent'}
+
+
+def bioavailability_text(band_id, f_report=None):
+    """Plain text of the 2.0e result for a band (decision D1), or None if the band's status does not depend on F."""
+    if band_id not in F_BANDS:
+        return None
+    d = (f_report or load_f_report())['decision']
+    d1 = d['D1_band_status'][band_id]
+    if d1['status'] != 'depends_on_bioavailability':
+        return None
+    short = {'model_under_predicts': 'too little exposure', 'model_over_predicts': 'too much exposure', 'consistent': 'consistent'}
+    parts = [f"{float(F) * 100:.0f}%: {short[c]}" for F, c in d1['by_F'].items()]
+    full = d1['by_F'][max(d1['by_F'], key=float)]
+    tail = ('Lower absorption fits this group better but fits the myeloma studies and the end-stage prediction worse.'
+            if full != 'consistent' else
+            'Full absorption fits this group and the myeloma studies; lower absorption fits all of them worse.')
+    return ('In CC-5013-PK-001, the study the model was calibrated on, the result in this band depends on how much of the dose is '
+            'absorbed, which was not measured; the mass-balance study shows at least about 90%. Model with the dose absorbed at '
+            + '; '.join(parts) + f" (lower bound 85%: {short[d1['at_lower_bound']]}). No single value fits every study. " + tail +
+            ' (Simulation 2.0e.)')
+
+
 def band_status(band, report=None):
-    """Evidence status of a band, read from the locked 2.0a report (reading A)."""
+    """Evidence status of a band: the locked 2.0a report (reading A), replaced for the moderate and severe bands by
+    the 2.0e decision when the result depends on bioavailability."""
     if band['report_group'] is None:
         return 'calibrated'
+    if band['id'] in F_BANDS and load_f_report()['decision']['D1_band_status'][band['id']]['status'] == 'depends_on_bioavailability':
+        return 'depends_on_bioavailability'
     report = report or load_pathway_report()
     scenarios = report['decision']['classification_by_scenario']
     primary = scenarios['primary'][band['report_group']][READING]
@@ -108,6 +197,36 @@ def band_status(band, report=None):
 def _split(cal, crcl):
     p = pathways(cal, crcl, READING)
     return {k: p[k] for k in ('filtration_ml_min', 'secretion_ml_min', 'renal_ml_min', 'non_renal_ml_min', 'total_ml_min', 'fe')}
+
+
+def _blood_flow():
+    f = renal_flows()
+    return {'renal_blood_flow_ml_min': f['renal_blood_flow_ml_min'], 'per_kidney_blood_flow_ml_min': f['renal_blood_flow_ml_min'] / 2,
+            'renal_plasma_flow_ml_min': f['renal_plasma_flow_ml_min'],
+            'status': 'reference_physiology',
+            'basis': (f"ICRP Publication 89 reference adult male: cardiac output {f['cardiac_output_l_min']:g} L/min, kidneys "
+                      f"{f['kidney_fraction_pct']:g}% of it, red cells {f['red_cell_fraction_pct']:g}% of blood; split equally "
+                      'between the two kidneys.'),
+            'not_this': 'Reference physiology for a reference man, held at the same value at every creatinine clearance: not '
+                        "this patient's blood flow and not adjusted for kidney function.",
+            'source_sha256': ICRP_SHA256}
+
+
+def _extraction(renal_plasma_clearance, status):
+    """Share of the drug reaching the kidneys in arterial blood that leaves in urine in one pass."""
+    bp = load_blood_plasma()['use_on_platform']['blood_to_plasma_ratio']
+    blood_flow = renal_flows()['renal_blood_flow_ml_min']
+    blood_clearance = renal_plasma_clearance / bp
+    ratio = blood_clearance / blood_flow
+    if not 0 <= ratio < 1:
+        raise BodyMapError('Renal extraction outside 0-1: the clearance and the reference blood flow are inconsistent.')
+    return {'ratio': ratio, 'returned_by_renal_veins': 1 - ratio, 'renal_blood_clearance_ml_min': blood_clearance,
+            'blood_to_plasma_ratio': bp, 'blood_to_plasma_status': 'assumed', 'status': status,
+            'formula': 'renal plasma clearance / blood-to-plasma ratio / reference renal blood flow',
+            'basis': ('Blood-to-plasma ratio 0.931: whole-blood to plasma AUC of total radioactivity after [14C]-lenalidomide '
+                      'in 6 healthy men (Chen 2012, Table 2); assumed to apply to lenalidomide and to exchange between red '
+                      'cells and plasma within one pass.'),
+            'source_sha256': CHEN_SHA256}
 
 
 def build_map(crcl, mode, record=None):
@@ -127,7 +246,7 @@ def build_map(crcl, mode, record=None):
     if not RANGE[0] <= crcl <= RANGE[1]:
         view.update(status='outside_range',
                     message=(f'Creatinine clearance {crcl:.0f} mL/min is outside {RANGE[0]:g}-{RANGE[1]:g} mL/min, the range the '
-                             'pathway check covered; the map is not drawn.'))
+                             'map is drawn for; the map is not drawn.'))
         view['view_sha256'] = digest(view)
         return view
     evidence = load_evidence()
@@ -139,6 +258,10 @@ def build_map(crcl, mode, record=None):
     status = band_status(band)
     total = p['total_ml_min']
     renal_status = status
+    d3 = load_f_report()['decision']['D3_non_renal']
+    non_renal_status = 'depends_on_bioavailability' if d3['status'] == 'depends_on_bioavailability' else 'calibrated'
+    non_renal_basis = ('total minus renal clearance in the normal group; held constant. Drawn at full absorption; with 90-100% '
+                       f"absorbed it would be {d3['range_ml_min'][0]:.0f}-{d3['range_ml_min'][1]:.0f} mL/min (Simulation 2.0e)")
     flows = [
         {'from': 'gut', 'to': 'plasma', 'kind': 'absorption', 'value': None, 'unit': None,
          'note': 'Oral dose; bioavailability taken as 1 (urinary recovery implies at least about 0.85).'},
@@ -154,16 +277,21 @@ def build_map(crcl, mode, record=None):
          'share_of_elimination': p['renal_ml_min'] / total, 'status': renal_status,
          'basis': 'filtration + secretion; the same under both unbound fractions'},
         {'from': 'plasma', 'to': 'non_renal', 'kind': 'non_renal', 'value': p['non_renal_ml_min'], 'unit': 'mL/min',
-         'share_of_elimination': p['non_renal_ml_min'] / total, 'status': 'calibrated',
-         'basis': 'total minus renal clearance in the normal group; held constant'},
+         'share_of_elimination': p['non_renal_ml_min'] / total, 'status': non_renal_status,
+         'basis': non_renal_basis},
     ]
     view.update(
         status='completed',
-        band={'id': band['id'], 'range_ml_min': band['range'], 'status': status, 'status_text': STATUS_TEXT[status]},
+        band={'id': band['id'], 'range_ml_min': band['range'], 'status': status,
+              'status_text': bioavailability_text(band['id']) if status == 'depends_on_bioavailability' else STATUS_TEXT[status],
+              'myeloma_note': myeloma_note(band['id']),
+              'f_report_file_sha256': F_REPORT_SHA256},
         flows=flows,
         totals={'total_ml_min': total, 'renal_ml_min': p['renal_ml_min'], 'fraction_excreted_unchanged': p['fe'],
                 'relative_exposure_same_dose': normal['total_ml_min'] / total},
         normal_reference={'crcl_ml_min': CALIBRATION_CRCL, 'total_ml_min': normal['total_ml_min'], 'fraction_excreted_unchanged': normal['fe']},
+        blood_flow=_blood_flow(),
+        extraction=_extraction(p['renal_ml_min'], status),
         drawing_scale={'max_flow_ml_min': normal['total_ml_min'],
                        'rule': 'Arrow width is proportional to clearance on one fixed scale (the normal total), so maps can be compared.'},
         limitations=[
@@ -172,7 +300,11 @@ def build_map(crcl, mode, record=None):
             'Creatinine clearance stands in for GFR and overestimates it.',
             'The filtration/secretion split depends on the unbound fraction, which the data do not pin down; both values are shown. '
             'Total renal clearance and exposure are the same under both.',
-            'Non-renal clearance is held constant; the moderate group of the check suggests it may not be.',
+            'Non-renal clearance is held constant and drawn at full absorption (bioavailability 1). Absorption was at least about '
+            '90% in the mass-balance study; at 90% non-renal clearance would be about 10 rather than 29 mL/min, and at the '
+            'lower bound of 85% about zero. The moderate and severe band results depend on this (Simulation 2.0e).',
+            'The map is drawn from 10 to 140 mL/min; the study\'s groups were centred at about 24 (severe) to 102 (normal) mL/min, '
+            'so the ends of the range extrapolate.',
             'Not a measurement of kidney function, an exposure prediction for a patient, or a dose recommendation.'])
     view['view_sha256'] = digest(view)
     return view

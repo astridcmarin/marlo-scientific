@@ -30,6 +30,8 @@ class DrugHubTests(unittest.TestCase):
         self.assertTrue(all(link['url'].startswith('/models/lenalidomide_') for link in hub['models']['links']))
         self.assertIn('Published renal PK evidence', self.titles(hub, 'evidence'))
         self.assertIn('Body map (3D)', hub['patients']['links'][0]['note'])
+        explorer = [link for link in hub['tools']['links'] if link['title'] == 'Body map explorer']
+        self.assertEqual([link['url'] for link in explorer], ['/landscape/patient-lab/body-map'])
 
     def test_bortezomib_lists_its_research_tools_and_both_models(self):
         hub = self.hub('bortezomib', 'Bortezomib')

@@ -1,0 +1,216 @@
+{
+ "schema_version": "drug-label-extract-v1",
+ "extract_version": "selinexor-label-extract-v1.0",
+ "drug": "selinexor",
+ "brand": "XPOVIO",
+ "recorded_on": "2026-11-04",
+ "modality": "small molecule",
+ "route": "oral",
+ "source": {
+  "document": "XPOVIO (selinexor) tablets, for oral use. Full prescribing information. Karyopharm Therapeutics Inc.",
+  "dailymed_set_id": "f6dd2682-75a6-4863-90a8-a3197f6f78a8",
+  "revised": "4/2026 (as printed on the label)",
+  "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f6dd2682-75a6-4863-90a8-a3197f6f78a8",
+  "file_reviewed": {
+   "file": "XPOVIO (selinexor) label - DailyMed [20260513_f6dd2682-75a6-4863-90a8-a3197f6f78a8].pdf (65 pages)",
+   "sha256": "24663ea4a735517af649c66b5f5fa4d1ed269470d66ef7d7e2f89482899f0bcc"
+  },
+  "storage": "Kept on the platform owner's computer only; not committed.",
+  "extraction": "AI-assisted from the PDF text layer (pdftotext). Every quote is checked by the build script against the text layer (spaces and hyphens ignored, as the text layer drops hyphens at line breaks), and its PDF page recorded; table cells marked text_and_rendered_page were also read from the rendered page because the text layout is scrambled. Independent review pending."
+ },
+ "dosing": {
+  "xvd_100_mg_weekly": {
+   "dose_mg": 100,
+   "interval": "once weekly, Day 1",
+   "combination": "bortezomib and dexamethasone",
+   "quote": "The recommended dosage of XPOVIO is 100 mg taken orally once weekly on Day 1 of each week until disease progression or unacceptable toxicity in combination with:",
+   "location": "section 2.1, PDF page 3",
+   "check": "text"
+  },
+  "xd_80_mg_twice_weekly": {
+   "dose_mg": 80,
+   "interval": "Days 1 and 3 of each week",
+   "combination": "dexamethasone",
+   "quote": "The recommended dosage of XPOVIO is 80 mg taken orally on Days 1 and 3 of each week until disease progression or unacceptable toxicity in combination with dexamethasone",
+   "location": "section 2.1, PDF page 3",
+   "check": "text"
+  },
+  "hepatic_severe_starting_dose": {
+   "xvd": "80 mg once weekly",
+   "xd": "100 mg once weekly",
+   "definition": "total bilirubin >3x ULN, any AST",
+   "quote": "Table 4: XPOVIO Starting Dosage in Patients with Severe Hepatic Impairment",
+   "location": "section 2.5, PDF page 7",
+   "check": "text_and_rendered_page"
+  }
+ },
+ "pk": {
+  "linearity": {
+   "dose_proportional_range_mg_m2": [
+    3,
+    85
+   ],
+   "accumulation": "no clinically relevant accumulation",
+   "quote": "Selinexor Cmax and AUC increased proportionally over a dose range from 3 mg/m2 to 85 mg/m2 (0.05 to 1.44) times the maximum approved recommended dose, based on 1.7 m2 body surface area. No clinically relevant accumulation at steady state was observed.",
+   "location": "section 12.3, PDF page 19",
+   "check": "text"
+  },
+  "single_dose_cmax_ng_ml": {
+   "by_dose_mg": {
+    "60": [
+     442,
+     188
+    ],
+    "80": [
+     680,
+     124
+    ],
+    "100": [
+     693,
+     201
+    ]
+   },
+   "format": "mean (SD)",
+   "population": "patients with hematologic malignancies",
+   "quote": "Table 9: Selinexor Cmax and AUC After Administration of a Single Dose of XPOVIO",
+   "location": "section 12.3, PDF page 19",
+   "check": "text_and_rendered_page"
+  },
+  "single_dose_auc_inf_ng_h_ml": {
+   "by_dose_mg": {
+    "60": [
+     4096,
+     1185
+    ],
+    "80": [
+     5386,
+     1116
+    ],
+    "100": [
+     6998,
+     818
+    ]
+   },
+   "format": "mean (SD)",
+   "population": "patients with hematologic malignancies",
+   "quote": "Table 9: Selinexor Cmax and AUC After Administration of a Single Dose of XPOVIO",
+   "location": "section 12.3, PDF page 19",
+   "check": "text_and_rendered_page"
+  },
+  "tmax_h": {
+   "upper_bound": 4,
+   "quote": "The Cmax is reached within 4 hours following oral administration of XPOVIO.",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "food": {
+   "result": "no clinically significant effect (high-fat meal)",
+   "quote": "Concomitant administration of a high-fat meal (800 to 1,000 calories with approximately 50% of total caloric content of the meal from fat) did not affect the pharmacokinetics of selinexor to a clinically significant extent.",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "v_f_l": {
+   "value": 133,
+   "population": "patients with cancer",
+   "quote": "The apparent volume of distribution of selinexor is 133 L in patients with cancer.",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "protein_binding_percent": {
+   "value": 95,
+   "quote": "The protein binding of selinexor is 95%.",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "half_life_h": {
+   "range": [
+    6,
+    8
+   ],
+   "note": "single dose, mean",
+   "quote": "Following a single dose of XPOVIO, the mean half-life is 6 to 8 hours.",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "cl_f_l_h": {
+   "value": 18.6,
+   "population": "patients with cancer",
+   "quote": "The apparent total clearance of selinexor is 18.6 L/h in patients with cancer.",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "metabolism": {
+   "pathways": [
+    "CYP3A4",
+    "UGTs",
+    "GSTs"
+   ],
+   "quote": "Selinexor is metabolized by CYP3A4, multiple UDP-glucuronosyltransferases (UGTs) and glutathione S-transferases (GSTs).",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  }
+ },
+ "special_populations": {
+  "covariates_no_effect": {
+   "factors": [
+    "age 18-94 years",
+    "sex",
+    "body weight 36-168 kg",
+    "ethnicity",
+    "mild to severe renal impairment (CLcr 15-89 mL/min, Cockcroft-Gault)",
+    "disease type"
+   ],
+   "quote": "No clinically significant differences in the pharmacokinetics of selinexor were observed based on age (18 to 94 years old), sex, body weight (36 to 168 kg), ethnicity, mild to severe renal impairment (CLCR: 15 to 89 mL/min, estimated by the Cockcroft-Gault equation), and disease type (hematological, solid tumor).",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "esrd_hemodialysis": {
+   "value": null,
+   "stated_as": "unknown",
+   "quote": "The effect of end-stage renal disease (CLCR <15 mL/min) or hemodialysis on selinexor pharmacokinetics is unknown.",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "hepatic_mild_moderate": {
+   "value": 1.0,
+   "stated_as": "comparable to normal hepatic function",
+   "quote": "hepatic impairment the pharmacokinetics of selinexor was comparable to patients with normal hepatic function (total bilirubin and AST <ULN).",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  },
+  "hepatic_severe_exposure_fold": {
+   "value": 1.32,
+   "stated_as": "approximately 32% increase in total and free exposure",
+   "n": 6,
+   "quote": "In patients with severe hepatic impairment (total bilirubin >3 ULN and any AST, n=6) there was approximately 32% increase in total and free selinexor exposure compared to patients with normal hepatic function",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  }
+ },
+ "interactions": {
+  "clarithromycin_strong_cyp3a4_inhibitor": {
+   "result": "no clinically significant difference",
+   "quote": "Clarithromycin (a strong CYP3A4 inhibitor): No clinically significant differences in selinexor pharmacokinetics were observed when co-administered with clarithromycin (up to 1,000 mg daily dose of clarithromycin).",
+   "location": "section 12.3, PDF page 21",
+   "check": "text"
+  },
+  "carbamazepine_strong_cyp3a4_inducer": {
+   "result": "no clinically significant difference",
+   "quote": "Carbamazepine (a strong CYP3A4 inducer): No clinically significant differences in selinexor pharmacokinetics were observed when co-administered with carbamazepine (up to 300 mg twice-daily dose of carbamazepine).",
+   "location": "section 12.3, PDF page 21",
+   "check": "text"
+  },
+  "acetaminophen": {
+   "result": "no clinically significant difference",
+   "quote": "Acetaminophen: No clinically significant differences in selinexor pharmacokinetics were observed when co-administered with acetaminophen (up to 1,000 mg daily dose of acetaminophen).",
+   "location": "section 12.3, PDF page 20",
+   "check": "text"
+  }
+ },
+ "not_stated": [
+  "Absolute bioavailability; clearance and volume are apparent (divided by F).",
+  "Absorption rate and lag time.",
+  "The body surface area or weight of the patients in Table 9."
+ ],
+ "clinical_prediction_validated": false
+}

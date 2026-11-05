@@ -1,0 +1,146 @@
+{
+ "schema_version": "body-map-vessel-lines-v1",
+ "source": {
+  "file": "3d-vh-m-united.glb",
+  "set": "HRA 3D Reference Organ Set for United, Male",
+  "sha256": "fae3ac193835e9e24cd13a0d0f11e6788183b290b0691b9b83ec81d907d94581",
+  "licence": "CC BY 4.0",
+  "storage": "Kept on the platform owner's computer; not committed."
+ },
+ "coordinate_frame": "HRA Visible Human male reference body; metres; +y up; body left is +x.",
+ "method": "Middle of the bounding box of each renal vein in 12 slices across the body, ordered from the midline out.",
+ "not_this": "Drawing geometry only: not measurements of vessel size, position or flow.",
+ "renal_veins": {
+  "left": {
+   "atlas_node": "VH_M_renal_vein_L",
+   "points": [
+    [
+     -0.0042,
+     0.3051,
+     0.0164
+    ],
+    [
+     0.0014,
+     0.3047,
+     0.018
+    ],
+    [
+     0.0071,
+     0.3038,
+     0.0187
+    ],
+    [
+     0.0128,
+     0.3027,
+     0.0183
+    ],
+    [
+     0.0185,
+     0.303,
+     0.0169
+    ],
+    [
+     0.0241,
+     0.3028,
+     0.0141
+    ],
+    [
+     0.0298,
+     0.2995,
+     0.0118
+    ],
+    [
+     0.0354,
+     0.2993,
+     0.0101
+    ],
+    [
+     0.0411,
+     0.3018,
+     0.0065
+    ],
+    [
+     0.0468,
+     0.3043,
+     0.0039
+    ],
+    [
+     0.0524,
+     0.3067,
+     -0.0001
+    ],
+    [
+     0.0581,
+     0.3068,
+     -0.0037
+    ]
+   ]
+  },
+  "right": {
+   "atlas_node": "VH_M_renal_vein_R",
+   "points": [
+    [
+     -0.0337,
+     0.3066,
+     0.0006
+    ],
+    [
+     -0.0363,
+     0.3082,
+     0.0006
+    ],
+    [
+     -0.0387,
+     0.3072,
+     0.0006
+    ],
+    [
+     -0.0412,
+     0.3066,
+     0.001
+    ],
+    [
+     -0.0437,
+     0.3057,
+     0.0015
+    ],
+    [
+     -0.0461,
+     0.3047,
+     0.0018
+    ],
+    [
+     -0.0486,
+     0.3035,
+     0.0018
+    ],
+    [
+     -0.0511,
+     0.3024,
+     0.0019
+    ],
+    [
+     -0.0535,
+     0.3011,
+     0.0015
+    ],
+    [
+     -0.056,
+     0.3013,
+     0.0008
+    ],
+    [
+     -0.0584,
+     0.3011,
+     0.0002
+    ],
+    [
+     -0.061,
+     0.3004,
+     -0.0009
+    ]
+   ]
+  }
+ },
+ "naming_note": "The Atlas renal vein names (L, R) match their positions (body left is +x); sides are still assigned by position."
+}

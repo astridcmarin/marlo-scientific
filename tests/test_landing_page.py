@@ -49,6 +49,14 @@ class LandingPageTests(unittest.TestCase):
             self.assertEqual(response.status_code, 200, path)
             response.close()
 
+    def test_favicon_at_the_site_root_and_linked_from_pages(self):
+        response = self.client.get('/favicon.ico')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data[:4], b'\x00\x00\x01\x00')
+        response.close()
+        page = self.client.get('/').get_data(as_text=True)
+        self.assertIn('images/favicon.svg?v=2', page)
+
     def test_old_search_links_redirect_to_the_explorer(self):
         response = self.client.get('/?condition=myeloma&phase=PHASE3')
         self.assertEqual(response.status_code, 301)

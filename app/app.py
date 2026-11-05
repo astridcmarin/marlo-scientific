@@ -661,6 +661,14 @@ def calculate_analytics(studies):
 GITHUB_URL = "https://github.com/astridcmarin/marlo-scientific"
 
 
+@app.route("/favicon.ico")
+def favicon():
+    """Browsers ask for /favicon.ico at the site root whatever the page links; serve the Marlo icon there."""
+    from flask import current_app, send_from_directory
+    folder = current_app.blueprints['landscape'].static_folder
+    return send_from_directory(f'{folder}/images', 'favicon.ico', mimetype='image/vnd.microsoft.icon', max_age=3600)
+
+
 @app.route("/")
 def landing():
     # Searches used to live at "/?condition=...": send old links and bookmarks to the explorer.
@@ -694,11 +702,31 @@ def credibility_records():
     return render_template("credibility_records.html", records=all_records(), never=NOT_ESTABLISHED)
 
 
+@app.route("/models/findings")
+def check_findings():
+    from intelligence_store.check_findings import FindingsError, findings_view
+    try:
+        view = findings_view()
+    except FindingsError as exc:
+        return Response(str(exc), status=503, mimetype="text/plain", headers={"Cache-Control": "no-store"})
+    return render_template("findings.html", v=view)
+
+
 @app.route("/models/extraction-review")
 def extraction_review():
     from intelligence_store.extraction_review import DECISIONS, ReviewError, queue_view
     try:
         view = queue_view()
+    except ReviewError as exc:
+        return Response(str(exc), status=503, mimetype="text/plain", headers={"Cache-Control": "no-store"})
+    return Response(render_template("extraction_review.html", v=view, decisions=DECISIONS), headers={"Cache-Control": "no-store"})
+
+
+@app.route("/models/extraction-review/round-2")
+def extraction_review_round_2():
+    from intelligence_store.extraction_review import DECISIONS, ReviewError, round_2_view
+    try:
+        view = round_2_view()
     except ReviewError as exc:
         return Response(str(exc), status=503, mimetype="text/plain", headers={"Cache-Control": "no-store"})
     return Response(render_template("extraction_review.html", v=view, decisions=DECISIONS), headers={"Cache-Control": "no-store"})

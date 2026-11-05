@@ -59,7 +59,8 @@ class Page(unittest.TestCase):
         page = self.client.get(URL).get_data(as_text=True)
         for text in ('not a population model, not a prediction for any patient', 'Clinical prediction validated: <strong>false</strong>',
                      'Weakest point: the peak', 'Li 2017 population model', 'Why not the label', 'doi:10.2147/CPAA.S144606',
-                     'f5b91ce96404f0fc9f39eb83c531f7fef8e6385e0cdb00211cb7c31de5288711'):
+                     'f5b91ce96404f0fc9f39eb83c531f7fef8e6385e0cdb00211cb7c31de5288711',
+                     'Owner review: all 34 values the platform uses from label_pk_pomalidomide_v1.json match the source'):
             self.assertIn(text, page)
 
     def test_scenarios_and_bad_requests(self):

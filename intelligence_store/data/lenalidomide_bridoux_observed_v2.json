@@ -1,0 +1,90 @@
+{
+ "schema_version": "observed-group-exposure-v1",
+ "extract_version": "lenalidomide-bridoux-observed-v2.0",
+ "recorded_on": "2026-11-04",
+ "stage": "Adds Cmax and t1/2 from the same Table 2 for the Digital human 1.1d time-course check (lenalidomide_body_map_time_course_plan_v1.json, secondary endpoint), recorded before that comparison was computed. AUC24 values unchanged from v1.",
+ "design_file": {
+  "file": "intelligence_store/data/lenalidomide_bridoux_design_v1.json",
+  "sha256": "1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac"
+ },
+ "source": {
+  "citation": "Bridoux F et al. Cancer Chemother Pharmacol 2016;78:173-182.",
+  "file_sha256": "d02771e64459b3239ee45cc1aeb09ecb0c3981b41ecd5cc1a5f0d38435197b2d",
+  "location": "Table 2, 'Plasma lenalidomide pharmacokinetic parameters by renal group' (page 177)"
+ },
+ "statistic": "geometric mean (geometric CV, %)",
+ "statistic_quote": "Data shown are median (range) for Tmax and geometric mean (geometric CV) for other parameters",
+ "exposure_measure": {
+  "chosen": "AUC24 on day 5 (plan endpoint rule 1: the AUC the article compares between groups; also rule 3)",
+  "definition": "area under the plasma concentration-time curve from time zero to 24 h after dosing, non-compartmental",
+  "severe_footnote": "Estimated as average daily AUC (AUC48/2), since the dose was given every other day"
+ },
+ "groups": {
+  "normal": {
+   "n": 10,
+   "regimen": "25 mg once daily",
+   "dose_mg_per_24h": 25.0,
+   "auc24_gm": 1747,
+   "auc24_gcv_pct": 26.8,
+   "cmax_gm_ng_ml": 461,
+   "cmax_gcv_pct": 40.1,
+   "t_half_gm_h": 3.14,
+   "t_half_gcv_pct": 29.0
+  },
+  "mild": {
+   "n": 10,
+   "regimen": "25 mg once daily",
+   "dose_mg_per_24h": 25.0,
+   "auc24_gm": 2605,
+   "auc24_gcv_pct": 28.5,
+   "cmax_gm_ng_ml": 396,
+   "cmax_gcv_pct": 31.9,
+   "t_half_gm_h": 4.75,
+   "t_half_gcv_pct": 28.5
+  },
+  "moderate": {
+   "n": 7,
+   "regimen": "10 mg once daily",
+   "dose_mg_per_24h": 10.0,
+   "auc24_gm": 1800,
+   "auc24_gcv_pct": 13.5,
+   "cmax_gm_ng_ml": 232,
+   "cmax_gcv_pct": 23.2,
+   "t_half_gm_h": 6.9,
+   "t_half_gcv_pct": 19.1
+  },
+  "severe": {
+   "n": 5,
+   "regimen": "15 mg every other day",
+   "dose_mg_per_24h": 7.5,
+   "auc24_gm": 2329,
+   "auc24_gcv_pct": 28.4,
+   "note": "average daily AUC, AUC48/2",
+   "cmax_gm_ng_ml": 426,
+   "cmax_gcv_pct": 18.5,
+   "t_half_gm_h": 9.47,
+   "t_half_gcv_pct": 22.8
+  },
+  "esrd": {
+   "n": 6,
+   "regimen": "5 mg once daily (after haemodialysis on dialysis days)",
+   "dose_mg_per_24h": 5.0,
+   "auc24_gm": 2020,
+   "auc24_gcv_pct": 21.5,
+   "note": "descriptive only; not simulated (neither model has a dialysis process)",
+   "cmax_gm_ng_ml": 130,
+   "cmax_gcv_pct": 35.2,
+   "t_half_gm_h": 21.1,
+   "t_half_gcv_pct": 20.2
+  }
+ },
+ "unit": "h ng/mL",
+ "reference_group": "normal renal function (Table 2 does not pool normal and mild)",
+ "n_note": "The n in the Table 2 header equals the enrolled n of Table 1 in every group.",
+ "also_in_table_not_used": "Tmax, CL/F, Vz/F (not named in either plan).",
+ "clinical_prediction_validated": false,
+ "supersedes": {
+  "file": "intelligence_store/data/lenalidomide_bridoux_observed_v1.json",
+  "sha256": "b757b38d84788fe7587d7b7a5a737d464928a0b24f7eead517a74b732845b89e"
+ }
+}

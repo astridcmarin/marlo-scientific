@@ -1675,7 +1675,17 @@ def _site_context():
     return {'site_home_url': landing or link('landscape.index'), 'site_sections': sections,
             'site_about_url': landing + '#about' if landing else None,
             'site_intended_use_url': link('intended_use'), 'site_models_url': link('model_scorecards'),
-            'site_credibility_url': link('credibility_records'), 'site_extraction_review_url': link('extraction_review')}
+            'site_credibility_url': link('credibility_records'), 'site_extraction_review_url': link('extraction_review'),
+            'owner_review': _owner_review}
+
+
+def _owner_review(keys):
+    """Template helper: the owner's extraction review status for pinned files; empty if the queue cannot be shown."""
+    from intelligence_store.extraction_review import ReviewError, owner_review
+    try:
+        return owner_review(keys)
+    except (ReviewError, OSError, ValueError):
+        return []
 
 
 def register_landscape(app):

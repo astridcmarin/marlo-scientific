@@ -1,0 +1,25 @@
+{# Digital human 1.0, step 1.4: observed-data context beside the body map (both modes). Values copied from pinned extracts. #}
+{% if context_error %}<section class="panel"><h2>What the study observed</h2><p role="alert" class="bm-alert">{{ context_error }}</p></section>
+{% elif context %}
+<section class="panel bm-context" aria-labelledby="bm-context-heading">
+<p class="ms-eyebrow">Observed data · CC-5013-PK-001</p>
+<h2 id="bm-context-heading">What the renal-impairment study observed: {{ context.band_label }}</h2>
+<p>Single 25 mg oral dose, fasting, in otherwise healthy subjects grouped by measured creatinine clearance ({{ context.study.n['2013'] }} subjects in this group). The model column is the map above at {{ '%.0f'|format(context.crcl_ml_min) }} mL/min. <span class="ms-status ms-status-{{ {'calibrated':'calibrated','checked_consistent':'checked','consistent_primary_only':'partly_checked','check_disagrees':'flagged','depends_on_bioavailability':'partly_checked'}[context.band_status] }}">{{ {'calibrated':'Calibrated','checked_consistent':'Checked','consistent_primary_only':'Partly checked','check_disagrees':'Check disagrees','depends_on_bioavailability':'Depends on absorption'}[context.band_status] }}</span></p>
+<div class="table-scroll"><table class="rr-table bm-context-table"><thead><tr><th>Quantity</th><th>Model at {{ '%.0f'|format(context.crcl_ml_min) }} mL/min</th><th>Observed in this group</th></tr></thead><tbody>
+{% for row in context.comparison %}<tr><td>{{ row.quantity }}<br><small>{{ row.unit }}</small></td><td class="numeric">{{ ('%.2f' if row.unit == 'ratio' else '%.0f')|format(row.model) }}</td><td>{% for o in row.observed %}<span class="bm-obs"><strong>{{ ('%.2f' if row.unit == 'ratio' else '%.0f')|format(o.value) }}</strong> <small>{{ o.statistic }}{% if o.derived %}; ratio worked out from the printed means{% endif %}</small></span>{% endfor %}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="panel-note">{{ context.group_note }}</p>
+{% if context.geometric_mean_ratios %}{% set g = context.geometric_mean_ratios %}
+<h3>Exposure ratios reported by the EMA</h3>
+<p>AUCinf {{ g.auc_infinity_pct.ratio }}% (90% CI {{ g.auc_infinity_pct.ci90[0] }}–{{ g.auc_infinity_pct.ci90[1] }}%) and Cmax {{ g.cmax_pct.ratio }}% (90% CI {{ g.cmax_pct.ci90[0] }}–{{ g.cmax_pct.ci90[1] }}%) of the reference group. <small>{{ g.definition }}; {{ g.location }}. {{ g.note }}</small></p>
+{% endif %}
+<h3>EMA regression of renal clearance (context, not a check)</h3>
+<p>{{ context.regression.equation }} (r² {{ context.regression.r_squared }}) gives <strong>{{ '%.0f'|format(context.regression.value_at_crcl_ml_min) }} mL/min</strong> at {{ '%.0f'|format(context.crcl_ml_min) }} mL/min; the map's renal total is {{ '%.0f'|format(context.regression.model_value_ml_min) }} mL/min. <small>{{ context.regression.note }} {{ context.regression.location }}.</small></p>
+<h3>The label's renal dose steps (quoted)</h3>
+<div class="table-scroll"><table class="rr-table bm-label-table"><thead><tr><th>Creatinine clearance (Cockcroft–Gault)</th><th>Multiple myeloma, combination</th><th>Maintenance and MDS</th></tr></thead><tbody>
+{% for r in context.label.rows %}<tr{% if r.matches %} class="bm-label-match"{% endif %}><td>{% if r.crcl_ml_min[0] is none %}&lt; {{ r.crcl_ml_min[1] }}{% else %}{{ r.crcl_ml_min[0] }} to {{ r.crcl_ml_min[1] }}{% endif %} mL/min{% if r.dialysis %}, requiring dialysis{% endif %}{% if r.matches %} <small>(row containing this value)</small>{% endif %}</td><td>{{ r.mm_combination }}</td><td>{{ r.mm_maintenance_and_mds }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="panel-note"><strong>{{ context.label.statement }}</strong>{% if context.label.no_row_note %} {{ context.label.no_row_note }}{% endif %} The label's rows use creatinine clearance estimated by Cockcroft–Gault; the map's value stands for measured clearance, as in the study. {{ context.label.threshold_note }} {{ context.label.table }}.</p>
+<details class="rr-details"><summary>Sources for this panel</summary><ul>{% for src in context.sources %}<li>{{ src.label }}: {{ src.reference }}, {{ src.pages }} <span class="catalog-digest">{{ src.sha256[:16] }}…</span></li>{% endfor %}</ul><p class="catalog-digest">Context {{ context.schema_version }}: {{ context.context_sha256 }}</p></details>
+</section>
+{% endif %}

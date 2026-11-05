@@ -42,3 +42,54 @@ A value found wrong is corrected by a new version of its extract, with a new pin
 ## Next
 
 Once a record is pinned, the source sections of the model, special-population and dose pages will show review status alongside "AI-assisted".
+
+## Round 1 (reviewed 3 November 2026, pinned 4 November)
+
+Record `intelligence_store/data/extraction_review_record_2026-11-03_v1.json`, reviewer Astrid, pinned unchanged in `REVIEW_RECORDS`. 165 of 166 values reviewed: **143 matches, 12 wrong, 10 can't check**; one not reviewed (pomalidomide with ketoconazole alone, AUC 1.19-fold). The page shows these decisions as recorded.
+
+**Reading of the 12 marked wrong** (the reviewer noted that some were marked as a precaution because the queue showed values in a different form from the source). In each case the reviewer's note is the source's own figure, and the extract stores the same figure as a fold change, as the extract's quote shows:
+
+| Item (pomalidomide label) | Source says | Stored | Reviewer's note |
+|---|---|---|---|
+| Severe renal, on dialysis | AUC increased 38% | 1.38 | 0.38 |
+| ESRD, non-dialysis days | increased 40% | 1.40 | 0.40 |
+| Child-Pugh A / B / C | increased 51% / 58% / 72% | 1.51 / 1.58 / 1.72 | 0.51 / 0.58 / 0.72 |
+| Fluvoxamine, 90% CI | 98% to 157% increase | 1.98–2.57 | 98% to 157% |
+| Fluvoxamine + ketoconazole | 146% [126% to 167%] | 2.46 [2.26–2.67] | 146%; 126% to 167% |
+| Carbamazepine | decreased 20% [13% to 27%] | 0.80 [0.73–0.87] | 20%; 13% to 27% |
+| Smoking | AUC decreased 32%; Cmax increased 14% | 0.68; 1.14 | 32%; 14% |
+
+So no extract is corrected and no new extract version is made. The queue was at fault: it showed a converted number without the source's wording.
+
+**Can't check (10):**
+- Ixazomib lag time: Gupta's Table 3 gives the log-scale estimate (−1.52, the reviewer's note) and states 13 min; the extract stores 13 min as 0.2167 h. exp(−1.52) = 0.219 h, the same value at the table's rounding.
+- Dexamethasone high-fat meal AUC: the label says the meal "had no effect on AUCinf" (the reviewer's note); stored as 1.0-fold.
+- Pomalidomide: moderate or severe renal impairment not on dialysis ("not significantly affected", stored as 1.0); high-fat meal ("decreased mean plasma Cmax and AUC by about 27% and 8%", stored as 0.73 and 0.92).
+- REVLIMID Table 3: three dose cells and two CLcr bounds. The bounds are the "below 30" rows, stored as a range with no lower end, so the queue showed only "30" under an index label.
+
+## Round 2 (opened 4 November 2026)
+
+Page `/models/extraction-review/round-2` (linked from the full queue while any value is not marked matching). It lists the 23 items round 1 did not mark as matching, from `intelligence_store/data/extraction_review_round_2_v1.json` (pinned in `extraction_review.py` as `ROUND_2_SHA256`). The page refuses to load unless that list is exactly the round 1 items not marked matching.
+- Each item adds **where to look** (the source sentence or table cell, in words) and **how stored** (the conversion, e.g. "+38% → 1.38").
+- That text was written by the AI assistant from the extracts, so the page says to check against the source document itself, not against it.
+- The queue and the record format are unchanged: a round 2 record is an ordinary record against queue v1, and once pinned after round 1 in `REVIEW_RECORDS`, its decisions replace round 1's for the items it covers.
+- The browser draft is kept separately from round 1's (its own storage key), and the download is named `extraction_review_round2_DATE.json`.
+
+### Round 2 result (reviewed and pinned 4 November 2026)
+
+Record `intelligence_store/data/extraction_review_record_2026-11-04_round2_v1.json`, reviewer Astrid, pinned after round 1 in `REVIEW_RECORDS`. All 23 items marked **matches**. With rounds 1 and 2 together, **all 166 listed values match their sources**; none was found wrong, and no extract changes.
+
+What this establishes, and what it does not:
+- Transcription of the 166 listed values has been checked by the platform owner against the original documents. Pages may say "reviewed against the source by the platform owner", never "independently verified": the reviewer is not independent of the platform.
+- Values not on the queue (derived values, uncertainty statistics, quotes that feed no calculation) are not covered.
+- Nothing about whether a source is right, or a model applicable, follows from this. Validation flags are unchanged.
+
+**Shown on the platform (4 November 2026).** `owner_review()` in `extraction_review.py` reports, for a pinned file, how many of its listed values match, by whom and when. It is computed from the pinned records each time, so a later round changes it. It appears:
+- on the model scorecards (Hughes, Kim, exposure–safety, ixazomib, daratumumab), under the transcription layer;
+- in the source list of the special-population pages;
+- in the sources of the pomalidomide and dexamethasone label-exposure pages;
+- in a "Source review" panel on the lenalidomide dose view.
+
+Wording when every value matches: "Owner review: all N values the platform uses from FILE match the source (checked by the platform owner, DATES). Not an independent review."
+
+Only the exact file reviewed is covered. A later version of a file shows nothing until its values are reviewed. For example, the lenalidomide special-population page uses `renal_pk_group_evidence_v2.json`, but round 1 reviewed v1. Models with no file in the queue (the bortezomib models, the kidney pathway model) show nothing. The evidence-status summaries ("independent review pending") are unchanged, because no independent review has taken place.

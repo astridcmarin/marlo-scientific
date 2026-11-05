@@ -64,6 +64,14 @@ RESULT_ITEMS.update({
 RESULT_ITEMS.update({'v2.' + k: v + ' (with study demographics)' for k, v in list(RESULT_ITEMS.items())
                      if k.startswith(('sirius_8.', 'gen501_16.'))})
 RESULT_ITEMS.update({'recheck.' + g: RESULT_ITEMS[g] + ' (recheck with study-matched subjects)' for g in ('mild', 'moderate', 'severe')})
+RESULT_ITEMS.update({'bridoux.' + g: RESULT_ITEMS[g] + ' (myeloma patients, Bridoux 2016)' for g in ('mild', 'moderate', 'severe')})
+_MYELOMA = {'normal': 'Normal kidney function', 'mild': 'Mild kidney impairment', 'moderate': 'Moderate kidney impairment',
+            'severe': 'Severe kidney impairment', 'control': 'eGFR 60 or more'}
+RESULT_ITEMS.update({f'pathways_myeloma.{study}.{g}': f'{_MYELOMA[g]} (myeloma patients, {name}; seen, not used to fit)'
+                     for study, name, groups in (('bridoux', 'Bridoux 2016', ('normal', 'mild', 'moderate', 'severe')),
+                                                 ('kim', 'Kim 2026', ('control', 'moderate', 'severe'))) for g in groups})
+RESULT_ITEMS.update({f'pathways_bioavailability.F{F}.{band}': f'{band.capitalize()} kidney impairment, bioavailability {F} (CC-5013-PK-001)'
+                     for F in ('1.00', '0.95', '0.90') for band in ('moderate', 'severe')})
 RESULT_KEYS = ('result_by_group', 'result_at_1_3_mg_m2', 'result_by_endpoint')
 
 # What each model is and where the platform uses it. Descriptions only; no scientific values.
@@ -131,8 +139,13 @@ def _cited(evidence=None):
 
 
 def cited_report(name, evidence=None):
-    """Raw bytes of a cited report, or None if it is not cited, not under docs/verification, or changed."""
+    """Raw bytes of a cited report, or None if it is not cited, not under docs/verification, or changed. A report is
+    cited if the evidence status file or the pinned check-findings file lists it with its checksum."""
     entry = _cited(evidence).get(name)
+    if entry is None:
+        from .check_findings import load_findings
+        entry = next(((f['report'], f['report_file_sha256']) for f in load_findings()['findings']
+                      if Path(f['report']).name == name), None)
     if entry is None or not entry[0].startswith(REPORT_DIR) or Path(entry[0]).name != name:
         return None
     path = ROOT / entry[0]

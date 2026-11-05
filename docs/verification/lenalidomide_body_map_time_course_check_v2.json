@@ -1,0 +1,1277 @@
+{
+ "schema_version": "lenalidomide-body-map-time-course-check-v2",
+ "method_version": "lenalidomide-body-map-time-course-v2.0",
+ "plan_version": "lenalidomide-body-map-time-course-plan-v2.0",
+ "plan_sha256": "4c7b429e5d01da3eb31e0f86f2647af5d6adea116f6b7cd7fb78181b93ad6a1e",
+ "v1_report_sha256": "c5b98b878bdb206e2ed46d8ea203a8950f3a8ac06e3a87372dd5c92d6cb4aaf7",
+ "classification": "exploratory_aggregate_internal_consistency_check",
+ "classification_rule": {
+  "interval": "90% confidence interval of the observed geometric mean: GM x exp(+/- t(0.95, n-1) x s / sqrt(n)), with s = sqrt(ln(1 + CV^2)) from the reported geometric CV and the group's n",
+  "consistent": "model typical value inside the interval",
+  "model_under_predicts": "model value below the interval",
+  "model_over_predicts": "model value above the interval",
+  "also_reported": "model / observed ratio"
+ },
+ "scenarios": {
+  "primary": {
+   "parameters": {
+    "vc_l": 29.963199999999997,
+    "vp_l": 13.0168,
+    "q_l_h": 4.9427,
+    "ka_per_h": 1.16,
+    "fu": 0.614
+   },
+   "primary": {
+    "normal": {
+     "crcl_ml_min": 102.2,
+     "model_tmax_h": 1.3160361619333623,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 442.8375276138889,
+       "observed_gm": 568,
+       "observed_gcv_pct": 39,
+       "n": 7,
+       "observed_ci90": [
+        430.8507187806268,
+        748.8069206733021
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.7796435345314945,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 3.6184558535043707,
+       "observed_gm": 3.26,
+       "observed_gcv_pct": 23,
+       "n": 7,
+       "observed_ci90": [
+        2.759294914925654,
+        3.8515636521898733
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.1099557832835494,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 2320.886137177131,
+       "observed_gm": 2091,
+       "observed_gcv_pct": 32,
+       "n": 7,
+       "observed_ci90": [
+        1662.4987082059197,
+        2629.9455021642293
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.1099407638341132,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    },
+    "mild": {
+     "crcl_ml_min": 64.6,
+     "model_tmax_h": 1.48134459627502,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 484.3024374315827,
+       "observed_gm": 684,
+       "observed_gcv_pct": 16,
+       "n": 5,
+       "observed_ci90": [
+        587.7950557521169,
+        795.9508938049026
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.7080444991689805,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 4.7581991733204,
+       "observed_gm": 3.61,
+       "observed_gcv_pct": 20,
+       "n": 5,
+       "observed_ci90": [
+        2.9888722648029193,
+        4.360206407435519
+       ],
+       "classification": "model_over_predicts",
+       "model_over_observed": 1.318060712831136,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 3359.6134995098732,
+       "observed_gm": 2627,
+       "observed_gcv_pct": 36,
+       "n": 5,
+       "observed_ci90": [
+        1883.2963542023385,
+        3664.388233217253
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.2788783781918056,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    },
+    "moderate": {
+     "crcl_ml_min": 39.1,
+     "model_tmax_h": 1.6395792048565085,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 519.4448179080514,
+       "observed_gm": 568,
+       "observed_gcv_pct": 33,
+       "n": 6,
+       "observed_ci90": [
+        435.99666895284105,
+        739.9689561272685
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.9145155244860059,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 6.4373470031791244,
+       "observed_gm": 9.97,
+       "observed_gcv_pct": 44,
+       "n": 6,
+       "observed_ci90": [
+        7.053402532130583,
+        14.092616938732196
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.6456717154643054,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 4823.765959585805,
+       "observed_gm": 5964,
+       "observed_gcv_pct": 16,
+       "n": 6,
+       "observed_ci90": [
+        5232.817689653654,
+        6797.350511623544
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.8088138765234415,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    },
+    "severe": {
+     "crcl_ml_min": 23.9,
+     "model_tmax_h": 1.7653172887115254,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 544.3304772523189,
+       "observed_gm": 761,
+       "observed_gcv_pct": 11,
+       "n": 6,
+       "observed_ci90": [
+        695.3497148392393,
+        832.8485474879203
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.7152831501344532,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 8.416927391240273,
+       "observed_gm": 8.93,
+       "observed_gcv_pct": 29,
+       "n": 6,
+       "observed_ci90": [
+        7.068514194835234,
+        11.281706141053995
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.9425450606092132,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 6516.63724025533,
+       "observed_gm": 8088,
+       "observed_gcv_pct": 18,
+       "n": 6,
+       "observed_ci90": [
+        6983.045082314652,
+        9367.796316491316
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.8057167705558024,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    }
+   },
+   "secondary": {
+    "normal": {
+     "crcl_ml_min_cockcroft_gault": 107.2,
+     "dose_mg": 25.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 440.4484731633809,
+       "observed_gm": 461,
+       "observed_gcv_pct": 40.1,
+       "n": 10,
+       "observed_ci90": [
+        368.54222802796136,
+        576.6530504175387
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.9554196814823881,
+       "role": "reported_reference_group"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 3.522084397521736,
+       "observed_gm": 3.14,
+       "observed_gcv_pct": 29.0,
+       "n": 10,
+       "observed_ci90": [
+        2.663117100668044,
+        3.702278055113204
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.1216829291470496,
+       "role": "reported_reference_group"
+      }
+     ]
+    },
+    "mild": {
+     "crcl_ml_min_cockcroft_gault": 64.3,
+     "dose_mg": 25.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 496.03593292961295,
+       "observed_gm": 396,
+       "observed_gcv_pct": 31.9,
+       "n": 10,
+       "observed_ci90": [
+        330.6159661243959,
+        474.3146613221855
+       ],
+       "classification": "model_over_predicts",
+       "model_over_observed": 1.2526159922464974,
+       "role": "classified_secondary_not_blind"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 4.771764196904562,
+       "observed_gm": 4.75,
+       "observed_gcv_pct": 28.5,
+       "n": 10,
+       "observed_ci90": [
+        4.039618520666799,
+        5.585304623337483
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.0045819361904342,
+       "role": "classified_secondary_not_blind"
+      }
+     ]
+    },
+    "moderate": {
+     "crcl_ml_min_cockcroft_gault": 40.1,
+     "dose_mg": 10.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 220.1890824458353,
+       "observed_gm": 232,
+       "observed_gcv_pct": 23.2,
+       "n": 7,
+       "observed_ci90": [
+        196.08976558713545,
+        274.4865334447171
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.949090872611359,
+       "role": "classified_secondary_not_blind"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 6.34328325413992,
+       "observed_gm": 6.9,
+       "observed_gcv_pct": 19.1,
+       "n": 7,
+       "observed_ci90": [
+        6.004418314188255,
+        7.929161079183815
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.9193164136434666,
+       "role": "classified_secondary_not_blind"
+      }
+     ]
+    },
+    "severe": {
+     "crcl_ml_min_cockcroft_gault": 21.6,
+     "dose_mg": 15.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 335.63204274927415,
+       "observed_gm": 426,
+       "observed_gcv_pct": 18.5,
+       "n": 5,
+       "observed_ci90": [
+        357.64605199767436,
+        507.41787581980645
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.7878686449513478,
+       "role": "classified_secondary_not_blind"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 8.846844538791082,
+       "observed_gm": 9.47,
+       "observed_gcv_pct": 22.8,
+       "n": 5,
+       "observed_ci90": [
+        7.640812184423133,
+        11.737089963135999
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.9341968889958903,
+       "role": "classified_secondary_not_blind"
+      }
+     ]
+    }
+   },
+   "numerical_checks": {
+    "closed_form_vs_rk4_pass": true,
+    "mass_balance_pass": true,
+    "urine_total_equals_fe_pass": true,
+    "per_group": {
+     "normal": {
+      "rk4_max_relative_difference": 2.707681533196948e-10,
+      "mass_balance_max_relative_error": 8.952838470577262e-15,
+      "urine_at_120h_over_fe": 0.9999999999156234
+     },
+     "mild": {
+      "rk4_max_relative_difference": 2.3080111998565797e-10,
+      "mass_balance_max_relative_error": 5.826450433232821e-15,
+      "urine_at_120h_over_fe": 0.9999999767208106
+     },
+     "moderate": {
+      "rk4_max_relative_difference": 2.0836603452035482e-10,
+      "mass_balance_max_relative_error": 5.684341886080802e-15,
+      "urine_at_120h_over_fe": 0.9999976543276484
+     },
+     "severe": {
+      "rk4_max_relative_difference": 1.965215150212723e-10,
+      "mass_balance_max_relative_error": 6.252776074688882e-15,
+      "urine_at_120h_over_fe": 0.9999499645803549
+     }
+    }
+   }
+  },
+  "sensitivity_bsa_1_9": {
+   "parameters": {
+    "vc_l": 40.510854964855056,
+    "vp_l": 13.0168,
+    "q_l_h": 4.9427,
+    "ka_per_h": 1.16,
+    "fu": 0.614
+   },
+   "primary": {
+    "normal": {
+     "crcl_ml_min": 102.2,
+     "model_tmax_h": 1.4966325253508783,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 363.47989322373,
+       "observed_gm": 568,
+       "observed_gcv_pct": 39,
+       "n": 7,
+       "observed_ci90": [
+        430.8507187806268,
+        748.8069206733021
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.639929389478398,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 4.112867322231611,
+       "observed_gm": 3.26,
+       "observed_gcv_pct": 23,
+       "n": 7,
+       "observed_ci90": [
+        2.759294914925654,
+        3.8515636521898733
+       ],
+       "classification": "model_over_predicts",
+       "model_over_observed": 1.2616157430158317,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 2320.886137177131,
+       "observed_gm": 2091,
+       "observed_gcv_pct": 32,
+       "n": 7,
+       "observed_ci90": [
+        1662.4987082059197,
+        2629.9455021642293
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.1099407638341132,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    },
+    "mild": {
+     "crcl_ml_min": 64.6,
+     "model_tmax_h": 1.6755281949583893,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 393.0927729950435,
+       "observed_gm": 684,
+       "observed_gcv_pct": 16,
+       "n": 5,
+       "observed_ci90": [
+        587.7950557521169,
+        795.9508938049026
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.5746970365424613,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 5.576118933859193,
+       "observed_gm": 3.61,
+       "observed_gcv_pct": 20,
+       "n": 5,
+       "observed_ci90": [
+        2.9888722648029193,
+        4.360206407435519
+       ],
+       "classification": "model_over_predicts",
+       "model_over_observed": 1.544631283617505,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 3359.6134995098732,
+       "observed_gm": 2627,
+       "observed_gcv_pct": 36,
+       "n": 5,
+       "observed_ci90": [
+        1883.2963542023385,
+        3664.388233217253
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.2788783781918056,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    },
+    "moderate": {
+     "crcl_ml_min": 39.1,
+     "model_tmax_h": 1.846415418894201,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 417.77052051773643,
+       "observed_gm": 568,
+       "observed_gcv_pct": 33,
+       "n": 6,
+       "observed_ci90": [
+        435.99666895284105,
+        739.9689561272685
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.7355114797847472,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 7.699926404714129,
+       "observed_gm": 9.97,
+       "observed_gcv_pct": 44,
+       "n": 6,
+       "observed_ci90": [
+        7.053402532130583,
+        14.092616938732196
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.7723095691789498,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 4823.765959585805,
+       "observed_gm": 5964,
+       "observed_gcv_pct": 16,
+       "n": 6,
+       "observed_ci90": [
+        5232.817689653654,
+        6797.350511623544
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.8088138765234415,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    },
+    "severe": {
+     "crcl_ml_min": 23.9,
+     "model_tmax_h": 1.9822065062179965,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 435.0243285951106,
+       "observed_gm": 761,
+       "observed_gcv_pct": 11,
+       "n": 6,
+       "observed_ci90": [
+        695.3497148392393,
+        832.8485474879203
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.5716482635941007,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 10.18492163881659,
+       "observed_gm": 8.93,
+       "observed_gcv_pct": 29,
+       "n": 6,
+       "observed_ci90": [
+        7.068514194835234,
+        11.281706141053995
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.1405287389492262,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 6516.63724025533,
+       "observed_gm": 8088,
+       "observed_gcv_pct": 18,
+       "n": 6,
+       "observed_ci90": [
+        6983.045082314652,
+        9367.796316491316
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.8057167705558024,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    }
+   },
+   "secondary": {
+    "normal": {
+     "crcl_ml_min_cockcroft_gault": 107.2,
+     "dose_mg": 25.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 364.2073214014383,
+       "observed_gm": 461,
+       "observed_gcv_pct": 40.1,
+       "n": 10,
+       "observed_ci90": [
+        368.54222802796136,
+        576.6530504175387
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.7900375735389118,
+       "role": "reported_reference_group"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 3.987633518051877,
+       "observed_gm": 3.14,
+       "observed_gcv_pct": 29.0,
+       "n": 10,
+       "observed_ci90": [
+        2.663117100668044,
+        3.702278055113204
+       ],
+       "classification": "model_over_predicts",
+       "model_over_observed": 1.2699469802712984,
+       "role": "reported_reference_group"
+      }
+     ]
+    },
+    "mild": {
+     "crcl_ml_min_cockcroft_gault": 64.3,
+     "dose_mg": 25.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 411.07268812274657,
+       "observed_gm": 396,
+       "observed_gcv_pct": 31.9,
+       "n": 10,
+       "observed_ci90": [
+        330.6159661243959,
+        474.3146613221855
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.0380623437443095,
+       "role": "classified_secondary_not_blind"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 5.5933879680948255,
+       "observed_gm": 4.75,
+       "observed_gcv_pct": 28.5,
+       "n": 10,
+       "observed_ci90": [
+        4.039618520666799,
+        5.585304623337483
+       ],
+       "classification": "model_over_predicts",
+       "model_over_observed": 1.1775553617041739,
+       "role": "classified_secondary_not_blind"
+      }
+     ]
+    },
+    "moderate": {
+     "crcl_ml_min_cockcroft_gault": 40.1,
+     "dose_mg": 10.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 184.96179260187228,
+       "observed_gm": 232,
+       "observed_gcv_pct": 23.2,
+       "n": 7,
+       "observed_ci90": [
+        196.08976558713545,
+        274.4865334447171
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.797249106042553,
+       "role": "classified_secondary_not_blind"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 7.581485737223644,
+       "observed_gm": 6.9,
+       "observed_gcv_pct": 19.1,
+       "n": 7,
+       "observed_ci90": [
+        6.004418314188255,
+        7.929161079183815
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.0987660488729918,
+       "role": "classified_secondary_not_blind"
+      }
+     ]
+    },
+    "severe": {
+     "crcl_ml_min_cockcroft_gault": 21.6,
+     "dose_mg": 15.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 273.73824401579134,
+       "observed_gm": 426,
+       "observed_gcv_pct": 18.5,
+       "n": 5,
+       "observed_ci90": [
+        357.64605199767436,
+        507.41787581980645
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.6425780375957543,
+       "role": "classified_secondary_not_blind"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 10.723290616309708,
+       "observed_gm": 9.47,
+       "observed_gcv_pct": 22.8,
+       "n": 5,
+       "observed_ci90": [
+        7.640812184423133,
+        11.737089963135999
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.132343254098174,
+       "role": "classified_secondary_not_blind"
+      }
+     ]
+    }
+   },
+   "numerical_checks": {
+    "closed_form_vs_rk4_pass": true,
+    "mass_balance_pass": true,
+    "urine_total_equals_fe_pass": true,
+    "per_group": {
+     "normal": {
+      "rk4_max_relative_difference": 2.1856209423212653e-10,
+      "mass_balance_max_relative_error": 3.4106051316484808e-15,
+      "urine_at_120h_over_fe": 0.999999998507983
+     },
+     "mild": {
+      "rk4_max_relative_difference": 1.9595854699653797e-10,
+      "mass_balance_max_relative_error": 3.268496584496461e-15,
+      "urine_at_120h_over_fe": 0.9999996782646471
+     },
+     "moderate": {
+      "rk4_max_relative_difference": 1.8263552347045056e-10,
+      "mass_balance_max_relative_error": 5.115907697472721e-15,
+      "urine_at_120h_over_fe": 0.9999797975739612
+     },
+     "severe": {
+      "rk4_max_relative_difference": 1.753704257579931e-10,
+      "mass_balance_max_relative_error": 7.105427357601002e-15,
+      "urine_at_120h_over_fe": 0.99971582120526
+     }
+    }
+   }
+  },
+  "sensitivity_tmax_absorption": {
+   "parameters": {
+    "vc_l": 29.963199999999997,
+    "vp_l": 13.0168,
+    "q_l_h": 4.9427,
+    "ka_per_h": 1.7538892063931222,
+    "fu": 0.614
+   },
+   "primary": {
+    "normal": {
+     "crcl_ml_min": 102.2,
+     "model_tmax_h": 1.0193571570856972,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 505.6601601559076,
+       "observed_gm": 568,
+       "observed_gcv_pct": 39,
+       "n": 7,
+       "observed_ci90": [
+        430.8507187806268,
+        748.8069206733021
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.8902467608378655,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 3.6184558535043707,
+       "observed_gm": 3.26,
+       "observed_gcv_pct": 23,
+       "n": 7,
+       "observed_ci90": [
+        2.759294914925654,
+        3.8515636521898733
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.1099557832835494,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 2320.886137177131,
+       "observed_gm": 2091,
+       "observed_gcv_pct": 32,
+       "n": 7,
+       "observed_ci90": [
+        1662.4987082059197,
+        2629.9455021642293
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.1099407638341132,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    },
+    "mild": {
+     "crcl_ml_min": 64.6,
+     "model_tmax_h": 1.1327669208484217,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 543.8306970213781,
+       "observed_gm": 684,
+       "observed_gcv_pct": 16,
+       "n": 5,
+       "observed_ci90": [
+        587.7950557521169,
+        795.9508938049026
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.7950741184523071,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 4.7581991733204,
+       "observed_gm": 3.61,
+       "observed_gcv_pct": 20,
+       "n": 5,
+       "observed_ci90": [
+        2.9888722648029193,
+        4.360206407435519
+       ],
+       "classification": "model_over_predicts",
+       "model_over_observed": 1.318060712831136,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 3359.6134995098732,
+       "observed_gm": 2627,
+       "observed_gcv_pct": 36,
+       "n": 5,
+       "observed_ci90": [
+        1883.2963542023385,
+        3664.388233217253
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.2788783781918056,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    },
+    "moderate": {
+     "crcl_ml_min": 39.1,
+     "model_tmax_h": 1.2383610063055972,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 575.1762583793545,
+       "observed_gm": 568,
+       "observed_gcv_pct": 33,
+       "n": 6,
+       "observed_ci90": [
+        435.99666895284105,
+        739.9689561272685
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.0126342577101313,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 6.4373470031791244,
+       "observed_gm": 9.97,
+       "observed_gcv_pct": 44,
+       "n": 6,
+       "observed_ci90": [
+        7.053402532130583,
+        14.092616938732196
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.6456717154643054,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 4823.765959585805,
+       "observed_gm": 5964,
+       "observed_gcv_pct": 16,
+       "n": 6,
+       "observed_ci90": [
+        5232.817689653654,
+        6797.350511623544
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.8088138765234415,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    },
+    "severe": {
+     "crcl_ml_min": 23.9,
+     "model_tmax_h": 1.3199817794329016,
+     "rows": [
+      {
+       "endpoint": "cmax_ng_ml",
+       "model": 596.7971128900771,
+       "observed_gm": 761,
+       "observed_gcv_pct": 11,
+       "n": 6,
+       "observed_ci90": [
+        695.3497148392393,
+        832.8485474879203
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.7842274808016781,
+       "role": "classified"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 8.416927391240273,
+       "observed_gm": 8.93,
+       "observed_gcv_pct": 29,
+       "n": 6,
+       "observed_ci90": [
+        7.068514194835234,
+        11.281706141053995
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.9425450606092132,
+       "role": "classified"
+      },
+      {
+       "endpoint": "auc_infinity_ng_h_ml",
+       "model": 6516.63724025533,
+       "observed_gm": 8088,
+       "observed_gcv_pct": 18,
+       "n": 6,
+       "observed_ci90": [
+        6983.045082314652,
+        9367.796316491316
+       ],
+       "classification": "model_under_predicts",
+       "model_over_observed": 0.8057167705558024,
+       "role": "reported_follows_from_clearance"
+      }
+     ]
+    }
+   },
+   "secondary": {
+    "normal": {
+     "crcl_ml_min_cockcroft_gault": 107.2,
+     "dose_mg": 25.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 503.5482400497666,
+       "observed_gm": 461,
+       "observed_gcv_pct": 40.1,
+       "n": 10,
+       "observed_ci90": [
+        368.54222802796136,
+        576.6530504175387
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.0922955315613159,
+       "role": "reported_reference_group"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 3.522084397521736,
+       "observed_gm": 3.14,
+       "observed_gcv_pct": 29.0,
+       "n": 10,
+       "observed_ci90": [
+        2.663117100668044,
+        3.702278055113204
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.1216829291470496,
+       "role": "reported_reference_group"
+      }
+     ]
+    },
+    "mild": {
+     "crcl_ml_min_cockcroft_gault": 64.3,
+     "dose_mg": 25.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 555.5636576776988,
+       "observed_gm": 396,
+       "observed_gcv_pct": 31.9,
+       "n": 10,
+       "observed_ci90": [
+        330.6159661243959,
+        474.3146613221855
+       ],
+       "classification": "model_over_predicts",
+       "model_over_observed": 1.4029385294891383,
+       "role": "classified_secondary_not_blind"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 4.771764196904562,
+       "observed_gm": 4.75,
+       "observed_gcv_pct": 28.5,
+       "n": 10,
+       "observed_ci90": [
+        4.039618520666799,
+        5.585304623337483
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.0045819361904342,
+       "role": "classified_secondary_not_blind"
+      }
+     ]
+    },
+    "moderate": {
+     "crcl_ml_min_cockcroft_gault": 40.1,
+     "dose_mg": 10.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 242.6647730688383,
+       "observed_gm": 232,
+       "observed_gcv_pct": 23.2,
+       "n": 7,
+       "observed_ci90": [
+        196.08976558713545,
+        274.4865334447171
+       ],
+       "classification": "consistent",
+       "model_over_observed": 1.0459688494346477,
+       "role": "classified_secondary_not_blind"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 6.34328325413992,
+       "observed_gm": 6.9,
+       "observed_gcv_pct": 19.1,
+       "n": 7,
+       "observed_ci90": [
+        6.004418314188255,
+        7.929161079183815
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.9193164136434666,
+       "role": "classified_secondary_not_blind"
+      }
+     ]
+    },
+    "severe": {
+     "crcl_ml_min_cockcroft_gault": 21.6,
+     "dose_mg": 15.0,
+     "rows": [
+      {
+       "endpoint": "day5_cmax_ng_ml",
+       "model": 366.83516362558754,
+       "observed_gm": 426,
+       "observed_gcv_pct": 18.5,
+       "n": 5,
+       "observed_ci90": [
+        357.64605199767436,
+        507.41787581980645
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.8611154075718017,
+       "role": "classified_secondary_not_blind"
+      },
+      {
+       "endpoint": "terminal_half_life_h",
+       "model": 8.846844538791082,
+       "observed_gm": 9.47,
+       "observed_gcv_pct": 22.8,
+       "n": 5,
+       "observed_ci90": [
+        7.640812184423133,
+        11.737089963135999
+       ],
+       "classification": "consistent",
+       "model_over_observed": 0.9341968889958903,
+       "role": "classified_secondary_not_blind"
+      }
+     ]
+    }
+   },
+   "numerical_checks": {
+    "closed_form_vs_rk4_pass": true,
+    "mass_balance_pass": true,
+    "urine_total_equals_fe_pass": true,
+    "per_group": {
+     "normal": {
+      "rk4_max_relative_difference": 1.0013954861770595e-09,
+      "mass_balance_max_relative_error": 7.815970093361103e-15,
+      "urine_at_120h_over_fe": 0.9999999999209108
+     },
+     "mild": {
+      "rk4_max_relative_difference": 9.064834114120923e-10,
+      "mass_balance_max_relative_error": 3.552713678800501e-15,
+      "urine_at_120h_over_fe": 0.9999999778003873
+     },
+     "moderate": {
+      "rk4_max_relative_difference": 8.497548581675918e-10,
+      "mass_balance_max_relative_error": 3.268496584496461e-15,
+      "urine_at_120h_over_fe": 0.9999977328778391
+     },
+     "severe": {
+      "rk4_max_relative_difference": 8.18547666718711e-10,
+      "mass_balance_max_relative_error": 5.968558980384841e-15,
+      "urine_at_120h_over_fe": 0.9999512266424094
+     }
+    }
+   }
+  }
+ },
+ "result": {
+  "primary": {
+   "primary_cmax": {
+    "normal": "consistent",
+    "mild": "model_under_predicts",
+    "moderate": "consistent",
+    "severe": "model_under_predicts"
+   },
+   "primary_half_life": {
+    "normal": "consistent",
+    "mild": "model_over_predicts",
+    "moderate": "model_under_predicts",
+    "severe": "consistent"
+   },
+   "secondary_cmax": {
+    "mild": "model_over_predicts",
+    "moderate": "consistent",
+    "severe": "model_under_predicts"
+   },
+   "secondary_half_life": {
+    "mild": "consistent",
+    "moderate": "consistent",
+    "severe": "consistent"
+   }
+  },
+  "sensitivity_bsa_1_9": {
+   "primary_cmax": {
+    "normal": "model_under_predicts",
+    "mild": "model_under_predicts",
+    "moderate": "model_under_predicts",
+    "severe": "model_under_predicts"
+   },
+   "primary_half_life": {
+    "normal": "model_over_predicts",
+    "mild": "model_over_predicts",
+    "moderate": "consistent",
+    "severe": "consistent"
+   },
+   "secondary_cmax": {
+    "mild": "consistent",
+    "moderate": "model_under_predicts",
+    "severe": "model_under_predicts"
+   },
+   "secondary_half_life": {
+    "mild": "model_over_predicts",
+    "moderate": "consistent",
+    "severe": "consistent"
+   }
+  },
+  "sensitivity_tmax_absorption": {
+   "primary_cmax": {
+    "normal": "consistent",
+    "mild": "model_under_predicts",
+    "moderate": "consistent",
+    "severe": "model_under_predicts"
+   },
+   "primary_half_life": {
+    "normal": "consistent",
+    "mild": "model_over_predicts",
+    "moderate": "model_under_predicts",
+    "severe": "consistent"
+   },
+   "secondary_cmax": {
+    "mild": "model_over_predicts",
+    "moderate": "consistent",
+    "severe": "consistent"
+   },
+   "secondary_half_life": {
+    "mild": "consistent",
+    "moderate": "consistent",
+    "severe": "consistent"
+   }
+  }
+ },
+ "side_by_side_primary": {
+  "normal": {
+   "cmax_ng_ml": {
+    "v1": "model_under_predicts",
+    "v2": "consistent",
+    "v1_model": 366.9756911332365,
+    "v2_model": 442.8375276138889,
+    "observed_gm": 568
+   },
+   "terminal_half_life_h": {
+    "v1": "consistent",
+    "v2": "consistent",
+    "v1_model": 3.603523128542379,
+    "v2_model": 3.6184558535043707,
+    "observed_gm": 3.26
+   }
+  },
+  "mild": {
+   "cmax_ng_ml": {
+    "v1": "model_under_predicts",
+    "v2": "model_under_predicts",
+    "v1_model": 384.0078740702237,
+    "v2_model": 484.3024374315827,
+    "observed_gm": 684
+   },
+   "terminal_half_life_h": {
+    "v1": "model_over_predicts",
+    "v2": "model_over_predicts",
+    "v1_model": 5.216302839902335,
+    "v2_model": 4.7581991733204,
+    "observed_gm": 3.61
+   }
+  },
+  "moderate": {
+   "cmax_ng_ml": {
+    "v1": "model_under_predicts",
+    "v2": "consistent",
+    "v1_model": 397.7020564552996,
+    "v2_model": 519.4448179080514,
+    "observed_gm": 568
+   },
+   "terminal_half_life_h": {
+    "v1": "consistent",
+    "v2": "model_under_predicts",
+    "v1_model": 7.489618695032184,
+    "v2_model": 6.4373470031791244,
+    "observed_gm": 9.97
+   }
+  },
+  "severe": {
+   "cmax_ng_ml": {
+    "v1": "model_under_predicts",
+    "v2": "model_under_predicts",
+    "v1_model": 407.0818978787822,
+    "v2_model": 544.3304772523189,
+    "observed_gm": 761
+   },
+   "terminal_half_life_h": {
+    "v1": "consistent",
+    "v2": "consistent",
+    "v1_model": 10.118054754785431,
+    "v2_model": 8.416927391240273,
+    "observed_gm": 8.93
+   }
+  }
+ },
+ "display_decision": {
+  "rule": "v2 replaces v1 on the body map only if, in the primary scenario, v2's Cmax is consistent in at least three of the four CC-5013-PK-001 groups and its half-life classifications are consistent in at least as many groups as v1's (two of three impaired groups). Otherwise the body map shows v1. Whichever is shown carries, in each band, the classifications of that version in that band, with a warning where any is inconsistent.",
+  "v2_cmax_consistent_groups": 2,
+  "v2_half_life_consistent_impaired": 1,
+  "v1_half_life_consistent_impaired": 2,
+  "body_map_shows": "v1"
+ },
+ "decision_rule": "Nothing about the clearance model, its scope or its evidence status changes because of this check; any change is a separate step for the platform owner.",
+ "known_limitations": [
+  "Kim's distribution and absorption come from Korean patients on maintenance doses (5-10 mg), largely with renal impairment; CC-5013-PK-001 is a single 25 mg fasting dose in people without cancer.",
+  "Kim's peripheral distribution is applied unchanged across kidney function.",
+  "Typical values at group mean creatinine clearance compared with geometric means of individuals.",
+  "Same studies as before, all values seen: consistency, not validation."
+ ],
+ "clinical_prediction_validated": false,
+ "report_sha256": "b1cb90e988cea2c547e571ff846fec9a41743aa8f9fffdfaf33cae501d4815cb"
+}

@@ -64,13 +64,18 @@ class MapData(unittest.TestCase):
         statuses = {b['id']: bm.band_status(b, report) for b in bm.BANDS}
         self.assertEqual(statuses['normal'], 'calibrated')
         self.assertEqual(scen['primary']['moderate']['A_intact_nephron'], 'model_under_predicts')
-        self.assertEqual(statuses['moderate'], 'check_disagrees')
-        severe = {s['severe_without_dialysis']['A_intact_nephron'] for s in scen.values()}
-        self.assertEqual(statuses['severe'], 'checked_consistent' if severe == {'consistent'} else 'consistent_primary_only')
+        # 2.0e (plan v3): both impaired bands below mild depend on bioavailability, which replaces the 2.0a status.
+        d1 = bm.load_f_report()['decision']['D1_band_status']
+        self.assertEqual(d1['moderate']['by_F'], {'1.00': 'model_under_predicts', '0.95': 'model_under_predicts', '0.90': 'consistent'})
+        self.assertEqual(statuses['moderate'], 'depends_on_bioavailability')
+        self.assertEqual(statuses['severe'], 'depends_on_bioavailability')
+        self.assertEqual(statuses['mild'], 'checked_consistent')
         v = bm.explorer_map(37)
-        self.assertEqual(v['band']['status'], 'check_disagrees')
-        self.assertTrue(all(flow(v, k)['status'] == 'check_disagrees' for k in ('filtration', 'tubular_secretion', 'renal_excretion')))
-        self.assertIn('probably lower', v['band']['status_text'])
+        self.assertEqual(v['band']['status'], 'depends_on_bioavailability')
+        self.assertTrue(all(flow(v, k)['status'] == 'depends_on_bioavailability' for k in ('filtration', 'tubular_secretion', 'renal_excretion', 'non_renal')))
+        self.assertIn('No single value fits every study', v['band']['status_text'])
+        self.assertIn('Lower absorption fits this group better', v['band']['status_text'])
+        self.assertIn('Full absorption fits this group', bm.explorer_map(20)['band']['status_text'])
 
     def test_not_drawn_outside_the_checked_range(self):
         for crcl in (5, 9.99, 140.01, 200):

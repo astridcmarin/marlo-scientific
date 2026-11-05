@@ -21,7 +21,10 @@ QUEUE_SHA256 = '3ebad5506b7e1c9ed95a581f485389b4ef421727013aa826071aab79daab3961
 RECORD_SCHEMA = 'extraction-review-record-v1'
 DECISIONS = ('matches', 'wrong', 'cannot_check')
 # Pinned review records, oldest first: (file name in intelligence_store/data, sha256).
-REVIEW_RECORDS = ()
+REVIEW_RECORDS = (
+    ('extraction_review_record_2026-11-03_v1.json', '8bf417fb74bce88361db9a1c7f171dc8e12f96d2be1f8b100b250635b9ffb478'),  # round 1, Astrid, 3 November 2026
+    ('extraction_review_record_2026-11-04_round2_v1.json', 'e7e6da378e62fa9884cb55a1edc4359dc8a0fdf3a2bce76521187969b28128e7'),  # round 2, Astrid, 4 November 2026
+)
 
 
 class ReviewError(ValueError):
@@ -129,6 +132,45 @@ def queue_view(records=None):
     return view
 
 
+ROUND_2_PATH = DATA / 'extraction_review_round_2_v1.json'
+ROUND_2_SHA256 = '3c44305907fcdba4d742d7b31aa81a9a6ca13f24a70b3b9149b2255fbbffae4d'
+
+
+def load_round_2():
+    raw = ROUND_2_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != ROUND_2_SHA256:
+        raise ReviewError('The round 2 list is missing or changed.')
+    rnd = json.loads(raw)
+    if rnd['queue_sha256'] != QUEUE_SHA256:
+        raise ReviewError('The round 2 list was made against a different review queue.')
+    first = dict(REVIEW_RECORDS).get(rnd['follows_record'])
+    if first is None:
+        raise ReviewError('The round 1 record the round 2 list follows is not pinned.')
+    decided = next(r for r in load_records() if r['file'] == rnd['follows_record'])['decisions']
+    expected = {i for i in item_ids() if decided.get(i, {}).get('decision') != 'matches'}
+    if {i['id'] for i in rnd['items']} != expected:
+        raise ReviewError('The round 2 list is not exactly the items round 1 did not mark as matching.')
+    return rnd
+
+
+def round_2_view(records=None):
+    """The queue view limited to the round 2 items, each with where to look and how the stored value was obtained."""
+    rnd = load_round_2()
+    aid = {i['id']: i for i in rnd['items']}
+    view = queue_view(records)
+    groups = []
+    for g in view['groups']:
+        items = [dict(i, where_to_look=aid[i['id']]['where_to_look'], how_stored=aid[i['id']]['how_stored'])
+                 for i in g['items'] if i['id'] in aid]
+        if items:
+            groups.append(dict(g, items=items, reviewed=sum(1 for i in items if i['status'])))
+    view = dict(view, groups=groups, round=2, round_purpose=rnd['purpose'], round_caution=rnd['caution'],
+                round_sha256=ROUND_2_SHA256, round_total=len(aid))
+    view.pop('view_sha256', None)
+    view['view_sha256'] = digest(view)
+    return view
+
+
 def register_extraction_review_commands(app):
     import click
 
@@ -143,3 +185,53 @@ def register_extraction_review_commands(app):
             raise click.ClickException(str(exc)) from exc
         counts = {d: sum(1 for x in record['decisions'].values() if x['decision'] == d) for d in DECISIONS}
         click.echo(json.dumps({'valid': True, 'sha256': hashlib.sha256(raw).hexdigest(), 'decisions': counts}, indent=2))
+
+
+# ---------------------------------------------------------------- review status shown on pages
+# Pages show the owner review for a pinned file only when that exact file is in the queue; a later version of a file
+# (for example renal_pk_group_evidence_v2.json) is not covered by a review of the earlier one.
+KEY_FILES = {
+    'model:lenalidomide_hughes_2019': ('intelligence_store/data/hughes_parameter_extract_v1.json',
+                                       'intelligence_store/data/hughes_variability_extract_v1.json'),
+    'model:lenalidomide_kim_2026': ('intelligence_store/data/kim_2026_model_extract_v1.json',),
+    'model:lenalidomide_exposure_safety_2016': ('intelligence_store/data/lenalidomide_exposure_safety_v2.json',),
+    'model:ixazomib_pk_gupta_2017': ('intelligence_store/data/ixazomib_pk_gupta_2017_extract_v1.json',),
+    'model:daratumumab_pk_luo_2021': ('intelligence_store/data/daratumumab_pk_luo_2021_extract_v1.json',),
+    'label:lenalidomide': ('intelligence_store/data/lenalidomide_label_2023_v1.json',),
+    'label:pomalidomide': ('intelligence_store/data/label_pk_pomalidomide_v1.json',),
+    'label:dexamethasone': ('intelligence_store/data/label_pk_dexamethasone_hemady_v1.json',),
+}
+
+
+def _file_status(group):
+    items = group['items']
+    counts = {d: sum(1 for i in items if i['status'] and i['status']['decision'] == d) for d in DECISIONS}
+    counts['unreviewed'] = sum(1 for i in items if not i['status'])
+    dates = sorted({i['status']['reviewed_on'] for i in items if i['status']})
+    reviewers = sorted({i['status']['reviewer'] for i in items if i['status']})
+    n, name = len(items), group['file'].rsplit('/', 1)[-1]
+    when = (dates[0] if len(dates) == 1 else f'{dates[0]} to {dates[-1]}') if dates else None
+    if counts['matches'] == n:
+        text = (f'Owner review: all {n} values the platform uses from {name} match the source '
+                f'(checked by the platform owner, {when}). Not an independent review.')
+    elif counts['unreviewed'] == n:
+        text = f'Owner review: the {n} values the platform uses from {name} have not been reviewed yet.'
+    else:
+        parts = [f"{counts['matches']} of {n} values the platform uses from {name} match the source"]
+        parts += [f"{counts[k]} {label}" for k, label in (('wrong', 'found wrong'), ('cannot_check', 'could not be checked'),
+                                                          ('unreviewed', 'not yet reviewed')) if counts[k]]
+        text = 'Owner review: ' + '; '.join(parts) + f' (platform owner, {when}). Not an independent review.'
+    return {'file': group['file'], 'values': n, 'counts': counts, 'reviewed_on': dates, 'reviewers': reviewers,
+            'all_match': counts['matches'] == n, 'text': text}
+
+
+def owner_review(keys, view=None):
+    """Review status for pinned files, by file path or by a KEY_FILES key. Files not in the queue are skipped."""
+    view = view or queue_view()
+    by_file = {g['file']: g for g in view['groups']}
+    files = []
+    for key in ([keys] if isinstance(keys, str) else keys):
+        for f in KEY_FILES.get(key, (key,)):
+            if f in by_file and f not in files:
+                files.append(f)
+    return [_file_status(by_file[f]) for f in files]

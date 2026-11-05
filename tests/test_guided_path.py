@@ -14,8 +14,8 @@ class Path_(unittest.TestCase):
         self.assertIn('380 of 3450', steps['trials']['found'])
         self.assertIn('25 mg', steps['knowledge']['found'])
         self.assertIn('54 patients, 26 events', steps['dose']['missing'])
-        self.assertEqual(p['review'], {'values': 78, 'reviewed': 0})
-        self.assertIn('0 of 78', steps['credibility']['checked'])
+        self.assertEqual(p['review'], {'values': 78, 'reviewed': 78})
+        self.assertIn('78 of 78', steps['credibility']['checked'])
         for s in p['steps']:
             for key in ('found', 'checked', 'missing'):
                 self.assertTrue(s[key].strip(), (s['id'], key))

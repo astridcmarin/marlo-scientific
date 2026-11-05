@@ -13,8 +13,16 @@ from .covariate_estimation import _load_pinned
 from .patient_state import digest
 
 SCHEMA_VERSION = 'patient-lab-run-record-v1'
-EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v12.json'
-EVIDENCE_SHA256 = '94f9b9c857fe33e0a660a2d16135ad6a1d3e98018048480eb6869814675a50be'
+EVIDENCE_PATH = Path(__file__).parent / 'data' / 'model_evidence_status_v16.json'
+EVIDENCE_SHA256 = '61d3663a7cfa66850735af16a3baa6cc11aeeac674b738457c56abd513c22030'
+# Superseded, kept unchanged for traceability: model_evidence_status_v15.json
+EVIDENCE_V15_SHA256 = '4098d7f40cd9cd4f01db53837609cf93a8133d8602e22384215f9ab0d1c5ec35'
+# Superseded, kept unchanged for traceability: model_evidence_status_v14.json
+EVIDENCE_V14_SHA256 = '4fdac3a8bb50ead46b0f85633ac1be93ffd0dab393b8009faa502c126ce5d1fb'
+# Superseded, kept unchanged for traceability: model_evidence_status_v13.json
+EVIDENCE_V13_SHA256 = '943876d68dfe5cbb2ba3636bd106711423fda88f0399a98f87ab41f90d11d524'
+# Superseded, kept unchanged for traceability: model_evidence_status_v12.json
+EVIDENCE_V12_SHA256 = '94f9b9c857fe33e0a660a2d16135ad6a1d3e98018048480eb6869814675a50be'
 # Superseded, kept unchanged for traceability: model_evidence_status_v11.json
 EVIDENCE_V11_SHA256 = 'c4eb8b9fba62353e81d7825369d70adeb832d53927ab6dc6944e8401b7a97326'
 # Superseded, kept unchanged for traceability: model_evidence_status_v10.json
@@ -60,6 +68,14 @@ RESULT_TYPES['elimination_pathway_split'] = {
     'is_not': ['a measurement of this patient\'s renal clearance or urine excretion',
                'an exposure prediction for this patient',
                'a dose recommendation'],
+}
+RESULT_TYPES['elimination_pathway_split_explorer'] = {
+    'label': 'Typical split of elimination between pathways at an entered kidney function',
+    'is': 'How a semi-physiological model divides lenalidomide clearance between filtration, tubular secretion and non-renal routes at the creatinine clearance chosen on the page, with no patient record.',
+    'is_not': ['a measurement of anyone\'s renal clearance or urine excretion',
+               'an exposure prediction for a patient',
+               'a dose recommendation'],
+    'patient_record': False,
 }
 RESULT_TYPES['relative_odds_vs_reference'] = {
     'label': 'Relative odds versus a reference exposure',
@@ -260,6 +276,17 @@ def record_for_renal_pathways(view, evidence=None):
 
 
 
+def _body_map_flow_assumptions(map_view):
+    """Digital human 1.1: the reference blood flow and the blood-to-plasma ratio behind the extraction per pass."""
+    if 'blood_flow' not in map_view:
+        return []
+    bf, ex = map_view['blood_flow'], map_view['extraction']
+    return [{'name': 'Renal blood flow', 'reading': f"{bf['renal_blood_flow_ml_min']:.0f} mL/min (reference adult male)",
+             'status': 'by_design', 'evidence': bf['basis'] + ' ' + bf['not_this']},
+            {'name': 'Blood-to-plasma ratio', 'reading': f"{ex['blood_to_plasma_ratio']:.3f}", 'status': 'assumed',
+             'evidence': ex['basis']}]
+
+
 def record_for_body_map(map_view, pathways_view, evidence=None):
     """Run record for the record-mode body map (Digital human 1.0, step 1.3b).
 
@@ -272,12 +299,69 @@ def record_for_body_map(map_view, pathways_view, evidence=None):
     record.pop('validation')
     manifest = load_manifest()
     record.update(kind='body_map', title='Lenalidomide elimination body map for this record')
+    record['assumptions'] = record['assumptions'] + _body_map_flow_assumptions(map_view)
     record['checksums'] = ([{'label': 'Body map view', 'sha256': map_view['view_sha256']}] + record['checksums'] +
                            [{'label': '3D asset manifest', 'sha256': MANIFEST_SHA256}] +
-                           [{'label': f"3D model ({o['class']} organs)", 'sha256': o['sha256']} for o in manifest['outputs']])
+                           [{'label': f"3D model ({o['class']} organs)", 'sha256': o['sha256']} for o in manifest['outputs']] +
+                           ([{'label': 'Reference physiology (ICRP 89)', 'sha256': map_view['blood_flow']['source_sha256']},
+                             {'label': 'Blood-to-plasma extract (Chen 2012)', 'sha256': map_view['extraction']['source_sha256']}]
+                            if 'blood_flow' in map_view else []))
     record['limitations'] = record['limitations'] + [
         'The 3D organs are reference anatomy (Human Reference Atlas male body), not this record\'s body; their size, '
         'position and colour carry no result.']
+    return _finish(record)
+
+
+def record_for_body_map_explorer(map_view, context=None, evidence=None):
+    """Run record for the explorer-mode body map (Digital human 1.0, step 1.4): no patient record, creatinine
+    clearance entered directly, otherwise the same model, assumptions and assets as the record mode."""
+    from .body_map import load_pathway_report
+    from .body_map_assets import MANIFEST_SHA256, load_manifest
+    from .patient_renal_pathways import CALIBRATION_CRCL, FU
+    evidence = evidence or load_evidence_status()
+    if map_view.get('status') != 'completed':
+        raise ValueError('The explorer run record needs a completed body-map view.')
+    manifest = load_manifest()
+    crcl = map_view['crcl_ml_min']
+    record = {'schema_version': SCHEMA_VERSION, 'evidence_status_version': evidence['status_version'],
+              'evidence_status_sha256': EVIDENCE_SHA256, 'kind': 'body_map_explorer',
+              'title': 'Lenalidomide elimination body map (explorer)',
+              'result_type': dict(RESULT_TYPES['elimination_pathway_split_explorer'], id='elimination_pathway_split_explorer'),
+              'patient_record': {'revision_id': None, 'state_schema_version': None, 'state_sha256': None,
+                                 'data': 'none: explorer, creatinine clearance entered on the page'},
+              'model': _evidence('lenalidomide_renal_pathways_2026', evidence), 'status': map_view['status'],
+              'inputs_from_record': [{'name': 'creatinine_clearance', 'value': crcl, 'unit': 'mL/min',
+                                      'origin': 'entered in the explorer (stands for measured creatinine clearance)'}],
+              'derived_inputs': [],
+              'assumptions': [
+                  {'name': 'How secretion changes with kidney function', 'reading': 'intact nephron: in proportion to creatinine clearance',
+                   'status': 'partly_contradicted', 'evidence': map_view['band']['status_text'] + (
+                       ' ' + map_view['band']['myeloma_note']['text'] if map_view['band'].get('myeloma_note') else '')},
+                  {'name': 'Unbound fraction', 'reading': f"{FU} (alternative split shown with 0.60)", 'status': 'sourced',
+                   'evidence': '23% plasma protein binding in myeloma patients (EMA 2008, page 20); ex vivo about 40% (EMA 2013, page 20). Exposure is the same under both.'},
+                  {'name': 'Normal-group creatinine clearance', 'reading': f"{CALIBRATION_CRCL:g} mL/min", 'status': 'assumed',
+                   'evidence': 'The study reports only "> 80 mL/min"; 110 is the primary scenario of the locked plan.'},
+                  {'name': 'Bioavailability', 'reading': '1', 'status': 'assumed',
+                   'evidence': '85% urinary recovery of unchanged drug implies at least about 0.85.'}] + _body_map_flow_assumptions(map_view),
+              'applicability': [{'item': 'creatinine_clearance', 'value': crcl, 'unit': 'mL/min',
+                                 'reference': 'calibration and check groups about 10-140 mL/min', 'status': 'within_reported_range'}],
+              'warnings': ([map_view['band']['status_text']] if map_view['band']['status'] in ('check_disagrees', 'depends_on_bioavailability')
+                           else []),
+              'limitations': list(map_view['limitations']) + [
+                  'No patient record: the creatinine clearance is entered directly, so no estimate from serum creatinine is involved.',
+                  'The 3D organs are reference anatomy (Human Reference Atlas male body); their size, position and colour carry no result.'],
+              'checksums': [{'label': 'Body map view', 'sha256': map_view['view_sha256']}] +
+                           ([{'label': 'Observed-data context', 'sha256': context['context_sha256']}] if context else []) +
+                           [{'label': 'Pathway evidence', 'sha256': map_view['model']['evidence_sha256']},
+                            {'label': 'Pathway check report (file)', 'sha256': map_view['model']['report_file_sha256']}] +
+                           ([{'label': 'Myeloma comparison, Simulation 2.0d report (file)',
+                              'sha256': map_view['band']['myeloma_note']['report_file_sha256']}] if map_view['band'].get('myeloma_note') else []) +
+                           [{'label': 'Unbound-fraction decision record', 'sha256': map_view['model']['fu_record_sha256']},
+                            {'label': '3D asset manifest', 'sha256': MANIFEST_SHA256}] +
+                           [{'label': f"3D model ({o['class']} organs)", 'sha256': o['sha256']} for o in manifest['outputs']] +
+                           [{'label': 'Reference physiology (ICRP 89)', 'sha256': map_view['blood_flow']['source_sha256']},
+                            {'label': 'Blood-to-plasma extract (Chen 2012)', 'sha256': map_view['extraction']['source_sha256']}]}
+    load_pathway_report()  # refuses a changed check report, as the record mode does through the 2.0b view
     return _finish(record)
 
 

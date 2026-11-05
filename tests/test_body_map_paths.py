@@ -19,6 +19,45 @@ class PathsFile(unittest.TestCase):
         rebuilt = body_map_paths.compute_paths((ROOT / body_map_paths.SOURCE_MODEL).read_bytes())
         self.assertEqual(rebuilt, self.paths)
 
+    def test_kidney_flows_start_in_the_aorta_and_follow_the_renal_arteries(self):
+        import hashlib
+        vessels = body_map_paths.load_vessel_lines()
+        aorta = vessels['aorta']['points']
+        for side in ('left', 'right'):
+            path = next(p for p in self.paths['paths'] if p['id'] == f'renal_inflow_{side}')
+            artery = vessels['renal_arteries'][side]['points']
+            self.assertEqual(path['points'][1:-1], artery)
+            start = path['points'][0]
+            nearest = min(aorta, key=lambda q: abs(q[1] - start[1]))
+            # on the aorta's centre line (within 2 mm), not in front of it as in paths v1
+            self.assertLess(max(abs(a - b) for a, b in zip(start[::2], nearest[::2])), 0.002)
+            self.assertLess(abs(start[1] - artery[0][1]), 1e-4)
+        self.assertEqual(self.paths['vessel_lines']['sha256'], body_map_paths.VESSELS_SHA256)
+        v1 = (ROOT / 'intelligence_store/data/body_map_flow_paths_v1.json').read_bytes()
+        self.assertEqual(hashlib.sha256(v1).hexdigest(), body_map_paths.PATHS_V1_SHA256)
+
+    def test_blood_paths_follow_the_renal_arteries_in_and_the_renal_veins_out(self):
+        import hashlib
+        blood = {p['id']: p for p in body_map_paths.blood_paths()}
+        vessels = body_map_paths.load_vessel_lines()
+        self.assertEqual(hashlib.sha256(body_map_paths.VEINS_FILE.read_bytes()).hexdigest(), body_map_paths.VEINS_SHA256)
+        for side in ('left', 'right'):
+            inflow = next(p for p in self.paths['paths'] if p['id'] == f'renal_inflow_{side}')
+            self.assertEqual(blood[f'blood_in_{side}']['points'], inflow['points'])
+            out = blood[f'blood_out_{side}']['points']
+            self.assertEqual(out[0], inflow['points'][-1])
+            end = out[-1]
+            ivc = min(vessels['inferior_vena_cava']['points'], key=lambda q: abs(q[1] - end[1]))
+            self.assertLess(max(abs(a - b) for a, b in zip(end[::2], ivc[::2])), 0.003)
+        self.assertEqual({p['kind'] for p in blood.values()}, {'arterial', 'venous'})
+
+    def test_vessel_sides_are_assigned_by_position(self):
+        vessels = body_map_paths.load_vessel_lines()
+        self.assertGreater(vessels['renal_arteries']['left']['points'][-1][0], 0)
+        self.assertLess(vessels['renal_arteries']['right']['points'][-1][0], 0)
+        self.assertEqual(vessels['renal_arteries']['left']['atlas_node'], 'VH_M_right_renal_artery')
+        self.assertIn('opposite to the kidneys', vessels['naming_note'])
+
     def test_source_model_is_the_pinned_route_model(self):
         route = next(o for o in load_manifest()['outputs'] if o['class'] == 'simulation')
         self.assertEqual(self.paths['source_model']['file'], route['file'])
@@ -76,9 +115,18 @@ class EvidenceCards(unittest.TestCase):
     def test_kidney_card_carries_the_band_status_and_both_unbound_fractions(self):
         view = build_map(40, 'explorer')
         card = self.cards(40)['kidney']
-        self.assertEqual(card['status'], 'check_disagrees')
-        self.assertEqual(card['status_text'], view['band']['status_text'])
+        self.assertEqual(card['status'], 'depends_on_bioavailability')
+        self.assertEqual(card['status_text'], view['band']['status_text'] + ' ' + view['band']['myeloma_note']['text'])
         self.assertTrue(all('with fu 0.60' in row[1] for row in card['rows'][:2]))
+
+    def test_myeloma_note_only_in_moderate_and_severe(self):
+        for crcl, expected in ((20, True), (40, True), (65, False), (100, False)):
+            note = build_map(crcl, 'explorer')['band']['myeloma_note']
+            self.assertEqual(note is not None, expected, crcl)
+            if note:
+                self.assertEqual(note['classifications'], {'bridoux': 'consistent', 'kim': 'consistent'})
+                self.assertIn('not a blind test', note['text'])
+                self.assertIn('CC-5013-PK-001', note['text'])
 
     def test_card_numbers_are_the_view_numbers(self):
         view = build_map(70, 'explorer')
@@ -87,9 +135,20 @@ class EvidenceCards(unittest.TestCase):
         self.assertTrue(rows['Filtration'].startswith(f"{flows['filtration']['value']:.0f} mL/min"))
         self.assertTrue(dict(self.cards(70)['plasma']['rows'])['Total clearance from plasma'].startswith(f"{view['totals']['total_ml_min']:.0f}"))
 
+    def test_flow_cards_carry_the_view_numbers_and_status(self):
+        from landscape_ui.body_map_pages import flow_cards
+        view = build_map(40, 'explorer')
+        flows = {f['kind']: f for f in view['flows']}
+        cards = flow_cards(view)
+        self.assertEqual(set(cards), {'filtration', 'tubular_secretion', 'renal_excretion', 'absorption'})
+        self.assertTrue(dict(cards['filtration']['rows'])['Clearance'].startswith(f"{flows['filtration']['value']:.0f} mL/min"))
+        self.assertEqual(cards['tubular_secretion']['status'], 'depends_on_bioavailability')
+        self.assertIsNone(cards['absorption']['status'])
+        self.assertEqual(dict(cards['absorption']['rows'])['Value'], 'none drawn')
+
     def test_outline_follows_the_band_status(self):
         from landscape_ui.body_map_pages import STATUS_OUTLINE
-        self.assertEqual(STATUS_OUTLINE[build_map(40, 'explorer')['band']['status']], 'warning')
+        self.assertEqual(STATUS_OUTLINE[build_map(40, 'explorer')['band']['status']], 'caution')
         self.assertIsNone(STATUS_OUTLINE[build_map(110, 'explorer')['band']['status']])
 
 
@@ -100,6 +159,15 @@ class ViewerScript(unittest.TestCase):
     def test_respects_reduced_motion(self):
         self.assertIn('prefers-reduced-motion: reduce', self.script)
         self.assertIn('playing = !!F && !reducedMotion', self.script)
+
+    def test_flows_can_be_selected_and_have_a_key_with_a_scale(self):
+        self.assertIn('pickTubes.push(tube)', self.script)
+        self.assertIn('return { flow: pickTubes[pixel[0] - 1].kind }', self.script)
+        self.assertIn('scale_reference_ml_min', self.script)
+
+    def test_blood_flow_layer_is_a_separate_toggle(self):
+        self.assertIn("button('Blood flow', false", self.script)
+        self.assertIn('bloodOn', self.script)
 
     def test_context_organs_get_no_evidence_card(self):
         self.assertIn('e.body_map_node && config.cards ? config.cards[e.body_map_node] : null', self.script)

@@ -25,7 +25,8 @@ class TransitPageTests(unittest.TestCase):
             self.assertIn(phrase, body)
         self.assertEqual(body.count('aria-current="page"'), 1)
         self.assertIn('class="nav-item active" href="/landscape/simulation-lab"', body)
-        self.assertNotIn('<script', body)
+        # no page-specific script; only the shared scroll-position helper (marlo-scroll.js) on every page
+        self.assertNotIn('<script', body.replace('<script src="/landscape/static/marlo-scroll.js" defer></script>', ''))
         self.assertEqual(response.headers['Cache-Control'], 'no-store')
 
     def test_json_exactly_matches_kernel_and_is_downloadable(self):

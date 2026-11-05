@@ -1,0 +1,63 @@
+{
+ "schema_version": "reference-physiology-v1",
+ "extract_version": "reference-physiology-icrp89-v1.0",
+ "recorded_on": "2026-11-03",
+ "source": {
+  "title": "ICRP Publication 89: Basic Anatomical and Physiological Data for Use in Radiological Protection: Reference Values",
+  "citation": "ICRP, 2002. Annals of the ICRP 32(3-4).",
+  "editor": "J. Valentin",
+  "file": {
+   "name": "ANIB_32_3-4.pdf",
+   "pages": 282,
+   "sha256": "99f3165571a0a4c717ca31f84f4a28cf6792679483ff385e28df11a473c6691a"
+  },
+  "obtained_from": "ICRP website, free to download under the Free the Annals Initiative (reuse needs ICRP permission; only individual values are recorded here, with citation).",
+  "storage": "Kept on the platform owner's computer; not committed.",
+  "extraction": "AI-assisted from the PDF text layer (pdftotext -layout); each value checked against the extracted text of the cited page. Independent review pending."
+ },
+ "applies_to": "Reference adult male (ICRP Reference Man), resting, recumbent. Not a patient value.",
+ "values": {
+  "cardiac_output_adult_male": {
+   "value": 6.5,
+   "unit": "L/min",
+   "location": "Table 2.39 (printed page 28, PDF page 42); Section 7.5, paragraph 311 (PDF page 153)",
+   "quote": "Adult 6.5 5.9 (male, female; cardiac output, l/min)",
+   "basis": "Trimmed means of more than 50 studies of healthy subjects resting recumbent (Williams, 1994), per paragraph 311."
+  },
+  "kidney_blood_flow_fraction_adult_male": {
+   "value": 19,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); Section 7.7.2 table 'Reference values for regional blood volumes and blood flow rates in adults' (PDF page 156)",
+   "quote": "Kidneys 19 17 (male, female; blood flow rate, % cardiac output)",
+   "basis": "Adopted from Williams and Leggett (1989) and Leggett and Williams (1991, 1995), per the paragraph introducing the table."
+  },
+  "red_cell_fraction_of_blood_adult_male": {
+   "value": 43,
+   "unit": "% of total blood volume",
+   "range": [
+    42,
+    52
+   ],
+   "location": "Section 7.3, paragraph 309 (PDF page 152)",
+   "quote": "Typically, red blood cells represent about 43% (42–52%) of the total blood volume in adult males and about 38% (37–48%) in adult females (Guyton, 1982; Johnson, 1998).",
+   "use": "Taken as the haematocrit to convert blood flow to plasma flow."
+  }
+ },
+ "derived_by_platform": {
+  "renal_blood_flow_ml_min": {
+   "formula": "cardiac_output x kidney fraction",
+   "value": 1235.0,
+   "unit": "mL/min",
+   "note": "6.5 L/min x 19% = 1.235 L/min, both kidneys together."
+  },
+  "renal_plasma_flow_ml_min": {
+   "formula": "renal blood flow x (1 - red cell fraction)",
+   "value": 703.95,
+   "unit": "mL/min",
+   "note": "1235 x (1 - 0.43)."
+  }
+ },
+ "not_this": "Reference physiology for a reference man: not this patient's blood flow, not adjusted for kidney function, age, body size or sex.",
+ "clinical_prediction_validated": false,
+ "ready_for_patient_simulation": false
+}

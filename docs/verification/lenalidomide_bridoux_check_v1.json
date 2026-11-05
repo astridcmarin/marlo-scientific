@@ -1,0 +1,1311 @@
+{
+ "schema_version": "lenalidomide-bridoux-check-report-v1",
+ "method_version": "lenalidomide-bridoux-check-v1.0",
+ "plan_version": "lenalidomide-bridoux-check-plan-v1.0",
+ "plan_sha256": "7cf4070eb2d979404e8bba5650817b3b93a28bc41438654c7aaa66cafa10e329",
+ "design_sha256": "1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac",
+ "observed_sha256": "b757b38d84788fe7587d7b7a5a737d464928a0b24f7eead517a74b732845b89e",
+ "hughes_extract_sha256": "8199220db206c3e78fd5abc40191602d5b59e6275f5c77d9e43e0f7c90ae5f74",
+ "hughes_variability_sha256": "2e5970e646f6acdbee434f6c52e1bc051ecfdec163c0aee825fe1c4ea1dde5d4",
+ "kim_extract_sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af",
+ "trials": 10000,
+ "seed": 20261101,
+ "classification": "exploratory_aggregate_external_consistency_check",
+ "classification_rule": {
+  "consistent": "observed within the 5th-95th percentile of simulated values",
+  "model_under_predicts": "observed above the 95th percentile",
+  "model_over_predicts": "observed below the 5th percentile"
+ },
+ "endpoint": "Dose-normalised AUC24 (geometric mean per mg of daily dose), each impaired group relative to normal.",
+ "steady_state_note": "AUC24 on day 5 is taken as the steady-state AUC over 24 h, dose per 24 h / CL/F (exact for linear kinetics at steady state). With the observed half-lives (3-10 h), the dose given on day 5 is at least the third dose 48 h apart (severe) or the fifth 24 h apart (others); the shortfall from steady state is below 0.01% for a one-compartment terminal phase.",
+ "fallbacks_applied": {
+  "sex": "exact per-group counts (reported)",
+  "creatinine_clearance": "normal distribution with the group's mean and SD, truncated to the group definition (normal 80-140, mild 50-80, moderate 30-50, severe 10-30 mL/min; no observed ranges reported)",
+  "age_years": "uniform within each group's reported range",
+  "weight_kg": "not reported per group or study-wide: uniform 55-95 kg",
+  "height_cm": "not reported: men 165-185, women 152-172; the 'sensitivity_shorter' scenario applies",
+  "sensitivity_uniform_crcl": "applies (mean and SD are reported)",
+  "exposure_measure": "expected to be rule (1) or (3): AUC24 on day 5 at the label-adjusted dose; confirmed at stage 2 from Table 2",
+  "reference_group": "normal renal function, unless Table 2 pools normal and mild for the AUC comparison"
+ },
+ "deviation_recorded_at_stage_1": "While locating Table 1 in the column-layout text, the lines printed below the table included part of the Results text in the facing column. Seen before this file was committed: mean AUC24 of the mild, moderate, severe and ESRD groups as 149%, 103%, 133% and 116% of the normal group; the mild group's mean AUC24 of 2605 h ng/mL (2260 without 3 patients); the CL/F regression slope on CrCl (2.12 in myeloma versus 2.28 in non-malignant renal impairment); R2 values for CL/F versus CrCl (0.86) and eGFR (0.80).",
+ "esrd_observed_not_simulated": {
+  "n": 6,
+  "regimen": "5 mg once daily (after haemodialysis on dialysis days)",
+  "dose_mg_per_24h": 5.0,
+  "auc24_gm": 2020,
+  "auc24_gcv_pct": 21.5,
+  "note": "descriptive only; not simulated (neither model has a dialysis process)"
+ },
+ "result_by_model": {
+  "lenalidomide_hughes_2019": {
+   "primary": {
+    "mild": "consistent",
+    "moderate": "model_under_predicts",
+    "severe": "model_under_predicts"
+   },
+   "robust_across_scenarios": {
+    "mild": true,
+    "moderate": true,
+    "severe": true
+   },
+   "across_scenarios": {
+    "mild": [
+     "consistent"
+    ],
+    "moderate": [
+     "model_under_predicts"
+    ],
+    "severe": [
+     "model_under_predicts"
+    ]
+   },
+   "recheck_2_1e_primary": {
+    "mild": "consistent",
+    "moderate": "model_under_predicts",
+    "severe": "model_under_predicts"
+   },
+   "same_as_recheck": {
+    "mild": true,
+    "moderate": true,
+    "severe": true
+   }
+  },
+  "lenalidomide_kim_2026": {
+   "primary": {
+    "mild": "consistent",
+    "moderate": "model_under_predicts",
+    "severe": "model_under_predicts"
+   },
+   "robust_across_scenarios": {
+    "mild": true,
+    "moderate": false,
+    "severe": true
+   },
+   "across_scenarios": {
+    "mild": [
+     "consistent"
+    ],
+    "moderate": [
+     "consistent",
+     "model_under_predicts"
+    ],
+    "severe": [
+     "model_under_predicts"
+    ]
+   },
+   "recheck_2_1e_primary": {
+    "mild": "consistent",
+    "moderate": "model_under_predicts",
+    "severe": "model_under_predicts"
+   },
+   "same_as_recheck": {
+    "mild": true,
+    "moderate": true,
+    "severe": true
+   }
+  }
+ },
+ "scenarios": {
+  "primary": {
+   "lenalidomide_hughes_2019": [
+    {
+     "group": "normal",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 69.88,
+      "simulated_gm_per_mg": {
+       "p05": 63.502972732074156,
+       "p50": 83.83850898507238,
+       "p95": 111.33264638292471
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.8335071895474939
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 34.99755152805677,
+       "median": 51.83630419694403,
+       "max": 69.46445453392533
+      }
+     }
+    },
+    {
+     "group": "mild",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 104.2,
+      "simulated_gm_per_mg": {
+       "p05": 70.74533599134233,
+       "p50": 94.46522514814987,
+       "p95": 126.42787592854177
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.1030514121633974
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 35.0146401815077,
+       "median": 51.877674189928314,
+       "max": 69.4055299562104
+      }
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 1.4911276473955353,
+      "simulated": {
+       "p05": 0.7513312496459051,
+       "p50": 1.1270579772505958,
+       "p95": 1.6920806144236895
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3230265678373265
+     }
+    },
+    {
+     "group": "moderate",
+     "n": 7,
+     "dose_mg_per_24h": 10.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 180.0,
+      "simulated_gm_per_mg": {
+       "p05": 73.1660024696373,
+       "p50": 102.44535843076542,
+       "p95": 143.72912515169702
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.757034215675545
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 35.03471365461046,
+       "median": 54.378548807874395,
+       "max": 69.4127209237565
+      }
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 2.575844304522038,
+      "simulated": {
+       "p05": 0.7862094026738483,
+       "p50": 1.2217457459742298,
+       "p95": 1.90670104440793
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.1083308970051204
+     }
+    },
+    {
+     "group": "severe",
+     "n": 5,
+     "dose_mg_per_24h": 7.5,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 310.53333333333336,
+      "simulated_gm_per_mg": {
+       "p05": 83.63158366272465,
+       "p50": 125.61809277950644,
+       "p95": 188.36409231506732
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.472043050983133
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 35.06957889857352,
+       "median": 47.92800959752083,
+       "max": 69.39166424095656
+      }
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 4.443808433505057,
+      "simulated": {
+       "p05": 0.9123225019951102,
+       "p50": 1.4987762943175733,
+       "p95": 2.4469544333574307
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.964957779458624
+     }
+    }
+   ],
+   "lenalidomide_kim_2026": [
+    {
+     "group": "normal",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 69.88,
+      "simulated_gm_per_mg": {
+       "p05": 70.4740906425529,
+       "p50": 78.96410075131155,
+       "p95": 88.58751309141232
+      },
+      "classification": "model_over_predicts",
+      "observed_over_median": 0.8849591059116738
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 25.743272705614828,
+       "median": 60.26057878115431,
+       "max": 131.32131765849502
+      },
+      "egfr": {
+       "min": 53.224090306911044,
+       "median": 100.43284062646296,
+       "max": 125.2808695144188
+      },
+      "bsa": {
+       "min": 1.507761323650428,
+       "median": 1.8572861902844213,
+       "max": 2.1904991570821206
+      },
+      "fraction_egfr_outside_kim_range": 0.7337
+     }
+    },
+    {
+     "group": "mild",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 104.2,
+      "simulated_gm_per_mg": {
+       "p05": 109.12644408048942,
+       "p50": 123.18856775811074,
+       "p95": 139.4217946928293
+      },
+      "classification": "model_over_predicts",
+      "observed_over_median": 0.8458577114444897
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 49.451446575188214,
+       "median": 103.01954547934706,
+       "max": 201.0301028216173
+      },
+      "egfr": {
+       "min": 30.674709311597297,
+       "median": 62.90453774669545,
+       "max": 104.17643760187865
+      },
+      "bsa": {
+       "min": 1.5083899516085921,
+       "median": 1.8576692356261837,
+       "max": 2.1890383620225378
+      },
+      "fraction_egfr_outside_kim_range": 0.04105
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 1.4911276473955353,
+      "simulated": {
+       "p05": 1.3144488351264076,
+       "p50": 1.5589409506968253,
+       "p95": 1.8488329545639217
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.956500402872233
+     }
+    },
+    {
+     "group": "moderate",
+     "n": 7,
+     "dose_mg_per_24h": 10.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 180.0,
+      "simulated_gm_per_mg": {
+       "p05": 150.51273034274766,
+       "p50": 170.61340093863132,
+       "p95": 194.3528133680976
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.055016774823831
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 78.71957803482576,
+       "median": 157.6454163190926,
+       "max": 299.7966900056707
+      },
+      "egfr": {
+       "min": 17.896970630478204,
+       "median": 37.635763590713125,
+       "max": 77.1065157272021
+      },
+      "bsa": {
+       "min": 1.5088995931045712,
+       "median": 1.871009363380858,
+       "max": 2.189237368329154
+      },
+      "fraction_egfr_outside_kim_range": 0.0
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 2.575844304522038,
+      "simulated": {
+       "p05": 1.8169505195100848,
+       "p50": 2.1611524795777135,
+       "p95": 2.569516284693934
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.1918845749492673
+     }
+    },
+    {
+     "group": "severe",
+     "n": 5,
+     "dose_mg_per_24h": 7.5,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 310.53333333333336,
+      "simulated_gm_per_mg": {
+       "p05": 193.96920261461156,
+       "p50": 226.9645944626733,
+       "p95": 265.18249731490823
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.3682016530750298
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 113.1533870866463,
+       "median": 253.80284749744223,
+       "max": 809.2115479000447
+      },
+      "egfr": {
+       "min": 5.362636963343685,
+       "median": 18.648941125925173,
+       "max": 46.97108731695967
+      },
+      "bsa": {
+       "min": 1.5098512294591497,
+       "median": 1.8366919195890077,
+       "max": 2.1886910183751214
+      },
+      "fraction_egfr_outside_kim_range": 0.04922
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 4.443808433505057,
+      "simulated": {
+       "p05": 2.36823397785027,
+       "p50": 2.8753918310414885,
+       "p95": 3.4801187195199192
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.545461869068285
+     }
+    }
+   ]
+  },
+  "sensitivity_uniform_crcl": {
+   "lenalidomide_hughes_2019": [
+    {
+     "group": "normal",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 69.88,
+      "simulated_gm_per_mg": {
+       "p05": 63.216607482567895,
+       "p50": 83.91139797893541,
+       "p95": 111.89643928523772
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.8327831699043106
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 34.979925385218166,
+       "median": 51.80094897964757,
+       "max": 69.45292706228769
+      }
+     }
+    },
+    {
+     "group": "mild",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 104.2,
+      "simulated_gm_per_mg": {
+       "p05": 71.14881425621817,
+       "p50": 94.22012117999014,
+       "p95": 125.77970104825926
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.1059208871207578
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 34.97024201912916,
+       "median": 51.81220058254506,
+       "max": 69.45012694398228
+      }
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 1.4911276473955353,
+      "simulated": {
+       "p05": 0.7565704933529728,
+       "p50": 1.123699556371284,
+       "p95": 1.689175983764061
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.3269807209061928
+     }
+    },
+    {
+     "group": "moderate",
+     "n": 7,
+     "dose_mg_per_24h": 10.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 180.0,
+      "simulated_gm_per_mg": {
+       "p05": 73.33719574567588,
+       "p50": 102.98489999175004,
+       "p95": 145.24817649635423
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.747829050806667
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 34.981673634836135,
+       "median": 54.35206981400235,
+       "max": 69.38792168487181
+      }
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 2.575844304522038,
+      "simulated": {
+       "p05": 0.791366989134094,
+       "p50": 1.2229257893723573,
+       "p95": 1.9107631044197257
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.106296495590333
+     }
+    },
+    {
+     "group": "severe",
+     "n": 5,
+     "dose_mg_per_24h": 7.5,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 310.53333333333336,
+      "simulated_gm_per_mg": {
+       "p05": 86.06613243010736,
+       "p50": 128.53414068859078,
+       "p95": 193.70687289453787
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.415959928387319
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 35.06834106965906,
+       "median": 48.04526162324213,
+       "max": 69.38412966224314
+      }
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 4.443808433505057,
+      "simulated": {
+       "p05": 0.9366170992507098,
+       "p50": 1.531209351123989,
+       "p95": 2.5345864793785746
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.902156018210747
+     }
+    }
+   ],
+   "lenalidomide_kim_2026": [
+    {
+     "group": "normal",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 69.88,
+      "simulated_gm_per_mg": {
+       "p05": 70.2034410898478,
+       "p50": 78.75061393740377,
+       "p95": 88.73584857382993
+      },
+      "classification": "model_over_predicts",
+      "observed_over_median": 0.8873581614937666
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 25.51999022945166,
+       "median": 59.639128783534616,
+       "max": 130.42828126482615
+      },
+      "egfr": {
+       "min": 52.928000454334395,
+       "median": 100.86045114338728,
+       "max": 124.9199775532438
+      },
+      "bsa": {
+       "min": 1.5071878210456957,
+       "median": 1.856493668440371,
+       "max": 2.19021195398595
+      },
+      "fraction_egfr_outside_kim_range": 0.73743
+     }
+    },
+    {
+     "group": "mild",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 104.2,
+      "simulated_gm_per_mg": {
+       "p05": 108.30982111806867,
+       "p50": 122.58777293406152,
+       "p95": 138.96344953611276
+      },
+      "classification": "model_over_predicts",
+      "observed_over_median": 0.8500032059155518
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 49.66044855306866,
+       "median": 102.46674188832091,
+       "max": 198.70021293532923
+      },
+      "egfr": {
+       "min": 30.891361991573852,
+       "median": 63.28265500144805,
+       "max": 103.87833201666987
+      },
+      "bsa": {
+       "min": 1.5069372259310805,
+       "median": 1.8562166001125822,
+       "max": 2.1901527589174514
+      },
+      "fraction_egfr_outside_kim_range": 0.05388
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 1.4911276473955353,
+      "simulated": {
+       "p05": 1.3093181509726335,
+       "p50": 1.5573431604690084,
+       "p95": 1.8457780958344796
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.9574817453505033
+     }
+    },
+    {
+     "group": "moderate",
+     "n": 7,
+     "dose_mg_per_24h": 10.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 180.0,
+      "simulated_gm_per_mg": {
+       "p05": 149.2406482725934,
+       "p50": 171.09425948560926,
+       "p95": 195.79972614361128
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.0520516617048734
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 77.46897099324137,
+       "median": 158.43245981001405,
+       "max": 299.47065027143435
+      },
+      "egfr": {
+       "min": 18.08616556912619,
+       "median": 37.5180856471832,
+       "max": 77.24182661702008
+      },
+      "bsa": {
+       "min": 1.507378218333036,
+       "median": 1.8708070650475368,
+       "max": 2.188583186705056
+      },
+      "fraction_egfr_outside_kim_range": 0.0
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 2.575844304522038,
+      "simulated": {
+       "p05": 1.8146160218500489,
+       "p50": 2.167696234082338,
+       "p95": 2.5927670970720507
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.1882865615682003
+     }
+    },
+    {
+     "group": "severe",
+     "n": 5,
+     "dose_mg_per_24h": 7.5,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 310.53333333333336,
+      "simulated_gm_per_mg": {
+       "p05": 197.50829961266996,
+       "p50": 231.4286390527616,
+       "p95": 272.4803703563042
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.34181030750709
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 110.29245386266794,
+       "median": 274.2634316981775,
+       "max": 822.4264732319698
+      },
+      "egfr": {
+       "min": 4.969641196767697,
+       "median": 17.096815859424524,
+       "max": 47.13088266551522
+      },
+      "bsa": {
+       "min": 1.5101793985444842,
+       "median": 1.8373026340070389,
+       "max": 2.1884840591496735
+      },
+      "fraction_egfr_outside_kim_range": 0.19954
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 4.443808433505057,
+      "simulated": {
+       "p05": 2.412492602610347,
+       "p50": 2.9366244313239074,
+       "p95": 3.5942793382811153
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.513236894069451
+     }
+    }
+   ]
+  },
+  "sensitivity_shorter": {
+   "lenalidomide_hughes_2019": [
+    {
+     "group": "normal",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 69.88,
+      "simulated_gm_per_mg": {
+       "p05": 65.64912793834478,
+       "p50": 87.59845162435317,
+       "p95": 116.04084547976161
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.7977309952881942
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 33.08366389435739,
+       "median": 49.32202317269303,
+       "max": 65.80490674325186
+      }
+     }
+    },
+    {
+     "group": "mild",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 104.2,
+      "simulated_gm_per_mg": {
+       "p05": 74.07454113148316,
+       "p50": 98.19450580933601,
+       "p95": 131.19730982773459
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.0611591671159775
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 33.06446350412209,
+       "median": 49.29460072659589,
+       "max": 65.81525434452696
+      }
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 1.4911276473955353,
+      "simulated": {
+       "p05": 0.7486398912256872,
+       "p50": 1.1235474894218083,
+       "p95": 1.685204379036042
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.327160321601438
+     }
+    },
+    {
+     "group": "moderate",
+     "n": 7,
+     "dose_mg_per_24h": 10.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 180.0,
+      "simulated_gm_per_mg": {
+       "p05": 76.3274367874555,
+       "p50": 107.53616230654603,
+       "p95": 150.40201911965138
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.6738555304483178
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 33.142737767327006,
+       "median": 51.58873082942711,
+       "max": 65.78241912487123
+      }
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 2.575844304522038,
+      "simulated": {
+       "p05": 0.7882940777663343,
+       "p50": 1.2265844881991765,
+       "p95": 1.910530043874124
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.1000137612238943
+     }
+    },
+    {
+     "group": "severe",
+     "n": 5,
+     "dose_mg_per_24h": 7.5,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 310.53333333333336,
+      "simulated_gm_per_mg": {
+       "p05": 88.14274554960822,
+       "p50": 132.00002419377427,
+       "p95": 197.0087259284589
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.3525248213399914
+     },
+     "constructed_covariates": {
+      "ffm": {
+       "min": 33.085494176860536,
+       "median": 45.12281815113203,
+       "max": 65.74289273180183
+      }
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 4.443808433505057,
+      "simulated": {
+       "p05": 0.9196818373748576,
+       "p50": 1.5056193633774542,
+       "p95": 2.4707950421175973
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 2.9514819891373887
+     }
+    }
+   ],
+   "lenalidomide_kim_2026": [
+    {
+     "group": "normal",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 69.88,
+      "simulated_gm_per_mg": {
+       "p05": 75.80447509621322,
+       "p50": 85.06630227703013,
+       "p95": 95.4327587083958
+      },
+      "classification": "model_over_predicts",
+      "observed_over_median": 0.821476873091605
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 25.732168767954544,
+       "median": 60.32152237732924,
+       "max": 131.40752262207505
+      },
+      "egfr": {
+       "min": 52.06028872047102,
+       "median": 100.41805172327058,
+       "max": 125.06198849410914
+      },
+      "bsa": {
+       "min": 1.43548552355481,
+       "median": 1.7770032395047761,
+       "max": 2.1039739415970664
+      },
+      "fraction_egfr_outside_kim_range": 0.73327
+     }
+    },
+    {
+     "group": "mild",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 104.2,
+      "simulated_gm_per_mg": {
+       "p05": 117.29121008263182,
+       "p50": 132.77393242744287,
+       "p95": 149.89311368487208
+      },
+      "classification": "model_over_predicts",
+      "observed_over_median": 0.7847926026966348
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 49.38300604632833,
+       "median": 103.06099560885653,
+       "max": 199.61226517154645
+      },
+      "egfr": {
+       "min": 30.8927410858062,
+       "median": 62.78004478287649,
+       "max": 104.12270608736854
+      },
+      "bsa": {
+       "min": 1.4347790788099841,
+       "median": 1.7770056989293335,
+       "max": 2.104241327079271
+      },
+      "fraction_egfr_outside_kim_range": 0.04314
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 1.4911276473955353,
+      "simulated": {
+       "p05": 1.3178120402533775,
+       "p50": 1.5601778136741988,
+       "p95": 1.8462637640760222
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.9557421175500174
+     }
+    },
+    {
+     "group": "moderate",
+     "n": 7,
+     "dose_mg_per_24h": 10.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 180.0,
+      "simulated_gm_per_mg": {
+       "p05": 161.75580181576655,
+       "p50": 184.01191512384213,
+       "p95": 209.0565673130871
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.9781975253007825
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 78.48479094062681,
+       "median": 157.5675361446132,
+       "max": 294.19519160680045
+      },
+      "egfr": {
+       "min": 18.12704095703188,
+       "median": 37.749187274978624,
+       "max": 77.38433969099314
+      },
+      "bsa": {
+       "min": 1.4374387944954037,
+       "median": 1.7888299333336204,
+       "max": 2.1034279314190485
+      },
+      "fraction_egfr_outside_kim_range": 0.0
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 2.575844304522038,
+      "simulated": {
+       "p05": 1.8270696067445924,
+       "p50": 2.1645140289877105,
+       "p95": 2.5683973892746894
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.1900335456484412
+     }
+    },
+    {
+     "group": "severe",
+     "n": 5,
+     "dose_mg_per_24h": 7.5,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 310.53333333333336,
+      "simulated_gm_per_mg": {
+       "p05": 210.76050345107308,
+       "p50": 245.76262722592313,
+       "p95": 286.4557339686268
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.2635498604426467
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 113.67687398214841,
+       "median": 253.53175826072814,
+       "max": 782.271495269108
+      },
+      "egfr": {
+       "min": 5.505166081381795,
+       "median": 18.68033075339371,
+       "max": 45.273231900945675
+      },
+      "bsa": {
+       "min": 1.4355052369437322,
+       "median": 1.7550266242750912,
+       "max": 2.102325366411163
+      },
+      "fraction_egfr_outside_kim_range": 0.05006
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 4.443808433505057,
+      "simulated": {
+       "p05": 2.383839446826583,
+       "p50": 2.8865499237249836,
+       "p95": 3.5120339607868742
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.5394878144946444
+     }
+    }
+   ]
+  },
+  "sensitivity_kim_exponential": {
+   "lenalidomide_kim_2026": [
+    {
+     "group": "normal",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 69.88,
+      "simulated_gm_per_mg": {
+       "p05": 68.23475676443697,
+       "p50": 76.67299785832117,
+       "p95": 85.93129080501244
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.9114029965167986
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 26.140064644866854,
+       "median": 60.2846074560657,
+       "max": 128.96385246297555
+      },
+      "egfr": {
+       "min": 52.25233033592143,
+       "median": 100.3960238813209,
+       "max": 124.53919408240156
+      },
+      "bsa": {
+       "min": 1.5064440592961554,
+       "median": 1.8566886832627907,
+       "max": 2.1898960795159375
+      },
+      "fraction_egfr_outside_kim_range": 0.73203
+     }
+    },
+    {
+     "group": "mild",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 104.2,
+      "simulated_gm_per_mg": {
+       "p05": 105.53875771885095,
+       "p50": 119.22394482247515,
+       "p95": 134.61604557272543
+      },
+      "classification": "model_over_predicts",
+      "observed_over_median": 0.8739855081557162
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 49.69369458416208,
+       "median": 102.88780306031228,
+       "max": 200.6351177815522
+      },
+      "egfr": {
+       "min": 30.780305032895118,
+       "median": 62.90941955054076,
+       "max": 104.03722062976586
+      },
+      "bsa": {
+       "min": 1.5078884423698562,
+       "median": 1.8565362935228218,
+       "max": 2.1875788847326496
+      },
+      "fraction_egfr_outside_kim_range": 0.04158
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 1.4911276473955353,
+      "simulated": {
+       "p05": 1.315170201713095,
+       "p50": 1.5570694688115505,
+       "p95": 1.8451850732964685
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.9576500453339786
+     }
+    },
+    {
+     "group": "moderate",
+     "n": 7,
+     "dose_mg_per_24h": 10.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 180.0,
+      "simulated_gm_per_mg": {
+       "p05": 144.62488443767754,
+       "p50": 165.20192049393825,
+       "p95": 188.4431155322636
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.0895757111165347
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 77.44704994132474,
+       "median": 157.45443095692414,
+       "max": 291.6621553586325
+      },
+      "egfr": {
+       "min": 18.55535430774627,
+       "median": 37.683749806757035,
+       "max": 76.2252364952565
+      },
+      "bsa": {
+       "min": 1.5082750725100946,
+       "median": 1.8693867924329144,
+       "max": 2.18956429984735
+      },
+      "fraction_egfr_outside_kim_range": 0.0
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 2.575844304522038,
+      "simulated": {
+       "p05": 1.8081925687935294,
+       "p50": 2.156233332320581,
+       "p95": 2.5708561717074985
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.1946036942810188
+     }
+    },
+    {
+     "group": "severe",
+     "n": 5,
+     "dose_mg_per_24h": 7.5,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 310.53333333333336,
+      "simulated_gm_per_mg": {
+       "p05": 188.8037336236001,
+       "p50": 221.33519926595613,
+       "p95": 260.3973077395773
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.4030002203137912
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 113.594227479456,
+       "median": 253.71378391441377,
+       "max": 785.6562301486372
+      },
+      "egfr": {
+       "min": 5.04856467698157,
+       "median": 18.6490848010339,
+       "max": 45.22014350794411
+      },
+      "bsa": {
+       "min": 1.5081286116495112,
+       "median": 1.8359390524755308,
+       "max": 2.1872780395449865
+      },
+      "fraction_egfr_outside_kim_range": 0.05034
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 4.443808433505057,
+      "simulated": {
+       "p05": 2.3674166021936522,
+       "p50": 2.8875054838607896,
+       "p95": 3.532117222490914
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.538978352887277
+     }
+    }
+   ]
+  },
+  "sensitivity_ideal_weight_basis": {
+   "lenalidomide_kim_2026": [
+    {
+     "group": "normal",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 69.88,
+      "simulated_gm_per_mg": {
+       "p05": 64.5680703875455,
+       "p50": 72.81395489939503,
+       "p95": 82.2910596490086
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.9597061455671678
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 21.04357618389557,
+       "median": 52.35561294645801,
+       "max": 109.3090620452263
+      },
+      "egfr": {
+       "min": 71.51156553698334,
+       "median": 105.41359400289275,
+       "max": 125.49765897568066
+      },
+      "bsa": {
+       "min": 1.5071084514828936,
+       "median": 1.8567469685425202,
+       "max": 2.1900654119149343
+      },
+      "fraction_egfr_outside_kim_range": 0.94229
+     }
+    },
+    {
+     "group": "mild",
+     "n": 10,
+     "dose_mg_per_24h": 25.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 104.2,
+      "simulated_gm_per_mg": {
+       "p05": 91.69982693972854,
+       "p50": 105.3541786808482,
+       "p95": 120.48670095908446
+      },
+      "classification": "consistent",
+      "observed_over_median": 0.9890447754868408
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 41.436761604249526,
+       "median": 90.28037439847606,
+       "max": 168.8078401690951
+      },
+      "egfr": {
+       "min": 41.357549133186396,
+       "median": 76.12356629864935,
+       "max": 107.63407302706439
+      },
+      "bsa": {
+       "min": 1.5086602974494865,
+       "median": 1.856546212454726,
+       "max": 2.1895821108590283
+      },
+      "fraction_egfr_outside_kim_range": 0.13913
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 1.4911276473955353,
+      "simulated": {
+       "p05": 1.2024111585766675,
+       "p50": 1.4446477452345792,
+       "p95": 1.7287913321391946
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.0321738654383243
+     }
+    },
+    {
+     "group": "moderate",
+     "n": 7,
+     "dose_mg_per_24h": 10.0,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 180.0,
+      "simulated_gm_per_mg": {
+       "p05": 136.2155387484421,
+       "p50": 157.58347508331764,
+       "p95": 183.46898154766635
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.1422517488260129
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 63.05440103655844,
+       "median": 144.33489956602858,
+       "max": 249.69575545826737
+      },
+      "egfr": {
+       "min": 24.437789444083574,
+       "median": 43.94804563343271,
+       "max": 88.6990473206243
+      },
+      "bsa": {
+       "min": 1.5092154090131011,
+       "median": 1.8697498169980413,
+       "max": 2.187980508532141
+      },
+      "fraction_egfr_outside_kim_range": 0.0
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 2.575844304522038,
+      "simulated": {
+       "p05": 1.786270155993706,
+       "p50": 2.163497343383123,
+       "p95": 2.6261962497782005
+      },
+      "classification": "consistent",
+      "observed_over_median": 1.1905927744261133
+     }
+    },
+    {
+     "group": "severe",
+     "n": 5,
+     "dose_mg_per_24h": 7.5,
+     "dose_normalised_auc24": {
+      "observed_gm_per_mg": 310.53333333333336,
+      "simulated_gm_per_mg": {
+       "p05": 178.54795748446483,
+       "p50": 212.0086528996203,
+       "p95": 250.47921696889824
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.4647200908368656
+     },
+     "constructed_covariates": {
+      "scr_umol_l": {
+       "min": 91.28369455809994,
+       "median": 203.76693994955227,
+       "max": 668.3585668935837
+      },
+      "egfr": {
+       "min": 7.348552221144165,
+       "median": 24.190879227964416,
+       "max": 53.61930155994848
+      },
+      "bsa": {
+       "min": 1.5077521004661536,
+       "median": 1.836670404672487,
+       "max": 2.189613496896904
+      },
+      "fraction_egfr_outside_kim_range": 0.00642
+     },
+     "dose_normalised_ratio_to_normal": {
+      "observed": 4.443808433505057,
+      "simulated": {
+       "p05": 2.356177580717754,
+       "p50": 2.9104510668816936,
+       "p95": 3.5706793046794902
+      },
+      "classification": "model_under_predicts",
+      "observed_over_median": 1.5268452660385143
+     }
+    }
+   ]
+  }
+ },
+ "decision_rule": "For each model and impaired group, report the primary classification, its robustness across the scenarios, and whether it matches the 2.1e recheck against CC-5013-PK-001. Pre-specified reading: if a model under-predicts here as it did in CC-5013-PK-001, the non-cancer population of that study does not explain the disagreement; if it is consistent here but under-predicted there, the population difference becomes a candidate explanation, not a proven one. No scope, warning or flag changes by this check alone; any change is a separate, documented step decided by the platform owner.",
+ "known_differences": [
+  "Patients received dexamethasone 40 mg weekly; no interaction model is applied (none is established for lenalidomide exposure).",
+  "Doses differ by group (label-adjusted), so the comparison relies on linear pharmacokinetics; this is supported by the pinned dose-proportionality evidence.",
+  "Kim was fitted in Korean patients on maintenance doses of 5-10 mg; this study is French patients with relapsed or refractory disease on 5-25 mg.",
+  "Hughes's data reach down to CrCl 36 mL/min; the severe group lies below it, so that group tests extrapolation.",
+  "Height and within-group distributions may be unreported; their fallbacks are stated above."
+ ],
+ "clinical_prediction_validated": false,
+ "report_sha256": "032865f1b59c7b1e49d1a6e73c433de63ca4db66b2232a76c2d53c7627f35569"
+}

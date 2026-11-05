@@ -69,6 +69,7 @@
 <h3>Why the platform does not use these findings</h3><ul>{% for w in er.why_not_used %}<li>{{ w }}</li>{% endfor %}</ul>
 <p class="panel-note">{{ er.extraction }}</p></section>
 
+{% set reviews = owner_review(['model:lenalidomide_hughes_2019', 'model:lenalidomide_kim_2026', 'model:lenalidomide_exposure_safety_2016', 'label:lenalidomide']) %}{% if reviews %}<section class="panel"><h2>Source review</h2><ul>{% for r in reviews %}<li class="owner-review">{{ r.text }}</li>{% endfor %}</ul><p class="panel-note">The review checks transcription only: that each value is what the source says. It does not check whether the source is right or the model applicable. <a href="{{ site_extraction_review_url }}">Extraction review</a></p></section>{% endif %}
 <section class="panel"><h2>Limits</h2><ul>{% for l in r.limits %}<li>{{ l }}</li>{% endfor %}</ul></section>
 
 <section class="panel"><h2>Trials testing lenalidomide in the myeloma corpus</h2>

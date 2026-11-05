@@ -4,11 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Marlo Scientific{% endblock %}</title>
-  <link rel="icon" type="image/png" href="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}">
+  <link rel="icon" href="{{ url_for('landscape.static', filename='images/favicon.ico', v=2) }}" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('landscape.static', filename='images/favicon.svg', v=2) }}">
+  <link rel="apple-touch-icon" href="{{ url_for('landscape.static', filename='images/apple-touch-icon.png', v=2) }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('landscape.static', filename='landscape.css') }}">
+  <link rel="stylesheet" href="{{ url_for('landscape.static', filename='marlo-design.css') }}">
+  <script src="{{ url_for('landscape.static', filename='marlo-scroll.js') }}" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -25,7 +29,8 @@
       {%- set capability_active = E == 'landscape.drug_capability_library' %}
       {%- set renal_evidence_active = E == 'landscape.renal_pk_evidence' %}
       {%- set validation_active = E == 'landscape.validation_dashboard' %}
-      {%- set patient_active = not experiments_active and not models_active and (E in ['landscape.saved_pk_sensitivity', 'landscape.patient_pk_compare', 'landscape.patient_directory', 'landscape.patient_lab_overview', 'landscape.patient_lab', 'landscape.patient_criteria', 'landscape.patient_pk', 'landscape.educational_pk', 'landscape.saved_pk_runs', 'landscape.saved_pk_run', 'landscape.saved_pk_compare', 'landscape.saved_pk_audit', 'landscape.saved_pk_metrics', 'landscape.label_exposure', 'landscape.saved_scenarios', 'landscape.scenario_prepare', 'landscape.scenario_save', 'landscape.saved_scenario', 'landscape.scenario_compare'] or E.startswith('landscape.patient_') or P.startswith('/landscape/workspace/scenarios') or P.startswith('/landscape/patient-lab')) %}
+      {%- set body_map_active = E == 'landscape.body_map_explorer' %}
+      {%- set patient_active = not experiments_active and not models_active and not body_map_active and (E in ['landscape.saved_pk_sensitivity', 'landscape.patient_pk_compare', 'landscape.patient_directory', 'landscape.patient_lab_overview', 'landscape.patient_lab', 'landscape.patient_criteria', 'landscape.patient_pk', 'landscape.educational_pk', 'landscape.saved_pk_runs', 'landscape.saved_pk_run', 'landscape.saved_pk_compare', 'landscape.saved_pk_audit', 'landscape.saved_pk_metrics', 'landscape.label_exposure', 'landscape.saved_scenarios', 'landscape.scenario_prepare', 'landscape.scenario_save', 'landscape.saved_scenario', 'landscape.scenario_compare'] or E.startswith('landscape.patient_') or P.startswith('/landscape/workspace/scenarios') or P.startswith('/landscape/patient-lab')) %}
       {%- set disease_active = E == 'landscape.disease_library' %}
       {%- set benchmark_active = E.startswith('landscape.eligibility_') %}
       {%- set protocol_active = E in ['landscape.protocols', 'landscape.protocol_profile_page'] %}
@@ -38,7 +43,7 @@
       {%- set regulatory_active = E in ['landscape.regulatory', 'landscape.regulatory_evidence', 'landscape.regulatory_profile'] %}
       {%- set watchlist_active = E in ['landscape.watchlists', 'landscape.watchlist', 'landscape.watchlist_trial'] %}
       {%- set workspace_active = E in ['landscape.workspace', 'landscape.workspace_brief'] %}
-      {%- set other_active = experiments_active or models_active or patient_active or disease_active or benchmark_active or protocol_active or sites_active or guide_active or dose_active or drug_active or safety_active or interaction_active or regulatory_active or watchlist_active or workspace_active %}
+      {%- set other_active = experiments_active or models_active or patient_active or disease_active or benchmark_active or protocol_active or sites_active or guide_active or dose_active or drug_active or safety_active or interaction_active or regulatory_active or watchlist_active or workspace_active or body_map_active %}
       {%- set nav_sections = [
         ('Diseases and trials', [
           ('Trial explorer', url_for('home'), False, '⌕'),
@@ -62,7 +67,8 @@
           ('Extraction review', site_extraction_review_url, False, '▦'),
           ('Validation', url_for('landscape.validation_dashboard'), validation_active, '✓')]),
         ('Patient Lab', [
-          ('Synthetic patients', url_for('landscape.patient_directory', cohort_id=nav_cohort), patient_active, '◈')]),
+          ('Synthetic patients', url_for('landscape.patient_directory', cohort_id=nav_cohort), patient_active, '◈'),
+          ('Body map explorer', url_for('landscape.body_map_explorer'), body_map_active, '◉')]),
         ('Experiments', [
           ('Simulation Lab', url_for('landscape.simulation_lab'), experiments_active, '◌')]),
         ('Your work', [
@@ -82,7 +88,7 @@
   <div class="workspace">
     <header class="topbar"><span>Marlo Scientific · {{ ns.section|safe }}</span><span class="version-tag">{{ ns.page }}</span></header>
     <main id="main-content">{% if experiments_active and request.endpoint != 'landscape.simulation_lab' %}<p><a href="{{ url_for('landscape.simulation_lab') }}">← All Simulation Lab experiments</a></p>{% endif %}{% block content %}{% endblock %}</main>
-    <footer class="page-footer">{% if experiments_active %}Hypothetical educational models · No validated patient predictions{% elif patient_active or models_active %}Research and educational models · Not validated for clinical prediction{% else %}ClinicalTrials.gov registry data · Descriptive research intelligence{% endif %}{% if site_intended_use_url %} · <a href="{{ site_intended_use_url }}">Intended use</a>{% endif %}</footer>
+    <footer class="page-footer">{% if experiments_active %}Hypothetical educational models · No validated patient predictions{% elif patient_active or models_active or body_map_active %}Research and educational models · Not validated for clinical prediction{% else %}ClinicalTrials.gov registry data · Descriptive research intelligence{% endif %}{% if site_intended_use_url %} · <a href="{{ site_intended_use_url }}">Intended use</a>{% endif %}</footer>
   </div>
   {% block scripts %}{% endblock %}
 </body>

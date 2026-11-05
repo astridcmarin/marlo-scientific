@@ -1,0 +1,67 @@
+{
+ "schema_version": "mass-balance-extract-v1",
+ "extract_version": "lenalidomide-mass-balance-chen-2012-v1.0",
+ "recorded_on": "2026-11-04",
+ "drug": "lenalidomide",
+ "source": {
+  "citation": "Chen N, Wen L, Lau H, Surapaneni S, Kumar G. Pharmacokinetics, metabolism and excretion of [14C]-lenalidomide following oral administration in healthy male subjects. Cancer Chemother Pharmacol 2012;69:789-797.",
+  "doi": "10.1007/s00280-011-1760-3",
+  "file": {
+   "name": "280_2011_Article_1760.pdf",
+   "sha256": "0647d1cfa5a3497a9ff25aa68d7b9fc8f246d6f233e5d7d922fb23dffa7a8abd"
+  },
+  "storage": "Kept on the platform owner's computer; not committed (the same file as lenalidomide_blood_plasma_chen_2012_v1.json).",
+  "extraction": "AI-assisted from the PDF text layer; each quote checked against the extracted text. Independent review pending."
+ },
+ "study": {
+  "subjects": "6 healthy men",
+  "dose": "single 25 mg oral suspension of [14C]-lenalidomide"
+ },
+ "values": {
+  "urine_radioactivity_pct_dose": {
+   "mean": 90.3,
+   "sd": 3.0,
+   "range": [
+    87.0,
+    94.6
+   ],
+   "quote": "A total of 90.3 ± 3.0% (range: 87.0–94.6%) of dose was recovered in urine, which indicates the oral absorption of lenalidomide was high.",
+   "location": "Results, Mass balance (PDF page 5)"
+  },
+  "total_recovery_pct_dose": {
+   "mean": 94.3,
+   "sd": 2.9,
+   "range": [
+    90.5,
+    97.2
+   ],
+   "quote": "The total recovery of the radioactivity over 10 days averaged 94.3 ± 2.9% (range: 90.5–97.2%) of the administered dose",
+   "location": "Results, Mass balance (PDF page 5)"
+  },
+  "feces_radioactivity_pct_dose": {
+   "mean": 4,
+   "quote": "Urinary excretion was the primary route of elimination (90% of radioactive dose), with minor amounts excreted in feces (4%).",
+   "location": "Abstract (PDF page 1)"
+  },
+  "parent_share_of_urine_radioactivity": {
+   "stated_as": "more than 90%",
+   "quote": "Lenalidomide was the primary radioactive component in plasma (92% of the [14C]-area under the concentration–time curve) and urine (>90% of the radioactivity in urine).",
+   "location": "Abstract (PDF page 1); the text layer renders \">\" as \"[\"."
+  },
+  "unchanged_in_urine_pct_dose_cited": {
+   "value": 84,
+   "quote": "Excretion of the unchanged parent in urine is the predominant clearance mechanism of lenalidomide, accounting for approximately 84% of the dose [15].",
+   "location": "Introduction (PDF page 2); cites another study (reference 15)"
+  },
+  "authors_conclusion": {
+   "quote": "lenalidomide is highly absorbed and bioavailable, metabolized minimally, and eliminated predominantly via urinary excretion in the unchanged form in humans.",
+   "location": "Abstract, Conclusions (PDF page 1)"
+  }
+ },
+ "use_on_platform": {
+  "bioavailability_bounds": "Radioactivity recovered in urine was absorbed, so the fraction absorbed is at least about 0.90 (mean 90.3%, individual range 87.0-94.6%). Unchanged drug in urine (about 0.84-0.85) is the hard lower bound for F. F itself (absorption times first-pass survival) was not measured; metabolism is minimal.",
+  "status": "bounds, not a measurement"
+ },
+ "clinical_prediction_validated": false,
+ "ready_for_patient_simulation": false
+}

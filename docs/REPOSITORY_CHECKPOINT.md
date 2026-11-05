@@ -1,85 +1,57 @@
-# Repository checkpoint — 31 October 2026
+# Repository checkpoint — 4 November 2026
 
-**Verified tree:** `main` at `7b4bda4` (after PR #95).
-**Machine-readable record:** [`verification/repository_checkpoint_2026-10-31.json`](verification/repository_checkpoint_2026-10-31.json).
-**Previous checkpoint:** 30 October (second), in [`history/`](history/REPOSITORY_CHECKPOINT_2026-10-30b.md).
+**Verified tree:** branch `offline-work` at `91fcca0` ("What the checks found; roadmap brought up to 4 November"), 42 commits on top of `main` at `45c4afe` (after PR #110). The GitHub account has been flagged since 3 November, so these commits were delivered as patch files (0001–0040) and then as a git bundle. They have not been pushed or run in CI.
+**Machine-readable record:** [`verification/repository_checkpoint_2026-11-04.json`](verification/repository_checkpoint_2026-11-04.json).
+**Previous checkpoint:** 3 November, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-11-03.md).
 
 This is a software and repository verification. It does not validate any model scientifically, and it is not a clinical-readiness review.
 
-## What was delivered since the previous checkpoint (PRs #82–#95)
+## What was delivered since the previous checkpoint
 
 | Area | What | Main files |
 |---|---|---|
-| Checkpoint (#82) | 30 October verification (second) | `docs/history/REPOSITORY_CHECKPOINT_2026-10-30b.md` |
-| Dose optimisation (Phase 4.3, #83) | Lenalidomide dose-optimisation view (v1) | `dose_optimisation.py` |
-| Lenalidomide label (#84) | REVLIMID label, revision 3/2023: special-population summary v2 and the dose page | `lenalidomide_label_2023_v1.json` |
-| Renal source reconciliation (#85, #88, #90) | Label history, the conference abstract and the Chen 2007 publication reconciled against the EMA table; evidence status v8–v9 | `lenalidomide_renal_source_reconciliation_v1–v3.json` |
-| Extraction review (#86) | Owner review of the 166 AI-extracted values that feed calculations | `extraction_review.py`, `/models/extraction-review` |
-| Guided path (Phase 4.4, #87) | Lenalidomide guided path; landing page brought up to date | `guided_path.py` |
-| Ixazomib label (#89) | Label revision 7/2024: special-population summary v2 | `ixazomib_label.py` |
-| Bortezomib PK (Simulation 3.0m–3.0n, #91–#92) | MMY-3021 day 11 check; Reece 2011 reproduction check: first-dose exposure about 2-fold too high, rise over doses too small | `bortezomib_pk_mmy3021_check.py`, `bortezomib_pk_reece_reproduction.py` |
-| Lenalidomide renal recheck (2.1e, #93) | Both models against CC-5013-PK-001 with study-matched virtual subjects; Kim moderate changes to under-predicts | `renal_group_recheck.py` |
-| Kim moderate warning (2.1f, #94) | Findings v2 (warning for eGFR 30–50); Kim scope v2 flags that band | `kim_applicability_findings_v2.json` |
-| Renal study population (2.1g, #95) | CC-5013-PK-001 recorded as non-malignant renal impairment with healthy controls; renal evidence v2, Hughes scope v2, Kim scope v3, lenalidomide summary v3 | `renal_pk_group_evidence_v2.json` |
+| Body map | Flows along vessel centre lines; rendering pass; navigation (pan, zoom at pointer); flow key, scale bar, selectable flows | `body_map_vessel_lines_v1.json`, `body_map_flow_paths_v2.json`, `body-map-viewer.js` |
+| Digital human 1.1a–1.1c | Reference blood flow (ICRP 89), blood-to-plasma ratio (Chen 2012), per-pass extraction, blood-flow layer | `reference_physiology.py`, `body_map.py` (view v2) |
+| Digital human 1.1d | Time course v1 and v2, each under a plan locked before computation; v2 not adopted | `body_map_time_course.py`, two plans, two reports |
+| Bridoux 2016 (2.1h) | Two-stage blind check of Hughes and Kim; evidence status v13 | `lenalidomide_bridoux_check.py`, design and observed files |
+| Simulation 2.0d | Kidney pathway v2 (secretion falls faster): plan locked, run, not adopted; myeloma comparison shown beside the warnings; evidence status v14 | `lenalidomide_renal_pathways_v2.py`, `body_map.myeloma_note` |
+| Extraction review | Rounds 1 and 2 pinned (166 of 166 values match); round-2 page; review status on model, label, special-population and dose pages | `extraction_review.py`, two records |
+| Dataset ledger | Which data each model was built from, tuned on or checked against; gate refusing blind checks on seen data; v2 adds five labels | `dataset_ledger.py`, `dataset_ledger_v1.json`, `_v2.json` |
+| Label extracts (3.2d) | Carfilzomib, selinexor, thalidomide, isatuximab, elotuzumab: 74 quoted values | `drug_label_extracts.py`, five extracts, build script |
+| What the checks found | `/models/findings`: 26 locked checks in one line each, with blindness from the ledger | `check_findings.py`, `check_findings_v1.json` |
+| Other | Scroll position kept on reload; locked-report tests tolerant of last-digit differences off Linux; roadmap updated | `marlo-scroll.js`, `tests/report_reproduction.py` |
 
 ## Checks
 
 | Check | Result |
 |---|---|
-| Unit tests | **Pass.** CI (Python 3.12, `python -m unittest discover -s tests`) passed on `7b4bda4`. The suite defines 1,040 test methods (static count). |
+| Unit tests | **Pass.** On the owner's Mac, at this tree: 1,243 tests ran in 274 s; all passed, 2 skipped. First full-suite run since the 3 November checkpoint (subsets were run after each patch). CI has not run on this tree. |
 | Compile all modules | **Pass.** `compileall` on `app`, `intelligence_store`, `landscape_ui`, `scripts` and `intelligence_migrations`. |
-| Migration chain | **Pass.** 9 revisions; one root (`3538c7d69211`) and one head (`585bc7cb8d18`). No schema change since 16 October. |
-| Pinned data | **Pass.** 128 tracked data files in `intelligence_store/data/` outside `curation/`; 126 match a checksum in code. The other two are known: the observation template (unpinned by design) and the eligibility corpus (pinned by its decompressed content). Of 125 named checksum constants in code, 121 match a tracked file. The other four are known: the corpus content pin; two canonical-content pins in `scripts/`; and the Hughes source article's checksum, whose file stays on the owner's computer. |
-| Locked plans and reports | **Pass.** All 23 check reports in `docs/verification/` were regenerated for this checkpoint and are byte-identical to the committed files, including the three slow ones not regenerated in the unit tests: Iwasaki (`529772d9…`), daratumumab v1 (`ac3369f7…`) and v2 (`24b12ab8…`). The other five files there are checkpoint records. |
+| Migration chain | **Unchanged.** 9 revisions; no schema change since 16 October. |
+| Pinned data | **Pass.** 158 data files in `intelligence_store/data/` outside `curation/`; 157 match a checksum in code. The exception is the observation template, unpinned by design. |
+| Locked plans and reports | **Pass.** Every check report is listed in the dataset ledger and in the findings file with its checksum, and both are tested. New plans this period were pinned before their computation (1.1d v1 and v2, 2.0d). |
 | Validation flags | **Pass.** No tracked JSON sets `clinical_prediction_validated` or `ready_for_patient_simulation` to true. |
-| Page smoke test | **Not run here; covered by CI.** The cloud workspace cannot install packages, so the app could not be started against a database. The page tests in the CI suite request every route family touched since the last checkpoint and passed. The next checkpoint run with the database available should repeat the full smoke test. |
-| Repository hygiene | **Pass.** No source articles or private correspondence tracked; no database or `instance/` files. The only PDF is the public EMA lenalidomide report. The only email addresses are in the font licence. |
-
-**How the checks were run.** The database layer was stubbed so that every non-database module and report could be imported and run. Every database-backed test ran in CI.
+| Repository hygiene | **Pass.** No source articles, labels or private correspondence tracked. The only PDF is the public EMA lenalidomide report. Label PDFs and articles stay in `supplemental-information/`, which is ignored. |
 
 ## Findings
 
-1. **A stale claim was shown to users — fixed in PR #96.**
-   - **What it said.** The bortezomib platelet tool's limitations, and the drug-capability assumption, said the PK model "overstates first-dose exposure about 7-fold".
-   - **Where the figure came from.** It is the ratio of the label's first-dose clearance to the model's clearance, not measured exposure.
-   - **What the outside data show.** Measured first-dose AUC is 2–3-fold too high in two studies and consistent in a third.
-2. **The bortezomib platelet model had no scope — fixed in PR #96.**
-   - It was the only computed model without one.
-   - Baselines below every entry threshold of its source study were computed with a warning, against the 30 October policy of refusing beyond a model's data.
-3. **Stacked pull requests close when their base branch is deleted.**
-   - On 31 October, #94 closed automatically when #93's branch was deleted after merging. It was reopened and merged; nothing was lost.
-   - **Rule:** retarget a stacked PR to `main` before deleting the branch it sits on.
-4. **Housekeeping.** Merged branches on GitHub can be deleted.
+1. **No CI run on 42 commits.** **Gate:** when the account is restored, push `offline-work`, let CI run, then open the pull requests.
+2. **A plan rationale was wrong (2.0d).** The plan said the Bridoux check had found the pathway model's clearance too high; that check compared Hughes and Kim. The plan stays as locked; the correction is in `SIMULATION_2_RENAL_PATHWAYS.md`. The dataset ledger and findings page now make this kind of misattribution easier to catch.
+3. **Delivery mishap.** One bundle re-sent under the same file name arrived as the previous copy. Bundles are now sent under a unique name and their size is checked on the owner's computer.
 
 ## Scientific state
 
-| Model | Outside data | Platform scope |
-|---|---|---|
-| Hughes 2019 (lenalidomide) | Mild consistent; moderate and severe under-predicted about 2–2.5-fold (confirmed by the 2.1e recheck) | CrCl 50–211 checked; 36–50 flagged; below 36 refused |
-| Kim 2026 (lenalidomide) | Mild consistent; moderate and severe under-predicted about 1.3-fold (2.1e; moderate was consistent in the first check) | eGFR 50–94.7 checked; 11.1–50 flagged (moderate added 31 October); outside refused |
-| Renal study behind both checks | CC-5013-PK-001 enrolled people with non-malignant renal impairment and healthy controls, not myeloma patients; one possible contributor to the disagreements, untested | — |
-| Lenalidomide kidney pathways 2026 | Calibrated on normal kidney function | — |
-| Lenalidomide exposure–safety 2016 | Not done (no independent data) | — |
-| Lignet 2022 bortezomib PK | Disagrees with outside data: first dose too high (Ogawa, Reece), rise too small (every study sampling both days); three candidate fixes failed | Not offered as patient PK |
-| Lignet 2022 bortezomib platelets | Reproduced against fitting data; no outside platelet data; inherits the PK component's disagreements | Scope proposed in PR #96: baseline 30 or more; below 30 refused |
-| Gupta 2017 (ixazomib) | Consistent in MM with normal renal function; solid tumours under-predicted; peaks 2–4-fold low | MM, oral 1.5–4 mg, CrCl 30–297, bilirubin ≤ 1.5 × ULN; AUC only |
-| Luo 2021 (daratumumab) | Peaks consistent; 16 mg/kg first-week AUC over-predicted | Defined, not run on any page |
-| Label-based exposure | Pomalidomide and dexamethasone shown; melphalan not eligible | — |
-| Eligibility extractor | v1.0 failed every type; v1.1 awaits the v2 annotation (200 trials, in progress) | — |
-
-No model is validated for clinical prediction.
+- 26 locked checks; 3 blind (Bridoux for Hughes and Kim, NEOFORDEX for dexamethasone, eligibility sample v1). See `/models/findings`.
+- Lenalidomide: Hughes and Kim under-predict moderate and severe kidney impairment in two studies; the pathway model is consistent with both myeloma studies there but not with CC-5013-PK-001. No unseen renal data remains.
+- Bortezomib exposure model: contradicted by every study tested; three candidate fixes failed.
+- No model is validated for clinical prediction.
 
 ## Remaining gates
 
-- **Owner work in progress:**
-  - v2 eligibility annotation (then pin, run the locked check, and show the passing types);
-  - round 1 of the extraction review (then validate and pin the record).
-- **Independent review** of the AI-assisted extractions: none yet. The owner's review is not independent.
-- **A second renal dataset:** an independent lenalidomide renal-impairment study in myeloma patients, to separate model error from the population difference.
-- **Authors:** Hughes (Cockcroft–Gault weight basis); Kim (CL/F equation form); Iwasaki (the human data used to evaluate the model).
-- **Kim protein binding:** the label gives about 30% binding (unbound fraction about 0.7) against Kim's estimated 0.614. Not yet assessed.
-- **Bortezomib PK:** individual concentration data, or a mechanism that changes clearance between doses.
-- **Drug catalog growth:** needs the DailyMed label files.
+- **GitHub access:** restore; push; CI; pull requests (#111 still open).
+- **Owner work:** v2 eligibility annotation (the only unseen dataset); extraction review round 3 for the 74 new label values.
+- **Independent review:** none yet, of extractions or of any model.
+- **Authors:** Hughes (Cockcroft–Gault weight basis); Kim (CL/F equation form); Iwasaki (human data).
 - **Platform:** accounts and deployment.
 
 Step numbers identify historical deliveries, not a unique sequence; use module and schema versions.

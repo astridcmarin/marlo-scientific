@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ card.name }} | Model scorecard | Marlo Scientific</title>
-    <link rel="icon" type="image/png" href="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}">
+    <link rel="icon" href="{{ url_for('landscape.static', filename='images/favicon.ico', v=2) }}" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('landscape.static', filename='images/favicon.svg', v=2) }}">
+    <link rel="apple-touch-icon" href="{{ url_for('landscape.static', filename='images/apple-touch-icon.png', v=2) }}">
     {{ site_head_links() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
 </head>
@@ -45,6 +47,7 @@
                 <li>
                     <div class="check-head"><h3>{{ layer.label }}</h3><span class="status status-{{ layer.tone }}">{{ layer.status_label }}</span></div>
                     <p>{{ layer.summary }}</p>
+                    {% if layer.id == 'transcription_verification' %}{% for r in owner_review('model:' ~ card.model_id) %}<p class="report-ref owner-review"><strong>{{ r.text }}</strong> <a href="{{ site_extraction_review_url }}">Extraction review</a></p>{% endfor %}{% endif %}
                     {% if layer.results %}
                     <table class="result-table"><caption class="sr-only">Recorded results</caption><thead><tr><th scope="col">Compared</th><th scope="col">Result</th></tr></thead><tbody>
                     {% for r in layer.results %}<tr><td>{{ r.item }}</td><td><span class="status status-{{ r.tone }}">{{ r.outcome_label }}</span></td></tr>{% endfor %}

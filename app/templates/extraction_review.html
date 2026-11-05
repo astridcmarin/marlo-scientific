@@ -4,8 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Extraction review | Marlo Scientific</title>
-    <link rel="icon" type="image/png" href="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}">
+    <title>Extraction review{% if v.round %} round {{ v.round }}{% endif %} | Marlo Scientific</title>
+    <link rel="icon" href="{{ url_for('landscape.static', filename='images/favicon.ico', v=2) }}" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('landscape.static', filename='images/favicon.svg', v=2) }}">
+    <link rel="apple-touch-icon" href="{{ url_for('landscape.static', filename='images/apple-touch-icon.png', v=2) }}">
     {{ site_head_links() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
     <style>
@@ -15,6 +17,9 @@
     .rv-value{font-family:ui-monospace,Menlo,Consolas,monospace;white-space:nowrap}
     .rv-choices label{display:inline-flex;align-items:center;gap:4px;margin-right:10px;white-space:nowrap;font-size:14px}
     .rv-note{width:100%;min-width:140px;font:inherit;font-size:14px;padding:4px 6px;border:1px solid #c5d3d9;border-radius:6px}
+    .rv-value.rv-text{white-space:normal}
+    .rv-caution{background:#fdf6e3;border:1px solid #ecd9a8;border-radius:8px;padding:8px 12px}
+    .rv-how{display:block;margin-top:4px;font-size:14px;color:#3d5560}
     .rv-status{display:inline-block;font-size:13px;font-weight:600;padding:1px 7px;border-radius:10px;background:#e8f1f3}
     .rv-status-wrong{background:#f6dcd7}.rv-status-cannot_check{background:#fdecd8}.rv-status-matches{background:#dcefe2}
     .rv-bar{position:sticky;top:0;z-index:5;background:#fff;border:1px solid #dbe5e9;border-radius:10px;padding:10px 14px;margin:14px 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
@@ -34,10 +39,14 @@
     <p><a href="{{ url_for('model_scorecards') }}">← Models</a></p>
     <header class="stack" style="gap:10px">
         <p class="prose-eyebrow" style="margin-bottom:0">Owner review · AI-assisted extractions</p>
-        <h1>Extraction review</h1>
-        <p class="prose-lede">{{ v.purpose }} Check each value against the original source at the stated location.</p>
+        <h1>Extraction review{% if v.round %}, round {{ v.round }}{% endif %}</h1>
+        {% if v.round %}<p class="prose-lede">{{ v.round_purpose }}</p>
+        <p class="rv-caution"><strong>Check against the source document.</strong> {{ v.round_caution }}</p>
+        {% else %}<p class="prose-lede">{{ v.purpose }} Check each value against the original source at the stated location.</p>{% endif %}
     </header>
-    <p>{{ v.total }} values: <strong>{{ v.counts.unreviewed }}</strong> not yet reviewed, {{ v.counts.matches }} match, {{ v.counts.wrong }} wrong, {{ v.counts.cannot_check }} could not be checked. {{ v.excluded }}</p>
+    {% if v.round %}<p>{{ v.round_total }} values in this round. <a href="{{ url_for('extraction_review') }}">Full queue</a>. Status across all {{ v.total }} values: {{ v.counts.matches }} match, {{ v.counts.wrong }} wrong, {{ v.counts.cannot_check }} could not be checked, {{ v.counts.unreviewed }} not reviewed. A round 2 record replaces round 1's decisions for the items it covers.</p>
+    {% else %}<p>{{ v.total }} values: <strong>{{ v.counts.unreviewed }}</strong> not yet reviewed, {{ v.counts.matches }} match, {{ v.counts.wrong }} wrong, {{ v.counts.cannot_check }} could not be checked. {{ v.excluded }}</p>
+    {% if v.counts.wrong or v.counts.cannot_check or v.counts.unreviewed %}<p><a href="{{ url_for('extraction_review_round_2') }}">Round 2: re-check the values not yet marked as matching</a>.</p>{% endif %}{% endif %}
     {% if v.records %}<p>Pinned review records: {% for r in v.records %}{{ r.file }} ({{ r.reviewer }}, {{ r.reviewed_on }}, {{ r.decisions }} decisions, SHA-256 {{ r.sha256[:12] }}…){% if not loop.last %}; {% endif %}{% endfor %}.</p>{% endif %}
     <ol>
         <li>Open the source named for each group. Compare the value with the stated location.</li>
@@ -54,14 +63,14 @@
     </div>
 
     {% for g in v.groups %}
-    <details class="rv-group" {% if g.priority == 1 and loop.first %}open{% endif %}>
+    <details class="rv-group" {% if v.round or (g.priority == 1 and loop.first) %}open{% endif %}>
         <summary>{{ g.id|replace('_', ' ')|capitalize }} — {{ g['items']|length }} values{% if g.priority == 2 %} (priority 2){% endif %} · <span class="rv-count" data-group="{{ g.id }}"></span></summary>
         <p><strong>Where to look:</strong> {{ g.where_to_look }}. <strong>Used by:</strong> {{ g.used_by }}. <span class="panel-note">File {{ g.file }} · SHA-256 {{ g.sha256[:12] }}…</span></p>
-        <div class="rv-scroll"><table class="rv-table"><thead><tr><th style="width:26%">Value</th><th style="width:14%">Platform value</th><th style="width:20%">Location in source</th><th style="width:22%">Your check</th><th style="width:18%">Note</th></tr></thead><tbody>
+        <div class="rv-scroll"><table class="rv-table"><thead><tr>{% if v.round %}<th style="width:20%">Value</th><th style="width:11%">Platform value</th><th style="width:33%">Where to look, and how the stored number was obtained</th><th style="width:20%">Your check</th><th style="width:16%">Note</th>{% else %}<th style="width:26%">Value</th><th style="width:14%">Platform value</th><th style="width:20%">Location in source</th><th style="width:22%">Your check</th><th style="width:18%">Note</th>{% endif %}</tr></thead><tbody>
         {% for i in g['items'] %}<tr data-item="{{ i.id }}" data-group="{{ g.id }}">
-            <td>{{ i.label }}{% if i.status %}<br><span class="rv-status rv-status-{{ i.status.decision }}">pinned: {{ i.status.decision|replace('_', ' ') }}</span>{% endif %}</td>
-            <td class="rv-value">{% if i.value is string %}{{ i.value }}{% elif i.value is sequence %}[{% for x in i.value %}{{ x }}{% if not loop.last %}, {% endif %}{% endfor %}]{% else %}{{ i.value }}{% endif %}</td>
-            <td>{{ i.location }}</td>
+            <td>{{ i.label }}{% if i.status %}<br><span class="rv-status rv-status-{{ i.status.decision }}">pinned: {{ i.status.decision|replace('_', ' ') }}{% if v.round and i.status.note %} (note: {{ i.status.note }}){% endif %}</span>{% endif %}</td>
+            <td class="rv-value{% if i.value is string %} rv-text{% endif %}">{% if i.value is string %}{{ i.value }}{% elif i.value is sequence %}[{% for x in i.value %}{{ x }}{% if not loop.last %}, {% endif %}{% endfor %}]{% else %}{{ i.value }}{% endif %}</td>
+            <td>{% if i.where_to_look %}{{ i.where_to_look }}<span class="rv-how"><strong>How stored:</strong> {{ i.how_stored }}</span>{% else %}{{ i.location }}{% endif %}</td>
             <td class="rv-choices">{% for d in decisions %}<label><input type="radio" name="{{ i.id }}" value="{{ d }}"> {{ {'matches': 'Matches', 'wrong': 'Wrong', 'cannot_check': "Can't check"}[d] }}</label>{% endfor %}</td>
             <td><input class="rv-note" type="text" aria-label="Note for {{ i.label }}" data-note="{{ i.id }}"></td>
         </tr>{% endfor %}
@@ -73,8 +82,8 @@
 </main>
 <script>
 (function () {
-  var QUEUE = {{ {'sha': v.queue_sha256, 'version': v.queue_version}|tojson }};
-  var KEY = 'marlo-extraction-review-' + QUEUE.sha.slice(0, 16);
+  var QUEUE = {{ {'sha': v.queue_sha256, 'version': v.queue_version, 'round': v.round|default(0)}|tojson }};
+  var KEY = 'marlo-extraction-review-' + QUEUE.sha.slice(0, 16) + (QUEUE.round ? '-round-' + QUEUE.round : '');
   var draft = {};
   try { draft = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { draft = {}; }
   draft.decisions = draft.decisions || {};
@@ -124,7 +133,7 @@
                reviewer: reviewer.value.trim(), reviewed_on: date.value, decisions: draft.decisions};
     var blob = new Blob([JSON.stringify(rec, null, 1) + '\n'], {type: 'application/json'});
     var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = 'extraction_review_' + (date.value || 'undated') + '.json'; document.body.appendChild(a); a.click();
+    a.download = 'extraction_review_' + (QUEUE.round ? 'round' + QUEUE.round + '_' : '') + (date.value || 'undated') + '.json'; document.body.appendChild(a); a.click();
     setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
   });
   update();

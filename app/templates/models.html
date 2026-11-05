@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Model scorecards | Marlo Scientific</title>
     <meta name="description" content="Every model on the platform, with what has and has not been checked about it, including recorded failures.">
-    <link rel="icon" type="image/png" href="{{ url_for('landscape.static', filename='images/marlo-mark.png') }}">
+    <link rel="icon" href="{{ url_for('landscape.static', filename='images/favicon.ico', v=2) }}" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('landscape.static', filename='images/favicon.svg', v=2) }}">
+    <link rel="apple-touch-icon" href="{{ url_for('landscape.static', filename='images/apple-touch-icon.png', v=2) }}">
     {{ site_head_links() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
 </head>
@@ -20,6 +22,7 @@
             <p class="prose-eyebrow" style="margin-bottom: 0">Model scorecards</p>
             <h1 class="page-title">What has been checked about every model</h1>
             <p>Each model on the platform is checked in four ways, reported separately. A failed or missing check is shown, not hidden. <strong>{{ data.never_established }}</strong></p>
+            <p><a href="{{ url_for('check_findings') }}">What the checks found</a>: every locked check in one line, failures included, and which were blind.</p>
             <p><a href="{{ url_for('credibility_records') }}">Credibility records</a>: every model, including the label-based curves, in the structure of ICH M15.</p>
             <p><a href="{{ url_for('extraction_review') }}">Extraction review</a>: the values that feed calculations, listed for the platform owner to check against the original sources, with the review status of each.</p>
             <p><strong>Platform scopes</strong> (context of use as enforced rules): {% for mid, e in scopes.items() %}<a href="{{ url_for('model_scope', model_id=mid) }}">{{ e.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}.</p>

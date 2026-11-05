@@ -73,5 +73,6 @@
 <details class="panel"><summary>Sources and traceability</summary>
 <p>Label: {{ v.label_source.document }} DailyMed set {{ v.label_source.dailymed_set_id }}, revised {{ v.label_source.revised }}. <a href="{{ v.label_source.url }}" target="_blank" rel="noopener noreferrer">DailyMed &#8599;</a> · Outside data: <a href="{{ v.checks.outside.source.url }}" target="_blank" rel="noopener noreferrer">NEOFORDEX EPAR &#8599;</a></p>
 <p><a href="{{ url_for('landscape.label_exposure', drug=v.drug, dose=v.dose_mg, scenario=v.scenario.id if v.scenario else None, format='json') }}">Download this view with every value and quote (JSON)</a></p>
+{% for r in owner_review('label:' ~ v.drug) %}<p class="owner-review"><strong>{{ r.text }}</strong> <a href="{{ site_extraction_review_url }}">Extraction review</a></p>{% endfor %}
 <p class="catalog-digest">Label file SHA256: {{ v.label_source.file_reviewed.sha256 }}<br>Consistency report ({{ v.checks.consistency.path }}): {{ v.checks.consistency.sha256 }}<br>Outside-check report ({{ v.checks.outside.path }}): {{ v.checks.outside.sha256 }}</p></details>
 {% endblock %}

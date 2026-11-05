@@ -41,7 +41,7 @@ class BodyMapPage(unittest.TestCase):
         response = self.client.get(self.url(rev.id))
         self.assertEqual(response.status_code, 200)
         html = response.get_data(as_text=True)
-        for text in ('body-map-viewer', 'Not a clinical prediction', 'Outside check disagrees', 'Flow diagram',
+        for text in ('body-map-viewer', 'Not a clinical prediction', 'depends on how much of the dose is absorbed', 'Flow diagram',
                      'Tubular secretion', 'with fu 0.60', 'Run record', 'Coloured: carries model results',
                      'Grey: anatomy for orientation', 'Human Reference Atlas', 'placed by hand (approximate)',
                      'body-map-viewer.js', 'Limits of this map'):
@@ -65,8 +65,8 @@ class BodyMapPage(unittest.TestCase):
         rev = self.revision_with(serum_creatinine=120)
         config = self.config(self.client.get(self.url(rev.id)).get_data(as_text=True))
         flows = config['flows']
-        self.assertEqual(flows['band']['status'], 'check_disagrees')
-        self.assertEqual(flows['band']['outline'], 'warning')
+        self.assertEqual(flows['band']['status'], 'depends_on_bioavailability')
+        self.assertEqual(flows['band']['outline'], 'caution')
         self.assertEqual({p['id'] for p in flows['paths']},
                          {'renal_inflow_left', 'renal_inflow_right', 'urine_left', 'urine_right', 'absorption'})
         self.assertIsNone(flows['values']['absorption'])
@@ -89,7 +89,7 @@ class BodyMapPage(unittest.TestCase):
     def test_json_download_is_the_body_map_view(self):
         rev = self.revision_with(serum_creatinine=80)
         payload = self.client.get(self.url(rev.id, '?format=json')).get_json()
-        self.assertEqual(payload['schema_version'], 'body-map-view-v1')
+        self.assertEqual(payload['schema_version'], 'body-map-view-v2')
         self.assertEqual(payload['mode'], 'record')
         self.assertIs(payload['clinical_prediction_validated'], False)
 
@@ -130,7 +130,7 @@ class BodyMapPage(unittest.TestCase):
     def test_detail_page_links_to_the_body_map(self):
         rev = self.revision_with(serum_creatinine=80)
         detail = self.client.get(f'/landscape/workspace/scenarios/{self.scenario.id}/patient-state/revisions/{rev.id}')
-        self.assertIn('Lenalidomide body map (3D)', detail.get_data(as_text=True))
+        self.assertIn('Body map (3D)', detail.get_data(as_text=True))
 
 
 class StaticViewer(unittest.TestCase):
