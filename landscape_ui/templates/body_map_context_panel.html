@@ -20,6 +20,13 @@
 {% for r in context.label.rows %}<tr{% if r.matches %} class="bm-label-match"{% endif %}><td>{% if r.crcl_ml_min[0] is none %}&lt; {{ r.crcl_ml_min[1] }}{% else %}{{ r.crcl_ml_min[0] }} to {{ r.crcl_ml_min[1] }}{% endif %} mL/min{% if r.dialysis %}, requiring dialysis{% endif %}{% if r.matches %} <small>(row containing this value)</small>{% endif %}</td><td>{{ r.mm_combination }}</td><td>{{ r.mm_maintenance_and_mds }}</td></tr>{% endfor %}
 </tbody></table></div>
 <p class="panel-note"><strong>{{ context.label.statement }}</strong>{% if context.label.no_row_note %} {{ context.label.no_row_note }}{% endif %} The label's rows use creatinine clearance estimated by Cockcroft–Gault; the map's value stands for measured clearance, as in the study. {{ context.label.threshold_note }} {{ context.label.table }}.</p>
+{% if context.classifications %}{% set kc = context.classifications %}
+<h3>Where {{ '%.0f'|format(context.crcl_ml_min) }} mL/min falls in each classification</h3>
+<div class="table-scroll"><table class="rr-table bm-class-table"><thead><tr><th>Classification</th><th>Measure it uses</th><th>Range containing this value</th></tr></thead><tbody>
+{% for key in ('fda_2024', 'cc5013', 'label') %}{% set s = kc.by_scheme[key] %}<tr><td>{{ s.title }}</td><td>{{ s.measure }}</td><td>{% if s.row %}{{ s.row.label }} ({{ s.row.range_text }}){% else %}<small>{{ s.note }}</small>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="panel-note">The map's value stands for {{ kc.value_measure }}. {{ kc.note }} <a href="{{ url_for('landscape.special_populations', drug='lenalidomide') }}#sp-kidney-classifications">All three classifications and each model's measure</a></p>
+{% endif %}
 <details class="rr-details"><summary>Sources for this panel</summary><ul>{% for src in context.sources %}<li>{{ src.label }}: {{ src.reference }}, {{ src.pages }} <span class="catalog-digest">{{ src.sha256[:16] }}…</span></li>{% endfor %}</ul><p class="catalog-digest">Context {{ context.schema_version }}: {{ context.context_sha256 }}</p></details>
 </section>
 {% endif %}

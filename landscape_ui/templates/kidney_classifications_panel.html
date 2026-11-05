@@ -1,0 +1,22 @@
+{# Reviewer's checklist R1-R2: kidney-function classifications and each model's measure, read from pinned sources. #}
+{% if kidney_error %}<section class="sp-row" id="sp-kidney-classifications"><h2>Kidney-function classifications and measures</h2><p role="alert">{{ kidney_error }}</p></section>
+{% elif kidney %}
+<section class="sp-row" id="sp-kidney-classifications" aria-labelledby="sp-kc-heading">
+<h2 id="sp-kc-heading">Kidney-function classifications and measures, compared</h2>
+<p>Three ways of grouping kidney function meet on the lenalidomide pages, and the models use different measures of it. Each range below is read from its pinned source.</p>
+<div class="table-scroll"><table class="rr-table"><thead><tr><th>FDA 2024 guidance, Table 1<br><small>{{ kidney.schemes.fda_2024.measure }}</small></th><th>CC-5013-PK-001 groups (the body map's bands)<br><small>{{ kidney.schemes.cc5013.measure }}</small></th><th>Label dose table rows<br><small>{{ kidney.schemes.label.measure }}</small></th></tr></thead><tbody>
+{% for m in kidney.mapping %}<tr><td><strong>{{ m.fda_label }}</strong><br>{{ m.fda_range }}</td>
+<td>{% for g in m.cc5013 %}{{ g.label }} ({{ g.range_text }}){% if g.note %} <small>{{ g.note }}</small>{% endif %}{% if not loop.last %}<br>{% endif %}{% else %}<small>none</small>{% endfor %}</td>
+<td>{% for r in m.label %}{{ r.label }} ({{ r.range_text }}){% if r.note %} <small>{{ r.note }}</small>{% endif %}{% if not loop.last %}<br>{% endif %}{% else %}<small>no row in Table 3</small>{% endfor %}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="sp-src">{{ kidney.notes.mapping }} {{ kidney.schemes.fda_2024.range_reading }} {{ kidney.notes.scope }}</p>
+<h3>Which measure each source uses</h3>
+{% for m in kidney.measures %}<div class="sp-st"><p><strong>{{ m.who }}</strong></p><ul>
+{% for f in m.facts %}<li>{{ f.field }}: <span class="sp-value">{{ f.value if f.value is string else f.value|join(', ') }}</span> <span class="sp-src">{{ f.source }}{% if f.location %} · {{ f.location }}{% endif %}</span></li>{% endfor %}</ul>
+<p class="sp-src"><span class="sp-kind sp-kind-platform_model_scope">Platform note</span>{{ m.platform_note }}</p></div>{% endfor %}
+<h3>What the guidance says about the measure (quoted)</h3>
+<ul>{% for q in kidney.guidance_quotes %}<li>“{{ q.quote }}” <span class="sp-src">{{ q.location }}</span></li>{% endfor %}</ul>
+<p class="sp-src owner-review"><strong>The guidance values were extracted with AI assistance from the FDA's PDF on 5 November 2026 and have not yet been reviewed by the platform owner.</strong> {{ kidney.guidance_extraction }} <a href="{{ kidney.guidance_url }}" rel="noopener">FDA guidance (PDF)</a></p>
+<details class="rr-details"><summary>Sources and checksums</summary><ul>{% for s in kidney.sources %}<li>{{ s.title }}: {{ s.file }} <span class="catalog-digest">{{ s.sha256[:16] }}…</span></li>{% endfor %}</ul><p class="catalog-digest">{{ kidney.view_version }}: {{ kidney.view_sha256 }}</p></details>
+</section>
+{% endif %}

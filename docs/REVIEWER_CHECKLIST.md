@@ -18,8 +18,8 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 | # | Reviewer's question | What the workflow shows | Score |
 |---|---|---|---|
-| R1 | Which renal-function categories are used? The 2024 guidance uses ≥ 90, 60 to < 90, 30 to < 60 and < 30 mL/min (the last including kidney failure not on dialysis). | Bands follow CC-5013-PK-001 (> 80, 50–80, 30–< 50, < 30); the label's dose table uses 30–60. The guidance's categories are not shown, and the three schemes are not reconciled on any page. | **Partly** |
-| R2 | How was renal function estimated? The guidance prefers eGFR in mL/min, not per 1.73 m², and alternative body weights for Cockcroft–Gault in obesity. | Recorded in the docs. Hughes uses Cockcroft–Gault, with its weight basis an open author question. Kim uses CKD-EPI eGFR indexed to 1.73 m², as published. The study measured 24-hour creatinine clearance. Pages do not say which measure each model uses, or that Kim's indexed eGFR differs from the guidance's preference. | **Partly** |
+| R1 | Which renal-function categories are used? The 2024 guidance uses ≥ 90, 60 to < 90, 30 to < 60 and < 30 mL/min (the last including kidney failure not on dialysis). | Bands follow CC-5013-PK-001 (> 80, 50–80, 30–< 50, < 30); the label's dose table uses 30–60. **Since 5 November** the lenalidomide special-populations page sets the guidance's Table 1 beside both, with the ranges each shares, and the body map shows where the chosen value falls in each. The guidance values are not yet owner-reviewed. | **Answered** (was Partly) |
+| R2 | How was renal function estimated? The guidance prefers eGFR in mL/min, not per 1.73 m², and alternative body weights for Cockcroft–Gault in obesity. | Recorded in the docs. Hughes uses Cockcroft–Gault, with its weight basis an open author question. Kim uses CKD-EPI eGFR indexed to 1.73 m², as published. The study measured 24-hour creatinine clearance. **Since 5 November** the special-populations page states each source's measure, with the guidance's two quotes (mL/min, not indexed; alternative weights for Cockcroft–Gault in obesity) and how Kim and Hughes differ from them. | **Answered** (was Partly) |
 | R3 | Are AUC, Cmax, fu, CL/F, CLR, CLNR/F, V/F and half-life reported by group? | AUC, Cmax, CL/F, CLR and half-life are shown (special populations, body map numbers panel, EMA 2013 extract); the non-renal split is in the body map. Protein binding in renal impairment is not measured: the model holds fu constant across bands (0.77 in vitro, with 0.60 ex vivo shown as the alternative). | **Partly** |
 | R4 | Is PK regressed on continuous renal function, which the guidance prefers to categories? | The EMA 2013 regressions on measured clearance are pinned and shown in the body map's observed-data panel. | **Answered** |
 | R5 | Are estimates given with their precision? | Observed values carry 90% CIs in every check. Model outputs are typical values; Hughes and Kim show population bands. Parameter uncertainty is not propagated. | **Partly** |
@@ -65,17 +65,17 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 ## Score
 
-Of 29 questions:
-- **12 Answered** (including H1, where the evidence itself is missing and shown as missing);
-- **13 Partly**;
+Of 29 questions (updated 5 November 2026, after R1 and R2):
+- **14 Answered** (including H1, where the evidence itself is missing and shown as missing);
+- **11 Partly**;
 - **4 Gap**.
 
 The strengths are where the platform has invested: provenance, locked plans, scopes and honest reporting of failures.
 
 ## What a reviewer would ask for first: candidate work, smallest first
 
-1. **Show the FDA 2024 renal categories** alongside the study's bands and the label's dose bands, with the mapping between them (R1). Small; no new data.
-2. **State each model's renal-function measure on the pages** (Cockcroft–Gault weight basis, Kim's indexed eGFR, the study's measured clearance), with the guidance's preference noted (R2).
+1. **Done 5 November.** **Show the FDA 2024 renal categories** alongside the study's bands and the label's dose bands, with the mapping between them (R1). Small; no new data.
+2. **Done 5 November.** **State each model's renal-function measure on the pages** (Cockcroft–Gault weight basis, Kim's indexed eGFR, the study's measured clearance), with the guidance's preference noted (R2).
 3. **Extract the rest of the lenalidomide label's section 12.3** (absorption, food, elimination) for the owner's review round 3 (O1, O2). Small; the label PDF is already pinned.
 4. **Does each band's label dose restore reference exposure?** Show it descriptively from Bridoux (myeloma patients on label-adjusted doses, AUC by group) and from the models, without recommending a dose (R9). Medium; data already pinned.
 5. **One readable model analysis report per model,** in M15's section order (summary, background, goals, data and methods, results, discussion, conclusions), generated from the pinned plans, reports and credibility records (M3). Medium.
