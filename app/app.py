@@ -732,6 +732,16 @@ def extraction_review_round_2():
     return Response(render_template("extraction_review.html", v=view, decisions=DECISIONS), headers={"Cache-Control": "no-store"})
 
 
+@app.route("/models/extraction-review/round-3")
+def extraction_review_round_3():
+    from intelligence_store.extraction_review import DECISIONS, ReviewError, round_3_view
+    try:
+        view = round_3_view()
+    except ReviewError as exc:
+        return Response(str(exc), status=503, mimetype="text/plain", headers={"Cache-Control": "no-store"})
+    return Response(render_template("extraction_review.html", v=view, decisions=DECISIONS), headers={"Cache-Control": "no-store"})
+
+
 @app.route("/models/extraction-review.json")
 def extraction_review_json():
     from intelligence_store.extraction_review import ReviewError, queue_view

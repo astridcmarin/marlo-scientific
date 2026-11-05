@@ -140,16 +140,15 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 
 **Done:** full suite on the owner's Mac and the 4 and 5 November checkpoints; docs index by question, status by drug and the data-file index; the reviewer's checklist; an AI review of the kidney pathway model and the bioavailability re-check (2.0e); this roadmap verified and shortened.
 
-**Batch 1 (in progress; one pull request):**
-1. Commit-count rules in `CLAUDE.md` (done).
-2. Roadmap verification (done).
-3. This shorter roadmap (done).
-4. FDA 2024 kidney categories beside the study and label bands, and each model's kidney-function measure stated on the pages (checklist R1, R2) (done).
-5. The rest of the REVLIMID section 12.3 extracted, for review round 3 (O1, O2) (done; section 7 too).
-6. Interactions in the guided path and on the special-populations page (O5) (done, with the label's pharmacokinetics).
-7. A new repository checkpoint (done: 1,283 tests passing on the owner's Mac, 5 November).
+**Batch 1 (done; PR #113, merged 5 November):** commit-count rules; roadmap verified and shortened; FDA 2024 kidney categories and each model's kidney-function measure (R1, R2); the rest of REVLIMID sections 12.3 and 7, shown on the special-populations page and in the guided path (O1, O2, O5); the 5 November checkpoint. Checklist 17 answered, 9 partly, 3 gaps.
 
-**Then:** one readable analysis report per model (M3); whether each kidney band's label dose restores reference exposure, shown descriptively from Bridoux (R9).
+**Batch 2 (in progress; one pull request):**
+1. Extraction review round 3 opened: 99 entries at `/models/extraction-review/round-3` (done).
+2. Whether each kidney band's label dose restores reference exposure, shown descriptively from Bridoux 2016 and the models (R9).
+3. The absorption floor: a locked re-check of 2.0e at the label's lower bound (82%).
+4. One readable analysis report for the kidney pathway model, in ICH M15's section order (M3).
+5. Hepatic classification compared with Child–Pugh and the 2026 draft guidance (H2).
+**Then:** analysis reports for the other models; label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
 
 **Owner's work:** the v2 eligibility annotation, then its locked check; extraction review round 3 when there is time.
 
@@ -161,7 +160,7 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 - **Author answers:** Hughes (Cockcroft–Gault weight basis), Kim (CL/F equation form), Iwasaki (which human data evaluated the model).
 - **People:** user conversations with five to ten trial designers, clinical pharmacologists or regulatory professionals, and an independent human reviewer. Postponed by the owner.
 
-**Repository:** GitHub reconnected on 5 November; PR #112 merged after CI passed. Work goes in batches: one commit per update, one push and one pull request per batch (`CLAUDE.md`). No model is validated for clinical prediction.
+**Repository:** GitHub reconnected on 5 November; PR #112 and PR #113 merged after CI passed. Work goes in batches: one commit per update, one push and one pull request per batch (`CLAUDE.md`). No model is validated for clinical prediction.
 
 ## Rules that do not change
 

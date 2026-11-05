@@ -16,7 +16,7 @@
 <p class="sp-src"><span class="sp-kind sp-kind-platform_model_scope">Platform note</span>{{ m.platform_note }}</p></div>{% endfor %}
 <h3>What the guidance says about the measure (quoted)</h3>
 <ul>{% for q in kidney.guidance_quotes %}<li>“{{ q.quote }}” <span class="sp-src">{{ q.location }}</span></li>{% endfor %}</ul>
-<p class="sp-src owner-review"><strong>The guidance values were extracted with AI assistance from the FDA's PDF on 5 November 2026 and have not yet been reviewed by the platform owner.</strong> {{ kidney.guidance_extraction }} <a href="{{ kidney.guidance_url }}" rel="noopener">FDA guidance (PDF)</a></p>
+<p class="sp-src owner-review">{% for r in owner_review('intelligence_store/data/fda_renal_impairment_guidance_2024_v1.json') %}<strong>{{ r.text }}</strong> {% else %}<strong>The guidance values were extracted with AI assistance and have not been reviewed by the platform owner.</strong> {% endfor %}{{ kidney.guidance_extraction }} <a href="{{ kidney.guidance_url }}" rel="noopener">FDA guidance (PDF)</a></p>
 <details class="rr-details"><summary>Sources and checksums</summary><ul>{% for s in kidney.sources %}<li>{{ s.title }}: {{ s.file }} <span class="catalog-digest">{{ s.sha256[:16] }}…</span></li>{% endfor %}</ul><p class="catalog-digest">{{ kidney.view_version }}: {{ kidney.view_sha256 }}</p></details>
 </section>
 {% endif %}
