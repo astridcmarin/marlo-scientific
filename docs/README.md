@@ -7,12 +7,12 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [Product and science roadmap](PRODUCT_AND_SCIENCE_ROADMAP.md): positioning, users, phases, current status and next steps (updated 4 November 2026; the 10 October version is in history/).
 - [Reviewer's checklist](REVIEWER_CHECKLIST.md): the questions an FDA clinical pharmacology reviewer asks (renal 2024, hepatic draft 2026, ICH M15), scored against the lenalidomide workflow, with the gaps ranked.
 - [Status by drug](STATUS_BY_DRUG.md): for each drug, in plain language, what the platform has, what was checked, what is known to be wrong and what is missing.
-- [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (4 November 2026: all 1,243 tests passing on the owner's Mac; CI not run), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-04.json); earlier checkpoints in [history](history/).
+- [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (4 November 2026: all 1,243 tests passing on the owner's Mac; CI later passed on PR #112, 5 November, with 2.0e included), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-04.json); earlier checkpoints in [history](history/).
 - Conventions for working in the repository: `CLAUDE.md` at the root.
 
 ## How far can the results be trusted?
 
-- **What the checks found:** page `/models/findings`. Every locked check in one line, failures included, and whether it was blind (`check_findings.py`, `check_findings_v1.json`).
+- **What the checks found:** page `/models/findings`. Every locked check in one line, failures included, and whether it was blind (`check_findings.py`, `check_findings_v3.json`).
 - [Reviews](reviews/): AI reviews of the platform's work (not independent), with what was done about each finding.
 - [Dataset ledger](DATASET_LEDGER.md): which data each model was built from, tuned on or checked against, and the gate that refuses a blind check on seen data.
 - [Extraction review](EXTRACTION_REVIEW.md): the owner's review of the 166 extracted values that feed calculations (rounds 1–2, all match), and where the review status is shown.
@@ -23,7 +23,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 ## Lenalidomide
 
 - [Patient Lab 2.0](PATIENT_LAB_2_0.md): the Hughes and Kim population models, their checks against CC-5013-PK-001 and Bridoux 2016 (2.0g, 2.1c, 2.1e, 2.1h), and the recorded decisions (Cockcroft–Gault weight basis, typical value vs population band).
-- [Kidney pathways](SIMULATION_2_RENAL_PATHWAYS.md): filtration, secretion and non-renal clearance (2.0a), end-stage kidney disease (2.0c), and the steeper-secretion test that was not adopted (2.0d).
+- [Kidney pathways](SIMULATION_2_RENAL_PATHWAYS.md): filtration, secretion and non-renal clearance (2.0a), end-stage kidney disease (2.0c), the steeper-secretion test that was not adopted (2.0d), the AI review and the bioavailability re-check (2.0e).
 - [Dose view](DOSE_OPTIMISATION.md): exposure and relative cytopenia odds at each model's study doses (4.3).
 - Guided path: `guided_path.py`, page `/landscape/drugs/lenalidomide/guide` (4.4).
 - [Digital human 1.0](DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md) and [1.1](DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md): the elimination body map, blood flow, per-pass extraction and the checked time course.

@@ -20,7 +20,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 |---|---|---|---|
 | R1 | Which renal-function categories are used? The 2024 guidance uses ≥ 90, 60 to < 90, 30 to < 60 and < 30 mL/min (the last including kidney failure not on dialysis). | Bands follow CC-5013-PK-001 (> 80, 50–80, 30–< 50, < 30); the label's dose table uses 30–60. The guidance's categories are not shown, and the three schemes are not reconciled on any page. | **Partly** |
 | R2 | How was renal function estimated? The guidance prefers eGFR in mL/min, not per 1.73 m², and alternative body weights for Cockcroft–Gault in obesity. | Recorded in the docs. Hughes uses Cockcroft–Gault, with its weight basis an open author question. Kim uses CKD-EPI eGFR indexed to 1.73 m², as published. The study measured 24-hour creatinine clearance. Pages do not say which measure each model uses, or that Kim's indexed eGFR differs from the guidance's preference. | **Partly** |
-| R3 | Are AUC, Cmax, fu, CL/F, CLR, CLNR/F, V/F and half-life reported by group? | AUC, Cmax, CL/F, CLR and half-life are shown (special populations, body map numbers panel, EMA 2013 extract); the non-renal split is in the body map. Protein binding in renal impairment is not measured or shown: the model holds fu at 0.77. | **Partly** |
+| R3 | Are AUC, Cmax, fu, CL/F, CLR, CLNR/F, V/F and half-life reported by group? | AUC, Cmax, CL/F, CLR and half-life are shown (special populations, body map numbers panel, EMA 2013 extract); the non-renal split is in the body map. Protein binding in renal impairment is not measured: the model holds fu constant across bands (0.77 in vitro, with 0.60 ex vivo shown as the alternative). | **Partly** |
 | R4 | Is PK regressed on continuous renal function, which the guidance prefers to categories? | The EMA 2013 regressions on measured clearance are pinned and shown in the body map's observed-data panel. | **Answered** |
 | R5 | Are estimates given with their precision? | Observed values carry 90% CIs in every check. Model outputs are typical values; Hughes and Kim show population bands. Parameter uncertainty is not propagated. | **Partly** |
 | R6 | Were confounding covariates (age, sex, weight) considered? | Recheck 2.1e drew virtual subjects matched to each group's age, weight and sex. | **Answered** |
@@ -40,7 +40,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 | # | Reviewer's question | What the workflow shows | Score |
 |---|---|---|---|
-| O1 | Absorption: Tmax, food effect, bioavailability. | **Not extracted from the lenalidomide label.** The extract covers dosing, the renal table, linearity, protein binding, renal and hepatic studies and other intrinsic factors. The body map assumes F = 1, noted. | **Gap** |
+| O1 | Absorption: Tmax, food effect, bioavailability. | **Not extracted from the lenalidomide label.** The extract covers dosing, the renal table, linearity, protein binding, renal and hepatic studies and other intrinsic factors. Bioavailability is bounded at 0.90–1.0 from the Chen 2012 mass balance, and the body map's moderate and severe bands depend on it (2.0e, 4 November); the label's absorption values are still not extracted. | **Gap** |
 | O2 | Distribution and elimination: half-life, clearance, fraction excreted. | From EMA 2008 and 2013 (85% unchanged in urine; group half-lives). The label's own section 12.3 elimination values are not extracted. | **Partly** |
 | O3 | Dose proportionality and time dependence. | The label's linearity statement and the EMA dose-proportionality evidence are pinned. | **Answered** |
 | O4 | Age, body size, sex, race. | Special populations (age, body size, other covariates); Hughes's fat-free-mass effect; Kim's BSA effect. | **Answered** |
@@ -54,7 +54,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 | # | Reviewer's question | What the workflow shows | Score |
 |---|---|---|---|
 | M1 | Question of interest, context of use, model influence, consequence of a wrong decision, model risk. | Credibility records for every model, in the M15 structure. | **Answered** |
-| M2 | Was the analysis planned before the data were accessed? | Every check followed a plan locked before computation, but only 3 of 26 before the data were seen. Each plan and the dataset ledger say which. | **Partly** (stated honestly) |
+| M2 | Was the analysis planned before the data were accessed? | Every check followed a plan locked before computation, but only 3 of 27 before the data were seen. Each plan and the dataset ledger say which. | **Partly** (stated honestly) |
 | M3 | Is there a model analysis report with summary, methods, results, discussion and conclusions? | Reports are machine-readable JSON; the narrative is spread across docs; the credibility record covers part. No single readable report per model in M15's section order. | **Partly** |
 | M4 | Verification of the implementation. | Numerical checks (closed form against ODE solver, mass balance) in every report; transcription reviewed by the owner. | **Answered** |
 | M5 | Validation against data not used to build the model. | Outside checks for both population models (two studies); the pathway model's checks were not blind. All on `/models/findings`. | **Partly** (stated honestly) |

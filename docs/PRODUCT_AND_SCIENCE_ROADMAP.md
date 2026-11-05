@@ -1,6 +1,6 @@
 # Product and science roadmap
 
-Direction recorded 19 October 2026; status updated 4 November 2026. Owner: Astrid Marin. The previous roadmap (10 October 2026) is kept in [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-10-10.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-10-10.md). The latest verification is in [REPOSITORY_CHECKPOINT.md](REPOSITORY_CHECKPOINT.md).
+Direction recorded 19 October 2026; status updated 5 November 2026 (claims verified against the repository). Owner: Astrid Marin. The previous roadmap (10 October 2026) is kept in [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-10-10.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-10-10.md). The latest verification is in [REPOSITORY_CHECKPOINT.md](REPOSITORY_CHECKPOINT.md).
 
 ## Positioning
 
@@ -28,34 +28,34 @@ Primary users first: trial designers, clinical pharmacologists and regulatory pr
 | Differentiator | Status in the code |
 |---|---|
 | **Shows its work.** Every value carries its source; every model shows what has and has not been checked, including failures. | In place and visible: run records, four validation layers, public scorecards at `/models`, a capability level on every drug (Phase 1.1–1.2). |
-| **Checks planned before they run.** Comparisons with outside data follow a plan locked by commit before computation. | In place for 26 checks, all listed with their results at `/models/findings`, failures included. The dataset ledger records which data each model has seen: only 3 checks were blind. |
-| **A regulatory reviewer's structure.** Evidence organized like a clinical pharmacology review: special populations, interactions, exposure–response, dose justification. | Partly (kidney work for lenalidomide). To generalize. |
-| **The whole chain in one place.** Trial → drug → evidence → exposure → regulatory context, with the links kept. | Partly (pages exist; the guided path does not). |
+| **Checks planned before they run.** Comparisons with outside data follow a plan locked by commit before computation. | In place for 27 checks, all listed with their results at `/models/findings`, failures included. The dataset ledger records which data each model has seen: only 3 checks were blind. |
+| **A regulatory reviewer's structure.** Evidence organized like a clinical pharmacology review: special populations, interactions, exposure–response, dose justification. | Partly. Scored against an FDA clinical pharmacology reviewer's questions for lenalidomide: 12 of 29 answered, 13 partly, 4 gaps ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). To generalize. |
+| **The whole chain in one place.** Trial → drug → evidence → exposure → regulatory context, with the links kept. | Partly: a guided path through the whole chain exists for lenalidomide only. |
 | **Reproducible snapshots.** Frozen cohorts and checksum-pinned, versioned reference data. | In place. |
 | **AI that cites and is checked.** Extracted values link to their source page and show whether a person confirmed them. | In place for the 166 values that feed calculations: reviewed against the sources by the platform owner (rounds 1–2, 3–4 November) and shown on model, label, special-population and dose pages. Not independent; the 74 values of the 4 November labels are not yet reviewed. |
 | **Built for the individual expert.** Rigorous and affordable for consultants, academics and small teams. | Product decision; pricing not set. |
 
 Not differentiating on their own, so not the lead message: trial search, dashboards, "AI-powered" claims, and the digital human while it is still distant.
 
-## Where we are (4 November 2026)
+## Where we are (5 November 2026)
 
 | Area | Status |
 |---|---|
 | Clinical trial intelligence | **Available:** explorer at `/trials`, cohorts, normalization and regulatory indicators. The myeloma interventional cohort (3,450 trials) is pinned as an eligibility corpus. |
 | Drug and regulatory knowledge | **Foundation:** nine curated drug entities, plus pinned label extracts for carfilzomib, selinexor, thalidomide, isatuximab and elotuzumab (3.2d, 4 November; 74 values, nothing computed yet). |
-| Exposure models | **Lenalidomide:** Hughes 2019, Kim 2026 and the kidney-pathway model. Hughes and Kim under-predict moderate and severe kidney impairment in CC-5013-PK-001 and again in myeloma patients (Bridoux 2016, the platform's first blind check of a model). The pathway model also under-predicts moderate impairment in CC-5013-PK-001 but is consistent with both myeloma studies (Bridoux, Kim) in moderate and severe impairment (2.0d); a steeper-secretion version was not adopted. **Bortezomib:** the PK component disagrees with three outside studies and its own reproduction study; three candidate fixes failed. **Ixazomib, daratumumab:** checked against outside data, used within their scopes. |
+| Exposure models | **Lenalidomide:** Hughes 2019, Kim 2026 and the kidney-pathway model. Hughes and Kim under-predict moderate and severe kidney impairment in CC-5013-PK-001 and again in myeloma patients (Bridoux 2016: the first blind check of a published population model, with a recorded deviation; the first blind check overall was the dexamethasone label curve's, 21 October). The pathway model's moderate and severe results depend on bioavailability, which was not measured (at least about 90% absorbed): no single value fits CC-5013-PK-001's moderate group and the other studies at once (2.0e), so both bands are marked accordingly and "elimination falls faster than kidney function" is not established. A steeper-secretion version was not adopted (2.0d). **Bortezomib:** the PK component disagrees with three outside studies and its own reproduction study; three candidate fixes failed. **Ixazomib, daratumumab:** checked against outside data, used within their scopes. |
 | Model scope (Phase 2.5) | Enforced rule sets with evidence tiers; requests beyond a model's data are refused. |
 | Label-based exposure (Phase 3.1) | Pomalidomide and dexamethasone shown, each after a locked label check and an outside check. Melphalan not eligible. |
 | Effect and safety models | Bortezomib platelet course; lenalidomide relative odds of grade 3/4 cytopenia. |
 | Protocol benchmarking (Phase 4.1) | v1 failed its locked check. v2 is locked with 200 new trials; **the owner's annotation is the platform's only remaining unseen dataset.** |
 | Special populations, dose view, guided path (Phase 4.2–4.4) | Built for six drugs (special populations) and lenalidomide (dose view, guided path). |
 | Extraction review (Phase 5.1) | **Complete for the 166 listed values** (all match; reviewed by the platform owner, not independently). |
-| Credibility and provenance (Phase 6) | Run records, scorecards, ICH M15 credibility records, evidence status v14, the **dataset ledger** (v2) and **what the checks found** (`/models/findings`). |
+| Credibility and provenance (Phase 6) | Run records, scorecards, ICH M15 credibility records, evidence status v16, the **dataset ledger** (v4), **what the checks found** (`/models/findings`) and the first **AI review** (`docs/reviews/`, not independent). |
 | Digital human | **1.0 done; 1.1a–1.1d done:** lenalidomide elimination body map on Human Reference Atlas anatomy, with blood flow from ICRP 89, per-pass kidney extraction, vessel-following flow paths, navigation and a flow key. Time course v1 (peak under-predicted) is used; v2 (two compartments) was not adopted. 1.1e (timeline drawn) next. |
 | Interface | Landing page, shared Aurora design, logo and favicon, sidebar by research workflow. |
-| Online | Not deployed. No accounts. GitHub account flagged since 3 November: 41 commits on `offline-work` delivered as patches and then a git bundle, not yet run in CI. |
+| Online | Not deployed. No accounts. GitHub reconnected on 5 November: the offline work (49 commits) was merged as PR #112 after CI passed. The account had been flagged for too many commits, so work now goes in batches: one commit per update, one push and one pull request per batch of about five (`CLAUDE.md`). |
 
-Latest verification: [repository checkpoint, 4 November 2026](REPOSITORY_CHECKPOINT.md): all 1,243 tests pass on the owner's Mac; CI not run. No model is validated for clinical prediction.
+Latest verification: [repository checkpoint, 4 November 2026](REPOSITORY_CHECKPOINT.md), all 1,243 tests passing on the owner's Mac; CI passed on PR #112 (5 November) with the 2.0e changes included. No model is validated for clinical prediction.
 
 ## Phases
 
@@ -146,7 +146,7 @@ The differentiator already exists in the code; users cannot see it yet.
 
 The visual layer of the long-term vision, built only on models that have passed the earlier checks ([DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md](DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md)).
 - **1.0 (done):** the lenalidomide elimination split from the pathway model, drawn on Human Reference Atlas anatomy (WebGL), with kidney-function bands carrying each band's check status.
-- **1.1a–1.1c (done):** reference blood flow (ICRP 89), blood-to-plasma ratio (Chen 2012), per-pass kidney extraction (about 14% at normal function), flow paths along the atlas's vessel centre lines, navigation, a flow key and a scale bar.
+- **1.1a–1.1c (done):** reference blood flow (ICRP 89), blood-to-plasma ratio (Chen 2012), per-pass kidney extraction (about 14% at normal function; about 13.4% if the blood-to-plasma ratio is converted from per gram to per mL, a correction recorded by the AI review), flow paths along the atlas's vessel centre lines, navigation, a flow key and a scale bar.
 - **1.1d (done):** a time course checked under locked plans. v1 (one compartment): half-lives mostly consistent, peaks too low in every group. v2 (two compartments from Kim 2026, nothing fitted): did not meet its pre-specified rule, so v1 is shown with its warnings.
 - **1.1e (next):** draw the timeline and running amounts, with each band's warnings.
 - **Later:** kidney-to-nephron zoom (HRA functional tissue units), the target explorer (cereblon), and a female reference body with hormone effects (owner's goal).
@@ -157,15 +157,17 @@ Multi-organ physiology, disease progression, combination therapies, the body →
 
 ## Immediate next steps
 
-Updated 4 November 2026. Done since 31 October: Digital human 1.0–1.1d; the Bridoux check (first blind model check); the kidney-model test 2.0d and the myeloma note on the body map; extraction review rounds 1–2 and review status on pages; the dataset ledger; what the checks found; five label extracts (3.2d); the git bundle workflow.
+Updated 5 November 2026. Done since 31 October: Digital human 1.0–1.1d; the Bridoux check (first blind check of a published model, with a deviation); the AI review of the kidney pathway model and the 2.0e bioavailability re-check; the kidney-model test 2.0d and the myeloma note on the body map; extraction review rounds 1–2 and review status on pages; the dataset ledger; what the checks found; five label extracts (3.2d); the git bundle workflow.
 
-**Re-assessment (4 November 2026, with the owner).** The platform has grown faster than it has been used or consolidated: 26 checks, of which 3 were blind; two drugs with a curve that passed both its checks; about 160 pinned data files and 30 docs. Until user conversations are possible, the next few weeks consolidate and review rather than add:
+**Re-assessment (4 November 2026, with the owner).** The platform has grown faster than it has been used or consolidated: 26 checks at the time (27 after 2.0e), of which 3 were blind; two drugs with a curve that passed both its checks; about 160 pinned data files and 30 docs. Until user conversations are possible, the next few weeks consolidate and review rather than add:
 
 1. **Known-good state.** Full suite passing on the owner's Mac (1,243 tests) and the 4 November checkpoint. Done.
-2. **Consolidation.** A docs index grouped by question; a plain-language status page per drug; superseded files kept but moved out of the way.
-3. **Reviewer's checklist.** The questions an FDA clinical pharmacology review asks (renal and hepatic impairment guidances, review structure, ICH M15), scored against the lenalidomide workflow; the gaps become the next work.
-4. **Fresh-reviewer pass.** One model and its check reports given to a separate reviewer agent that has not seen the work, asked only to find errors and overclaims. Labelled as an AI review, not an independent one.
+2. **Consolidation.** A docs index grouped by question; a plain-language status page per drug; superseded files indexed in `docs/DATA_FILES.md` (not moved: their paths are pinned). Done.
+3. **Reviewer's checklist.** The questions an FDA clinical pharmacology review asks (renal and hepatic impairment guidances, review structure, ICH M15), scored against the lenalidomide workflow; the gaps become the next work. Done: 12 answered, 13 partly, 4 gaps.
+4. **Fresh-reviewer pass.** One model and its check reports given to a separate reviewer agent that has not seen the work, asked only to find errors and overclaims. Labelled as an AI review, not an independent one. Done for the kidney pathway model: 16 findings, wording corrected, and the bioavailability re-check (2.0e) changed the moderate and severe bands to "depends on bioavailability".
 5. **v2 eligibility annotation** (the owner's, in progress; the only unseen dataset), then its locked check.
+
+6. **Next (batch 1):** the reviewer's checklist's quick fixes. Show FDA 2024 kidney categories beside the study and label bands; state each model's kidney-function measure on the pages; extract the rest of the REVLIMID pharmacokinetics section (for review round 3); interactions in the guided path.
 
 Paused until then: special-population pages and label curves for the five new drugs (extraction review round 3 when the owner has time), Digital human 1.1e, and further kidney or bortezomib modelling without new data. Later: user conversations with five to ten trial designers, clinical pharmacologists or regulatory professionals; an independent human reviewer.
 
@@ -173,7 +175,7 @@ Blocked or waiting:
 - **Lenalidomide kidney model:** every renal-impairment dataset available has been seen; a further check needs unseen data (dataset ledger).
 - **Bortezomib PK:** needs individual concentration data or a mechanism that changes clearance between doses.
 - **Author answers:** Hughes (Cockcroft–Gault weight basis), Kim (CL/F equation form), Iwasaki (which human data evaluated the model).
-- **GitHub:** account flagged; when restored, push `offline-work`, let CI run, then open the pull requests.
+- **Repository checkpoint:** the 4 November checkpoint predates 2.0e and the merge of PR #112; a new one closes batch 1.
 
 ## Rules that do not change
 
