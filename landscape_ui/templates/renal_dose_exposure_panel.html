@@ -1,0 +1,18 @@
+{# Reviewer's checklist R9: does each kidney band's label dose bring exposure back to the reference? Descriptive. #}
+{% if rde_error %}<section class="sp-row" id="sp-renal-dose-exposure"><h2>Label kidney doses and exposure</h2><p role="alert">{{ rde_error }}</p></section>
+{% elif rde %}
+<section class="sp-row" id="sp-renal-dose-exposure" aria-labelledby="sp-rde-heading">
+<h2 id="sp-rde-heading">Label kidney doses and exposure: does the reduced dose bring exposure back to the reference?</h2>
+<p>Three pinned sources, side by side. Each ratio is exposure on the label's reduced dose divided by exposure in the source's reference group on 25 mg; 1.00 would be the same exposure. {{ rde.notes.no_threshold }}</p>
+<div class="table-scroll"><table class="rr-table"><thead><tr><th>Label row (Table 3)</th><th>Bridoux 2016, myeloma patients on that dose<br><small>observed, day 5 AUC24, ratio to normal</small></th><th>CC-5013-PK-001, single 25 mg dose, scaled to the label dose<br><small>derived, AUCinf ratio × dose / 25 (90% CI)</small></th><th>Sponsor simulation (EMA 2013 Table 7)<br><small>model prediction, steady state</small></th></tr></thead><tbody>
+{% for b in rde.bands %}<tr><td><strong>{% if b.label_dialysis %}Requiring dialysis{% elif b.label_range[0] is none %}&lt; {{ b.label_range[1] }} mL/min{% else %}{{ b.label_range[0] }} to {{ b.label_range[1] }} mL/min{% endif %}</strong><br>{{ b.label_regimen }}<br><small>average {{ '%g'|format(b.label_average_daily_mg) }} mg per day</small></td>
+<td><strong>{{ '%.2f'|format(b.bridoux.ratio_to_normal) }}</strong><br><small>{{ b.bridoux.group }} ({{ b.bridoux.definition }}), n = {{ b.bridoux.n }}, {{ b.bridoux.regimen }}; AUC24 {{ b.bridoux.auc24_gm }} h·ng/mL (geometric CV {{ b.bridoux.auc24_gcv_pct }}%){% if not b.bridoux.same_dose_as_label %}; <strong>not the label's dose</strong>{% endif %}</small></td>
+<td><strong>{{ '%.2f'|format(b.cc5013.scaled_ratio) }}</strong> ({{ '%.2f'|format(b.cc5013.scaled_ci90[0]) }}–{{ '%.2f'|format(b.cc5013.scaled_ci90[1]) }})<br><small>{{ b.cc5013.group|replace('_', ' ') }} ({{ b.cc5013.definition }}): {{ b.cc5013.gmr_25_mg_pct }}% at 25 mg × {{ '%g'|format(b.cc5013.scale) }}</small></td>
+<td>{% for s in b.sponsor or [] %}<strong>{{ '%.2f'|format(s.ratio) }}</strong> <small>{{ s.regimen }}, {{ s.auc_avg_ss }} h·ng/mL</small>{% if not loop.last %}<br>{% endif %}{% else %}<small>no myeloma regimen simulated</small>{% endfor %}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="sp-src"><strong>References.</strong> Bridoux: {{ rde.references.bridoux }}. CC-5013-PK-001: {{ rde.references.cc5013 }}. Sponsor: {{ rde.references.sponsor }}.</p>
+<p class="sp-src">Bridoux's mild group (n = {{ rde.mild_bridoux.n }}) received {{ '%g'|format(rde.mild_bridoux.dose_mg_per_24h) }} mg with a ratio of {{ '%.2f'|format(rde.mild_bridoux.ratio_to_normal) }}. {{ rde.notes.threshold }}</p>
+<p class="sp-src">{{ rde.notes.scaling }} {{ rde.notes.dialysis }} The average daily dose of an every-other-day regimen is worked out by the platform (15 mg every other day = 7.5 mg per day); the label states only the regimen. The sponsor's table is a model prediction, not an observation. The population models (Hughes, Kim) are not shown here: both under-predict exposure in moderate and severe impairment.</p>
+<details class="rr-details"><summary>Sources and checksums</summary><ul>{% for s in rde.sources %}<li>{{ s.title }}: {{ s.file }} <span class="catalog-digest">{{ s.sha256[:16] }}…</span></li>{% endfor %}</ul><p class="catalog-digest">{{ rde.view_version }}: {{ rde.view_sha256 }}</p></details>
+</section>
+{% endif %}

@@ -29,7 +29,7 @@ Primary users first: trial designers, clinical pharmacologists and regulatory pr
 |---|---|
 | **Shows its work.** Every value carries its source; every model shows what has and has not been checked, including failures. | In place: run records, scorecards at `/models`, a capability level on every drug. |
 | **Checks planned before they run.** | 27 checks, each locked by commit before computation, all at `/models/findings`. Only 3 were blind (dataset ledger). |
-| **A regulatory reviewer's structure.** | Partly: for lenalidomide, 17 of 29 reviewer questions answered, 9 partly, 3 gaps ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
+| **A regulatory reviewer's structure.** | Partly: for lenalidomide, 18 of 29 reviewer questions answered, 9 partly, 2 gaps ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
 | **The whole chain in one place.** Trial → drug → evidence → exposure → regulatory context. | Partly: a guided path exists for lenalidomide only. |
 | **Reproducible snapshots.** Frozen cohorts; checksum-pinned, versioned data. | In place. |
 | **AI that cites and is checked.** | In place for the 166 values that feed calculations (owner-reviewed, not independent). The 74 values of the 4 November labels are not reviewed. |
@@ -144,7 +144,7 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 
 **Batch 2 (in progress; one pull request):**
 1. Extraction review round 3 opened: 99 entries at `/models/extraction-review/round-3` (done).
-2. Whether each kidney band's label dose restores reference exposure, shown descriptively from Bridoux 2016 and the models (R9).
+2. Whether each kidney band's label dose restores reference exposure, shown descriptively from Bridoux 2016, CC-5013-PK-001 and the sponsor's simulation (R9) (done).
 3. The absorption floor: a locked re-check of 2.0e at the label's lower bound (82%).
 4. One readable analysis report for the kidney pathway model, in ICH M15's section order (M3).
 5. Hepatic classification compared with Child–Pugh and the 2026 draft guidance (H2).

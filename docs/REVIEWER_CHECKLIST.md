@@ -26,7 +26,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 | R6 | Were confounding covariates (age, sex, weight) considered? | Recheck 2.1e drew virtual subjects matched to each group's age, weight and sex. | **Answered** |
 | R7 | What is known in dialysis? | The label's dialysis dose is quoted. The end-stage check was inconclusive (residual function not reported). Dialysis clearance is not modelled. | **Partly** |
 | R8 | What population was studied, and is renal function stable? | CC-5013-PK-001's non-malignant population is recorded (2.1g); Bridoux and Kim are myeloma patients. | **Answered** |
-| R9 | How was the dose for each band chosen (exposure matching, or the reference group's 5th–95th percentile)? | The label's adjusted doses are quoted; the dose view shows exposure at each model's study doses and ranks none. **No page asks whether a band's label dose restores reference exposure**, although Bridoux (myeloma patients on label-adjusted doses) reports exactly that. | **Gap** (descriptive answer possible; recommending doses stays out of scope) |
+| R9 | How was the dose for each band chosen (exposure matching, or the reference group's 5th–95th percentile)? | The label's adjusted doses are quoted. **Since 5 November** the lenalidomide special-populations page shows, descriptively, how exposure on each band's label dose compares with the reference: Bridoux 2016 observed in myeloma patients on those doses (ratio to normal 1.03 moderate, 1.33 severe, 1.16 dialysis), CC-5013-PK-001's single-dose ratios scaled to the label dose by dose proportionality (1.04, 1.06, 0.95) and the sponsor's simulation (1.05 severe). No threshold is set and no dose is recommended. | **Answered** (was Gap; descriptive) |
 | R10 | What does the label say on renal elimination and dosing? | Label Table 3 and the renal-study text are quoted and reviewed by the owner. | **Answered** |
 
 ## Hepatic impairment (H)
@@ -65,10 +65,10 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 ## Score
 
-Of 29 questions (updated 5 November 2026, after R1, R2, O1, O2 and O5):
-- **17 Answered** (including H1, where the evidence itself is missing and shown as missing);
+Of 29 questions (updated 5 November 2026, after R1, R2, R9, O1, O2 and O5):
+- **18 Answered** (including H1, where the evidence itself is missing and shown as missing);
 - **9 Partly**;
-- **3 Gap**.
+- **2 Gap**.
 
 Three of the new answers (O1, O2, O5) rest on label values not yet reviewed by the owner (round 3).
 
@@ -79,7 +79,7 @@ The strengths are where the platform has invested: provenance, locked plans, sco
 1. **Done 5 November.** **Show the FDA 2024 renal categories** alongside the study's bands and the label's dose bands, with the mapping between them (R1). Small; no new data.
 2. **Done 5 November.** **State each model's renal-function measure on the pages** (Cockcroft–Gault weight basis, Kim's indexed eGFR, the study's measured clearance), with the guidance's preference noted (R2).
 3. **Done 5 November.** **Extract the rest of the lenalidomide label's section 12.3** (absorption, food, elimination) for the owner's review round 3 (O1, O2). Small; the label PDF is already pinned.
-4. **Does each band's label dose restore reference exposure?** Show it descriptively from Bridoux (myeloma patients on label-adjusted doses, AUC by group) and from the models, without recommending a dose (R9). Medium; data already pinned.
+4. **Done 5 November.** **Does each band's label dose restore reference exposure?** Show it descriptively from Bridoux (myeloma patients on label-adjusted doses, AUC by group) and from the models, without recommending a dose (R9). Medium; data already pinned.
 5. **One readable model analysis report per model,** in M15's section order (summary, background, goals, data and methods, results, discussion, conclusions), generated from the pinned plans, reports and credibility records (M3). Medium.
 6. **Done 5 November.** **Interactions in the guided path and on the special-populations page** (O5). Small.
 

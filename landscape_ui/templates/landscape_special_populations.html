@@ -25,7 +25,7 @@
 {% if s.population %}<p class="sp-src">Population: {{ s.population }}</p>{% endif %}
 {% if s.source %}<p class="sp-src">Source: {{ s.source.title }}{% if s.source.location %} · {{ s.source.location }}{% endif %}</p>{% endif %}
 {% if s.link %}<p class="sp-src"><a href="{{ s.link }}">See the model scope</a></p>{% endif %}
-</div>{% endfor %}</section>{% if row.domain == 'kidney' %}{% include 'kidney_classifications_panel.html' %}{% endif %}{% endfor %}
+</div>{% endfor %}</section>{% if row.domain == 'kidney' %}{% include 'kidney_classifications_panel.html' %}{% include 'renal_dose_exposure_panel.html' %}{% endif %}{% endfor %}
 {% include 'label_pk_panel.html' %}
 <section class="panel"><h2>Sources</h2><ul>
 {% for s in v.sources %}<li><strong>{{ s.title }}</strong><br><span class="sp-src">{{ s.file }} · SHA-256 {{ s.sha256[:16] }}… · {{ s.extraction }}</span>{% for r in owner_review(s.file) %}<br><span class="sp-src owner-review"><strong>{{ r.text }}</strong></span>{% endfor %}</li>{% endfor %}</ul>
