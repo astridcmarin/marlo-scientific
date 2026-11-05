@@ -29,6 +29,28 @@ def fmt_value(value, display=None):
     return str(value)
 
 
+def _kidney_classifications(drug):
+    """The kidney-function classification comparison (lenalidomide only, the drug it was built for)."""
+    if drug != 'lenalidomide':
+        return None, None
+    from intelligence_store.kidney_function_classifications import ClassificationError, build as build_classifications
+    try:
+        return build_classifications(), None
+    except (ClassificationError, OSError) as exc:
+        return None, str(exc)
+
+
+def _label_pk(drug):
+    """The label's section 12.3 (rest) and section 7, quoted (lenalidomide only)."""
+    if drug != 'lenalidomide':
+        return None, None
+    from intelligence_store.lenalidomide_label import label_pk_view
+    try:
+        return label_pk_view(), None
+    except (ValueError, OSError) as exc:
+        return None, str(exc)
+
+
 def register_special_population_pages(bp):
     @bp.get('/drugs/<drug>/special-populations')
     def special_populations(drug):
@@ -45,4 +67,8 @@ def register_special_population_pages(bp):
         if request.args.get('format') == 'json':
             headers['Content-Disposition'] = f'attachment; filename="{drug}-special-populations.json"'
             return Response(json.dumps(view, indent=2, ensure_ascii=False) + '\n', mimetype='application/json', headers=headers)
-        return Response(render_template('landscape_special_populations.html', v=view, fmt=fmt_value), headers=headers)
+        kidney, kidney_error = _kidney_classifications(drug)
+        label_pk, label_pk_error = _label_pk(drug)
+        return Response(render_template('landscape_special_populations.html', v=view, fmt=fmt_value, kidney=kidney,
+                                        kidney_error=kidney_error, label_pk=label_pk, label_pk_error=label_pk_error),
+                        headers=headers)

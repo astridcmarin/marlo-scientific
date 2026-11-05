@@ -5,15 +5,17 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
 ## Lenalidomide (REVLIMID) — published models, checked against outside data
 
 - **On the platform:**
-  - label dosing and kidney dose table (reviewed by the owner);
+  - label dosing and kidney dose table (reviewed by the owner); the rest of the label's pharmacokinetics section and its interactions section (extracted 5 November, not yet reviewed);
   - two published population models: Hughes 2019 and Kim 2026;
   - the platform's own kidney-pathway model;
   - relative odds of grade 3/4 cytopenia;
-  - special populations, the dose view, the guided path, and the body map with blood flow.
+  - special populations, with the FDA 2024 kidney categories and each model's kidney-function measure beside the study's and the label's;
+  - the label's pharmacokinetics and interactions, quoted on the special-populations page and summarised in the guided path;
+  - the dose view, the guided path, and the body map with blood flow.
 - **Checked:**
   - Hughes against CC-5013-PK-001 *(finding: hughes_cc5013)*.
   - Kim against CC-5013-PK-001 *(finding: kim_cc5013)*.
-  - Both again with study-matched virtual subjects *(finding: renal_recheck)*, and against myeloma patients, the first blind model check, with a recorded deviation *(finding: bridoux_hughes_kim)*.
+  - Both again with study-matched virtual subjects *(finding: renal_recheck)*, and against myeloma patients, the first blind check of a published population model, with a recorded deviation *(finding: bridoux_hughes_kim)*.
   - The pathway model against its own study's impaired groups *(finding: pathways_2_0a)*, end-stage kidney disease *(finding: pathways_esrd)*, two myeloma studies *(finding: pathways_2_0d)*, and across the bioavailability the data allow *(finding: pathways_2_0e)*.
   - The body map's time course *(finding: time_course_v1)* *(finding: time_course_v2)*.
 - **Known to be wrong:**

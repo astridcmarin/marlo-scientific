@@ -18,9 +18,9 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 | # | Reviewer's question | What the workflow shows | Score |
 |---|---|---|---|
-| R1 | Which renal-function categories are used? The 2024 guidance uses ≥ 90, 60 to < 90, 30 to < 60 and < 30 mL/min (the last including kidney failure not on dialysis). | Bands follow CC-5013-PK-001 (> 80, 50–80, 30–< 50, < 30); the label's dose table uses 30–60. The guidance's categories are not shown, and the three schemes are not reconciled on any page. | **Partly** |
-| R2 | How was renal function estimated? The guidance prefers eGFR in mL/min, not per 1.73 m², and alternative body weights for Cockcroft–Gault in obesity. | Recorded in the docs. Hughes uses Cockcroft–Gault, with its weight basis an open author question. Kim uses CKD-EPI eGFR indexed to 1.73 m², as published. The study measured 24-hour creatinine clearance. Pages do not say which measure each model uses, or that Kim's indexed eGFR differs from the guidance's preference. | **Partly** |
-| R3 | Are AUC, Cmax, fu, CL/F, CLR, CLNR/F, V/F and half-life reported by group? | AUC, Cmax, CL/F, CLR and half-life are shown (special populations, body map numbers panel, EMA 2013 extract); the non-renal split is in the body map. Protein binding in renal impairment is not measured or shown: the model holds fu at 0.77. | **Partly** |
+| R1 | Which renal-function categories are used? The 2024 guidance uses ≥ 90, 60 to < 90, 30 to < 60 and < 30 mL/min (the last including kidney failure not on dialysis). | Bands follow CC-5013-PK-001 (> 80, 50–80, 30–< 50, < 30); the label's dose table uses 30–60. **Since 5 November** the lenalidomide special-populations page sets the guidance's Table 1 beside both, with the ranges each shares, and the body map shows where the chosen value falls in each. The guidance values are not yet owner-reviewed. | **Answered** (was Partly) |
+| R2 | How was renal function estimated? The guidance prefers eGFR in mL/min, not per 1.73 m², and alternative body weights for Cockcroft–Gault in obesity. | Recorded in the docs. Hughes uses Cockcroft–Gault, with its weight basis an open author question. Kim uses CKD-EPI eGFR indexed to 1.73 m², as published. The study measured 24-hour creatinine clearance. **Since 5 November** the special-populations page states each source's measure, with the guidance's two quotes (mL/min, not indexed; alternative weights for Cockcroft–Gault in obesity) and how Kim and Hughes differ from them. | **Answered** (was Partly) |
+| R3 | Are AUC, Cmax, fu, CL/F, CLR, CLNR/F, V/F and half-life reported by group? | AUC, Cmax, CL/F, CLR and half-life are shown (special populations, body map numbers panel, EMA 2013 extract); the non-renal split is in the body map. Protein binding in renal impairment is not measured: the model holds fu constant across bands (0.77 in vitro, with 0.60 ex vivo shown as the alternative). | **Partly** |
 | R4 | Is PK regressed on continuous renal function, which the guidance prefers to categories? | The EMA 2013 regressions on measured clearance are pinned and shown in the body map's observed-data panel. | **Answered** |
 | R5 | Are estimates given with their precision? | Observed values carry 90% CIs in every check. Model outputs are typical values; Hughes and Kim show population bands. Parameter uncertainty is not propagated. | **Partly** |
 | R6 | Were confounding covariates (age, sex, weight) considered? | Recheck 2.1e drew virtual subjects matched to each group's age, weight and sex. | **Answered** |
@@ -40,11 +40,11 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 | # | Reviewer's question | What the workflow shows | Score |
 |---|---|---|---|
-| O1 | Absorption: Tmax, food effect, bioavailability. | **Not extracted from the lenalidomide label.** The extract covers dosing, the renal table, linearity, protein binding, renal and hepatic studies and other intrinsic factors. The body map assumes F = 1, noted. | **Gap** |
-| O2 | Distribution and elimination: half-life, clearance, fraction excreted. | From EMA 2008 and 2013 (85% unchanged in urine; group half-lives). The label's own section 12.3 elimination values are not extracted. | **Partly** |
+| O1 | Absorption: Tmax, food effect, bioavailability. | **Since 5 November**, quoted from the label on the special-populations page and summarised in the guided path: peak at 0.5–6 h; a high-fat meal lowers AUC about 20% and Cmax about 50%; no accumulation. The label states no absolute bioavailability, and the page says so; the platform's bound (0.90–1.0, Chen 2012 mass balance) and its effect on the moderate and severe bands are in 2.0e. Not yet reviewed by the owner. | **Answered** (was Gap) |
+| O2 | Distribution and elimination: half-life, clearance, fraction excreted. | EMA 2008 and 2013 (85% unchanged in urine; group half-lives, CL/F, CLR) and, **since 5 November**, the label's section 12.3 on the special-populations page: half-life 3 h healthy and 3–5 h in patients; limited metabolism; 90% of the radioactive dose in urine, 82% unchanged within 24 h; renal clearance above GFR; about 30% removed by a 4-hour haemodialysis. | **Answered** (was Partly) |
 | O3 | Dose proportionality and time dependence. | The label's linearity statement and the EMA dose-proportionality evidence are pinned. | **Answered** |
 | O4 | Age, body size, sex, race. | Special populations (age, body size, other covariates); Hughes's fat-free-mass effect; Kim's BSA effect. | **Answered** |
-| O5 | Drug interactions. | Curated summaries from the label (digoxin, warfarin) on the drug page. Not in the guided path or the special-populations page. | **Partly** |
+| O5 | Drug interactions. | **Since 5 November**, the label's section 7 (digoxin, thrombosis risk, warfarin) and section 12.3 interaction studies and transporter findings are quoted on the special-populations page and summarised as a guided-path step. No interaction is modelled. Not yet reviewed by the owner. | **Answered** (was Partly) |
 | O6 | Exposure–response for safety. | Relative odds of grade 3/4 cytopenia (TGA AusPAR), in each model's scope. | **Answered** |
 | O7 | Exposure–response for efficacy. | None; the evidence scan found no usable source. Shown as a gap. | **Gap** (shown honestly) |
 | O8 | Bioanalytical method: is the assay adequate? | The assay quality review covers one published assay. The assays behind CC-5013-PK-001, Bridoux and Kim are not summarised. | **Partly** |
@@ -54,7 +54,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 | # | Reviewer's question | What the workflow shows | Score |
 |---|---|---|---|
 | M1 | Question of interest, context of use, model influence, consequence of a wrong decision, model risk. | Credibility records for every model, in the M15 structure. | **Answered** |
-| M2 | Was the analysis planned before the data were accessed? | Every check followed a plan locked before computation, but only 3 of 26 before the data were seen. Each plan and the dataset ledger say which. | **Partly** (stated honestly) |
+| M2 | Was the analysis planned before the data were accessed? | Every check followed a plan locked before computation, but only 3 of 27 before the data were seen. Each plan and the dataset ledger say which. | **Partly** (stated honestly) |
 | M3 | Is there a model analysis report with summary, methods, results, discussion and conclusions? | Reports are machine-readable JSON; the narrative is spread across docs; the credibility record covers part. No single readable report per model in M15's section order. | **Partly** |
 | M4 | Verification of the implementation. | Numerical checks (closed form against ODE solver, mass balance) in every report; transcription reviewed by the owner. | **Answered** |
 | M5 | Validation against data not used to build the model. | Outside checks for both population models (two studies); the pathway model's checks were not blind. All on `/models/findings`. | **Partly** (stated honestly) |
@@ -65,21 +65,23 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 ## Score
 
-Of 29 questions:
-- **12 Answered** (including H1, where the evidence itself is missing and shown as missing);
-- **13 Partly**;
-- **4 Gap**.
+Of 29 questions (updated 5 November 2026, after R1, R2, O1, O2 and O5):
+- **17 Answered** (including H1, where the evidence itself is missing and shown as missing);
+- **9 Partly**;
+- **3 Gap**.
+
+Three of the new answers (O1, O2, O5) rest on label values not yet reviewed by the owner (round 3).
 
 The strengths are where the platform has invested: provenance, locked plans, scopes and honest reporting of failures.
 
 ## What a reviewer would ask for first: candidate work, smallest first
 
-1. **Show the FDA 2024 renal categories** alongside the study's bands and the label's dose bands, with the mapping between them (R1). Small; no new data.
-2. **State each model's renal-function measure on the pages** (Cockcroft–Gault weight basis, Kim's indexed eGFR, the study's measured clearance), with the guidance's preference noted (R2).
-3. **Extract the rest of the lenalidomide label's section 12.3** (absorption, food, elimination) for the owner's review round 3 (O1, O2). Small; the label PDF is already pinned.
+1. **Done 5 November.** **Show the FDA 2024 renal categories** alongside the study's bands and the label's dose bands, with the mapping between them (R1). Small; no new data.
+2. **Done 5 November.** **State each model's renal-function measure on the pages** (Cockcroft–Gault weight basis, Kim's indexed eGFR, the study's measured clearance), with the guidance's preference noted (R2).
+3. **Done 5 November.** **Extract the rest of the lenalidomide label's section 12.3** (absorption, food, elimination) for the owner's review round 3 (O1, O2). Small; the label PDF is already pinned.
 4. **Does each band's label dose restore reference exposure?** Show it descriptively from Bridoux (myeloma patients on label-adjusted doses, AUC by group) and from the models, without recommending a dose (R9). Medium; data already pinned.
 5. **One readable model analysis report per model,** in M15's section order (summary, background, goals, data and methods, results, discussion, conclusions), generated from the pinned plans, reports and credibility records (M3). Medium.
-6. **Interactions in the guided path and on the special-populations page** (O5). Small.
+6. **Done 5 November.** **Interactions in the guided path and on the special-populations page** (O5). Small.
 
 Larger, later:
 - parameter uncertainty (M7, R5);

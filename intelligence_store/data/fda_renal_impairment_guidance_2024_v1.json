@@ -1,0 +1,44 @@
+{
+  "schema_version": "regulatory-guidance-extract-v1",
+  "extract_version": "fda-renal-impairment-guidance-2024-v1.0",
+  "recorded_on": "2026-11-05",
+  "source": {
+    "title": "Pharmacokinetics in Patients with Impaired Renal Function – Study Design, Data Analysis, and Impact on Dosing. Guidance for Industry",
+    "issuer": "U.S. Food and Drug Administration",
+    "status": "final guidance",
+    "date": "March 2024",
+    "url": "https://www.fda.gov/media/78573/download",
+    "local_file": null,
+    "extraction": "AI-assisted, 5 November 2026, from the text of the PDF at the URL above as returned by a web-fetch tool (the PDF itself is not in the repository or the owner's source folder). Quotes are as returned; the text layer lost the word 'to' in the ranges of Table 1 (printed '60 < 90'). Not yet reviewed by the platform owner."
+  },
+  "table_1": {
+    "title": "Table 1. Classifications of Renal Function for Dedicated Renal Impairment Studies",
+    "location": "page 8",
+    "unit": "mL/min",
+    "categories": [
+      {"id": "control", "description": "Control (normal renal function)", "printed": "≥ 90", "range_ml_min": {"lower_inclusive": 90, "upper_exclusive": null}},
+      {"id": "mild", "description": "Mild impairment", "printed": "60 < 90", "range_ml_min": {"lower_inclusive": 60, "upper_exclusive": 90}},
+      {"id": "moderate", "description": "Moderate impairment", "printed": "30 < 60", "range_ml_min": {"lower_inclusive": 30, "upper_exclusive": 60}},
+      {"id": "severe", "description": "Severe impairment and kidney failure not receiving dialysis", "printed": "< 30", "range_ml_min": {"lower_inclusive": null, "upper_exclusive": 30}}
+    ],
+    "range_reading": "Ranges read as 'lower to < upper' (lower bound included, upper excluded); the printed text shows '60 < 90' and '30 < 60'.",
+    "footnotes": {
+      "a": "eGFR: estimate of GFR based on an estimation equation and expressed in mL/minute. To convert mL/minute/1.73 m2 to mL/minute multiply by the individual's BSA calculated using an appropriate formula and divide by 1.73.",
+      "b": "eCLcr: estimated creatinine clearance based on the C-G equation.",
+      "c": "This classification is strictly for the purposes of conducting a dedicated renal impairment study and is not intended to be used for the purposes of classifying kidney disease.",
+      "d": "Study participants should be enrolled based on one common estimation method to determine renal function in control and renal impairment groups."
+    }
+  },
+  "renal_function_measure": {
+    "indexed_egfr": {
+      "location": "page 6",
+      "quote": "In clinical practice, eGFR is commonly referenced to a body surface area (BSA) value of 1.73 m2 expressed in units of mL/minute/1.73 m2. However, renal clearance of a drug is proportional to the individual's GFR (expressed as mL/minute). Hence, when providing a recommended dosage in adult patients with renal impairment, use the eGFR expressed as mL/minute rather than the eGFR referenced to a BSA value of 1.73 m2."
+    },
+    "cockcroft_gault_weight": {
+      "location": "page 6",
+      "quote": "In overweight or obese individuals, use of alternative body weight metrics such as ideal body weight (IBW) or adjusted body weight (ABW) when calculating eCLcr using the C-G equation is likely to provide a more accurate estimate than using actual body weight."
+    }
+  },
+  "not_extracted": ["the rest of the guidance (study design, reduced and full designs, data analysis, labeling)", "the docket number"],
+  "clinical_prediction_validated": false
+}

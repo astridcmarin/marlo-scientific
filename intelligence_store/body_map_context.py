@@ -15,6 +15,7 @@ import hashlib
 import json
 from pathlib import Path
 
+from .kidney_function_classifications import ClassificationError, classify
 from .lenalidomide_label import EXTRACT_SHA256 as LABEL_SHA256, load_label_extract
 from .lenalidomide_renal_pathways import EVIDENCE_SHA256, load_evidence
 from .patient_state import digest
@@ -143,5 +144,14 @@ def body_map_context(view):
              'pages': 'Section 2.6', 'sha256': LABEL_SHA256}],
         'clinical_prediction_validated': False, 'ready_for_patient_simulation': False,
     }
+    try:
+        context['classifications'] = {
+            'value_measure': 'measured creatinine clearance, as in CC-5013-PK-001',
+            'by_scheme': classify(crcl),
+            'note': 'The value is placed in each scheme by its number only. The guidance and the label use estimated '
+                    'function (eGFR or Cockcroft-Gault), the study measured clearance, so the same number may describe '
+                    'somewhat different kidney function under each.'}
+    except ClassificationError as exc:
+        raise BodyMapContextError(str(exc)) from exc
     context['context_sha256'] = digest(context)
     return context

@@ -1,0 +1,121 @@
+{
+  "schema_version": "label-section-extract-v1",
+  "extract_version": "lenalidomide-label-2023-pk-v1.0",
+  "drug": "lenalidomide",
+  "recorded_on": "2026-11-05",
+  "source": {
+    "document": "REVLIMID (lenalidomide) capsules, full prescribing information, Revised: 3/2023, DailyMed set ID 5fa97bf5-28a2-48f1-8955-f56012d296be",
+    "file_reviewed": {
+      "file": "20260806_5fa97bf5-28a2-48f1-8955-f56012d296be.pdf (81 pages, DailyMed print dated 2026-08-06, text layer)",
+      "sha256": "3feea84a2363a1df7de9886897c4bfa04feffb042bea26d45afe3bbd5995dadf"
+    },
+    "same_file_as": "lenalidomide_label_2023_v1.json (same PDF, same checksum)",
+    "storage": "Supplied by the platform owner; kept on the owner's computer, not committed.",
+    "extraction": "AI-assisted, 5 November 2026. Every quote was checked by script against text extracted from the file on the owner's computer (pdftotext -layout, whitespace normalised, a hyphen at a line end joined to the next word; the default pdftotext output drops those hyphens, as in 'Hydroxylenalidomide'); each number was transcribed from its quote. Not yet reviewed by the platform owner (review round 3).",
+    "complements": "lenalidomide_label_2023_v1.json, which already holds from section 12.3 the linearity statement, protein binding, the renal study and hepatic and other intrinsic factors. This file adds the rest of section 12.3 and section 7."
+  },
+  "absorption": {
+    "tmax": {
+      "quote": "Following single and multiple doses of REVLIMID in patients with MM or MDS, the maximum plasma concentrations occurred between 0.5 and 6 hours post-dose.",
+      "location": "Section 12.3, Absorption, PDF page 45",
+      "tmax_range_h": [0.5, 6]
+    },
+    "accumulation": {
+      "quote": "Multiple doses of REVLIMID at the recommended dosage does not result in drug accumulation.",
+      "location": "Section 12.3, Absorption, PDF page 45"
+    },
+    "food_effect": {
+      "quote": "Administration of a single 25 mg dose of REVLIMID with a high-fat meal in healthy subjects reduces the extent of absorption, with an approximate 20% decrease in AUC and 50% decrease in Cmax.",
+      "location": "Section 12.3, Absorption, PDF page 45",
+      "auc_decrease_percent_approx": 20,
+      "cmax_decrease_percent_approx": 50,
+      "conditions": "single 25 mg dose, high-fat meal, healthy subjects"
+    },
+    "administration": {
+      "quote": "In the trials where the efficacy and safety were established for REVLIMID, the drug was administered without regard to food intake. REVLIMID can be administered with or without food.",
+      "location": "Section 12.3, Absorption, PDF page 45"
+    },
+    "mcl": {
+      "quote": "The oral absorption rate of lenalidomide in patients with MCL is similar to that observed in patients with MM or MDS.",
+      "location": "Section 12.3, Absorption, PDF page 45"
+    },
+    "bioavailability": {
+      "stated": false,
+      "note": "The label gives no absolute bioavailability. The platform's bound (at least about 0.90 from the Chen 2012 mass balance, hard floor 0.85) is recorded in lenalidomide_mass_balance_chen_2012_v1.json and Simulation 2.0e, not here."
+    }
+  },
+  "distribution": {
+    "semen": {
+      "quote": "Lenalidomide is present in semen at 2 hours (1379 ng/ejaculate) and 24 hours (35 ng/ejaculate) after the administration of REVLIMID 25 mg daily.",
+      "location": "Section 12.3, Distribution, PDF page 45",
+      "ng_per_ejaculate": {"2_h": 1379, "24_h": 35}
+    }
+  },
+  "elimination": {
+    "half_life": {
+      "quote": "The mean half-life of lenalidomide is 3 hours in healthy subjects and 3 to 5 hours in patients with MM, MDS or MCL.",
+      "location": "Section 12.3, Elimination, PDF page 45",
+      "healthy_h": 3,
+      "patients_h": [3, 5]
+    },
+    "metabolism": {
+      "quote": "Lenalidomide undergoes limited metabolism. Unchanged lenalidomide is the predominant circulating component in humans. Two identified metabolites are 5-hydroxy-lenalidomide and N-acetyl-lenalidomide; each constitutes less than 5% of parent levels in circulation.",
+      "location": "Section 12.3, Metabolism, PDF page 45",
+      "metabolites": ["5-hydroxy-lenalidomide", "N-acetyl-lenalidomide"],
+      "each_metabolite_below_percent_of_parent": 5
+    },
+    "excretion": {
+      "quote": "Elimination is primarily renal. Following a single oral administration of [14C]-lenalidomide 25 mg to healthy subjects, approximately 90% and 4% of the radioactive dose was eliminated within ten days in urine and feces, respectively. Approximately 82% of the radioactive dose was excreted as lenalidomide in the urine within 24 hours. Hydroxy-lenalidomide and N-acetyl-lenalidomide represented 4.6% and 1.8% of the excreted dose, respectively. The renal clearance of lenalidomide exceeds the glomerular filtration rate.",
+      "location": "Section 12.3, Excretion, PDF page 46",
+      "radioactive_dose_percent_10_days": {"urine": 90, "feces": 4},
+      "unchanged_in_urine_24_h_percent_of_radioactive_dose": 82,
+      "metabolites_percent_of_excreted_dose": {"hydroxy_lenalidomide": 4.6, "n_acetyl_lenalidomide": 1.8},
+      "note": "Percentages are of the radioactive dose, as printed. The 82% unchanged in urine within 24 hours is a lower bound on absorption of about 0.82, below the 0.85 floor used in Simulation 2.0e, which came from the renal study's normal group (85% unchanged in urine, EMA 2008); the two are different studies and are not reconciled here."
+    }
+  },
+  "renal_dialysis": {
+    "quote": "Approximately 30% of the drug in body was removed during a 4-hour hemodialysis session.",
+    "location": "Section 12.3, Specific Populations, PDF page 46",
+    "removed_percent_of_drug_in_body": 30,
+    "session_h": 4
+  },
+  "drug_interactions_12_3": {
+    "location": "Section 12.3, Drug Interactions, PDF page 46",
+    "dexamethasone": {
+      "quote": "Co-administration of a single dose or multiple doses of dexamethasone (40 mg) had no clinically relevant effect on the multiple dose pharmacokinetics of REVLIMID (25 mg)."
+    },
+    "quinidine": {
+      "quote": "Co-administration of REVLIMID (25 mg) after multiple doses of a P-gp inhibitor such as quinidine (600 mg twice daily) did not significantly increase the Cmax or AUC of lenalidomide."
+    },
+    "temsirolimus": {
+      "quote": "Co-administration of the P-gp inhibitor and substrate temsirolimus (25 mg),with REVLIMID (25 mg) did not significantly alter the pharmacokinetics of lenalidomide, temsirolimus, or sirolimus (metabolite of temsirolimus).",
+      "note": "The missing space after the comma is as printed."
+    },
+    "transporters": {
+      "quote": "In vitro studies demonstrated that REVLIMID is a substrate of P-glycoprotein (P-gp).",
+      "substrate_of": ["P-gp"],
+      "not_substrate_of": ["BCRP", "MRP1", "MRP2", "MRP3", "OAT1", "OAT3", "OATP1B1", "OCT1", "OCT2", "MATE1", "OCTN1", "OCTN2"],
+      "not_substrate_quote": "REVLIMID is not a substrate of human breast cancer resistance protein (BCRP), multidrug resistance protein (MRP) transporters MRP1, MRP2, or MRP3, organic anion transporters (OAT) OAT1 and OAT3, organic anion transporting polypeptide 1B1 (OATP1B1), organic cation transporters (OCT) OCT1 and OCT2, multidrug and toxin extrusion protein (MATE) MATE1, and organic cation transporters novel (OCTN) OCTN1 and OCTN2.",
+      "not_inhibitor_of": ["P-gp", "BSEP", "BCRP", "MRP2", "OAT1", "OAT3", "OATP1B1", "OATP1B3", "OCT2"],
+      "not_inhibitor_quote": "Lenalidomide is not an inhibitor of P-gp, bile salt export pump (BSEP), BCRP, MRP2, OAT1, OAT3, OATP1B1, OATP1B3, or OCT2."
+    },
+    "cyp_and_ugt": {
+      "quote": "Lenalidomide does not inhibit or induce CYP450 isoenzymes. Also, lenalidomide does not inhibit bilirubin glucuronidation formation in human liver microsomes with UGT1A1 genotyped as UGT1A1*1/*1, UGT1A1*1/*28, and UGT1A1*28/*28."
+    }
+  },
+  "drug_interactions_7": {
+    "location": "Section 7, PDF page 40",
+    "digoxin": {
+      "quote": "When digoxin was co-administered with multiple doses of REVLIMID (10 mg/day) the digoxin Cmax and AUCinf were increased by 14%. Periodically monitor digoxin plasma levels, in accordance with clinical judgment and based on standard clinical practice in patients receiving this medication, during administration of REVLIMID.",
+      "digoxin_cmax_and_auc_increase_percent": 14
+    },
+    "thrombosis": {
+      "quote": "Erythropoietic agents, or other agents that may increase the risk of thrombosis, such as estrogen containing therapies, should be used with caution after making a benefit-risk assessment in patients receiving REVLIMID [see Warnings and Precautions (5.4)]."
+    },
+    "warfarin": {
+      "quote": "Co-administration of multiple doses of REVLIMID (10 mg/day) with a single dose of warfarin (25 mg) had no effect on the pharmacokinetics of lenalidomide or R- and S-warfarin. Expected changes in laboratory assessments of PT and INR were observed after warfarin administration, but these changes were not affected by concomitant REVLIMID administration. It is not known whether there is an interaction between dexamethasone and warfarin. Close monitoring of PT and INR is recommended in patients with MM taking concomitant warfarin."
+    }
+  },
+  "not_extracted": ["Section 12.1 mechanism of action and 12.2 pharmacodynamics (QT study)", "Sections 5, 6 and 14"],
+  "clinical_prediction_validated": false
+}
