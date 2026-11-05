@@ -762,8 +762,27 @@ def credibility_record(model_id):
     except KeyError:
         abort(404)
     from intelligence_store.scope_registry import REGISTRY
+    from intelligence_store.model_analysis_report import available as reports_available
     return render_template("credibility_record.html", rec=rec, level_label=level_label,
-                           has_scorecard=model_id in load_evidence_status()["models"], has_scope=model_id in REGISTRY)
+                           has_scorecard=model_id in load_evidence_status()["models"], has_scope=model_id in REGISTRY,
+                           has_report=model_id in reports_available())
+
+
+@app.route("/models/<model_id>/report")
+def model_analysis_report(model_id):
+    from intelligence_store.model_analysis_report import ReportError, available, build
+    if model_id not in available():
+        abort(404)
+    if set(request.args) - {"format"} or request.args.get("format", "html") not in ("html", "json"):
+        abort(400)
+    try:
+        report = build(model_id)
+    except ReportError as exc:
+        return Response(str(exc), status=503, mimetype="text/plain", headers={"Cache-Control": "no-store"})
+    if request.args.get("format") == "json":
+        return Response(json.dumps(report, indent=2, ensure_ascii=False) + "\n", mimetype="application/json",
+                        headers={"Content-Disposition": f'attachment; filename="{model_id}-analysis-report.json"', "X-Content-Type-Options": "nosniff"})
+    return render_template("model_analysis_report.html", r=report)
 
 
 @app.route("/models/<model_id>/scope")

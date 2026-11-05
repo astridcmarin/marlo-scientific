@@ -55,7 +55,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 |---|---|---|---|
 | M1 | Question of interest, context of use, model influence, consequence of a wrong decision, model risk. | Credibility records for every model, in the M15 structure. | **Answered** |
 | M2 | Was the analysis planned before the data were accessed? | Every check followed a plan locked before computation, but only 3 of 27 before the data were seen. Each plan and the dataset ledger say which. | **Partly** (stated honestly) |
-| M3 | Is there a model analysis report with summary, methods, results, discussion and conclusions? | Reports are machine-readable JSON; the narrative is spread across docs; the credibility record covers part. No single readable report per model in M15's section order. | **Partly** |
+| M3 | Is there a model analysis report with summary, methods, results, discussion and conclusions? | **Since 5 November**, one model has one: the kidney pathway model, at `/models/lenalidomide_renal_pathways_2026/report`, in the section order of ICH M15 Appendix 2. Results, data, plans and assumptions are read from the pinned reports, ledger and credibility record; the summary, introduction, discussion and conclusions are AI-written and pinned. Hughes, Kim and the exposure–safety relationship have none yet. | **Partly** (1 of 4 lenalidomide models) |
 | M4 | Verification of the implementation. | Numerical checks (closed form against ODE solver, mass balance) in every report; transcription reviewed by the owner. | **Answered** |
 | M5 | Validation against data not used to build the model. | Outside checks for both population models (two studies); the pathway model's checks were not blind. All on `/models/findings`. | **Partly** (stated honestly) |
 | M6 | Applicability: are the inputs inside the model's data? | Enforced scopes refuse requests beyond each model's data; flagged bands carry warnings. | **Answered** |
@@ -80,7 +80,7 @@ The strengths are where the platform has invested: provenance, locked plans, sco
 2. **Done 5 November.** **State each model's renal-function measure on the pages** (Cockcroft–Gault weight basis, Kim's indexed eGFR, the study's measured clearance), with the guidance's preference noted (R2).
 3. **Done 5 November.** **Extract the rest of the lenalidomide label's section 12.3** (absorption, food, elimination) for the owner's review round 3 (O1, O2). Small; the label PDF is already pinned.
 4. **Done 5 November.** **Does each band's label dose restore reference exposure?** Show it descriptively from Bridoux (myeloma patients on label-adjusted doses, AUC by group) and from the models, without recommending a dose (R9). Medium; data already pinned.
-5. **One readable model analysis report per model,** in M15's section order (summary, background, goals, data and methods, results, discussion, conclusions), generated from the pinned plans, reports and credibility records (M3). Medium.
+5. **Started 5 November (kidney pathway model).** **One readable model analysis report per model,** in M15's section order (summary, background, goals, data and methods, results, discussion, conclusions), generated from the pinned plans, reports and credibility records (M3). Medium.
 6. **Done 5 November.** **Interactions in the guided path and on the special-populations page** (O5). Small.
 
 Larger, later:

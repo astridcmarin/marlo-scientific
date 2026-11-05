@@ -146,7 +146,7 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 1. Extraction review round 3 opened: 99 entries at `/models/extraction-review/round-3` (done).
 2. Whether each kidney band's label dose restores reference exposure, shown descriptively from Bridoux 2016, CC-5013-PK-001 and the sponsor's simulation (R9) (done).
 3. The absorption floor (done, no re-check needed): the label's 82% is a weaker lower bound than the 85% 2.0e already uses, so the 2.0e range stands (SIMULATION_2_RENAL_PATHWAYS.md).
-4. One readable analysis report for the kidney pathway model, in ICH M15's section order (M3).
+4. Credibility records brought up to date (context v3), then one readable analysis report for the kidney pathway model, in ICH M15's section order (M3) (done).
 5. Hepatic classification compared with Child–Pugh and the 2026 draft guidance (H2).
 **Then:** analysis reports for the other models; label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
 

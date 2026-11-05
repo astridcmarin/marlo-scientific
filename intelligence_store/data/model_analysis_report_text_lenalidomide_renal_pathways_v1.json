@@ -1,0 +1,30 @@
+{
+ "schema_version": "model-analysis-report-text-v1",
+ "text_version": "lenalidomide-renal-pathways-mar-text-v1.0",
+ "model_id": "lenalidomide_renal_pathways_2026",
+ "recorded_on": "2026-11-05",
+ "author": "AI assistant for the platform owner; not reviewed independently",
+ "structure": "ICH M15 Appendix 2, Model Analysis Report: Executive Summary, Introduction, Objectives, Data and Methods, Results, Discussion, Conclusions, Appendices (EMA/CHMP/ICH/496426/2024, 9 February 2026, page 16-17).",
+ "sections": {
+  "executive_summary": "A platform-built model divides lenalidomide clearance into glomerular filtration, tubular secretion and a non-renal remainder, calibrated on the normal-function group of the dedicated renal study (CC-5013-PK-001) and used to draw the elimination body map. Four locked checks were run, none blind: against the study's own impaired groups (2.0a), end-stage kidney disease (2.0c), a steeper-secretion alternative compared with two myeloma studies (2.0d), and the range of bioavailability the data allow (2.0e). The model is consistent in mild impairment; its moderate and severe results depend on bioavailability, which was not measured, and no single value fits every study. It is shown for research and education only, with those bands marked.",
+  "introduction": "Lenalidomide is cleared mainly by the kidneys: most of an oral dose leaves unchanged in urine, and renal clearance exceeds the glomerular filtration rate, so tubular secretion contributes. Exposure rises as kidney function falls, and the label's dose reductions begin at a creatinine clearance of 60 mL/min. The two published population models on the platform (Hughes 2019, Kim 2026) describe total clearance only; they do not say how much of it is filtration, secretion or non-renal. This model was built to make that split visible on the body map and to test whether a simple mechanistic reading of the kidney reproduces the renal study.",
+  "objectives": [
+   "Describe how lenalidomide clearance divides between filtration, secretion and non-renal routes across kidney function, for synthetic profiles.",
+   "Test, under plans locked before computation, whether a model calibrated on normal function reproduces the impaired groups of the same study, end-stage disease and two myeloma studies.",
+   "State for each kidney-function band whether the result is calibrated, checked, partly checked or flagged, so that the body map can carry it."
+  ],
+  "discussion": [
+   "Mild impairment is reproduced. The secretion-preserved reading is rejected (2.0a). The intact-nephron reading under-predicts the moderate group at full absorption, which first suggested that renal elimination falls faster than kidney function; a steeper-secretion version (2.0d) fitted the source study better but did not meet its pre-specified rule in the myeloma studies and was not adopted.",
+   "The AI review of 4 November found that bioavailability had been fixed at 1 without being varied. Renal clearance does not depend on it, but the non-renal remainder does (about 29 mL/min at full absorption, about 10 at 90%). Under the locked re-check (2.0e), lower absorption makes the source study's moderate group consistent and its severe group, Bridoux's moderate group and the end-stage prediction worse; full absorption does the reverse. The moderate and severe bands are therefore marked as depending on bioavailability, and the faster-than-proportional finding is recorded as not established.",
+   "No check was blind: every renal-impairment dataset available had been read before its plan (dataset ledger). The checks compare group means only, from 5 to 7 subjects per group in the source study. The unbound fraction is held constant across groups, which changes the filtration/secretion split but not exposure. End-stage disease could not be judged, because residual kidney function was not reported.",
+   "The label's figure of 82% of a radioactive dose unchanged in urine within 24 hours is a weaker lower bound on absorption than the 85% the renal study's normal group gives, so it leaves the 2.0e range unchanged."
+  ],
+  "conclusions": [
+   "The model reproduces the renal study in mild impairment and is used, with its warnings, to draw the elimination split on the body map.",
+   "Its moderate and severe results depend on bioavailability, which was not measured; both bands are marked so on every page that shows them.",
+   "Further checking needs data the platform has not seen, or a measured absolute bioavailability. Until then the model is descriptive and educational, not a basis for dosing."
+  ]
+ },
+ "not_this": "Not a regulatory submission and not an independent assessment. Generated from the platform's pinned plans and reports; the narrative sections were written by the AI assistant and have not been reviewed independently.",
+ "clinical_prediction_validated": false
+}

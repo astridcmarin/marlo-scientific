@@ -17,7 +17,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [Dataset ledger](DATASET_LEDGER.md): which data each model was built from, tuned on or checked against, and the gate that refuses a blind check on seen data.
 - [Extraction review](EXTRACTION_REVIEW.md): the owner's review of the 166 extracted values that feed calculations (rounds 1–2, all match), and where the review status is shown.
 - [Model scope](MODEL_SCOPE.md): each model's context of use as enforced rules, with evidence tiers.
-- [Credibility records](CREDIBILITY_RECORDS.md): one record per model in the ICH M15 structure (`/models/credibility`); model scorecards at `/models`.
+- [Credibility records](CREDIBILITY_RECORDS.md): one record per model in the ICH M15 structure (`/models/credibility`); model scorecards at `/models`; the first model analysis report (kidney pathway model, `/models/lenalidomide_renal_pathways_2026/report`).
 - [Source reconciliation](SOURCE_RECONCILIATION.md): lenalidomide renal sources compared (measured vs Cockcroft–Gault clearance; corrections to two plans).
 
 ## Lenalidomide
