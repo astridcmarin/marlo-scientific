@@ -5,7 +5,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 ## Start here
 
 - [Product and science roadmap](PRODUCT_AND_SCIENCE_ROADMAP.md): positioning, users, phases, status of each phase and next steps (shortened 5 November 2026; the full version with the dated log of every step, and the 10 October version, are in history/).
-- [Reviewer's checklist](REVIEWER_CHECKLIST.md): the questions an FDA clinical pharmacology reviewer asks (renal 2024, hepatic draft 2026, ICH M15), scored against the lenalidomide workflow (14 answered, 11 partly, 4 gaps), with the gaps ranked.
+- [Reviewer's checklist](REVIEWER_CHECKLIST.md): the questions an FDA clinical pharmacology reviewer asks (renal 2024, hepatic draft 2026, ICH M15), scored against the lenalidomide workflow (17 answered, 9 partly, 3 gaps), with the gaps ranked.
 - [Status by drug](STATUS_BY_DRUG.md): for each drug, in plain language, what the platform has, what was checked, what is known to be wrong and what is missing.
 - [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (4 November 2026: all 1,243 tests passing on the owner's Mac; CI later passed on PR #112, 5 November, with 2.0e included), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-04.json); earlier checkpoints in [history](history/).
 - Conventions for working in the repository: `CLAUDE.md` at the root.
@@ -25,7 +25,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [Patient Lab 2.0](PATIENT_LAB_2_0.md): the Hughes and Kim population models, their checks against CC-5013-PK-001 and Bridoux 2016 (2.0g, 2.1c, 2.1e, 2.1h), and the recorded decisions (Cockcroft–Gault weight basis, typical value vs population band).
 - [Kidney pathways](SIMULATION_2_RENAL_PATHWAYS.md): filtration, secretion and non-renal clearance (2.0a), end-stage kidney disease (2.0c), the steeper-secretion test that was not adopted (2.0d), the AI review and the bioavailability re-check (2.0e).
 - [Dose view](DOSE_OPTIMISATION.md): exposure and relative cytopenia odds at each model's study doses (4.3).
-- Guided path: `guided_path.py`, page `/landscape/drugs/lenalidomide/guide` (4.4).
+- Guided path: `guided_path.py`, page `/landscape/drugs/lenalidomide/guide` (4.4); seven steps since 5 November, when label pharmacokinetics and interactions were added.
 - [Digital human 1.0](DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md) and [1.1](DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md): the elimination body map, blood flow, per-pass extraction and the checked time course.
 
 ## Bortezomib

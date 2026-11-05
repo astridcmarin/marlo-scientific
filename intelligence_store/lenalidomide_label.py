@@ -54,3 +54,37 @@ def load_renal_reconciliation(path=RECONCILIATION_PATH):
     if data.get('schema_version') != 'source-reconciliation-v1':
         raise ValueError('Unsupported reconciliation schema.')
     return data
+
+
+# ---------------------------------------------------------------- label pharmacokinetics and interactions, for display
+PK_VIEW_SECTIONS = (
+    ('absorption', 'Absorption and food', (('absorption', 'tmax', 'Time to peak'), ('absorption', 'accumulation', 'Repeated doses'),
+                                           ('absorption', 'food_effect', 'High-fat meal'), ('absorption', 'administration', 'Food in the trials'))),
+    ('elimination', 'Distribution and elimination', (('distribution', 'semen', 'Semen'), ('elimination', 'half_life', 'Half-life'), ('elimination', 'metabolism', 'Metabolism'),
+                                                     ('elimination', 'excretion', 'Excretion'), ('renal_dialysis', None, 'Haemodialysis'))),
+    ('interactions', 'Drug interactions', (('drug_interactions_7', 'digoxin', 'Digoxin (section 7.1)'),
+                                           ('drug_interactions_7', 'thrombosis', 'Agents that raise thrombosis risk (section 7.2)'),
+                                           ('drug_interactions_7', 'warfarin', 'Warfarin (section 7.3)'),
+                                           ('drug_interactions_12_3', 'dexamethasone', 'Dexamethasone (study)'),
+                                           ('drug_interactions_12_3', 'quinidine', 'Quinidine, a P-gp inhibitor (study)'),
+                                           ('drug_interactions_12_3', 'temsirolimus', 'Temsirolimus (study)'),
+                                           ('drug_interactions_12_3', 'transporters', 'Transporters (in vitro)'),
+                                           ('drug_interactions_12_3', 'cyp_and_ugt', 'CYP450 and UGT1A1 (in vitro)'))),
+)
+
+
+def label_pk_view(data=None):
+    """The section 12.3 and section 7 quotes grouped for a page, each with its location. Nothing is computed."""
+    data = data or load_label_pk_extract()
+    sections = []
+    for sid, title, entries in PK_VIEW_SECTIONS:
+        items = []
+        for block, key, label in entries:
+            node = data[block] if key is None else data[block][key]
+            location = node.get('location') or data[block].get('location')
+            quotes = [node[k] for k in ('quote', 'not_substrate_quote', 'not_inhibitor_quote') if k in node]
+            items.append({'label': label, 'quotes': quotes, 'location': location})
+        sections.append({'id': sid, 'title': title, 'items': items})
+    return {'extract_version': data['extract_version'], 'sha256': PK_EXTRACT_SHA256, 'document': data['source']['document'],
+            'extraction': data['source']['extraction'], 'sections': sections,
+            'not_stated': data['absorption']['bioavailability']['note'], 'clinical_prediction_validated': False}

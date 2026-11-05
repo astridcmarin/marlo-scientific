@@ -10,6 +10,7 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
   - the platform's own kidney-pathway model;
   - relative odds of grade 3/4 cytopenia;
   - special populations, with the FDA 2024 kidney categories and each model's kidney-function measure beside the study's and the label's;
+  - the label's pharmacokinetics and interactions, quoted on the special-populations page and summarised in the guided path;
   - the dose view, the guided path, and the body map with blood flow.
 - **Checked:**
   - Hughes against CC-5013-PK-001 *(finding: hughes_cc5013)*.

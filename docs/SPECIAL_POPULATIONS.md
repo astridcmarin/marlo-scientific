@@ -60,7 +60,7 @@ Gaps found along the way are listed in each summary and in this document.
 
 ## Not in scope
 
-Drug interactions and food (extrinsic factors) are a later, separate summary. Pregnancy, lactation and paediatrics are not covered: the myeloma drugs here have no paediatric indication, and their reproductive risks belong to the safety catalog.
+Drug interactions and food (extrinsic factors) are not part of the summary schema. For lenalidomide only, since 5 November 2026, the page also quotes the label's section 12.3 (absorption and food, distribution, elimination, haemodialysis, interaction studies, transporters) and section 7 (interactions) in a separate section below the five domains (`lenalidomide_label_2023_pk_v1.json`, `lenalidomide_label.label_pk_view`; not yet reviewed by the owner). Pregnancy, lactation and paediatrics are not covered: the myeloma drugs here have no paediatric indication, and their reproductive risks belong to the safety catalog.
 
 ## Status
 

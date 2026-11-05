@@ -4,7 +4,7 @@ source or from an existing view, and each step says what has been checked and wh
 """
 from .dose_optimisation import corpus_trials, load_exposure_response
 from .extraction_review import queue_view
-from .lenalidomide_label import load_label_extract, load_renal_reconciliation
+from .lenalidomide_label import load_label_extract, load_label_pk_extract, load_renal_reconciliation
 from .patient_state import digest
 from .run_record import load_evidence_status
 from .special_populations import build as special_population_view
@@ -31,6 +31,29 @@ def _models():
     return out
 
 
+def _pk_step(pk):
+    a, e = pk['absorption'], pk['elimination']
+    food, ex, dial = a['food_effect'], e['excretion'], pk['renal_dialysis']
+    dig = pk['drug_interactions_7']['digoxin']['digoxin_cmax_and_auc_increase_percent']
+    return {
+        'id': 'pharmacokinetics', 'title': 'Label pharmacokinetics and interactions',
+        'question': 'How is the drug absorbed and eliminated, and what interacts with it?',
+        'found': (f"Peak at {a['tmax']['tmax_range_h'][0]:g}-{a['tmax']['tmax_range_h'][1]:g} h; a high-fat meal lowers AUC about "
+                  f"{food['auc_decrease_percent_approx']}% and Cmax about {food['cmax_decrease_percent_approx']}%; half-life "
+                  f"{e['half_life']['healthy_h']:g} h in healthy subjects and {e['half_life']['patients_h'][0]:g}-{e['half_life']['patients_h'][1]:g} h "
+                  f"in patients; about {ex['radioactive_dose_percent_10_days']['urine']}% of a radioactive dose in urine "
+                  f"({ex['unchanged_in_urine_24_h_percent_of_radioactive_dose']}% as unchanged drug within 24 h); about "
+                  f"{dial['removed_percent_of_drug_in_body']}% removed in a {dial['session_h']}-hour haemodialysis session. "
+                  f"Interactions (label): digoxin Cmax and AUC up {dig}%; no significant or clinically relevant change in "
+                  "lenalidomide exposure with dexamethasone, quinidine or temsirolimus; a P-gp substrate; no CYP450 inhibition or "
+                  "induction; caution with agents that raise thrombosis risk; PT and INR monitoring with warfarin."),
+        'checked': 'REVLIMID label, revision 3/2023, sections 12.3 and 7: every quote matched by script against the label file '
+                   '(5 November 2026). AI-assisted; not yet reviewed by the platform owner (extraction review round 3).',
+        'missing': 'The label states no absolute bioavailability (the platform\'s bound comes from a mass-balance study, Simulation 2.0e). '
+                   'No interaction is modelled: the Patient Lab runs one drug at a time.',
+        'links': [('Label pharmacokinetics and interactions', 'landscape.special_populations', {'drug': 'lenalidomide', '_anchor': 'sp-label-pk'})]}
+
+
 def lenalidomide_path():
     trials = corpus_trials()
     label = load_label_extract()
@@ -44,6 +67,7 @@ def lenalidomide_path():
     review_counts = {'values': sum(len(g['items']) for g in len_groups), 'reviewed': sum(g['reviewed'] for g in len_groups)}
     er = load_exposure_response()
     rec = load_renal_reconciliation()
+    pk = load_label_pk_extract()
     steps = [
         {'id': 'trials', 'title': 'Clinical trials', 'question': 'What has been studied?',
          'found': f"{trials['matched']} of {trials['corpus_trials']} interventional myeloma trials test lenalidomide by exact name "
@@ -66,9 +90,10 @@ def lenalidomide_path():
                     'grouped by Cockcroft-Gault and by measured clearance (' + rec['items'][0]['status'].replace('_', ' ') + ').',
          'missing': 'No gaps in the five domains. Moderate and severe hepatic impairment were not studied (label), so nothing is known there; kidney function dominates the evidence.',
          'links': [('Lenalidomide in special populations', 'landscape.special_populations', {'drug': 'lenalidomide'})]},
+        _pk_step(pk),
         {'id': 'exposure', 'title': 'Exposure models', 'question': 'What exposure would a synthetic patient have?',
          'found': 'Two population PK models (Hughes 2019, Kim 2026), an elimination-pathway model, and an exposure-safety relationship, run on synthetic records in the Patient Lab, inside each model\'s scope.',
-         'checked': 'See each model below. Both PK models were compared with the dedicated renal study, and rechecked with virtual subjects matched to that study: both under-predict exposure in moderate and severe impairment.',
+         'checked': 'See each model below. Both PK models were compared with the dedicated renal study, rechecked with virtual subjects matched to that study, and checked blind against myeloma patients (Bridoux 2016, with a recorded deviation): both under-predict exposure in moderate and severe impairment.',
          'missing': 'No model is validated for clinical prediction. Below 36 mL/min (Hughes) or outside eGFR 11.1-94.7 (Kim) the platform refuses to compute.',
          'links': [('Patient Lab', 'landscape.patient_directory', {}), ('Model library', 'landscape.drug_capability_library', {'q': 'lenalidomide'})]},
         {'id': 'dose', 'title': 'Dose', 'question': 'How do exposure and safety odds move between dose levels?',

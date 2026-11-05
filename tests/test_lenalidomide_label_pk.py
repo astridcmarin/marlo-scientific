@@ -85,5 +85,40 @@ class LabelPkExtract(unittest.TestCase):
             ll.PK_EXTRACT_SHA256 = original
 
 
+
+class Display(unittest.TestCase):
+    def test_view_carries_every_section_quote_with_a_location(self):
+        view = ll.label_pk_view()
+        self.assertEqual([s['id'] for s in view['sections']], ['absorption', 'elimination', 'interactions'])
+        shown = [q for s in view['sections'] for i in s['items'] for q in i['quotes']]
+        all_quotes = [q for _, q in quotes(ll.load_label_pk_extract())]
+        self.assertEqual(sorted(set(shown)), sorted(q for q in all_quotes if q in shown))
+        self.assertEqual(len(shown), 19)  # all but the mantle-cell lymphoma absorption sentence
+        self.assertTrue(all(i['location'] for s in view['sections'] for i in s['items']))
+
+    def test_guided_path_step_is_read_from_the_extract(self):
+        from intelligence_store.guided_path import lenalidomide_path
+        step = next(s for s in lenalidomide_path()['steps'] if s['id'] == 'pharmacokinetics')
+        for text in ('Peak at 0.5-6 h', 'AUC about 20%', 'Cmax about 50%', '3-5 h', 'about 90%', '82% as unchanged',
+                     'about 30% removed in a 4-hour', 'up 14%'):
+            self.assertIn(text, step['found'])
+        self.assertIn('not yet reviewed by the platform owner', step['checked'])
+        self.assertIn('No interaction is modelled', step['missing'])
+
+    def test_pages(self):
+        from flask import Flask
+        app = Flask(__name__)
+        app.config.update(TESTING=True)
+        app.add_url_rule('/', 'home', lambda: 'Home')
+        from landscape_ui import register_landscape
+        register_landscape(app)
+        client = app.test_client()
+        html = client.get('/landscape/drugs/lenalidomide/special-populations').get_data(as_text=True)
+        for text in ('Label pharmacokinetics and drug interactions (quoted)', 'Digoxin (section 7.1)',
+                     'Transporters (in vitro)', 'Not stated by the label', 'not yet reviewed by the platform owner'):
+            self.assertIn(text, html)
+        self.assertNotIn('sp-label-pk', client.get('/landscape/drugs/ixazomib/special-populations').get_data(as_text=True))
+
+
 if __name__ == '__main__':
     unittest.main()

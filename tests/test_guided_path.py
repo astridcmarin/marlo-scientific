@@ -8,7 +8,7 @@ from intelligence_store.guided_path import MODELS, lenalidomide_path
 class Path_(unittest.TestCase):
     def test_steps_read_from_pinned_sources(self):
         p = lenalidomide_path()
-        self.assertEqual([s['id'] for s in p['steps']], ['trials', 'knowledge', 'special_populations', 'exposure', 'dose', 'credibility'])
+        self.assertEqual([s['id'] for s in p['steps']], ['trials', 'knowledge', 'special_populations', 'pharmacokinetics', 'exposure', 'dose', 'credibility'])
         self.assertFalse(p['clinical_prediction_validated'])
         steps = {s['id']: s for s in p['steps']}
         self.assertIn('380 of 3450', steps['trials']['found'])
@@ -40,7 +40,7 @@ class Page(unittest.TestCase):
         url = '/landscape/drugs/lenalidomide/guide'
         r = self.client.get(url)
         self.assertEqual(r.status_code, 200)
-        for text in (b'1. Clinical trials', b'6. Credibility and review', b'Missing:', b'/models/extraction-review'):
+        for text in (b'1. Clinical trials', b'7. Credibility and review', b'Missing:', b'/models/extraction-review'):
             self.assertIn(text, r.data)
         self.assertEqual(json.loads(self.client.get(url + '?format=json').data)['schema_version'], 'guided-path-v1')
         self.assertEqual(self.client.get(url + '?x=1').status_code, 400)
