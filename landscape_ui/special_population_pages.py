@@ -62,6 +62,17 @@ def _renal_dose_exposure(drug):
         return None, str(exc)
 
 
+def _hepatic_classifications(drug):
+    """Hepatic classifications (FDA 2026 draft guidance) beside the label's definitions (lenalidomide only)."""
+    if drug != 'lenalidomide':
+        return None, None
+    from intelligence_store.hepatic_classifications import HepaticClassificationError, build as build_hepatic
+    try:
+        return build_hepatic(), None
+    except (HepaticClassificationError, OSError, KeyError) as exc:
+        return None, str(exc)
+
+
 def register_special_population_pages(bp):
     @bp.get('/drugs/<drug>/special-populations')
     def special_populations(drug):
@@ -81,7 +92,8 @@ def register_special_population_pages(bp):
         kidney, kidney_error = _kidney_classifications(drug)
         label_pk, label_pk_error = _label_pk(drug)
         rde, rde_error = _renal_dose_exposure(drug)
+        hepatic, hepatic_error = _hepatic_classifications(drug)
         return Response(render_template('landscape_special_populations.html', v=view, fmt=fmt_value, kidney=kidney,
                                         kidney_error=kidney_error, label_pk=label_pk, label_pk_error=label_pk_error,
-                                        rde=rde, rde_error=rde_error),
+                                        rde=rde, rde_error=rde_error, hepatic=hepatic, hepatic_error=hepatic_error),
                         headers=headers)

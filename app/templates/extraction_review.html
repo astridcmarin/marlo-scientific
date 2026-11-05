@@ -48,7 +48,7 @@
     {% elif v.round %}<p>{{ v.round_total }} values in this round. <a href="{{ url_for('extraction_review') }}">Full queue</a>. Status across all {{ v.total }} values: {{ v.counts.matches }} match, {{ v.counts.wrong }} wrong, {{ v.counts.cannot_check }} could not be checked, {{ v.counts.unreviewed }} not reviewed. A round 2 record replaces round 1's decisions for the items it covers.</p>
     {% else %}<p>{{ v.total }} values: <strong>{{ v.counts.unreviewed }}</strong> not yet reviewed, {{ v.counts.matches }} match, {{ v.counts.wrong }} wrong, {{ v.counts.cannot_check }} could not be checked. {{ v.excluded }}</p>
     {% if v.counts.wrong or v.counts.cannot_check or v.counts.unreviewed %}<p><a href="{{ url_for('extraction_review_round_2') }}">Round 2: re-check the values not yet marked as matching</a>.</p>{% endif %}
-    <p><a href="{{ url_for('extraction_review_round_3') }}">Round 3: values extracted since 4 November that are shown on pages (label extracts, the FDA renal guidance, REVLIMID pharmacokinetics and interactions)</a>.</p>{% endif %}
+    <p><a href="{{ url_for('extraction_review_round_3') }}">Round 3: values extracted since 4 November that are shown on pages (label extracts, the FDA kidney and liver guidances, REVLIMID pharmacokinetics and interactions)</a>.</p>{% endif %}
     {% if v.records %}<p>Pinned review records: {% for r in v.records %}{{ r.file }} ({{ r.reviewer }}, {{ r.reviewed_on }}, {{ r.decisions }} decisions, SHA-256 {{ r.sha256[:12] }}…){% if not loop.last %}; {% endif %}{% endfor %}.</p>{% endif %}
     <ol>
         <li>Open the source named for each group. Compare the value with the stated location.</li>

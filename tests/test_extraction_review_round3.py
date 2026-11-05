@@ -33,7 +33,8 @@ class RoundThreeQueue(unittest.TestCase):
         self.assertEqual(sum(len(entries(d)) for d in EXTRACTS), 74)
         self.assertEqual(len(groups['fda_renal_2024']['items']), 7)
         self.assertEqual(len(groups['lenalidomide_label_pk']['items']), 18)
-        self.assertEqual(sum(len(g['items']) for g in self.q['groups']), 99)
+        self.assertEqual(len(groups['fda_hepatic_2026']['items']), 14)
+        self.assertEqual(sum(len(g['items']) for g in self.q['groups']), 113)
 
     def test_every_item_says_where_to_look_and_ids_are_unique_across_queues(self):
         main = er.item_ids(er.load_queue())
@@ -72,7 +73,7 @@ class Records(unittest.TestCase):
 
     def test_round_3_view(self):
         v = er.round_3_view()
-        self.assertEqual((v['round'], v['round_total']), (3, 99))
+        self.assertEqual((v['round'], v['round_total']), (3, 113))
         self.assertEqual(v['queue_sha256'], er.ROUND_3_QUEUE_SHA256)
 
 

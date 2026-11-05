@@ -96,9 +96,10 @@ Only the exact file reviewed is covered. A later version of a file shows nothing
 
 ## Round 3 (opened 5 November 2026)
 
-Page: `/models/extraction-review/round-3`. Round 3 has its own queue, `extraction_review_queue_round3_v1.json` (built by `scripts/build_review_round_3.py`, which a test reruns), so the first queue and the two records made against it stay unchanged. A record downloaded from the round 3 page carries that queue's checksum and is validated against it (`flask extraction-review-check FILE` works for both). Each item is one entry: its structured values beside the sentence they come from and its location. 99 entries in all:
+Page: `/models/extraction-review/round-3`. Round 3 has its own queue, `extraction_review_queue_round3_v2.json` (v2 adds the FDA 2026 draft hepatic guidance; v1, with 99 entries, was superseded before any record was made against it) (built by `scripts/build_review_round_3.py`, which a test reruns), so the first queue and the two records made against it stay unchanged. A record downloaded from the round 3 page carries that queue's checksum and is validated against it (`flask extraction-review-check FILE` works for both). Each item is one entry: its structured values beside the sentence they come from and its location. 113 entries in all:
 - 18 from the REVLIMID pharmacokinetics and interactions extract;
 - 7 from the FDA renal guidance (the four Table 1 categories, footnote c, two quotes); its PDF is not yet in the owner's folder;
+- 14 from the FDA September 2026 draft hepatic guidance (six quotes, the three Child–Pugh groups, the five NCI ODWG groups); its PDF is not in the owner's folder either;
 - 74 from the five label extracts (carfilzomib 21, selinexor 20, thalidomide 15, isatuximab 10, elotuzumab 8).
 
 When a round 3 record is pinned, the pages that use these files show its result in place of "not reviewed" (the kidney classification and label pharmacokinetics panels and the guided path read the status, not fixed text).

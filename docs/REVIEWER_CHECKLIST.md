@@ -34,7 +34,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 | # | Reviewer's question | What the workflow shows | Score |
 |---|---|---|---|
 | H1 | What is known by hepatic function category? | The label's mild-impairment statement and "no data" for moderate to severe are shown as such. | **Answered** (a gap in the evidence, shown as a gap) |
-| H2 | Is the hepatic classification stated? The 2026 draft guidance discusses classification systems. | The label's NCI-style definition (bilirubin and AST) is quoted. No comparison with Child–Pugh or the draft guidance's approach. | **Partly** |
+| H2 | Is the hepatic classification stated? The 2026 draft guidance discusses classification systems. | The label's NCI-style definition (bilirubin and AST) is quoted. **Since 5 November** the lenalidomide special-populations page sets the September 2026 draft guidance's two systems beside it: NCI ODWG groups A–D (the label's mild definition is group B; its "moderate to severe" read as C and D) and Child–Pugh A–C, with the guidance's statement that NCI criteria may be used in cancer. Not yet reviewed by the owner. | **Answered** (was Partly) |
 
 ## General attributes, intrinsic and extrinsic factors, exposure–response (O)
 
@@ -65,9 +65,9 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 ## Score
 
-Of 29 questions (updated 5 November 2026, after R1, R2, R9, O1, O2 and O5):
-- **18 Answered** (including H1, where the evidence itself is missing and shown as missing);
-- **9 Partly**;
+Of 29 questions (updated 5 November 2026, after R1, R2, R9, H2, O1, O2 and O5):
+- **19 Answered** (including H1, where the evidence itself is missing and shown as missing);
+- **8 Partly**;
 - **2 Gap**.
 
 Three of the new answers (O1, O2, O5) rest on label values not yet reviewed by the owner (round 3).

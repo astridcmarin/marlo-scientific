@@ -20,8 +20,11 @@ QUEUE_PATH = DATA / 'extraction_review_queue_v1.json'
 QUEUE_SHA256 = '3ebad5506b7e1c9ed95a581f485389b4ef421727013aa826071aab79daab3961'
 # Round 3 (5 November 2026): values shown on pages but feeding no calculation, in a queue of their own so that the
 # first queue and the records made against it stay unchanged. Built by scripts/build_review_round_3.py.
-ROUND_3_QUEUE_PATH = DATA / 'extraction_review_queue_round3_v1.json'
-ROUND_3_QUEUE_SHA256 = 'f955d8dddfb7fc5ee47d17df79b9010858428e5c5760dfa73d66c6a12f932575'
+ROUND_3_QUEUE_PATH = DATA / 'extraction_review_queue_round3_v2.json'
+ROUND_3_QUEUE_SHA256 = '3cd9f931f243efcd96633b8e03bc5d7a40d4629b5b0b2ee44e82363d82e12a71'
+# Superseded before any record was made against it, kept unchanged: extraction_review_queue_round3_v1.json (99 entries,
+# without the FDA 2026 draft hepatic guidance)
+ROUND_3_QUEUE_V1_SHA256 = 'f955d8dddfb7fc5ee47d17df79b9010858428e5c5760dfa73d66c6a12f932575'
 QUEUES = {'main': (QUEUE_PATH, QUEUE_SHA256), 'round_3': (ROUND_3_QUEUE_PATH, ROUND_3_QUEUE_SHA256)}
 RECORD_SCHEMA = 'extraction-review-record-v1'
 DECISIONS = ('matches', 'wrong', 'cannot_check')
