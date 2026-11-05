@@ -1,8 +1,8 @@
-# Repository checkpoint — 4 November 2026
+# Repository checkpoint — 5 November 2026
 
-**Verified tree:** branch `offline-work` at `91fcca0` ("What the checks found; roadmap brought up to 4 November"), 42 commits on top of `main` at `45c4afe` (after PR #110). The GitHub account has been flagged since 3 November, so these commits were delivered as patch files (0001–0040) and then as a git bundle. They have not been pushed or run in CI.
-**Machine-readable record:** [`verification/repository_checkpoint_2026-11-04.json`](verification/repository_checkpoint_2026-11-04.json).
-**Previous checkpoint:** 3 November, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-11-03.md).
+**Verified tree:** branch `batch-1` at `c481e40` ("Label pharmacokinetics and drug interactions…"), 6 commits on top of `main` at `cf18a32` (PR #112). Applied on the owner's Mac from the git bundle `batch-1-backup-2026-11-05f.bundle`. Not yet pushed; CI runs when the batch's pull request is opened.
+**Machine-readable record:** [`verification/repository_checkpoint_2026-11-05.json`](verification/repository_checkpoint_2026-11-05.json).
+**Previous checkpoint:** 4 November, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-11-04.md). Its main finding (no CI run on the offline work) was resolved on 5 November, when CI passed on PR #112 and the owner merged it.
 
 This is a software and repository verification. It does not validate any model scientifically, and it is not a clinical-readiness review.
 
@@ -10,46 +10,43 @@ This is a software and repository verification. It does not validate any model s
 
 | Area | What | Main files |
 |---|---|---|
-| Body map | Flows along vessel centre lines; rendering pass; navigation (pan, zoom at pointer); flow key, scale bar, selectable flows | `body_map_vessel_lines_v1.json`, `body_map_flow_paths_v2.json`, `body-map-viewer.js` |
-| Digital human 1.1a–1.1c | Reference blood flow (ICRP 89), blood-to-plasma ratio (Chen 2012), per-pass extraction, blood-flow layer | `reference_physiology.py`, `body_map.py` (view v2) |
-| Digital human 1.1d | Time course v1 and v2, each under a plan locked before computation; v2 not adopted | `body_map_time_course.py`, two plans, two reports |
-| Bridoux 2016 (2.1h) | Two-stage blind check of Hughes and Kim; evidence status v13 | `lenalidomide_bridoux_check.py`, design and observed files |
-| Simulation 2.0d | Kidney pathway v2 (secretion falls faster): plan locked, run, not adopted; myeloma comparison shown beside the warnings; evidence status v14 | `lenalidomide_renal_pathways_v2.py`, `body_map.myeloma_note` |
-| Extraction review | Rounds 1 and 2 pinned (166 of 166 values match); round-2 page; review status on model, label, special-population and dose pages | `extraction_review.py`, two records |
-| Dataset ledger | Which data each model was built from, tuned on or checked against; gate refusing blind checks on seen data; v2 adds five labels | `dataset_ledger.py`, `dataset_ledger_v1.json`, `_v2.json` |
-| Label extracts (3.2d) | Carfilzomib, selinexor, thalidomide, isatuximab, elotuzumab: 74 quoted values | `drug_label_extracts.py`, five extracts, build script |
-| What the checks found | `/models/findings`: 26 locked checks in one line each, with blindness from the ledger | `check_findings.py`, `check_findings_v1.json` |
-| Other | Scroll position kept on reload; locked-report tests tolerant of last-digit differences off Linux; roadmap updated | `marlo-scroll.js`, `tests/report_reproduction.py` |
+| Simulation 2.0e | Bioavailability re-check of the kidney pathway model (plan locked first): moderate and severe bands now "depend on bioavailability" | `lenalidomide_renal_pathways_f.py`, plan v3, report v3, `lenalidomide_mass_balance_chen_2012_v1.json` |
+| Repository | GitHub reconnected; PR #112 (49 commits) merged after CI; commit-count rules | `CLAUDE.md` |
+| Roadmap | Verified against the repository (20 statements corrected over two passes), then shortened to goal, status, next step and link per phase; the full version archived | `PRODUCT_AND_SCIENCE_ROADMAP.md`, `history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-05.md` |
+| Kidney classifications (R1, R2) | FDA 2024 Table 1 beside the study's groups and the label's dose rows; each source's kidney-function measure; where the body map's value falls in each | `kidney_function_classifications.py`, `fda_renal_impairment_guidance_2024_v1.json`, two templates |
+| Label extract | The rest of REVLIMID section 12.3 and section 7: 20 quotes, each matched by script against the label file | `lenalidomide_label_2023_pk_v1.json` |
+| Label pharmacokinetics and interactions (O1, O2, O5) | Quoted on the lenalidomide special-populations page; a seventh guided-path step | `lenalidomide_label.label_pk_view`, `guided_path.py`, `label_pk_panel.html` |
 
 ## Checks
 
 | Check | Result |
 |---|---|
-| Unit tests | **Pass.** On the owner's Mac, at this tree: 1,243 tests ran in 274 s; all passed, 2 skipped. First full-suite run since the 3 November checkpoint (subsets were run after each patch). CI has not run on this tree. |
+| Unit tests | **Pass.** On the owner's Mac, at this tree: 1,283 tests ran in 264 s; all passed, 2 skipped. ResourceWarning lines were printed; no failures. |
 | Compile all modules | **Pass.** `compileall` on `app`, `intelligence_store`, `landscape_ui`, `scripts` and `intelligence_migrations`. |
 | Migration chain | **Unchanged.** 9 revisions; no schema change since 16 October. |
-| Pinned data | **Pass.** 158 data files in `intelligence_store/data/` outside `curation/`; 157 match a checksum in code. The exception is the observation template, unpinned by design. |
-| Locked plans and reports | **Pass.** Every check report is listed in the dataset ledger and in the findings file with its checksum, and both are tested. New plans this period were pinned before their computation (1.1d v1 and v2, 2.0d). |
+| Pinned data | **Pass.** 168 data files in `intelligence_store/data/` outside `curation/`; 167 match a checksum in a module, a test or a pinned plan that cites them. The exception is the observation template, unpinned by design. `docs/DATA_FILES.md` is current. |
+| Locked plans and reports | **Pass.** No new check this period after 2.0e; 27 locked checks, all in the dataset ledger and on `/models/findings`. |
 | Validation flags | **Pass.** No tracked JSON sets `clinical_prediction_validated` or `ready_for_patient_simulation` to true. |
-| Repository hygiene | **Pass.** No source articles, labels or private correspondence tracked. The only PDF is the public EMA lenalidomide report. Label PDFs and articles stay in `supplemental-information/`, which is ignored. |
+| Repository hygiene | **Pass.** No source articles, labels, guidances or private correspondence tracked; the backup bundles stay in `supplemental-information/`, which is ignored. |
 
 ## Findings
 
-1. **No CI run on 42 commits.** **Gate:** when the account is restored, push `offline-work`, let CI run, then open the pull requests.
-2. **A plan rationale was wrong (2.0d).** The plan said the Bridoux check had found the pathway model's clearance too high; that check compared Hughes and Kim. The plan stays as locked; the correction is in `SIMULATION_2_RENAL_PATHWAYS.md`. The dataset ledger and findings page now make this kind of misattribution easier to catch.
-3. **Delivery mishap.** One bundle re-sent under the same file name arrived as the previous copy. Bundles are now sent under a unique name and their size is checked on the owner's computer.
+1. **New values not yet reviewed.** The FDA guidance categories and the 20 label quotes of 5 November are on pages, marked as AI-extracted and not reviewed by the owner. Three newly answered checklist questions (O1, O2, O5) rest on them. **Gate:** extraction review round 3.
+2. **A lower absorption bound in the label.** The label's 82% of a radioactive dose unchanged in urine within 24 hours implies absorption of at least about 0.82, below the 0.85 floor that Simulation 2.0e took from the renal study's normal group. The two are different studies and are not reconciled; whether it changes the 2.0e conclusions has not been checked.
+3. **Stale statements in the roadmap.** The first verification pass missed seven of them (found on the second). The shortened roadmap moves the dated detail into the topic documents, which should make this less likely.
 
 ## Scientific state
 
-- 26 locked checks; 3 blind (Bridoux for Hughes and Kim, NEOFORDEX for dexamethasone, eligibility sample v1). See `/models/findings`.
-- Lenalidomide: Hughes and Kim under-predict moderate and severe kidney impairment in two studies; the pathway model is consistent with both myeloma studies there but not with CC-5013-PK-001. No unseen renal data remains.
+- 27 locked checks; 3 blind (Bridoux for Hughes and Kim, NEOFORDEX for dexamethasone, eligibility sample v1). See `/models/findings`.
+- Reviewer's checklist for lenalidomide: 17 of 29 answered, 9 partly, 3 gaps.
+- Lenalidomide: Hughes and Kim under-predict moderate and severe kidney impairment in two studies; the pathway model's moderate and severe results depend on bioavailability. No unseen renal data remains.
 - Bortezomib exposure model: contradicted by every study tested; three candidate fixes failed.
 - No model is validated for clinical prediction.
 
 ## Remaining gates
 
-- **GitHub access:** restore; push; CI; pull requests (#111 still open).
-- **Owner work:** v2 eligibility annotation (the only unseen dataset); extraction review round 3 for the 74 new label values.
+- **This batch:** push `batch-1`, open one pull request, let CI run; the owner merges with "Create a merge commit".
+- **Owner work:** v2 eligibility annotation (the only unseen dataset); extraction review round 3.
 - **Independent review:** none yet, of extractions or of any model.
 - **Authors:** Hughes (Cockcroft–Gault weight basis); Kim (CL/F equation form); Iwasaki (human data).
 - **Platform:** accounts and deployment.

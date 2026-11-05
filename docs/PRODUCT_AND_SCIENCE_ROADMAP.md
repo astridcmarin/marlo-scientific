@@ -138,7 +138,7 @@ Multi-organ physiology, disease progression, combination therapies, the body →
 
 Agreed with the owner on 4 November: the platform has grown faster than it has been used or checked (27 checks, 3 blind; about 165 pinned data files; 33 docs). Until user conversations are possible, work consolidates and reviews rather than adds.
 
-**Done:** full suite on the owner's Mac and the 4 November checkpoint; docs index by question, status by drug and the data-file index; the reviewer's checklist; an AI review of the kidney pathway model and the bioavailability re-check (2.0e); this roadmap verified and shortened.
+**Done:** full suite on the owner's Mac and the 4 and 5 November checkpoints; docs index by question, status by drug and the data-file index; the reviewer's checklist; an AI review of the kidney pathway model and the bioavailability re-check (2.0e); this roadmap verified and shortened.
 
 **Batch 1 (in progress; one pull request):**
 1. Commit-count rules in `CLAUDE.md` (done).
@@ -147,7 +147,7 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 4. FDA 2024 kidney categories beside the study and label bands, and each model's kidney-function measure stated on the pages (checklist R1, R2) (done).
 5. The rest of the REVLIMID section 12.3 extracted, for review round 3 (O1, O2) (done; section 7 too).
 6. Interactions in the guided path and on the special-populations page (O5) (done, with the label's pharmacokinetics).
-7. A new repository checkpoint.
+7. A new repository checkpoint (done: 1,283 tests passing on the owner's Mac, 5 November).
 
 **Then:** one readable analysis report per model (M3); whether each kidney band's label dose restores reference exposure, shown descriptively from Bridoux (R9).
 

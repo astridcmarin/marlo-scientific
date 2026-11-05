@@ -1,0 +1,46 @@
+{
+ "schema_version": "repository-checkpoint-v1",
+ "checkpoint": "2026-11-05",
+ "classification": "software_and_repository_verification",
+ "tree": {
+  "branch": "batch-1",
+  "commit": "c481e40",
+  "base": "main cf18a32 (PR #112)",
+  "commits_since_base": 6,
+  "applied_from": "git bundle batch-1-backup-2026-11-05f.bundle on the owner's Mac",
+  "ci_run": false,
+  "previous_ci": "PR #112, run 42078484578, passed (tree cf18a32 including Simulation 2.0e)"
+ },
+ "unit_tests": {
+  "where": "owner's Mac",
+  "ran": 1283,
+  "passed": 1281,
+  "skipped": 2,
+  "failed": 0,
+  "seconds": 264.390,
+  "warnings": "ResourceWarning lines printed during the run; no failures"
+ },
+ "compileall": "pass",
+ "migrations": {
+  "revisions": 9,
+  "changed_since_previous": false
+ },
+ "pinned_data": {
+  "files": 168,
+  "pinned": 167,
+  "pinned_where": "a checksum in a module, a test, or a pinned plan or record that cites the file",
+  "unpinned_by_design": [
+   "bortezomib_observation_template_v1.json"
+  ]
+ },
+ "validation_flags_true": [],
+ "locked_checks": 27,
+ "blind_checks": 3,
+ "reviewer_checklist": {"answered": 17, "partly": 9, "gap": 3, "of": 29},
+ "findings": [
+  "Roadmap claims verified against the repository: 13 stale or wrong statements corrected, then 7 more on a second pass",
+  "Three of the newly answered checklist questions (O1, O2, O5) and the kidney categories rest on values extracted on 5 November and not yet reviewed by the owner",
+  "The label's 82% of a radioactive dose unchanged in urine within 24 hours implies absorption of at least about 0.82, below the 0.85 floor Simulation 2.0e took from a different study; not reconciled"
+ ],
+ "clinical_prediction_validated": false
+}

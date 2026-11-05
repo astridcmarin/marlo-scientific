@@ -7,7 +7,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [Product and science roadmap](PRODUCT_AND_SCIENCE_ROADMAP.md): positioning, users, phases, status of each phase and next steps (shortened 5 November 2026; the full version with the dated log of every step, and the 10 October version, are in history/).
 - [Reviewer's checklist](REVIEWER_CHECKLIST.md): the questions an FDA clinical pharmacology reviewer asks (renal 2024, hepatic draft 2026, ICH M15), scored against the lenalidomide workflow (17 answered, 9 partly, 3 gaps), with the gaps ranked.
 - [Status by drug](STATUS_BY_DRUG.md): for each drug, in plain language, what the platform has, what was checked, what is known to be wrong and what is missing.
-- [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (4 November 2026: all 1,243 tests passing on the owner's Mac; CI later passed on PR #112, 5 November, with 2.0e included), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-04.json); earlier checkpoints in [history](history/).
+- [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (5 November 2026: all 1,283 tests passing on the owner's Mac at the end of batch 1), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-05.json); earlier checkpoints in [history](history/).
 - Conventions for working in the repository: `CLAUDE.md` at the root.
 
 ## How far can the results be trusted?
