@@ -20,6 +20,23 @@ def load_label_extract(path=EXTRACT_PATH):
     return data
 
 
+
+PK_EXTRACT_PATH = Path(__file__).parent / 'data' / 'lenalidomide_label_2023_pk_v1.json'
+PK_EXTRACT_SHA256 = '821673b5f99364ef1c88ff952c3670d01006ccb6b3bf06a3b3cebeebceda8283'
+
+
+def load_label_pk_extract(path=PK_EXTRACT_PATH):
+    """The rest of section 12.3 (absorption, food, distribution, elimination, dialysis, interaction studies) and
+    section 7 of the same label file, extracted 5 November 2026; not yet reviewed by the owner (round 3)."""
+    raw = Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != PK_EXTRACT_SHA256:
+        raise ValueError('Lenalidomide label pharmacokinetics extract is missing or changed.')
+    data = json.loads(raw)
+    if data.get('schema_version') != 'label-section-extract-v1':
+        raise ValueError('Unsupported label section extract schema.')
+    return data
+
+
 RECONCILIATION_PATH = Path(__file__).parent / 'data' / 'lenalidomide_renal_source_reconciliation_v3.json'
 RECONCILIATION_SHA256 = '8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292'
 # Superseded, kept unchanged for traceability: lenalidomide_renal_source_reconciliation_v2.json

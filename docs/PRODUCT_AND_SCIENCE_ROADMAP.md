@@ -145,7 +145,7 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 2. Roadmap verification (done).
 3. This shorter roadmap (done).
 4. FDA 2024 kidney categories beside the study and label bands, and each model's kidney-function measure stated on the pages (checklist R1, R2) (done).
-5. The rest of the REVLIMID section 12.3 extracted, for review round 3 (O1, O2).
+5. The rest of the REVLIMID section 12.3 extracted, for review round 3 (O1, O2) (done; section 7 too).
 6. Interactions in the guided path and on the special-populations page (O5).
 7. A new repository checkpoint.
 

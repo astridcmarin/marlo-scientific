@@ -5,7 +5,7 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
 ## Lenalidomide (REVLIMID) — published models, checked against outside data
 
 - **On the platform:**
-  - label dosing and kidney dose table (reviewed by the owner);
+  - label dosing and kidney dose table (reviewed by the owner); the rest of the label's pharmacokinetics section and its interactions section (extracted 5 November, not yet reviewed);
   - two published population models: Hughes 2019 and Kim 2026;
   - the platform's own kidney-pathway model;
   - relative odds of grade 3/4 cytopenia;

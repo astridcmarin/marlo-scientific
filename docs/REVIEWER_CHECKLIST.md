@@ -40,8 +40,8 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 | # | Reviewer's question | What the workflow shows | Score |
 |---|---|---|---|
-| O1 | Absorption: Tmax, food effect, bioavailability. | **Not extracted from the lenalidomide label.** The extract covers dosing, the renal table, linearity, protein binding, renal and hepatic studies and other intrinsic factors. Bioavailability is bounded at 0.90–1.0 from the Chen 2012 mass balance, and the body map's moderate and severe bands depend on it (2.0e, 4 November); the label's absorption values are still not extracted. | **Gap** |
-| O2 | Distribution and elimination: half-life, clearance, fraction excreted. | From EMA 2008 and 2013 (85% unchanged in urine; group half-lives). The label's own section 12.3 elimination values are not extracted. | **Partly** |
+| O1 | Absorption: Tmax, food effect, bioavailability. | **Extracted 5 November** (`lenalidomide_label_2023_pk_v1.json`: Tmax 0.5–6 h, high-fat meal AUC −20% and Cmax −50%, no absolute bioavailability stated), not yet shown on a page or reviewed by the owner. Bioavailability is bounded at 0.90–1.0 from the Chen 2012 mass balance, and the body map's moderate and severe bands depend on it (2.0e, 4 November); the label's values are not yet on a page. | **Gap** (extracted; display with item 6) |
+| O2 | Distribution and elimination: half-life, clearance, fraction excreted. | From EMA 2008 and 2013 (85% unchanged in urine; group half-lives). The label's section 12.3 elimination values (half-life 3 h healthy and 3–5 h in patients; 90% of the radioactive dose in urine, 82% unchanged within 24 h; renal clearance above GFR) were extracted on 5 November and are not yet shown. | **Partly** |
 | O3 | Dose proportionality and time dependence. | The label's linearity statement and the EMA dose-proportionality evidence are pinned. | **Answered** |
 | O4 | Age, body size, sex, race. | Special populations (age, body size, other covariates); Hughes's fat-free-mass effect; Kim's BSA effect. | **Answered** |
 | O5 | Drug interactions. | Curated summaries from the label (digoxin, warfarin) on the drug page. Not in the guided path or the special-populations page. | **Partly** |
@@ -76,7 +76,7 @@ The strengths are where the platform has invested: provenance, locked plans, sco
 
 1. **Done 5 November.** **Show the FDA 2024 renal categories** alongside the study's bands and the label's dose bands, with the mapping between them (R1). Small; no new data.
 2. **Done 5 November.** **State each model's renal-function measure on the pages** (Cockcroft–Gault weight basis, Kim's indexed eGFR, the study's measured clearance), with the guidance's preference noted (R2).
-3. **Extract the rest of the lenalidomide label's section 12.3** (absorption, food, elimination) for the owner's review round 3 (O1, O2). Small; the label PDF is already pinned.
+3. **Extracted 5 November; display with item 6.** **Extract the rest of the lenalidomide label's section 12.3** (absorption, food, elimination) for the owner's review round 3 (O1, O2). Small; the label PDF is already pinned.
 4. **Does each band's label dose restore reference exposure?** Show it descriptively from Bridoux (myeloma patients on label-adjusted doses, AUC by group) and from the models, without recommending a dose (R9). Medium; data already pinned.
 5. **One readable model analysis report per model,** in M15's section order (summary, background, goals, data and methods, results, discussion, conclusions), generated from the pinned plans, reports and credibility records (M3). Medium.
 6. **Interactions in the guided path and on the special-populations page** (O5). Small.

@@ -93,3 +93,10 @@ What this establishes, and what it does not:
 Wording when every value matches: "Owner review: all N values the platform uses from FILE match the source (checked by the platform owner, DATES). Not an independent review."
 
 Only the exact file reviewed is covered. A later version of a file shows nothing until its values are reviewed. For example, the lenalidomide special-population page uses `renal_pk_group_evidence_v2.json`, but round 1 reviewed v1. Models with no file in the queue (the bortezomib models, the kidney pathway model) show nothing. The evidence-status summaries ("independent review pending") are unchanged, because no independent review has taken place.
+
+## Waiting for round 3 (as of 5 November 2026)
+
+Round 3 is not opened yet. It will cover values extracted since round 2, none of which feeds a calculation:
+- the five label extracts of 4 November (74 values: carfilzomib, selinexor, thalidomide, isatuximab, elotuzumab);
+- `fda_renal_impairment_guidance_2024_v1.json` (5 November): Table 1's four categories and two quotes, shown on the lenalidomide special-populations page and the body map;
+- `lenalidomide_label_2023_pk_v1.json` (5 November): the rest of REVLIMID section 12.3 (absorption and food, distribution, half-life, metabolism, excretion, dialysis removal, interaction studies, transporters) and section 7 (digoxin, thrombosis risk, warfarin). 20 quotes, each matched by script against the label file's text on the owner's computer.
