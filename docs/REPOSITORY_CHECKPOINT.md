@@ -32,7 +32,7 @@ This is a software and repository verification. It does not validate any model s
 ## Findings
 
 1. **New values not yet reviewed.** The FDA guidance categories and the 20 label quotes of 5 November are on pages, marked as AI-extracted and not reviewed by the owner. Three newly answered checklist questions (O1, O2, O5) rest on them. **Gate:** extraction review round 3.
-2. **A lower absorption bound in the label.** The label's 82% of a radioactive dose unchanged in urine within 24 hours implies absorption of at least about 0.82, below the 0.85 floor that Simulation 2.0e took from the renal study's normal group. The two are different studies and are not reconciled; whether it changes the 2.0e conclusions has not been checked.
+2. **A lower absorption bound in the label.** The label's 82% of a radioactive dose unchanged in urine within 24 hours implies absorption of at least about 0.82, below the 0.85 floor that Simulation 2.0e took from the renal study's normal group. The two are different studies and are not reconciled; whether it changes the 2.0e conclusions has not been checked. **Resolved 5 November, after this checkpoint:** it cannot change them. Both figures are lower bounds, so the higher (0.85) binds and the label's 82% is the weaker one ([SIMULATION_2_RENAL_PATHWAYS.md](SIMULATION_2_RENAL_PATHWAYS.md), last section).
 3. **Stale statements in the roadmap.** The first verification pass missed seven of them (found on the second). The shortened roadmap moves the dated detail into the topic documents, which should make this less likely.
 
 ## Scientific state
