@@ -18,4 +18,9 @@ Research and educational platform: clinical-trial intelligence, drug/regulatory 
 - Synthetic inputs only. Outputs keep `ready_for_patient_simulation` / validation flags false unless a documented review changes them.
 - Tests use `unittest`: `python -m unittest discover -s tests`. Dependencies are in `requirements.txt`.
 - Commits and pull requests: do not add `Co-Authored-By` trailers, session links or "Generated with" footers to commit messages or PR descriptions.
+- Keep the commit count low (the owner's GitHub account was flagged on 3 November 2026 for too many commits; no limit was stated):
+  - One commit per update: fold fix-ups (tests, regenerated indexes, wording) into the update's commit before pushing, never as separate commits.
+  - Exception: a locked check keeps two commits, plan then result, because the order is the evidence that the plan came first. Never squash them together.
+  - Work on a local batch branch and push once per batch, not after each update.
+  - One pull request per batch of about five updates. The owner merges with "Create a merge commit"; do not squash a batch that contains a locked plan.
 - Run the app and CLI tools from the repo root with `PYTHONPATH=.` and `flask --app app/app.py …`; schema changes need a new Alembic migration whose `down_revision` is the current head (`tests/test_migrations.py` checks the chain).
