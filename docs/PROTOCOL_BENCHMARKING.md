@@ -183,7 +183,7 @@ Version 2 responds to the v1 result and its post-hoc analysis.
      - at least 30 annotated pairs per type.
 
      At the counts expected from v1 rates (about 35–115 pairs per type), this allows about 10% errors.
-   - **Annotation page:** `/landscape/benchmarking/annotate` now serves v2, which is stored in `instance/eligibility_annotations_v2.json`. The review page works as before. Export with `eligibility-annotations-v2-export`.
+   - **Annotation page:** `/landscape/benchmarking/annotate` now serves v2, which is stored in `instance/eligibility_annotations_v2.json`. The review page works as before. **Correction, 6 November 2026:** until then the files were actually written to `app/instance/` (Flask's default folder for a module without a package), not the project's `instance/` folder that holds the database; the discrepancy surfaced when the project moved to a new computer. The app now sets one instance folder, the project's `instance/`; an annotation file found only in `app/instance/` is copied (not moved) on first use. If both folders have one, the copy that contains the other (later work on the same annotations) is used, with the older copy kept as a dated backup; copies that have diverged are refused with both named, so no saved trial is lost or chosen silently. Export with `eligibility-annotations-v2-export`.
 2. **4.2b: extractor v1.1** (`eligibility_extractor_v1_1.py`, frozen 28 October 2026, `bfc57df7…`). Version 1.0 stays unchanged, so the v1 report still reproduces.
    - **Development material:** only the v1 development set and the v1 sample. No v2 text was read.
    - **Changes:**
