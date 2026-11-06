@@ -29,7 +29,7 @@ Primary users first: trial designers, clinical pharmacologists and regulatory pr
 |---|---|
 | **Shows its work.** Every value carries its source; every model shows what has and has not been checked, including failures. | In place: run records, scorecards at `/models`, a capability level on every drug. |
 | **Checks planned before they run.** | 27 checks, each locked by commit before computation, all at `/models/findings`. Only 3 were blind (dataset ledger). |
-| **A regulatory reviewer's structure.** | Partly: for lenalidomide, 21 of 29 reviewer questions answered, 6 partly, 2 gaps ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
+| **A regulatory reviewer's structure.** | Partly: for lenalidomide, 22 of 29 reviewer questions answered, 5 partly, 2 gaps ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
 | **The whole chain in one place.** Trial → drug → evidence → exposure → regulatory context. | Partly: a guided path exists for lenalidomide only. |
 | **Reproducible snapshots.** Frozen cohorts; checksum-pinned, versioned data. | In place. |
 | **AI that cites and is checked.** | In place for the 166 values that feed calculations (owner-reviewed, not independent). The 74 values of the 4 November labels are not reviewed. |
@@ -146,7 +146,7 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 
 **Moved to the iMac, 6 November.** The project now runs on the owner's iMac (1,310 tests passing there). Moving it showed that annotations were saved in `app/instance/` while the database was in `instance/`.
 
-**Batch 3 (one pull request; checkpoint 6 November, 1,330 tests on the iMac):**
+**Batch 3 (done; PR #115, merged 6 November; 1,330 tests on the iMac and in CI):**
 1. One instance folder for the database, workspace key and annotations (done).
 2. Model analysis reports for Hughes 2019 and Kim 2026 (M3) (done).
 3. What is known in dialysis, on the special-populations page (R7) (done).
@@ -154,7 +154,10 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 5. Precision of the dose-exposure ratios (R5) (done: approximate intervals from the published geometric CVs; R5 stays partly, as parameter uncertainty is not propagated).
 6. Checkpoint (done).
 
-**Then:** the exposure–safety analysis report; label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
+**Batch 4 (in progress):**
+1. Model analysis report for the exposure–safety odds ratios (M3; every lenalidomide model now has one) (done).
+
+**Then:** label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
 
 **Owner's work:** the v2 eligibility annotation, then its locked check; extraction review round 3 when there is time.
 

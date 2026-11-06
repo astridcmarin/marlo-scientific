@@ -55,7 +55,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 |---|---|---|---|
 | M1 | Question of interest, context of use, model influence, consequence of a wrong decision, model risk. | Credibility records for every model, in the M15 structure. | **Answered** |
 | M2 | Was the analysis planned before the data were accessed? | Every check followed a plan locked before computation, but only 3 of 27 before the data were seen. Each plan and the dataset ledger say which. | **Partly** (stated honestly) |
-| M3 | Is there a model analysis report with summary, methods, results, discussion and conclusions? | **Since 5 November** the kidney pathway model has one, and **since 6 November** Hughes 2019 and Kim 2026 too (`/models/<model>/report`), in the section order of ICH M15 Appendix 2. Results, data, plans and assumptions are read from the pinned reports, ledger and credibility record; the summary, introduction, discussion and conclusions are AI-written and pinned. The exposure–safety relationship has none yet. | **Partly** (3 of 4 lenalidomide models) |
+| M3 | Is there a model analysis report with summary, methods, results, discussion and conclusions? | **Since 5 November** the kidney pathway model has one, and **since 6 November** Hughes 2019, Kim 2026 and the exposure–safety odds ratios too (`/models/<model>/report`), in the section order of ICH M15 Appendix 2. Results, data, plans and assumptions are read from the pinned reports, ledger and credibility record; the summary, introduction, discussion and conclusions are AI-written and pinned. The exposure–safety report states plainly that the model has no locked check, reproduction or outside comparison. | **Answered** (was Partly; all 4 lenalidomide models) |
 | M4 | Verification of the implementation. | Numerical checks (closed form against ODE solver, mass balance) in every report; transcription reviewed by the owner. | **Answered** |
 | M5 | Validation against data not used to build the model. | Outside checks for both population models (two studies); the pathway model's checks were not blind. All on `/models/findings`. | **Partly** (stated honestly) |
 | M6 | Applicability: are the inputs inside the model's data? | Enforced scopes refuse requests beyond each model's data; flagged bands carry warnings. | **Answered** |
@@ -65,9 +65,9 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 ## Score
 
-Of 29 questions (updated 6 November 2026, after R1, R2, R7, R9, H2, O1, O2, O5 and O8):
-- **21 Answered** (including H1, where the evidence itself is missing and shown as missing);
-- **6 Partly**;
+Of 29 questions (updated 6 November 2026, after R1, R2, R7, R9, H2, O1, O2, O5, O8 and M3):
+- **22 Answered** (including H1, where the evidence itself is missing and shown as missing);
+- **5 Partly**;
 - **2 Gap**.
 
 Three of the new answers (O1, O2, O5) rest on label values not yet reviewed by the owner (round 3).
