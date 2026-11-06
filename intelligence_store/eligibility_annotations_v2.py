@@ -169,7 +169,7 @@ def export(path):
 
 
 def store_path(app):
-    return Path(app.config.get('ELIGIBILITY_ANNOTATIONS_V2_PATH') or Path(app.instance_path) / STORE_NAME)
+    return v1.store_path(app, 'ELIGIBILITY_ANNOTATIONS_V2_PATH', STORE_NAME)
 
 
 def register_eligibility_annotation_v2_commands(app):

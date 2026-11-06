@@ -1,0 +1,20 @@
+{# Reviewer's checklist R7: what is known in dialysis, from pinned sources; nothing modelled. #}
+{% if dialysis_error %}<section class="sp-row" id="sp-dialysis"><h2>Dialysis</h2><p role="alert">{{ dialysis_error }}</p></section>
+{% elif dialysis %}{% set c = dialysis.cc5013 %}
+<section class="sp-row" id="sp-dialysis" aria-labelledby="sp-dialysis-heading">
+<h2 id="sp-dialysis-heading">Dialysis: what is known</h2>
+<p><span class="sp-kind sp-kind-label_statement">Label</span>Patients requiring dialysis: {{ dialysis.label_row.regimen }} (multiple myeloma, combination); {{ dialysis.label_row.maintenance_and_mds }} (maintenance and MDS). <span class="sp-src">{{ dialysis.label_row.source }}</span></p>
+<h3>Same six people, with and without haemodialysis (CC-5013-PK-001)</h3>
+<p class="sp-src">“{{ c.design_quote }}” ({{ c.location }}). {{ c.paired_note }}</p>
+<div class="table-scroll"><table class="rr-table"><thead><tr><th>Quantity</th><th>Non-dialysis day</th><th>Dose 3 h before 4-hour haemodialysis</th><th>Ratio, dialysis to non-dialysis (derived)</th></tr></thead><tbody>
+{% for r in c.rows %}<tr><td>{{ r.quantity }}</td><td>{{ '{:,g}'.format(r.off[0]) }} ({{ '{:,g}'.format(r.off[1]) }})</td><td>{{ '{:,g}'.format(r.on[0]) }} ({{ '{:,g}'.format(r.on[1]) }})</td><td>{% if r.ratio_on_to_off is not none %}{{ '%.2f'|format(r.ratio_on_to_off) }}{% else %}—{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="sp-src">{{ dialysis.derived_note }} Not reported: {{ c.not_reported|join('; ') }}.</p>
+<h3>How much one session removes</h3>
+<ul>{% for r in dialysis.removal %}<li>{{ r.text }} <span class="sp-src">{{ r.source }}</span></li>{% endfor %}</ul>
+<h3>Myeloma patients on the label's dialysis dose</h3>
+<p>{{ dialysis.myeloma.source }}: n = {{ dialysis.myeloma.n }}, {{ dialysis.myeloma.regimen }}; AUC24 {{ dialysis.myeloma.auc24_gm }} h·ng/mL (geometric mean, CV {{ dialysis.myeloma.auc24_gcv_pct }}%), half-life {{ dialysis.myeloma.t_half_gm_h }} h. <span class="sp-src">{{ dialysis.myeloma.note }}</span> Its ratio to normal function is in the dose and exposure table above.</p>
+<p class="sp-src"><span class="sp-kind sp-kind-gap">Not modelled</span>{{ dialysis.modelling }}</p>
+<details class="rr-details"><summary>Sources and checksums</summary><ul>{% for s in dialysis.sources %}<li>{{ s.title }}: {{ s.file }} <span class="catalog-digest">{{ s.sha256[:16] }}…</span></li>{% endfor %}</ul><p class="catalog-digest">{{ dialysis.view_version }}: {{ dialysis.view_sha256 }}</p></details>
+</section>
+{% endif %}

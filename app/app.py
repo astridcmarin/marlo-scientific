@@ -1,12 +1,15 @@
 # Clinical Trials Intelligence Explorer
 import json
+from pathlib import Path
 from flask import Flask, Response, abort, redirect, render_template, request, url_for
 import requests
 from intelligence_store import init_storage
 from intelligence_store.snapshots import save_trial_snapshots
 from landscape_ui import register_landscape
 
-app = Flask(__name__)
+# One instance folder for everything local (database, workspace key, annotations): the project's instance/. Without
+# this, Flask used app/instance/ for annotations while the database lived in instance/ (found 6 November 2026).
+app = Flask(__name__, instance_path=str(Path(__file__).resolve().parent.parent / "instance"))
 init_storage(app)
 register_landscape(app)
 

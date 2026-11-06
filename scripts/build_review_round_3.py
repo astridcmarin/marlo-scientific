@@ -3,8 +3,8 @@
 Round 3 covers values extracted after round 2, which feed no calculation but are shown on pages: the five label
 extracts of 4 November, the FDA 2024 renal guidance extract and the rest of REVLIMID sections 12.3 and 7. One item per
 label entry (its structured values, with the quoted sentence it came from), so the owner checks each against the
-source at the stated location. Run from the repository root; writes intelligence_store/data/extraction_review_queue_round3_v2.json (v2 adds the FDA
-2026 draft hepatic guidance extract; v1 is kept unchanged).
+source at the stated location. Run from the repository root; writes intelligence_store/data/extraction_review_queue_round3_v3.json (v2 added the FDA
+2026 draft hepatic guidance extract, v3 the bioanalytical methods; v1 and v2 are kept unchanged).
 """
 import hashlib
 import json
@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'intelligence_store' / 'data'
-OUT = DATA / 'extraction_review_queue_round3_v2.json'
+OUT = DATA / 'extraction_review_queue_round3_v3.json'
 LABELS = ('carfilzomib', 'selinexor', 'thalidomide', 'isatuximab', 'elotuzumab')
 SECTIONS = ('dosing', 'pk', 'special_populations', 'interactions')
 
@@ -85,6 +85,18 @@ def fda_hepatic_group():
             'items': items}
 
 
+def assay_group():
+    path = DATA / 'lenalidomide_bioanalytical_methods_v1.json'
+    doc = json.loads(path.read_text())
+    items = [{'id': f"lenalidomide_assays:/studies/{i}", 'label': s['dataset'], 'pointer': f'/studies/{i}', 'value': s,
+              'location': s['location'], 'where_to_look': f"{s['source']}, {s['location']}",
+              'how_stored': 'the sentences it comes from: “' + ' … '.join(s['quotes']) + '”'}
+             for i, s in enumerate(doc['studies'])]
+    return {'id': 'lenalidomide_assays', 'priority': 1, 'file': f'intelligence_store/data/{path.name}', 'sha256': sha(path),
+            'where_to_look': 'The four articles in supplemental-information/articles (Chen 2007, Bridoux 2016, Kim 2026, Hughes 2019)',
+            'used_by': 'Assays behind the kidney data, on the lenalidomide special-populations page', 'items': items}
+
+
 def revlimid_pk_group():
     path = DATA / 'lenalidomide_label_2023_pk_v1.json'
     doc = json.loads(path.read_text())
@@ -110,12 +122,12 @@ def revlimid_pk_group():
 
 
 def build():
-    groups = [revlimid_pk_group(), fda_group(), fda_hepatic_group()] + label_groups()
-    return {'schema_version': 'extraction-review-queue-v1', 'queue_version': 'extraction-review-queue-round3-v2.0',
+    groups = [revlimid_pk_group(), fda_group(), fda_hepatic_group(), assay_group()] + label_groups()
+    return {'schema_version': 'extraction-review-queue-v1', 'queue_version': 'extraction-review-queue-round3-v3.0',
             'recorded_on': '2026-11-05', 'round': 3,
             'purpose': 'Values extracted after round 2 that are shown on pages but feed no calculation: the rest of the REVLIMID '
                        'pharmacokinetics and interactions sections, the FDA 2024 renal guidance categories, the five label '
-                       'extracts of 4 November and the FDA 2026 draft hepatic guidance. Each item is one entry: check its values against the source at the stated location.',
+                       'extracts of 4 November, the FDA 2026 draft hepatic guidance and the bioanalytical methods behind the kidney data. Each item is one entry: check its values against the source at the stated location.',
             'excluded': 'Quotes were already matched by script against each source\'s text; this round checks the structured values '
                         'and that each quote is the right sentence at the right place.',
             'decisions': {'matches': 'The value matches the source at the stated location.',

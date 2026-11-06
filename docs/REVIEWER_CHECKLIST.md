@@ -22,9 +22,9 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 | R2 | How was renal function estimated? The guidance prefers eGFR in mL/min, not per 1.73 m², and alternative body weights for Cockcroft–Gault in obesity. | Recorded in the docs. Hughes uses Cockcroft–Gault, with its weight basis an open author question. Kim uses CKD-EPI eGFR indexed to 1.73 m², as published. The study measured 24-hour creatinine clearance. **Since 5 November** the special-populations page states each source's measure, with the guidance's two quotes (mL/min, not indexed; alternative weights for Cockcroft–Gault in obesity) and how Kim and Hughes differ from them. | **Answered** (was Partly) |
 | R3 | Are AUC, Cmax, fu, CL/F, CLR, CLNR/F, V/F and half-life reported by group? | AUC, Cmax, CL/F, CLR and half-life are shown (special populations, body map numbers panel, EMA 2013 extract); the non-renal split is in the body map. Protein binding in renal impairment is not measured: the model holds fu constant across bands (0.77 in vitro, with 0.60 ex vivo shown as the alternative). | **Partly** |
 | R4 | Is PK regressed on continuous renal function, which the guidance prefers to categories? | The EMA 2013 regressions on measured clearance are pinned and shown in the body map's observed-data panel. | **Answered** |
-| R5 | Are estimates given with their precision? | Observed values carry 90% CIs in every check. Model outputs are typical values; Hughes and Kim show population bands. Parameter uncertainty is not propagated. | **Partly** |
+| R5 | Are estimates given with their precision? | Observed values carry 90% CIs in every check. **Since 6 November** the label dose-and-exposure table gives approximate 90% intervals for the Bridoux ratios too (derived from geometric CV and n; moderate 0.87–1.22, severe 1.01–1.76, dialysis 0.93–1.43). Model outputs are typical values; Hughes and Kim show population bands. Parameter uncertainty is not propagated. | **Partly** |
 | R6 | Were confounding covariates (age, sex, weight) considered? | Recheck 2.1e drew virtual subjects matched to each group's age, weight and sex. | **Answered** |
-| R7 | What is known in dialysis? | The label's dialysis dose is quoted. The end-stage check was inconclusive (residual function not reported). Dialysis clearance is not modelled. | **Partly** |
+| R7 | What is known in dialysis? | **Since 6 November** the lenalidomide special-populations page gathers it: the label's dialysis dose; CC-5013-PK-001's same six subjects with and without haemodialysis (AUC 11,121 vs 6,830 h·ng/mL; ratio 0.61, derived); dialysis clearance 146 mL/min and 31% removed in 4 hours (EMA 2013; label about 30%); and Bridoux's myeloma patients on the label's dialysis dose. The end-stage check was inconclusive and dialysis is not modelled; the page says so. | **Answered** (was Partly; descriptive) |
 | R8 | What population was studied, and is renal function stable? | CC-5013-PK-001's non-malignant population is recorded (2.1g); Bridoux and Kim are myeloma patients. | **Answered** |
 | R9 | How was the dose for each band chosen (exposure matching, or the reference group's 5th–95th percentile)? | The label's adjusted doses are quoted. **Since 5 November** the lenalidomide special-populations page shows, descriptively, how exposure on each band's label dose compares with the reference: Bridoux 2016 observed in myeloma patients on those doses (ratio to normal 1.03 moderate, 1.33 severe, 1.16 dialysis), CC-5013-PK-001's single-dose ratios scaled to the label dose by dose proportionality (1.04, 1.06, 0.95) and the sponsor's simulation (1.05 severe). No threshold is set and no dose is recommended. | **Answered** (was Gap; descriptive) |
 | R10 | What does the label say on renal elimination and dosing? | Label Table 3 and the renal-study text are quoted and reviewed by the owner. | **Answered** |
@@ -47,7 +47,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 | O5 | Drug interactions. | **Since 5 November**, the label's section 7 (digoxin, thrombosis risk, warfarin) and section 12.3 interaction studies and transporter findings are quoted on the special-populations page and summarised as a guided-path step. No interaction is modelled. Not yet reviewed by the owner. | **Answered** (was Partly) |
 | O6 | Exposure–response for safety. | Relative odds of grade 3/4 cytopenia (TGA AusPAR), in each model's scope. | **Answered** |
 | O7 | Exposure–response for efficacy. | None; the evidence scan found no usable source. Shown as a gap. | **Gap** (shown honestly) |
-| O8 | Bioanalytical method: is the assay adequate? | The assay quality review covers one published assay. The assays behind CC-5013-PK-001, Bridoux and Kim are not summarised. | **Partly** |
+| O8 | Bioanalytical method: is the assay adequate? | **Since 6 November** the lenalidomide special-populations page quotes the method behind each kidney dataset: CC-5013-PK-001 (validated chiral LC/MS/MS, plasma 5–200 ng/mL, LLOQ 5, between-day precision within 6.1%, accuracy 97.3–99.7%); Kim 2026 (validated HPLC-MS/MS, total and unbound, LLOQ 5, stated as compliant with FDA and MFDS guidance); Bridoux 2016 and Hughes 2019 by citation only, with no figures in the papers. Not yet reviewed by the owner. | **Answered** (was Partly) |
 
 ## Model credibility (M)
 
@@ -55,7 +55,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 |---|---|---|---|
 | M1 | Question of interest, context of use, model influence, consequence of a wrong decision, model risk. | Credibility records for every model, in the M15 structure. | **Answered** |
 | M2 | Was the analysis planned before the data were accessed? | Every check followed a plan locked before computation, but only 3 of 27 before the data were seen. Each plan and the dataset ledger say which. | **Partly** (stated honestly) |
-| M3 | Is there a model analysis report with summary, methods, results, discussion and conclusions? | **Since 5 November**, one model has one: the kidney pathway model, at `/models/lenalidomide_renal_pathways_2026/report`, in the section order of ICH M15 Appendix 2. Results, data, plans and assumptions are read from the pinned reports, ledger and credibility record; the summary, introduction, discussion and conclusions are AI-written and pinned. Hughes, Kim and the exposure–safety relationship have none yet. | **Partly** (1 of 4 lenalidomide models) |
+| M3 | Is there a model analysis report with summary, methods, results, discussion and conclusions? | **Since 5 November** the kidney pathway model has one, and **since 6 November** Hughes 2019 and Kim 2026 too (`/models/<model>/report`), in the section order of ICH M15 Appendix 2. Results, data, plans and assumptions are read from the pinned reports, ledger and credibility record; the summary, introduction, discussion and conclusions are AI-written and pinned. The exposure–safety relationship has none yet. | **Partly** (3 of 4 lenalidomide models) |
 | M4 | Verification of the implementation. | Numerical checks (closed form against ODE solver, mass balance) in every report; transcription reviewed by the owner. | **Answered** |
 | M5 | Validation against data not used to build the model. | Outside checks for both population models (two studies); the pathway model's checks were not blind. All on `/models/findings`. | **Partly** (stated honestly) |
 | M6 | Applicability: are the inputs inside the model's data? | Enforced scopes refuse requests beyond each model's data; flagged bands carry warnings. | **Answered** |
@@ -65,9 +65,9 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 ## Score
 
-Of 29 questions (updated 5 November 2026, after R1, R2, R9, H2, O1, O2 and O5):
-- **19 Answered** (including H1, where the evidence itself is missing and shown as missing);
-- **8 Partly**;
+Of 29 questions (updated 6 November 2026, after R1, R2, R7, R9, H2, O1, O2, O5 and O8):
+- **21 Answered** (including H1, where the evidence itself is missing and shown as missing);
+- **6 Partly**;
 - **2 Gap**.
 
 Three of the new answers (O1, O2, O5) rest on label values not yet reviewed by the owner (round 3).

@@ -10,6 +10,7 @@ import os
 from datetime import datetime, timezone
 from pathlib import Path
 import re
+import shutil
 import tempfile
 import unicodedata
 
@@ -178,13 +179,68 @@ def export(path):
     return payload
 
 
+def _contained(a, b):
+    """True when store a is an earlier state of store b: every annotation and review in a is in b unchanged, and a's
+    corrections are the start of b's."""
+    def part(s, key, default):
+        return s.get(key, default)
+    return (all(part(b, 'annotations', {}).get(k) == v for k, v in part(a, 'annotations', {}).items())
+            and all(part(b, 'reviews', {}).get(k) == v for k, v in part(a, 'reviews', {}).items())
+            and part(b, 'corrections', [])[:len(part(a, 'corrections', []))] == part(a, 'corrections', []))
+
+
+def resolve_store(canonical, legacy):
+    """The annotation file to use. Until 6 November 2026 the app kept annotations in app/instance/ (Flask's default)
+    while everything else was in instance/. If only the old location has the file, it is copied (not moved) to the new
+    one. If both exist, the one that contains the other (an earlier state of the same work) is kept, so no saved trial
+    is lost; when the old one is newer it is copied over the new location after the new one is set aside as a dated
+    backup. If neither contains the other, nothing is chosen silently: the error names both files."""
+    canonical, legacy = Path(canonical), Path(legacy)
+    if legacy == canonical or not legacy.exists():
+        return canonical
+    if not canonical.exists():
+        canonical.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(legacy, canonical)
+        return canonical
+    if canonical.read_bytes() == legacy.read_bytes():
+        return canonical
+
+    def describe(p):
+        try:
+            store = json.loads(p.read_text(encoding='utf-8'))
+            saved = [a.get('saved_at_utc', '') for a in store.get('annotations', {}).values()]
+            return f"{p} ({len(saved)} trials, last saved {max(saved) if saved else 'never'})"
+        except (OSError, ValueError):
+            return f"{p} (unreadable)"
+    try:
+        new, old = (json.loads(x.read_text(encoding='utf-8')) for x in (canonical, legacy))
+    except (OSError, ValueError):
+        new = old = None
+    if new is not None and _contained(old, new):
+        return canonical
+    if new is not None and _contained(new, old):
+        backup = canonical.with_name(canonical.stem + '.before-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ') + '.json')
+        shutil.copy2(canonical, backup)
+        shutil.copy2(legacy, canonical)
+        return canonical
+    raise ValueError('Two different annotation files exist: ' + describe(canonical) + ' and ' + describe(legacy) +
+                     '. Keep the one with your latest work in instance/ and move the other out of the project.')
+
+
+def store_path(app, config_key, name):
+    configured = app.config.get(config_key)
+    if configured:
+        return Path(configured)
+    return resolve_store(Path(app.instance_path) / name, Path(app.root_path) / 'instance' / name)
+
+
 def register_eligibility_annotation_commands(app):
     @app.cli.command('eligibility-annotations-export')
     @click.option('--output', type=click.Path(dir_okay=False, path_type=Path), required=True)
     def command(output):
         """Export the finished reference annotation (Phase 4.1e) for pinning."""
-        path = Path(app.config.get('ELIGIBILITY_ANNOTATIONS_PATH') or Path(app.instance_path) / 'eligibility_annotations_v1.json')
         try:
+            path = store_path(app, 'ELIGIBILITY_ANNOTATIONS_PATH', 'eligibility_annotations_v1.json')
             payload = export(path)
         except ValueError as exc:
             raise click.ClickException(str(exc)) from exc

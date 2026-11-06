@@ -1,0 +1,29 @@
+{
+ "schema_version": "model-analysis-report-text-v1",
+ "text_version": "lenalidomide-hughes-2019-mar-text-v1.0",
+ "model_id": "lenalidomide_hughes_2019",
+ "recorded_on": "2026-11-06",
+ "author": "AI assistant for the platform owner; not reviewed independently",
+ "structure": "ICH M15 Appendix 2, Model Analysis Report: Executive Summary, Introduction, Objectives, Data and Methods, Results, Discussion, Conclusions, Appendices (EMA/CHMP/ICH/496426/2024, 9 February 2026, page 16-17).",
+ "sections": {
+  "executive_summary": "The platform implements the published lenalidomide population pharmacokinetic model of Hughes et al. (2019) at its typical values, with creatinine clearance (Cockcroft-Gault) and fat-free mass as covariates, to draw exposure curves for synthetic profiles. Three locked checks compared it with group data from outside its source: the dedicated renal study (CC-5013-PK-001), the same study with virtual subjects matched to its demographics, and myeloma patients on reduced doses (Bridoux 2016, blind). Mild impairment is consistent throughout; moderate and severe impairment are under-predicted in both studies. The model is shown for research and education with those bands flagged.",
+  "introduction": "Hughes et al. (2019) published a population model of lenalidomide in which apparent clearance falls with creatinine clearance and scales with fat-free mass. The platform uses it for typical-value exposure curves in the Patient Lab and in comparisons with Kim 2026. The paper does not state which body weight its Cockcroft-Gault calculation used; the platform assumes ideal body weight and shows the alternatives as sensitivity cases, and the question is open with the authors. Only the main-text parameter layer was transcribed; no source data or run outputs were available to reproduce the model.",
+  "objectives": [
+   "Reproduce the published typical-value model for synthetic profiles, with its covariates and stated variability.",
+   "Test, under plans locked before computation, whether its kidney-function effect reproduces group exposure in a dedicated renal study and in myeloma patients outside its source data.",
+   "Record which kidney-function bands the model may be shown for without a warning."
+  ],
+  "discussion": [
+   "Mild impairment is consistent in every check and scenario. Moderate and severe impairment are under-predicted in CC-5013-PK-001, unchanged when the virtual subjects were matched to that study's demographics, and again in myeloma patients (Bridoux 2016), so the non-cancer population of the renal study does not explain the gap.",
+   "The Bridoux check was blind for the model's predictions but carries a recorded deviation: part of the study's results text was seen while locating its design table, before the observed file was committed. The deviation is stated with the result.",
+   "The checks compare group means only, with 5 to 7 subjects per group in CC-5013-PK-001. The weight basis of Cockcroft-Gault in the source remains unresolved; it changes the computed clearance most in heavier people. Random effects are set to zero for the typical curve."
+  ],
+  "conclusions": [
+   "The model is consistent with outside data in mild kidney impairment and is shown there without a band warning.",
+   "It under-predicts exposure in moderate and severe impairment in two independent studies; those bands are flagged on every page that shows them.",
+   "Further checking needs unseen data, and an answer from the authors on the weight basis."
+  ]
+ },
+ "not_this": "Not a regulatory submission and not an independent assessment of the published model. It documents how the platform implemented and checked the model. Generated from the platform's pinned plans and reports; the narrative sections were written by the AI assistant and have not been reviewed independently.",
+ "clinical_prediction_validated": false
+}

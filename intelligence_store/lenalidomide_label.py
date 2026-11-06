@@ -88,3 +88,20 @@ def label_pk_view(data=None):
     return {'extract_version': data['extract_version'], 'sha256': PK_EXTRACT_SHA256, 'document': data['source']['document'],
             'extraction': data['source']['extraction'], 'sections': sections,
             'not_stated': data['absorption']['bioavailability']['note'], 'clinical_prediction_validated': False}
+
+
+# ---------------------------------------------------------------- bioanalytical methods behind the kidney data (O8)
+ASSAY_PATH = Path(__file__).parent / 'data' / 'lenalidomide_bioanalytical_methods_v1.json'
+ASSAY_SHA256 = '92e40c55bbf6a7836e186c08948092fe60cac83817bb726a5f14443b177741ba'
+
+
+def load_bioanalytical_methods(path=ASSAY_PATH):
+    """How each kidney-function dataset's concentrations were measured, as each source reports it (6 November 2026;
+    quotes matched by script against the source PDFs; not yet reviewed by the owner)."""
+    raw = Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != ASSAY_SHA256:
+        raise ValueError('Lenalidomide bioanalytical methods extract is missing or changed.')
+    data = json.loads(raw)
+    if data.get('schema_version') != 'bioanalytical-methods-extract-v1':
+        raise ValueError('Unsupported bioanalytical methods extract schema.')
+    return data

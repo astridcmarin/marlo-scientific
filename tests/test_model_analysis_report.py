@@ -51,7 +51,24 @@ class Report(unittest.TestCase):
         self.assertEqual(self.r['report_sha256'], mar.build(MODEL)['report_sha256'])
         self.assertFalse(self.r['clinical_prediction_validated'])
         with self.assertRaises(KeyError):
-            mar.build('lenalidomide_hughes_2019')
+            mar.build('bortezomib_pk_lignet_2022')
+
+
+class PublishedModels(unittest.TestCase):
+    def test_hughes_and_kim_reports(self):
+        h, k = mar.build('lenalidomide_hughes_2019'), mar.build('lenalidomide_kim_2026')
+        self.assertEqual([r['finding']['id'] for r in h['results']], ['hughes_cc5013', 'renal_recheck', 'bridoux_hughes_kim'])
+        self.assertEqual([r['finding']['id'] for r in k['results']], ['kim_cc5013', 'renal_recheck', 'bridoux_hughes_kim'])
+        self.assertEqual(k['results'][1]['rows'][1], ['Moderate', 'model under-predicts', 'model under-predicts', 'changed'])
+        bridoux = h['results'][2]
+        self.assertTrue(bridoux['finding']['blind'])
+        self.assertIn('Recorded deviation', bridoux['note'])
+        self.assertIn('Three locked checks', h['executive_summary'])
+
+    def test_every_narrative_is_pinned(self):
+        import hashlib
+        for model_id, (name, sha) in mar.TEXTS.items():
+            self.assertEqual(hashlib.sha256((mar.DATA / name).read_bytes()).hexdigest(), sha, model_id)
 
 
 class Page(unittest.TestCase):
@@ -67,7 +84,7 @@ class Page(unittest.TestCase):
             self.assertIn(text, html)
         body = json.loads(self.client.get(f'/models/{MODEL}/report?format=json').get_data(as_text=True))
         self.assertEqual(body['model_id'], MODEL)
-        self.assertEqual(self.client.get('/models/lenalidomide_hughes_2019/report').status_code, 404)
+        self.assertEqual(self.client.get('/models/bortezomib_pk_lignet_2022/report').status_code, 404)
         self.assertEqual(self.client.get(f'/models/{MODEL}/report?format=xml').status_code, 400)
         self.assertIn(f'/models/{MODEL}/report', self.client.get(f'/models/{MODEL}/credibility').get_data(as_text=True))
 
