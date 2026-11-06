@@ -1,0 +1,15 @@
+{# Reviewer's checklist O8: the bioanalytical methods behind the kidney-function datasets, quoted. #}
+{% if assays_error %}<section class="sp-row" id="sp-assays"><h2>Assays behind the kidney data</h2><p role="alert">{{ assays_error }}</p></section>
+{% elif assays %}
+<section class="sp-row" id="sp-assays" aria-labelledby="sp-assays-heading">
+<h2 id="sp-assays-heading">Assays behind the kidney data</h2>
+<p>How the concentrations in each kidney-function dataset were measured, as each source reports it.</p>
+<div class="table-scroll"><table class="rr-table"><thead><tr><th>Dataset</th><th>Method</th><th>Plasma range and LLOQ</th><th>Precision and accuracy</th></tr></thead><tbody>
+{% for s in assays.studies %}<tr><td><strong>{{ s.dataset }}</strong><br><small>{{ s.source }}, {{ s.location }}</small></td><td>{{ s.method }}</td>
+<td>{% if s.plasma_range_ng_ml %}{{ s.plasma_range_ng_ml[0] }}–{{ '{:,}'.format(s.plasma_range_ng_ml[1]) }} ng/mL; LLOQ {{ s.plasma_lloq_ng_ml }} ng/mL{% else %}<small>not stated in the paper</small>{% endif %}</td>
+<td>{% if s.between_day_precision_pct %}between-day precision within {{ s.between_day_precision_pct.plasma }}% (plasma); accuracy {{ s.accuracy_pct.plasma[0] }}–{{ s.accuracy_pct.plasma[1] }}%{% elif s.inter_assay_pct %}intra-assay bias &lt; {{ s.intra_assay_pct.bias_below }}%, CV &lt; {{ s.intra_assay_pct.cv_below }}%; inter-assay bias &lt; {{ s.inter_assay_pct.bias_below }}%, CV &lt; {{ s.inter_assay_pct.cv_below }}%{% else %}<small>not stated in the paper</small>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+{% for s in assays.studies %}<details class="rr-details"><summary>{{ s.dataset }}: the source's words</summary><ul>{% for q in s.quotes %}<li>“{{ q }}”</li>{% endfor %}</ul>{% if s.note %}<p class="sp-src"><span class="sp-kind sp-kind-platform_model_scope">Platform note</span>{{ s.note }}</p>{% endif %}</details>{% endfor %}
+<p class="sp-src owner-review">{% for r in owner_review('intelligence_store/data/lenalidomide_bioanalytical_methods_v1.json') %}<strong>{{ r.text }}</strong> {% else %}<strong>Extracted with AI assistance; not reviewed by the platform owner.</strong> {% endfor %}{{ assays.extraction }}</p>
+</section>
+{% endif %}

@@ -84,6 +84,17 @@ def _dialysis(drug):
         return None, str(exc)
 
 
+def _assays(drug):
+    """The bioanalytical methods behind the kidney-function datasets (lenalidomide only)."""
+    if drug != 'lenalidomide':
+        return None, None
+    from intelligence_store.lenalidomide_label import load_bioanalytical_methods
+    try:
+        return load_bioanalytical_methods(), None
+    except (ValueError, OSError) as exc:
+        return None, str(exc)
+
+
 def register_special_population_pages(bp):
     @bp.get('/drugs/<drug>/special-populations')
     def special_populations(drug):
@@ -105,8 +116,10 @@ def register_special_population_pages(bp):
         rde, rde_error = _renal_dose_exposure(drug)
         hepatic, hepatic_error = _hepatic_classifications(drug)
         dialysis, dialysis_error = _dialysis(drug)
+        assays, assays_error = _assays(drug)
         return Response(render_template('landscape_special_populations.html', v=view, fmt=fmt_value, kidney=kidney,
                                         kidney_error=kidney_error, label_pk=label_pk, label_pk_error=label_pk_error,
                                         rde=rde, rde_error=rde_error, hepatic=hepatic, hepatic_error=hepatic_error,
-                                        dialysis=dialysis, dialysis_error=dialysis_error),
+                                        dialysis=dialysis, dialysis_error=dialysis_error,
+                                        assays=assays, assays_error=assays_error),
                         headers=headers)

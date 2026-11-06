@@ -47,7 +47,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 | O5 | Drug interactions. | **Since 5 November**, the label's section 7 (digoxin, thrombosis risk, warfarin) and section 12.3 interaction studies and transporter findings are quoted on the special-populations page and summarised as a guided-path step. No interaction is modelled. Not yet reviewed by the owner. | **Answered** (was Partly) |
 | O6 | Exposure–response for safety. | Relative odds of grade 3/4 cytopenia (TGA AusPAR), in each model's scope. | **Answered** |
 | O7 | Exposure–response for efficacy. | None; the evidence scan found no usable source. Shown as a gap. | **Gap** (shown honestly) |
-| O8 | Bioanalytical method: is the assay adequate? | The assay quality review covers one published assay. The assays behind CC-5013-PK-001, Bridoux and Kim are not summarised. | **Partly** |
+| O8 | Bioanalytical method: is the assay adequate? | **Since 6 November** the lenalidomide special-populations page quotes the method behind each kidney dataset: CC-5013-PK-001 (validated chiral LC/MS/MS, plasma 5–200 ng/mL, LLOQ 5, between-day precision within 6.1%, accuracy 97.3–99.7%); Kim 2026 (validated HPLC-MS/MS, total and unbound, LLOQ 5, stated as compliant with FDA and MFDS guidance); Bridoux 2016 and Hughes 2019 by citation only, with no figures in the papers. Not yet reviewed by the owner. | **Answered** (was Partly) |
 
 ## Model credibility (M)
 
@@ -65,9 +65,9 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 ## Score
 
-Of 29 questions (updated 6 November 2026, after R1, R2, R7, R9, H2, O1, O2 and O5):
-- **20 Answered** (including H1, where the evidence itself is missing and shown as missing);
-- **7 Partly**;
+Of 29 questions (updated 6 November 2026, after R1, R2, R7, R9, H2, O1, O2, O5 and O8):
+- **21 Answered** (including H1, where the evidence itself is missing and shown as missing);
+- **6 Partly**;
 - **2 Gap**.
 
 Three of the new answers (O1, O2, O5) rest on label values not yet reviewed by the owner (round 3).

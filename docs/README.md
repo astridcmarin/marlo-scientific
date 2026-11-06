@@ -5,7 +5,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 ## Start here
 
 - [Product and science roadmap](PRODUCT_AND_SCIENCE_ROADMAP.md): positioning, users, phases, status of each phase and next steps (shortened 5 November 2026; the full version with the dated log of every step, and the 10 October version, are in history/).
-- [Reviewer's checklist](REVIEWER_CHECKLIST.md): the questions an FDA clinical pharmacology reviewer asks (renal 2024, hepatic draft 2026, ICH M15), scored against the lenalidomide workflow (20 answered, 7 partly, 2 gaps), with the gaps ranked.
+- [Reviewer's checklist](REVIEWER_CHECKLIST.md): the questions an FDA clinical pharmacology reviewer asks (renal 2024, hepatic draft 2026, ICH M15), scored against the lenalidomide workflow (21 answered, 6 partly, 2 gaps), with the gaps ranked.
 - [Status by drug](STATUS_BY_DRUG.md): for each drug, in plain language, what the platform has, what was checked, what is known to be wrong and what is missing.
 - [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (6 November 2026: tests passing on the owner's Mac at the end of batch 2), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-06.json); earlier checkpoints in [history](history/).
 - Conventions for working in the repository: `CLAUDE.md` at the root.
