@@ -21,12 +21,20 @@ SCHEMA_VERSION = 'model-analysis-report-v1'
 TEXTS = {
     'lenalidomide_renal_pathways_2026': ('model_analysis_report_text_lenalidomide_renal_pathways_v1.json',
                                          '65c9c7f918cfe1a8666620875e6bdeb2761e9374f0cbb7c1e33fa9d67b85a324'),
+    'lenalidomide_hughes_2019': ('model_analysis_report_text_lenalidomide_hughes_2019_v1.json',
+                                 '30bc917397eb3e949067af584a1ce5394a8d16de656c8a9da848be159822e53a'),
+    'lenalidomide_kim_2026': ('model_analysis_report_text_lenalidomide_kim_2026_v1.json',
+                              '691ddbddf03d4e47b83a036202fcc8c7491a18d88ec1e9e0d4c66d1fa5d62f69'),
 }
 REPORT_FILES = {
     'pathways_2_0a': ('docs/verification/lenalidomide_renal_pathways_check_v1.json', '163b5ca1a95a7f3d745c8e25a93ef58d4bedd0e1e48d6e4bfdfb4a25457a93d5'),
     'pathways_esrd': ('docs/verification/lenalidomide_esrd_dialysis_check_v1.json', 'f82caa14d665e4f3d4aeefffef6030da7f3cbd5ced495e0e342bcc86108eed52'),
     'pathways_2_0d': ('docs/verification/lenalidomide_renal_pathways_check_v2.json', '277108de99726588a04c11468e7004f93068d6fa0ca3372ae5c564dbe756dbdd'),
     'pathways_2_0e': ('docs/verification/lenalidomide_renal_pathways_check_v3.json', 'a60437cc58e174c88b79434a6eee104455995bf64cd0f935f8c39f4877615533'),
+    'hughes_cc5013': ('docs/verification/hughes_renal_group_check_v1.json', '70cae05e8dca498bc3e9774177dd4fc406c9508f419ad1f8a64be80c84c0c159'),
+    'kim_cc5013': ('docs/verification/kim_renal_group_check_v1.json', 'e53f62db6506346a3d5027388b0c9165de51b8fab0c5f9efc1ad7b29d34da4bb'),
+    'renal_recheck': ('docs/verification/lenalidomide_renal_recheck_v1.json', 'c98e29919cd9e90981439a37d03883a8cfd834f397b8c0383e723b1f923e2991'),
+    'bridoux_hughes_kim': ('docs/verification/lenalidomide_bridoux_check_v1.json', 'febf0e3b6ea090dd44172bc44b4cedf30e820b2227a07cea4ea7eed4fa3daccb'),
 }
 REVIEWS = {'lenalidomide_renal_pathways_2026': ['docs/reviews/2026-11-04_ai_review_renal_pathways.md']}
 CLASS = {'consistent': 'consistent', 'model_under_predicts': 'model under-predicts', 'model_over_predicts': 'model over-predicts'}
@@ -48,7 +56,7 @@ def _c(x):
     return CLASS.get(x, x.replace('_', ' ') if isinstance(x, str) else x)
 
 
-def _result_2_0a(r):
+def _result_2_0a(r, model_id=None):
     primary = next(s for s in r['scenarios'] if s['label'] == 'primary')
     rows = []
     for g in primary['groups']:
@@ -66,7 +74,7 @@ def _result_2_0a(r):
                      f"Other scenarios are in the report.")}
 
 
-def _result_esrd(r):
+def _result_esrd(r, model_id=None):
     p = r['primary']
     rows = [[f"{s['residual_crcl_ml_min']:g}", f"{s['auc_ng_h_ml']:,.0f}", f"{s['ratio_to_observed']:.2f}", _c(s['classification'])]
             for s in p['scenarios']]
@@ -77,7 +85,7 @@ def _result_esrd(r):
                     'Residual function of the subjects was not reported, so the result is inconclusive.'}
 
 
-def _result_2_0d(r):
+def _result_2_0d(r, model_id=None):
     d = r['decision']
     rows = [[k.replace('_', ' ').capitalize(), _c(v)] for k, v in d['deciding_comparisons'].items()]
     return {'title': 'Steeper-secretion candidate against the myeloma studies (2.0d)',
@@ -86,7 +94,7 @@ def _result_2_0d(r):
                     f"outcome: {d['outcome'].replace('_', ' ')}. Rule: {d['rule']}"}
 
 
-def _result_2_0e(r):
+def _result_2_0e(r, model_id=None):
     d = r['decision']
     rows = []
     for band in ('moderate', 'severe'):
@@ -104,7 +112,49 @@ def _result_2_0e(r):
                      f"{lo:.1f}–{hi:.1f} mL/min over F 0.90–1.0.")}
 
 
-RESULTS = {'pathways_2_0a': _result_2_0a, 'pathways_esrd': _result_esrd, 'pathways_2_0d': _result_2_0d, 'pathways_2_0e': _result_2_0e}
+BANDS = {'mild': 'Mild', 'moderate': 'Moderate', 'severe': 'Severe'}
+GROUP_TITLES = {
+    'hughes_cc5013': ('CC-5013-PK-001 kidney-function groups (2.0g)', 'Single 25 mg dose; observed group mean AUCinf against simulated group means (primary endpoint).'),
+    'kim_cc5013': ('CC-5013-PK-001 kidney-function groups (2.1c)', 'Single 25 mg dose; observed group mean AUCinf against simulated group means (primary endpoint).'),
+    'renal_recheck': ('Recheck with virtual subjects matched to CC-5013-PK-001 (2.1e)', 'Each group simulated with the study\'s own demographics; AUCinf as before.'),
+    'bridoux_hughes_kim': ('Myeloma patients on reduced doses, Bridoux 2016 (2.1h)', 'Steady-state AUC24 by kidney-function group, in myeloma patients on the doses they received; the first blind check of a published population model.'),
+}
+
+
+def _result_groups(r, model_id):
+    """Group classifications for a published population model, from either report layout."""
+    if 'result_by_model' in r:
+        block = r['result_by_model'][model_id]
+        primary, across = block['primary'], block['across_scenarios']
+    else:
+        primary, across = r['primary_endpoint_by_group'], r['classification_across_scenarios']
+    columns = ['Kidney-function group', 'Primary scenario', 'Across all scenarios']
+    rows = []
+    for g in ('mild', 'moderate', 'severe'):
+        row = [BANDS[g], _c(primary[g]), ', '.join(sorted({_c(x) for x in across[g]}))]
+        if 'result_by_model' in r and 'change_from_v1' in r['result_by_model'][model_id]:
+            row.append(r['result_by_model'][model_id]['change_from_v1'][g])
+        rows.append(row)
+    if rows and len(rows[0]) == 4:
+        columns.append('Change from the first check')
+    return columns, rows
+
+
+def _group_result(finding_id):
+    def build_result(r, model_id):
+        columns, rows = _result_groups(r, model_id)
+        title, note = GROUP_TITLES[finding_id]
+        if r.get('deviation_recorded_at_stage_1'):
+            note += ' Recorded deviation: ' + r['deviation_recorded_at_stage_1']
+        return {'title': title, 'columns': columns, 'rows': rows,
+                'note': note + ' Classification (locked plan): consistent when the observed value lies within the 5th-95th '
+                               'percentile of simulated values; otherwise the direction of the difference.'}
+    return build_result
+
+
+RESULTS = {'pathways_2_0a': _result_2_0a, 'pathways_esrd': _result_esrd, 'pathways_2_0d': _result_2_0d, 'pathways_2_0e': _result_2_0e,
+           'hughes_cc5013': _group_result('hughes_cc5013'), 'kim_cc5013': _group_result('kim_cc5013'),
+           'renal_recheck': _group_result('renal_recheck'), 'bridoux_hughes_kim': _group_result('bridoux_hughes_kim')}
 
 
 def available():
@@ -126,7 +176,7 @@ def build(model_id):
         if f['report'] != rel:
             raise ReportError(f"Finding {f['id']} cites {f['report']}, not {rel}.")
         report = _pinned(rel, sha)
-        results.append(dict(RESULTS[f['id']](report), finding={k: f.get(k) for k in ('id', 'step', 'date', 'question', 'outcome',
+        results.append(dict(RESULTS[f['id']](report, model_id), finding={k: f.get(k) for k in ('id', 'step', 'date', 'question', 'outcome',
                                                                                          'outcome_label', 'headline', 'blind', 'blindness_label')},
                             report_file=rel, report_sha256=sha))
     ledger = load_ledger()
