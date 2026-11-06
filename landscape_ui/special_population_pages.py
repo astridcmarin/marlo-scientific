@@ -73,6 +73,17 @@ def _hepatic_classifications(drug):
         return None, str(exc)
 
 
+def _dialysis(drug):
+    """What is known in dialysis, from pinned sources (lenalidomide only)."""
+    if drug != 'lenalidomide':
+        return None, None
+    from intelligence_store.dialysis_evidence import DialysisEvidenceError, build as build_dialysis
+    try:
+        return build_dialysis(), None
+    except (DialysisEvidenceError, OSError, KeyError) as exc:
+        return None, str(exc)
+
+
 def register_special_population_pages(bp):
     @bp.get('/drugs/<drug>/special-populations')
     def special_populations(drug):
@@ -93,7 +104,9 @@ def register_special_population_pages(bp):
         label_pk, label_pk_error = _label_pk(drug)
         rde, rde_error = _renal_dose_exposure(drug)
         hepatic, hepatic_error = _hepatic_classifications(drug)
+        dialysis, dialysis_error = _dialysis(drug)
         return Response(render_template('landscape_special_populations.html', v=view, fmt=fmt_value, kidney=kidney,
                                         kidney_error=kidney_error, label_pk=label_pk, label_pk_error=label_pk_error,
-                                        rde=rde, rde_error=rde_error, hepatic=hepatic, hepatic_error=hepatic_error),
+                                        rde=rde, rde_error=rde_error, hepatic=hepatic, hepatic_error=hepatic_error,
+                                        dialysis=dialysis, dialysis_error=dialysis_error),
                         headers=headers)

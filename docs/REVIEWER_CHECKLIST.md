@@ -24,7 +24,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 | R4 | Is PK regressed on continuous renal function, which the guidance prefers to categories? | The EMA 2013 regressions on measured clearance are pinned and shown in the body map's observed-data panel. | **Answered** |
 | R5 | Are estimates given with their precision? | Observed values carry 90% CIs in every check. Model outputs are typical values; Hughes and Kim show population bands. Parameter uncertainty is not propagated. | **Partly** |
 | R6 | Were confounding covariates (age, sex, weight) considered? | Recheck 2.1e drew virtual subjects matched to each group's age, weight and sex. | **Answered** |
-| R7 | What is known in dialysis? | The label's dialysis dose is quoted. The end-stage check was inconclusive (residual function not reported). Dialysis clearance is not modelled. | **Partly** |
+| R7 | What is known in dialysis? | **Since 6 November** the lenalidomide special-populations page gathers it: the label's dialysis dose; CC-5013-PK-001's same six subjects with and without haemodialysis (AUC 11,121 vs 6,830 h·ng/mL; ratio 0.61, derived); dialysis clearance 146 mL/min and 31% removed in 4 hours (EMA 2013; label about 30%); and Bridoux's myeloma patients on the label's dialysis dose. The end-stage check was inconclusive and dialysis is not modelled; the page says so. | **Answered** (was Partly; descriptive) |
 | R8 | What population was studied, and is renal function stable? | CC-5013-PK-001's non-malignant population is recorded (2.1g); Bridoux and Kim are myeloma patients. | **Answered** |
 | R9 | How was the dose for each band chosen (exposure matching, or the reference group's 5th–95th percentile)? | The label's adjusted doses are quoted. **Since 5 November** the lenalidomide special-populations page shows, descriptively, how exposure on each band's label dose compares with the reference: Bridoux 2016 observed in myeloma patients on those doses (ratio to normal 1.03 moderate, 1.33 severe, 1.16 dialysis), CC-5013-PK-001's single-dose ratios scaled to the label dose by dose proportionality (1.04, 1.06, 0.95) and the sponsor's simulation (1.05 severe). No threshold is set and no dose is recommended. | **Answered** (was Gap; descriptive) |
 | R10 | What does the label say on renal elimination and dosing? | Label Table 3 and the renal-study text are quoted and reviewed by the owner. | **Answered** |
@@ -65,9 +65,9 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 
 ## Score
 
-Of 29 questions (updated 5 November 2026, after R1, R2, R9, H2, O1, O2 and O5):
-- **19 Answered** (including H1, where the evidence itself is missing and shown as missing);
-- **8 Partly**;
+Of 29 questions (updated 6 November 2026, after R1, R2, R7, R9, H2, O1, O2 and O5):
+- **20 Answered** (including H1, where the evidence itself is missing and shown as missing);
+- **7 Partly**;
 - **2 Gap**.
 
 Three of the new answers (O1, O2, O5) rest on label values not yet reviewed by the owner (round 3).
