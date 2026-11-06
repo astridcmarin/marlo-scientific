@@ -1,0 +1,23 @@
+{
+ "schema_version": "repository-checkpoint-v1",
+ "checkpoint": "2026-11-06b",
+ "classification": "software_and_repository_verification",
+ "tree": {"branch": "batch-3", "commit": "7172b2e", "base": "main after PR #114 (5127800)", "commits_since_base": 5,
+          "applied_from": "git bundle batch-3-backup-1.bundle on the owner's iMac"},
+ "machine": "owner's iMac (the project moved from the MacBook on 6 November 2026)",
+ "unit_tests": {"where": "owner's iMac", "ran": 1330, "skipped": 2, "failed": 0, "seconds": 173.303},
+ "previous_batch_ci": "PR #114, run 42255664151: 1,310 tests, all passed, 5 skipped (the count the previous checkpoint could not record)",
+ "compileall": "pass",
+ "migrations": {"revisions": 9, "changed_since_previous": false},
+ "pinned_data": {"files": 177, "pinned": 176, "unpinned_by_design": ["bortezomib_observation_template_v1.json"]},
+ "validation_flags_true": [],
+ "locked_checks": 27,
+ "blind_checks": 3,
+ "reviewer_checklist": {"answered": 21, "partly": 6, "gap": 2, "of": 29},
+ "findings": [
+  "Annotations were saved in app/instance while the database was in instance; found when moving computers and fixed without risk to saved trials",
+  "Two drafting errors in the new Hughes and Kim report narratives (number of checks; severe result 'throughout') were found against the reports and corrected before commit",
+  "Round 3 now has 117 entries, all shown on pages and none feeding a calculation"
+ ],
+ "clinical_prediction_validated": false
+}

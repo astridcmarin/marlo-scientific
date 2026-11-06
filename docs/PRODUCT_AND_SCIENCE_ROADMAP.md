@@ -146,13 +146,13 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 
 **Moved to the iMac, 6 November.** The project now runs on the owner's iMac (1,310 tests passing there). Moving it showed that annotations were saved in `app/instance/` while the database was in `instance/`.
 
-**Batch 3 (in progress; one pull request):**
+**Batch 3 (one pull request; checkpoint 6 November, 1,330 tests on the iMac):**
 1. One instance folder for the database, workspace key and annotations (done).
 2. Model analysis reports for Hughes 2019 and Kim 2026 (M3) (done).
 3. What is known in dialysis, on the special-populations page (R7) (done).
 4. Assay summary for the kidney studies (O8) (done; added to review round 3).
 5. Precision of the dose-exposure ratios (R5) (done: approximate intervals from the published geometric CVs; R5 stays partly, as parameter uncertainty is not propagated).
-6. Checkpoint.
+6. Checkpoint (done).
 
 **Then:** the exposure–safety analysis report; label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
 
