@@ -142,7 +142,7 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 
 **Batch 1 (done; PR #113, merged 5 November):** commit-count rules; roadmap verified and shortened; FDA 2024 kidney categories and each model's kidney-function measure (R1, R2); the rest of REVLIMID sections 12.3 and 7, shown on the special-populations page and in the guided path (O1, O2, O5); the 5 November checkpoint. Checklist 17 answered, 9 partly, 3 gaps.
 
-**Batch 2 (in progress; one pull request):**
+**Batch 2 (one pull request; checkpoint 6 November):**
 1. Extraction review round 3 opened: 113 entries at `/models/extraction-review/round-3` (done).
 2. Whether each kidney band's label dose restores reference exposure, shown descriptively from Bridoux 2016, CC-5013-PK-001 and the sponsor's simulation (R9) (done).
 3. The absorption floor (done, no re-check needed): the label's 82% is a weaker lower bound than the 85% 2.0e already uses, so the 2.0e range stands (SIMULATION_2_RENAL_PATHWAYS.md).
