@@ -18,6 +18,14 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = Path(__file__).parent / 'data'
 QUEUE_PATH = DATA / 'extraction_review_queue_v1.json'
 QUEUE_SHA256 = '3ebad5506b7e1c9ed95a581f485389b4ef421727013aa826071aab79daab3961'
+# Round 3 (5 November 2026): values shown on pages but feeding no calculation, in a queue of their own so that the
+# first queue and the records made against it stay unchanged. Built by scripts/build_review_round_3.py.
+ROUND_3_QUEUE_PATH = DATA / 'extraction_review_queue_round3_v2.json'
+ROUND_3_QUEUE_SHA256 = '3cd9f931f243efcd96633b8e03bc5d7a40d4629b5b0b2ee44e82363d82e12a71'
+# Superseded before any record was made against it, kept unchanged: extraction_review_queue_round3_v1.json (99 entries,
+# without the FDA 2026 draft hepatic guidance)
+ROUND_3_QUEUE_V1_SHA256 = 'f955d8dddfb7fc5ee47d17df79b9010858428e5c5760dfa73d66c6a12f932575'
+QUEUES = {'main': (QUEUE_PATH, QUEUE_SHA256), 'round_3': (ROUND_3_QUEUE_PATH, ROUND_3_QUEUE_SHA256)}
 RECORD_SCHEMA = 'extraction-review-record-v1'
 DECISIONS = ('matches', 'wrong', 'cannot_check')
 # Pinned review records, oldest first: (file name in intelligence_store/data, sha256).
@@ -66,12 +74,22 @@ def item_ids(queue=None):
     return {item['id'] for group in queue['groups'] for item in group['items']}
 
 
+def queue_key(record):
+    """Which pinned queue a record was made against, or None."""
+    sha = record.get('queue_sha256') if isinstance(record, dict) else None
+    return next((k for k, (_, s) in QUEUES.items() if s == sha), None)
+
+
 def validate_record(record, queue=None):
-    """Check a downloaded review record before it is pinned. Returns the record unchanged or raises ReviewError."""
-    queue = queue or load_queue()
+    """Check a downloaded review record before it is pinned. Returns the record unchanged or raises ReviewError.
+    The record is checked against the queue whose checksum it carries (the first queue or round 3's)."""
     if not isinstance(record, dict) or record.get('schema_version') != RECORD_SCHEMA:
         raise ReviewError('Not an extraction review record.')
-    if record.get('queue_sha256') != QUEUE_SHA256 or record.get('queue_version') != queue['queue_version']:
+    key = queue_key(record)
+    if key is None:
+        raise ReviewError('The record was made against a different review queue.')
+    queue = queue or load_queue(*QUEUES[key])
+    if record.get('queue_version') != queue['queue_version']:
         raise ReviewError('The record was made against a different review queue.')
     for key in ('reviewer', 'reviewed_on'):
         if not isinstance(record.get(key), str) or not record[key].strip():
@@ -106,9 +124,10 @@ def load_records(records=None):
     return out
 
 
-def queue_view(records=None):
-    queue = load_queue()
-    reviews = load_records(records)
+def queue_view(records=None, queue_name='main'):
+    path, queue_sha = QUEUES[queue_name]
+    queue = load_queue(path, queue_sha)
+    reviews = [r for r in load_records(records) if r['queue_sha256'] == queue_sha]
     status = {}
     for rec in reviews:
         for item_id, d in rec['decisions'].items():
@@ -123,7 +142,7 @@ def queue_view(records=None):
             items.append(dict(copy.deepcopy(item), status=st))
         groups.append(dict({k: v for k, v in g.items() if k != 'items'}, items=items,
                            reviewed=sum(1 for i in items if i['status'])))
-    view = {'schema_version': 'extraction-review-view-v1', 'queue_version': queue['queue_version'], 'queue_sha256': QUEUE_SHA256,
+    view = {'schema_version': 'extraction-review-view-v1', 'queue_version': queue['queue_version'], 'queue_sha256': queue_sha,
             'purpose': queue['purpose'], 'excluded': queue['excluded'], 'decision_labels': queue['decisions'],
             'groups': groups, 'counts': counts, 'total': sum(counts.values()),
             'records': [{'file': r['file'], 'sha256': r['sha256'], 'reviewer': r['reviewer'], 'reviewed_on': r['reviewed_on'],
@@ -166,6 +185,16 @@ def round_2_view(records=None):
             groups.append(dict(g, items=items, reviewed=sum(1 for i in items if i['status'])))
     view = dict(view, groups=groups, round=2, round_purpose=rnd['purpose'], round_caution=rnd['caution'],
                 round_sha256=ROUND_2_SHA256, round_total=len(aid))
+    view.pop('view_sha256', None)
+    view['view_sha256'] = digest(view)
+    return view
+
+
+def round_3_view(records=None):
+    """The round 3 queue (values shown on pages, no calculation), in the round layout of the review page."""
+    view = queue_view(records, 'round_3')
+    queue = load_queue(*QUEUES['round_3'])
+    view = dict(view, round=3, round_purpose=queue['purpose'], round_caution=queue['excluded'], round_total=view['total'])
     view.pop('view_sha256', None)
     view['view_sha256'] = digest(view)
     return view
@@ -227,8 +256,8 @@ def _file_status(group):
 
 def owner_review(keys, view=None):
     """Review status for pinned files, by file path or by a KEY_FILES key. Files not in the queue are skipped."""
-    view = view or queue_view()
-    by_file = {g['file']: g for g in view['groups']}
+    views = [view] if view else [queue_view(), queue_view(queue_name='round_3')]
+    by_file = {g['file']: g for v in views for g in v['groups']}
     files = []
     for key in ([keys] if isinstance(keys, str) else keys):
         for f in KEY_FILES.get(key, (key,)):

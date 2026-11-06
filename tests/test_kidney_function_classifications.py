@@ -123,7 +123,7 @@ class Pages(unittest.TestCase):
         html = self.client.get('/landscape/drugs/lenalidomide/special-populations').get_data(as_text=True)
         for text in ('Kidney-function classifications and measures, compared', 'FDA 2024 guidance, Table 1',
                      '60 to &lt; 90 mL/min', 'shares only the value 60 mL/min', 'mL/min/1.73m2', 'Platform note',
-                     'have not yet been reviewed by the platform owner', 'eGFR expressed as mL/minute'):
+                     'have not been reviewed yet', 'eGFR expressed as mL/minute'):
             self.assertIn(text, html)
 
     def test_other_drugs_do_not_get_it(self):

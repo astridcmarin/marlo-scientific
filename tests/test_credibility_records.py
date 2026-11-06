@@ -38,6 +38,23 @@ class Records(unittest.TestCase):
         layer = rec['evaluation']['verification_and_validation'][3]
         self.assertEqual(layer['summary'], evidence['models']['lenalidomide_hughes_2019']['layers']['external_consistency']['summary'])
 
+    def test_plans_include_every_ledger_plan_for_the_model(self):
+        from intelligence_store.dataset_ledger import model_uses
+        for rec in cr.all_records():
+            listed = {p['file'] for p in rec['model_analysis_plans']}
+            for use in model_uses(rec['model_id']):
+                if use.get('plan'):
+                    self.assertIn(use['plan'], listed, rec['model_id'])
+
+    def test_pathway_record_is_current_after_2_0e(self):
+        rec = cr.record('lenalidomide_renal_pathways_2026')
+        text = ' '.join(a['assumption'] for a in rec['assumptions'])
+        self.assertIn('not established', text)
+        self.assertIn('Bioavailability', text)
+        self.assertIn('intelligence_store/data/lenalidomide_renal_pathways_plan_v3.json', {p['file'] for p in rec['model_analysis_plans']})
+        status = cr.record('bortezomib_pk_lignet_2022')['assumptions'][0]['status']
+        self.assertNotIn('two outside studies', status)
+
     def test_unknown_model(self):
         with self.assertRaises(KeyError):
             cr.record('nope')

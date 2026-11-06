@@ -8,7 +8,7 @@
 {% for item in sec['items'] %}<div class="sp-st"><p><span class="sp-kind sp-kind-label_statement">Label statement</span><strong>{{ item.label }}</strong></p>
 {% for q in item.quotes %}<p>“{{ q }}”</p>{% endfor %}<p class="sp-src">{{ item.location }}</p></div>{% endfor %}{% endfor %}
 <p class="sp-src"><span class="sp-kind sp-kind-gap">Not stated by the label</span>{{ label_pk.not_stated }}</p>
-<p class="sp-src owner-review"><strong>Extracted with AI assistance on 5 November 2026 and not yet reviewed by the platform owner.</strong> {{ label_pk.extraction }}</p>
+<p class="sp-src owner-review">{% for r in owner_review('intelligence_store/data/lenalidomide_label_2023_pk_v1.json') %}<strong>{{ r.text }}</strong> {% else %}<strong>Extracted with AI assistance; not reviewed by the platform owner.</strong> {% endfor %}{{ label_pk.extraction }}</p>
 <p class="sp-src">{{ label_pk.document }} · {{ label_pk.extract_version }} · SHA-256 {{ label_pk.sha256[:16] }}…</p>
 </section>
 {% endif %}

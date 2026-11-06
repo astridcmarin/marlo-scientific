@@ -9,7 +9,7 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
   - two published population models: Hughes 2019 and Kim 2026;
   - the platform's own kidney-pathway model;
   - relative odds of grade 3/4 cytopenia;
-  - special populations, with the FDA 2024 kidney categories and each model's kidney-function measure beside the study's and the label's;
+  - special populations, with the FDA 2024 kidney categories and each model's kidney-function measure beside the study's and the label's, and how exposure on each band's label dose compares with the reference (descriptive); the label's liver-function definitions beside NCI ODWG and Child–Pugh;
   - the label's pharmacokinetics and interactions, quoted on the special-populations page and summarised in the guided path;
   - the dose view, the guided path, and the body map with blood flow.
 - **Checked:**

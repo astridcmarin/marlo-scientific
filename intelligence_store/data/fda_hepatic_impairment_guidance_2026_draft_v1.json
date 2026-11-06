@@ -1,0 +1,58 @@
+{
+  "schema_version": "regulatory-guidance-extract-v1",
+  "extract_version": "fda-hepatic-impairment-guidance-2026-draft-v1.0",
+  "recorded_on": "2026-11-05",
+  "source": {
+    "title": "Pharmacokinetics in Patients with Impaired Hepatic Function: Study Design, Data Analysis, and Impact on Dosage. Guidance for Industry",
+    "issuer": "U.S. Food and Drug Administration",
+    "status": "draft guidance (not for implementation; comments due 1 December 2026)",
+    "date": "September 2026",
+    "docket": "FDA-2026-D-8693",
+    "url": "https://www.fda.gov/media/71311/download",
+    "replaces": "the May 2003 final guidance of the same name, when finalised",
+    "local_file": null,
+    "extraction": "AI-assisted, 5 November 2026, from the text of the PDF at the URL above as returned by a web-fetch tool (the PDF itself is not in the repository or the owner's source folder). Quotes are as returned. Tables 1 and 2 came back as flattened text; their reading below is the assistant's and is marked as such. Not yet reviewed by the platform owner."
+  },
+  "recommendations": {
+    "child_pugh": {"quote": "FDA recommends using the Child-Pugh (CP) classification to categorize the degree of HI in subjects with cirrhosis", "location": "page 5, section IV.A"},
+    "nci_in_cancer": {"quote": "In subjects with cancer, sponsors can use the National Cancer Institute (NCI) Organ Dysfunction Working Group criteria", "location": "page 5, section IV.A"},
+    "nci_not_in_non_cancer": {"quote": "FDA does not recommend the use of the NCI Criteria to assess hepatic function for non-cancer patients.", "location": "page 5, section IV.A"},
+    "cp_groups": {"quote": "HI is classified as mild, moderate, or severe, which corresponds to CP scores of 5-6 (CP group A), 7-9 (CP group B), and 10-15 (CP group C), respectively.", "location": "page 6, section IV.A.1"},
+    "nci_components": {"quote": "The NCI Criteria uses total bilirubin and aspartate aminotransferase to assess HI", "location": "page 7, section IV.A.2"},
+    "other_systems": {"quote": "MELD scores can be useful for further stratification of disease severity within CP groups B and C.", "location": "page 7"}
+  },
+  "child_pugh_table_1": {
+    "location": "page 6, Table 1",
+    "as_returned": [
+      "Encephalopathy grade none 1 or 2 3 or 4",
+      "Ascites absent slight moderate",
+      "Serum total bilirubin, mg/dL <2 2 to 3 >3",
+      "Serum albumin, g/dL >3.5 2.8 to 3.5 <2.8",
+      "Prothrombin time, seconds prolonged or INR* <4 4 to 6 >6 < 1.7 1.7 to 2.3 > 2.3"
+    ],
+    "reading": "Five components, each in three columns. The column headers (points per column) were not returned by the text layer; the conventional Child-Pugh scoring of 1, 2 and 3 points per column is assumed, consistent with the stated score range of 5 to 15.",
+    "groups": [
+      {"id": "A", "label": "Mild", "score": [5, 6]},
+      {"id": "B", "label": "Moderate", "score": [7, 9]},
+      {"id": "C", "label": "Severe", "score": [10, 15]}
+    ]
+  },
+  "nci_odwg_table_2": {
+    "location": "page 7, Table 2",
+    "as_returned": [
+      "Total Bilirubin ≤ULN* B1: ≤ULN B2: >1x-1.5x ULN >1.5x-3x ULN >3x ULN",
+      "Aspartate aminotransferase ≤ULN* B1: >ULN B2: Any Any Any"
+    ],
+    "groups_quote": "(A: normal, B: mild, C: moderate, D: severe)",
+    "reading": "Columns read in the order A, B (B1 and B2), C, D, as the quoted group order gives.",
+    "groups": [
+      {"id": "A", "label": "Normal", "total_bilirubin": "≤ ULN", "ast": "≤ ULN"},
+      {"id": "B1", "label": "Mild", "total_bilirubin": "≤ ULN", "ast": "> ULN"},
+      {"id": "B2", "label": "Mild", "total_bilirubin": "> 1 to 1.5 × ULN", "ast": "any"},
+      {"id": "C", "label": "Moderate", "total_bilirubin": "> 1.5 to 3 × ULN", "ast": "any"},
+      {"id": "D", "label": "Severe", "total_bilirubin": "> 3 × ULN", "ast": "any"}
+    ]
+  },
+  "not_extracted": ["study design, sample size, data analysis and labeling sections"],
+  "clinical_prediction_validated": false
+}

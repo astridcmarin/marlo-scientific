@@ -1,0 +1,31 @@
+{
+ "schema_version": "repository-checkpoint-v1",
+ "checkpoint": "2026-11-06",
+ "classification": "software_and_repository_verification",
+ "tree": {
+  "branch": "batch-2",
+  "commit": "fa73bfd",
+  "base": "main after PR #113",
+  "commits_since_base": 6,
+  "applied_from": "git bundle batch-2-backup-3.bundle on the owner's Mac",
+  "ci_run": "runs when the batch's pull request is opened"
+ },
+ "unit_tests": {
+  "where": "owner's Mac",
+  "result": "all passed, as reported by the owner (the count was not pasted)",
+  "test_methods_defined": 1310
+ },
+ "compileall": "pass",
+ "migrations": {"revisions": 9, "changed_since_previous": false},
+ "pinned_data": {"files": 173, "pinned": 172, "unpinned_by_design": ["bortezomib_observation_template_v1.json"]},
+ "validation_flags_true": [],
+ "locked_checks": 27,
+ "blind_checks": 3,
+ "reviewer_checklist": {"answered": 19, "partly": 8, "gap": 2, "of": 29},
+ "findings": [
+  "The kidney pathway model's credibility record still stated a finding that 2.0e had shown is not established, and three records listed incomplete plans; corrected in context v3, and plan lists are now completed from the dataset ledger",
+  "The 5 November finding about the label's 82% was resolved without a re-check: it is a weaker lower bound than the 85% already used",
+  "Round 3 review covers 113 entries, all shown on pages and none feeding a calculation; the two FDA guidance extracts were taken from web text, not from a PDF in the owner's folder"
+ ],
+ "clinical_prediction_validated": false
+}

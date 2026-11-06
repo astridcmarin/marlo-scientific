@@ -5,9 +5,9 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 ## Start here
 
 - [Product and science roadmap](PRODUCT_AND_SCIENCE_ROADMAP.md): positioning, users, phases, status of each phase and next steps (shortened 5 November 2026; the full version with the dated log of every step, and the 10 October version, are in history/).
-- [Reviewer's checklist](REVIEWER_CHECKLIST.md): the questions an FDA clinical pharmacology reviewer asks (renal 2024, hepatic draft 2026, ICH M15), scored against the lenalidomide workflow (17 answered, 9 partly, 3 gaps), with the gaps ranked.
+- [Reviewer's checklist](REVIEWER_CHECKLIST.md): the questions an FDA clinical pharmacology reviewer asks (renal 2024, hepatic draft 2026, ICH M15), scored against the lenalidomide workflow (19 answered, 8 partly, 2 gaps), with the gaps ranked.
 - [Status by drug](STATUS_BY_DRUG.md): for each drug, in plain language, what the platform has, what was checked, what is known to be wrong and what is missing.
-- [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (5 November 2026: all 1,283 tests passing on the owner's Mac at the end of batch 1), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-05.json); earlier checkpoints in [history](history/).
+- [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (6 November 2026: tests passing on the owner's Mac at the end of batch 2), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-06.json); earlier checkpoints in [history](history/).
 - Conventions for working in the repository: `CLAUDE.md` at the root.
 
 ## How far can the results be trusted?
@@ -17,7 +17,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [Dataset ledger](DATASET_LEDGER.md): which data each model was built from, tuned on or checked against, and the gate that refuses a blind check on seen data.
 - [Extraction review](EXTRACTION_REVIEW.md): the owner's review of the 166 extracted values that feed calculations (rounds 1–2, all match), and where the review status is shown.
 - [Model scope](MODEL_SCOPE.md): each model's context of use as enforced rules, with evidence tiers.
-- [Credibility records](CREDIBILITY_RECORDS.md): one record per model in the ICH M15 structure (`/models/credibility`); model scorecards at `/models`.
+- [Credibility records](CREDIBILITY_RECORDS.md): one record per model in the ICH M15 structure (`/models/credibility`); model scorecards at `/models`; the first model analysis report (kidney pathway model, `/models/lenalidomide_renal_pathways_2026/report`).
 - [Source reconciliation](SOURCE_RECONCILIATION.md): lenalidomide renal sources compared (measured vs Cockcroft–Gault clearance; corrections to two plans).
 
 ## Lenalidomide

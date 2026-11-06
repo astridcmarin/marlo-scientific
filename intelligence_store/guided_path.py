@@ -3,7 +3,7 @@ models, dose, credibility and review status. Nothing new is computed: every figu
 source or from an existing view, and each step says what has been checked and what is missing.
 """
 from .dose_optimisation import corpus_trials, load_exposure_response
-from .extraction_review import queue_view
+from .extraction_review import owner_review, queue_view
 from .lenalidomide_label import load_label_extract, load_label_pk_extract, load_renal_reconciliation
 from .patient_state import digest
 from .run_record import load_evidence_status
@@ -31,7 +31,7 @@ def _models():
     return out
 
 
-def _pk_step(pk):
+def _pk_step(pk, review_text):
     a, e = pk['absorption'], pk['elimination']
     food, ex, dial = a['food_effect'], e['excretion'], pk['renal_dialysis']
     dig = pk['drug_interactions_7']['digoxin']['digoxin_cmax_and_auc_increase_percent']
@@ -48,7 +48,7 @@ def _pk_step(pk):
                   "lenalidomide exposure with dexamethasone, quinidine or temsirolimus; a P-gp substrate; no CYP450 inhibition or "
                   "induction; caution with agents that raise thrombosis risk; PT and INR monitoring with warfarin."),
         'checked': 'REVLIMID label, revision 3/2023, sections 12.3 and 7: every quote matched by script against the label file '
-                   '(5 November 2026). AI-assisted; not yet reviewed by the platform owner (extraction review round 3).',
+                   '(5 November 2026). AI-assisted. ' + review_text,
         'missing': 'The label states no absolute bioavailability (the platform\'s bound comes from a mass-balance study, Simulation 2.0e). '
                    'No interaction is modelled: the Patient Lab runs one drug at a time.',
         'links': [('Label pharmacokinetics and interactions', 'landscape.special_populations', {'drug': 'lenalidomide', '_anchor': 'sp-label-pk'})]}
@@ -68,6 +68,8 @@ def lenalidomide_path():
     er = load_exposure_response()
     rec = load_renal_reconciliation()
     pk = load_label_pk_extract()
+    pk_status = owner_review('intelligence_store/data/lenalidomide_label_2023_pk_v1.json')
+    pk_review = pk_status[0]['text'] if pk_status else 'Not in a review queue.'
     steps = [
         {'id': 'trials', 'title': 'Clinical trials', 'question': 'What has been studied?',
          'found': f"{trials['matched']} of {trials['corpus_trials']} interventional myeloma trials test lenalidomide by exact name "
@@ -90,7 +92,7 @@ def lenalidomide_path():
                     'grouped by Cockcroft-Gault and by measured clearance (' + rec['items'][0]['status'].replace('_', ' ') + ').',
          'missing': 'No gaps in the five domains. Moderate and severe hepatic impairment were not studied (label), so nothing is known there; kidney function dominates the evidence.',
          'links': [('Lenalidomide in special populations', 'landscape.special_populations', {'drug': 'lenalidomide'})]},
-        _pk_step(pk),
+        _pk_step(pk, pk_review),
         {'id': 'exposure', 'title': 'Exposure models', 'question': 'What exposure would a synthetic patient have?',
          'found': 'Two population PK models (Hughes 2019, Kim 2026), an elimination-pathway model, and an exposure-safety relationship, run on synthetic records in the Patient Lab, inside each model\'s scope.',
          'checked': 'See each model below. Both PK models were compared with the dedicated renal study, rechecked with virtual subjects matched to that study, and checked blind against myeloma patients (Bridoux 2016, with a recorded deviation): both under-predict exposure in moderate and severe impairment.',

@@ -22,8 +22,10 @@ from .run_record import EVIDENCE_PATH, EVIDENCE_SHA256, LAYER_ORDER, load_eviden
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = Path(__file__).parent / 'data'
-CONTEXT_PATH = DATA / 'model_credibility_context_v2.json'
-CONTEXT_SHA256 = 'c7a37dd2be6ff72939cd3444a7c3e64be5c5a24666b9329d9091ccc533d0dbc4'
+CONTEXT_PATH = DATA / 'model_credibility_context_v3.json'
+CONTEXT_SHA256 = 'fa6244006ac68e9186d94209cb1191a09677c9fc8a98189e836d6fb15466fb67'
+# Superseded, kept unchanged for traceability: model_credibility_context_v2.json (stale pathway and bortezomib text)
+CONTEXT_V2_SHA256 = 'c7a37dd2be6ff72939cd3444a7c3e64be5c5a24666b9329d9091ccc533d0dbc4'
 # Superseded, kept unchanged for traceability: model_credibility_context_v1.json
 CONTEXT_V1_SHA256 = '740f68767f4a6d384b7e746b5b0bd3e0ee53c728d84d3a4d456b801f8ade15a6'
 SCHEMA_VERSION = 'model-credibility-record-v1'
@@ -98,6 +100,18 @@ def _validation_from_reports(ctx):
     return {'source': 'locked label-exposure reports', 'layers': layers}
 
 
+def plan_files(model_id, ctx):
+    """The context's plans, then any other locked plan the dataset ledger records for this model (so a new check's plan
+    appears in the record without a new context version)."""
+    from .dataset_ledger import model_uses
+    names = list(ctx['sources']['plans'])
+    for use in model_uses(model_id):
+        name = (use.get('plan') or '').rsplit('/', 1)[-1]
+        if name and name not in names:
+            names.append(name)
+    return names
+
+
 def record(model_id, context=None, evidence=None):
     context = context or load_context()
     if model_id not in context['models']:
@@ -121,7 +135,7 @@ def record(model_id, context=None, evidence=None):
             'model_risk': ctx['model_risk'],
             'model_impact': ctx['model_impact'],
         },
-        'model_analysis_plans': [_plan(p) for p in ctx['sources']['plans']],
+        'model_analysis_plans': [_plan(p) for p in plan_files(model_id, ctx)],
         'evaluation': {'verification_and_validation': validation['layers'], 'source': validation['source']},
         'applicability': [_excerpt(*a) for a in ctx['applicability_from']],
         'assumptions': ctx['assumptions'],

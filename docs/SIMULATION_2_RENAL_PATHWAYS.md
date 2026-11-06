@@ -204,3 +204,11 @@ Module `intelligence_store/lenalidomide_renal_pathways_f.py`; report `docs/verif
 - **D4:** the myeloma note says its consistency holds at full absorption only (moderate: not at 95% or 90%; severe: not at 90%).
 
 Scopes and patient-record outputs are unchanged, except that the record summary's elimination row now shows *partly checked* rather than *flagged* for these bands, because it reads the band status. Recorded in findings v3, evidence status v16 and dataset ledger v4 (which adds the mass-balance study).
+
+## The label's 82% and the 2.0e range (5 November 2026)
+
+The REVLIMID label (section 12.3, extracted 5 November) says about 82% of a radioactive 25 mg dose was excreted as unchanged lenalidomide in urine within 24 hours in healthy subjects. That makes absorption at least about 0.82. The 5 November checkpoint recorded this as "below the 0.85 floor" and said its effect on 2.0e had not been checked.
+
+No re-check is needed. Each figure is a lower bound: drug that leaves unchanged in urine must first have been absorbed. When two lower bounds hold, the higher one binds. The renal study's normal group excreted about 85% unchanged (EMA 2008), so absorption is at least about 0.85 whatever the label's mass-balance figure. The label's 82% (within 24 hours, from a different study) is the weaker bound, so the 2.0e range (best supported 0.90–1.0, hard floor 0.85) stands. Below 0.85 the model's non-renal clearance would be negative, which 2.0e already reports as impossible.
+
+This rests on F being the same in both studies and in every subject, the same assumption 2.0e lists. The planned locked re-check at 0.82 (batch 2, item 3) was dropped for this reason. Nothing on the platform changed.

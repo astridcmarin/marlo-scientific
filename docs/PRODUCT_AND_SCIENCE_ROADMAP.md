@@ -29,7 +29,7 @@ Primary users first: trial designers, clinical pharmacologists and regulatory pr
 |---|---|
 | **Shows its work.** Every value carries its source; every model shows what has and has not been checked, including failures. | In place: run records, scorecards at `/models`, a capability level on every drug. |
 | **Checks planned before they run.** | 27 checks, each locked by commit before computation, all at `/models/findings`. Only 3 were blind (dataset ledger). |
-| **A regulatory reviewer's structure.** | Partly: for lenalidomide, 17 of 29 reviewer questions answered, 9 partly, 3 gaps ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
+| **A regulatory reviewer's structure.** | Partly: for lenalidomide, 19 of 29 reviewer questions answered, 8 partly, 2 gaps ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
 | **The whole chain in one place.** Trial → drug → evidence → exposure → regulatory context. | Partly: a guided path exists for lenalidomide only. |
 | **Reproducible snapshots.** Frozen cohorts; checksum-pinned, versioned data. | In place. |
 | **AI that cites and is checked.** | In place for the 166 values that feed calculations (owner-reviewed, not independent). The 74 values of the 4 November labels are not reviewed. |
@@ -140,16 +140,15 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 
 **Done:** full suite on the owner's Mac and the 4 and 5 November checkpoints; docs index by question, status by drug and the data-file index; the reviewer's checklist; an AI review of the kidney pathway model and the bioavailability re-check (2.0e); this roadmap verified and shortened.
 
-**Batch 1 (in progress; one pull request):**
-1. Commit-count rules in `CLAUDE.md` (done).
-2. Roadmap verification (done).
-3. This shorter roadmap (done).
-4. FDA 2024 kidney categories beside the study and label bands, and each model's kidney-function measure stated on the pages (checklist R1, R2) (done).
-5. The rest of the REVLIMID section 12.3 extracted, for review round 3 (O1, O2) (done; section 7 too).
-6. Interactions in the guided path and on the special-populations page (O5) (done, with the label's pharmacokinetics).
-7. A new repository checkpoint (done: 1,283 tests passing on the owner's Mac, 5 November).
+**Batch 1 (done; PR #113, merged 5 November):** commit-count rules; roadmap verified and shortened; FDA 2024 kidney categories and each model's kidney-function measure (R1, R2); the rest of REVLIMID sections 12.3 and 7, shown on the special-populations page and in the guided path (O1, O2, O5); the 5 November checkpoint. Checklist 17 answered, 9 partly, 3 gaps.
 
-**Then:** one readable analysis report per model (M3); whether each kidney band's label dose restores reference exposure, shown descriptively from Bridoux (R9).
+**Batch 2 (one pull request; checkpoint 6 November):**
+1. Extraction review round 3 opened: 113 entries at `/models/extraction-review/round-3` (done).
+2. Whether each kidney band's label dose restores reference exposure, shown descriptively from Bridoux 2016, CC-5013-PK-001 and the sponsor's simulation (R9) (done).
+3. The absorption floor (done, no re-check needed): the label's 82% is a weaker lower bound than the 85% 2.0e already uses, so the 2.0e range stands (SIMULATION_2_RENAL_PATHWAYS.md).
+4. Credibility records brought up to date (context v3), then one readable analysis report for the kidney pathway model, in ICH M15's section order (M3) (done).
+5. Hepatic classification compared with NCI ODWG and Child–Pugh from the September 2026 draft guidance (H2) (done).
+**Then:** analysis reports for the other models; label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
 
 **Owner's work:** the v2 eligibility annotation, then its locked check; extraction review round 3 when there is time.
 
@@ -161,7 +160,7 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 - **Author answers:** Hughes (Cockcroft–Gault weight basis), Kim (CL/F equation form), Iwasaki (which human data evaluated the model).
 - **People:** user conversations with five to ten trial designers, clinical pharmacologists or regulatory professionals, and an independent human reviewer. Postponed by the owner.
 
-**Repository:** GitHub reconnected on 5 November; PR #112 merged after CI passed. Work goes in batches: one commit per update, one push and one pull request per batch (`CLAUDE.md`). No model is validated for clinical prediction.
+**Repository:** GitHub reconnected on 5 November; PR #112 and PR #113 merged after CI passed. Work goes in batches: one commit per update, one push and one pull request per batch (`CLAUDE.md`). No model is validated for clinical prediction.
 
 ## Rules that do not change
 

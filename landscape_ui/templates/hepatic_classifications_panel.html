@@ -1,0 +1,23 @@
+{# Reviewer's checklist H2: hepatic classifications (FDA 2026 draft guidance) beside the label's definitions. #}
+{% if hepatic_error %}<section class="sp-row" id="sp-hepatic-classifications"><h2>Liver-function classifications</h2><p role="alert">{{ hepatic_error }}</p></section>
+{% elif hepatic %}
+<section class="sp-row" id="sp-hepatic-classifications" aria-labelledby="sp-hc-heading">
+<h2 id="sp-hc-heading">Liver-function classifications compared</h2>
+<p>The FDA's {{ hepatic.guidance.date }} hepatic guidance names two systems. Status: {{ hepatic.guidance.status }}. Each value is read from the pinned extract.</p>
+<ul>{% for r in hepatic.guidance.recommendations %}<li>“{{ r.quote }}” <span class="sp-src">{{ r.location }}</span></li>{% endfor %}</ul>
+<h3>NCI Organ Dysfunction Working Group (guidance Table 2) and the label</h3>
+<div class="table-scroll"><table class="rr-table"><thead><tr><th>NCI group</th><th>Total bilirubin</th><th>AST</th><th>REVLIMID label</th></tr></thead><tbody>
+{% for n in hepatic.nci.groups %}<tr><td><strong>{{ n.id }}</strong> {{ n.label }}</td><td>{{ n.total_bilirubin }}</td><td>{{ n.ast }}</td><td>{% for l in hepatic.label if n.id in l.nci_groups|map(attribute='id')|list %}{% if l.statement == 'mild' %}Mild: “did not influence the disposition of lenalidomide”{% else %}No pharmacokinetic data{% endif %}{% else %}<small>{% if n.id == 'A' %}reference{% endif %}</small>{% endfor %}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="sp-src">{{ hepatic.nci.reading }} {{ hepatic.nci.location }}.</p>
+{% for l in hepatic.label %}<div class="sp-st"><p><span class="sp-kind sp-kind-label_statement">Label statement</span>“{{ l.quote }}” <span class="sp-src">{{ l.location }}</span></p>
+<p class="sp-src"><span class="sp-kind sp-kind-platform_model_scope">Platform note</span>{{ l.platform_reading }}</p></div>{% endfor %}
+<h3>Child–Pugh (guidance Table 1)</h3>
+<p>{% for c in hepatic.child_pugh.groups %}<strong>{{ c.id }}</strong> {{ c.label }}: score {{ c.score[0] }}–{{ c.score[1] }}{% if not loop.last %} · {% endif %}{% endfor %}. Components as returned by the text layer:</p>
+<ul>{% for c in hepatic.child_pugh.components %}<li class="sp-src">{{ c }}</li>{% endfor %}</ul>
+<p class="sp-src">{{ hepatic.child_pugh.reading }}</p>
+<p class="sp-src"><span class="sp-kind sp-kind-platform_model_scope">Platform note</span>{{ hepatic.notes.population }} Bridoux 2016, the myeloma study used for outside checks, excluded hepatic impairment. {{ hepatic.notes.scope }}</p>
+<p class="sp-src owner-review">{% for r in owner_review('intelligence_store/data/fda_hepatic_impairment_guidance_2026_draft_v1.json') %}<strong>{{ r.text }}</strong> {% else %}<strong>Extracted with AI assistance; not reviewed by the platform owner.</strong> {% endfor %}{{ hepatic.guidance.extraction }} <a href="{{ hepatic.guidance.url }}" rel="noopener">FDA draft guidance (PDF)</a></p>
+<details class="rr-details"><summary>Sources and checksums</summary><ul>{% for s in hepatic.sources %}<li>{{ s.title }}: {{ s.file }} <span class="catalog-digest">{{ s.sha256[:16] }}…</span></li>{% endfor %}</ul><p class="catalog-digest">{{ hepatic.view_version }}: {{ hepatic.view_sha256 }}</p></details>
+</section>
+{% endif %}
