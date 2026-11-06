@@ -15,6 +15,7 @@ populations and measures, which differ between sources.
 """
 import hashlib
 import json
+import math
 from pathlib import Path
 
 from .patient_state import digest
@@ -39,6 +40,20 @@ BANDS = (
     {'id': 'severe', 'label_row': 1, 'bridoux': 'severe', 'ema': 'severe', 'sponsor': 'severe, not on dialysis'},
     {'id': 'dialysis', 'label_row': 2, 'bridoux': 'esrd', 'ema': 'esrd_off_dialysis', 'sponsor': None},
 )
+def ratio_interval(gm_a, gcv_a, n_a, gm_b, gcv_b, n_b, level=0.90):
+    """Approximate interval for a ratio of two independent geometric means (a / b), from each group's geometric CV and
+    n, assuming log-normal values: log SD = sqrt(ln(1 + GCV^2)), Welch standard error and degrees of freedom, t quantile.
+    Derived by the platform from published summaries, not reported by the source."""
+    from scipy.stats import t as student_t
+    s2a, s2b = math.log(1 + (gcv_a / 100) ** 2), math.log(1 + (gcv_b / 100) ** 2)
+    va, vb = s2a / n_a, s2b / n_b
+    se = math.sqrt(va + vb)
+    df = (va + vb) ** 2 / (va ** 2 / (n_a - 1) + vb ** 2 / (n_b - 1))
+    q = student_t.ppf(0.5 + level / 2, df)
+    centre = math.log(gm_a / gm_b)
+    return {'lower': math.exp(centre - q * se), 'upper': math.exp(centre + q * se), 'level': level, 'df': df}
+
+
 NOTES = {
     'threshold': "Bridoux's first dose reduction was at 50 mL/min, as in the renal study's publication (Chen 2007): its mild "
                  "group (50-80) received 25 mg, while the current US label's first reduction starts at 60 mL/min. Its moderate "
@@ -49,6 +64,9 @@ NOTES = {
     'dialysis': 'The CC-5013-PK-001 ratio for end-stage disease was measured off dialysis. Whether Bridoux sampled its '
                 'dialysis patients on a dialysis day is not recorded in the platform\'s design extract. Dialysis removes about 30% '
                 'of the drug in a 4-hour session (label).',
+    'interval': 'Bridoux intervals are approximate 90% intervals derived by the platform from each group\'s geometric mean, '
+                'geometric CV and n (log-normal values, Welch t interval); the paper reports no interval for these ratios. '
+                'They describe the group means, not the spread between patients.',
     'no_threshold': 'The platform sets no threshold for "restores" and proposes no dose. The sources differ in population '
                     '(myeloma patients, non-malignant renal impairment), reference group, kidney-function measure and timing.',
 }
@@ -85,6 +103,7 @@ def build():
                    'n': g['n'], 'regimen': g['regimen'], 'dose_mg_per_24h': g['dose_mg_per_24h'],
                    'auc24_gm': g['auc24_gm'], 'auc24_gcv_pct': g['auc24_gcv_pct'],
                    'ratio_to_normal': g['auc24_gm'] / ref['auc24_gm'],
+                   'ratio_ci90': ratio_interval(g['auc24_gm'], g['auc24_gcv_pct'], g['n'], ref['auc24_gm'], ref['auc24_gcv_pct'], ref['n']),
                    'same_dose_as_label': g['dose_mg_per_24h'] == dose}
         gmr = t4['auc_infinity'][band['ema']]
         scale = dose / REFERENCE_DOSE_MG
@@ -106,7 +125,9 @@ def build():
             'sponsor': f"{sponsor_ref['renal_function']}, {sponsor_ref['regimen']}: {sponsor_ref['auc_avg_ss_ng_h_ml']} h·ng/mL",
         },
         'mild_bridoux': {'n': groups['mild']['n'], 'dose_mg_per_24h': groups['mild']['dose_mg_per_24h'],
-                         'ratio_to_normal': groups['mild']['auc24_gm'] / ref['auc24_gm']},
+                         'ratio_to_normal': groups['mild']['auc24_gm'] / ref['auc24_gm'],
+                         'ratio_ci90': ratio_interval(groups['mild']['auc24_gm'], groups['mild']['auc24_gcv_pct'], groups['mild']['n'],
+                                                      ref['auc24_gm'], ref['auc24_gcv_pct'], ref['n'])},
         'label_average_dose_note': d['label']['renal_dose_adjustments']['average_daily_dose_note'],
         'sponsor_kind': d['ema_2013']['sponsor_simulation_table_7']['kind'],
         'notes': NOTES,

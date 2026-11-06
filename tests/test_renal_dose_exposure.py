@@ -26,6 +26,16 @@ class View(unittest.TestCase):
         self.assertTrue(all(b['bridoux']['same_dose_as_label'] for b in self.v['bands']))
         self.assertAlmostEqual(self.v['mild_bridoux']['ratio_to_normal'], 2605 / 1747)
 
+    def test_bridoux_intervals_are_derived_from_gcv_and_n(self):
+        import math
+        c = self.b['moderate']['bridoux']['ratio_ci90']
+        s2a, s2b = math.log(1 + 0.135 ** 2), math.log(1 + 0.268 ** 2)
+        se = math.sqrt(s2a / 7 + s2b / 10)
+        self.assertAlmostEqual(math.log(c['upper'] / (1800 / 1747)), math.log((1800 / 1747) / c['lower']))
+        self.assertAlmostEqual(math.log(c['upper'] / (1800 / 1747)) / se, 1.761, places=2)
+        self.assertEqual([round(x, 2) for x in (c['lower'], c['upper'])], [0.87, 1.22])
+        self.assertIn('derived by the platform', self.v['notes']['interval'])
+
     def test_cc5013_scaled_by_dose(self):
         self.assertAlmostEqual(self.b['moderate']['cc5013']['scaled_ratio'], 2.59 * 10 / 25)
         self.assertAlmostEqual(self.b['severe']['cc5013']['scaled_ratio'], 3.52 * 7.5 / 25)
@@ -61,7 +71,7 @@ class Page(unittest.TestCase):
         register_landscape(app)
         client = app.test_client()
         html = client.get('/landscape/drugs/lenalidomide/special-populations').get_data(as_text=True)
-        for text in ('does the reduced dose bring exposure back to the reference', '1.03', '1.33', '1.04</strong> (0.84–1.29)',
+        for text in ('does the reduced dose bring exposure back to the reference', '1.03', '1.33', '1.04</strong> (0.84–1.29)', '(0.87–1.22, derived)',
                      'sets no threshold', 'first dose reduction was at 50 mL/min'):
             self.assertIn(text, html)
         self.assertNotIn('sp-renal-dose-exposure', client.get('/landscape/drugs/ixazomib/special-populations').get_data(as_text=True))
