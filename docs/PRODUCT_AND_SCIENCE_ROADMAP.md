@@ -156,6 +156,9 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 
 **Batch 4 (in progress):**
 1. Model analysis report for the exposure–safety odds ratios (M3; every lenalidomide model now has one) (done).
+2. Parameter uncertainty for the Hughes typical curve, from its published precision (M7) (done).
+3. Digital human 1.1e: the body-map timeline and running amounts.
+4. Checkpoint.
 
 **Then:** label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
 

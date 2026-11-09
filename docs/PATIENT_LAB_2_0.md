@@ -238,6 +238,16 @@ Two points worth keeping in view:
 - The band is model-implied variability, not uncertainty about the model. It omits residual error (relevant when comparing with observed concentrations), uncertainty in the published estimates, and anything the model leaves out.
 - Between-subject variability dwarfs the unresolved weight-basis effect (≈ 6-fold vs ≈ 1.06-fold for the example). The weight basis matters for traceability far more than for the numbers.
 
+### Uncertainty of the typical curve (population method v1.1, 9 November 2026; reviewer's checklist M7)
+
+A second, separate question: how far could the **typical** curve itself lie, given how precisely Hughes 2019 estimated its parameters? `population_pk.py` now draws the four fixed effects (CL/F, the CrCl exponent, Vd/F, KTR) from normal distributions with SD = %RSE × estimate (Table 2, final model; `hughes_parameter_precision_v1.json`, quotes matched against the PDF), independently because the covariance of the estimates is not published, and reports the 5th–95th percentile of the typical curve, AUC and peak (seed = band seed + 1). The page draws it as dotted lines around the dashed typical curve.
+
+For a synthetic patient with CrCl 40 mL/min and fat-free mass 50 kg on 25 mg, AUC to infinity spans about 2,370–3,015 ng·h/mL (5th–95th; typical 2,683) and the peak about 336–391 ng/mL (typical 363; eight transit stages): roughly ±12% and ±7%. Two things follow:
+- The estimates' imprecision is small next to between-patient variability (about 6-fold) and next to the model's under-prediction in moderate and severe impairment, so that under-prediction is not explained by imprecise estimates.
+- The precision of KTR is uncertain in itself: the %RSE (5.8%) implies 12.0–15.0 /h, the bootstrap 11.9–36.8 /h. Only the peak and its timing depend on KTR, so the peak's uncertainty may be understated; AUC is unaffected.
+
+Kim 2026's parameter precision is not yet extracted.
+
 ## Scientific notes recorded during 2.0a/2.0b
 
 - **No study patient had CrCl below 36 mL/min** (Table 1 range 36–211; inclusion required serum creatinine < 177 µmol/L). The abstract's "22% lower clearance below 30 mL/min" is the equation extrapolated. Below 36 mL/min every output is extrapolation.

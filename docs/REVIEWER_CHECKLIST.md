@@ -59,7 +59,7 @@ Written 4 November 2026. Until user conversations are possible, this stands in f
 | M4 | Verification of the implementation. | Numerical checks (closed form against ODE solver, mass balance) in every report; transcription reviewed by the owner. | **Answered** |
 | M5 | Validation against data not used to build the model. | Outside checks for both population models (two studies); the pathway model's checks were not blind. All on `/models/findings`. | **Partly** (stated honestly) |
 | M6 | Applicability: are the inputs inside the model's data? | Enforced scopes refuse requests beyond each model's data; flagged bands carry warnings. | **Answered** |
-| M7 | Uncertainty: parameter, between-subject and residual. | Population bands for Hughes and Kim; no parameter uncertainty. | **Partly** |
+| M7 | Uncertainty: parameter, between-subject and residual. | Population bands for Hughes and Kim. **Since 9 November** Hughes also shows the typical curve's parameter uncertainty from its published %RSE (about ±12% in AUC; independence assumed; the KTR precision is itself disputed by the bootstrap). Kim has no parameter uncertainty yet; residual error is not shown. | **Partly** |
 | M8 | Was the work reviewed by someone independent? | Owner review of transcription only. No independent scientific review. | **Gap** |
 | M9 | Are deviations from the plan documented? | Yes, for example the Bridoux stage-1 deviation and the 2.0d rationale correction. | **Answered** |
 
