@@ -430,3 +430,45 @@ def run_check_v2():
               'clinical_prediction_validated': False}
     report['report_sha256'] = digest(report)
     return report
+
+
+# ---------------------------------------------------------------- Digital human 1.1e: the timeline the body map draws
+REPORT_V1_SHA256 = 'c5b98b878bdb206e2ed46d8ea203a8950f3a8ac06e3a87372dd5c92d6cb4aaf7'
+TIMELINE_VERSION = 'body-map-timeline-v1.0'
+ENDPOINT_LABELS = {'cmax_ng_ml': 'Peak concentration', 'terminal_half_life_h': 'Half-life', 'auc_infinity_ng_h_ml': 'Exposure (AUC)'}
+CLASS_TEXT = {'consistent': 'consistent with the study', 'model_under_predicts': 'too low', 'model_over_predicts': 'too high'}
+GROUP_FOR_BAND = {'normal': 'normal', 'mild': 'mild', 'moderate': 'moderate', 'severe': 'severe'}
+
+
+def timeline(crcl, band_id, dose_mg=25.0, hours=48.0, step_h=0.25):
+    """The v1 time course for the body map's timeline (shown version, decided by the v2 rule on 4 November 2026), with
+    the locked v1 check's classification for the band's study group beside it. One dose, typical values."""
+    report = _pinned(REPORT_PATH, REPORT_V1_SHA256, 'Time-course check report v1')
+    tc = time_course(crcl, dose_mg=dose_mg, hours=hours, step_h=step_h)
+    group = GROUP_FOR_BAND[band_id]
+    rows = report['primary'][group]['rows']
+    check = [{'endpoint': ENDPOINT_LABELS[r['endpoint']], 'model': r['model'], 'observed_gm': r['observed_gm'],
+              'observed_ci90': r['observed_ci90'], 'classification': r['classification'],
+              'text': CLASS_TEXT[r['classification']], 'ratio': r['model_over_observed'],
+              'role': 'calibration group (reported, not classified by the plan)' if r['role'] == 'reported_calibration_group' else 'classified'}
+             for r in rows]
+    peak_low = any(c['endpoint'] == 'Peak concentration' and c['classification'] == 'model_under_predicts' for c in check)
+    view = {
+        'timeline_version': TIMELINE_VERSION, 'method_version': METHOD_VERSION, 'crcl_ml_min': crcl, 'band': band_id,
+        'study_group_checked': group, 'dose_mg': dose_mg, 'hours': hours, 'step_h': step_h,
+        'summary': {k: tc[k] for k in ('volume_l', 'ka_per_h', 'ke_per_h', 'half_life_h', 'tmax_h', 'cmax_ng_ml',
+                                         'fraction_excreted_unchanged')},
+        'rows': [{'t_h': r['t_h'], 'plasma_ng_ml': r['plasma_ng_ml'], 'pct_dose': r['pct_dose']} for r in tc['rows']],
+        'check': check, 'check_report': {'file': str(REPORT_PATH.relative_to(ROOT)), 'sha256': REPORT_V1_SHA256},
+        'warning': ('Peak too low. The locked check found the model\'s peak below the study\'s in every group, '
+                    'because one volume spreads the dose too widely just after absorption (v2, two compartments, was '
+                    'tested and not adopted). Read the shape and the timing of elimination, not the height of the peak.'
+                    if peak_low else None),
+        'limits': ['One 25 mg dose, typical values; no between-patient spread.',
+                   'All of the dose is taken as absorbed (F = 1). In the moderate and severe bands the split between urine and '
+                   'other routes depends on that (Simulation 2.0e).',
+                   'Amounts in the body are one well-mixed space, not organ by organ.'] + report['known_limitations'][:1],
+        'clinical_prediction_validated': False,
+    }
+    view['timeline_sha256'] = digest(view)
+    return view

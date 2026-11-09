@@ -26,7 +26,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [Kidney pathways](SIMULATION_2_RENAL_PATHWAYS.md): filtration, secretion and non-renal clearance (2.0a), end-stage kidney disease (2.0c), the steeper-secretion test that was not adopted (2.0d), the AI review and the bioavailability re-check (2.0e).
 - [Dose view](DOSE_OPTIMISATION.md): exposure and relative cytopenia odds at each model's study doses (4.3).
 - Guided path: `guided_path.py`, page `/landscape/drugs/lenalidomide/guide` (4.4); seven steps since 5 November, when label pharmacokinetics and interactions were added.
-- [Digital human 1.0](DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md) and [1.1](DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md): the elimination body map, blood flow, per-pass extraction and the checked time course.
+- [Digital human 1.0](DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md) and [1.1](DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md): the elimination body map, blood flow, per-pass extraction, the checked time course and its timeline (1.1e).
 
 ## Bortezomib
 

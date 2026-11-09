@@ -190,6 +190,27 @@ def _context(view):
         return None, str(exc)
 
 
+def _timeline(view):
+    """Digital human 1.1e: the one-dose time course at the map's creatinine clearance, with chart geometry and compact
+    rows for the slider."""
+    if view['status'] != 'completed':
+        return None, None, None, None
+    from intelligence_store.body_map_time_course import TimeCourseError, timeline
+    try:
+        tl = timeline(view['crcl_ml_min'], view['band']['id'])
+    except (TimeCourseError, ValueError, OSError, KeyError) as exc:
+        return None, None, None, str(exc)
+    hours = tl['hours']
+    top = max(r['plasma_ng_ml'] for r in tl['rows']) * 1.1 or 1.0
+    x = lambda t: 70 + 670 * t / hours
+    y = lambda v: 210 - 190 * v / top
+    chart = {'line': ' '.join(f"{x(r['t_h']):.2f},{y(r['plasma_ng_ml']):.2f}" for r in tl['rows']),
+             'ticks': [{'y': 210 - 190 * i / 4, 'label': f'{top * i / 4:.3g}'} for i in range(5)],
+             'time_ticks': [{'x': 70 + 670 * i / 6, 'label': f'{hours * i / 6:g}'} for i in range(7)]}
+    rows = [{'t': f"{r['t_h']:g}", 'x': round(x(r['t_h']), 2), 'c': r['plasma_ng_ml'], 'p': r['pct_dose']} for r in tl['rows']]
+    return tl, chart, rows, None
+
+
 def _page_parts(view):
     done = view['status'] == 'completed'
     manifest, config, assets_error = None, None, None
@@ -238,12 +259,15 @@ def register_body_map_pages(bp):
         headers = {'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'}
         if fmt == 'json':
             headers['Content-Disposition'] = f'attachment; filename="body-map-explorer-crcl-{crcl:g}.json"'
-            body = {'body_map_view': view, 'observed_context': context}
+            tl = _timeline(view)[0] if done else None
+            body = {'body_map_view': view, 'observed_context': context, 'time_course': tl}
             return Response(json.dumps(body, indent=2, allow_nan=False) + '\n', mimetype='application/json', headers=headers)
         done, manifest, config, assets_error = _page_parts(view)
+        tl, tl_chart, tl_rows, tl_error = _timeline(view)
         response = _response(
             'landscape_body_map.html', scenario=None, revision=None, view=view, done=done, explorer=True,
             context=context, context_error=context_error,
+            timeline=tl, tl_chart=tl_chart, tl_rows=tl_rows, timeline_error=tl_error,
             explorer_control={'value': crcl, 'min': RANGE[0], 'max': RANGE[1], 'step': EXPLORER_STEP,
                               'default': EXPLORER_DEFAULT_CRCL},
             result_type=RESULT_TYPES['elimination_pathway_split_explorer'], config=config, assets_error=assets_error,
@@ -281,9 +305,11 @@ def register_body_map_pages(bp):
                     assets_error = str(exc)
             pathways_view = patient_renal_pathways(revision_id) if done else None
             context, context_error = _context(view) if done else (None, None)
+            tl, tl_chart, tl_rows, tl_error = _timeline(view)
             response = _response(
                 'landscape_body_map.html', scenario=scenario, revision=revision, view=view, done=done, explorer=False,
                 context=context, context_error=context_error,
+                timeline=tl, tl_chart=tl_chart, tl_rows=tl_rows, timeline_error=tl_error,
                 result_type=RESULT_TYPES['elimination_pathway_split'], config=config, assets_error=assets_error,
                 legend=LEGEND, presets=CAMERA_PRESETS, colors=COLORS, widths=flow_widths(view) if done else None,
                 flows={f['kind']: f for f in view['flows']} if done else None,

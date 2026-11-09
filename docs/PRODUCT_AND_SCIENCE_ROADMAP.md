@@ -48,7 +48,7 @@ Not differentiating on their own, so not the lead message: trial search, dashboa
 | 5. AI that cites and is checked | Every extracted value reviewed against its source | **Partly:** 166 reviewed, 74 not |
 | 6. Credibility records (ICH M15) | An exportable record per model | **Done** (8 records); analysis reports to add |
 | 7. Going online | Invited users with private workspaces | **Not started** |
-| Digital human | Body map built on checked models | 1.0–1.1d done; 1.1e paused |
+| Digital human | Body map built on checked models | 1.0–1.1e done |
 
 The phases overlap. Every step keeps the rules at the end of this page.
 
@@ -125,7 +125,7 @@ The phases overlap. Every step keeps the rules at the end of this page.
 
 The visual layer of the long-term vision, built only on models that have passed the earlier checks.
 - **Done:** 1.0, the lenalidomide elimination body map on Human Reference Atlas anatomy, with kidney-function bands carrying their check status; 1.1a–1.1d, blood flow (ICRP 89), per-pass kidney extraction, vessel-following flow paths, and a time course (v1 shown with its warnings; v2 not adopted).
-- **Next, paused during consolidation:** 1.1e, the timeline and running amounts.
+- **Done 9 November:** 1.1e, the timeline and running amounts (a 2D panel; the 3D viewer is unchanged).
 - **Later:** kidney-to-nephron zoom, the target explorer (cereblon), and a female reference body with hormone effects (owner's goal).
 
 **Detail:** [DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md](DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md), [DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md](DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md).
@@ -157,14 +157,14 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 **Batch 4 (in progress):**
 1. Model analysis report for the exposure–safety odds ratios (M3; every lenalidomide model now has one) (done).
 2. Parameter uncertainty for the Hughes typical curve, from its published precision (M7) (done).
-3. Digital human 1.1e: the body-map timeline and running amounts.
+3. Digital human 1.1e: the body-map timeline and running amounts (done; Digital human 1.1 complete).
 4. Checkpoint.
 
 **Then:** label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
 
 **Owner's work:** the v2 eligibility annotation, then its locked check; extraction review round 3 when there is time.
 
-**Paused:** special-population pages and label curves for the five new drugs (until round 3), Digital human 1.1e, and further kidney or bortezomib modelling without new data.
+**Paused:** special-population pages and label curves for the five new drugs (until round 3), and further kidney or bortezomib modelling without new data.
 
 **Blocked or waiting:**
 - **Lenalidomide kidney model:** every available renal-impairment dataset has been seen; a further check needs unseen data.
