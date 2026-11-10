@@ -114,7 +114,7 @@
 {% for key, label in [('auc_0_horizon_ng_h_ml','AUC over horizon (ng·h/mL)'),('auc_0_infinity_ng_h_ml','AUC to infinity (ng·h/mL)'),('peak_concentration_ng_ml','Peak concentration (ng/mL)')] %}{% set row = population.exposure[key] %}<tr><td>{{ label }}</td><td>{{ '%.1f'|format(row.p05) }}</td><td>{{ '%.1f'|format(row.p25) }}</td><td>{{ '%.1f'|format(row.p50) }}</td><td>{{ '%.1f'|format(row.p75) }}</td><td>{{ '%.1f'|format(row.p95) }}</td></tr>{% endfor %}
 </tbody></table></div>
 <p>Typical-value AUC over the horizon: {{ '%.1f'|format(population.exposure.typical_auc_0_horizon_ng_h_ml) }} ng·h/mL. {{ population.median_note }}</p>
-{% set pu = population.parameter_uncertainty %}{% if pu %}<h3>How certain is the typical curve itself?</h3>
+{% set pu = population.parameter_uncertainty %}{% if pu %}<h3>How certain is the typical curve itself? A lower bound</h3>
 <p>{{ pu.meaning }}</p>
 <div class="table-scroll"><table><caption>Typical curve across {{ pu.n_draws }} draws of the published estimates (seed {{ pu.seed }}).</caption>
 <thead><tr><th>Metric</th><th>5th</th><th>Median</th><th>95th</th></tr></thead><tbody>

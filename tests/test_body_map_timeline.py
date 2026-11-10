@@ -30,6 +30,14 @@ class Timeline(unittest.TestCase):
         self.assertTrue(any('F = 1' in item for item in tl['limits']))
         self.assertFalse(tl['clinical_prediction_validated'])
 
+    def test_observed_urine_share_is_shown_and_not_called_checked(self):
+        tl = timeline(40, 'moderate')
+        u = tl['observed_urine']
+        self.assertEqual((u['group'], u['observed_gm_pct'], u['observed_cv_pct'], u['checked']), ('moderate', 38, 48, False))
+        self.assertAlmostEqual(u['model_pct'], 100 * tl['summary']['fraction_excreted_unchanged'])
+        self.assertIn('not a check endpoint', tl['warning'])
+        self.assertTrue(any('model construct' in item for item in tl['limits']))
+
     def test_reproducible(self):
         self.assertEqual(timeline(55, 'mild')['timeline_sha256'], timeline(55, 'mild')['timeline_sha256'])
 

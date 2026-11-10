@@ -253,8 +253,10 @@ def calculate_population_pk(revision_id, weight_basis, request, disease_code='UN
         u_auc_inf.append(1000.0 * total_dose / cl)
         u_cmax.append(max(values))
     parameter_uncertainty = {
-        'meaning': ('Where the typical curve itself could lie, given the precision of the published estimates. Not the '
-                    'spread between patients (that is the band above) and not a prediction for anyone.'),
+        'meaning': ('A lower bound on where the typical curve itself could lie, from the published %RSE of four estimates '
+                    'only. The paper\'s own bootstrap intervals imply a wider range, and the fixed allometric exponents, the '
+                    'variances and the model structure carry uncertainty that is not included. Not the spread between '
+                    'patients (that is the band above) and not a prediction for anyone.'),
         'source': precision['source']['citation'] + ', ' + precision['source']['location'],
         'precision_extract_version': precision['extract_version'], 'precision_extract_sha256': PRECISION_SHA256,
         'method': ('Each fixed effect (CL/F, the CrCl exponent, Vd/F, KTR) drawn from a normal distribution with SD = '
@@ -264,7 +266,11 @@ def calculate_population_pk(revision_id, weight_basis, request, disease_code='UN
         'band': [{'time_h': t, **_summary(column)} for t, column in zip(times, u_columns)],
         'auc_0_infinity_ng_h_ml': _summary(u_auc_inf), 'peak_concentration_ng_ml': _summary(u_cmax),
         'limitations': precision['notes'] + ['Independence between estimates is assumed; correlated estimates (CL/F and '
-                                             'Vd/F are correlated between patients) could widen or narrow the band.'],
+                                             'Vd/F are correlated between patients) could widen or narrow the band.',
+                                             'Symmetric normal draws from %RSE are narrower than the bootstrap: log-normal draws '
+                                             'matched to the bootstrap intervals gave an AUC range about 30% wider in the '
+                                             'documented example (AI review of 10 November, F08; not yet reproduced on the '
+                                             'platform), and KTR\'s bootstrap interval (11.9-36.8 /h) is strongly skewed.'],
     }
     report.update(
         status='completed_population_calculation', simulation_status='completed_population_calculation',

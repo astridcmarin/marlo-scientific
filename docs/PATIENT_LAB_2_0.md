@@ -251,6 +251,7 @@ A second, separate question: how far could the **typical** curve itself lie, giv
 For a synthetic patient with CrCl 40 mL/min and fat-free mass 50 kg on 25 mg, AUC to infinity spans about 2,370–3,015 ng·h/mL (5th–95th; typical 2,683) and the peak about 336–391 ng/mL (typical 363; eight transit stages): roughly ±12% and ±7%. Two things follow:
 - The estimates' imprecision is small next to between-patient variability (about 6-fold) and next to the model's under-prediction in moderate and severe impairment, so that under-prediction is not explained by imprecise estimates.
 - The precision of KTR is uncertain in itself: the %RSE (5.8%) implies 12.0–15.0 /h, the bootstrap 11.9–36.8 /h. Only the peak and its timing depend on KTR, so the peak's uncertainty may be understated; AUC is unaffected.
+- **A lower bound (10 November, AI review F08).** The band uses symmetric draws from %RSE only. In the AI review's recomputation, log-normal draws matched to the paper's bootstrap intervals give about 2,300–3,140 ng·h/mL in the example above, about 30% wider (not yet reproduced on the platform); the fixed allometric exponents, the variances and the structure add uncertainty not included. The page heading and the report's meaning now say it is a lower bound. Sampling from the bootstrap intervals is a method change for a later step.
 
 Kim 2026's parameter precision is extracted (`kim_2026_model_extract_v1.json`, %RSE and bootstrap intervals for all nine parameters) but not yet used.
 

@@ -13,13 +13,14 @@
 <label for="bm-tl-slider">Time after the dose: <output id="bm-tl-time" for="bm-tl-slider">0 h</output></label>
 <input type="range" id="bm-tl-slider" min="0" max="{{ tl.rows|length - 1 }}" step="1" value="0" aria-describedby="bm-tl-amounts">
 <div class="table-scroll"><table id="bm-tl-amounts" aria-live="polite"><caption>Share of the dose at the chosen time</caption>
-<thead><tr><th>Gut (not yet absorbed)</th><th>Body</th><th>Urine (unchanged)</th><th>Other routes</th><th>Plasma concentration</th></tr></thead>
+<thead><tr><th>Gut (not yet absorbed; model construct)</th><th>Body</th><th>Urine (unchanged)</th><th>Other routes</th><th>Plasma concentration</th></tr></thead>
 <tbody><tr><td data-k="gut">100%</td><td data-k="body">0%</td><td data-k="urine">0%</td><td data-k="non_renal">0%</td><td data-k="plasma">0 ng/mL</td></tr></tbody></table></div>
 <p class="sp-src">Peak {{ '%.0f'|format(s.cmax_ng_ml) }} ng/mL at {{ '%.1f'|format(s.tmax_h) }} h; half-life {{ '%.1f'|format(s.half_life_h) }} h; {{ '%.0f'|format(100 * s.fraction_excreted_unchanged) }}% of the dose ends in urine unchanged.</p>
 <h3>What the locked check found for the {{ tl.study_group_checked }} group</h3>
 <div class="table-scroll"><table><thead><tr><th>Quantity</th><th>Model, at the group's mean clearance</th><th>Study (geometric mean, 90% CI)</th><th>Result</th></tr></thead><tbody>
 {% for c in tl.check %}<tr><td>{{ c.endpoint }}</td><td>{{ n(c.model) }}</td><td>{{ n(c.observed_gm) }} ({{ n(c.observed_ci90[0]) }}–{{ n(c.observed_ci90[1]) }})</td><td>{{ c.text }}{% if c.role != 'classified' %} <small>({{ c.role }})</small>{% endif %}</td></tr>{% endfor %}
 </tbody></table></div>
+{% set u = tl.observed_urine %}<p class="sp-src">Not checked: share of the dose ending in urine unchanged. Model {{ '%.0f'|format(u.model_pct) }}%; study {{ u.observed_gm_pct }}% (geometric mean, CV {{ u.observed_cv_pct }}%; {{ u.source }}).</p>
 <details class="rr-details"><summary>Limits</summary><ul>{% for item in tl.limits %}<li>{{ item }}</li>{% endfor %}</ul><p class="catalog-digest">{{ tl.timeline_version }} · check report {{ tl.check_report.file }} ({{ tl.check_report.sha256[:16] }}…) · {{ tl.timeline_sha256 }}</p></details>
 <script id="bm-timeline-data" type="application/json">{{ tl_rows|tojson }}</script>
 </section>

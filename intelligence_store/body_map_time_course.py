@@ -434,7 +434,11 @@ def run_check_v2():
 
 # ---------------------------------------------------------------- Digital human 1.1e: the timeline the body map draws
 REPORT_V1_SHA256 = 'c5b98b878bdb206e2ed46d8ea203a8950f3a8ac06e3a87372dd5c92d6cb4aaf7'
-TIMELINE_VERSION = 'body-map-timeline-v1.0'
+TIMELINE_VERSION = 'body-map-timeline-v1.1'
+# v1.1 (10 November 2026, AI review F05): the observed share of the dose in urine is shown beside the model's, because it
+# was not a check endpoint, and the gut share is labelled as a model construct.
+EMA_2013_PATH = ROOT / 'intelligence_store' / 'data' / 'lenalidomide_renal_pk_ema_2013_v1.json'
+EMA_2013_SHA256 = '04f2e629ded43713062e0d68d668939a4a2cecd5a9db7ce349874e81529f6501'
 ENDPOINT_LABELS = {'cmax_ng_ml': 'Peak concentration', 'terminal_half_life_h': 'Half-life', 'auc_infinity_ng_h_ml': 'Exposure (AUC)'}
 CLASS_TEXT = {'consistent': 'consistent with the study', 'model_under_predicts': 'too low', 'model_over_predicts': 'too high'}
 GROUP_FOR_BAND = {'normal': 'normal', 'mild': 'mild', 'moderate': 'moderate', 'severe': 'severe'}
@@ -453,6 +457,15 @@ def timeline(crcl, band_id, dose_mg=25.0, hours=48.0, step_h=0.25):
               'role': 'calibration group (reported, not classified by the plan)' if r['role'] == 'reported_calibration_group' else 'classified'}
              for r in rows]
     peak_low = any(c['endpoint'] == 'Peak concentration' and c['classification'] == 'model_under_predicts' for c in check)
+    ema = _pinned(EMA_2013_PATH, EMA_2013_SHA256, 'EMA 2013 extract')
+    urine = ema['table_3_geometric_means']['urine_excretion_pct_dose'][group]
+    observed_urine = {'group': group, 'model_pct': 100.0 * tc['fraction_excreted_unchanged'],
+                      'observed_gm_pct': urine['geometric_mean'], 'observed_cv_pct': urine['cv_pct'],
+                      'source': f"EMA 2013 (EMA/297642/2013), {ema['table_3_geometric_means']['location']}, CC-5013-PK-001, "
+                                'geometric mean (CV%)',
+                      'file': str(EMA_2013_PATH.relative_to(ROOT)), 'sha256': EMA_2013_SHA256, 'checked': False}
+    urine_note = (f"The share ending in urine was not a check endpoint: the model gives {observed_urine['model_pct']:.0f}% of the dose, "
+                  f"the study observed {urine['geometric_mean']}% (geometric mean, CV {urine['cv_pct']}%) in its {group} group.")
     view = {
         'timeline_version': TIMELINE_VERSION, 'method_version': METHOD_VERSION, 'crcl_ml_min': crcl, 'band': band_id,
         'study_group_checked': group, 'dose_mg': dose_mg, 'hours': hours, 'step_h': step_h,
@@ -460,14 +473,17 @@ def timeline(crcl, band_id, dose_mg=25.0, hours=48.0, step_h=0.25):
                                          'fraction_excreted_unchanged')},
         'rows': [{'t_h': r['t_h'], 'plasma_ng_ml': r['plasma_ng_ml'], 'pct_dose': r['pct_dose']} for r in tc['rows']],
         'check': check, 'check_report': {'file': str(REPORT_PATH.relative_to(ROOT)), 'sha256': REPORT_V1_SHA256},
-        'warning': ('Peak too low. The locked check found the model\'s peak below the study\'s in every group, '
-                    'because one volume spreads the dose too widely just after absorption (v2, two compartments, was '
-                    'tested and not adopted). Read the shape and the timing of elimination, not the height of the peak.'
-                    if peak_low else None),
+        'warning': (('Peak too low. The locked check found the model\'s peak below the study\'s in every group, '
+                     'because one volume spreads the dose too widely just after absorption (v2, two compartments, was '
+                     'tested and not adopted). Read the shape and the timing of elimination, not the height of the peak. '
+                     if peak_low else '') + urine_note),
+        'observed_urine': observed_urine,
         'limits': ['One 25 mg dose, typical values; no between-patient spread.',
                    'All of the dose is taken as absorbed (F = 1). In the moderate and severe bands the split between urine and '
                    'other routes depends on that (Simulation 2.0e).',
-                   'Amounts in the body are one well-mixed space, not organ by organ.'] + report['known_limitations'][:1],
+                   'Amounts in the body are one well-mixed space, not organ by organ.',
+                   'The gut share is a model construct: it comes from an absorption rate chosen to reproduce the time of peak with '
+                   'all of the dose absorbed, not from an observed amount.'] + report['known_limitations'][:1],
         'clinical_prediction_validated': False,
     }
     view['timeline_sha256'] = digest(view)
