@@ -98,7 +98,9 @@ def body_map_context(view):
          'unit': 'mL/min'},
         {'quantity': 'Total apparent clearance (CL/F)',
          'model': totals['total_ml_min'], 'model_note': 'renal + non-renal at this creatinine clearance (bioavailability taken as 1)',
-         'observed': [{'statistic': f"arithmetic mean, SD {here08['cl_f_ml_min'][1]} (EMA 2008)",
+         'observed': [{'statistic': (f"arithmetic mean, SD {here08['cl_f_ml_min'][1]} (EMA 2008)" if here08['cl_f_ml_min'][1] < here08['cl_f_ml_min'][0]
+                                     else f"arithmetic mean (EMA 2008; the printed SD, {here08['cl_f_ml_min'][1]}, exceeds the mean and is "
+                                          "likely a misprint in the source)"),
                        'value': here08['cl_f_ml_min'][0], 'derived': False},
                       {'statistic': f"geometric mean, CV {t3['cl_f'][g13]['cv_pct']}% (EMA 2013)",
                        'value': t3['cl_f'][g13]['geometric_mean'], 'derived': False}],

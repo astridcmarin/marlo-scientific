@@ -85,3 +85,9 @@
 .bm-key-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--c); flex:none; }
 .bm-key-scale { margin-left:auto; color:#bdbbe0; }
 .bm-key-bar { display:inline-block; width:26px; background:#e3e2fb; border-radius:2px; flex:none; }
+/* Digital human 1.1e: timeline panel (in the page flow, not over the viewer) */
+.bm-tl-warning { margin:8px 0 12px; padding:8px 12px; border-radius:6px; border:1px solid #c98a00; background:#fff6dd; color:#4a3500; }
+.bm-tl-chart { width:100%; height:auto; max-width:780px; display:block; }
+.bm-tl-chart text { font-size:12px; fill:#4a5d66; }
+#bm-tl-slider { width:100%; max-width:780px; display:block; margin:6px 0 10px; }
+@media (prefers-color-scheme: dark) { .bm-tl-warning { background:#3a2c00; color:#ffe8b0; border-color:#ffc94d; } }

@@ -34,7 +34,7 @@
 
     <h2>1. Executive summary</h2>
     <p>{{ r.executive_summary }}</p>
-    <ul>{% for f in r.findings_summary %}<li><strong>{{ f.step }}</strong> <span class="mar-tag">{{ f.outcome }}</span> {{ f.headline }}</li>{% endfor %}</ul>
+    <ul>{% for f in r.findings_summary %}<li><strong>{{ f.step }}</strong> <span class="mar-tag">{{ f.outcome }}</span> {{ f.headline }}</li>{% else %}<li>No locked check has been run on this model (see Results).</li>{% endfor %}</ul>
 
     <h2>2. Introduction</h2>
     <p>{{ r.introduction }}</p>
@@ -53,11 +53,11 @@
     <ul>{% for a in dm.assumptions %}<li>{{ a.assumption }} <span class="mar-note">Status: {{ a.status }}. Basis: {{ a.basis }}.</span></li>{% endfor %}</ul>
     <h3>Verification and validation layers</h3>
     <ul>{% for v in dm.verification_and_validation %}<li>{{ v.label }}: {{ v.status }}</li>{% endfor %}</ul>
-    <p class="mar-note">Every check below followed a plan locked by commit before computation (appendix A).</p>
+    <p class="mar-note">{% if r.appendices.model_analysis_plans %}Every check below followed a plan locked by commit before computation (appendix A).{% else %}No locked plan exists for this model: nothing below is a check against data.{% endif %}</p>
 
     <h2>5. Results</h2>
     {% for res in r.results %}<h3>5.{{ loop.index }} {{ res.title }}</h3>
-    <p class="mar-note">{{ res.finding.question }} <span class="mar-tag">{{ res.finding.outcome_label }}</span> {{ res.finding.blindness_label }}. {{ res.finding.date }}.</p>
+    <p class="mar-note">{{ res.finding.question }}{% if res.finding.outcome_label %} <span class="mar-tag">{{ res.finding.outcome_label }}</span>{% endif %} {{ res.finding.blindness_label }}.{% if res.finding.date %} {{ res.finding.date }}.{% endif %}</p>
     <div class="mar-scroll"><table class="mar-table"><thead><tr>{% for c in res.columns %}<th>{{ c }}</th>{% endfor %}</tr></thead><tbody>
     {% for row in res.rows %}<tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>{% endfor %}</tbody></table></div>
     <p class="mar-note">{{ res.note }}</p>
@@ -71,9 +71,9 @@
 
     <h2>8. Appendices</h2>
     <h3>A. Model analysis plans (locked)</h3>
-    <ul>{% for p in r.appendices.model_analysis_plans %}<li>{{ p.file }} · {{ p.plan_version }} · {{ p.recorded_on }} · {{ p.status|replace('_', ' ') }} <span class="mar-digest">{{ p.sha256[:16] }}…</span></li>{% endfor %}</ul>
+    <ul>{% for p in r.appendices.model_analysis_plans %}<li>{{ p.file }} · {{ p.plan_version }} · {{ p.recorded_on }} · {{ p.status|replace('_', ' ') }} <span class="mar-digest">{{ p.sha256[:16] }}…</span></li>{% else %}<li>None: no check of this model has been planned.</li>{% endfor %}</ul>
     <h3>B. Check reports</h3>
-    <ul>{% for p in r.appendices.reports %}<li>{{ p.file }} <span class="mar-digest">{{ p.sha256[:16] }}…</span></li>{% endfor %}</ul>
+    <ul>{% for p in r.appendices.reports %}<li>{{ p.file }} <span class="mar-digest">{{ p.sha256[:16] }}…</span></li>{% else %}<li>None.</li>{% endfor %}</ul>
     <h3>C. Reviews</h3>
     <ul>{% for p in r.appendices.reviews %}<li>{{ p }} (an AI review, not independent)</li>{% else %}<li>None.</li>{% endfor %}</ul>
     <p class="mar-digest">Narrative {{ r.text_version }} ({{ r.author }}) · SHA-256 {{ r.text_sha256 }} · credibility record {{ r.appendices.credibility_record_sha256[:16] }}… · report {{ r.report_sha256 }}</p>

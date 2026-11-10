@@ -19,13 +19,15 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = Path(__file__).parent / 'data'
 HUGHES_SCOPE_PATH = DATA / 'lenalidomide_hughes_scope_v2.json'
 HUGHES_SCOPE_SHA256 = 'acc86c652649d09db0bd90a19ed3ceeae2728eb22c9bc733f185767ccffbd149'
-KIM_SCOPE_PATH = DATA / 'lenalidomide_kim_scope_v3.json'
-KIM_SCOPE_SHA256 = 'b2c1b49511d6132cae5d6cb27c52f8fe747247218ecac94d0f387abac0ab2b3c'
+KIM_SCOPE_PATH = DATA / 'lenalidomide_kim_scope_v4.json'
+KIM_SCOPE_SHA256 = '273ac4425c6c8c0be4f0bcfc290f970e830986f484645ca65d0f04438e0fa5c2'
 # Superseded scopes, kept unchanged and pinned for traceability (file name -> SHA-256).
-#   Kim v1: moderate band not flagged; Kim v2: moderate band flagged (2.1f); Hughes v1: outside study population not recorded.
+#   Kim v1: moderate band not flagged; Kim v2: moderate band flagged (2.1f); Kim v3: outside study population recorded (2.1g);
+#   Hughes v1: outside study population not recorded.
 SUPERSEDED_SCOPES = {
     'lenalidomide_kim_scope_v1.json': 'a2d510ba6b16926e436ee644828dce41d3bfa7b3c8abd868d303e0ce8491bb01',
     'lenalidomide_kim_scope_v2.json': 'afaf3890ed225b6e5d2dae6a6998a90d79d0e650a171103979b7a1a829d9406a',
+    'lenalidomide_kim_scope_v3.json': 'b2c1b49511d6132cae5d6cb27c52f8fe747247218ecac94d0f387abac0ab2b3c',
     'lenalidomide_hughes_scope_v1.json': 'e89c34106bee1a0187bbcb02c72f0b1faffdc246b388a5f3a2908d2736977b93',
 }
 RENAL_EVIDENCE_PATH = ROOT / 'landscape_ui' / 'data' / 'renal_pk' / 'renal_pk_group_evidence_v2.json'

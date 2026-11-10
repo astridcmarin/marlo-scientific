@@ -1,0 +1,67 @@
+{
+ "schema_version": "pk-parameter-precision-extract-v1",
+ "extract_version": "hughes-2019-parameter-precision-v1.0",
+ "drug": "lenalidomide",
+ "recorded_on": "2026-11-09",
+ "source": {
+  "citation": "Hughes DM et al. Br J Clin Pharmacol 2019;85:924-934",
+  "doi": "10.1111/bcp.13873",
+  "location": "Table 2, Population parameter estimates for base, final and bootstrap models (PDF page 6)",
+  "file_sha256": "366eedc2236417d05ebe1523600327044825062e815b86e1fa6bd25089f9bdae",
+  "extraction": "AI-assisted, 9 November 2026, from the PDF on the owner's computer (pdftotext -layout). Each row quote was matched by script against that text with whitespace collapsed. Not yet reviewed by the platform owner."
+ },
+ "bootstrap": {
+  "quote": "Bootstrap resampling was performed 1000 times",
+  "outcome_quote": "The results of the 1000 bootstraps showed adequate confidence intervals for the majority of parameters, with 993 of the bootstraps"
+ },
+ "fixed_effects": {
+  "theta_cl": {
+   "label": "CL/F (L/h), typical at FFM 55 kg and CrCl 90 mL/min",
+   "estimate": 12.0,
+   "rse_pct": 5.0,
+   "bootstrap_ci95": [
+    10.8,
+    13.6
+   ],
+   "row_quote": "CL/F (L/h) [θ*(FFM/55)0.75] 12.4 [5.2] 12.0 [5.0] 12.0 [10.8–13.6]"
+  },
+  "theta_crcl": {
+   "label": "CrCl covariate exponent",
+   "estimate": 0.224,
+   "rse_pct": 31.6,
+   "bootstrap_ci95": [
+    0.046,
+    0.396
+   ],
+   "row_quote": "CrCl covariate effect [*(CrCl/90)θ] 0.224 [31.6] 0.226 [0.046–0.396]"
+  },
+  "theta_v": {
+   "label": "Vd/F (L), typical at FFM 55 kg",
+   "estimate": 68.8,
+   "rse_pct": 5.0,
+   "bootstrap_ci95": [
+    61.8,
+    76.3
+   ],
+   "row_quote": "Vd/F (L) [θ*(FFM/55)1.0] 75.4 [5.1] 68.8 [5.0] 68.8 [61.8–76.3]"
+  },
+  "theta_ktr": {
+   "label": "Transit rate KTR (1/h)",
+   "estimate": 13.5,
+   "rse_pct": 5.8,
+   "bootstrap_ci95": [
+    11.9,
+    36.8
+   ],
+   "row_quote": "KTR (h−1) 13.5 [5.8] 13.5 [5.8] 13.4 [11.9–36.8]"
+  }
+ },
+ "not_reported": [
+  "the covariance between fixed-effect estimates",
+  "the bootstrap distributions themselves"
+ ],
+ "notes": [
+  "The %RSE column is from the final model's covariance step; the bootstrap interval is a separate estimate of the same uncertainty. For CL/F and Vd/F they agree (a 95% interval of plus or minus about 10%). For KTR they do not: an RSE of 5.8% implies about 12.0 to 15.0 1/h, while the bootstrap gives 11.9 to 36.8, so the bootstrap shows a long upper tail the RSE misses. For the CrCl exponent both are wide."
+ ],
+ "clinical_prediction_validated": false
+}

@@ -20,7 +20,7 @@ The platform's main safeguard is that checks follow plans locked before computat
 | `tuned_on` | The platform set or fitted parameters on it |
 | `reproduction` | Compared with the model's own fitting data, or the study its source compared it with |
 | `checked_blind` | Plan locked before anyone on the platform saw the values |
-| `checked_blind_with_deviation` | As above, with a recorded deviation |
+| `checked_blind_with_deviation` | As above, with a recorded deviation; the use's note says how much of the outcome was known when the plan was locked (shown as "Prespecified, with a recorded deviation; outcome largely known beforehand" for Bridoux 2016) |
 | `checked_not_blind` | Plan locked, but the values had been seen before it was written |
 | `compared_model_to_model` | Compared with another model, not observed data |
 | `reserved_for_blind_check` | Set aside for a locked check not yet run |
@@ -41,3 +41,5 @@ The platform's main safeguard is that checks follow plans locked before computat
 ## Updating it
 
 The ledger is pinned like any reference file. When a dataset is read, a check is run or a model is tuned, a new version records it (`dataset_ledger_v2.json`), with a new pin, never an edit in place.
+
+**Rule adopted 10 November 2026 (AI review F18).** For a blind check, the plan's commit also contains the executable check, run on synthetic values. After the lock only data files change, so the commit order shows that the computation was fixed before the data were read, not only the plan.

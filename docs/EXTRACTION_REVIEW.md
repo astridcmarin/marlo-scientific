@@ -96,10 +96,11 @@ Only the exact file reviewed is covered. A later version of a file shows nothing
 
 ## Round 3 (opened 5 November 2026)
 
-Page: `/models/extraction-review/round-3`. Round 3 has its own queue, `extraction_review_queue_round3_v3.json` (v2 added the FDA 2026 draft hepatic guidance, v3 the bioanalytical methods; v1 with 99 entries and v2 with 113 were superseded before any record was made against them) (built by `scripts/build_review_round_3.py`, which a test reruns), so the first queue and the two records made against it stay unchanged. A record downloaded from the round 3 page carries that queue's checksum and is validated against it (`flask extraction-review-check FILE` works for both). Each item is one entry: its structured values beside the sentence they come from and its location. 117 entries in all:
+Page: `/models/extraction-review/round-3`. Round 3 has its own queue, `extraction_review_queue_round3_v4.json` (v2 added the FDA 2026 draft hepatic guidance, v3 the bioanalytical methods, v4 on 10 November the Hughes 2019 parameter precision and the corrected Hughes citation; v1 with 99 entries, v2 with 113 and v3 with 117 were superseded before any record was made against them) (built by `scripts/build_review_round_3.py`, which a test reruns), so the first queue and the two records made against it stay unchanged. A record downloaded from the round 3 page carries that queue's checksum and is validated against it (`flask extraction-review-check FILE` works for both). Each item is one entry: its structured values beside the sentence they come from and its location. 121 entries in all:
 - 18 from the REVLIMID pharmacokinetics and interactions extract;
 - 7 from the FDA renal guidance (the four Table 1 categories, footnote c, two quotes); its PDF is not yet in the owner's folder;
 - 4 from the bioanalytical methods behind the kidney data (Chen 2007, Bridoux 2016, Kim 2026, Hughes 2019; the PDFs are in the owner's folder);
+- 4 from the Hughes 2019 parameter precision (Table 2: CL/F, the CrCl exponent, Vd/F and KTR, each with %RSE and bootstrap interval), which draws the uncertainty band of the typical curve;
 - 14 from the FDA September 2026 draft hepatic guidance (six quotes, the three Child–Pugh groups, the five NCI ODWG groups); its PDF is not in the owner's folder either;
 - 74 from the five label extracts (carfilzomib 21, selinexor 20, thalidomide 15, isatuximab 10, elotuzumab 8).
 

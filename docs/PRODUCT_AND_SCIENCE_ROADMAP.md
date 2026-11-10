@@ -29,7 +29,7 @@ Primary users first: trial designers, clinical pharmacologists and regulatory pr
 |---|---|
 | **Shows its work.** Every value carries its source; every model shows what has and has not been checked, including failures. | In place: run records, scorecards at `/models`, a capability level on every drug. |
 | **Checks planned before they run.** | 27 checks, each locked by commit before computation, all at `/models/findings`. Only 3 were blind (dataset ledger). |
-| **A regulatory reviewer's structure.** | Partly: for lenalidomide, 21 of 29 reviewer questions answered, 6 partly, 2 gaps ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
+| **A regulatory reviewer's structure.** | Partly: for lenalidomide, 19 of 29 reviewer questions answered, 8 partly, 2 gaps, self-scored and corrected after the AI review of 10 November ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
 | **The whole chain in one place.** Trial → drug → evidence → exposure → regulatory context. | Partly: a guided path exists for lenalidomide only. |
 | **Reproducible snapshots.** Frozen cohorts; checksum-pinned, versioned data. | In place. |
 | **AI that cites and is checked.** | In place for the 166 values that feed calculations (owner-reviewed, not independent). The 74 values of the 4 November labels are not reviewed. |
@@ -48,7 +48,7 @@ Not differentiating on their own, so not the lead message: trial search, dashboa
 | 5. AI that cites and is checked | Every extracted value reviewed against its source | **Partly:** 166 reviewed, 74 not |
 | 6. Credibility records (ICH M15) | An exportable record per model | **Done** (8 records); analysis reports to add |
 | 7. Going online | Invited users with private workspaces | **Not started** |
-| Digital human | Body map built on checked models | 1.0–1.1d done; 1.1e paused |
+| Digital human | Body map built on checked models | 1.0–1.1e done |
 
 The phases overlap. Every step keeps the rules at the end of this page.
 
@@ -125,7 +125,7 @@ The phases overlap. Every step keeps the rules at the end of this page.
 
 The visual layer of the long-term vision, built only on models that have passed the earlier checks.
 - **Done:** 1.0, the lenalidomide elimination body map on Human Reference Atlas anatomy, with kidney-function bands carrying their check status; 1.1a–1.1d, blood flow (ICRP 89), per-pass kidney extraction, vessel-following flow paths, and a time course (v1 shown with its warnings; v2 not adopted).
-- **Next, paused during consolidation:** 1.1e, the timeline and running amounts.
+- **Done 9 November:** 1.1e, the timeline and running amounts (a 2D panel; the 3D viewer is unchanged).
 - **Later:** kidney-to-nephron zoom, the target explorer (cereblon), and a female reference body with hormone effects (owner's goal).
 
 **Detail:** [DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md](DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md), [DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md](DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md).
@@ -146,7 +146,7 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 
 **Moved to the iMac, 6 November.** The project now runs on the owner's iMac (1,310 tests passing there). Moving it showed that annotations were saved in `app/instance/` while the database was in `instance/`.
 
-**Batch 3 (one pull request; checkpoint 6 November, 1,330 tests on the iMac):**
+**Batch 3 (done; PR #115, merged 6 November; 1,330 tests on the iMac and in CI):**
 1. One instance folder for the database, workspace key and annotations (done).
 2. Model analysis reports for Hughes 2019 and Kim 2026 (M3) (done).
 3. What is known in dialysis, on the special-populations page (R7) (done).
@@ -154,11 +154,20 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 5. Precision of the dose-exposure ratios (R5) (done: approximate intervals from the published geometric CVs; R5 stays partly, as parameter uncertainty is not propagated).
 6. Checkpoint (done).
 
-**Then:** the exposure–safety analysis report; label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
+**Batch 4 (done 10 November; pull request open):**
+1. Model analysis report for the exposure–safety odds ratios (M3; every lenalidomide model now has one).
+2. Parameter uncertainty for the Hughes typical curve, from its published precision (M7).
+3. Digital human 1.1e: the body-map timeline and running amounts (Digital human 1.1 complete).
+4. The Fable AI review of the lenalidomide work (Track A of the Fable plan) and five updates handling its findings.
+5. Checkpoint.
+
+**Next, from the Fable plan:** E, an overclaiming audit of the pages; then the eligibility extractor's plan locked (C) while the annotation continues; the deferred review findings (F03, F04, F08 sampling) as method changes with their own plans.
+
+**Then:** label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
 
 **Owner's work:** the v2 eligibility annotation, then its locked check; extraction review round 3 when there is time.
 
-**Paused:** special-population pages and label curves for the five new drugs (until round 3), Digital human 1.1e, and further kidney or bortezomib modelling without new data.
+**Paused:** special-population pages and label curves for the five new drugs (until round 3), and further kidney or bortezomib modelling without new data.
 
 **Blocked or waiting:**
 - **Lenalidomide kidney model:** every available renal-impairment dataset has been seen; a further check needs unseen data.

@@ -5,9 +5,10 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 ## Start here
 
 - [Product and science roadmap](PRODUCT_AND_SCIENCE_ROADMAP.md): positioning, users, phases, status of each phase and next steps (shortened 5 November 2026; the full version with the dated log of every step, and the 10 October version, are in history/).
-- [Reviewer's checklist](REVIEWER_CHECKLIST.md): the questions an FDA clinical pharmacology reviewer asks (renal 2024, hepatic draft 2026, ICH M15), scored against the lenalidomide workflow (21 answered, 6 partly, 2 gaps), with the gaps ranked.
+- [Reviewer's checklist](REVIEWER_CHECKLIST.md): the questions an FDA clinical pharmacology reviewer asks (renal 2024, hepatic draft 2026, ICH M15), self-scored against the lenalidomide workflow (19 answered, 8 partly, 2 gaps after the AI review of 10 November), with the gaps ranked.
 - [Status by drug](STATUS_BY_DRUG.md): for each drug, in plain language, what the platform has, what was checked, what is known to be wrong and what is missing.
-- [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (6 November 2026: 1,330 tests passing on the owner's iMac at the end of batch 3), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-06b.json); earlier checkpoints in [history](history/).
+- [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (10 November 2026, end of batch 4, after the AI review; tests in CI), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-10.json); earlier checkpoints in [history](history/).
+- [AI review of the lenalidomide work](reviews/2026-11_fable_review.md) (10 November 2026): 29 findings and how each was handled. Not an independent review.
 - Conventions for working in the repository: `CLAUDE.md` at the root.
 
 ## How far can the results be trusted?
@@ -26,7 +27,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [Kidney pathways](SIMULATION_2_RENAL_PATHWAYS.md): filtration, secretion and non-renal clearance (2.0a), end-stage kidney disease (2.0c), the steeper-secretion test that was not adopted (2.0d), the AI review and the bioavailability re-check (2.0e).
 - [Dose view](DOSE_OPTIMISATION.md): exposure and relative cytopenia odds at each model's study doses (4.3).
 - Guided path: `guided_path.py`, page `/landscape/drugs/lenalidomide/guide` (4.4); seven steps since 5 November, when label pharmacokinetics and interactions were added.
-- [Digital human 1.0](DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md) and [1.1](DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md): the elimination body map, blood flow, per-pass extraction and the checked time course.
+- [Digital human 1.0](DIGITAL_HUMAN_1_LENALIDOMIDE_ELIMINATION.md) and [1.1](DIGITAL_HUMAN_1_1_FLOW_AND_TIME.md): the elimination body map, blood flow, per-pass extraction, the checked time course and its timeline (1.1e).
 
 ## Bortezomib
 

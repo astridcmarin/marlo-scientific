@@ -1,4 +1,5 @@
-"""Phase 4.3: the lenalidomide dose-optimisation page (docs/DOSE_OPTIMISATION.md)."""
+"""Phase 4.3: the lenalidomide dose view (docs/DOSE_OPTIMISATION.md). It ranks no dose and proposes none; until 10 November
+2026 its path said "dose-optimisation", which still redirects here (AI review F22)."""
 import json
 import math
 
@@ -51,6 +52,11 @@ def build_state(args):
 
 def register_dose_optimisation_pages(bp):
     @bp.get('/drugs/lenalidomide/dose-optimisation')
+    def lenalidomide_dose_optimisation_old_path():
+        from flask import redirect, url_for
+        return redirect(url_for('landscape.lenalidomide_dose_optimisation', **request.args.to_dict(flat=True)), code=301)
+
+    @bp.get('/drugs/lenalidomide/dose-view')
     def lenalidomide_dose_optimisation():
         if set(request.args) - ALLOWED or any(len(request.args.getlist(k)) != 1 for k in request.args):
             abort(400)

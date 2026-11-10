@@ -65,10 +65,34 @@ class PublishedModels(unittest.TestCase):
         self.assertIn('Recorded deviation', bridoux['note'])
         self.assertIn('Three locked checks', h['executive_summary'])
 
+    def test_exposure_safety_report_without_checks(self):
+        r = mar.build('lenalidomide_exposure_safety_2016')
+        self.assertEqual(r['findings_summary'], [])
+        self.assertEqual(r['appendices']['model_analysis_plans'], [])
+        self.assertEqual(r['appendices']['reports'], [])
+        self.assertEqual([x['title'] for x in r['results']], ['Published estimates as implemented (multiple myeloma)',
+                                                             'What the implemented formula gives (illustration)'])
+        self.assertEqual(r['results'][0]['rows'][0][1], '2.972 (1.027–8.598)')
+        self.assertTrue(r['results'][1]['rows'][0][3].startswith('2.13 '))
+        self.assertTrue(all(not x['finding']['blind'] for x in r['results']))
+        self.assertIn('no locked check', r['executive_summary'])
+
+    def test_every_lenalidomide_model_has_a_report(self):
+        self.assertEqual(set(mar.available()), {'lenalidomide_renal_pathways_2026', 'lenalidomide_hughes_2019',
+                                                'lenalidomide_kim_2026', 'lenalidomide_exposure_safety_2016'})
+
     def test_every_narrative_is_pinned(self):
         import hashlib
         for model_id, (name, sha) in mar.TEXTS.items():
             self.assertEqual(hashlib.sha256((mar.DATA / name).read_bytes()).hexdigest(), sha, model_id)
+
+
+class SupersededTexts(unittest.TestCase):
+    def test_superseded_texts_kept_unchanged(self):
+        import hashlib
+        from intelligence_store import model_analysis_report as mar
+        for name, sha in mar.SUPERSEDED_TEXTS.items():
+            self.assertEqual(hashlib.sha256((mar.DATA / name).read_bytes()).hexdigest(), sha, name)
 
 
 class Page(unittest.TestCase):

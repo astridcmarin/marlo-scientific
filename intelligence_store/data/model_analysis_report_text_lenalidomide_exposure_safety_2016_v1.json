@@ -1,0 +1,30 @@
+{
+ "schema_version": "model-analysis-report-text-v1",
+ "text_version": "lenalidomide-exposure-safety-2016-mar-text-v1.0",
+ "model_id": "lenalidomide_exposure_safety_2016",
+ "recorded_on": "2026-11-06",
+ "author": "AI assistant for the platform owner; not reviewed independently",
+ "structure": "ICH M15 Appendix 2, Model Analysis Report: Executive Summary, Introduction, Objectives, Data and Methods, Results, Discussion, Conclusions, Appendices (EMA/CHMP/ICH/496426/2024, 9 February 2026, page 16-17).",
+ "sections": {
+  "executive_summary": "The platform turns a published exposure-safety analysis into relative odds: at a simulated lenalidomide exposure, how the odds of grade 3/4 thrombocytopenia or neutropenia compare with those at a reference exposure. The odds ratios come from the sponsor's analysis CC-5013-MCL-001-PK as reported by the Australian regulator (TGA, 2016), using the multiple myeloma values. The analysis cannot be reproduced and has not been compared with outside data, and no locked check has been run on it: the platform implements the published estimates and shows only relative odds, never a probability for a patient.",
+  "introduction": "Lenalidomide's main dose-limiting toxicities are neutropenia and thrombocytopenia. The sponsor related their grade 3/4 incidence to exposure (ln AUC) by logistic regression, with disease and baseline counts, in patients with mantle cell lymphoma, multiple myeloma and myelodysplastic syndromes on lenalidomide alone. In myeloma, higher exposure was a significant predictor of thrombocytopenia and a non-significant one of neutropenia. The platform uses these odds ratios beside the exposure models so that a change in exposure, for example from kidney function, can be read alongside the published safety relationship.",
+  "objectives": [
+   "Implement the published myeloma odds ratios as relative odds between two exposures, with their confidence intervals.",
+   "State what the source does and does not allow: relative odds only, for a patient with the same disease and baseline count, over a course of treatment rather than cycle 1.",
+   "Record what has not been checked."
+  ],
+  "discussion": [
+   "Only relative odds follow from the published numbers. The intercept, baseline-count coefficients, exact AUC definition and number of myeloma patients were not published, so absolute probabilities cannot be computed and the regression cannot be reproduced.",
+   "The thrombocytopenia odds ratio is significant but imprecise (95% CI 1.03 to 8.60); the neutropenia odds ratio's interval includes 1. Chen 2017 reports the same sponsor analysis pooled across diseases (thrombocytopenia odds ratio 3.337), which agrees but is not independent.",
+   "The analysis covered lenalidomide monotherapy over all cycles up to a year; the relationships were not apparent in the first cycle. Combination regimens, such as lenalidomide with dexamethasone, are outside it.",
+   "The exposure the platform feeds in comes from the Hughes and Kim models, whose own limitations (under-prediction in moderate and severe kidney impairment) carry through."
+  ],
+  "conclusions": [
+   "The model is a faithful implementation of published odds ratios, verified as code and against the TGA text (the Chen 2017 quotes are not yet checked against its PDF), and nothing more.",
+   "It has no locked check, no reproduction and no outside comparison; it is shown as relative odds for research and education only.",
+   "An independent exposure-safety dataset would be needed before any check could be planned."
+  ]
+ },
+ "not_this": "Not a regulatory submission and not an assessment of the sponsor's analysis. Generated from the platform's pinned extract and code; the narrative sections were written by the AI assistant and have not been reviewed independently.",
+ "clinical_prediction_validated": false
+}

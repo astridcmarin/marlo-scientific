@@ -1,0 +1,27 @@
+{# Digital human 1.1e: one dose over time, with the locked v1 check beside it. #}
+{% if timeline_error %}<section class="panel" id="bm-timeline"><h2>Over time after one dose</h2><p role="alert">{{ timeline_error }}</p></section>
+{% elif timeline %}{% set tl = timeline %}{% set s = tl.summary %}{% macro n(v) %}{% if v >= 100 %}{{ '{:,.0f}'.format(v) }}{% else %}{{ '%.1f'|format(v) }}{% endif %}{% endmacro %}
+<section class="panel" id="bm-timeline" aria-labelledby="bm-timeline-heading">
+<h2 id="bm-timeline-heading">Over time after one {{ '%g'|format(tl.dose_mg) }} mg dose</h2>
+<p>Where the dose is, hour by hour, at a creatinine clearance of {{ '%g'|format(tl.crcl_ml_min) }} mL/min: still in the gut, in the body, already in urine, or removed by other routes. Typical values from the map's own clearance (time-course model v1).</p>
+{% if tl.warning %}<p class="bm-tl-warning" role="note">{{ tl.warning }}</p>{% endif %}
+<svg class="bm-tl-chart" viewBox="0 0 780 260" role="img" aria-labelledby="bm-tl-title"><title id="bm-tl-title">Plasma concentration over {{ '%g'|format(tl.hours) }} hours; the marker follows the time chosen below.</title>
+{% for tick in tl_chart.ticks %}<line x1="70" y1="{{ tick.y }}" x2="740" y2="{{ tick.y }}" class="transit-grid"/><text x="62" y="{{ tick.y+4 }}" text-anchor="end">{{ tick.label }}</text>{% endfor %}
+{% for tick in tl_chart.time_ticks %}<text x="{{ tick.x }}" y="232" text-anchor="middle">{{ tick.label }}</text>{% endfor %}<text x="70" y="14">ng/mL</text><text x="405" y="254" text-anchor="middle">Hours after the dose</text>
+<polyline points="{{ tl_chart.line }}" fill="none" stroke="#007b83" stroke-width="2.5"/>
+<line id="bm-tl-marker" x1="70" y1="20" x2="70" y2="210" stroke="#6a4c93" stroke-width="1.5" stroke-dasharray="4 3"/></svg>
+<label for="bm-tl-slider">Time after the dose: <output id="bm-tl-time" for="bm-tl-slider">0 h</output></label>
+<input type="range" id="bm-tl-slider" min="0" max="{{ tl.rows|length - 1 }}" step="1" value="0" aria-describedby="bm-tl-amounts">
+<div class="table-scroll"><table id="bm-tl-amounts" aria-live="polite"><caption>Share of the dose at the chosen time</caption>
+<thead><tr><th>Gut (not yet absorbed; model construct)</th><th>Body</th><th>Urine (unchanged)</th><th>Other routes</th><th>Plasma concentration</th></tr></thead>
+<tbody><tr><td data-k="gut">100%</td><td data-k="body">0%</td><td data-k="urine">0%</td><td data-k="non_renal">0%</td><td data-k="plasma">0 ng/mL</td></tr></tbody></table></div>
+<p class="sp-src">Peak {{ '%.0f'|format(s.cmax_ng_ml) }} ng/mL at {{ '%.1f'|format(s.tmax_h) }} h; half-life {{ '%.1f'|format(s.half_life_h) }} h; {{ '%.0f'|format(100 * s.fraction_excreted_unchanged) }}% of the dose ends in urine unchanged.</p>
+<h3>What the locked check found for the {{ tl.study_group_checked }} group</h3>
+<div class="table-scroll"><table><thead><tr><th>Quantity</th><th>Model, at the group's mean clearance</th><th>Study (geometric mean, 90% CI)</th><th>Result</th></tr></thead><tbody>
+{% for c in tl.check %}<tr><td>{{ c.endpoint }}</td><td>{{ n(c.model) }}</td><td>{{ n(c.observed_gm) }} ({{ n(c.observed_ci90[0]) }}–{{ n(c.observed_ci90[1]) }})</td><td>{{ c.text }}{% if c.role != 'classified' %} <small>({{ c.role }})</small>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+{% set u = tl.observed_urine %}<p class="sp-src">Not checked: share of the dose ending in urine unchanged. Model {{ '%.0f'|format(u.model_pct) }}%; study {{ u.observed_gm_pct }}% (geometric mean, CV {{ u.observed_cv_pct }}%; {{ u.source }}).</p>
+<details class="rr-details"><summary>Limits</summary><ul>{% for item in tl.limits %}<li>{{ item }}</li>{% endfor %}</ul><p class="catalog-digest">{{ tl.timeline_version }} · check report {{ tl.check_report.file }} ({{ tl.check_report.sha256[:16] }}…) · {{ tl.timeline_sha256 }}</p></details>
+<script id="bm-timeline-data" type="application/json">{{ tl_rows|tojson }}</script>
+</section>
+{% endif %}

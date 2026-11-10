@@ -15,6 +15,7 @@ Research and educational platform: clinical-trial intelligence, drug/regulatory 
 - Reference data in `intelligence_store/data/*.json` is SHA-256 pinned by its loader. Changing a file means a new versioned file and a new pin, never an edit in place. After adding a data file, run `python3 scripts/data_file_index.py` (a test checks `docs/DATA_FILES.md` is current).
 - Every value carries provenance: origin, method/formula and version, source location, assumptions. Unknown stays unknown; no silent defaults or unit conversions.
 - A new check needs an entry in the dataset ledger (new ledger version) and a line in the check-findings file; tests fail otherwise. A plan that claims a blind check must pass `dataset_ledger.assert_blind_allowed`.
+- For a blind check, commit the executable check with its plan, run on synthetic values, so that after the lock only data files change (adopted 10 November 2026 after the AI review, F18).
 - Synthetic inputs only. Outputs keep `ready_for_patient_simulation` / validation flags false unless a documented review changes them.
 - Tests use `unittest`: `python -m unittest discover -s tests`. Dependencies are in `requirements.txt`.
 - Commits and pull requests: do not add `Co-Authored-By` trailers, session links or "Generated with" footers to commit messages or PR descriptions.

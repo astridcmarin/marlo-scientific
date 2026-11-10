@@ -15,11 +15,12 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
 - **Checked:**
   - Hughes against CC-5013-PK-001 *(finding: hughes_cc5013)*.
   - Kim against CC-5013-PK-001 *(finding: kim_cc5013)*.
-  - Both again with study-matched virtual subjects *(finding: renal_recheck)*, and against myeloma patients, the first blind check of a published population model, with a recorded deviation *(finding: bridoux_hughes_kim)*.
+  - Both again with study-matched virtual subjects *(finding: renal_recheck)*, and against myeloma patients under a plan locked before the per-group values were seen, with a recorded deviation; the outcome was largely known from the abstract *(finding: bridoux_hughes_kim)*.
   - The pathway model against its own study's impaired groups *(finding: pathways_2_0a)*, end-stage kidney disease *(finding: pathways_esrd)*, two myeloma studies *(finding: pathways_2_0d)*, and across the bioavailability the data allow *(finding: pathways_2_0e)*.
   - The body map's time course *(finding: time_course_v1)* *(finding: time_course_v2)*.
 - **Known to be wrong:**
-  - Hughes and Kim predict too little exposure in moderate and severe kidney impairment, in two studies.
+  - Hughes predicts too little exposure in moderate and severe kidney impairment, and Kim in severe, in two studies.
+  - Kim in moderate impairment: the checks disagree. It under-predicts in the non-cancer study, whose subjects were mostly larger than Kim's patients; in myeloma patients its absolute exposure is consistent and only the ratio to normal is flagged, by a 0.25% margin.
   - The pathway model's moderate and severe results depend on bioavailability, which was not measured (absorption at least about 90%): no single value fits CC-5013-PK-001's moderate group and the other studies at once (2.0e). Both bands are marked accordingly; the earlier finding that renal elimination falls faster than in proportion to kidney function is not established.
   - The body map's peak concentration is too low.
 - **Missing:**

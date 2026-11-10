@@ -20,8 +20,11 @@ QUEUE_PATH = DATA / 'extraction_review_queue_v1.json'
 QUEUE_SHA256 = '3ebad5506b7e1c9ed95a581f485389b4ef421727013aa826071aab79daab3961'
 # Round 3 (5 November 2026): values shown on pages but feeding no calculation, in a queue of their own so that the
 # first queue and the records made against it stay unchanged. Built by scripts/build_review_round_3.py.
-ROUND_3_QUEUE_PATH = DATA / 'extraction_review_queue_round3_v3.json'
-ROUND_3_QUEUE_SHA256 = '28ff797fb70542d95c5f036963b5abdf4044c00dee1d114e1eaf7fe2787ce359'
+ROUND_3_QUEUE_PATH = DATA / 'extraction_review_queue_round3_v4.json'
+ROUND_3_QUEUE_SHA256 = 'e1627e36d00c5064a5f50dd712b4321db6b0e9df3a1d064e4f63ed6532f49324'
+# Superseded before any record was made against it, kept unchanged: v3 (117 entries, without the Hughes parameter precision;
+# Hughes cited as DM instead of JH)
+ROUND_3_QUEUE_V3_SHA256 = '28ff797fb70542d95c5f036963b5abdf4044c00dee1d114e1eaf7fe2787ce359'
 # Superseded before any record was made against it, kept unchanged: v2 (113 entries, without the bioanalytical methods)
 ROUND_3_QUEUE_V2_SHA256 = '3cd9f931f243efcd96633b8e03bc5d7a40d4629b5b0b2ee44e82363d82e12a71'
 # Superseded before any record was made against it, kept unchanged: extraction_review_queue_round3_v1.json (99 entries,

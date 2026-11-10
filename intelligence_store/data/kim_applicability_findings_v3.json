@@ -1,0 +1,63 @@
+{
+  "schema_version": "model-applicability-findings-v2",
+  "findings_version": "kim-applicability-findings-v3.0",
+  "model": "lenalidomide_kim_2026",
+  "recorded_on": "2026-11-10",
+  "supersedes": {
+    "file": "intelligence_store/data/kim_applicability_findings_v2.json",
+    "sha256": "702bd01dd94178cf80af0648c15e86a41d172bd15fc84a204f090e49abf16450",
+    "findings_version": "kim-applicability-findings-v2.0"
+  },
+  "review": "Decided by the platform owner on 2026-11-10, approving the handling of the AI review of 10 November (finding F01, docs/reviews/2026-11_fable_review.md). The moderate finding is reworded: it rests on non-malignant subjects mostly larger than Kim's patients, and in myeloma patients (Bridoux 2016) the model's absolute exposure in this band was consistent. No locked result changes. The severe finding is carried over from v2 unchanged.",
+  "findings": [
+    {
+      "id": "renal-under-prediction-severe",
+      "covariate": "egfr_indexed",
+      "applies_below": 30,
+      "unit": "mL/min/1.73m2",
+      "threshold_note": "The external data group is creatinine clearance below 30 mL/min; Kim's covariate is indexed eGFR. eGFR 30 is Kim's own severe-group boundary and corresponds only approximately to the study group (constructed eGFR median 13.5, range 4-37 in the primary scenario).",
+      "finding": "In an exploratory aggregate check against study CC-5013-PK-001 (single 25 mg dose), the Kim model under-predicted the severe group's exposure relative to normal renal function by about 1.3-fold in the primary scenario (observed ratio 3.76 vs simulated median 2.84). It reproduced the severe group's terminal half-life (9.2 h observed, 9.5 h simulated). The mild group was consistent in every scenario; the moderate group was consistent in the primary scenario.",
+      "warning": "Estimated eGFR is below 30 mL/min/1.73 m2. An external check suggests this model may under-predict lenalidomide exposure in severe renal impairment by roughly 1.2 to 1.5 fold; treat the curve as possibly somewhat low.",
+      "robustness": "Under-predicts in 5 of 7 prespecified scenarios; consistent when study creatinine clearance is assumed computed from ideal body weight or when Kim's body-size ranges are used. Observed over simulated median 1.19 to 1.55 across all seven.",
+      "recheck": {
+        "finding": "Confirmed by the 2.1e recheck with study-matched virtual subjects: observed ratio 3.76 vs simulated median 2.91 (90% interval 2.38-3.58) in the primary scenario; under-predicts in all four prespecified scenarios (observed over simulated median 1.23 to 1.29). The v1 sentence above that the moderate group was consistent no longer holds; see renal-under-prediction-moderate.",
+        "report": "docs/verification/lenalidomide_renal_recheck_v1.json",
+        "report_file_sha256": "c98e29919cd9e90981439a37d03883a8cfd834f397b8c0383e723b1f923e2991"
+      },
+      "evidence": {
+        "plan": "intelligence_store/data/kim_renal_group_check_plan_v1.json",
+        "report": "docs/verification/kim_renal_group_check_v1.json",
+        "report_file_sha256": "e53f62db6506346a3d5027388b0c9165de51b8fab0c5f9efc1ad7b29d34da4bb",
+        "observed_data": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+        "dose_scaling": "intelligence_store/data/lenalidomide_dose_proportionality_evidence_v1.json"
+      },
+      "status": "exploratory_finding_not_validation",
+      "consequence": "Reported as a warning on every Kim covariate estimate below the threshold. Calculations still run; nothing is corrected or hidden."
+    },
+    {
+      "id": "renal-under-prediction-moderate",
+      "covariate": "egfr_indexed",
+      "applies_from": 30,
+      "applies_below": 50,
+      "unit": "mL/min/1.73m2",
+      "threshold_note": "The external data group is creatinine clearance 30-50 mL/min; Kim's covariate is indexed CKD-EPI 2021 eGFR. 30 and 50 are Kim's own band boundaries and correspond only approximately to the study group. In the recheck's primary scenario the constructed eGFR of this group's virtual subjects had median 24.5 (range 13.2-46.4), so most of them fell below eGFR 30: the warning for eGFR 30-50 rests on the study's creatinine-clearance grouping, not on subjects observed with eGFR in that band.",
+      "finding": "Two locked checks disagree for this band. Against study CC-5013-PK-001 (single 25 mg dose, non-malignant kidney impairment; Patient Lab 2.1e recheck, plan locked at commit d163781) the Kim model under-predicted the moderate group's exposure ratio to normal function by about 1.3-fold (observed 2.76 vs simulated median 2.09, 90% interval 1.71-2.57) and its absolute exposure by 1.31 to 1.55-fold. But those virtual subjects were larger than Kim's patients: their body surface area had median 2.11 m2, above Kim's maximum of 2.01 m2, and their constructed eGFR had median 24.5, mostly below this band. Against myeloma patients on reduced doses (Bridoux 2016, Patient Lab 2.1h), the model's absolute dose-normalised exposure in the moderate group was consistent (observed over simulated median 1.06; 0.98 to 1.14 across five scenarios); only the ratio to normal was flagged, because the model over-predicts the normal reference group, which lies mostly outside Kim's eGFR range (73% of constructed eGFR values).",
+      "warning": "Estimated eGFR is 30 to 50 mL/min/1.73 m2. External checks disagree in this band: one in non-malignant kidney impairment suggests this model may under-predict exposure in moderate renal impairment by roughly 1.3 to 1.5 fold, but its subjects were mostly larger than Kim's patients; in myeloma patients the model's absolute exposure in this band was consistent. Treat the curve as uncertain in this band.",
+      "robustness": "CC-5013-PK-001 recheck: under-predicts in all four prespecified scenarios (ratio: observed over simulated median 1.28 to 1.39; absolute exposure 1.31 to 1.55). Bridoux 2016: absolute exposure consistent in the moderate group (observed over median 0.98 to 1.14 across five scenarios); the ratio to normal is under-predicted in the primary scenario by a 0.25% margin at the 95th percentile (2.576 vs 2.570).",
+      "evidence": {
+        "plan": "intelligence_store/data/lenalidomide_renal_recheck_plan_v1.json",
+        "plan_locked_at_commit": "d163781",
+        "report": "docs/verification/lenalidomide_renal_recheck_v1.json",
+        "report_file_sha256": "c98e29919cd9e90981439a37d03883a8cfd834f397b8c0383e723b1f923e2991",
+        "earlier_report": "docs/verification/kim_renal_group_check_v1.json",
+        "observed_data": "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+        "bridoux_report": "docs/verification/lenalidomide_bridoux_check_v1.json",
+        "bridoux_report_file_sha256": "febf0e3b6ea090dd44172bc44b4cedf30e820b2227a07cea4ea7eed4fa3daccb",
+        "body_size_note": "Body surface area of the recheck virtual subjects: constructed_covariates.bsa in the recheck report (primary scenario, moderate group)."
+      },
+      "status": "exploratory_finding_not_validation",
+      "consequence": "Reported as a warning on every Kim covariate estimate in the band. Calculations still run; nothing is corrected or hidden."
+    }
+  ],
+  "schema_change": "None; v3 uses the v2 schema."
+}

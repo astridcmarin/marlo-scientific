@@ -149,7 +149,7 @@ Module `intelligence_store/body_map_time_course.py`; report `docs/verification/l
 **Reading.**
 - **The peak is too low in every group, including the normal group the volume came from** (about 0.55–0.7 of observed). That points at the structure, not at kidney function: the plan fixed V/F at the *terminal* volume (Vz/F), which in a one-compartment model spreads the dose over a larger volume than the drug occupies just after absorption. A smaller central volume (two compartments, or a volume chosen to match the normal group's peak) would raise the peak; that is a new model and needs its own plan.
 - **The decline is mostly right.** Half-lives are consistent in the moderate and severe groups of both studies, and in Bridoux's mild group; CC-5013-PK-001's mild group declines faster than the model, as its clearance there is higher than the pathway model gives.
-- **Under the decision rule** the time course may be shown, but every band's panel carries the warning that the peak is under-predicted (by about a third to a half). The amounts leaving in urine and by other routes over time depend on clearance and half-life, not on the peak height, so they are the better-supported part of the picture. Nothing about the clearance model changes.
+- **Under the decision rule** the time course may be shown, but every band's panel carries the warning that the peak is under-predicted (by about a third to a half). The amounts leaving in urine and by other routes over time depend on clearance and half-life, not on the peak height. They were not a check endpoint, and the share ending in urine is far from observed in the moderate band (model 67%, study 38–42%); since 10 November (timeline v1.1, AI review F05) the observed share is shown beside the model's. Nothing about the clearance model changes.
 
 **Next:** decide whether 1.1e shows this time course with its warning, or whether a v2 plan for a two-compartment version comes first.
 
@@ -187,3 +187,15 @@ Code added to `intelligence_store/body_map_time_course.py` (`run_check_v2`); rep
 - The smaller central volume raised the peaks by about a fifth to a third, as expected, but the mild and severe peaks are still too low; volume alone does not close the gap.
 - The two-compartment decline is faster than observed in the moderate group: with Kim's distribution, the terminal phase is set mostly by the map's clearance, which is higher than this group's observed clearance (AUC is under-predicted in moderate and severe in both versions). That is the clearance model's known gap in CC-5013-PK-001, not a new finding. [Corrected 4 November 2026: this sentence first said the gap was "already flagged by the Bridoux check"; that check compared Hughes and Kim, and the pathway model is consistent with Bridoux in these bands (2.0d).]
 - Any further structural change would be a v3, needs a third untouched dataset to be judged blind, and should wait until the kidney model's moderate and severe gap is addressed.
+
+## Step 1.1e delivered (9 November 2026): the timeline
+
+Both body map pages (explorer and patient record) now have a panel, "Over time after one 25 mg dose", below the observed-data context. It uses the time course the v2 rule kept (v1, one compartment, the map's own clearance) at the map's creatinine clearance:
+- a concentration curve over 48 hours, with a marker that follows a slider (0.25-hour steps); the slider moves only when the reader moves it, so there is nothing to switch off for reduced motion;
+- the share of the dose in the gut, the body, urine (unchanged) and other routes at the chosen time, which always sums to 100% and ends in the map's urine fraction;
+- the warning, shown first, that the peak is too low in every group, and the locked v1 check's rows for the band's study group (model at the group's mean clearance, study geometric mean with 90% CI, result);
+- the limits: one dose, typical values, F = 1 (which moves the urine/other split in the moderate and severe bands, 2.0e), one well-mixed body, constant volume.
+
+`body_map_time_course.timeline()` builds it from the pinned v1 report (checksum checked); the JSON download includes it as `time_course`. The 3D viewer is unchanged: amounts are not yet drawn on the organs, which would need per-organ amounts the one-compartment model does not have.
+
+**Digital human 1.1 is complete.** Next on this track, when it resumes: kidney-to-nephron zoom, or the target explorer (cereblon).

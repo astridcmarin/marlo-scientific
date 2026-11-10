@@ -88,12 +88,12 @@ Other rules:
 - **Fat-free mass, age, weight, height and serum creatinine:** must be inside the model's data ranges.
 - **Disease:** MM, CLL, AML or ALL. These are in the model's data. The outside study enrolled people with renal impairment due to non-malignant conditions and healthy controls, not cancer patients, so the outside check does not cover any disease and this rule stays "model data only".
 
-**Kim 2026** (`lenalidomide_kim_scope_v3.json`; v1 and v2 superseded on 31 October 2026). Covariates are CKD-EPI 2021 eGFR and Du Bois BSA from the Kim estimator.
+**Kim 2026** (`lenalidomide_kim_scope_v4.json`; v1 and v2 superseded on 31 October 2026, v3 on 10 November 2026 when the moderate band note was reworded). Covariates are CKD-EPI 2021 eGFR and Du Bois BSA from the Kim estimator.
 
 | eGFR (mL/min/1.73 m²) | Tier | Evidence |
 |---|---|---|
 | 50–94.7 | checked | Mild group's ratio consistent in all 7 scenarios |
-| 30–50 | **outside check disagrees** | Moderate group under-predicted about 1.3-fold in the 2.1e recheck, all four scenarios (the first check had it consistent in the primary scenario only); observed group shown. Most of the group's constructed eGFR values were below 30, so this edge is approximate. |
+| 30–50 | **outside check disagrees** | Two checks disagree. CC-5013-PK-001: ratio under-predicted about 1.3-fold in all four 2.1e recheck scenarios, but most virtual subjects were larger than Kim's patients (BSA median 2.11 m², Kim's maximum 2.01) and most of their constructed eGFR values were below 30. Bridoux 2016 (myeloma): absolute exposure consistent (observed over median 1.06); only the ratio to normal is flagged, because the model over-predicts the normal reference group. Observed group shown; read the curve as uncertain. |
 | 11.1–30 | **outside check disagrees** | Severe group under-predicted about 1.3-fold (primary; confirmed in all four recheck scenarios); observed group shown |
 | < 11.1 or > 94.7 | refused | Beyond the model's data. Above 94.7 Kim had no patients, so records with normal kidney function above that are refused for Kim (Hughes covers them). |
 

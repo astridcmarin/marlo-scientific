@@ -1,0 +1,113 @@
+{
+ "schema_version": "bioanalytical-methods-extract-v1",
+ "extract_version": "lenalidomide-bioanalytical-methods-v2.0",
+ "drug": "lenalidomide",
+ "recorded_on": "2026-11-10",
+ "purpose": "Which bioanalytical method produced the concentrations behind each kidney-function dataset the platform uses (reviewer's checklist O8), as each source reports it.",
+ "extraction": "AI-assisted, 6 November 2026. Every quote was matched by script against the text of the PDF on the owner's computer (pdftotext, whitespace removed before comparison so that line and column breaks do not matter; the first Chen 2007 quote matched only with hyphens ignored, because the text layer drops the hyphen of 'R-' at a line end). Not yet reviewed by the platform owner.",
+ "studies": [
+  {
+   "id": "cc5013_pk001",
+   "dataset": "CC-5013-PK-001 (Chen 2007)",
+   "source": "Chen N et al. J Clin Pharmacol 2007;47:1466-1475",
+   "file_sha256": "494067b57276b0bf8bf1377bab84e31c631331c5e11684404038176b2b269d78",
+   "location": "journal page 1468 (PDF page 3), Methods",
+   "method": "chiral LC/MS/MS (S- and R-lenalidomide); separate ultrafiltration LC/MS/MS method for protein binding",
+   "plasma_range_ng_ml": [
+    5,
+    200
+   ],
+   "plasma_lloq_ng_ml": 5,
+   "urine_range_ng_ml": [
+    100,
+    20000
+   ],
+   "urine_lloq_ng_ml": 100,
+   "between_day_precision_pct": {
+    "plasma": 6.1,
+    "urine": 4.5
+   },
+   "accuracy_pct": {
+    "plasma": [
+     97.3,
+     99.7
+    ],
+    "urine": [
+     92.7,
+     103.7
+    ]
+   },
+   "quotes": [
+    "Plasma and urine samples were analyzed for S- and R-lenalidomide concentrations by a validated chiral liquid chromatography/tandem mass spectrometry (LC/MS/MS) method.",
+    "The R- and S-lenalidomide standard curves were linear from 5 to 200 ng/mL in plasma and from 100 to 20 000 ng/mL in urine. The lower limit of quantification of lenalidomide was 5 ng/mL in plasma and 100 ng/mL in urine.",
+    "Between-day precision was within 6.1% in plasma assays and within 4.5% in urine assays. Assay accuracy was 97.3% to 99.7% for plasma samples and 92.7% to 103.7% for urine samples.",
+    "The lenalidomide standard curve was linear from 0.3 to 300 ng/mL. The lower limit of quantification was 0.3 ng/mL. Intraday precision was within 5%, and assay accuracy was 87.4% to 94.5%."
+   ],
+   "note": "The last quote is the protein-binding (ultrafiltrate) method. The upper end of the plasma curve (200 ng/mL) is below the peaks reported in the study (group mean Cmax up to 765 ng/mL), so samples above it would need dilution; the paper does not describe this."
+  },
+  {
+   "id": "bridoux_2016",
+   "dataset": "Bridoux 2016 (myeloma patients)",
+   "source": "Bridoux F et al. Cancer Chemother Pharmacol 2016",
+   "file_sha256": "d02771e64459b3239ee45cc1aeb09ecb0c3981b41ecd5cc1a5f0d38435197b2d",
+   "location": "PDF page 3, Study assessments; reference 14",
+   "method": "as for CC-5013-PK-001, by citation",
+   "quotes": [
+    "Lenalidomide concentration in plasma was measured as described previously [14].",
+    "14. Chen N, Lau H, Kong L, Kumar G, Zeldis JB, Knight R, Laskin OL (2007) Pharmacokinetics of lenalidomide in subjects with various degrees of renal impairment and in subjects on hemodialysis."
+   ],
+   "note": "No performance figures are given in the paper; it cites the Chen 2007 method. Whether the same laboratory and validation were used is not stated."
+  },
+  {
+   "id": "kim_2026",
+   "dataset": "Kim 2026 (Korean myeloma patients; total and unbound)",
+   "source": "Kim H et al. Drug Des Devel Ther 2026",
+   "file_sha256": "5566d69421863a614bce59b64ddae4b048f6ced3078218a2b146ac3b8efe6afa",
+   "location": "PDF page 4, Determination of Total and Unbound Lenalidomide Concentrations",
+   "method": "HPLC-MS/MS, total and unbound (ultrafiltrate)",
+   "plasma_range_ng_ml": [
+    5,
+    1000
+   ],
+   "plasma_lloq_ng_ml": 5,
+   "intra_assay_pct": {
+    "bias_below": 7.86,
+    "cv_below": 5.01
+   },
+   "inter_assay_pct": {
+    "bias_below": 6.05,
+    "cv_below": 10.55
+   },
+   "quotes": [
+    "Quantification of total and unbound lenalidomide concentrations in plasma was conducted using a previously validated high-performance liquid chromatography-tandem mass spectrometry (HPLC-MS/MS) method.",
+    "The lower limit of quantification (LLOQ) for both total and unbound lenalidomide was determined to be 5 ng/mL",
+    "Calibration curves were constructed over a range of 5–1,000 ng/mL",
+    "intra-assay bias (%) and precision (%CV) below 7.86% and 5.01%, and inter-assay bias and precision below 6.05% and 10.55%, respectively. The method was fully compliant with FDA and MFDS bioanalytical method validation guidance."
+   ]
+  },
+  {
+   "id": "hughes_2019",
+   "dataset": "Hughes 2019 fitting data (the model's source studies)",
+   "source": "Hughes JH et al. Br J Clin Pharmacol 2019;85:924-934",
+   "file_sha256": "366eedc2236417d05ebe1523600327044825062e815b86e1fa6bd25089f9bdae",
+   "location": "PDF page 3, Methods; reference 27",
+   "method": "LC/MS/MS, by citation",
+   "quotes": [
+    "Plasma samples were analysed using published liquid chromatography/tandem mass spectrometry assay for lenalidomide.",
+    "27. Liu Q, Farley KL, Johnson AJ, et al. Development and validation of a highly sensitive liquid chromatography/mass spectrometry method for simultaneous quantification of lenalidomide and flavopiridol in human plasma."
+   ],
+   "note": "No performance figures are given in the paper; the cited method was not retrieved."
+  }
+ ],
+ "not_extracted": [
+  "the cited validation papers (Liu 2008; Kim's reference 30)",
+  "EMA 2008 and 2013 statements on the CC-5013-PK-001 assay, if any"
+ ],
+ "clinical_prediction_validated": false,
+ "supersedes": {
+  "file": "intelligence_store/data/lenalidomide_bioanalytical_methods_v1.json",
+  "sha256": "92e40c55bbf6a7836e186c08948092fe60cac83817bb726a5f14443b177741ba",
+  "extract_version": "lenalidomide-bioanalytical-methods-v1.0",
+  "change": "First author of Hughes 2019 corrected to Hughes JH (AI review F11). Nothing else changed."
+ }
+}

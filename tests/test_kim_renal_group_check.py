@@ -103,7 +103,7 @@ class KimApplicabilityFinding(unittest.TestCase):
         self.assertEqual([f['id'] for f in moderate['applicability_findings']], ['renal-under-prediction-moderate'])
         self.assertEqual(moderate['applicability_findings'][0]['evidence_report'], 'docs/verification/lenalidomide_renal_recheck_v1.json')
         self.assertTrue(any('moderate renal impairment' in w for w in moderate['warnings']))
-        self.assertEqual(moderate['findings_version'], 'kim-applicability-findings-v2.0')
+        self.assertEqual(moderate['findings_version'], 'kim-applicability-findings-v3.0')
 
     def test_no_renal_warning_at_or_above_egfr_50(self):
         mild = estimate_kim_covariates(state(80))
@@ -122,9 +122,19 @@ class KimApplicabilityFinding(unittest.TestCase):
         self.assertEqual(hashlib.sha256(K.SUPERSEDED_FINDINGS_PATH.read_bytes()).hexdigest(), K.SUPERSEDED_FINDINGS_SHA256)
         current = load_applicability_findings()
         self.assertEqual(current['supersedes']['sha256'], K.SUPERSEDED_FINDINGS_SHA256)
-        old = json.loads(K.SUPERSEDED_FINDINGS_PATH.read_text())['findings'][0]
-        carried = {k: v for k, v in current['findings'][0].items() if k != 'recheck'}
-        self.assertEqual(carried, old)
+        old = json.loads(K.SUPERSEDED_FINDINGS_PATH.read_text())['findings']
+        self.assertEqual(current['findings'][0], old[0])
+        self.assertEqual({k: v for k, v in current['findings'][1].items() if k not in ('finding', 'warning', 'robustness', 'evidence')},
+                         {k: v for k, v in old[1].items() if k not in ('finding', 'warning', 'robustness', 'evidence')})
+        self.assertEqual(hashlib.sha256(K.FIRST_FINDINGS_PATH.read_bytes()).hexdigest(), K.FIRST_FINDINGS_SHA256)
+        first = json.loads(K.FIRST_FINDINGS_PATH.read_text())['findings'][0]
+        self.assertEqual({k: v for k, v in current['findings'][0].items() if k != 'recheck'}, first)
+
+    def test_v3_moderate_finding_names_both_checks(self):
+        moderate = load_applicability_findings()['findings'][1]
+        self.assertIn('Bridoux', moderate['finding'])
+        self.assertIn('uncertain', moderate['warning'])
+        self.assertEqual(moderate['evidence']['bridoux_report'], 'docs/verification/lenalidomide_bridoux_check_v1.json')
 
     def test_moderate_finding_cites_the_recheck(self):
         moderate = load_applicability_findings()['findings'][1]
@@ -137,7 +147,7 @@ class KimApplicabilityFinding(unittest.TestCase):
 
     def test_changed_findings_or_dose_evidence_is_refused(self):
         data = ROOT / 'intelligence_store' / 'data'
-        for name, loader in (('kim_applicability_findings_v2.json', load_applicability_findings),
+        for name, loader in (('kim_applicability_findings_v3.json', load_applicability_findings),
                              ('lenalidomide_dose_proportionality_evidence_v1.json', load_dose_proportionality_evidence)):
             with tempfile.TemporaryDirectory() as tmp:
                 path = Path(tmp) / name

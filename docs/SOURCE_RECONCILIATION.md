@@ -103,4 +103,8 @@ The only binding value any platform calculation uses is Kim's own estimate.
 
 ## Also corrected in evidence status v8
 
-The Hughes transcription layer said the supplementary control stream was not retrieved. It was reviewed on 13 October 2026 for the random-effect and residual-error blocks (`hughes_variability_extract_v1.json`). The structural parameters have not yet been cross-checked against it.
+The Hughes transcription layer said the supplementary control stream was not retrieved. It was reviewed on 13 October 2026 for the random-effect and residual-error blocks (`hughes_variability_extract_v1.json`). The structural parameters were cross-checked against it by the AI review of 10 November 2026 (12, 68.8, 13.5, 0.224, 0.43, 55 and 90 match; `docs/reviews/2026-11_fable_review.md`).
+
+## Source notes (10 November 2026)
+
+`intelligence_store/data/lenalidomide_source_notes_v1.json` records facts about the sources that the pinned files do not: the Bridoux study-wide age misprint, the EMA 2008 severe-group CL/F SD misprint, the 6778 vs 6776 difference between Chen 2007 and EMA II-0056 for the dialysis-day AUC, the checksum of the TGA report's original .docx, two control-stream facts for the Hughes weight-basis question, and the reference exposure's outdated population wording. Each note points at the file and value it concerns; none changes a value. Quotes can be re-checked against a source with `scripts/check_source_quotes.py`.

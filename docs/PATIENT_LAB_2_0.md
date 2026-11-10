@@ -171,7 +171,13 @@ What this does not change by itself: the plan's decision rule says scope and war
 - **Recorded as a finding (4 November 2026):** model evidence status v13 (`model_evidence_status_v13.json`; v12 kept unchanged) adds the Bridoux report to the external-consistency layer of both models. The scorecards now list the moderate and severe disagreements in myeloma patients beside those in CC-5013-PK-001, and every run record cites v13. The existing scopes already flag these bands (Hughes CrCl 36–50 flagged, below 36 refused; Kim eGFR 11.1–50 flagged), so no scope changes.
 - Report: `docs/verification/lenalidomide_bridoux_check_v1.json`; module `intelligence_store/lenalidomide_bridoux_check.py`; tests `tests/test_bridoux_check.py`.
 
-**2.1i — EMA 2013 re-analysis of the renal study extracted (2026-10-31).** The CHMP assessment of Revlimid variation II/0056 (EMA/297642/2013, pages 17–21) re-analyses CC-5013-PK-001, the same subjects as the 2008 extract. It is now pinned as `lenalidomide_renal_pk_ema_2013_v1.json`. The tables are images, so the values were transcribed from pages rendered at 200 dpi; the tests check that they hang together.
+**2.1j — Kim moderate band reread after the AI review (2026-11-10).** The AI review of 10 November (`docs/reviews/2026-11_fable_review.md`, finding F01) showed that the moderate-band warning overstated what the checks show. No locked result changes; the reading of them does.
+- In CC-5013-PK-001 (2.1e recheck) the moderate group's virtual subjects were mostly larger than Kim's patients: body surface area median 2.11 m², above Kim's maximum of 2.01 m² (recheck report, `constructed_covariates.bsa`). Kim's clearance rises with body surface area, so the under-prediction mixes the kidney effect with body-size extrapolation.
+- In Bridoux 2016 (2.1h) Kim's absolute dose-normalised exposure in the moderate group is consistent (observed over median 1.06; 0.98–1.14 across the five scenarios). The ratio to normal is flagged because the model over-predicts the normal reference group (observed over median 0.88), whose constructed eGFR lies mostly (73%) above Kim's data; the margin is 0.25% (2.576 against a 95th percentile of 2.570).
+- **New files:** `kim_applicability_findings_v3.json` (the moderate finding and warning reworded: the checks disagree, read the curve as uncertain; severe unchanged), `lenalidomide_kim_scope_v4.json` (band note reworded; tiers unchanged), special-population summary v4 (cites scope v4), Kim analysis report text v2. Earlier versions are kept and pinned as superseded.
+- **Also:** every Kim estimate now carries a note that Kim's first sample was at 2 h and its absorption rate was fixed, so its peak and early-phase values are not supported by its data (finding F07). The Kim report text corrects the severe sensitivity count (two scenarios of the first check were consistent, not one; F12).
+
+ of the renal study extracted (2026-10-31).** The CHMP assessment of Revlimid variation II/0056 (EMA/297642/2013, pages 17–21) re-analyses CC-5013-PK-001, the same subjects as the 2008 extract. It is now pinned as `lenalidomide_renal_pk_ema_2013_v1.json`. The tables are images, so the values were transcribed from pages rendered at 200 dpi; the tests check that they hang together.
 - **What it adds:**
   - geometric means with CVs for every group, including renal clearance and urinary excretion;
   - **geometric-mean ratios with 90% confidence intervals** for AUC against normal and mild pooled: moderate 259% (209–322), severe 352% (284–436), ESRD off dialysis 477% (384–591);
@@ -238,6 +244,17 @@ Two points worth keeping in view:
 - The band is model-implied variability, not uncertainty about the model. It omits residual error (relevant when comparing with observed concentrations), uncertainty in the published estimates, and anything the model leaves out.
 - Between-subject variability dwarfs the unresolved weight-basis effect (≈ 6-fold vs ≈ 1.06-fold for the example). The weight basis matters for traceability far more than for the numbers.
 
+### Uncertainty of the typical curve (population method v1.1, 9 November 2026; reviewer's checklist M7)
+
+A second, separate question: how far could the **typical** curve itself lie, given how precisely Hughes 2019 estimated its parameters? `population_pk.py` now draws the four fixed effects (CL/F, the CrCl exponent, Vd/F, KTR) from normal distributions with SD = %RSE × estimate (Table 2, final model; `hughes_parameter_precision_v1.json`, quotes matched against the PDF), independently because the covariance of the estimates is not published, and reports the 5th–95th percentile of the typical curve, AUC and peak (seed = band seed + 1). The page draws it as dotted lines around the dashed typical curve.
+
+For a synthetic patient with CrCl 40 mL/min and fat-free mass 50 kg on 25 mg, AUC to infinity spans about 2,370–3,015 ng·h/mL (5th–95th; typical 2,683) and the peak about 336–391 ng/mL (typical 363; eight transit stages): roughly ±12% and ±7%. Two things follow:
+- The estimates' imprecision is small next to between-patient variability (about 6-fold) and next to the model's under-prediction in moderate and severe impairment, so that under-prediction is not explained by imprecise estimates.
+- The precision of KTR is uncertain in itself: the %RSE (5.8%) implies 12.0–15.0 /h, the bootstrap 11.9–36.8 /h. Only the peak and its timing depend on KTR, so the peak's uncertainty may be understated; AUC is unaffected.
+- **A lower bound (10 November, AI review F08).** The band uses symmetric draws from %RSE only. In the AI review's recomputation, log-normal draws matched to the paper's bootstrap intervals give about 2,300–3,140 ng·h/mL in the example above, about 30% wider (not yet reproduced on the platform); the fixed allometric exponents, the variances and the structure add uncertainty not included. The page heading and the report's meaning now say it is a lower bound. Sampling from the bootstrap intervals is a method change for a later step.
+
+Kim 2026's parameter precision is extracted (`kim_2026_model_extract_v1.json`, %RSE and bootstrap intervals for all nine parameters) but not yet used.
+
 ## Scientific notes recorded during 2.0a/2.0b
 
 - **No study patient had CrCl below 36 mL/min** (Table 1 range 36–211; inclusion required serum creatinine < 177 µmol/L). The abstract's "22% lower clearance below 30 mL/min" is the equation extrapolated. Below 36 mL/min every output is extrapolation.
@@ -268,7 +285,7 @@ Every Patient Lab result page now opens with the same banner and ends with the s
   - **what has been checked about the model**, in the four validation layers below;
   - limitations and every checksum, plus a checksum of the record itself.
 - **Nothing is recalculated.** The record copies values from the page's report and from pinned files; the tests check that it is deterministic and that its fields match the report.
-- **Model evidence status** (`model_evidence_status_v1.json`, pinned): per model and layer, done / partial / not done, with a one-line finding. Where a verification report is cited, the tests check its file checksum and that the quoted classification and per-group results are the ones in the report. Current state:
+- **Model evidence status** (`model_evidence_status_v1.json`, pinned): per model and layer, done / partial / not done, with a one-line finding. Where a verification report is cited, the tests check its file checksum and that the quoted classification and per-group results are the ones in the report. State at the time (October 2026; the current state is in `model_evidence_status_v13.json` and on `/models/findings`):
 
 | Model | Software | Transcription | Reproduction | External consistency |
 |---|---|---|---|---|

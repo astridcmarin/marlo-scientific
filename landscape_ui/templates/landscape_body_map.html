@@ -77,8 +77,9 @@
 </svg>
 </section>
 {% include "body_map_context_panel.html" %}
+{% include "body_map_timeline_panel.html" %}
 <section class="panel"><h2>Limits of this map</h2><ul>{% for item in view.limitations %}<li>{{ item }}</li>{% endfor %}<li>The 3D organs are reference anatomy (Human Reference Atlas male body), not {{ 'a patient\'s' if explorer else 'this record\'s' }} body; their size, position and colour carry no result.</li></ul></section>
 {{ run_record_panel(record) }}
 {% endif %}
 {% endblock %}
-{% block scripts %}{% if config %}<script id="body-map-config" type="application/json">{{ config|tojson }}</script><script src="{{ url_for('landscape.static', filename='body-map/body-map-viewer.js') }}" defer></script>{% endif %}{% if explorer %}<script src="{{ url_for('landscape.static', filename='body-map/body-map-explorer.js') }}" defer></script>{% endif %}{% endblock %}
+{% block scripts %}{% if config %}<script id="body-map-config" type="application/json">{{ config|tojson }}</script><script src="{{ url_for('landscape.static', filename='body-map/body-map-viewer.js') }}" defer></script>{% endif %}{% if explorer %}<script src="{{ url_for('landscape.static', filename='body-map/body-map-explorer.js') }}" defer></script>{% endif %}{% if timeline %}<script src="{{ url_for('landscape.static', filename='body-map/body-map-timeline.js') }}" defer></script>{% endif %}{% endblock %}

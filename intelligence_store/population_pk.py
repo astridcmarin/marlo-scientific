@@ -8,8 +8,13 @@ typical-value curve produced by the existing numerical solver.
 
 What the band shows: how far patients with identical covariates are expected to spread
 around the typical curve under the source model. What it leaves out: residual
-(measurement/model) error, parameter-estimate uncertainty, between-occasion variability,
-and any covariate effect the model does not include. Not a prediction for any individual.
+(measurement/model) error, between-occasion variability, and any covariate effect the
+model does not include. Not a prediction for any individual.
+
+Since v1.1 (9 November 2026, reviewer's checklist M7) the report also carries the typical
+curve's own uncertainty: how far the typical curve itself could lie, given the precision of
+the published estimates (Hughes 2019 Table 2, %RSE). This is a different question from the
+between-subject band and is reported separately.
 """
 import copy
 import json
@@ -26,8 +31,38 @@ from .estimated_pk import calculate_estimated_pk, DISEASE_CODES
 from .published_transit_reference import load_structure_contract
 from .treatment_requests import _read_json
 
+PRECISION_PATH = Path(__file__).parent / 'data' / 'hughes_parameter_precision_v2.json'
+PRECISION_SHA256 = 'a0d5e5cf4081196a9fd7653a4aeddd0aa75537b8075527f72684a08f5c0f774d'
+# Superseded, kept unchanged: hughes_parameter_precision_v1.json (author initials wrong; values identical)
+PRECISION_V1_SHA256 = '73dd440d023199686d23f1d82789b85bf09743ce1b3fd82918a9ddb4e438c98c'
+PRECISION_SEED_OFFSET = 1  # the uncertainty draws use seed + 1, so they never reuse the between-subject draws
+
+
+def load_parameter_precision(path=PRECISION_PATH):
+    import hashlib
+    raw = Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != PRECISION_SHA256:
+        raise ValueError('Hughes parameter precision extract is missing or changed.')
+    data = json.loads(raw)
+    if data.get('schema_version') != 'pk-parameter-precision-extract-v1':
+        raise ValueError('Unsupported parameter precision extract schema.')
+    return data
+
+
+def sample_typical_parameters(n, seed, precision):
+    """Seeded draws of the four fixed effects, each normal with SD = %RSE x estimate, independent (the source publishes
+    no covariance between estimates). Draws at or below zero for CL, V or KTR are rejected and redrawn."""
+    fx = precision['fixed_effects']
+    rng = random.Random(seed)
+    draws = []
+    while len(draws) < n:
+        d = {k: rng.gauss(v['estimate'], v['estimate'] * v['rse_pct'] / 100) for k, v in fx.items()}
+        if d['theta_cl'] > 0 and d['theta_v'] > 0 and d['theta_ktr'] > 0:
+            draws.append(d)
+    return draws
+
 SCHEMA_VERSION = 'population-educational-pk-v1'
-METHOD_VERSION = 'population-educational-pk-v1.0'
+METHOD_VERSION = 'population-educational-pk-v1.1'
 DEFAULT_SEED = 20261013
 DEFAULT_SUBJECTS = 1000
 SUBJECT_LIMITS = (100, 5000)
@@ -150,12 +185,14 @@ def calculate_population_pk(revision_id, weight_basis, request, disease_code='UN
         'prediction_type': 'between_subject_variability_for_declared_covariates',
         'band_meaning': ('Spread of concentration among virtual patients with identical covariates, from the source '
                          'model\'s between-subject variability. Percentiles are of the virtual population at each time.'),
-        'excluded': ['residual (measurement and model) error', 'uncertainty in the published parameter estimates',
+        'excluded': ['residual (measurement and model) error',
+                     'uncertainty in the published parameter estimates (reported separately, as parameter_uncertainty)',
                      'between-occasion variability (tested and not retained by the source authors)',
                      'covariate effects not in the model (for example food, adherence, interactions)'],
         'clinical_prediction_validated': False, 'ready_for_patient_simulation': False,
         'typical_parameters': None, 'times_h': None, 'typical_concentration_ng_ml': None,
         'band': None, 'exposure': None, 'sampling_diagnostics': None, 'verification': None,
+        'parameter_uncertainty': None,
     }
     calc = typical['calculation']
     if calc is None or not calc['points']:
@@ -200,6 +237,43 @@ def calculate_population_pk(revision_id, weight_basis, request, disease_code='UN
         auc_inf.append(1000.0 * total_dose / cl)
 
     band = [{'time_h': t, **_summary(column)} for t, column in zip(times, columns)]
+
+    # Uncertainty of the typical curve itself, from the published precision of the fixed effects.
+    precision = load_parameter_precision()
+    fx = precision['fixed_effects']
+    crcl = next(d['value'] for d in typical['covariate_estimate']['derivations'] if d['quantity'] == 'creatinine_clearance')
+    typical_draws = sample_typical_parameters(n_subjects, seed + PRECISION_SEED_OFFSET, precision)
+    u_columns = [[] for _ in times]
+    u_auc_inf, u_cmax = [], []
+    for d in typical_draws:
+        cl = cl0 * d['theta_cl'] / fx['theta_cl']['estimate'] * (crcl / 90.0) ** (d['theta_crcl'] - fx['theta_crcl']['estimate'])
+        v = v0 * d['theta_v'] / fx['theta_v']['estimate']
+        ktr = ktr0 * d['theta_ktr'] / fx['theta_ktr']['estimate']
+        values = curve(cl, v, ktr)
+        for column, value in zip(u_columns, values):
+            column.append(value)
+        u_auc_inf.append(1000.0 * total_dose / cl)
+        u_cmax.append(max(values))
+    parameter_uncertainty = {
+        'meaning': ('A lower bound on where the typical curve itself could lie, from the published %RSE of four estimates '
+                    'only. The paper\'s own bootstrap intervals imply a wider range, and the fixed allometric exponents, the '
+                    'variances and the model structure carry uncertainty that is not included. Not the spread between '
+                    'patients (that is the band above) and not a prediction for anyone.'),
+        'source': precision['source']['citation'] + ', ' + precision['source']['location'],
+        'precision_extract_version': precision['extract_version'], 'precision_extract_sha256': PRECISION_SHA256,
+        'method': ('Each fixed effect (CL/F, the CrCl exponent, Vd/F, KTR) drawn from a normal distribution with SD = '
+                   '%RSE x estimate, independently, because the covariance of the estimates is not published; the '
+                   'covariate values stay as estimated. Seed = band seed + 1.'),
+        'crcl_ml_min': crcl, 'n_draws': n_subjects, 'seed': seed + PRECISION_SEED_OFFSET,
+        'band': [{'time_h': t, **_summary(column)} for t, column in zip(times, u_columns)],
+        'auc_0_infinity_ng_h_ml': _summary(u_auc_inf), 'peak_concentration_ng_ml': _summary(u_cmax),
+        'limitations': precision['notes'] + ['Independence between estimates is assumed; correlated estimates (CL/F and '
+                                             'Vd/F are correlated between patients) could widen or narrow the band.',
+                                             'Symmetric normal draws from %RSE are narrower than the bootstrap: log-normal draws '
+                                             'matched to the bootstrap intervals gave an AUC range about 30% wider in the '
+                                             'documented example (AI review of 10 November, F08; not yet reproduced on the '
+                                             'platform), and KTR\'s bootstrap interval (11.9-36.8 /h) is strongly skewed.'],
+    }
     report.update(
         status='completed_population_calculation', simulation_status='completed_population_calculation',
         typical_parameters={'apparent_clearance_l_h': cl0, 'apparent_volume_l': v0, 'transit_rate_h': ktr0,
@@ -210,6 +284,7 @@ def calculate_population_pk(revision_id, weight_basis, request, disease_code='UN
                   'typical_auc_0_horizon_ng_h_ml': calc['auc_0_horizon_ng_h_ml'],
                   'note': 'AUC over the horizon uses the trapezoid rule on the 0.1 h grid; AUC to infinity is dose/CL exactly.'},
         sampling_diagnostics=_diagnostics(draws, omega),
+        parameter_uncertainty=parameter_uncertainty,
         verification={'exact_vs_numerical_typical_max_abs_ng_ml': max_diff,
                       'tolerance_ng_ml': TYPICAL_CURVE_TOLERANCE_NG_ML,
                       'method': 'Exact transit-chain solution evaluated at the typical parameters and compared with '

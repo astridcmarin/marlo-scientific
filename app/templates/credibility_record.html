@@ -69,6 +69,7 @@
 
     <section aria-labelledby="cr-src"><h2 id="cr-src">Source extracts and checksums</h2>
     <ul>{% for e in rec.source_extracts %}<li class="mono">{{ e.file }} · SHA-256 {{ e.sha256[:16] }}…{% if e.pinned_in_code %} · pinned in code{% endif %}</li>{% endfor %}</ul>
+    {% if rec.depends_on_models %}<p>Also depends on the models: {% for m in rec.depends_on_models %}<a href="/models/{{ m }}/credibility">{{ m }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.</p>{% endif %}
     <p class="mono">Record SHA-256 {{ rec.record_sha256 }} · context SHA-256 {{ rec.context_sha256[:16] }}…</p></section>
 
     <section class="prose-note" aria-labelledby="cr-not"><h2 id="cr-not">Not established</h2>

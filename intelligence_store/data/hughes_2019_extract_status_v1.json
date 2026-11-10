@@ -1,0 +1,20 @@
+{
+ "schema_version": "pk-extract-status-v1",
+ "status_version": "hughes-2019-extract-status-v1.0",
+ "model": "lenalidomide_hughes_2019",
+ "recorded_on": "2026-11-10",
+ "purpose": "The current limitations of the platform's Hughes 2019 implementation. The October limitations in hughes_parameter_extract_v1.json (kept unchanged, because locked reports pin that file) describe the state before the variability extract, the structure contract and population mode existed (AI review of 10 November, F15).",
+ "replaces_for_display": {
+  "file": "intelligence_store/data/hughes_parameter_extract_v1.json",
+  "sha256": "8199220db206c3e78fd5abc40191602d5b59e6275f5c77d9e43e0f7c90ae5f74",
+  "field": "limitations"
+ },
+ "limitations": [
+  "Parameters, between-patient variability (OMEGA block) and structure (eight first-order stages) were transcribed from the article and its supplementary control stream (hughes_variability_extract_v1.json, hughes_structure_contract_v1.json); an AI review on 10 November 2026 found them to match. No source data or NONMEM run outputs are available, so the fit itself cannot be reproduced.",
+  "Typical-value curves and a population band (between-patient variability) are computed; residual error is not simulated.",
+  "Parameter uncertainty is shown only as a lower bound from the published %RSE (population method v1.1).",
+  "The weight basis of the Cockcroft-Gault creatinine clearance is not stated in the article or supplement; the platform assumes ideal body weight and shows alternatives (hughes_weight_basis_assessment).",
+  "No efficacy or toxicity output; exposure-safety odds are a separate model."
+ ],
+ "clinical_prediction_validated": false
+}

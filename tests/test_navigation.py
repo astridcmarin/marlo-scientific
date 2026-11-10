@@ -40,7 +40,7 @@ class NavigationTests(unittest.TestCase):
     def test_pages_that_were_missing_from_the_menu_are_reachable(self):
         html = self.page('/landscape/simulation-lab', with_model_pages=True)
         for href in ('/landscape/benchmarking', '/landscape/drugs/lenalidomide/guide',
-                     '/landscape/drugs/lenalidomide/dose-optimisation', '/models', '/models/credibility',
+                     '/landscape/drugs/lenalidomide/dose-view', '/models', '/models/credibility',
                      '/models/extraction-review', '/landscape/patient-lab/model-library',
                      '/landscape/patient-lab/published-renal-pk', '/landscape/validation', '/landscape/workspace/watchlists'):
             self.assertIn(f'href="{href}"', html)

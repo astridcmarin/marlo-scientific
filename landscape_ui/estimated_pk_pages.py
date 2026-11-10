@@ -99,7 +99,9 @@ def _band_chart(population):
         return None
     times = population['times_h']
     band = population['band']
-    top = max(max(b['p95'] for b in band), max(population['typical_concentration_ng_ml'])) * 1.1 or 1.0
+    pu = population.get('parameter_uncertainty')
+    top = max(max(b['p95'] for b in band), max(population['typical_concentration_ng_ml']),
+              max((b['p95'] for b in pu['band']), default=0) if pu else 0) * 1.1 or 1.0
     x = lambda t: 70 + 670 * t / times[-1]
     y = lambda v: 250 - 220 * v / top
     def area(lo, hi):
@@ -110,6 +112,8 @@ def _band_chart(population):
     return {'title': 'Concentration across virtual patients with these covariates', 'unit': 'ng/mL',
             'outer': area('p05', 'p95'), 'inner': area('p25', 'p75'),
             'median': line([b['p50'] for b in band]), 'typical': line(population['typical_concentration_ng_ml']),
+            'typical_p05': line([b['p05'] for b in pu['band']]) if pu else None,
+            'typical_p95': line([b['p95'] for b in pu['band']]) if pu else None,
             'ticks': [{'y': 250 - 220 * i / 4, 'label': f'{top * i / 4:.3g}'} for i in range(5)],
             'time_ticks': [{'x': 70 + 670 * i / 4, 'label': f'{times[-1] * i / 4:g}'} for i in range(5)]}
 

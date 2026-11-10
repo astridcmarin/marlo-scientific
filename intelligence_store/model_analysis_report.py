@@ -21,10 +21,17 @@ SCHEMA_VERSION = 'model-analysis-report-v1'
 TEXTS = {
     'lenalidomide_renal_pathways_2026': ('model_analysis_report_text_lenalidomide_renal_pathways_v1.json',
                                          '65c9c7f918cfe1a8666620875e6bdeb2761e9374f0cbb7c1e33fa9d67b85a324'),
-    'lenalidomide_hughes_2019': ('model_analysis_report_text_lenalidomide_hughes_2019_v1.json',
-                                 '30bc917397eb3e949067af584a1ce5394a8d16de656c8a9da848be159822e53a'),
-    'lenalidomide_kim_2026': ('model_analysis_report_text_lenalidomide_kim_2026_v1.json',
-                              '691ddbddf03d4e47b83a036202fcc8c7491a18d88ec1e9e0d4c66d1fa5d62f69'),
+    'lenalidomide_hughes_2019': ('model_analysis_report_text_lenalidomide_hughes_2019_v2.json',
+                                 '1ca9bd802c28f3a3e9e3687222c90bba12d923a3f9992516e98d99a9ab7faba0'),
+    'lenalidomide_exposure_safety_2016': ('model_analysis_report_text_lenalidomide_exposure_safety_2016_v1.json',
+                                          '42b9544f80580534f267b48f4fc6893bbf1c146c42ed09a589b2e8d5187040f9'),
+    'lenalidomide_kim_2026': ('model_analysis_report_text_lenalidomide_kim_2026_v2.json',
+                              'b101d24ce78ea8fa1a52bf9a492ac884474d4d513c327f06cd2b3c24d816402d'),
+}
+# Superseded narrative texts, kept unchanged and pinned for traceability (file name -> SHA-256).
+SUPERSEDED_TEXTS = {
+    'model_analysis_report_text_lenalidomide_kim_2026_v1.json': '691ddbddf03d4e47b83a036202fcc8c7491a18d88ec1e9e0d4c66d1fa5d62f69',
+    'model_analysis_report_text_lenalidomide_hughes_2019_v1.json': '30bc917397eb3e949067af584a1ce5394a8d16de656c8a9da848be159822e53a',
 }
 REPORT_FILES = {
     'pathways_2_0a': ('docs/verification/lenalidomide_renal_pathways_check_v1.json', '163b5ca1a95a7f3d745c8e25a93ef58d4bedd0e1e48d6e4bfdfb4a25457a93d5'),
@@ -157,6 +164,48 @@ RESULTS = {'pathways_2_0a': _result_2_0a, 'pathways_esrd': _result_esrd, 'pathwa
            'renal_recheck': _group_result('renal_recheck'), 'bridoux_hughes_kim': _group_result('bridoux_hughes_kim')}
 
 
+def _exposure_safety_results():
+    """For a model with no locked check: the published estimates as implemented, what the implemented formula gives at
+    example exposure ratios (computed by the platform's own module), and what has not been checked."""
+    from .lenalidomide_relative_odds import ENDPOINTS, EVIDENCE_PATH, EVIDENCE_SHA256, load_evidence, relative_odds
+    ev = load_evidence()
+    ors = ev['odds_ratios_multiple_myeloma']
+    names = {'grade_3_4_thrombocytopenia': 'Grade 3/4 thrombocytopenia', 'grade_3_4_neutropenia': 'Grade 3/4 neutropenia'}
+    estimates = [[names[e], f"{ors[e]['odds_ratio_per_unit_ln_auc']:.3f} ({ors[e]['ci95'][0]:.3f}–{ors[e]['ci95'][1]:.3f})",
+                  ors[e]['adjusted_for'], 'yes' if ors[e]['statistically_significant'] else 'no'] for e in ENDPOINTS]
+    chen = ev['second_source']['quotes']['thrombocytopenia']
+    ratios = (0.5, 1.5, 2.0, 3.0)
+    illustration = []
+    for e in ENDPOINTS:
+        row = [names[e]]
+        for r in ratios:
+            ro = relative_odds(r, ors[e]['odds_ratio_per_unit_ln_auc'], ors[e]['ci95'])
+            row.append(f"{ro['relative_odds']:.2f} ({ro['ci95'][0]:.2f}–{ro['ci95'][1]:.2f})")
+        illustration.append(row)
+    rel = str(EVIDENCE_PATH.relative_to(ROOT))
+    blank = {'id': None, 'step': None, 'date': None, 'question': None, 'outcome': None, 'outcome_label': None, 'headline': None,
+             'blind': False, 'blindness_label': 'No locked check'}
+    return [
+        {'title': 'Published estimates as implemented (multiple myeloma)', 'columns': ['Endpoint', 'Odds ratio per unit ln AUC (95% CI)', 'Adjusted for', 'Significant'],
+         'rows': estimates,
+         'note': 'TGA AusPAR, February 2016, section 4.2.4.1 (sponsor analysis CC-5013-MCL-001-PK). The same analysis, pooled across '
+                 'diseases and adjusted for disease, gives the thrombocytopenia odds ratio as reported by Chen 2017: "' + chen + '". '
+                 'Not reported by the source: ' + '; '.join(ev['not_reported']) + '.',
+         'finding': dict(blank, question='What the platform takes from the source.'), 'report_file': rel, 'report_sha256': EVIDENCE_SHA256},
+        {'title': 'What the implemented formula gives (illustration)', 'columns': ['Endpoint'] + [f'Exposure {r:g}× reference' for r in ratios],
+         'rows': illustration,
+         'note': 'Relative odds = (AUC / AUC_reference) ** ln(OR), with the 95% CI carried through the same formula; computed by '
+                 'lenalidomide_relative_odds.relative_odds, the function the pages use. Relative odds only: no probability for a '
+                 'patient, because the intercept and baseline-count coefficients were not published. The odds ratios describe all '
+                 'cycles up to one year, not cycle 1.',
+         'finding': dict(blank, question='How the published odds ratios translate to relative odds at example exposures.'),
+         'report_file': rel, 'report_sha256': EVIDENCE_SHA256},
+    ]
+
+
+EXTRA_RESULTS = {'lenalidomide_exposure_safety_2016': _exposure_safety_results}
+
+
 def available():
     return list(TEXTS)
 
@@ -179,6 +228,8 @@ def build(model_id):
         results.append(dict(RESULTS[f['id']](report, model_id), finding={k: f.get(k) for k in ('id', 'step', 'date', 'question', 'outcome',
                                                                                          'outcome_label', 'headline', 'blind', 'blindness_label')},
                             report_file=rel, report_sha256=sha))
+    if model_id in EXTRA_RESULTS:
+        results.extend(EXTRA_RESULTS[model_id]())
     ledger = load_ledger()
     names = {k: d.get('label') or d.get('name') or d.get('title') or k for k, d in ledger['datasets'].items()}
     datasets = {}
@@ -203,7 +254,7 @@ def build(model_id):
         'discussion': text['sections']['discussion'],
         'conclusions': text['sections']['conclusions'],
         'appendices': {'model_analysis_plans': cred['model_analysis_plans'],
-                       'reports': [{'file': r['report_file'], 'sha256': r['report_sha256']} for r in results],
+                       'reports': [{'file': r['report_file'], 'sha256': r['report_sha256']} for r in results if r['finding']['id']],
                        'reviews': REVIEWS.get(model_id, []),
                        'credibility_record_sha256': cred['record_sha256']},
         'not_this': text['not_this'],

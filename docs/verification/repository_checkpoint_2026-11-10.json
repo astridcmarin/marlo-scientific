@@ -1,0 +1,24 @@
+{
+ "schema_version": "repository-checkpoint-v1",
+ "checkpoint": "2026-11-10",
+ "classification": "software_and_repository_verification",
+ "tree": {"branch": "batch-4", "base": "main after PR #115 (503bf8d)", "commits_since_base": 9},
+ "machine": "cloud session; the owner chose to push before a run on the iMac",
+ "unit_tests": {"where": "CI on the pull request", "cloud_session": "all tests that can run without the database packages pass (1,338 collected)"},
+ "previous_batch_ci": "PR #115: 1,330 tests, as on the iMac",
+ "compileall": "pass",
+ "migrations": {"revisions": 9, "changed_since_previous": false},
+ "pinned_data": {"files": 191, "pinned": 190, "unpinned_by_design": ["bortezomib_observation_template_v1.json"]},
+ "validation_flags_true": [],
+ "locked_checks": 27,
+ "blind_roles": 3,
+ "reviewer_checklist": {"answered": 19, "partly": 8, "gap": 2, "of": 29, "self_assessed": true},
+ "ai_review": {"file": "docs/reviews/2026-11_fable_review.md", "findings": 29, "open_at_review": 28, "high": 1, "medium": 8, "low": 19, "independent": false},
+ "findings": [
+  "The AI review found interpretation errors, not arithmetic ones; every check report regenerates and every transcription checked is correct",
+  "A session copy of a PDF was misnamed (Chen 2012 taken for Hughes 2019)",
+  "The TGA population quote ends with a full stop where the report has a comma (recorded)",
+  "Superseded narrative texts were briefly unpinned and fixed in the same updates"
+ ],
+ "clinical_prediction_validated": false
+}

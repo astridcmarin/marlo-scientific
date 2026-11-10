@@ -1,4 +1,4 @@
-"""Phase 4.3: lenalidomide dose-optimisation view (docs/DOSE_OPTIMISATION.md).
+"""Phase 4.3: lenalidomide dose view (docs/DOSE_OPTIMISATION.md); it ranks no dose and proposes none.
 
 For one synthetic patient, the typical daily lenalidomide exposure at each dose level under the two published models,
 inside each model's scope (Phase 2.5) and at that model's own study doses only, as a ratio to the measured 25 mg

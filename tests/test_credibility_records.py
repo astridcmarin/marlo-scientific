@@ -60,6 +60,21 @@ class Records(unittest.TestCase):
             cr.record('nope')
 
 
+class ContextV4(unittest.TestCase):
+    def test_hughes_limitations_are_current_and_v3_is_kept(self):
+        import hashlib
+        v3 = cr.CONTEXT_PATH.with_name('model_credibility_context_v3.json')
+        self.assertEqual(hashlib.sha256(v3.read_bytes()).hexdigest(), cr.CONTEXT_V3_SHA256)
+        ctx = cr.load_context()['models']['lenalidomide_hughes_2019']
+        self.assertEqual(ctx['limitations_from'], [['hughes_2019_extract_status_v1.json', 'limitations']])
+        status = json.loads((cr.DATA / 'hughes_2019_extract_status_v1.json').read_text())
+        self.assertFalse(any('not retrieved' in item or 'set to zero' in item for item in status['limitations']))
+        self.assertEqual(status['replaces_for_display']['sha256'],
+                         hashlib.sha256((cr.DATA / 'hughes_parameter_extract_v1.json').read_bytes()).hexdigest())
+        es = cr.load_context()['models']['lenalidomide_exposure_safety_2016']
+        self.assertEqual(es['depends_on_models'], ['lenalidomide_hughes_2019', 'lenalidomide_kim_2026'])
+
+
 class Pages(unittest.TestCase):
     def setUp(self):
         from app.app import app
