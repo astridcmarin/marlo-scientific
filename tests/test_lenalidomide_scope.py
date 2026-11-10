@@ -48,15 +48,23 @@ class Files(unittest.TestCase):
     def test_superseded_scopes_kept_unchanged(self):
         for name, sha in L.SUPERSEDED_SCOPES.items():
             self.assertEqual(hashlib.sha256((L.DATA / name).read_bytes()).hexdigest(), sha, name)
-        self.assertEqual(L.load_kim_scope()['supersedes']['sha256'], L.SUPERSEDED_SCOPES['lenalidomide_kim_scope_v2.json'])
+        self.assertEqual(L.load_kim_scope()['supersedes']['sha256'], L.SUPERSEDED_SCOPES['lenalidomide_kim_scope_v3.json'])
         self.assertEqual(L.load_hughes_scope()['supersedes']['sha256'], L.SUPERSEDED_SCOPES['lenalidomide_hughes_scope_v1.json'])
+
+    def test_kim_v4_rewords_only_the_moderate_note(self):
+        import json
+        old = json.loads((L.DATA / 'lenalidomide_kim_scope_v3.json').read_text())
+        current = L.load_kim_scope()
+        self.assertEqual(_without_moderate_note(current['state_rules']), _without_moderate_note(old['state_rules']))
+        self.assertNotEqual(current['state_rules'], old['state_rules'])
+        self.assertIn('Bridoux', current['state_rules'][0]['tier_by_band'][1]['band_note'])
 
     def test_only_population_wording_and_evidence_changed(self):
         import json
         pairs = (('lenalidomide_hughes_scope_v1.json', L.load_hughes_scope()), ('lenalidomide_kim_scope_v2.json', L.load_kim_scope()))
         for name, current in pairs:
             old = json.loads((L.DATA / name).read_text())
-            self.assertEqual(current['state_rules'], old['state_rules'], name)
+            self.assertEqual(_without_moderate_note(current['state_rules']), _without_moderate_note(old['state_rules']), name)
             self.assertEqual(current['outputs'], old['outputs'], name)
             self.assertEqual(current['request_rules'][0]['in_scope'], old['request_rules'][0]['in_scope'], name)
             self.assertNotIn('not established', current['request_rules'][0]['basis'])
@@ -125,5 +133,15 @@ class Kim(unittest.TestCase):
         self.assertEqual(rule(L.kim_scope(state(80.0, albumin=25.0), 'MM'), 'albumin')['status'], 'out_of_scope')
 
 
+def _without_moderate_note(rules):
+    import copy
+    rules = copy.deepcopy(rules)
+    for band in rules[0].get('tier_by_band', []):
+        if band.get('band_note', '').startswith('Moderate group'):
+            band.pop('band_note')
+    return rules
+
+
 if __name__ == '__main__':
     unittest.main()
+

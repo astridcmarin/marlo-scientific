@@ -1,0 +1,36 @@
+{
+ "schema_version": "model-analysis-report-text-v1",
+ "text_version": "lenalidomide-kim-2026-mar-text-v2.0",
+ "model_id": "lenalidomide_kim_2026",
+ "recorded_on": "2026-11-10",
+ "author": "AI assistant for the platform owner; not reviewed independently",
+ "structure": "ICH M15 Appendix 2, Model Analysis Report: Executive Summary, Introduction, Objectives, Data and Methods, Results, Discussion, Conclusions, Appendices (EMA/CHMP/ICH/496426/2024, 9 February 2026, page 16-17).",
+ "sections": {
+  "executive_summary": "The platform implements the population model of Kim et al. (2026), built from 30 Korean myeloma patients with total and unbound concentrations, at its typical values, with eGFR (CKD-EPI 2021, indexed to 1.73 m2) and body surface area as covariates. Three locked checks compared it with outside group data: CC-5013-PK-001, the same study with matched virtual subjects, and Bridoux 2016 (prespecified, but its outcome was largely known from the abstract). Mild impairment is consistent; severe impairment is under-predicted in every check's primary scenario. In moderate impairment the checks disagree: the matched recheck under-predicts, but its subjects were mostly larger than Kim's patients; in myeloma patients (Bridoux) the absolute exposure is consistent and only the ratio to normal is flagged, by a narrow margin. Shown for research and education with the moderate and severe bands flagged.",
+  "introduction": "Kim et al. (2026) modelled lenalidomide in myeloma patients with renal impairment, measuring both total and unbound drug, and proposed model-informed dosing. The platform uses its typical values to compare with Hughes 2019 in the Patient Lab. Its clearance equation can be read in more than one form; the platform reads it in linear multiplicative form, inferred from the paper's reported simulations, and shows the other readings as sensitivity cases, pending the authors' answer. Its kidney measure is indexed eGFR, which the FDA's 2024 renal guidance does not prefer for dosing; the platform runs the model as published.",
+  "objectives": [
+   "Reproduce the published typical-value model for synthetic profiles, including unbound exposure.",
+   "Test, under plans locked before computation, whether its kidney-function effect reproduces group exposure outside its source data.",
+   "Record which kidney-function bands the model may be shown for without a warning."
+  ],
+  "discussion": [
+   "Mild impairment is consistent in every check. Severe impairment is under-predicted in the primary scenario of every check (two sensitivity scenarios of the first check were consistent). In moderate impairment the first result (consistent) did not hold when virtual subjects were matched to CC-5013-PK-001's demographics, but those subjects had body surface area mostly above Kim's maximum (median 2.11 against 2.01 m2), so the under-prediction mixes the kidney effect with body-size extrapolation. In Bridoux 2016 the model's absolute moderate exposure was consistent (observed over simulated median 1.06); the ratio to normal fell outside the simulated range by 0.25%, because the model over-predicts the normal reference group, whose constructed eGFR lies mostly (73%) above Kim's data.",
+   "The source study is small (30 patients, 8 with eGFR of 60 or more) and its kidney groups were defined by eGFR, while CC-5013-PK-001 used measured creatinine clearance and Bridoux Cockcroft-Gault; each check built the model's covariates for its virtual subjects as its locked plan states. The Bridoux check carries the same recorded deviation as for Hughes, and its outcome was largely known from the abstract before the plan was locked.",
+   "The checks compare group means only, with an acceptance rule that includes between-subject variability but not parameter uncertainty. Kim's first sample was at 2 h and its absorption rate was fixed, so its peak and early-phase values are not supported by its data; exposure and the terminal phase are. The clearance-equation form remains unresolved."
+  ],
+  "conclusions": [
+   "The model is consistent with outside data in mild kidney impairment.",
+   "It under-predicts exposure in severe impairment in every check; that band is flagged.",
+   "In moderate impairment the checks disagree (under-predicted in non-malignant subjects larger than Kim's patients; absolute exposure consistent in myeloma patients); the band is flagged as uncertain.",
+   "Further checking needs unseen data and the authors' answer on the equation form."
+  ]
+ },
+ "not_this": "Not a regulatory submission and not an independent assessment of the published model. It documents how the platform implemented and checked the model. Generated from the platform's pinned plans and reports; the narrative sections were written by the AI assistant and have not been reviewed independently.",
+ "clinical_prediction_validated": false,
+ "supersedes": {
+  "file": "intelligence_store/data/model_analysis_report_text_lenalidomide_kim_2026_v1.json",
+  "sha256": "691ddbddf03d4e47b83a036202fcc8c7491a18d88ec1e9e0d4c66d1fa5d62f69",
+  "text_version": "lenalidomide-kim-2026-mar-text-v1.0",
+  "change": "AI review of 10 November (findings F01, F02, F07, F12, F24): moderate-band reading, the Bridoux check described as prespecified with its outcome largely known, Kim peak caveat, severe sensitivity count corrected (two, not one)."
+ }
+}

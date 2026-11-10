@@ -110,7 +110,7 @@ class Summaries(unittest.TestCase):
         files = {s['ref']: s['file'] for s in view['sources']}
         self.assertTrue(files['renal'].endswith('renal_pk_group_evidence_v2.json'))
         self.assertTrue(files['hughes_scope'].endswith('lenalidomide_hughes_scope_v2.json'))
-        self.assertTrue(files['kim_scope'].endswith('lenalidomide_kim_scope_v3.json'))
+        self.assertTrue(files['kim_scope'].endswith('lenalidomide_kim_scope_v4.json'))
         kim_bands = next(st for st in kidney if st['source']['ref'] == 'kim_scope')['value']
         self.assertEqual([b['tier'] for b in kim_bands], ['externally_checked', 'external_check_disagrees', 'external_check_disagrees'])
         self.assertIn('7236f8899c71ff7268db5edffe062dd7a3aa49a0499f3436767f10dcca2e84b3', sp.SUPERSEDED.values())

@@ -28,12 +28,14 @@ EXTRACT_PATH = DATA / 'kim_2026_model_extract_v1.json'
 EXTRACT_SHA256 = 'c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af'
 FORM_ASSESSMENT_PATH = DATA / 'kim_cl_equation_form_assessment_v1.json'
 FORM_ASSESSMENT_SHA256 = '1de6b91bd9e8f5d633182f8794defc3a85c47f668dfc15ea9bcfe3695bc95d5a'
-FINDINGS_PATH = DATA / 'kim_applicability_findings_v2.json'
-FINDINGS_SHA256 = '702bd01dd94178cf80af0648c15e86a41d172bd15fc84a204f090e49abf16450'
+FINDINGS_PATH = DATA / 'kim_applicability_findings_v3.json'
+FINDINGS_SHA256 = 'b9346ceca2e7fc955149126900f7a3a334830fa80f7c5977809ebb430633b603'
 FINDINGS_SCHEMA = 'model-applicability-findings-v2'
 # Superseded on 2026-10-31 (moderate band added after the 2.1e recheck); kept unchanged and pinned.
-SUPERSEDED_FINDINGS_PATH = DATA / 'kim_applicability_findings_v1.json'
-SUPERSEDED_FINDINGS_SHA256 = 'deb1c48cf97a59d6bca251935cb1e57fb4a64c158810bf1583a78aeb157d9af9'
+SUPERSEDED_FINDINGS_PATH = DATA / 'kim_applicability_findings_v2.json'
+SUPERSEDED_FINDINGS_SHA256 = '702bd01dd94178cf80af0648c15e86a41d172bd15fc84a204f090e49abf16450'
+FIRST_FINDINGS_PATH = DATA / 'kim_applicability_findings_v1.json'
+FIRST_FINDINGS_SHA256 = 'deb1c48cf97a59d6bca251935cb1e57fb4a64c158810bf1583a78aeb157d9af9'
 DOSE_EVIDENCE_PATH = DATA / 'lenalidomide_dose_proportionality_evidence_v1.json'
 DOSE_EVIDENCE_SHA256 = 'ec140c8f5ea9fa5c348d1bbde535a7dfd19dacd17360b0eb3607798e9b5f2952'
 
@@ -217,6 +219,8 @@ def estimate_kim_covariates(state):
         report['warnings'].append(f'The state also declares egfr_indexed = {declared} mL/min/1.73m2; the CKD-EPI 2021 estimate differs and neither replaces the other.')
     report['warnings'].append('Kim 2026 was fitted in 30 Korean patients with multiple myeloma at steady state under fasting conditions; '
                               'other populations, conditions and albumin below 3 g/dL are not represented.')
+    report['warnings'].append('Kim 2026 sampled first at 2 h after the dose, after the usual time of peak, and fixed the absorption rate: '
+                              'its peak and early-phase values are not supported by its data; exposure (AUC) and the terminal phase are.')
     report['estimates'] = {'egfr_indexed': {'value': egfr, 'unit': 'mL/min/1.73m2', 'formula_id': 'egfr_ckd_epi_2021_creatinine'},
                            'body_surface_area': {'value': bsa, 'unit': 'm2', 'formula_id': 'body_surface_area_du_bois'}}
     report['report_sha256'] = digest(report)

@@ -87,6 +87,14 @@ class PublishedModels(unittest.TestCase):
             self.assertEqual(hashlib.sha256((mar.DATA / name).read_bytes()).hexdigest(), sha, model_id)
 
 
+class SupersededTexts(unittest.TestCase):
+    def test_superseded_texts_kept_unchanged(self):
+        import hashlib
+        from intelligence_store import model_analysis_report as mar
+        for name, sha in mar.SUPERSEDED_TEXTS.items():
+            self.assertEqual(hashlib.sha256((mar.DATA / name).read_bytes()).hexdigest(), sha, name)
+
+
 class Page(unittest.TestCase):
     def setUp(self):
         from app.app import app
