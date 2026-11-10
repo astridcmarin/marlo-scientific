@@ -1,48 +1,48 @@
-# Repository checkpoint — 6 November 2026 (b), end of batch 3
+# Repository checkpoint — 10 November 2026, end of batch 4
 
-**Verified tree:** branch `batch-3` at `7172b2e`, 5 commits on top of `main` after PR #114. Applied on the owner's iMac from `batch-3-backup-1.bundle`. CI runs when the pull request is opened.
-**Machine-readable record:** [`verification/repository_checkpoint_2026-11-06b.json`](verification/repository_checkpoint_2026-11-06b.json).
-**Previous checkpoint:** 6 November, end of batch 2, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-11-06.md). Its unrecorded test count is now known: CI on PR #114 ran 1,310 tests, all passing (5 skipped).
-
-**New machine.** The project moved from the owner's MacBook to an iMac on 6 November: code from GitHub, `supplemental-information/` (174 files) and `instance/` copied by hand, Python 3.14 in a new environment. All tests passed there before this batch.
+**Verified tree:** branch `batch-4`, 9 commits on top of `main` after PR #115 (3 updates of 9 November, 5 review-fix updates of 10 November, this checkpoint). CI runs when the pull request is opened; the owner chose to push before a run on the iMac, so the unit-test count is the CI run's.
+**Machine-readable record:** [`verification/repository_checkpoint_2026-11-10.json`](verification/repository_checkpoint_2026-11-10.json).
+**Previous checkpoint:** 6 November (b), end of batch 3, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-11-06b.md). CI on PR #115 matched the iMac run (1,330 tests).
 
 This is a software and repository verification. It does not validate any model scientifically, and it is not a clinical-readiness review.
 
-## What was delivered (batch 3)
+## What was delivered (batch 4)
 
 | Area | What | Main files |
 |---|---|---|
-| One instance folder | Database, workspace key and annotations all in `instance/`; an annotation file left in `app/instance/` is carried over without losing saved trials | `app/app.py`, `eligibility_annotations.resolve_store` |
-| Model analysis reports (M3) | Hughes 2019 and Kim 2026, one result table per locked check | `model_analysis_report.py`, two narrative files |
-| Dialysis (R7) | Paired on/off dialysis data, removal per session, myeloma patients on the label dose; not modelled | `dialysis_evidence.py`, `dialysis_panel.html` |
-| Assays (O8) | The bioanalytical method behind each kidney dataset, quoted and checked against the PDFs | `lenalidomide_bioanalytical_methods_v1.json`, `assay_panel.html` |
-| Interval on ratios (R5) | Approximate 90% intervals for the Bridoux ratios, derived and labelled | `renal_dose_exposure.ratio_interval` |
+| Model analysis report (M3) | The exposure–safety odds ratios, stating plainly that the model has no locked check | `model_analysis_report.py`, narrative file |
+| Parameter uncertainty (M7) | The Hughes typical curve's uncertainty from the published %RSE, shown as a lower bound | `population_pk.py` v1.1, `hughes_parameter_precision_v2.json` |
+| Digital human 1.1e | The body-map timeline: one dose over 48 hours, with the locked check and the observed urine share beside it | `body_map_time_course.timeline` v1.1 |
+| AI review (Track A) | A Fable review of the lenalidomide work: 29 findings, 28 open (1 high, 8 medium, 19 low); handled in five updates | `docs/reviews/2026-11_fable_review.md` |
+| Review fixes | Kim moderate band reread; the Bridoux check no longer called blind; checklist corrected; provenance notes and a quote-check script; dose view renamed | see the review file's "Handling" section |
 
 ## Checks
 
 | Check | Result |
 |---|---|
-| Unit tests | **Pass.** On the owner's iMac at this tree: 1,330 tests ran in 173 s; all passed, 2 skipped. |
+| Unit tests | **CI on the pull request.** In the cloud session without the database packages, all tests that can run there pass (1,338 collected; the database-backed and page tests cannot run there). |
 | Compile all modules | **Pass.** |
 | Migration chain | **Unchanged.** 9 revisions. |
-| Pinned data | **Pass.** 177 data files outside `curation/`; 176 pinned (the observation template is unpinned by design). |
-| Locked checks | **Unchanged.** 27, 3 blind. |
+| Pinned data | **Pass.** 191 data files; 190 pinned (the observation template is unpinned by design). |
+| Locked checks | **Unchanged.** 27. Three carry blind roles; the two Bridoux uses are now labelled "prespecified, outcome largely known beforehand". |
 | Validation flags | **Pass.** None set to true. |
-| Repository hygiene | **Pass.** No source PDFs or private files tracked; `instance/` (annotations, database) is outside git and must be backed up by hand. |
+| Repository hygiene | **Pass.** No source PDFs, correspondence or email addresses tracked. |
 
 ## Findings
 
-1. **Two instance folders.** Flask's default put annotations in `app/instance/` while the database used `instance/`. The owner's copy of the annotation file went to the wrong one and the page showed 0 of 200; nothing was lost. Fixed in the first update of this batch.
-2. **Drafting errors caught before commit.** The Hughes narrative first said four checks (there are three), and the Kim narrative said severe was under-predicted "throughout" (one sensitivity scenario was consistent). Both were found by comparing the text with the reports.
-3. **Round 3 has grown to 117 entries.** Three queue versions were made before any review began; v1 and v2 are kept unchanged.
+1. **The AI review found interpretation errors, not arithmetic ones.** All ten lenalidomide check reports regenerate byte for byte, and every transcription checked against its PDF is correct (Hughes, Kim, Bridoux, EMA, Chen 2007, TGA). The moderate-band warning for Kim, the "blind" label and three checklist scores overstated what the checks show; each is corrected in a new versioned file.
+2. **A supplied PDF was misnamed in the session copy.** `280_2011_Article_1760.pdf` is Chen 2012 (mass balance), not Hughes 2019; the Hughes article was in the owner's folder under its own name.
+3. **One quote is not verbatim.** The TGA population quote ends with a full stop where the report has a comma; recorded in `lenalidomide_source_notes_v1.json`, words and numbers unchanged.
+4. **Superseded narrative texts were briefly unpinned** when their v2 replaced them; caught by the pin count before this checkpoint and fixed in the same updates.
 
 ## Scientific state
 
-- Reviewer's checklist for lenalidomide: 21 of 29 answered, 6 partly, 2 gaps (O7 exposure–efficacy, M8 independent review).
-- 27 locked checks, 3 blind. No model is validated for clinical prediction.
+- Reviewer's checklist for lenalidomide (self-assessed): 19 of 29 answered, 8 partly, 2 gaps (O7 exposure–efficacy, M8 independent review). The AI review is not an independent review.
+- 27 locked checks. No model is validated for clinical prediction.
 
 ## Remaining gates
 
-- **This batch:** push `batch-3`, one pull request, CI; the owner merges with "Create a merge commit".
-- **Owner work:** review round 3 (117 entries); the eligibility annotation (38 of 200).
-- **Independent review:** none yet. **Authors:** Hughes, Kim, Iwasaki. **Platform:** accounts and deployment.
+- **This batch:** the pull request and CI; the owner merges with "Create a merge commit".
+- **Deferred review findings:** F03, F04 (a)–(d), F08 sampling, F17, F19, F20, F24 (method changes or new locked plans).
+- **Owner work:** review round 3 (now 121 entries); the eligibility annotation (46 of 200, on the iMac); the two FDA guidance PDFs and Chen 2017.
+- **Independent review:** none yet. **Authors:** Hughes (weight basis, CRCL2), Kim, Iwasaki.

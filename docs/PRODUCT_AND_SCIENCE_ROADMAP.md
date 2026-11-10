@@ -154,11 +154,14 @@ Agreed with the owner on 4 November: the platform has grown faster than it has b
 5. Precision of the dose-exposure ratios (R5) (done: approximate intervals from the published geometric CVs; R5 stays partly, as parameter uncertainty is not propagated).
 6. Checkpoint (done).
 
-**Batch 4 (in progress):**
-1. Model analysis report for the exposure–safety odds ratios (M3; every lenalidomide model now has one) (done).
-2. Parameter uncertainty for the Hughes typical curve, from its published precision (M7) (done).
-3. Digital human 1.1e: the body-map timeline and running amounts (done; Digital human 1.1 complete).
-4. Checkpoint.
+**Batch 4 (done 10 November; pull request open):**
+1. Model analysis report for the exposure–safety odds ratios (M3; every lenalidomide model now has one).
+2. Parameter uncertainty for the Hughes typical curve, from its published precision (M7).
+3. Digital human 1.1e: the body-map timeline and running amounts (Digital human 1.1 complete).
+4. The Fable AI review of the lenalidomide work (Track A of the Fable plan) and five updates handling its findings.
+5. Checkpoint.
+
+**Next, from the Fable plan:** E, an overclaiming audit of the pages; then the eligibility extractor's plan locked (C) while the annotation continues; the deferred review findings (F03, F04, F08 sampling) as method changes with their own plans.
 
 **Then:** label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
 
