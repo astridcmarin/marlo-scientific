@@ -41,3 +41,5 @@ The platform's main safeguard is that checks follow plans locked before computat
 ## Updating it
 
 The ledger is pinned like any reference file. When a dataset is read, a check is run or a model is tuned, a new version records it (`dataset_ledger_v2.json`), with a new pin, never an edit in place.
+
+**Rule adopted 10 November 2026 (AI review F18).** For a blind check, the plan's commit also contains the executable check, run on synthetic values. After the lock only data files change, so the commit order shows that the computation was fixed before the data were read, not only the plan.

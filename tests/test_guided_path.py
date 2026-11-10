@@ -45,7 +45,7 @@ class Page(unittest.TestCase):
         self.assertEqual(json.loads(self.client.get(url + '?format=json').data)['schema_version'], 'guided-path-v1')
         self.assertEqual(self.client.get(url + '?x=1').status_code, 400)
         self.assertIn(url.encode(), self.client.get('/').data)
-        self.assertIn(url.encode(), self.client.get('/landscape/drugs/lenalidomide/dose-optimisation').data)
+        self.assertIn(url.encode(), self.client.get('/landscape/drugs/lenalidomide/dose-view').data)
 
 
 if __name__ == '__main__':

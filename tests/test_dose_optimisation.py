@@ -111,8 +111,13 @@ class Page(unittest.TestCase):
         from app.app import app
         self.client = app.test_client()
 
+    def test_old_path_redirects(self):
+        response = self.client.get('/landscape/drugs/lenalidomide/dose-optimisation?format=json')
+        self.assertEqual(response.status_code, 301)
+        self.assertTrue(response.headers['Location'].endswith('/landscape/drugs/lenalidomide/dose-view?format=json'))
+
     def test_page(self):
-        url = '/landscape/drugs/lenalidomide/dose-optimisation'
+        url = '/landscape/drugs/lenalidomide/dose-view'
         r = self.client.get(url)
         self.assertEqual(r.status_code, 200)
         self.assertIn(b'Not dosing guidance', r.data)

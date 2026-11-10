@@ -1,4 +1,6 @@
-# Phase 4.3 — Dose-optimisation view (design plan)
+# Phase 4.3 — Dose view (design plan)
+
+Called the dose-optimisation view until 10 November 2026; renamed because it ranks no dose and proposes none (AI review F22). The old path redirects.
 
 Written 30 October 2026, before anything is built.
 
@@ -52,7 +54,7 @@ Lenalidomide is the only drug for which the platform holds all three parts:
 
 - `intelligence_store/dose_optimisation.py`: builds the view from pinned sources only. Nothing new is fitted.
 - `intelligence_store/data/dose_optimisation_lenalidomide_v1.json` (pinned): dose levels shown, kidney bands, and the gap list, each with its source.
-- Page: `/landscape/drugs/lenalidomide/dose-optimisation`, with a JSON download, linked from the special-populations page and the model library.
+- Page: `/landscape/drugs/lenalidomide/dose-view`, with a JSON download, linked from the special-populations page and the model library.
 
 ## Checks before release
 
@@ -62,7 +64,7 @@ Lenalidomide is the only drug for which the platform holds all three parts:
 
 ## Status
 
-**Built 30 October 2026 (v1).** `intelligence_store/dose_optimisation.py` (schema `lenalidomide-dose-view-v1`) and the page `/landscape/drugs/lenalidomide/dose-optimisation`, with a JSON download, linked from the lenalidomide special-populations page. Tests: `tests/test_dose_optimisation.py`.
+**Built 30 October 2026 (v1).** `intelligence_store/dose_optimisation.py` (schema `lenalidomide-dose-view-v1`) and the page `/landscape/drugs/lenalidomide/dose-view`, with a JSON download, linked from the lenalidomide special-populations page. Tests: `tests/test_dose_optimisation.py`.
 
 - **Sources.** The dose levels, the reference, the odds ratios, the scopes and the corpus are read from files the platform already pins. One new pinned file, `lenalidomide_exposure_response_guglieri_2017_v1.json` (31 October 2026, view v1.1), holds the thesis findings. They are shown on the page and never used in a calculation (see the evidence search below). The gap list is in the module.
 - **Assumptions are fixed to each model's primary reading:** Hughes uses the recorded primary Cockcroft–Gault weight basis, Kim the primary CL/F equation form. Both are shown on the page.

@@ -140,3 +140,27 @@ Six sources arrived after the first pass: the Hughes 2019 article and its supple
 - The owner's TGA text copy (`252f9ab4…`), so its pin is unverified.
 - Full test suite and page rendering (SQLAlchemy unavailable).
 - Eligibility v2 annotation: deliberately not opened.
+
+## Handling (10 November 2026, approved by the platform owner)
+
+Fixed in batch 4, without changing any locked result (each earlier file kept and pinned as superseded):
+
+| Update | Findings |
+|---|---|
+| Review fixes 1: Kim moderate band | F01, F07, F12, F13, F24 (and F02 in the Kim report text) |
+| Review fixes 2: the Bridoux label and the checklist | F02, F04 (e), F06, F15 (Hughes report introduction), F23 (ledger) |
+| Review fixes 3: timeline and uncertainty wording | F05, F08 (wording), F26 (display) |
+| Review fixes 4: provenance | F09, F10, F11, F15, F16, F23 (credibility), F25, F26, F27, F28, F29 (recorded in `lenalidomide_source_notes_v1.json`) |
+| Review fixes 5: wording and process | F14, F18 (rule in CLAUDE.md and the ledger doc), F22 |
+
+Closed without change: F21 (Chen 2007 Table II states a geometric CV).
+
+Deferred, each needing a method change or a new locked plan:
+- F03: an acceptance rule that samples the published parameter uncertainty, with an "indeterminate" result near the limit.
+- F04 (a)-(d): the exposure-safety reference (a model-consistent reference exposure) and the within-patient reading.
+- F08: sampling the typical curve from the bootstrap intervals (log-normal where skewed).
+- F17, F20, F24: scenarios for successor plans (lighter body weight for Bridoux; correlated creatinine and a "lower of total and ideal weight" basis; mild as an alternative reference).
+- F19: the Kim equation-form assessment drops "and text" in its next version (the assessment is pinned in a locked report, so it changes when the authors answer).
+- F16 (second half): the Chen 2017 quotes, when that PDF is in the source folder.
+
+Still not checked: the two FDA guidance PDFs and Chen 2017.

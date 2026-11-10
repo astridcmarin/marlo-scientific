@@ -4,9 +4,9 @@ Descriptive only. Three pinned sources answer it in different ways, and none is 
 - Bridoux 2016: myeloma patients already on reduced doses, day 5 AUC24 by group (observed; reference: normal function,
   25 mg). Ratio = group geometric mean / normal geometric mean.
 - CC-5013-PK-001 (EMA 2013 Table 4): single 25 mg dose, AUCinf ratio to normal + mild. Scaled to the label's average daily
-  dose by dose proportionality (the label states AUC rises in proportion to dose, and no accumulation), so
-  ratio x dose / 25 is the expected steady-state ratio on the label dose. Derived by the platform; the 90% interval is
-  scaled the same way.
+  dose by linear, time-invariant kinetics (the label states AUC rises in proportion to dose), under which steady-state
+  AUC over a dosing interval equals single-dose AUCinf whatever the accumulation, so ratio x dose / 25 is the expected
+  steady-state ratio on the label dose. Derived by the platform; the 90% interval is scaled the same way.
 - The sponsor's simulation (EMA 2013 Table 7): steady-state average daily AUC on candidate regimens, by superposition of
   CC-5013-PK-001 data. A model prediction, not an observation.
 
@@ -57,10 +57,14 @@ def ratio_interval(gm_a, gcv_a, n_a, gm_b, gcv_b, n_b, level=0.90):
 NOTES = {
     'threshold': "Bridoux's first dose reduction was at 50 mL/min, as in the renal study's publication (Chen 2007): its mild "
                  "group (50-80) received 25 mg, while the current US label's first reduction starts at 60 mL/min. Its moderate "
-                 "group is 30 to < 50 mL/min.",
-    'scaling': 'Scaled by dose proportionality: the label states that AUC rises in proportion to dose and that repeated '
-               'doses do not accumulate, so a single-dose AUCinf ratio times dose / 25 mg is the expected steady-state ratio on '
-               'that dose. Derived by the platform; not an observation.',
+                 "group is 30 to < 50 mL/min. The same applies to the CC-5013-PK-001 column: its moderate group is 30 to < 50 "
+                 "mL/min by measured clearance, against the label band of 30 to 60 by Cockcroft-Gault, and its reference pool "
+                 "(normal + mild, 50 mL/min and above) contains subjects the label would dose-reduce.",
+    'scaling': 'Scaled by linear, time-invariant kinetics: the label states that AUC rises in proportion to dose, and under '
+               'linear kinetics steady-state AUC over one dosing interval equals single-dose AUCinf whatever the accumulation '
+               '(which is real in impaired kidney function: about 1.5-fold on daily dosing at the end-stage half-life). So a '
+               'single-dose AUCinf ratio times dose / 25 mg is the expected steady-state ratio on that dose. Derived by the '
+               'platform; not an observation.',
     'dialysis': 'The CC-5013-PK-001 ratio for end-stage disease was measured off dialysis. Whether Bridoux sampled its '
                 'dialysis patients on a dialysis day is not recorded in the platform\'s design extract. Dialysis removes about 30% '
                 'of the drug in a 4-hour session (label).',
