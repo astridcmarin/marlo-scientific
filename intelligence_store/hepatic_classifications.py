@@ -66,6 +66,7 @@ def build():
         'view_version': VIEW_VERSION, 'drug': 'lenalidomide',
         'guidance': {'title': g['source']['title'], 'status': g['source']['status'], 'date': g['source']['date'],
                      'docket': g['source']['docket'], 'url': g['source']['url'], 'extraction': g['source']['extraction'],
+                     'source_pinned': bool(g['source'].get('local_file')),
                      'recommendations': [dict(v, id=k) for k, v in g['recommendations'].items()]},
         'nci': {'location': g['nci_odwg_table_2']['location'], 'groups': g['nci_odwg_table_2']['groups'],
                 'reading': g['nci_odwg_table_2']['reading']},

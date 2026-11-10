@@ -285,7 +285,7 @@ Every Patient Lab result page now opens with the same banner and ends with the s
   - **what has been checked about the model**, in the four validation layers below;
   - limitations and every checksum, plus a checksum of the record itself.
 - **Nothing is recalculated.** The record copies values from the page's report and from pinned files; the tests check that it is deterministic and that its fields match the report.
-- **Model evidence status** (`model_evidence_status_v1.json`, pinned): per model and layer, done / partial / not done, with a one-line finding. Where a verification report is cited, the tests check its file checksum and that the quoted classification and per-group results are the ones in the report. Current state:
+- **Model evidence status** (`model_evidence_status_v1.json`, pinned): per model and layer, done / partial / not done, with a one-line finding. Where a verification report is cited, the tests check its file checksum and that the quoted classification and per-group results are the ones in the report. State at the time (October 2026; the current state is in `model_evidence_status_v13.json` and on `/models/findings`):
 
 | Model | Software | Transcription | Reproduction | External consistency |
 |---|---|---|---|---|

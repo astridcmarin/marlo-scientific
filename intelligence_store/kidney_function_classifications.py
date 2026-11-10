@@ -209,6 +209,7 @@ def build(docs=None):
         'notes': NOTES,
         'sources': [{'alias': a, 'file': p, 'sha256': s, 'title': t} for a, (p, s, t) in SOURCES.items()],
         'guidance_extraction': guidance['source']['extraction'], 'guidance_url': guidance['source']['url'],
+        'guidance_source_pinned': bool(guidance['source'].get('local_file')),
         'clinical_prediction_validated': False,
     }
     view['view_sha256'] = digest(view)

@@ -1,0 +1,75 @@
+{
+ "schema_version": "source-notes-v1",
+ "notes_version": "lenalidomide-source-notes-v1.0",
+ "drug": "lenalidomide",
+ "recorded_on": "2026-11-10",
+ "purpose": "Facts about the sources behind pinned lenalidomide files that the files themselves do not record: misprints, small differences between sources, and file identities. Each note points at the pinned file and value it concerns; none changes a value. Raised by the AI review of 10 November 2026 (docs/reviews/2026-11_fable_review.md); to be carried into each file's next version.",
+ "notes": [
+  {
+   "id": "bridoux_total_age_misprint",
+   "finding": "F25",
+   "concerns": {
+    "file": "intelligence_store/data/lenalidomide_bridoux_design_v1.json",
+    "sha256": "1af2d005528a18088382225482a3eaa32ac3c68f4f6529c5ee7958e8c1605eac",
+    "pointer": "/design/per_group/age_median_range_years/total"
+   },
+   "note": "The study-wide age '68 (62-74)' is transcribed as printed in Bridoux 2016 Table 1 (page 176), but it cannot be right: the group ranges span 48 to 84 years. Treat the total range as a misprint in the source; the per-group ranges are the ones to use."
+  },
+  {
+   "id": "ema_2008_severe_clf_sd_misprint",
+   "finding": "F26",
+   "concerns": {
+    "file": "intelligence_store/data/lenalidomide_renal_pathways_evidence_v1.json",
+    "sha256": "e7c62bc477bfc6170f42f1f01e5935ea222bec0fbf513da718178030c42d2c8f",
+    "pointer": "/groups/3/cl_f_ml_min"
+   },
+   "note": "EMA 2008 Table 4 prints the severe group's CL/F as '52 (101)'. An SD twice the mean is not plausible beside the group's other values; Chen 2007 Table II gives a geometric CV of 18% for the same six subjects, implying an SD near 9-10 mL/min. No calculation uses the SD; the body map shows it as a likely misprint."
+  },
+  {
+   "id": "esrd_on_dialysis_auc_two_sources",
+   "finding": "F27",
+   "concerns": {
+    "file": "intelligence_store/data/lenalidomide_renal_source_reconciliation_v3.json",
+    "sha256": "8d076dfbb4d50ed940064c1cab798b8a3b8eca684d6ac5b383e8487d847f5292",
+    "pointer": "/sources/chen_2007/table_II_auc_inf_geometric_mean/esrd_on_hd"
+   },
+   "also": {
+    "file": "intelligence_store/data/lenalidomide_renal_pk_ema_2013_v1.json",
+    "sha256": "04f2e629ded43713062e0d68d668939a4a2cecd5a9db7ce349874e81529f6501",
+    "pointer": "/table_3_geometric_means/auc_infinity/esrd_on_dialysis"
+   },
+   "note": "The same statistic is printed as 6778 (14) in Chen 2007 Table II and as 6776 (14) in EMA II-0056 Table 3. Each file is faithful to its source; the 2 h·ng/mL difference is immaterial."
+  },
+  {
+   "id": "tga_report_file_identity",
+   "finding": "F28",
+   "concerns": {
+    "file": "intelligence_store/data/lenalidomide_exposure_safety_v2.json",
+    "sha256": "a839525eb7fc0554201f14a5641ce64ad4e04f0f806e4ceec3d20c2d6171ed73",
+    "pointer": "/source/file_reviewed"
+   },
+   "note": "The pinned checksum is of the platform owner's text copy of the TGA report. The regulator's file, auspar-lenalidomide-160205-cer.docx (7,632,392 bytes), has SHA-256 a3655357387f586baee18dfdb2dba55b76979edee55f3872ddc6db29048d3f30 (10 November 2026). Checked against the .docx with scripts/check_source_quotes.py: three of the four quotes are found as stored; the population quote ends with a full stop where the report continues with a comma ('...to the PPK analysis, with the majority of subjects providing...'). The words and numbers are the report's."
+  },
+  {
+   "id": "hughes_crcl_column",
+   "finding": "F29",
+   "concerns": {
+    "file": "intelligence_store/data/hughes_weight_basis_assessment_v1.json",
+    "sha256": "bbaffa714dd5bd2fb9773a1620fb022c35bd90175b972d0a0855d9f6916be2c6",
+    "pointer": "/source_facts"
+   },
+   "note": "Two source facts not yet in the assessment. (a) The control stream's output file is run016_cl_crcl2_ffm_vpc.fit and its covariate is CRCL2, so a second creatinine-clearance variable probably existed; that Table 1's CrCl is CRCL2 is an assumption. (b) Section 2.4 computes Cockcroft-Gault for simulated patients from sampled weight, height, age, creatinine and sex, again without naming the weight. Status stays unresolved; the question for the authors should ask what distinguishes CRCL2 from CRCL."
+  },
+  {
+   "id": "reference_exposure_population",
+   "finding": "F16",
+   "concerns": {
+    "file": "intelligence_store/data/lenalidomide_reference_exposure_v1.json",
+    "sha256": "d49358f519956fd6b1fce52798d74424a753d4e669773324c18e471f82a180e1",
+    "pointer": "/reference/population"
+   },
+   "note": "'Disease context not established' is out of date: CC-5013-PK-001 enrolled people with kidney impairment due to non-malignant conditions and healthy controls (recorded 31 October 2026 in renal_pk_group_evidence_v2.json and the reconciliation v3). The Chen 2017 quotes behind the exposure-safety time window are still to be checked against that PDF, which is not in the source folder."
+  }
+ ],
+ "clinical_prediction_validated": false
+}

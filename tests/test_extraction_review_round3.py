@@ -35,7 +35,20 @@ class RoundThreeQueue(unittest.TestCase):
         self.assertEqual(len(groups['lenalidomide_label_pk']['items']), 18)
         self.assertEqual(len(groups['fda_hepatic_2026']['items']), 14)
         self.assertEqual(len(groups['lenalidomide_assays']['items']), 4)
-        self.assertEqual(sum(len(g['items']) for g in self.q['groups']), 117)
+        self.assertEqual(len(groups['hughes_precision']['items']), 4)
+        self.assertEqual(sum(len(g['items']) for g in self.q['groups']), 121)
+
+    def test_v3_kept_unchanged_and_v4_only_adds_the_precision_and_fixes_the_citation(self):
+        v3_path = er.DATA / 'extraction_review_queue_round3_v3.json'
+        self.assertEqual(hashlib.sha256(v3_path.read_bytes()).hexdigest(), er.ROUND_3_QUEUE_V3_SHA256)
+        v3 = json.loads(v3_path.read_text())
+        old = {g['id']: g['items'] for g in v3['groups']}
+        new = {g['id']: g['items'] for g in self.q['groups']}
+        self.assertEqual(set(new) - set(old), {'hughes_precision'})
+        for gid in old:
+            if gid != 'lenalidomide_assays':
+                self.assertEqual(new[gid], old[gid], gid)
+        self.assertNotIn('Hughes DM', json.dumps(self.q))
 
     def test_every_item_says_where_to_look_and_ids_are_unique_across_queues(self):
         main = er.item_ids(er.load_queue())
@@ -74,7 +87,7 @@ class Records(unittest.TestCase):
 
     def test_round_3_view(self):
         v = er.round_3_view()
-        self.assertEqual((v['round'], v['round_total']), (3, 117))
+        self.assertEqual((v['round'], v['round_total']), (3, 121))
         self.assertEqual(v['queue_sha256'], er.ROUND_3_QUEUE_SHA256)
 
 

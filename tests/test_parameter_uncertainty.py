@@ -19,11 +19,28 @@ class Precision(unittest.TestCase):
         self.assertEqual(fx['theta_ktr']['estimate'], params['transit_rate']['value'])
         self.assertEqual(fx['theta_crcl']['estimate'], params['crcl_exponent']['value'])
 
-    def test_row_quotes_carry_the_numbers(self):
+    def test_row_quotes_carry_the_numbers_in_column_order(self):
+        # Table 2 rows read: [base estimate [RSE]] final estimate [RSE] bootstrap median [2.5th-97.5th]. The final model's
+        # pair is the last "estimate [RSE]" pair, and the row ends with the bootstrap interval (AI review F10).
+        import re
         for key, v in self.p['fixed_effects'].items():
-            for n in (v['estimate'], v['rse_pct'], *v['bootstrap_ci95']):
-                self.assertIn(f'{n:g}', v['row_quote'].replace('0.0', '0.0'), (key, n))
+            pairs = re.findall(r'(\d+(?:\.\d+)?) \[(\d+(?:\.\d+)?)\]', v['row_quote'])
+            self.assertTrue(pairs, key)
+            self.assertEqual((float(pairs[-1][0]), float(pairs[-1][1])), (v['estimate'], v['rse_pct']), key)
+            interval = re.search(r'\[(\d+(?:\.\d+)?)\u2013(\d+(?:\.\d+)?)\]$', v['row_quote'])
+            self.assertIsNotNone(interval, key)
+            self.assertEqual([float(interval.group(1)), float(interval.group(2))], v['bootstrap_ci95'], key)
         self.assertIn('Not yet reviewed by the platform owner', self.p['source']['extraction'])
+        self.assertEqual(self.p['source']['citation'][:9], 'Hughes JH')
+
+    def test_v1_kept_unchanged(self):
+        import hashlib
+        v1 = pp.PRECISION_PATH.with_name('hughes_parameter_precision_v1.json')
+        self.assertEqual(hashlib.sha256(v1.read_bytes()).hexdigest(), pp.PRECISION_V1_SHA256)
+        import json
+        old = json.loads(v1.read_text())
+        self.assertEqual(old['fixed_effects'], self.p['fixed_effects'])
+        self.assertEqual(self.p['supersedes']['sha256'], pp.PRECISION_V1_SHA256)
 
     def test_draws_are_seeded_and_match_the_stated_precision(self):
         a = pp.sample_typical_parameters(4000, 7, self.p)

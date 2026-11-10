@@ -17,6 +17,7 @@
 <ul>{% for c in hepatic.child_pugh.components %}<li class="sp-src">{{ c }}</li>{% endfor %}</ul>
 <p class="sp-src">{{ hepatic.child_pugh.reading }}</p>
 <p class="sp-src"><span class="sp-kind sp-kind-platform_model_scope">Platform note</span>{{ hepatic.notes.population }} Bridoux 2016, the myeloma study used for outside checks, excluded hepatic impairment. {{ hepatic.notes.scope }}</p>
+{% if not hepatic.guidance.source_pinned %}<p class="sp-src owner-review"><strong>Source not pinned.</strong> These values were read from the FDA web page by a web-fetch tool; the PDF is not on file, so the quotes and bounds cannot yet be re-checked against a pinned copy.</p>{% endif %}
 <p class="sp-src owner-review">{% for r in owner_review('intelligence_store/data/fda_hepatic_impairment_guidance_2026_draft_v1.json') %}<strong>{{ r.text }}</strong> {% else %}<strong>Extracted with AI assistance; not reviewed by the platform owner.</strong> {% endfor %}{{ hepatic.guidance.extraction }} <a href="{{ hepatic.guidance.url }}" rel="noopener">FDA draft guidance (PDF)</a></p>
 <details class="rr-details"><summary>Sources and checksums</summary><ul>{% for s in hepatic.sources %}<li>{{ s.title }}: {{ s.file }} <span class="catalog-digest">{{ s.sha256[:16] }}…</span></li>{% endfor %}</ul><p class="catalog-digest">{{ hepatic.view_version }}: {{ hepatic.view_sha256 }}</p></details>
 </section>

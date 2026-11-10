@@ -22,8 +22,10 @@ from .run_record import EVIDENCE_PATH, EVIDENCE_SHA256, LAYER_ORDER, load_eviden
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = Path(__file__).parent / 'data'
-CONTEXT_PATH = DATA / 'model_credibility_context_v3.json'
-CONTEXT_SHA256 = 'fa6244006ac68e9186d94209cb1191a09677c9fc8a98189e836d6fb15466fb67'
+CONTEXT_PATH = DATA / 'model_credibility_context_v4.json'
+CONTEXT_SHA256 = 'fb6b62b3e5da2a9cc4c98e14b83e419c40e54f3d7f328c4f9ef94b85d6de81b9'
+# Superseded, kept unchanged for traceability: model_credibility_context_v3.json (Hughes limitations from October)
+CONTEXT_V3_SHA256 = 'fa6244006ac68e9186d94209cb1191a09677c9fc8a98189e836d6fb15466fb67'
 # Superseded, kept unchanged for traceability: model_credibility_context_v2.json (stale pathway and bortezomib text)
 CONTEXT_V2_SHA256 = 'c7a37dd2be6ff72939cd3444a7c3e64be5c5a24666b9329d9091ccc533d0dbc4'
 # Superseded, kept unchanged for traceability: model_credibility_context_v1.json
@@ -65,8 +67,15 @@ def _report_ref(path):
             'plan_version': report.get('plan_version'), 'decision': decision}
 
 
+# Excerpt sources that no other loader pins (file name -> SHA-256).
+PINNED_EXCERPTS = {'hughes_2019_extract_status_v1.json': 'f151056db91616dc1f1f4f54d884a594798f53c8ad114e783398527f17391d3a'}
+
+
 def _excerpt(name, key):
-    data = json.loads((DATA / name).read_text(encoding='utf-8'))
+    raw = (DATA / name).read_bytes()
+    if name in PINNED_EXCERPTS and hashlib.sha256(raw).hexdigest() != PINNED_EXCERPTS[name]:
+        raise ValueError(f'{name} is missing or changed; a change needs a new version.')
+    data = json.loads(raw.decode('utf-8'))
     return {'source': f'intelligence_store/data/{name}', 'field': key, 'content': data.get(key)}
 
 
@@ -143,6 +152,7 @@ def record(model_id, context=None, evidence=None):
         'alternatives_considered_and_rejected': rejected,
         'source_extracts': [{'file': f'intelligence_store/data/{e}', 'sha256': _sha(DATA / e), 'pinned_in_code': _pinned_in_code(_sha(DATA / e))}
                             for e in ctx['sources']['extracts']],
+        'depends_on_models': ctx.get('depends_on_models', []),
         'never_established': NOT_ESTABLISHED,
         'clinical_prediction_validated': False,
         'context_sha256': CONTEXT_SHA256,

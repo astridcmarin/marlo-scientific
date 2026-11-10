@@ -31,8 +31,10 @@ from .estimated_pk import calculate_estimated_pk, DISEASE_CODES
 from .published_transit_reference import load_structure_contract
 from .treatment_requests import _read_json
 
-PRECISION_PATH = Path(__file__).parent / 'data' / 'hughes_parameter_precision_v1.json'
-PRECISION_SHA256 = '73dd440d023199686d23f1d82789b85bf09743ce1b3fd82918a9ddb4e438c98c'
+PRECISION_PATH = Path(__file__).parent / 'data' / 'hughes_parameter_precision_v2.json'
+PRECISION_SHA256 = 'a0d5e5cf4081196a9fd7653a4aeddd0aa75537b8075527f72684a08f5c0f774d'
+# Superseded, kept unchanged: hughes_parameter_precision_v1.json (author initials wrong; values identical)
+PRECISION_V1_SHA256 = '73dd440d023199686d23f1d82789b85bf09743ce1b3fd82918a9ddb4e438c98c'
 PRECISION_SEED_OFFSET = 1  # the uncertainty draws use seed + 1, so they never reuse the between-subject draws
 
 

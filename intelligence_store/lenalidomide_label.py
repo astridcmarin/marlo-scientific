@@ -91,8 +91,10 @@ def label_pk_view(data=None):
 
 
 # ---------------------------------------------------------------- bioanalytical methods behind the kidney data (O8)
-ASSAY_PATH = Path(__file__).parent / 'data' / 'lenalidomide_bioanalytical_methods_v1.json'
-ASSAY_SHA256 = '92e40c55bbf6a7836e186c08948092fe60cac83817bb726a5f14443b177741ba'
+ASSAY_PATH = Path(__file__).parent / 'data' / 'lenalidomide_bioanalytical_methods_v2.json'
+ASSAY_SHA256 = '73f833ce2d940836c2f1af39e8d22ec114790586bd52a3e878ced1e0d0da060d'
+# Superseded, kept unchanged: lenalidomide_bioanalytical_methods_v1.json (Hughes author initials wrong; nothing else differs)
+ASSAY_V1_SHA256 = '92e40c55bbf6a7836e186c08948092fe60cac83817bb726a5f14443b177741ba'
 
 
 def load_bioanalytical_methods(path=ASSAY_PATH):
