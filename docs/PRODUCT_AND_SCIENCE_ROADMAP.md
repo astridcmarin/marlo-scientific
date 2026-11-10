@@ -29,7 +29,7 @@ Primary users first: trial designers, clinical pharmacologists and regulatory pr
 |---|---|
 | **Shows its work.** Every value carries its source; every model shows what has and has not been checked, including failures. | In place: run records, scorecards at `/models`, a capability level on every drug. |
 | **Checks planned before they run.** | 27 checks, each locked by commit before computation, all at `/models/findings`. Only 3 were blind (dataset ledger). |
-| **A regulatory reviewer's structure.** | Partly: for lenalidomide, 22 of 29 reviewer questions answered, 5 partly, 2 gaps ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
+| **A regulatory reviewer's structure.** | Partly: for lenalidomide, 19 of 29 reviewer questions answered, 8 partly, 2 gaps, self-scored and corrected after the AI review of 10 November ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
 | **The whole chain in one place.** Trial → drug → evidence → exposure → regulatory context. | Partly: a guided path exists for lenalidomide only. |
 | **Reproducible snapshots.** Frozen cohorts; checksum-pinned, versioned data. | In place. |
 | **AI that cites and is checked.** | In place for the 166 values that feed calculations (owner-reviewed, not independent). The 74 values of the 4 November labels are not reviewed. |

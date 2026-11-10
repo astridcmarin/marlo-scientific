@@ -95,7 +95,7 @@ def lenalidomide_path():
         _pk_step(pk, pk_review),
         {'id': 'exposure', 'title': 'Exposure models', 'question': 'What exposure would a synthetic patient have?',
          'found': 'Two population PK models (Hughes 2019, Kim 2026), an elimination-pathway model, and an exposure-safety relationship, run on synthetic records in the Patient Lab, inside each model\'s scope.',
-         'checked': 'See each model below. Both PK models were compared with the dedicated renal study, rechecked with virtual subjects matched to that study, and checked blind against myeloma patients (Bridoux 2016, with a recorded deviation): both under-predict exposure in moderate and severe impairment.',
+         'checked': 'See each model below. Both PK models were compared with the dedicated renal study, rechecked with virtual subjects matched to that study, and checked against myeloma patients under a prespecified plan (Bridoux 2016; recorded deviation, outcome largely known from the abstract): Hughes under-predicts exposure in moderate and severe impairment, Kim in severe; for Kim in moderate the checks disagree.',
          'missing': 'No model is validated for clinical prediction. Below 36 mL/min (Hughes) or outside eGFR 11.1-94.7 (Kim) the platform refuses to compute.',
          'links': [('Patient Lab', 'landscape.patient_directory', {}), ('Model library', 'landscape.drug_capability_library', {'q': 'lenalidomide'})]},
         {'id': 'dose', 'title': 'Dose', 'question': 'How do exposure and safety odds move between dose levels?',

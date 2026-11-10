@@ -15,7 +15,7 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
 - **Checked:**
   - Hughes against CC-5013-PK-001 *(finding: hughes_cc5013)*.
   - Kim against CC-5013-PK-001 *(finding: kim_cc5013)*.
-  - Both again with study-matched virtual subjects *(finding: renal_recheck)*, and against myeloma patients, the first blind check of a published population model, with a recorded deviation *(finding: bridoux_hughes_kim)*.
+  - Both again with study-matched virtual subjects *(finding: renal_recheck)*, and against myeloma patients under a plan locked before the per-group values were seen, with a recorded deviation; the outcome was largely known from the abstract *(finding: bridoux_hughes_kim)*.
   - The pathway model against its own study's impaired groups *(finding: pathways_2_0a)*, end-stage kidney disease *(finding: pathways_esrd)*, two myeloma studies *(finding: pathways_2_0d)*, and across the bioavailability the data allow *(finding: pathways_2_0e)*.
   - The body map's time course *(finding: time_course_v1)* *(finding: time_course_v2)*.
 - **Known to be wrong:**

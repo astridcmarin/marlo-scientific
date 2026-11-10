@@ -100,12 +100,23 @@ class Gate(unittest.TestCase):
 
     def test_v4_adds_the_mass_balance_and_2_0e(self):
         v3 = json.loads(dl.LEDGER_PATH.with_name('dataset_ledger_v3.json').read_text())
-        v4 = dl.load_ledger()
+        v4 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v4.json'), dl.LEDGER_V4_SHA256)
         self.assertEqual(set(v4['datasets']) - set(v3['datasets']), {'chen_2012_mass_balance'})
         self.assertEqual(v4['uses'][:len(v3['uses'])], v3['uses'])
         added = v4['uses'][len(v3['uses']):]
         self.assertTrue(all(u['report'].endswith('lenalidomide_renal_pathways_check_v3.json') for u in added))
         self.assertFalse(any(u['role'] in dl.BLIND_ROLES for u in added))
+
+    def test_v5_adds_notes_and_one_use(self):
+        v4 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v4.json'), dl.LEDGER_V4_SHA256)
+        v5 = dl.load_ledger()
+        self.assertEqual(v5['datasets'], v4['datasets'])
+        self.assertEqual(set(v5['roles']), set(v4['roles']))
+        strip = lambda u: {k: v for k, v in u.items() if k != 'note'}
+        self.assertEqual([strip(u) for u in v5['uses'][:len(v4['uses'])]], v4['uses'])
+        self.assertEqual([(u['model'], u['dataset'], u['role']) for u in v5['uses'][len(v4['uses']):]],
+                         [('lenalidomide_exposure_safety_2016', 'cc5013_pk001', 'built_from')])
+        self.assertTrue(all('largely known' in u['note'] for u in v5['uses'] if u['role'] == 'checked_blind_with_deviation'))
 
     def test_changed_ledger_is_refused(self):
         with self.assertRaises(dl.LedgerError):

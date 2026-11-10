@@ -21,7 +21,7 @@ FINDINGS_V2_SHA256 = 'b9beb8a6f1b9d50837fcfae4a96850fa8e006cfed12563d9a43236cdc7
 FINDINGS_V1_SHA256 = '6f7ecdbfa2991d94a87588711f4eb029dd50d6573a5fd07968738d7014f7b0b8'
 TONE = {'consistent': 'ok', 'passed': 'ok', 'mixed': 'warn', 'not_adopted': 'warn', 'inconclusive': 'neutral',
         'disagrees': 'gap', 'failed': 'gap'}
-BLINDNESS_LABEL = {'checked_blind': 'Blind', 'checked_blind_with_deviation': 'Blind, with a recorded deviation',
+BLINDNESS_LABEL = {'checked_blind': 'Blind', 'checked_blind_with_deviation': 'Prespecified, with a recorded deviation; outcome largely known beforehand',
                    'checked_not_blind': 'Not blind: data seen before the plan', 'tuned_on': 'Not blind: data seen before the plan',
                    'built_from': 'Not blind: data seen before the plan',
                    'reproduction': "Reproduction: the model's own source data", 'compared_model_to_model': 'Model to model'}
