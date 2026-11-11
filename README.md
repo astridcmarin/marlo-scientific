@@ -20,9 +20,9 @@ The platform combines three principal areas:
 
 1. **Clinical Intelligence** — Clinical trial discovery, disease research, and treatment evidence.
 2. **Pharmaceutical & Regulatory Intelligence** — Drug knowledge, mechanisms, safety information, and regulatory references.
-3. **Computational Pharmacology** — Pharmacokinetic modeling, pharmacodynamic research, and experimental patient simulations.
+3. **Computational Pharmacology** — Pharmacokinetic modeling, pharmacodynamic research, and simulations on synthetic patient records.
 
-The long-term objective is to establish an integrated scientific platform that supports evidence-based research throughout the drug development lifecycle.
+The long-term objective is to establish an integrated scientific platform for evidence-based research in drug development, with every model's checks and limits shown.
 
 ---
 
@@ -77,7 +77,7 @@ Current development areas include:
 - Source traceability.
 - Scientific evidence review.
 - Research documentation.
-- Model verification records.
+- Model check records (software tests, transcription checks and locked comparisons with outside data, failures included).
 
 Future development may expand these capabilities to support additional regulatory research and drug lifecycle workflows.
 
@@ -99,7 +99,7 @@ Developed components include:
 
 Patient Lab is intended for computational research and educational exploration.
 
-It is not currently validated for clinical treatment recommendations or patient-specific therapeutic predictions.
+It is not validated for, and not intended for, clinical treatment recommendations or patient-specific therapeutic predictions.
 
 ### 5. Simulation Lab
 
@@ -417,7 +417,7 @@ Explore additional capabilities such as:
 
 - Broader disease coverage.
 - Expanded drug knowledge.
-- Additional validated scientific models.
+- Additional scientific models, each with its checks.
 - Advanced research workspaces.
 - User account management.
 - Subscription-based platform access.
@@ -450,9 +450,11 @@ The platform's intended purpose is scientific research, evidence exploration, an
 
 The platform is not a medical device and has not been established as a clinically validated decision-support system.
 
-Computational outputs, synthetic patient simulations, pharmacokinetic estimates, and pharmacodynamic predictions are intended for research, development, and educational purposes only.
+Computational outputs, synthetic patient simulations, pharmacokinetic estimates, and pharmacodynamic model outputs are intended for research, development, and educational purposes only.
 
-They must not be used independently to diagnose medical conditions, determine treatment suitability, select medication doses, or make clinical decisions.
+They must not be used to diagnose medical conditions, determine treatment suitability, select medication doses, or make clinical decisions, alone or together with other information.
+
+Much of the extraction, the check reports and the review notes were produced with an AI assistant under the owner's direction. Where the owner has reviewed a value, the page says so. No independent review has been done.
 
 Scientific models may contain assumptions, incomplete evidence, or limitations affecting their applicability.
 

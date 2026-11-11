@@ -23,8 +23,8 @@
     <div class="wrap">
         <div class="stack">
             <p class="eyebrow">Clinical &amp; Pharmaceutical Intelligence</p>
-            <h1>Advancing Drug Research Through Intelligent Science</h1>
-            <p class="lede">Marlo Scientific connects clinical-trial evidence, drug and regulatory knowledge, and transparent pharmacology models in one research workspace, with every result traced to its source.</p>
+            <h1>Clinical-trial evidence, drug knowledge and transparent pharmacology models for research</h1>
+            <p class="lede">Marlo Scientific connects clinical-trial evidence, drug and regulatory knowledge, and transparent pharmacology models in one research workspace, with results traced to their sources.</p>
             <div class="button-row">
                 <a class="button button-aqua" href="{{ url_for('home') }}">Open the trial explorer</a>
                 <a class="button button-ghost" href="#platform">See what's inside</a>
@@ -33,7 +33,7 @@
 
         <figure class="record-card">
             <figcaption>
-                <span class="title">Every result shows what's been checked, and what hasn't.</span>
+                <span class="title">Patient Lab results show what's been checked, and what hasn't.</span>
                 <span class="sub">Example: lenalidomide elimination pathways for a synthetic patient</span>
             </figcaption>
             <div class="pills">
@@ -124,11 +124,11 @@
                 <h3>Computational pharmacology lab</h3>
                 <p>Build a synthetic patient, then run published models on that record. Results are typical values from a published model, never a prediction for a real person.</p>
                 <ul class="points">
-                    <li>Lenalidomide concentration curves from two population PK models (Hughes 2019, Kim 2026), each used only inside its <a href="{{ url_for('model_scope', model_id='lenalidomide_hughes_2019') }}">declared scope</a>. <a href="{{ url_for('landscape.lenalidomide_guide') }}">Follow lenalidomide from trials to dose</a>.</li>
+                    <li>Lenalidomide concentration curves from two population PK models (Hughes 2019, Kim 2026), each used only inside its <a href="{{ url_for('model_scope', model_id='lenalidomide_hughes_2019') }}">declared scope</a>. <a href="{{ url_for('landscape.lenalidomide_guide') }}">Follow lenalidomide through the platform, from trials to exposure at each dose level</a>.</li>
                     <li>Typical <a href="{{ url_for('landscape.ixazomib_exposure_page') }}">ixazomib exposure</a> (Gupta 2017), shown only where the model's scope allows.</li>
-                    <li>Exposure in special populations for six myeloma drugs, every value checked against its source (for example <a href="{{ url_for('landscape.special_populations', drug='lenalidomide') }}">lenalidomide</a>), and a <a href="{{ url_for('landscape.lenalidomide_dose_optimisation') }}">lenalidomide dose view</a> that ranks no dose.</li>
+                    <li>Exposure in special populations for six myeloma drugs, every value matched by script to the platform's stored extract of its source, with each extract's review status shown (for example <a href="{{ url_for('landscape.special_populations', drug='lenalidomide') }}">lenalidomide</a>), and a <a href="{{ url_for('landscape.lenalidomide_dose_optimisation') }}">lenalidomide dose view</a> that ranks no dose.</li>
                     <li>How elimination splits between kidney filtration, tubular secretion and other routes.</li>
-                    <li>Relative odds of severe low blood counts, and the bortezomib platelet course (Lignet 2022). Its exposure model disagrees with two outside studies; <a href="{{ url_for('model_scorecard', model_id='bortezomib_pk_lignet_2022') }}">see the scorecard</a>.</li>
+                    <li>Relative odds (not probabilities) of severe low blood counts, from a published analysis that could not be reproduced, and the bortezomib platelet course (Lignet 2022). Its exposure model disagrees with two outside studies; <a href="{{ url_for('model_scorecard', model_id='bortezomib_pk_lignet_2022') }}">see the scorecard</a>.</li>
                     <li>Label-based exposure curves for approved drugs, each checked against its own label and outside data before it is shown. So far: <a href="{{ url_for('landscape.label_exposure', drug='pomalidomide') }}">pomalidomide</a> and <a href="{{ url_for('landscape.label_exposure', drug='dexamethasone') }}">dexamethasone</a>.</li>
                     <li>Building blocks for target binding, protein turnover, delays and dosing schedules.</li>
                 </ul>
@@ -169,7 +169,7 @@
         </div>
         <ul class="principles">
             <li><h3>Pinned sources</h3><p>Reference data is checksum-pinned and versioned. A changed file is refused; updates are new versions.</p></li>
-            <li><h3>Four checks per model</h3><p>Code, transcription, reproduction and outside data, each reported separately.</p></li>
+            <li><h3>Four checks per model</h3><p>Each model is assessed on code, transcription, reproduction and outside data, each reported separately as done, partial or not done.</p></li>
             <li><h3>Plans fixed in advance</h3><p>Comparisons with outside data follow a plan locked before they run, and results are kept either way.</p></li>
             <li><h3>Unknown stays unknown</h3><p>No silent defaults or unit conversions. Every assumption is named with its status.</p></li>
         </ul>
@@ -183,7 +183,7 @@
             <p>The long-term aim is to follow a drug from the whole body to the organ, tissue, cell and molecular target.</p>
         </div>
         <ol class="timeline">
-            <li><span class="tag tag-experimental">Now</span><h3>Every approved drug, at an honest level</h3><p>Label-based exposure, checked before it is shown; then trial design support.</p></li>
+            <li><span class="tag tag-experimental">Now</span><h3>Label-based exposure for approved myeloma drugs</h3><p>One drug at a time, checked before it is shown (two so far).</p></li>
             <li><span class="tag tag-planned">Planned</span><h3>Multi-organ physiology</h3><p>Liver, kidney, circulation and gut compartments.</p></li>
             <li><span class="tag tag-planned">Planned</span><h3>Disease progression</h3><p>Disease states and biomarkers over time.</p></li>
             <li><span class="tag tag-planned">Planned</span><h3>Combination therapies</h3><p>Several drugs in one scenario.</p></li>
@@ -199,7 +199,7 @@
             <div class="stack">
                 <h2 id="about-heading">Built by Astrid Marin</h2>
                 <p>Marlo Scientific is designed and developed by a pharmaceutical scientist working across regulatory science, clinical pharmacology, and pharmaceutical development. Astrid holds an MSc in Pharmaceutical Sciences (Pharmaceutical Affairs) and a BS in Biomedical Sciences (Biochemistry), and is trained in ICH-GCP and clinical research coordination.</p>
-                <p>She built Marlo Scientific to help innovate and accelerate drug research and development with AI: bringing computational pharmacology and AI together with the evidence researchers already rely on, so that faster tools never lose sight of where their answers come from.</p>
+                <p>She built Marlo Scientific to bring computational pharmacology together with the evidence researchers already rely on, so that faster tools never lose sight of where their answers come from. Much of the extraction, the check reports and the review notes were produced with an AI assistant under her direction; pages say where she has reviewed a value, and no independent review has been done.</p>
                 <p>The platform reflects that background: evidence first, every value traceable to its source, and a clear line between simulation and clinical fact.</p>
                 <p class="about-links">
                     <a href="https://www.linkedin.com/in/astridcmarin/" rel="noopener">LinkedIn</a>

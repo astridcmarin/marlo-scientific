@@ -67,7 +67,7 @@
         <section aria-labelledby="sc-used">
             <h2 id="sc-used">Where the platform uses it</h2>
             <ul>{% for label, endpoint in card.used_on %}<li><a href="{{ url_for(endpoint) }}">{{ label }}</a></li>{% endfor %}</ul>
-            <p>Every result produced with this model carries a run record citing this same evidence.</p>
+            <p>Patient Lab results produced with this model carry a run record citing this same evidence; other pages link back to this scorecard.</p>
         </section>
 
         <section class="prose-note" aria-labelledby="sc-not">

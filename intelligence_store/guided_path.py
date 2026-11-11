@@ -88,7 +88,7 @@ def lenalidomide_path():
                    ('Safety', 'landscape.safety', {})]},
         {'id': 'special_populations', 'title': 'Special populations', 'question': 'How do kidney, liver, age and body size change exposure?',
          'found': '; '.join(f'{n} {k.lower()}' for k, n in kinds.items()) + '.',
-         'checked': 'Every value resolved against its pinned source before display. Sources reconciled: the label and the EMA table describe the same renal study, '
+         'checked': 'Every value matched by script to the platform\'s stored extract of its source before display (the extract\'s review status is shown on the special-populations page). Sources reconciled: the label and the EMA table describe the same renal study, '
                     'grouped by Cockcroft-Gault and by measured clearance (' + rec['items'][0]['status'].replace('_', ' ') + ').',
          'missing': 'No gaps in the five domains. Moderate and severe hepatic impairment were not studied (label), so nothing is known there; kidney function dominates the evidence.',
          'links': [('Lenalidomide in special populations', 'landscape.special_populations', {'drug': 'lenalidomide'})]},
