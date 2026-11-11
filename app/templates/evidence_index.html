@@ -1,0 +1,66 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if v %}Where this file is used{% else %}Evidence index{% endif %} | Marlo Scientific</title>
+    <link rel="icon" href="{{ url_for('landscape.static', filename='images/favicon.ico', v=2) }}" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('landscape.static', filename='images/favicon.svg', v=2) }}">
+    <link rel="apple-touch-icon" href="{{ url_for('landscape.static', filename='images/apple-touch-icon.png', v=2) }}">
+    {{ site_head_links() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <style>
+    .ei-list{margin:0 0 12px;padding-left:20px}
+    .ei-list li{margin:4px 0;overflow-wrap:anywhere}
+    .ei-meta{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+    .ei-old{color:var(--muted)}
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{{ site_header(active='models') }}
+<main id="main" class="section">
+<article class="wrap prose prose-wide">
+    <p><a href="{{ url_for('evidence_index') }}">← Evidence index</a></p>
+    <p class="prose-eyebrow">Models and evidence · evidence index</p>
+    {% macro link(node) -%}
+      {%- if node.startswith('model:') %}<a href="{{ url_for('credibility_record', model_id=node[6:]) }}">{{ node[6:] }}</a>
+      {%- elif node.startswith('code:') or node.startswith('source:') or node.startswith('dataset:') %}<span class="mono">{{ node }}</span>
+      {%- else %}<a class="mono" href="{{ url_for('evidence_index_file', file=node) }}">{{ node }}</a>{% endif -%}
+    {%- endmacro %}
+    {% if v %}
+    <h1 class="mono" style="font-size:1.3rem">{{ v.file.file }}</h1>
+    <p class="ei-meta">SHA-256 {{ v.file.sha256 }}{% if v.file.source_document %} · source: {{ v.file.source_document }}{% endif %}</p>
+    <p>Every connection below is read from a field of a pinned file, the dataset ledger, the credibility context or the code; nothing here is entered by hand. It shows where a value is used, not whether it is right.</p>
+    {% if v.findings %}<h2>Problems</h2><ul class="ei-list">{% for f in v.findings %}<li>{{ f.problem }}: {{ f.from }} → {{ f.to }} ({{ f.field }})</li>{% endfor %}</ul>{% endif %}
+    <h2>Models that depend on it</h2>
+    {% if v.depends_on_it.models %}<ul class="ei-list">{% for m in v.depends_on_it.models %}<li>{{ link('model:' ~ m) }}</li>{% endfor %}</ul>{% else %}<p>None found directly.</p>{% endif %}
+    {% if v.depends_on_it.models_through_shared_code %}<p class="ei-meta">Possibly also, through shared code one import away: {{ v.depends_on_it.models_through_shared_code|join(', ') }}.</p>{% endif %}
+    <h2>Used by</h2>
+    {% if v.used_by %}<ul class="ei-list">{% for e in v.used_by %}<li>{{ link(e['from']) }} <span class="ei-meta">({{ e.type|replace('_', ' ') }}; {{ e.field }})</span></li>{% endfor %}</ul>{% else %}<p>Nothing refers to it.</p>{% endif %}
+    <h2>It cites</h2>
+    {% set cites = v.cites %}
+    {% if cites %}<ul class="ei-list">{% for e in cites %}<li>{{ link(e.to) }} <span class="ei-meta">({{ e.field }})</span></li>{% endfor %}</ul>{% else %}<p>No other pinned file.</p>{% endif %}
+    <h2>Versions</h2>
+    <ul class="ei-list">
+      {% for e in v.superseded_by %}<li>Superseded by {{ link(e['from']) }}</li>{% endfor %}
+      {% for e in v.supersedes %}<li>Supersedes {{ link(e.to) }}</li>{% endfor %}
+      {% if not v.superseded_by and not v.supersedes %}<li>No recorded supersession.</li>{% endif %}
+    </ul>
+    <h2>Everything that depends on it</h2>
+    <ul class="ei-list">{% for f in v.depends_on_it.files %}<li class="{{ 'ei-old' if f.superseded }}">{{ link(f.file) }}{% if f.superseded %} (superseded){% endif %}</li>{% endfor %}</ul>
+    <p class="ei-meta">Code: {{ v.depends_on_it.code|join(', ') or 'none' }}</p>
+    {% else %}
+    <h1>Evidence index</h1>
+    <p>Connections between {{ s.files }} pinned files and check reports, the models and the code, computed from what the files already state ({{ s.edges }} connections). Open a file to see what it comes from, what uses it and what depends on it. It shows where a value is used, not whether it is right.</p>
+    <p><strong>{{ s.findings|length }} unresolved reference{{ '' if s.findings|length == 1 else 's' }}.</strong>{% if s.findings %} Each is listed below.{% else %} Every reference to a file in the repository resolves, with a matching SHA-256.{% endif %}</p>
+    {% for f in s.findings %}<p class="ei-meta">{{ f.problem }}: {{ f.from }} → {{ f.to }} ({{ f.field }})</p>{% endfor %}
+    <h2>Pinned files</h2>
+    <ul class="ei-list">{% for f in s.file_list %}<li>{{ link(f) }}</li>{% endfor %}</ul>
+    {% endif %}
+</article>
+</main>
+{% include "site_footer.html" %}
+</body>
+</html>

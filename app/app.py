@@ -756,6 +756,25 @@ def extraction_review_json():
                     headers={"Content-Disposition": 'attachment; filename="extraction-review.json"', "X-Content-Type-Options": "nosniff"})
 
 
+@app.route("/models/evidence")
+def evidence_index():
+    from intelligence_store.evidence_index import build
+    index = build()
+    summary = {"files": len(index["files"]), "edges": len(index["edges"]), "findings": index["findings"],
+               "file_list": sorted(index["files"])}
+    return render_template("evidence_index.html", v=None, s=summary)
+
+
+@app.route("/models/evidence/<path:file>")
+def evidence_index_file(file):
+    from intelligence_store.evidence_index import view
+    try:
+        v = view(file)
+    except KeyError:
+        abort(404)
+    return render_template("evidence_index.html", v=v, s=None)
+
+
 @app.route("/models/<model_id>/credibility")
 def credibility_record(model_id):
     from intelligence_store.credibility_records import level_label, record
