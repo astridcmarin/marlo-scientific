@@ -15,7 +15,7 @@ def fmt_value(value, display=None):
     if display == 'gm_cv' and numbers and len(value) == 2:
         return f'{value[0]:g} (CV {value[1]:g}%)'
     if display == 'bands' and isinstance(value, list):
-        tiers = {'externally_checked': 'checked against outside data', 'inside_model_data': "model's own data only",
+        tiers = {'externally_checked': 'consistent with outside data in a locked check', 'inside_model_data': "model's own data only",
                  'external_check_disagrees': 'outside check disagrees'}
         return '; '.join(f'{b["range"][0]:g}–{b["range"][1]:g}: {tiers.get(b["tier"], b["tier"])}' for b in value)
     if isinstance(value, list) and len(value) == 3 and all(isinstance(v, (int, float)) for v in value):

@@ -42,7 +42,7 @@
 {% if v.scenario %}<tr><td>{{ v.scenario.label }}</td><td>{{ fmt0|format(v.scenario_summary.cmax_ng_ml) }} ng/mL</td><td>{{ fmt1|format(v.scenario_summary.tmax_h_grid) }} h</td><td>{{ fmt0|format(v.scenario_summary.auc_inf_ng_h_ml_exact) }} ng·h/mL</td></tr>{% endif %}
 </tbody></table></div>
 <p>With a half-life of {{ fmt1|format(v.parameters.half_life_h) }} h, about {{ '%.1f'|format(100 * v.remaining_fraction_at_24_h) }}% of a dose remains after 24 hours, so once-daily doses hardly accumulate and each day looks like this curve.</p>
-<p><strong>The peak depends on the tablet.</strong> In healthy volunteers given 20 mg, two products with the same total exposure peaked at {{ fmt0|format(v.checks.outside.cpa.test.cmax.observed) }} and {{ fmt0|format(v.checks.outside.cpa.reference.cmax.observed) }} ng/mL. Read the curve's peak as approximate; total exposure is the more reliable number.</p></section>
+<p><strong>The peak depends on the tablet.</strong> In healthy volunteers given 20 mg, two products with the same total exposure peaked at {{ fmt0|format(v.checks.outside.cpa.test.cmax.observed) }} and {{ fmt0|format(v.checks.outside.cpa.reference.cmax.observed) }} ng/mL. Read the curve's peak as approximate; total exposure depends less on the tablet than the peak does.</p></section>
 
 <section class="panel"><h2>How the curve is built</h2>
 <p>One compartment with first-order absorption, typical values, apparent parameters (divided by the unknown bioavailability):</p>

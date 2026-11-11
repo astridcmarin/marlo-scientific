@@ -90,7 +90,7 @@ def lenalidomide_path():
          'found': '; '.join(f'{n} {k.lower()}' for k, n in kinds.items()) + '.',
          'checked': 'Every value matched by script to the platform\'s stored extract of its source before display (the extract\'s review status is shown on the special-populations page). Sources reconciled: the label and the EMA table describe the same renal study, '
                     'grouped by Cockcroft-Gault and by measured clearance (' + rec['items'][0]['status'].replace('_', ' ') + ').',
-         'missing': 'No gaps in the five domains. Moderate and severe hepatic impairment were not studied (label), so nothing is known there; kidney function dominates the evidence.',
+         'missing': 'Each of the five domains has at least one sourced statement. Moderate and severe hepatic impairment were not studied (label), so nothing is known there; kidney function dominates the evidence.',
          'links': [('Lenalidomide in special populations', 'landscape.special_populations', {'drug': 'lenalidomide'})]},
         _pk_step(pk, pk_review),
         {'id': 'exposure', 'title': 'Exposure models', 'question': 'What typical exposure do the models give for a synthetic record?',

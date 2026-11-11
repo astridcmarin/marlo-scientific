@@ -9,7 +9,7 @@
 <section class="panel"><h2>Model scope</h2>{{ scope_panel(scope, 'Kim 2026') }}
 {% if not scope_saved %}<p class="panel-note">This run was saved before model scopes existed (Phase 2.5b). The scope shown is evaluated now with the current scope file; the archived run is unchanged.{% if scope.status == 'out_of_scope' %} Under the current scope this record would not be calculated.{% endif %}</p>{% endif %}</section>
 <section class="panel"><h2>Kim 2026 typical-value result</h2>
-<p>Prediction type: {{ report.prediction_type }}</p>
+<p>Result type: {{ report.prediction_type|replace('_', ' ') }}</p>
 <div class="table-scroll"><table><thead><tr><th>Quantity</th><th>Value</th></tr></thead><tbody>
 <tr><td>Typical total CL/F</td><td>{{ '%.2f'|format(report.parameters.total_clearance_l_h) }} L/h (unbound {{ '%.2f'|format(report.parameters.unbound_clearance_l_h) }} L/h, Fu {{ report.parameters.fraction_unbound }})</td></tr>
 <tr><td>AUC over horizon (total)</td><td>{{ '%.1f'|format(report.exposure.total_auc_0_horizon_ng_h_ml) }} ng·h/mL</td></tr>

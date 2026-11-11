@@ -70,7 +70,7 @@ BANDS = [
 ]
 STATUS_TEXT = {
     'calibrated': 'Calibrated: the model was fitted to the normal-function group.',
-    'checked_consistent': 'Checked: consistent with the observed group in every scenario of the locked check.',
+    'checked_consistent': 'Consistent with the observed group in every scenario of the locked check.',
     'consistent_primary_only': 'Consistent with the observed group in the primary scenario only; not in every scenario of the locked check.',
     'check_disagrees': ('Source study disagrees: in this band of CC-5013-PK-001 (the study the model was calibrated on, whose '
                         'impaired groups were not used for fitting) the model predicts less exposure than observed.'),

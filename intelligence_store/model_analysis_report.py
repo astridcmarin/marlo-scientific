@@ -23,13 +23,14 @@ TEXTS = {
                                          '65c9c7f918cfe1a8666620875e6bdeb2761e9374f0cbb7c1e33fa9d67b85a324'),
     'lenalidomide_hughes_2019': ('model_analysis_report_text_lenalidomide_hughes_2019_v2.json',
                                  '1ca9bd802c28f3a3e9e3687222c90bba12d923a3f9992516e98d99a9ab7faba0'),
-    'lenalidomide_exposure_safety_2016': ('model_analysis_report_text_lenalidomide_exposure_safety_2016_v1.json',
-                                          '42b9544f80580534f267b48f4fc6893bbf1c146c42ed09a589b2e8d5187040f9'),
+    'lenalidomide_exposure_safety_2016': ('model_analysis_report_text_lenalidomide_exposure_safety_2016_v2.json',
+                                          'faa587574a7fcd6309d7d8915453d41be0a41fa036daf699b9f12d33f9ce2a59'),
     'lenalidomide_kim_2026': ('model_analysis_report_text_lenalidomide_kim_2026_v2.json',
                               'b101d24ce78ea8fa1a52bf9a492ac884474d4d513c327f06cd2b3c24d816402d'),
 }
 # Superseded narrative texts, kept unchanged and pinned for traceability (file name -> SHA-256).
 SUPERSEDED_TEXTS = {
+    'model_analysis_report_text_lenalidomide_exposure_safety_2016_v1.json': '42b9544f80580534f267b48f4fc6893bbf1c146c42ed09a589b2e8d5187040f9',
     'model_analysis_report_text_lenalidomide_kim_2026_v1.json': '691ddbddf03d4e47b83a036202fcc8c7491a18d88ec1e9e0d4c66d1fa5d62f69',
     'model_analysis_report_text_lenalidomide_hughes_2019_v1.json': '30bc917397eb3e949067af584a1ce5394a8d16de656c8a9da848be159822e53a',
 }

@@ -110,7 +110,7 @@ class Summaries(unittest.TestCase):
         files = {s['ref']: s['file'] for s in view['sources']}
         self.assertTrue(files['renal'].endswith('renal_pk_group_evidence_v2.json'))
         self.assertTrue(files['hughes_scope'].endswith('lenalidomide_hughes_scope_v2.json'))
-        self.assertTrue(files['kim_scope'].endswith('lenalidomide_kim_scope_v4.json'))
+        self.assertTrue(files['kim_scope'].endswith('lenalidomide_kim_scope_v5.json'))
         kim_bands = next(st for st in kidney if st['source']['ref'] == 'kim_scope')['value']
         self.assertEqual([b['tier'] for b in kim_bands], ['externally_checked', 'external_check_disagrees', 'external_check_disagrees'])
         self.assertIn('7236f8899c71ff7268db5edffe062dd7a3aa49a0499f3436767f10dcca2e84b3', sp.SUPERSEDED.values())
@@ -133,7 +133,7 @@ class Page(unittest.TestCase):
         self.assertEqual(fmt_value([11121, 2133], 'mean_sd'), '11121 (SD 2133)')
         self.assertEqual(fmt_value([182, 43.8], 'gm_cv'), '182 (CV 43.8%)')
         self.assertEqual(fmt_value([30, 297]), '30–297')
-        self.assertEqual(fmt_value([{'range': [50, 211], 'tier': 'externally_checked'}], 'bands'), '50–211: checked against outside data')
+        self.assertEqual(fmt_value([{'range': [50, 211], 'tier': 'externally_checked'}], 'bands'), '50–211: consistent with outside data in a locked check')
         for drug in sp.available():
             r = self.client.get(f'/landscape/drugs/{drug}/special-populations')
             self.assertEqual(r.status_code, 200)

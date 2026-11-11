@@ -9,6 +9,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [Status by drug](STATUS_BY_DRUG.md): for each drug, in plain language, what the platform has, what was checked, what is known to be wrong and what is missing.
 - [Repository checkpoint](REPOSITORY_CHECKPOINT.md): the latest software verification (10 November 2026, end of batch 4, after the AI review; tests in CI), findings and remaining gates. [Record](verification/repository_checkpoint_2026-11-10.json); earlier checkpoints in [history](history/).
 - [AI review of the lenalidomide work](reviews/2026-11_fable_review.md) (10 November 2026): 29 findings and how each was handled. Not an independent review.
+- [AI audit of user-facing wording](reviews/2026-11_overclaiming_audit.md) (10 November 2026): 33 places where wording outran the evidence, and how each was fixed. Not an independent review.
 - Conventions for working in the repository: `CLAUDE.md` at the root.
 
 ## How far can the results be trusted?
