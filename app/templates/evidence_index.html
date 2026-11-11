@@ -32,6 +32,14 @@
     {% if v %}
     <h1 class="mono" style="font-size:1.3rem">{{ v.file.file }}</h1>
     <p class="ei-meta">SHA-256 {{ v.file.sha256 }}{% if v.file.source_document %} · source: {{ v.file.source_document }}{% endif %}</p>
+    {% if state %}
+    <h2>Evidence state: {{ state.label }}</h2>
+    <p>{{ state.owner_review }}</p>
+    <p class="ei-meta">States: extracted, reviewed by the owner, agreed by two extractions (sampled). AI reviews are not review records and do not change the state.</p>
+    {% if state.models_checked_against_outside_data or state.models_not_checked %}
+    <p>Separately, about the models (not the value): {% if state.models_checked_against_outside_data %}checked against outside data in a locked check: {{ state.models_checked_against_outside_data|join(', ') }}{% endif %}{% if state.models_checked_against_outside_data and state.models_not_checked %}; {% endif %}{% if state.models_not_checked %}no such check: {{ state.models_not_checked|join(', ') }}{% endif %}. A correct value does not make a model valid.</p>
+    {% endif %}
+    {% else %}<p class="ei-meta">Not in a review queue, so no evidence state is recorded for it.</p>{% endif %}
     <p>Every connection below is read from a field of a pinned file, the dataset ledger, the credibility context or the code; nothing here is entered by hand. It shows where a value is used, not whether it is right.</p>
     {% if v.findings %}<h2>Problems</h2><ul class="ei-list">{% for f in v.findings %}<li>{{ f.problem }}: {{ f.from }} → {{ f.to }} ({{ f.field }})</li>{% endfor %}</ul>{% endif %}
     <h2>Models that depend on it</h2>

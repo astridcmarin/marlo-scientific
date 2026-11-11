@@ -768,11 +768,12 @@ def evidence_index():
 @app.route("/models/evidence/<path:file>")
 def evidence_index_file(file):
     from intelligence_store.evidence_index import view
+    from intelligence_store.evidence_states import state_of
     try:
         v = view(file)
     except KeyError:
         abort(404)
-    return render_template("evidence_index.html", v=v, s=None)
+    return render_template("evidence_index.html", v=v, s=None, state=state_of(file))
 
 
 @app.route("/models/<model_id>/credibility")
