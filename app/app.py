@@ -756,6 +756,12 @@ def extraction_review_json():
                     headers={"Content-Disposition": 'attachment; filename="extraction-review.json"', "X-Content-Type-Options": "nosniff"})
 
 
+@app.route("/models/sex-evidence")
+def sex_evidence():
+    from intelligence_store.sex_evidence_map import build
+    return render_template("sex_evidence.html", m=build())
+
+
 @app.route("/models/evidence")
 def evidence_index():
     from intelligence_store.evidence_index import build

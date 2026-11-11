@@ -1,5 +1,7 @@
 # Evidence connections: plan with acceptance criteria (11 November 2026)
 
+**Status:** updates 1-4 done in batch 6 (11 November). The evidence index is at `/models/evidence`, the sex-evidence map at `/models/sex-evidence`. Two acceptance points narrowed in the doing: evidence states are shown on the evidence page (the extract panels already show the owner-review text that sets them), and enrolment by sex is shown as not available, since it needs ClinicalTrials.gov posted results the platform has not retrieved.
+
 Draws on an outside review (ChatGPT, 11 November 2026) of the repository, keeping only what Marlo does not already do. Already in place, and not repeated here: per-value provenance in pinned files (quote, location, SHA-256), owner-review status, the dataset ledger and locked checks, supplied/derived/estimated/assumed labels in Patient Lab, scope files and credibility records, and the standing rules in `CLAUDE.md`.
 
 **Not in this plan, on purpose:** a new database or graph database, a common class rewritten across models, a full canonical data model with external identifiers, an in-product AI assistant, and SBML/PharmML/FHIR export. Each is reconsidered when a page or a user needs it.
