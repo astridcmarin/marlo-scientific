@@ -5,7 +5,7 @@
 {% block content %}
 <h1>Bortezomib and platelets for this synthetic patient</h1>
 <p><a href="{{ url_for('landscape.patient_state_detail',scenario_id=scenario.id,revision_id=revision.id) }}">Back to patient-state record #{{ revision.id }}</a> · <a href="{{ url_for('landscape.bortezomib_platelets') }}">How the model works</a></p>
-{% call simulation_banner(result_type) %}<p>If this synthetic patient received bortezomib 1.3 mg/m² on days 1, 4, 8 and 11 of 21-day cycles, this is the <em>typical</em> platelet course a published model (Lignet et al. 2022) gives for their starting count. Real patients vary widely around it and usually dip further.</p>{% endcall %}
+{% call simulation_banner(result_type) %}<p>For a record with this starting count, this is the <em>typical</em> platelet course a published model (Lignet et al. 2022) gives on the studied regimen, bortezomib 1.3 mg/m² on days 1, 4, 8 and 11 of 21-day cycles. Real patients vary widely around it and usually dip further.</p>{% endcall %}
 {% if view.status == 'outside_model_scope' %}
 <section class="panel"><h2>Outside the model's scope</h2><p role="alert">{{ view.message }}</p>
 <p>Baseline platelet count {{ '%g'|format(view.baseline_1e9_per_l) }} ×10⁹/L.</p>

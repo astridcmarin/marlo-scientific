@@ -22,10 +22,11 @@ from .run_record import EVIDENCE_PATH, EVIDENCE_SHA256, LAYER_ORDER, load_eviden
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = Path(__file__).parent / 'data'
-CONTEXT_PATH = DATA / 'model_credibility_context_v4.json'
-CONTEXT_SHA256 = 'fb6b62b3e5da2a9cc4c98e14b83e419c40e54f3d7f328c4f9ef94b85d6de81b9'
-# Superseded, kept unchanged for traceability: model_credibility_context_v3.json (Hughes limitations from October)
+CONTEXT_PATH = DATA / 'model_credibility_context_v5.json'
+CONTEXT_SHA256 = '6116cdbb495386521eca87e974b5305ec0c43a7f182a8d350b956c6e92f89636'
+# Superseded, kept unchanged for traceability: v3 (Hughes limitations from October), v4 (ratings not marked as a self-assessment)
 CONTEXT_V3_SHA256 = 'fa6244006ac68e9186d94209cb1191a09677c9fc8a98189e836d6fb15466fb67'
+CONTEXT_V4_SHA256 = 'fb6b62b3e5da2a9cc4c98e14b83e419c40e54f3d7f328c4f9ef94b85d6de81b9'
 # Superseded, kept unchanged for traceability: model_credibility_context_v2.json (stale pathway and bortezomib text)
 CONTEXT_V2_SHA256 = 'c7a37dd2be6ff72939cd3444a7c3e64be5c5a24666b9329d9091ccc533d0dbc4'
 # Superseded, kept unchanged for traceability: model_credibility_context_v1.json

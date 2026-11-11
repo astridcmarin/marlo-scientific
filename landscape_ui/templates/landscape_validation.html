@@ -1,8 +1,8 @@
 {% extends "landscape_base.html" %}
-{% block title %}Platform validation · Workspace{% endblock %}
+{% block title %}Integrity checks · Workspace{% endblock %}
 {% block content %}
 <p><a href="{{ url_for('landscape.workspace') }}">&#8592; Workspace</a></p>
-<div class="heading-row"><div><p class="eyebrow">Local checks · Evidence foundation</p><h1>Validation dashboard</h1><p class="intro">Inspect catalogs, cohort consistency and saved research integrity without changing data.</p></div></div>
+<div class="heading-row"><div><p class="eyebrow">Local checks · Evidence foundation</p><h1>Integrity checks</h1><p class="intro">Inspect catalogs, cohort consistency and saved research integrity without changing data. These are software and data-integrity checks, not model validation.</p></div></div>
 <section class="scope-note"><p>{{ limitation }}</p></section>
 <form class="analysis-picker" method="get" action="{{ url_for('landscape.validation_dashboard') }}"><label for="validation-cohort">Complete cohort</label><select id="validation-cohort" name="cohort_id" required>{% for cohort in cohorts %}<option value="{{ cohort.id }}" {% if cohort_id==cohort.id %}selected{% endif %}>#{{ cohort.id }} · {{ cohort.condition }} · {{ cohort.scope }}</option>{% endfor %}</select>{% if cohorts %}<button class="button primary" type="submit">Run local checks</button>{% endif %}</form>
 {% if report %}

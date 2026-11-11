@@ -71,6 +71,9 @@ class ContextV4(unittest.TestCase):
         self.assertFalse(any('not retrieved' in item or 'set to zero' in item for item in status['limitations']))
         self.assertEqual(status['replaces_for_display']['sha256'],
                          hashlib.sha256((cr.DATA / 'hughes_parameter_extract_v1.json').read_bytes()).hexdigest())
+        v4 = cr.CONTEXT_PATH.with_name('model_credibility_context_v4.json')
+        self.assertEqual(hashlib.sha256(v4.read_bytes()).hexdigest(), cr.CONTEXT_V4_SHA256)
+        self.assertIn('self-assessment', cr.load_context()['framework']['note'])
         es = cr.load_context()['models']['lenalidomide_exposure_safety_2016']
         self.assertEqual(es['depends_on_models'], ['lenalidomide_hughes_2019', 'lenalidomide_kim_2026'])
 

@@ -26,13 +26,13 @@
 <article class="wrap prose prose-wide">
     <p class="cr-noprint"><a href="{{ url_for('credibility_records') }}">← All credibility records</a>{% if has_scorecard %} · <a href="{{ url_for('model_scorecard', model_id=rec.model_id) }}">Model scorecard</a>{% endif %} · <a href="{{ url_for('credibility_record_json', model_id=rec.model_id) }}">Download JSON</a> · <a href="javascript:window.print()">Print</a>{% if has_scope %} · <a href="{{ url_for('model_scope', model_id=rec.model_id) }}">Platform scope</a>{% endif %}{% if has_report %} · <a href="{{ url_for('model_analysis_report', model_id=rec.model_id) }}">Model analysis report</a>{% endif %}</p>
     <header class="stack" style="gap:10px">
-        <p class="prose-eyebrow" style="margin-bottom:0">Credibility record · ICH M15 structure</p>
+        <p class="prose-eyebrow" style="margin-bottom:0">Credibility record · headings borrowed from ICH M15; not a regulatory document</p>
         <h1>{{ rec.name }}</h1>
         {% if rec.citation %}<p>Source: {{ rec.citation }}{% if rec.doi %} · <a href="https://doi.org/{{ rec.doi }}" rel="noopener">doi:{{ rec.doi }}</a>{% endif %}</p>{% endif %}
-        <p class="prose-lede">{{ rec.framework.note }}</p>
+        <p class="prose-lede"><strong>Self-assessment by the platform, drafted with an AI assistant and not independently reviewed. Not a regulatory assessment.</strong> {{ rec.framework.note }}</p>
     </header>
 
-    <section aria-labelledby="cr-assess"><h2 id="cr-assess">MIDD evidence assessment</h2>
+    <section aria-labelledby="cr-assess"><h2 id="cr-assess">Evidence assessment (the platform's own ratings)</h2>
     <table class="cr-table"><tbody>
         <tr><th scope="row">Question of interest</th><td>{{ rec.assessment.question_of_interest }}</td></tr>
         <tr><th scope="row">Context of use</th><td>{{ rec.assessment.context_of_use.role }}<br><strong>Outputs:</strong> {{ rec.assessment.context_of_use.outputs|join('; ') }}<br><strong>Users:</strong> {{ rec.assessment.context_of_use.users|join(', ') }}<br><strong>Excluded uses:</strong> {{ rec.assessment.context_of_use.excluded_uses|join(' ') }}</td></tr>
