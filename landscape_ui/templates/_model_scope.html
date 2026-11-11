@@ -1,6 +1,6 @@
 {# Phase 2.5b: shared model-scope display. `s` has status, weakest_rule_tier, flags, rules and observed. #}
 {% macro scope_panel(s, model_label) %}
-{% set tiers = {'externally_checked': 'checked against outside data', 'inside_model_data': "inside the model's own data only", 'external_check_disagrees': 'outside check disagrees'} %}
+{% set tiers = {'externally_checked': 'consistent with outside data in a locked check', 'inside_model_data': "inside the model's own data only", 'external_check_disagrees': 'outside check disagrees'} %}
 <div class="cap-level" role="note">
 <p><strong>{{ model_label }} scope:</strong>
 {% if s.status == 'in_scope' %}inside the model's scope · weakest evidence: <strong>{{ tiers[s.weakest_rule_tier] }}</strong>

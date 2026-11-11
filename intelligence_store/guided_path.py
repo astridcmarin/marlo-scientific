@@ -88,12 +88,12 @@ def lenalidomide_path():
                    ('Safety', 'landscape.safety', {})]},
         {'id': 'special_populations', 'title': 'Special populations', 'question': 'How do kidney, liver, age and body size change exposure?',
          'found': '; '.join(f'{n} {k.lower()}' for k, n in kinds.items()) + '.',
-         'checked': 'Every value resolved against its pinned source before display. Sources reconciled: the label and the EMA table describe the same renal study, '
+         'checked': 'Every value matched by script to the platform\'s stored extract of its source before display (the extract\'s review status is shown on the special-populations page). Sources reconciled: the label and the EMA table describe the same renal study, '
                     'grouped by Cockcroft-Gault and by measured clearance (' + rec['items'][0]['status'].replace('_', ' ') + ').',
-         'missing': 'No gaps in the five domains. Moderate and severe hepatic impairment were not studied (label), so nothing is known there; kidney function dominates the evidence.',
+         'missing': 'Each of the five domains has at least one sourced statement. Moderate and severe hepatic impairment were not studied (label), so nothing is known there; kidney function dominates the evidence.',
          'links': [('Lenalidomide in special populations', 'landscape.special_populations', {'drug': 'lenalidomide'})]},
         _pk_step(pk, pk_review),
-        {'id': 'exposure', 'title': 'Exposure models', 'question': 'What exposure would a synthetic patient have?',
+        {'id': 'exposure', 'title': 'Exposure models', 'question': 'What typical exposure do the models give for a synthetic record?',
          'found': 'Two population PK models (Hughes 2019, Kim 2026), an elimination-pathway model, and an exposure-safety relationship, run on synthetic records in the Patient Lab, inside each model\'s scope.',
          'checked': 'See each model below. Both PK models were compared with the dedicated renal study, rechecked with virtual subjects matched to that study, and checked against myeloma patients under a prespecified plan (Bridoux 2016; recorded deviation, outcome largely known from the abstract): Hughes under-predicts exposure in moderate and severe impairment, Kim in severe; for Kim in moderate the checks disagree.',
          'missing': 'No model is validated for clinical prediction. Below 36 mL/min (Hughes) or outside eGFR 11.1-94.7 (Kim) the platform refuses to compute.',

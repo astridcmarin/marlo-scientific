@@ -53,7 +53,7 @@ def build_drug_knowledge(summary):
             'annotation_catalog_version':annotations['catalog_version'], 'annotation_catalog_sha256':annotations['sha256'],
             'safety_catalog_version':safety['catalog_version'], 'safety_catalog_sha256':safety['sha256'],
             'interaction_catalog_version':interaction_catalog['catalog_version'], 'interaction_catalog_sha256':interaction_catalog['sha256']},
-        'view_scope':'Frozen cohort evidence combined with the currently installed validated catalogs. This view is not saved automatically; existing saved scenarios and briefs are not changed.',
+        'view_scope':'Frozen cohort evidence combined with the currently installed catalogs (schema- and checksum-checked). This view is not saved automatically; existing saved scenarios and briefs are not changed.',
         'limitation':LIMITATION}
     result['report_sha256'] = digest(result)
     return result

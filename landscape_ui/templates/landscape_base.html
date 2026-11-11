@@ -37,6 +37,7 @@
       {%- set sites_active = E in ['landscape.sites', 'landscape.site_evidence'] %}
       {%- set guide_active = E == 'landscape.lenalidomide_guide' %}
       {%- set dose_active = E == 'landscape.lenalidomide_dose_optimisation' %}
+      {%- set model_output_active = dose_active or guide_active or E in ['landscape.special_populations', 'landscape.ixazomib_exposure_page'] or E.startswith('landscape.label_exposure') %}
       {%- set drug_active = E in ['landscape.drug_knowledge', 'landscape.drug_knowledge_detail', 'landscape.special_populations', 'landscape.mechanisms'] %}
       {%- set safety_active = E in ['landscape.safety', 'landscape.safety_evidence'] %}
       {%- set interaction_active = E in ['landscape.interactions', 'landscape.interaction_evidence'] %}
@@ -65,7 +66,7 @@
           ('Published renal PK evidence', url_for('landscape.renal_pk_evidence'), renal_evidence_active, '▦'),
           ('Credibility records', site_credibility_url, False, '▦'),
           ('Extraction review', site_extraction_review_url, False, '▦'),
-          ('Validation', url_for('landscape.validation_dashboard'), validation_active, '✓')]),
+          ('Integrity checks', url_for('landscape.validation_dashboard'), validation_active, '✓')]),
         ('Patient Lab', [
           ('Synthetic patients', url_for('landscape.patient_directory', cohort_id=nav_cohort), patient_active, '◈'),
           ('Body map explorer', url_for('landscape.body_map_explorer'), body_map_active, '◉')]),
@@ -88,7 +89,7 @@
   <div class="workspace">
     <header class="topbar"><span>Marlo Scientific · {{ ns.section|safe }}</span><span class="version-tag">{{ ns.page }}</span></header>
     <main id="main-content">{% if experiments_active and request.endpoint != 'landscape.simulation_lab' %}<p><a href="{{ url_for('landscape.simulation_lab') }}">← All Simulation Lab experiments</a></p>{% endif %}{% block content %}{% endblock %}</main>
-    <footer class="page-footer">{% if experiments_active %}Hypothetical educational models · No validated patient predictions{% elif patient_active or models_active or body_map_active %}Research and educational models · Not validated for clinical prediction{% else %}ClinicalTrials.gov registry data · Descriptive research intelligence{% endif %}{% if site_intended_use_url %} · <a href="{{ site_intended_use_url }}">Intended use</a>{% endif %}</footer>
+    <footer class="page-footer">{% if experiments_active %}Hypothetical educational models · No validated patient predictions{% elif patient_active or models_active or body_map_active or model_output_active %}Research and educational models · Not validated for clinical prediction{% else %}ClinicalTrials.gov registry data · Descriptive research intelligence{% endif %}{% if site_intended_use_url %} · <a href="{{ site_intended_use_url }}">Intended use</a>{% endif %}</footer>
   </div>
   {% block scripts %}{% endblock %}
 </body>

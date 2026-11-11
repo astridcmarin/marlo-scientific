@@ -5,7 +5,7 @@
 <p><a href="{{ url_for('landscape.drug_capability_library', q=v.label) }}">&#8592; Drug and model library</a></p>
 <p class="eyebrow">Capability level · Label-based exposure</p>
 <h1>{{ v.label }}: typical exposure after one dose, from the product label</h1>
-<p><a href="/models/{{ request.view_args.drug }}_label_exposure/credibility">Credibility record (ICH M15 structure)</a></p>
+<p><a href="/models/{{ request.view_args.drug }}_label_exposure/credibility">Credibility record</a></p>
 <section class="scenario-notice"><strong>Typical value from the label — not a population model, not a prediction for any patient</strong>
 <p>This curve is built from the numbers in the HEMADY (dexamethasone 20 mg tablets) prescribing information. The label reports them for a single dose “in subjects” and does not say whether those subjects had multiple myeloma. There is no variability around the curve (the label reports 31% variation in exposure), and it gives no dosing guidance.</p>
 <p><strong>In patients with myeloma, measured exposure was higher.</strong> In 6 Japanese patients given 40 mg, the average exposure was about {{ fmt1|format(1 / v.checks.outside.primary.ratio_model_to_observed) }} times this curve and their clearance was {{ fmt1|format(v.checks.outside.mm017_cl_f_l_h) }} L/h against the label's {{ fmt1|format(v.parameters.cl_f_l_h) }} L/h. Six patients cannot settle the difference, but read the curve as a lower-side typical value for patients.</p>
@@ -42,7 +42,7 @@
 {% if v.scenario %}<tr><td>{{ v.scenario.label }}</td><td>{{ fmt0|format(v.scenario_summary.cmax_ng_ml) }} ng/mL</td><td>{{ fmt1|format(v.scenario_summary.tmax_h_grid) }} h</td><td>{{ fmt0|format(v.scenario_summary.auc_inf_ng_h_ml_exact) }} ng·h/mL</td></tr>{% endif %}
 </tbody></table></div>
 <p>With a half-life of {{ fmt1|format(v.parameters.half_life_h) }} h, about {{ '%.1f'|format(100 * v.remaining_fraction_at_24_h) }}% of a dose remains after 24 hours, so once-daily doses hardly accumulate and each day looks like this curve.</p>
-<p><strong>The peak depends on the tablet.</strong> In healthy volunteers given 20 mg, two products with the same total exposure peaked at {{ fmt0|format(v.checks.outside.cpa.test.cmax.observed) }} and {{ fmt0|format(v.checks.outside.cpa.reference.cmax.observed) }} ng/mL. Read the curve's peak as approximate; total exposure is the more reliable number.</p></section>
+<p><strong>The peak depends on the tablet.</strong> In healthy volunteers given 20 mg, two products with the same total exposure peaked at {{ fmt0|format(v.checks.outside.cpa.test.cmax.observed) }} and {{ fmt0|format(v.checks.outside.cpa.reference.cmax.observed) }} ng/mL. Read the curve's peak as approximate; total exposure depends less on the tablet than the peak does.</p></section>
 
 <section class="panel"><h2>How the curve is built</h2>
 <p>One compartment with first-order absorption, typical values, apparent parameters (divided by the unknown bioavailability):</p>

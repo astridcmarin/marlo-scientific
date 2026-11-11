@@ -1,4 +1,5 @@
-"""Does each kidney band's label dose bring exposure back to the reference? (Reviewer's checklist R9, 5 November 2026.)
+"""Label kidney doses beside reported exposure, from three sources (reviewer's checklist R9, 5 November 2026). Not a judgement
+of the label's doses.
 
 Descriptive only. Three pinned sources answer it in different ways, and none is a new model run:
 - Bridoux 2016: myeloma patients already on reduced doses, day 5 AUC24 by group (observed; reference: normal function,

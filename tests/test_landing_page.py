@@ -36,7 +36,7 @@ class LandingPageTests(unittest.TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         page = response.get_data(as_text=True)
-        for text in ('Advancing Drug Research Through Intelligent Science', 'Not a clinical prediction',
+        for text in ('transparent pharmacology models for research', 'Not a clinical prediction',
                      'Simulated results are not clinical predictions', 'Patient records are synthetic',
                      'href="/trials"', 'href="/landscape/"', 'href="/landscape/patient-lab/workspace"',
                      'https://github.com/astridcmarin/marlo-scientific', 'landing.css'):
@@ -95,7 +95,7 @@ class LandingPageTests(unittest.TestCase):
         page = self.client.get('/').get_data(as_text=True)
         for text in ('Built by Astrid Marin', 'MSc in Pharmaceutical Sciences (Pharmaceutical Affairs)',
                      'ICH-GCP', 'https://www.linkedin.com/in/astridcmarin/', 'https://github.com/astridcmarin',
-                     'accelerate drug research and development with AI', 'images/astrid-marin.jpg', 'alt="Astrid Marin"',
+                     'produced with an AI assistant under her direction', 'images/astrid-marin.jpg', 'alt="Astrid Marin"',
                      'href="/#about">About</a>'):
             self.assertIn(text, page)
         self.assertNotIn('mailto:', page)

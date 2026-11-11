@@ -12,7 +12,7 @@ from werkzeug.routing import BuildError
 NAMED_PAGES = {
     'lenalidomide': [
         ('guide', 'Guided path', 'landscape.lenalidomide_guide', {}, 'From the label to the models and their checks, step by step.'),
-        ('guide', 'Dose view', 'landscape.lenalidomide_dose_optimisation', {}, 'Label dose steps beside typical exposure from the checked models.'),
+        ('guide', 'Dose view', 'landscape.lenalidomide_dose_optimisation', {}, 'Label dose steps beside typical exposure from the two population models, with their check results.'),
         ('tools', 'Body map explorer', 'landscape.body_map_explorer', {}, 'Where the drug leaves the body at a chosen kidney function, in 3D, beside what the renal-impairment study observed.'),
         ('evidence', 'Published renal PK evidence', 'landscape.renal_pk_evidence', {}, 'Observed group values from the renal-impairment study.'),
         ('evidence', 'Mechanism evidence', 'landscape.mechanism_map_demo', {}, 'Qualitative mechanism map with its sources.'),

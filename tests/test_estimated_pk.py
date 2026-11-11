@@ -290,7 +290,7 @@ class EstimatedPKTests(unittest.TestCase):
     def test_page_shows_model_scope(self):
         # Phase 2.5b: in scope, flagged (Hughes moderate band), and refused below the model's data.
         revision = None
-        for scr, expected, name in ((80, 'checked against outside data', 'in'), (115, 'outside check disagrees', 'flag'),
+        for scr, expected, name in ((80, 'consistent with outside data in a locked check', 'in'), (115, 'outside check disagrees', 'flag'),
                                     (180, 'outside the model', 'out')):
             revision = save_revision(self.scenario.id, full_state(serum_creatinine=scr), title=f'Scope {scr}',
                                      parent_revision_id=revision.id if revision else None)
@@ -330,7 +330,7 @@ class EstimatedPKTests(unittest.TestCase):
         revision = self.revision()
         text = self.client.post(self.page(revision), data=self.form(revision)).get_data(as_text=True)
         self.assertIn('Educational calculation completed', text)
-        self.assertIn('typical_value_for_declared_covariates', text)
+        self.assertIn('Result type: typical value for declared covariates', text)
         text = self.client.post(self.page(revision), data=self.form(revision, 'compare')).get_data(as_text=True)
         self.assertIn('Weight-basis comparison', text)
         self.assertIn('Central concentration by weight basis', text)

@@ -71,7 +71,7 @@ class Page(unittest.TestCase):
         register_landscape(app)
         client = app.test_client()
         html = client.get('/landscape/drugs/lenalidomide/special-populations').get_data(as_text=True)
-        for text in ('does the reduced dose bring exposure back to the reference', '1.03', '1.33', '1.04</strong> (0.84–1.29)', '(0.87–1.22, derived)',
+        for text in ('not a judgement of the label', 'The platform sets no threshold and proposes no dose', '1.03', '1.33', '1.04</strong> (0.84–1.29)', '(0.87–1.22, derived)',
                      'sets no threshold', 'first dose reduction was at 50 mL/min'):
             self.assertIn(text, html)
         self.assertNotIn('sp-renal-dose-exposure', client.get('/landscape/drugs/ixazomib/special-populations').get_data(as_text=True))

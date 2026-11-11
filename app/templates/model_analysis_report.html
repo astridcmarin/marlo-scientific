@@ -27,7 +27,7 @@
 <article class="wrap prose prose-wide">
     <p class="mar-noprint"><a href="{{ url_for('credibility_record', model_id=r.model_id) }}">Credibility record</a> · <a href="{{ url_for('model_scorecard', model_id=r.model_id) }}">Model scorecard</a> · <a href="{{ url_for('check_findings') }}">What the checks found</a> · <a href="?format=json">Download JSON</a> · <a href="javascript:window.print()">Print</a></p>
     <header class="stack" style="gap:10px">
-        <p class="prose-eyebrow" style="margin-bottom:0">Model analysis report · ICH M15 Appendix 2 structure</p>
+        <p class="prose-eyebrow" style="margin-bottom:0">Model analysis report · headings borrowed from ICH M15 Appendix 2; not a regulatory document</p>
         <h1>{{ r.name }}</h1>
         <p class="mar-note">{{ r.not_this }} Structure: {{ r.structure }}</p>
     </header>

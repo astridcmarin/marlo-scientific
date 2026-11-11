@@ -16,7 +16,9 @@ from .patient_state import digest
 from .patient_state_revisions import read_revision
 
 SCHEMA_VERSION = 'patient-renal-pathways-view-v1'
-METHOD_VERSION = 'patient-renal-pathways-v1.1'
+METHOD_VERSION = 'patient-renal-pathways-v1.2'
+# v1.2 (10 November 2026, AI overclaiming audit E04): the moderate and severe notes follow the 2.0e re-check (both depend on
+# how much of the dose is absorbed; "faster than proportional" is not established). No calculation changes.
 READING = 'A_intact_nephron'
 CALIBRATION_CRCL = 110.0
 FU = 0.77
@@ -24,7 +26,9 @@ RANGE = (10.0, 140.0)
 READING_NOTE = ('Simulation 2.0a: keeping secretion constant was rejected (about 2-fold under-prediction in moderate and '
                 'severe impairment). Scaling secretion with creatinine clearance fitted mild and severe impairment but '
                 'under-predicted exposure in moderate impairment and over-predicted its urine fraction (67% vs 42% '
-                'observed), so renal elimination appears to fall faster than this reading assumes.')
+                'observed) at full absorption. The Simulation 2.0e re-check found this depends on how much of the dose is absorbed, '
+                'which was not measured: at 90% the moderate group is consistent. Whether renal elimination falls faster than '
+                'kidney function is not established.')
 
 
 def patient_renal_pathways(revision_id, weight_basis=None):
@@ -55,10 +59,13 @@ def patient_renal_pathways(revision_id, weight_basis=None):
         warnings.append(f'Estimated creatinine clearance {crcl:.0f} mL/min is outside the range the pathway check covered '
                         f'(about {RANGE[0]:g}-{RANGE[1]:g} mL/min); the split is an extrapolation.')
     if 30.0 <= crcl < 50.0:
-        warnings.append('In moderate impairment (30-50 mL/min) the check found renal elimination lower than this reading '
-                        'predicts: the true renal share is probably smaller and exposure higher than shown.')
+        warnings.append('In moderate impairment (30-50 mL/min) the comparison depends on how much of the dose is absorbed, '
+                        'which was not measured: at full absorption the check found exposure higher than this reading gives, '
+                        'at 90% absorption it was consistent (Simulation 2.0e). Whether renal elimination falls faster than '
+                        'kidney function is not established.')
     if 10.0 <= crcl < 30.0:
-        warnings.append('Severe impairment: the reading was consistent with the severe group mean, but that group had only 6 subjects.')
+        warnings.append('Severe impairment: the reading was consistent with the severe group mean at full absorption and fitted worse '
+                        'at 90% absorption (Simulation 2.0e); that group had only 6 subjects.')
     if crcl < 10.0:
         warnings.append('End-stage range: in Simulation 2.0c, exposure in end-stage kidney disease matched this model only if some residual '
                         'kidney function remained (about 5-10 mL/min); with none, the model over-predicted exposure by about 1.3-fold. '

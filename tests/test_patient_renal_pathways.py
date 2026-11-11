@@ -41,10 +41,11 @@ class PatientPathways(unittest.TestCase):
         self.assertGreater(b['shares']['non_renal'], a['shares']['non_renal'])
         self.assertGreater(b['relative_exposure_same_dose'], a['relative_exposure_same_dose'])
 
-    def test_moderate_range_warns_that_renal_elimination_is_probably_lower(self):
+    def test_moderate_range_warns_that_the_result_depends_on_absorption(self):
         v = patient_renal_pathways(self.revision_with(serum_creatinine=120).id)
         self.assertTrue(30 <= v['crcl_ml_min'] < 50)
-        self.assertTrue(any('probably smaller' in w for w in v['warnings']))
+        self.assertTrue(any('depends on how much of the dose is absorbed' in w for w in v['warnings']))
+        self.assertFalse(any('probably smaller' in w for w in v['warnings']))
 
     def test_end_stage_range_carries_the_esrd_and_dialysis_note(self):
         v = patient_renal_pathways(self.revision_with(serum_creatinine=600).id)
@@ -69,7 +70,7 @@ class PatientPathways(unittest.TestCase):
         url = f'/landscape/workspace/scenarios/{self.scenario.id}/patient-state/revisions/{rev.id}/renal-pathways'
         html = self.client.get(url).get_data(as_text=True)
         for text in ('Kidney view', 'Tubular secretion', 'Reference: normal kidney function', 'Not a clinical prediction',
-                     'Run record', 'In this range the check found the real increase larger'):
+                     'Run record', 'In this range the check result depends on how much of the dose is absorbed'):
             self.assertIn(text, html)
         self.assertEqual(self.client.get(url + '?format=json').get_json()['status'], 'completed')
         detail = self.client.get(f'/landscape/workspace/scenarios/{self.scenario.id}/patient-state/revisions/{rev.id}').get_data(as_text=True)

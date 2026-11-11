@@ -29,7 +29,7 @@
     <p><a href="{{ url_for('model_scorecards') }}">← Model scorecards</a></p>
     <p class="prose-eyebrow">Models and evidence</p>
     <h1>What the checks found</h1>
-    <p class="prose-lede">Every check the platform has run against outside data, its own source data or its own rules, in one line each, including the ones that failed. Each check followed a plan fixed before anything was computed; the link opens its full report.</p>
+    <p class="prose-lede">Every check the platform has run against outside data, its own source data or its own rules, in one line each, including the ones that failed. Each check followed a plan fixed before the check was computed; recorded deviations are shown on the row, and the link opens its full report.</p>
     <div class="fd-summary" role="list" aria-label="Summary">
         <span role="listitem" class="status status-ok">{{ v.counts.ok }} consistent or passed</span>
         <span role="listitem" class="status status-part">{{ v.counts.warn }} mixed or not adopted</span>
