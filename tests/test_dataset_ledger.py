@@ -109,7 +109,7 @@ class Gate(unittest.TestCase):
 
     def test_v5_adds_notes_and_one_use(self):
         v4 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v4.json'), dl.LEDGER_V4_SHA256)
-        v5 = dl.load_ledger()
+        v5 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v5.json'), dl.LEDGER_V5_SHA256)
         self.assertEqual(v5['datasets'], v4['datasets'])
         self.assertEqual(set(v5['roles']), set(v4['roles']))
         strip = lambda u: {k: v for k, v in u.items() if k != 'note'}
@@ -117,6 +117,15 @@ class Gate(unittest.TestCase):
         self.assertEqual([(u['model'], u['dataset'], u['role']) for u in v5['uses'][len(v4['uses']):]],
                          [('lenalidomide_exposure_safety_2016', 'cc5013_pk001', 'built_from')])
         self.assertTrue(all('largely known' in u['note'] for u in v5['uses'] if u['role'] == 'checked_blind_with_deviation'))
+
+    def test_v6_adds_two_track_c_uses(self):
+        v5 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v5.json'), dl.LEDGER_V5_SHA256)
+        v6 = dl.load_ledger()
+        self.assertEqual(v6['datasets'], v5['datasets'])
+        self.assertEqual(v6['uses'][:len(v5['uses'])], v5['uses'])
+        self.assertEqual([(u['model'], u['dataset'], u['role']) for u in v6['uses'][len(v5['uses']):]],
+                         [('eligibility_extractor_llm_c1', 'eligibility_v1_sample', 'tuned_on'),
+                          ('eligibility_extractor_llm_c1', 'eligibility_v2_sample', 'reserved_for_blind_check')])
 
     def test_changed_ledger_is_refused(self):
         with self.assertRaises(dl.LedgerError):
