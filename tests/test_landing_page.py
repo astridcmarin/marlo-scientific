@@ -36,7 +36,7 @@ class LandingPageTests(unittest.TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         page = response.get_data(as_text=True)
-        for text in ('transparent pharmacology models for research', 'Not a clinical prediction',
+        for text in ('Connecting trial evidence, regulatory knowledge and pharmacology models for research', 'Not a clinical prediction',
                      'Simulated results are not clinical predictions', 'Patient records are synthetic',
                      'href="/trials"', 'href="/landscape/"', 'href="/landscape/patient-lab/workspace"',
                      'https://github.com/astridcmarin/marlo-scientific', 'landing.css'):

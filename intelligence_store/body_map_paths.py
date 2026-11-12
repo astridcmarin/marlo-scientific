@@ -1,7 +1,7 @@
 """Digital human 1.0, step 1.3c: where the body map draws its flows, derived from the pinned 3D models.
 
 The paths are geometry for drawing, not anatomy claims or a model: each one is computed from the simulation-organ GLB
-(step 1.3a) with fixed rules, so anyone can rebuild them and get the same file (body-map-flow-paths-v1).
+(step 1.3a) with fixed rules, so anyone can rebuild them and get the same file (body-map-flow-paths-v1 schema; file v3).
 
 - Into each kidney (paths v2): from the centre of the aorta at the renal artery's origin, along the centre line of that
   renal artery, to the kidney's centre. The centre lines come from body_map_vessel_lines_v1.json, extracted from the
@@ -10,11 +10,13 @@ The paths are geometry for drawing, not anatomy claims or a model: each one is c
   unchanged for traceability. Filtration and secretion are drawn as two strands along this path; each kidney carries
   half of each flow.
 - Into urine: from each renal pelvis down the centre line of its ureter to the bladder.
-- Absorption: from the small intestine into the blood (the centre of the inferior vena cava at renal-artery level),
-  drawn without a value.
-  It does not pass through the liver: the model has no first-pass or liver step.
-- Non-renal elimination is not drawn as a path: the routes are not identified, so the page shows it as a label at the
-  aorta, pointing nowhere in particular.
+- Absorption (paths v3, Track H item 1): from the small intestine to the nearest point of the superior mesenteric
+  vein, up that vein and the hepatic portal vein to the liver, then straight through the liver to the inferior vena
+  cava where the hepatic veins join it. Centre lines from body_map_portal_route_lines_v1.json. Drawn without a value;
+  the liver is passed through, not modelled: no loss in the liver. Paths v2 drew a straight line from the intestine to
+  the vena cava at renal-artery level, a vessel connection that does not exist; v2 is kept unchanged for traceability.
+- Non-renal elimination is not drawn as a path: the organ is not known, so the page shows it as a label at the aorta,
+  pointing nowhere in particular.
 Only simulation organs are used. Context organs (decision 5) never anchor a flow.
 """
 import hashlib
@@ -27,16 +29,20 @@ from . import glb_mesh
 
 DATA = Path(__file__).parent / 'data'
 ROOT = Path(__file__).resolve().parents[1]
-PATHS_FILE = DATA / 'body_map_flow_paths_v2.json'
-PATHS_SHA256 = '8f6df6c623513cdae9404799cd498bd2946bb0dc725a4b17f8b31e25b0a1149a'
+PATHS_FILE = DATA / 'body_map_flow_paths_v3.json'
+PATHS_SHA256 = 'df8482e93c28633fb86152c782c84523bbc7349bd55a7803f36f9963bb5dff94'
+# Superseded, kept unchanged for traceability: body_map_flow_paths_v2.json (absorption drawn straight to the vena cava)
+PATHS_V2_SHA256 = '8f6df6c623513cdae9404799cd498bd2946bb0dc725a4b17f8b31e25b0a1149a'
 # Superseded, kept unchanged for traceability: body_map_flow_paths_v1.json (kidney flows started in front of the aorta)
 PATHS_V1_SHA256 = 'd85eb44f468773921647d13448be67df6fff91e61dbd3d2b7f3abd2a3c81cbda'
 VESSELS_FILE = DATA / 'body_map_vessel_lines_v1.json'
 VESSELS_SHA256 = '310244d195951b1e6ff6e9864f78ae41bc0b5bc248d51451a2f5ff98d55b0238'
 VEINS_FILE = DATA / 'body_map_renal_vein_lines_v1.json'
 VEINS_SHA256 = '12f9b5763291d4121ed7178a4c34e196a8c72a49a5cd2a24383aa4e6f981ec41'
+PORTAL_FILE = DATA / 'body_map_portal_route_lines_v1.json'
+PORTAL_SHA256 = '5547b30e84ea29e501b8bc8342f36855567de1b80d446eaaf651bfc0e7b917d3'
 SCHEMA_VERSION = 'body-map-flow-paths-v1'
-METHOD_VERSION = 'body-map-flow-paths-build-v2.0'
+METHOD_VERSION = 'body-map-flow-paths-build-v3.0'
 SOURCE_MODEL = 'landscape_ui/static/body-map/models/body-route-male-v1.glb'
 URETER_SAMPLES = 20
 DECIMALS = 4
@@ -67,6 +73,13 @@ def load_vessel_lines():
     return json.loads(raw)
 
 
+def load_portal_lines():
+    raw = PORTAL_FILE.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != PORTAL_SHA256:
+        raise BodyMapPathError('The portal route centre lines are missing or changed; flow paths are not built.')
+    return json.loads(raw)
+
+
 def _at_height(points, y):
     """A vertical centre line (ordered by height) interpolated at height y."""
     pts = np.array(sorted(points, key=lambda p: p[1]))
@@ -87,8 +100,9 @@ def _centre_line(vertices, samples):
     return np.array(points)
 
 
-def compute_paths(raw, vessels=None):
+def compute_paths(raw, vessels=None, portal=None):
     vessels = vessels or load_vessel_lines()
+    portal = portal or load_portal_lines()
     parts = _parts(raw)
     pelvis = parts['VH_M_renal_pelvis_ureter:renal pelvis and calyces']
     bladder = _centre(parts['VH_M_urinary_bladder'])
@@ -113,15 +127,22 @@ def compute_paths(raw, vessels=None):
         anchors[f'kidney_{side}'] = kidney
     gut = parts['VH_M_small_intestine'].mean(axis=0)
     renal_level = float(np.mean(origins))
-    ivc = _at_height(vessels['inferior_vena_cava']['points'], renal_level)
+    smv = [np.array(p) for p in portal['superior_mesenteric_vein']['points']]
+    join = min(range(len(smv)), key=lambda i: float(np.linalg.norm(smv[i] - gut)))
+    hpv = [np.array(p) for p in portal['hepatic_portal_vein']['points']]
+    hepatic_ivc = np.array(portal['hepatic_veins_at_vena_cava']['inferior_vena_cava_point'])
     paths.append({'id': 'absorption', 'flows': ['absorption'], 'share_per_path': 1.0, 'side': None,
-                  'from_node': 'gut', 'to_node': 'plasma', 'points': [gut, ivc]})
+                  'from_node': 'gut', 'to_node': 'plasma',
+                  'route': ['small intestine', 'superior mesenteric vein', 'hepatic portal vein', 'liver (passed through, not modelled)',
+                            'inferior vena cava at the hepatic veins'],
+                  'points': [gut] + smv[join:] + hpv + [hepatic_ivc]})
     anchors.update(aorta_renal_level=_at_height(aorta_line, renal_level), bladder=bladder, gut=gut)
     rounded = lambda p: [round(float(x), DECIMALS) for x in p]
     return {
         'schema_version': SCHEMA_VERSION, 'method_version': METHOD_VERSION,
         'source_model': {'file': SOURCE_MODEL, 'sha256': hashlib.sha256(raw).hexdigest()},
         'vessel_lines': {'file': 'intelligence_store/data/' + VESSELS_FILE.name, 'sha256': VESSELS_SHA256},
+        'portal_route_lines': {'file': 'intelligence_store/data/' + PORTAL_FILE.name, 'sha256': PORTAL_SHA256},
         'coordinate_frame': 'HRA Visible Human male reference body; metres; +y up; body left is +x.',
         'not_this': 'Drawing paths only: where flows are drawn, not anatomical claims, measurements or a model.',
         'paths': [dict(p, points=[rounded(x) for x in p['points']]) for p in paths],
