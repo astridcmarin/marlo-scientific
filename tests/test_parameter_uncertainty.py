@@ -76,5 +76,62 @@ class Precision(unittest.TestCase):
         self.assertAlmostEqual(spread, expected, delta=0.01)
 
 
+
+class RegressionRse(unittest.TestCase):
+    """Pins the %RSE-based draws as they were before F08 (12 November 2026), so the old method's output stays known."""
+    def test_documented_example_is_unchanged(self):
+        p = pp.load_parameter_precision()
+        draws = pp.sample_typical_parameters(1000, 20261014, p)
+        self.assertEqual(draws[0], {'theta_cl': 11.947604389455979, 'theta_crcl': 0.18055341350385873,
+                                    'theta_v': 69.5118106031348, 'theta_ktr': 12.08822102158824})
+        crcl, ffm, dose = 40.0, 50.0, 25.0
+        cl0 = 12.0 * (ffm / 55) ** 0.75 * (crcl / 90) ** 0.224
+        auc = [1000 * dose / (cl0 * d['theta_cl'] / 12.0 * (crcl / 90) ** (d['theta_crcl'] - 0.224)) for d in draws]
+        s = pp._summary(auc)
+        self.assertAlmostEqual(s['p05'], 2370.550327762076, places=6)
+        self.assertAlmostEqual(s['p50'], 2680.8492856760545, places=6)
+        self.assertAlmostEqual(s['p95'], 3015.150346323717, places=6)
+
+
+class Bootstrap(unittest.TestCase):
+    """F08 (12 November 2026): draws matched to the published bootstrap 95% intervals."""
+    def setUp(self):
+        self.p = pp.load_parameter_precision()
+        self.draws = pp.sample_typical_parameters_bootstrap(20000, 11, self.p)
+
+    def test_seeded(self):
+        self.assertEqual(pp.sample_typical_parameters_bootstrap(50, 5, self.p), pp.sample_typical_parameters_bootstrap(50, 5, self.p))
+
+    def test_percentiles_match_the_bootstrap_intervals_and_the_median_the_estimate(self):
+        for key, v in self.p['fixed_effects'].items():
+            xs = sorted(d[key] for d in self.draws)
+            lo, hi = v['bootstrap_ci95']
+            self.assertAlmostEqual(xs[int(0.025 * len(xs))] / lo, 1, delta=0.03, msg=key)
+            self.assertAlmostEqual(xs[int(0.975 * len(xs))] / hi, 1, delta=0.03, msg=key)
+            self.assertAlmostEqual(xs[len(xs) // 2] / v['estimate'], 1, delta=0.01, msg=key)
+            self.assertTrue(xs[0] > 0, key)
+
+    def test_ktr_keeps_its_long_upper_tail(self):
+        xs = sorted(d['theta_ktr'] for d in self.draws)
+        est = self.p['fixed_effects']['theta_ktr']['estimate']
+        self.assertGreater(xs[int(0.975 * len(xs))] - est, 5 * (est - xs[int(0.025 * len(xs))]))
+
+    def test_documented_example_is_wider_than_the_rse_method(self):
+        crcl, ffm, dose = 40.0, 50.0, 25.0
+        cl0 = 12.0 * (ffm / 55) ** 0.75 * (crcl / 90) ** 0.224
+        auc = lambda draws: pp._summary([1000 * dose / (cl0 * d['theta_cl'] / 12.0 * (crcl / 90) ** (d['theta_crcl'] - 0.224)) for d in draws])
+        new = auc(pp.sample_typical_parameters_bootstrap(1000, 20261014, self.p))
+        old = auc(pp.sample_typical_parameters(1000, 20261014, self.p))
+        self.assertGreater(new['p95'] - new['p05'], 1.15 * (old['p95'] - old['p05']))
+        self.assertAlmostEqual(new['p05'], 2251.611528787214, places=6)
+        self.assertAlmostEqual(new['p95'], 3057.839264782706, places=6)
+
+    def test_interval_must_bracket_the_estimate(self):
+        import copy
+        bad = copy.deepcopy(self.p)
+        bad['fixed_effects']['theta_cl']['bootstrap_ci95'] = [12.5, 13.6]
+        with self.assertRaises(ValueError):
+            pp.sample_typical_parameters_bootstrap(10, 1, bad)
+
 if __name__ == '__main__':
     unittest.main()

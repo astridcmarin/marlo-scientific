@@ -13,8 +13,11 @@ model does not include. Not a prediction for any individual.
 
 Since v1.1 (9 November 2026, reviewer's checklist M7) the report also carries the typical
 curve's own uncertainty: how far the typical curve itself could lie, given the precision of
-the published estimates (Hughes 2019 Table 2, %RSE). This is a different question from the
-between-subject band and is reported separately.
+the published estimates (Hughes 2019 Table 2). This is a different question from the
+between-subject band and is reported separately. Since v1.2 (12 November 2026, AI review F08)
+the draws match the paper's bootstrap intervals (two-piece log-normal, so KTR's long upper
+tail is kept) instead of a symmetric normal from %RSE; the %RSE result is still reported for
+comparison.
 """
 import copy
 import json
@@ -61,8 +64,34 @@ def sample_typical_parameters(n, seed, precision):
             draws.append(d)
     return draws
 
+def sample_typical_parameters_bootstrap(n, seed, precision):
+    """Seeded draws of the four fixed effects matched to the published bootstrap 95% intervals (F08, 12 November 2026).
+
+    Each estimate is drawn from a two-piece log-normal: median at the final-model estimate, log-scale SD below it set so
+    the 2.5th percentile is the interval's lower end, and above it so the 97.5th is the upper end. This reproduces both
+    published percentiles and keeps an asymmetric interval asymmetric (KTR: 11.9-36.8 1/h around 13.5). Independent, as
+    the covariance is not published. Every draw is positive by construction."""
+    z975 = 1.959963984540054
+    fx = precision['fixed_effects']
+    spread = {}
+    for k, v in fx.items():
+        lo, hi = v['bootstrap_ci95']
+        if not 0 < lo < v['estimate'] < hi:
+            raise ValueError(f'{k}: the bootstrap interval does not bracket a positive estimate.')
+        spread[k] = (math.log(v['estimate'] / lo) / z975, math.log(hi / v['estimate']) / z975)
+    rng = random.Random(seed)
+    draws = []
+    for _ in range(n):
+        d = {}
+        for k, v in fx.items():
+            z = rng.gauss(0.0, 1.0)
+            d[k] = v['estimate'] * math.exp(z * (spread[k][0] if z < 0 else spread[k][1]))
+        draws.append(d)
+    return draws
+
+
 SCHEMA_VERSION = 'population-educational-pk-v1'
-METHOD_VERSION = 'population-educational-pk-v1.1'
+METHOD_VERSION = 'population-educational-pk-v1.2'
 DEFAULT_SEED = 20261013
 DEFAULT_SUBJECTS = 1000
 SUBJECT_LIMITS = (100, 5000)
@@ -242,7 +271,10 @@ def calculate_population_pk(revision_id, weight_basis, request, disease_code='UN
     precision = load_parameter_precision()
     fx = precision['fixed_effects']
     crcl = next(d['value'] for d in typical['covariate_estimate']['derivations'] if d['quantity'] == 'creatinine_clearance')
-    typical_draws = sample_typical_parameters(n_subjects, seed + PRECISION_SEED_OFFSET, precision)
+    typical_draws = sample_typical_parameters_bootstrap(n_subjects, seed + PRECISION_SEED_OFFSET, precision)
+    rse_draws = sample_typical_parameters(n_subjects, seed + PRECISION_SEED_OFFSET, precision)
+    rse_auc_inf = [1000.0 * total_dose / (cl0 * d['theta_cl'] / fx['theta_cl']['estimate']
+                                          * (crcl / 90.0) ** (d['theta_crcl'] - fx['theta_crcl']['estimate'])) for d in rse_draws]
     u_columns = [[] for _ in times]
     u_auc_inf, u_cmax = [], []
     for d in typical_draws:
@@ -255,24 +287,27 @@ def calculate_population_pk(revision_id, weight_basis, request, disease_code='UN
         u_auc_inf.append(1000.0 * total_dose / cl)
         u_cmax.append(max(values))
     parameter_uncertainty = {
-        'meaning': ('A lower bound on where the typical curve itself could lie, from the published %RSE of four estimates '
-                    'only. The paper\'s own bootstrap intervals imply a wider range, and the fixed allometric exponents, the '
-                    'variances and the model structure carry uncertainty that is not included. Not the spread between '
-                    'patients (that is the band above) and not a prediction for anyone.'),
+        'meaning': ('A lower bound on where the typical curve itself could lie, from the published bootstrap intervals of '
+                    'four estimates only. The fixed allometric exponents, the variances, the correlation between estimates '
+                    'and the model structure carry uncertainty that is not included. Not the spread between patients '
+                    '(that is the band above) and not a prediction for anyone.'),
         'source': precision['source']['citation'] + ', ' + precision['source']['location'],
         'precision_extract_version': precision['extract_version'], 'precision_extract_sha256': PRECISION_SHA256,
-        'method': ('Each fixed effect (CL/F, the CrCl exponent, Vd/F, KTR) drawn from a normal distribution with SD = '
-                   '%RSE x estimate, independently, because the covariance of the estimates is not published; the '
-                   'covariate values stay as estimated. Seed = band seed + 1.'),
+        'method': ('Each fixed effect (CL/F, the CrCl exponent, Vd/F, KTR) drawn from a two-piece log-normal distribution '
+                   'with its median at the final-model estimate and its 2.5th and 97.5th percentiles at the published '
+                   'bootstrap 95% interval, independently, because the covariance of the estimates is not published; the '
+                   'covariate values stay as estimated. Seed = band seed + 1. Before 12 November 2026 the draws were '
+                   'normal with SD = %RSE x estimate; that result is kept below for comparison.'),
+        'rse_method_auc_0_infinity_ng_h_ml': _summary(rse_auc_inf),
         'crcl_ml_min': crcl, 'n_draws': n_subjects, 'seed': seed + PRECISION_SEED_OFFSET,
         'band': [{'time_h': t, **_summary(column)} for t, column in zip(times, u_columns)],
         'auc_0_infinity_ng_h_ml': _summary(u_auc_inf), 'peak_concentration_ng_ml': _summary(u_cmax),
         'limitations': precision['notes'] + ['Independence between estimates is assumed; correlated estimates (CL/F and '
                                              'Vd/F are correlated between patients) could widen or narrow the band.',
-                                             'Symmetric normal draws from %RSE are narrower than the bootstrap: log-normal draws '
-                                             'matched to the bootstrap intervals gave an AUC range about 30% wider in the '
-                                             'documented example (AI review of 10 November, F08; not yet reproduced on the '
-                                             'platform), and KTR\'s bootstrap interval (11.9-36.8 /h) is strongly skewed.'],
+                                             'The bootstrap percentiles are matched at 2.5% and 97.5% only; the paper does not '
+                                             'publish the bootstrap distributions, so the shape between them is assumed.',
+                                             'The %RSE-based draws used before 12 November 2026 are narrower, and much narrower '
+                                             'for KTR, whose bootstrap interval (11.9-36.8 /h) is strongly skewed (AI review F08).'],
     }
     report.update(
         status='completed_population_calculation', simulation_status='completed_population_calculation',
