@@ -89,9 +89,23 @@ class PathsFile(unittest.TestCase):
     def test_non_renal_has_no_path(self):
         self.assertFalse(any('non_renal' in p['flows'] for p in self.paths['paths']))
 
-    def test_absorption_is_drawn_direct_without_a_value(self):
+    def test_absorption_goes_by_the_portal_vein_through_the_liver_without_a_value(self):
+        import hashlib
         absorption = next(p for p in self.paths['paths'] if p['id'] == 'absorption')
-        self.assertEqual(len(absorption['points']), 2)
+        portal = body_map_paths.load_portal_lines()
+        points = absorption['points']
+        hpv = portal['hepatic_portal_vein']['points']
+        smv = portal['superior_mesenteric_vein']['points']
+        # gut, then the superior mesenteric vein from the point nearest the gut, the whole portal vein, the vena cava
+        self.assertEqual(points[-len(hpv) - 1:-1], hpv)
+        self.assertEqual(points[1], min(smv, key=lambda q: sum((a - b) ** 2 for a, b in zip(q, points[0]))))
+        self.assertEqual(points[-1], portal['hepatic_veins_at_vena_cava']['inferior_vena_cava_point'])
+        # it reaches the vena cava above the liver hilum, where the hepatic veins join, not at renal-artery level
+        self.assertGreater(points[-1][1], hpv[-1][1] + 0.03)
+        self.assertIn('liver (passed through, not modelled)', absorption['route'])
+        self.assertEqual(self.paths['portal_route_lines']['sha256'], body_map_paths.PORTAL_SHA256)
+        v2 = (ROOT / 'intelligence_store/data/body_map_flow_paths_v2.json').read_bytes()
+        self.assertEqual(hashlib.sha256(v2).hexdigest(), body_map_paths.PATHS_V2_SHA256)
         self.assertIsNone(next(f for f in build_map(110, 'explorer')['flows'] if f['kind'] == 'absorption')['value'])
 
     def test_changed_file_is_refused(self):

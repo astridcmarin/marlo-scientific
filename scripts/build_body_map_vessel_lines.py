@@ -2,6 +2,7 @@
 
     PYTHONPATH=. python scripts/build_body_map_vessel_lines.py /path/to/3d-vh-m-united.glb
     PYTHONPATH=. python scripts/build_body_map_vessel_lines.py /path/to/3d-vh-m-united.glb --veins   (renal veins, 1.1c)
+    PYTHONPATH=. python scripts/build_body_map_vessel_lines.py /path/to/3d-vh-m-united.glb --portal  (portal route, paths v3)
 
 The route model merges all arteries into one part, so the renal arteries and the aorta cannot be told apart in it
 (paths v1 placed the start of each kidney flow 2-4 cm in front of the aorta). This script reads the original Atlas
@@ -24,6 +25,8 @@ from intelligence_store import glb_mesh
 SOURCE_SHA256 = 'fae3ac193835e9e24cd13a0d0f11e6788183b290b0691b9b83ec81d907d94581'
 OUT = Path(__file__).resolve().parents[1] / 'intelligence_store' / 'data' / 'body_map_vessel_lines_v1.json'
 VEINS_OUT = Path(__file__).resolve().parents[1] / 'intelligence_store' / 'data' / 'body_map_renal_vein_lines_v1.json'
+PORTAL_OUT = Path(__file__).resolve().parents[1] / 'intelligence_store' / 'data' / 'body_map_portal_route_lines_v1.json'
+HEPATIC_VEINS = ('VH_M_right_hepatic_vein', 'VH_M_middle_hepatic_vein', 'VH_M_left_hepatic_vein')
 DECIMALS = 4
 HEIGHT_RANGE = (0.24, 0.36)      # metres; covers both renal artery origins and both kidney hila
 HEIGHT_STEP = 0.005
@@ -115,9 +118,63 @@ def build_veins(raw):
     }
 
 
+def _slices_up(vertices):
+    """Centre line of a mostly vertical vessel over its own height, bottom to top, in the same thin slices."""
+    points = []
+    for y in np.arange(vertices[:, 1].min() + SLICE_HALF, vertices[:, 1].max() - SLICE_HALF + 1e-9, HEIGHT_STEP):
+        s = vertices[np.abs(vertices[:, 1] - y) < SLICE_HALF]
+        if len(s) >= 6:
+            mid = (s.min(axis=0) + s.max(axis=0)) / 2
+            mid[1] = y
+            points.append(mid)
+    return points
+
+
+def build_portal(raw):
+    """Paths v3 (Track H item 1): the route from the small intestine to the inferior vena cava through the liver.
+
+    Superior mesenteric vein and hepatic portal vein: centre lines bottom to top. Hepatic veins: only the height at
+    which they reach the vena cava (the mean of their three upper ends), and the vena cava's centre at that height.
+    The hepatic veins themselves branch inside the liver and are not followed.
+    """
+    if hashlib.sha256(raw).hexdigest() != SOURCE_SHA256:
+        raise SystemExit('This is not the pinned HRA United male file (SHA-256 differs).')
+    gltf, binary = glb_mesh.read_glb(raw)
+    by_name = {}
+    for part in glb_mesh.mesh_nodes(gltf, binary):
+        by_name.setdefault(part['name'], []).append(part['vertices'])
+    get = lambda *names: np.vstack([v for n in names for v in by_name[n]])
+    rounded = lambda pts: [[round(float(c), DECIMALS) for c in p] for p in pts]
+    level = float(np.mean([get(n)[:, 1].max() for n in HEPATIC_VEINS]))
+    ivc = get('VH_M_inferior_vena_cava_a', 'VH_M_inferior_vena_cava_b')
+    s = ivc[np.abs(ivc[:, 1] - level) < SLICE_HALF]
+    junction = (s.min(axis=0) + s.max(axis=0)) / 2
+    junction[1] = level
+    return {
+        'schema_version': 'body-map-vessel-lines-v1',
+        'source': {'file': '3d-vh-m-united.glb', 'set': 'HRA 3D Reference Organ Set for United, Male', 'sha256': SOURCE_SHA256,
+                   'licence': 'CC BY 4.0', 'storage': "Kept on the platform owner's computer; not committed."},
+        'coordinate_frame': 'HRA Visible Human male reference body; metres; +y up; body left is +x.',
+        'method': (f'Middle of the bounding box of each vein in height slices every {HEIGHT_STEP} m (half-width {SLICE_HALF} m) '
+                   'over its own height, bottom to top. Hepatic veins: the mean height of the upper ends of the right, middle '
+                   'and left hepatic veins, and the middle of the inferior vena cava in a slice at that height.'),
+        'not_this': 'Drawing geometry only: not measurements of vessel size, position or flow.',
+        'superior_mesenteric_vein': {'atlas_node': 'VH_M_superior_mesenteric_vein',
+                                     'points': rounded(_slices_up(get('VH_M_superior_mesenteric_vein')))},
+        'hepatic_portal_vein': {'atlas_node': 'VH_M_hepatic_portal_vein',
+                                'points': rounded(_slices_up(get('VH_M_hepatic_portal_vein')))},
+        'hepatic_veins_at_vena_cava': {'atlas_nodes': list(HEPATIC_VEINS), 'inferior_vena_cava_point': rounded([junction])[0]},
+        'naming_note': ('The Atlas also has a node "VH_M_portal_vein" overlapping "VH_M_hepatic_portal_vein"; the latter is '
+                        'used, as the name of the anatomical structure.'),
+    }
+
+
 if __name__ == '__main__':
     raw = Path(sys.argv[1]).read_bytes()
-    if len(sys.argv) > 2 and sys.argv[2] == '--veins':
+    if len(sys.argv) > 2 and sys.argv[2] == '--portal':
+        PORTAL_OUT.write_text(json.dumps(build_portal(raw), indent=1) + '\n')
+        print(hashlib.sha256(PORTAL_OUT.read_bytes()).hexdigest())
+    elif len(sys.argv) > 2 and sys.argv[2] == '--veins':
         VEINS_OUT.write_text(json.dumps(build_veins(raw), indent=1) + '\n')
         print(hashlib.sha256(VEINS_OUT.read_bytes()).hexdigest())
     else:

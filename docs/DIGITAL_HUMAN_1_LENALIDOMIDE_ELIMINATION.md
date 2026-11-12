@@ -216,7 +216,7 @@ The platform owner chose to show the rest of the body's anatomy around the elimi
 **Flow paths** (`intelligence_store/data/body_map_flow_paths_v1.json`, built by `intelligence_store/body_map_paths.py` from the pinned route model; a test rebuilds it exactly):
 - **Into each kidney:** from the aorta at the level of that kidney's hilum, through the hilum, to the kidney's centre. Filtration and secretion are two strands, each kidney carrying half of each.
 - **Into urine:** from each renal pelvis down its ureter's centre line (20 slices of the ureter mesh) to the bladder.
-- **Absorption:** from the small intestine straight into the blood (inferior vena cava at kidney level), drawn dotted and without a value, because the view has none (bioavailability taken as 1). It does not pass through the liver: the model has no first-pass step.
+- **Absorption:** from the small intestine straight into the blood (inferior vena cava at kidney level), drawn dotted and without a value, because the view has none (bioavailability taken as 1). It does not pass through the liver: the model has no first-pass step. (Superseded by flow paths v3, 12 November 2026: see the correction at the end.)
 - **Non-renal:** no path, because the routes are not identified. A label at the aorta gives the value and says so. Its leader line points away from the liver.
 - Only simulation organs anchor a path.
 
@@ -295,4 +295,12 @@ Display only; no geometry, number or evidence status changes.
 - **Kidney materials:** a lighter, more translucent cortex so the pyramids show; papillae pink instead of the urine yellow, which now marks only the collecting system, ureters and bladder.
 - **Flow tubes:** a faint glow around each tube. Its width is decoration and carries no value; the tube itself keeps the clearance-proportional width.
 - **Sharpness:** drawn at the screen's pixel density, capped at 2× so phones stay fast.
+
+## Correction (12 November 2026): absorption goes by the portal vein through the liver (flow paths v3)
+
+Found in the AI design draft of 12 November (`docs/reviews/2026-11_organ_level_design_draft.md`, section 7, item 1): paths v2 drew absorption as a straight line from the small intestine to the inferior vena cava at renal-artery level, a vessel connection that does not exist. Blood from the intestine drains by the superior mesenteric vein into the portal vein and through the liver, which is drained by the hepatic veins into the vena cava near the heart (ICRP 89, paragraph 246).
+
+- New centre lines `body_map_portal_route_lines_v1.json`, extracted from the HRA United male file by `scripts/build_body_map_vessel_lines.py --portal`: the superior mesenteric vein, the hepatic portal vein, and the vena cava's centre where the hepatic veins join it.
+- Flow paths v3 (`body_map_flow_paths_v3.json`, method `body-map-flow-paths-build-v3.0`): absorption runs from the small intestine to the nearest point of the superior mesenteric vein, up it and the portal vein, then straight through the liver to that point on the vena cava. Every other path is unchanged. v2 is kept unchanged for traceability.
+- **The liver is passed through, not modelled.** No loss in the liver is drawn or calculated; the path still carries no value. The liver stays a context organ. The hepatic veins branch inside the liver and are not followed; the segment through the liver is a straight line for drawing.
 

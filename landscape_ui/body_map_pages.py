@@ -125,7 +125,7 @@ def flow_cards(view):
                                      ['Dose leaving unchanged in urine', f"{100 * totals['fraction_excreted_unchanged']:.0f}%"]],
                             'basis': [r['basis']], 'source': source},
         'absorption': {'title': 'Absorption from the gut', 'status': None, 'status_text': None,
-                       'what': 'The oral dose passes from the small intestine into the blood. Drawn dashed and without a value: the model has no absorption rate.',
+                       'what': 'The oral dose passes from the small intestine into the blood, by the superior mesenteric and portal veins through the liver to the inferior vena cava. No loss in the liver is modelled. Drawn dashed and without a value: the model has no absorption rate.',
                        'rows': [['Value', 'none drawn']], 'basis': [a['note']], 'source': source},
     }
 
