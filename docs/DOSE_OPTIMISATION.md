@@ -93,4 +93,6 @@ Showing it as a dose–hazard curve would suggest that lower doses are more effe
 
 **Conclusion:** no usable exposure–efficacy relationship for lenalidomide in myeloma was found. The efficacy side of the dose view stays a gap. A usable source would be a sponsor exposure–response analysis with randomised dose levels or adequate adjustment, for example in a later FDA or EMA review.
 
+**12 November 2026:** a second, wider search (AI-generated, [reviews/2026-11_exposure_efficacy_search.md](reviews/2026-11_exposure_efficacy_search.md)) covered five more EMA variation reports, the TGA report, two sponsor dose-based analyses and three small myeloma studies with measured concentrations. None gives an exposure–efficacy model; the only randomised dose comparison (MDS-004) is in MDS, with the schedule differing between arms, and is not shown on the platform. The conclusion above stands.
+
 **31 October 2026 (view v1.2):** the page now quotes the label's myeloma starting doses, the 2.5 mg floor, the capsule strengths and Table 3. Grid rows that are not capsule strengths are marked; 7.5 mg is the average of the label's "15 mg every other day". The page does not pick a label dose for the record: the label does not state its Cockcroft–Gault weight basis, and the Hughes estimate uses an assumed one.
