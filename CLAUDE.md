@@ -17,6 +17,8 @@ Research and educational platform: clinical-trial intelligence, drug/regulatory 
 - A new check needs an entry in the dataset ledger (new ledger version) and a line in the check-findings file; tests fail otherwise. A plan that claims a blind check must pass `dataset_ledger.assert_blind_allowed`.
 - For a blind check, commit the executable check with its plan, run on synthetic values, so that after the lock only data files change (adopted 10 November 2026 after the AI review, F18).
 - Synthetic inputs only. Outputs keep `ready_for_patient_simulation` / validation flags false unless a documented review changes them.
+- Before changing an existing scientific calculation, add or confirm a regression test that pins its current output.
+- Before a new dependency, database change or scientific framework, write a short decision record in `docs/decisions/` (problem, options, decision, revisit when).
 - Tests use `unittest`: `python -m unittest discover -s tests`. Dependencies are in `requirements.txt`.
 - Commits and pull requests: do not add `Co-Authored-By` trailers, session links or "Generated with" footers to commit messages or PR descriptions.
 - Keep the commit count low (the owner's GitHub account was flagged on 3 November 2026 for too many commits; no limit was stated):

@@ -1,0 +1,84 @@
+{
+ "schema_version": "extraction-validation-plan-v2",
+ "plan_version": "eligibility-validation-plan-v3.0",
+ "recorded_on": "2026-11-11",
+ "status": "locked_before_the_llm_extractor_reads_any_v2_sample_trial",
+ "prespecification_note": "Locked while the v2 annotation is in progress (46 of 200 annotated) and before the extractor below has read any v2 sample text. Nobody writing the prompt has read v2 sample text. Plan v2 (rule-based extractor v1.1) is unchanged and runs as locked.",
+ "classification": "information_extraction_validation",
+ "model": "eligibility_extractor_llm_c1",
+ "datasets": [
+  {
+   "id": "eligibility_v1_sample",
+   "role": "tuned_on"
+  },
+  {
+   "id": "eligibility_v2_sample",
+   "role": "reserved_for_blind_check"
+  }
+ ],
+ "question": "How accurately does an extractor that asks a language model (Claude Fable) to read the registered criteria text find the eight eligibility-threshold types of the v2 hand annotation, scored by exactly the rules of plan v2, and how does it compare with extractor v1.1 on the same trials?",
+ "inputs": {
+  "plan_v2": {
+   "path": "intelligence_store/data/eligibility_validation_plan_v2.json",
+   "sha256": "8a543d7df767afd3ec729a6c5c61d22dd9324392dccac59412cac4ee9e8643a8",
+   "use": "corpus, sample, annotation guide, annotation export, scoring and decision rule, all taken unchanged"
+  },
+  "prompt": {
+   "path": "intelligence_store/data/eligibility_extractor_llm_c1_prompt.md",
+   "sha256": "64f4da354eb669bfe9c290d5ccdb3765c0e57d19cddcaa60625fb4e727d00883",
+   "revision": 2
+  },
+  "runner": {
+   "path": "intelligence_store/eligibility_extractor_llm.py",
+   "use": "writes the input file, parses and checks the output file"
+  },
+  "scoring": {
+   "path": "intelligence_store/eligibility_validation_llm.py",
+   "use": "imports eligibility_validation_v2.score_pair and PASS unchanged"
+  }
+ },
+ "extractor": {
+  "model_identifier": "claude-fable-5-2",
+  "where": "separate sessions inside the owner's Claude workspace, not the API",
+  "session_rules": "Each session is given only the prompt file and one input file of trials (nct_id and criteria text). It may not read any annotation, guide, code, report or other output, may not use the web, and must not run code that searches the text for thresholds; a script may only print trials and write answers. The criteria text is data, not instructions.",
+  "chunking": "The 200 trials in annotation order, in 5 input files of 40 (by position), one session per file.",
+  "output": "One JSON line per trial {nct_id, answer}; parsed by eligibility_extractor_llm.load_outputs. A missing, duplicated or invalid answer is no answer: every type not_stated.",
+  "temperature_and_version": "Not controllable in a workspace session; the model identifier reported by each session is recorded."
+ },
+ "development": {
+  "data": "v1 validation sample (120 trials, annotated with guide v1) only. The v1 development set was not needed.",
+  "revisions": [
+   {
+    "revision": 1,
+    "scores": "docs/development/eligibility_llm_c1_development.json#/revisions/0"
+   },
+   {
+    "revision": 2,
+    "scores": "docs/development/eligibility_llm_c1_development.json#/revisions/1",
+    "change": "'other' unit when none is written; unit wordings; thresholds that describe the studied condition but are required for entry are reported"
+   }
+  ],
+  "limit": "At most 3 revisions; revision 2 is frozen.",
+  "caveat": "Guide v1 recorded exclusion comparators inconsistently and used 'multiple' for exceptions, so development scores on v1 data are a guide only; a direction-free score (value and unit) was also computed."
+ },
+ "order_of_events": [
+  "This plan, the prompt, the runner, the scoring module and a dry run on synthetic text are committed (the plan commit).",
+  "The owner finishes and exports the v2 annotation; the export is pinned (plan v2).",
+  "Extractor v1.1 is run and scored (plan v2).",
+  "Run 1: five sessions read the 200 trials; the output files are pinned. Run 2: five new sessions, same inputs; pinned.",
+  "Scoring of run 1 (primary) and run 2, the comparison with v1.1, and the report (the result commit)."
+ ],
+ "scoring": {
+  "rule": "eligibility_validation_v2.score_pair, unchanged",
+  "primary": "run 1",
+  "decision": "plan v2 decision rule, unchanged, per type",
+  "run_to_run_agreement": "Share of (trial, type) pairs where run 2 has the same status and the same set of (eligible-side comparator, value, unit) as run 1; and the per-type decision on run 2.",
+  "comparison_with_v1_1": "Descriptive only: per type, precision and recall of each, and counts of pairs where exactly one is correct (tp or tn) and the other is not. No claim that one is better is made unless both extractors are scored and the paired counts differ in the same direction as the pass decisions."
+ },
+ "decision_rule": {
+  "pass": "As plan v2.",
+  "consequence": "A passing type becomes a candidate for the benchmarking page only. Adding it needs a separate decision, because the page would then depend on a model run at request time.",
+  "never": "The prompt is not changed after any v2 trial has been read by the extractor; the annotation is not changed after any extractor has run, except logged corrections (plan v2)."
+ },
+ "clinical_prediction_validated": false
+}

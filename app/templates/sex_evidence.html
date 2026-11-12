@@ -1,0 +1,50 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sex in the evidence | Marlo Scientific</title>
+    <link rel="icon" href="{{ url_for('landscape.static', filename='images/favicon.ico', v=2) }}" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('landscape.static', filename='images/favicon.svg', v=2) }}">
+    <link rel="apple-touch-icon" href="{{ url_for('landscape.static', filename='images/apple-touch-icon.png', v=2) }}">
+    {{ site_head_links() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <style>
+    .ei-list{margin:0 0 12px;padding-left:20px}
+    .ei-list li{margin:4px 0;overflow-wrap:anywhere}
+    .ei-meta{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+    .ei-old{color:var(--muted)}
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{{ site_header(active='models') }}
+<main id="main" class="section">
+<article class="wrap prose prose-wide">
+    <p><a href="{{ url_for('model_scorecards') }}">← Model scorecards</a></p>
+    <p class="prose-eyebrow">Models and evidence · Track I</p>
+    <h1>Sex in the evidence: what is known, and what is missing</h1>
+    <p><strong>{{ m.reading }}</strong></p>
+    <h2>What each drug's sources say</h2>
+    {% for d in m.drugs %}
+    <h3>{{ d.drug|capitalize }}</h3>
+    {% if d.status == 'nothing_on_sex_extracted' %}<p>Nothing on sex has been extracted on the platform for this drug.</p>{% endif %}
+    <ul class="ei-list">
+    {% for s in d.statements %}<li>{{ s.text }}{% if s.kind != 'gap' and s.value is not none %} <span class="ei-meta">— {{ s.value if s.value is string else s.value|tojson }}</span>{% endif %}{% if s.source_title %} <span class="ei-meta">({{ s.source_title }})</span>{% endif %}</li>{% endfor %}
+    </ul>
+    <p class="ei-meta">From <a class="mono" href="{{ url_for('evidence_index_file', file=d.summary_file) }}">{{ d.summary_file }}</a>. Population-model covariate searches are shown only where they are extracted.</p>
+    {% endfor %}
+    <h2>Where sex enters the platform's own calculations</h2>
+    <ul class="ei-list">{% for e in m.platform_equations %}<li><strong>{{ e.formula|replace('_', ' ') }}</strong>: <span class="mono">{{ e.equation }}</span> <span class="ei-meta">({{ e.citation }}{% if e.doi %}, doi {{ e.doi }}{% endif %})</span></li>{% endfor %}</ul>
+    <p>These are published equations used as their sources state them. No other sex adjustment exists in any model.</p>
+    <h2>Who the registered myeloma trials allowed</h2>
+    {% set t = m.trial_eligibility %}
+    <p>Of {{ t.trials }} interventional multiple myeloma trials in the platform's ClinicalTrials.gov snapshot: {% for k, n in t.eligibility_sex.items() %}{{ n }} {{ 'open to all sexes' if k == 'ALL' else ('female only' if k == 'FEMALE' else ('male only' if k == 'MALE' else k)) }}{% if not loop.last %}, {% endif %}{% endfor %}.</p>
+    <p><strong>Enrolment by sex:</strong> {{ t.enrolment_by_sex }}</p>
+    <p class="prose-note">Map {{ m.map_version }} · corpus SHA-256 {{ t.corpus_sha256[:16] }}… · computed from pinned files when this page is built.</p>
+</article>
+</main>
+{% include "site_footer.html" %}
+</body>
+</html>

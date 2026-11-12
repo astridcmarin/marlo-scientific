@@ -1,0 +1,66 @@
+{
+ "schema_version": "extraction-review-plan-v1",
+ "plan_version": "extraction-double-extraction-plan-v1.0",
+ "recorded_on": "2026-11-11",
+ "status": "locked_before_the_second_reader_extracts_any_entry",
+ "purpose": "Reduce the owner's review of round 3 by a second, independent extraction: the owner reviews every entry where the two extractions disagree, every entry the method cannot compare, and a fixed random sample of the agreements. Track B of the Fable plan.",
+ "queue": {
+  "path": "intelligence_store/data/extraction_review_queue_round3_v4.json",
+  "sha256": "e1627e36d00c5064a5f50dd712b4321db6b0e9df3a1d064e4f63ed6532f49324",
+  "entries": 121
+ },
+ "in_scope": {
+  "groups": [
+   "lenalidomide_label_pk",
+   "lenalidomide_assays",
+   "hughes_precision",
+   "label_carfilzomib",
+   "label_selinexor",
+   "label_thalidomide",
+   "label_isatuximab",
+   "label_elotuzumab"
+  ],
+  "entries": 100,
+  "why": "Their source PDFs are in supplemental-information (the five labels, the REVLIMID label of 3/2023, the four articles behind the assays and Hughes 2019)."
+ },
+ "out_of_scope": {
+  "groups": [
+   "fda_renal_2024",
+   "fda_hepatic_2026"
+  ],
+  "entries": 21,
+  "handling": "Reviewed in full by the owner; their PDFs are not on file yet."
+ },
+ "second_reader": {
+  "model_identifier": "claude-fable-5-2",
+  "where": "separate workspace sessions",
+  "given": "the blinded entries (intelligence_store/double_extraction.blind_items): an opaque id, the source document and location, the measure with every number masked, and the field names to fill; and the source PDFs",
+  "not_given": "the platform extract files, the round 3 queue, the first extraction's values, earlier review records or reviews",
+  "rules": "Reads the PDF itself; fills every field from the source at the stated location; copies each quote exactly; may not run code that searches the source for values; writes one JSON line per entry {blind_id, value}."
+ },
+ "comparison": {
+  "module": "intelligence_store/double_extraction.py",
+  "agreement": "Every number in the entry (numeric fields and numbers written in text fields; quotes, ids and locations excluded) matches between the two extractions as a multiset, after removing thousands separators.",
+  "quotes": "Each second-reader quote must be found in the source by scripts/check_source_quotes.py; a quote not found makes the entry a disagreement.",
+  "not_comparable": "Entries with no numbers (33 of the 100) cannot be compared this way and are reviewed in full.",
+  "missing": "An entry the second reader does not answer, or answers twice, is a disagreement."
+ },
+ "owner_review": {
+  "disagreements": "every one, against the source, recording which extraction (if either) is right",
+  "agreements": {
+   "sample_size": 20,
+   "seed": 20261111,
+   "method": "double_extraction.agreement_sample over the sorted ids of agreeing entries"
+  },
+  "not_comparable_and_out_of_scope": "every one",
+  "decisions": "as round 3: matches, wrong, cannot_check"
+ },
+ "decision_rule": {
+  "pass": "If none of the 20 sampled agreements is wrong, the remaining agreements are recorded as \"agreed by two independent extractions, sampled\", not as owner-reviewed.",
+  "fail": "If any sampled agreement is wrong (both extractions made the same error), every remaining agreement is reviewed in full.",
+  "labels": "Pages keep saying which values the owner reviewed; agreed-and-sampled values are labelled as such."
+ },
+ "limits": "Two AI extractions that agree can share an error; the sample bounds how often, roughly: 0 errors in 20 gives a 95% upper bound of about 14% on the error rate among agreements (one-sided exact binomial). The second reader is the same model family as the first.",
+ "never": "The blinded entries, agreement rule, sample size and seed are not changed after the second reader has started; the platform extract files are not edited because of this review (a wrong value gets a new versioned file, as always).",
+ "clinical_prediction_validated": false
+}

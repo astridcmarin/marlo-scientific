@@ -1,0 +1,386 @@
+{
+ "schema_version": "extractor-development-record-v1",
+ "extractor": "eligibility-extractor-llm-c1",
+ "recorded_on": "2026-11-11",
+ "data": {
+  "annotations": "intelligence_store/data/eligibility_annotations_v1.json",
+  "trials": 120,
+  "note": "v1 validation sample, annotated with guide v1 and already seen; development only"
+ },
+ "revisions": [
+  {
+   "revision": 1,
+   "prompt": "docs/development/eligibility_llm_c1/prompt_revision_1.md",
+   "prompt_sha256": "d65eea911a8d2e5d1686b458039b7efab3f2c0360b44a41554822a4d70e126d5",
+   "outputs": "docs/development/eligibility_llm_c1/revision_1_v1_sample.jsonl",
+   "outputs_sha256": "ea3498be575cbbdbf68b6b1fc5c6b382b17fe33c03200f619cbe6f45074ef259",
+   "model_identifier": "claude-fable-5-2",
+   "sessions": 3,
+   "run_on": "2026-11-11",
+   "no_answer": 0,
+   "plan_v2_score_pair": {
+    "kidney_function_min": {
+     "tp": 33,
+     "fp_pairs": 12,
+     "fn_pairs": 15,
+     "precision": 0.7333333333333333,
+     "recall": 0.6875
+    },
+    "creatinine_max": {
+     "tp": 23,
+     "fp_pairs": 9,
+     "fn_pairs": 10,
+     "precision": 0.71875,
+     "recall": 0.696969696969697
+    },
+    "anc_min": {
+     "tp": 27,
+     "fp_pairs": 10,
+     "fn_pairs": 10,
+     "precision": 0.7297297297297297,
+     "recall": 0.7297297297297297
+    },
+    "platelets_min": {
+     "tp": 29,
+     "fp_pairs": 7,
+     "fn_pairs": 14,
+     "precision": 0.8055555555555556,
+     "recall": 0.6744186046511628
+    },
+    "hemoglobin_min": {
+     "tp": 16,
+     "fp_pairs": 5,
+     "fn_pairs": 5,
+     "precision": 0.7619047619047619,
+     "recall": 0.7619047619047619
+    },
+    "bilirubin_max": {
+     "tp": 46,
+     "fp_pairs": 12,
+     "fn_pairs": 16,
+     "precision": 0.7931034482758621,
+     "recall": 0.7419354838709677
+    },
+    "ast_alt_max": {
+     "tp": 44,
+     "fp_pairs": 11,
+     "fn_pairs": 17,
+     "precision": 0.8,
+     "recall": 0.7213114754098361
+    },
+    "ecog_max": {
+     "tp": 62,
+     "fp_pairs": 10,
+     "fn_pairs": 7,
+     "precision": 0.8611111111111112,
+     "recall": 0.8985507246376812
+    }
+   },
+   "direction_free": {
+    "kidney_function_min": {
+     "tp": 44,
+     "fp_pairs": 2,
+     "fn_pairs": 4,
+     "precision": 0.9565217391304348,
+     "recall": 0.9166666666666666
+    },
+    "creatinine_max": {
+     "tp": 29,
+     "fp_pairs": 3,
+     "fn_pairs": 4,
+     "precision": 0.90625,
+     "recall": 0.8787878787878788
+    },
+    "anc_min": {
+     "tp": 31,
+     "fp_pairs": 7,
+     "fn_pairs": 6,
+     "precision": 0.8157894736842105,
+     "recall": 0.8378378378378378
+    },
+    "platelets_min": {
+     "tp": 35,
+     "fp_pairs": 3,
+     "fn_pairs": 8,
+     "precision": 0.9210526315789473,
+     "recall": 0.813953488372093
+    },
+    "hemoglobin_min": {
+     "tp": 17,
+     "fp_pairs": 4,
+     "fn_pairs": 4,
+     "precision": 0.8095238095238095,
+     "recall": 0.8095238095238095
+    },
+    "bilirubin_max": {
+     "tp": 57,
+     "fp_pairs": 2,
+     "fn_pairs": 5,
+     "precision": 0.9661016949152542,
+     "recall": 0.9193548387096774
+    },
+    "ast_alt_max": {
+     "tp": 54,
+     "fp_pairs": 2,
+     "fn_pairs": 7,
+     "precision": 0.9642857142857143,
+     "recall": 0.8852459016393442
+    },
+    "ecog_max": {
+     "tp": 66,
+     "fp_pairs": 7,
+     "fn_pairs": 3,
+     "precision": 0.9041095890410958,
+     "recall": 0.9565217391304348
+    }
+   }
+  },
+  {
+   "revision": 2,
+   "prompt": "intelligence_store/data/eligibility_extractor_llm_c1_prompt.md",
+   "prompt_sha256": "64f4da354eb669bfe9c290d5ccdb3765c0e57d19cddcaa60625fb4e727d00883",
+   "outputs": "docs/development/eligibility_llm_c1/revision_2_v1_sample.jsonl",
+   "outputs_sha256": "37342ed52073bff856006f63862ef208f8885bfb02a16925427849f70d18a9e5",
+   "model_identifier": "claude-fable-5-2",
+   "sessions": 3,
+   "run_on": "2026-11-11",
+   "no_answer": 0,
+   "plan_v2_score_pair": {
+    "kidney_function_min": {
+     "tp": 34,
+     "fp_pairs": 11,
+     "fn_pairs": 14,
+     "precision": 0.7555555555555555,
+     "recall": 0.7083333333333334
+    },
+    "creatinine_max": {
+     "tp": 25,
+     "fp_pairs": 7,
+     "fn_pairs": 8,
+     "precision": 0.78125,
+     "recall": 0.7575757575757576
+    },
+    "anc_min": {
+     "tp": 29,
+     "fp_pairs": 8,
+     "fn_pairs": 8,
+     "precision": 0.7837837837837838,
+     "recall": 0.7837837837837838
+    },
+    "platelets_min": {
+     "tp": 32,
+     "fp_pairs": 4,
+     "fn_pairs": 11,
+     "precision": 0.8888888888888888,
+     "recall": 0.7441860465116279
+    },
+    "hemoglobin_min": {
+     "tp": 17,
+     "fp_pairs": 4,
+     "fn_pairs": 4,
+     "precision": 0.8095238095238095,
+     "recall": 0.8095238095238095
+    },
+    "bilirubin_max": {
+     "tp": 46,
+     "fp_pairs": 12,
+     "fn_pairs": 16,
+     "precision": 0.7931034482758621,
+     "recall": 0.7419354838709677
+    },
+    "ast_alt_max": {
+     "tp": 46,
+     "fp_pairs": 10,
+     "fn_pairs": 15,
+     "precision": 0.8214285714285714,
+     "recall": 0.7540983606557377
+    },
+    "ecog_max": {
+     "tp": 62,
+     "fp_pairs": 10,
+     "fn_pairs": 7,
+     "precision": 0.8611111111111112,
+     "recall": 0.8985507246376812
+    }
+   },
+   "direction_free": {
+    "kidney_function_min": {
+     "tp": 45,
+     "fp_pairs": 1,
+     "fn_pairs": 3,
+     "precision": 0.9782608695652174,
+     "recall": 0.9375
+    },
+    "creatinine_max": {
+     "tp": 32,
+     "fp_pairs": 0,
+     "fn_pairs": 1,
+     "precision": 1.0,
+     "recall": 0.9696969696969697
+    },
+    "anc_min": {
+     "tp": 33,
+     "fp_pairs": 5,
+     "fn_pairs": 4,
+     "precision": 0.868421052631579,
+     "recall": 0.8918918918918919
+    },
+    "platelets_min": {
+     "tp": 37,
+     "fp_pairs": 1,
+     "fn_pairs": 6,
+     "precision": 0.9736842105263158,
+     "recall": 0.8604651162790697
+    },
+    "hemoglobin_min": {
+     "tp": 18,
+     "fp_pairs": 3,
+     "fn_pairs": 3,
+     "precision": 0.8571428571428571,
+     "recall": 0.8571428571428571
+    },
+    "bilirubin_max": {
+     "tp": 58,
+     "fp_pairs": 1,
+     "fn_pairs": 4,
+     "precision": 0.9830508474576272,
+     "recall": 0.9354838709677419
+    },
+    "ast_alt_max": {
+     "tp": 56,
+     "fp_pairs": 1,
+     "fn_pairs": 5,
+     "precision": 0.9824561403508771,
+     "recall": 0.9180327868852459
+    },
+    "ecog_max": {
+     "tp": 66,
+     "fp_pairs": 7,
+     "fn_pairs": 3,
+     "precision": 0.9041095890410958,
+     "recall": 0.9565217391304348
+    }
+   }
+  }
+ ],
+ "v1_1_on_the_same_trials": {
+  "note": "extractor v1.1 was tuned on these trials, so its scores here are not a fair comparison",
+  "plan_v2_score_pair": {
+   "kidney_function_min": {
+    "tp": 34,
+    "fp_pairs": 14,
+    "fn_pairs": 13,
+    "precision": 0.7083333333333334,
+    "recall": 0.723404255319149
+   },
+   "creatinine_max": {
+    "tp": 24,
+    "fp_pairs": 7,
+    "fn_pairs": 9,
+    "precision": 0.7741935483870968,
+    "recall": 0.7272727272727273
+   },
+   "anc_min": {
+    "tp": 29,
+    "fp_pairs": 8,
+    "fn_pairs": 8,
+    "precision": 0.7837837837837838,
+    "recall": 0.7837837837837838
+   },
+   "platelets_min": {
+    "tp": 32,
+    "fp_pairs": 4,
+    "fn_pairs": 11,
+    "precision": 0.8888888888888888,
+    "recall": 0.7441860465116279
+   },
+   "hemoglobin_min": {
+    "tp": 17,
+    "fp_pairs": 5,
+    "fn_pairs": 4,
+    "precision": 0.7727272727272727,
+    "recall": 0.8095238095238095
+   },
+   "bilirubin_max": {
+    "tp": 47,
+    "fp_pairs": 12,
+    "fn_pairs": 15,
+    "precision": 0.7966101694915254,
+    "recall": 0.7580645161290323
+   },
+   "ast_alt_max": {
+    "tp": 45,
+    "fp_pairs": 11,
+    "fn_pairs": 16,
+    "precision": 0.8035714285714286,
+    "recall": 0.7377049180327869
+   },
+   "ecog_max": {
+    "tp": 61,
+    "fp_pairs": 7,
+    "fn_pairs": 8,
+    "precision": 0.8970588235294118,
+    "recall": 0.8840579710144928
+   }
+  },
+  "direction_free": {
+   "kidney_function_min": {
+    "tp": 45,
+    "fp_pairs": 3,
+    "fn_pairs": 2,
+    "precision": 0.9375,
+    "recall": 0.9574468085106383
+   },
+   "creatinine_max": {
+    "tp": 31,
+    "fp_pairs": 0,
+    "fn_pairs": 2,
+    "precision": 1.0,
+    "recall": 0.9393939393939394
+   },
+   "anc_min": {
+    "tp": 34,
+    "fp_pairs": 3,
+    "fn_pairs": 3,
+    "precision": 0.918918918918919,
+    "recall": 0.918918918918919
+   },
+   "platelets_min": {
+    "tp": 37,
+    "fp_pairs": 1,
+    "fn_pairs": 6,
+    "precision": 0.9736842105263158,
+    "recall": 0.8604651162790697
+   },
+   "hemoglobin_min": {
+    "tp": 18,
+    "fp_pairs": 4,
+    "fn_pairs": 3,
+    "precision": 0.8181818181818182,
+    "recall": 0.8571428571428571
+   },
+   "bilirubin_max": {
+    "tp": 59,
+    "fp_pairs": 1,
+    "fn_pairs": 3,
+    "precision": 0.9833333333333333,
+    "recall": 0.9516129032258065
+   },
+   "ast_alt_max": {
+    "tp": 55,
+    "fp_pairs": 1,
+    "fn_pairs": 6,
+    "precision": 0.9821428571428571,
+    "recall": 0.9016393442622951
+   },
+   "ecog_max": {
+    "tp": 63,
+    "fp_pairs": 7,
+    "fn_pairs": 6,
+    "precision": 0.9,
+    "recall": 0.9130434782608695
+   }
+  }
+ },
+ "clinical_prediction_validated": false
+}

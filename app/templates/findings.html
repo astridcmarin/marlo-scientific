@@ -51,7 +51,7 @@
     </ol>
     {% endfor %}
 
-    <p class="prose-note">Findings {{ v.findings_version }} · SHA-256 {{ v.findings_sha256[:16] }}… · every report's checksum was verified when this page was built. Blindness from the dataset ledger (SHA-256 {{ v.ledger_sha256[:16] }}…). See also the <a href="{{ url_for('model_scorecards') }}">model scorecards</a> and <a href="{{ url_for('credibility_records') }}">credibility records</a>.</p>
+    <p class="prose-note">Findings {{ v.findings_version }} · SHA-256 {{ v.findings_sha256[:16] }}… · every report's checksum was verified when this page was built. Blindness from the dataset ledger (SHA-256 {{ v.ledger_sha256[:16] }}…). See also the <a href="{{ url_for('model_scorecards') }}">model scorecards</a>, <a href="{{ url_for('credibility_records') }}">credibility records</a> the <a href="{{ url_for('evidence_index') }}">evidence index</a> and <a href="{{ url_for('sex_evidence') }}">sex in the evidence</a>.</p>
 </article>
 </main>
 {% include "site_footer.html" %}
