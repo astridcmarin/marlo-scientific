@@ -43,9 +43,11 @@ REPORT_FILES = {
     'kim_cc5013': ('docs/verification/kim_renal_group_check_v1.json', 'e53f62db6506346a3d5027388b0c9165de51b8fab0c5f9efc1ad7b29d34da4bb'),
     'renal_recheck': ('docs/verification/lenalidomide_renal_recheck_v1.json', 'c98e29919cd9e90981439a37d03883a8cfd834f397b8c0383e723b1f923e2991'),
     'bridoux_hughes_kim': ('docs/verification/lenalidomide_bridoux_check_v1.json', 'febf0e3b6ea090dd44172bc44b4cedf30e820b2227a07cea4ea7eed4fa3daccb'),
+    'acceptance_rule_v2': ('docs/verification/acceptance_rule_v2_lenalidomide_v1.json', '47b815d1b9b2f10602dd6a63f35b7e10cfe6c5455917d38146fe3fbc440df9ae'),
 }
 REVIEWS = {'lenalidomide_renal_pathways_2026': ['docs/reviews/2026-11-04_ai_review_renal_pathways.md']}
-CLASS = {'consistent': 'consistent', 'model_under_predicts': 'model under-predicts', 'model_over_predicts': 'model over-predicts'}
+CLASS = {'consistent': 'consistent', 'model_under_predicts': 'model under-predicts', 'model_over_predicts': 'model over-predicts',
+         'indeterminate': 'indeterminate'}
 GROUP = {'mild': 'Mild', 'moderate': 'Moderate', 'severe_without_dialysis': 'Severe, not on dialysis'}
 
 
@@ -160,9 +162,29 @@ def _group_result(finding_id):
     return build_result
 
 
+def _result_rule_v2(r, model_id=None):
+    """Acceptance rule v2 (F03): the primary-scenario verdicts of the four checks for one model, v1 beside v2."""
+    names = {'hughes_cc5013': 'CC-5013-PK-001', 'kim_cc5013': 'CC-5013-PK-001', 'renal_recheck': 'CC-5013-PK-001, study-matched',
+             'bridoux_hughes_kim': 'Bridoux 2016'}
+    rows = []
+    for check, res in r['results'].items():
+        for x in res['rows']:
+            if x['scenario'] == 'primary' and x['model'] == model_id:
+                s = x['simulated_ratio_first_seed']
+                rows.append([names[check], x['group'].capitalize(), f"{x['observed_ratio']:.2f}", f"{s['p05']:.2f}–{s['p95']:.2f}",
+                             _c(x['verdict_v1']), _c(x['verdict_v2'])])
+    return {'title': 'Acceptance rule v2: with the uncertainty of the published estimates (F03)',
+            'columns': ['Study', 'Group', 'Observed ratio to normal', 'Simulated 5th–95th (first seed)', 'Verdict v1', 'Verdict v2'],
+            'rows': rows,
+            'note': (f"Primary scenarios only; {r['outer_parameter_sets']} parameter sets drawn from the published bootstrap intervals x "
+                     f"{r['inner_trials_per_set']} virtual trials, five seeds. Indeterminate: within {100 * r['indeterminate_margin']:.0f}% "
+                     "of a limit, or the seeds disagree. Not blind; old verdicts unchanged in their reports.")}
+
+
 RESULTS = {'pathways_2_0a': _result_2_0a, 'pathways_esrd': _result_esrd, 'pathways_2_0d': _result_2_0d, 'pathways_2_0e': _result_2_0e,
            'hughes_cc5013': _group_result('hughes_cc5013'), 'kim_cc5013': _group_result('kim_cc5013'),
-           'renal_recheck': _group_result('renal_recheck'), 'bridoux_hughes_kim': _group_result('bridoux_hughes_kim')}
+           'renal_recheck': _group_result('renal_recheck'), 'bridoux_hughes_kim': _group_result('bridoux_hughes_kim'),
+           'acceptance_rule_v2': _result_rule_v2}
 
 
 def _exposure_safety_results():

@@ -57,8 +57,12 @@ class Report(unittest.TestCase):
 class PublishedModels(unittest.TestCase):
     def test_hughes_and_kim_reports(self):
         h, k = mar.build('lenalidomide_hughes_2019'), mar.build('lenalidomide_kim_2026')
-        self.assertEqual([r['finding']['id'] for r in h['results']], ['hughes_cc5013', 'renal_recheck', 'bridoux_hughes_kim'])
-        self.assertEqual([r['finding']['id'] for r in k['results']], ['kim_cc5013', 'renal_recheck', 'bridoux_hughes_kim'])
+        self.assertEqual([r['finding']['id'] for r in h['results']], ['hughes_cc5013', 'renal_recheck', 'bridoux_hughes_kim', 'acceptance_rule_v2'])
+        self.assertEqual([r['finding']['id'] for r in k['results']], ['kim_cc5013', 'renal_recheck', 'bridoux_hughes_kim', 'acceptance_rule_v2'])
+        rule = {(row[0], row[1]): row[5] for row in k['results'][3]['rows']}
+        self.assertEqual(rule[('Bridoux 2016', 'Severe')], 'model under-predicts')
+        self.assertEqual(rule[('Bridoux 2016', 'Moderate')], 'indeterminate')
+        self.assertTrue(all(row[5] != 'indeterminate' for row in h['results'][3]['rows']))
         self.assertEqual(k['results'][1]['rows'][1], ['Moderate', 'model under-predicts', 'model under-predicts', 'changed'])
         bridoux = h['results'][2]
         self.assertTrue(bridoux['finding']['blind'])

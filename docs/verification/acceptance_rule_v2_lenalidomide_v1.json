@@ -1,0 +1,1986 @@
+{
+ "schema_version": "acceptance-rule-v2-report-v1",
+ "method_version": "acceptance-rule-v2-v1.0",
+ "plan_version": "acceptance-rule-v2-plan-v1.0",
+ "plan_sha256": "75ea018e97adde8ec9af997f6fe0099515e0928c586d237b8fa41aa7303a4046",
+ "synthetic_observed": false,
+ "outer_parameter_sets": 200,
+ "inner_trials_per_set": 50,
+ "seeds": [
+  20261112,
+  20261113,
+  20261114,
+  20261115,
+  20261116
+ ],
+ "indeterminate_margin": 0.05,
+ "results": {
+  "hughes_cc5013": {
+   "endpoint": "AUC to infinity, each impaired group relative to normal",
+   "primary_v2": {
+    "lenalidomide_hughes_2019": {
+     "mild": "consistent",
+     "moderate": "model_under_predicts",
+     "severe": "model_under_predicts"
+    }
+   },
+   "rows": [
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 0.6267465322899385,
+      "p50": 1.1103116170774798,
+      "p95": 1.9701759969864865
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.3435413168803255
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7100238427970349,
+      "p50": 1.2357599453536108,
+      "p95": 2.1616746154890514
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.2768899953740658
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7907302381431167,
+      "p50": 1.4385051654860899,
+      "p95": 2.643536492575302
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.42067896552214923
+    },
+    {
+     "scenario": "sensitivity_wide_open_ends",
+     "model": "lenalidomide_hughes_2019",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 0.6491750774117168,
+      "p50": 1.1638600136951809,
+      "p95": 2.064982757204751
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.37729884369558353
+    },
+    {
+     "scenario": "sensitivity_wide_open_ends",
+     "model": "lenalidomide_hughes_2019",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7320886086430065,
+      "p50": 1.297523978479955,
+      "p95": 2.3328982068158473
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.17929199356251613
+    },
+    {
+     "scenario": "sensitivity_wide_open_ends",
+     "model": "lenalidomide_hughes_2019",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 0.8318674080089458,
+      "p50": 1.5738939599810302,
+      "p95": 3.0848022766222196
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.21407687625714744
+    },
+    {
+     "scenario": "sensitivity_fixed_ffm",
+     "model": "lenalidomide_hughes_2019",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 0.6263943612003945,
+      "p50": 1.0944217761103057,
+      "p95": 1.9487724671161724
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.339764496807505
+    },
+    {
+     "scenario": "sensitivity_fixed_ffm",
+     "model": "lenalidomide_hughes_2019",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7013261027813451,
+      "p50": 1.2194571817908675,
+      "p95": 2.1428409347898163
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.2883178600765486
+    },
+    {
+     "scenario": "sensitivity_fixed_ffm",
+     "model": "lenalidomide_hughes_2019",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7805772835469026,
+      "p50": 1.407089397055241,
+      "p95": 2.6255318352992516
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.43042131087466884
+    },
+    {
+     "scenario": "sensitivity_severe_near_boundary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 0.6189801738223251,
+      "p50": 1.100486796637719,
+      "p95": 1.9415401776467092
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.3465579005401923
+    },
+    {
+     "scenario": "sensitivity_severe_near_boundary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7006335062411134,
+      "p50": 1.2310066721353978,
+      "p95": 2.1407481622437476
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.25714969714264835
+    },
+    {
+     "scenario": "sensitivity_severe_near_boundary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7599985755103847,
+      "p50": 1.3538360795670878,
+      "p95": 2.4219175470055694
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.5258151454638469
+    }
+   ]
+  },
+  "kim_cc5013": {
+   "endpoint": "AUC to infinity, each impaired group relative to normal",
+   "primary_v2": {
+    "lenalidomide_kim_2026": {
+     "mild": "indeterminate",
+     "moderate": "indeterminate",
+     "severe": "indeterminate"
+    }
+   },
+   "rows": [
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 1.235761138013461,
+      "p50": 1.6048856465235413,
+      "p95": 2.107093686674686
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "consistent",
+     "changed": true,
+     "margin_to_nearest_limit": 0.020708201836119322
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 1.7004324371845696,
+      "p50": 2.2120628417995305,
+      "p95": 2.925336752307351
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "indeterminate",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "consistent",
+     "changed": true,
+     "margin_to_nearest_limit": 0.04371559703859973
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 2.0918688714369487,
+      "p50": 2.8111090689891025,
+      "p95": 3.8268429631815244
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.005547981691718995
+    },
+    {
+     "scenario": "sensitivity_exponential_form",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 1.2209482298643715,
+      "p50": 1.605801175474081,
+      "p95": 2.108777961149811
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "consistent",
+     "changed": true,
+     "margin_to_nearest_limit": 0.029489504637667308
+    },
+    {
+     "scenario": "sensitivity_exponential_form",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 1.6685817705888606,
+      "p50": 2.226667931045255,
+      "p95": 2.9777765247550896
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.05801322342734949
+    },
+    {
+     "scenario": "sensitivity_exponential_form",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 2.049317871347744,
+      "p50": 2.8094801694328817,
+      "p95": 3.87272376415073
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.015536113511064098
+    },
+    {
+     "scenario": "sensitivity_ideal_weight_basis",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 1.1564948120663627,
+      "p50": 1.502185271935816,
+      "p95": 1.9649363508295892
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.09386160112621678
+    },
+    {
+     "scenario": "sensitivity_ideal_weight_basis",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 1.7390330647632826,
+      "p50": 2.2742488872619724,
+      "p95": 2.9923962056360947
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.07158599464623672
+    },
+    {
+     "scenario": "sensitivity_ideal_weight_basis",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 2.2860110679777352,
+      "p50": 3.110024166670746,
+      "p95": 4.2314369079822605
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.10185297466698884
+    },
+    {
+     "scenario": "sensitivity_older",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 1.183927343749315,
+      "p50": 1.5180395454226732,
+      "p95": 1.9608833862042379
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.07158948272054189
+    },
+    {
+     "scenario": "sensitivity_older",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 1.6935796893927864,
+      "p50": 2.173052684156623,
+      "p95": 2.8411980714536993
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.01914877150804195
+    },
+    {
+     "scenario": "sensitivity_older",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 2.145976768934497,
+      "p50": 2.8339258236347447,
+      "p95": 3.851659537282347
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.006456389587611078
+    },
+    {
+     "scenario": "sensitivity_kim_body_size",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 1.1702536668900045,
+      "p50": 1.52477110384745,
+      "p95": 2.0180116188739254
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.07175664023699801
+    },
+    {
+     "scenario": "sensitivity_kim_body_size",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 1.7146960163681397,
+      "p50": 2.2573211929267085,
+      "p95": 3.010304662776352
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.07161930543902895
+    },
+    {
+     "scenario": "sensitivity_kim_body_size",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 2.2047422375489134,
+      "p50": 3.023057061693898,
+      "p95": 4.2096083440422385
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.0927100187322295
+    },
+    {
+     "scenario": "sensitivity_normal_within_kim_range",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 1.0765576260688525,
+      "p50": 1.3856034397651384,
+      "p95": 1.7770492717324067
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.166480904871255
+    },
+    {
+     "scenario": "sensitivity_normal_within_kim_range",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 1.5055124299299165,
+      "p50": 1.9193726388718821,
+      "p95": 2.4807914887170095
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.11281430146335159
+    },
+    {
+     "scenario": "sensitivity_normal_within_kim_range",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 1.8533202964440807,
+      "p50": 2.437757220368141,
+      "p95": 3.2234031443199225
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.161189639720555
+    },
+    {
+     "scenario": "sensitivity_severe_near_boundary",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 1.2367663289968438,
+      "p50": 1.6125887260107783,
+      "p95": 2.0930456172214886
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "consistent",
+     "changed": true,
+     "margin_to_nearest_limit": 0.02158085141259014
+    },
+    {
+     "scenario": "sensitivity_severe_near_boundary",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 1.7121097251104387,
+      "p50": 2.227478171534817,
+      "p95": 2.910484291676619
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.05147735877229698
+    },
+    {
+     "scenario": "sensitivity_severe_near_boundary",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 2.0166294115131507,
+      "p50": 2.6649587058103483,
+      "p95": 3.5435535480790445
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.028522608096925195
+    }
+   ]
+  },
+  "renal_recheck": {
+   "endpoint": "AUC to infinity, each impaired group relative to normal",
+   "primary_v2": {
+    "lenalidomide_kim_2026": {
+     "mild": "consistent",
+     "moderate": "indeterminate",
+     "severe": "indeterminate"
+    },
+    "lenalidomide_hughes_2019": {
+     "mild": "consistent",
+     "moderate": "model_under_predicts",
+     "severe": "model_under_predicts"
+    }
+   },
+   "rows": [
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 0.6428320756863731,
+      "p50": 1.1407110353603396,
+      "p95": 1.9891658116158675
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.34951830677890816
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 0.6228906432840206,
+      "p50": 1.0930328256437107,
+      "p95": 1.9054082321670651
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.4363490097977041
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 0.8688783999593025,
+      "p50": 1.550886490412163,
+      "p95": 2.766384030704808
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.3465258184882083
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 1.1857448920849667,
+      "p50": 1.4909570501268705,
+      "p95": 1.8830060814918004
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.060470397771200446
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 1.5859131236610062,
+      "p50": 2.0742239629757977,
+      "p95": 2.72161431699259
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.012635567183936547
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 2.1825936964426864,
+      "p50": 2.8865460940981675,
+      "p95": 3.8220296318610925
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.0008232825690910328
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_hughes_2019",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 0.6408447080542983,
+      "p50": 1.139838785598726,
+      "p95": 2.0064501674516784
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.3649678436291671
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_hughes_2019",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 0.6276023916227291,
+      "p50": 1.0942039664320191,
+      "p95": 1.9416842937980632
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.411302679918383
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_hughes_2019",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 0.8696387369263032,
+      "p50": 1.5538409690524158,
+      "p95": 2.8808977421986492
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.2961283940459838
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 1.2084458201819517,
+      "p50": 1.536054030203351,
+      "p95": 1.9571436190862013
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "consistent",
+     "changed": true,
+     "margin_to_nearest_limit": 0.04161030610909555
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 1.6054893851422212,
+      "p50": 2.1425357649817065,
+      "p95": 2.8769570403658027
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.023063445350322342
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 2.213278724150257,
+      "p50": 2.9982603338459,
+      "p95": 4.0184944356600845
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.058039537941596664
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_hughes_2019",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 0.6374239938408893,
+      "p50": 1.1113213406686084,
+      "p95": 1.9629316732101545
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.34642874689282166
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_hughes_2019",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 0.6266074709850806,
+      "p50": 1.0870048393885963,
+      "p95": 1.875208667026703
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.4464532252584539
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_hughes_2019",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 0.8432947475619875,
+      "p50": 1.5002528439586977,
+      "p95": 2.7357726987827258
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.35420962236683007
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 1.1816197709510248,
+      "p50": 1.4833320858377357,
+      "p95": 1.8756728299381171
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.06653038977839221
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 1.5888174226268204,
+      "p50": 2.0642455466999237,
+      "p95": 2.707613282313037
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.0024051094748109847
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 2.1833800681413464,
+      "p50": 2.8769396796628888,
+      "p95": 3.834079559111787
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.008895006968806851
+    },
+    {
+     "scenario": "sensitivity_kim_exponential",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.2686840898670335,
+     "simulated_ratio_first_seed": {
+      "p05": 1.2062355030623144,
+      "p50": 1.522919974433996,
+      "p95": 1.9265532407831902
+     },
+     "class_by_seed": [
+      "consistent",
+      "indeterminate",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "consistent",
+     "changed": true,
+     "margin_to_nearest_limit": 0.04696490294825817
+    },
+    {
+     "scenario": "sensitivity_kim_exponential",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.7606602475928472,
+     "simulated_ratio_first_seed": {
+      "p05": 1.5122991943960131,
+      "p50": 1.9770121459420777,
+      "p95": 2.6163836574430364
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "indeterminate",
+      "model_under_predicts",
+      "model_under_predicts",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.04730746459397395
+    },
+    {
+     "scenario": "sensitivity_kim_exponential",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 3.7556166895919305,
+     "simulated_ratio_first_seed": {
+      "p05": 2.2774007147779467,
+      "p50": 2.9885717562178913,
+      "p95": 4.006584666544935
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.056135523411829036
+    }
+   ]
+  },
+  "bridoux_hughes_kim": {
+   "endpoint": "Dose-normalised AUC24, each impaired group relative to normal",
+   "primary_v2": {
+    "lenalidomide_kim_2026": {
+     "mild": "consistent",
+     "moderate": "indeterminate",
+     "severe": "model_under_predicts"
+    },
+    "lenalidomide_hughes_2019": {
+     "mild": "consistent",
+     "moderate": "model_under_predicts",
+     "severe": "model_under_predicts"
+    }
+   },
+   "rows": [
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "mild",
+     "observed_ratio": 1.4911276473955353,
+     "simulated_ratio_first_seed": {
+      "p05": 0.737771352037975,
+      "p50": 1.1183733519431538,
+      "p95": 1.6809976903358281
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.10726557204524512
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "moderate",
+     "observed_ratio": 2.575844304522038,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7388641797030231,
+      "p50": 1.2021267094077297,
+      "p95": 1.937081680926177
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.32186568362797807
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_hughes_2019",
+     "group": "severe",
+     "observed_ratio": 4.443808433505057,
+     "simulated_ratio_first_seed": {
+      "p05": 0.843958071116125,
+      "p50": 1.4644706739691176,
+      "p95": 2.5280359893160376
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.690896621865984
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.4911276473955353,
+     "simulated_ratio_first_seed": {
+      "p05": 1.2824333934620644,
+      "p50": 1.5513845278576968,
+      "p95": 1.8789916384753291
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.15234748187135527
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.575844304522038,
+     "simulated_ratio_first_seed": {
+      "p05": 1.6964249616152243,
+      "p50": 2.1421374446488084,
+      "p95": 2.7125225668343944
+     },
+     "class_by_seed": [
+      "consistent",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "consistent"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.030603186095816692
+    },
+    {
+     "scenario": "primary",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 4.443808433505057,
+     "simulated_ratio_first_seed": {
+      "p05": 2.144937915542028,
+      "p50": 2.8353005703247462,
+      "p95": 3.7944689542129306
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.1599817244306838
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_hughes_2019",
+     "group": "mild",
+     "observed_ratio": 1.4911276473955353,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7404751891409777,
+      "p50": 1.1193640081585832,
+      "p95": 1.6877379219291686
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.10395460950572366
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_hughes_2019",
+     "group": "moderate",
+     "observed_ratio": 2.575844304522038,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7518451892567822,
+      "p50": 1.2143857643633071,
+      "p95": 1.9435918894538629
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.30836762792522787
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_hughes_2019",
+     "group": "severe",
+     "observed_ratio": 4.443808433505057,
+     "simulated_ratio_first_seed": {
+      "p05": 0.8574381007780781,
+      "p50": 1.5018604709972254,
+      "p95": 2.698528336105968
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.6467525554753168
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.4911276473955353,
+     "simulated_ratio_first_seed": {
+      "p05": 1.2731996030116126,
+      "p50": 1.5449802509372337,
+      "p95": 1.8840300544037059
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.16187570851691713
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.575844304522038,
+     "simulated_ratio_first_seed": {
+      "p05": 1.684566556214701,
+      "p50": 2.1473557554056497,
+      "p95": 2.7424056769652636
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "indeterminate",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "consistent",
+     "changed": true,
+     "margin_to_nearest_limit": 0.04978016082884784
+    },
+    {
+     "scenario": "sensitivity_uniform_crcl",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 4.443808433505057,
+     "simulated_ratio_first_seed": {
+      "p05": 2.1418817924000946,
+      "p50": 2.9035264286663427,
+      "p95": 3.9305526074558017
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.1300990794438961
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_hughes_2019",
+     "group": "mild",
+     "observed_ratio": 1.4911276473955353,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7324268261546476,
+      "p50": 1.1094364619271528,
+      "p95": 1.6855991636282575
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.10582474646791962
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_hughes_2019",
+     "group": "moderate",
+     "observed_ratio": 2.575844304522038,
+     "simulated_ratio_first_seed": {
+      "p05": 0.7424025259438172,
+      "p50": 1.1928683141745622,
+      "p95": 1.9212748876895422
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.33818032324122904
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_hughes_2019",
+     "group": "severe",
+     "observed_ratio": 4.443808433505057,
+     "simulated_ratio_first_seed": {
+      "p05": 0.8321477858823721,
+      "p50": 1.4495082335955418,
+      "p95": 2.6101209903868843
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.7025296719468836
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.4911276473955353,
+     "simulated_ratio_first_seed": {
+      "p05": 1.2878770253125944,
+      "p50": 1.5515528659429383,
+      "p95": 1.8732715918390068
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.15781834607509038
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.575844304522038,
+     "simulated_ratio_first_seed": {
+      "p05": 1.6977984485371573,
+      "p50": 2.1424127412492147,
+      "p95": 2.6979392411737075
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "consistent",
+      "indeterminate"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.03475079049556107
+    },
+    {
+     "scenario": "sensitivity_shorter",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 4.443808433505057,
+     "simulated_ratio_first_seed": {
+      "p05": 2.151634953182756,
+      "p50": 2.8581749944698904,
+      "p95": 3.7694334815965136
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.15389897474615322
+    },
+    {
+     "scenario": "sensitivity_kim_exponential",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.4911276473955353,
+     "simulated_ratio_first_seed": {
+      "p05": 1.2859586652562625,
+      "p50": 1.552450252467171,
+      "p95": 1.8962949118116892
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.15735500072093944
+    },
+    {
+     "scenario": "sensitivity_kim_exponential",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.575844304522038,
+     "simulated_ratio_first_seed": {
+      "p05": 1.7184070324405158,
+      "p50": 2.1513291304619884,
+      "p95": 2.724787644368154
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "indeterminate",
+      "indeterminate",
+      "consistent"
+     ],
+     "verdict_v2": "indeterminate",
+     "verdict_v1": "model_under_predicts",
+     "changed": true,
+     "margin_to_nearest_limit": 0.04886675713066169
+    },
+    {
+     "scenario": "sensitivity_kim_exponential",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 4.443808433505057,
+     "simulated_ratio_first_seed": {
+      "p05": 2.1808504998813536,
+      "p50": 2.876397384016263,
+      "p95": 3.863735591331971
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.15013264455115416
+    },
+    {
+     "scenario": "sensitivity_ideal_weight_basis",
+     "model": "lenalidomide_kim_2026",
+     "group": "mild",
+     "observed_ratio": 1.4911276473955353,
+     "simulated_ratio_first_seed": {
+      "p05": 1.1878041178815693,
+      "p50": 1.436316249621493,
+      "p95": 1.7565638161158719
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.14408537563616275
+    },
+    {
+     "scenario": "sensitivity_ideal_weight_basis",
+     "model": "lenalidomide_kim_2026",
+     "group": "moderate",
+     "observed_ratio": 2.575844304522038,
+     "simulated_ratio_first_seed": {
+      "p05": 1.68169241337354,
+      "p50": 2.1403150180736885,
+      "p95": 2.7448551617450465
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict_v2": "consistent",
+     "verdict_v1": "consistent",
+     "changed": false,
+     "margin_to_nearest_limit": 0.051356448684754086
+    },
+    {
+     "scenario": "sensitivity_ideal_weight_basis",
+     "model": "lenalidomide_kim_2026",
+     "group": "severe",
+     "observed_ratio": 4.443808433505057,
+     "simulated_ratio_first_seed": {
+      "p05": 2.1397207271580094,
+      "p50": 2.8570830760490766,
+      "p95": 3.8716202519191234
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict_v2": "model_under_predicts",
+     "verdict_v1": "model_under_predicts",
+     "changed": false,
+     "margin_to_nearest_limit": 0.14779036794796863
+    }
+   ]
+  }
+ },
+ "changes_from_v1": [
+  {
+   "scenario": "primary",
+   "model": "lenalidomide_kim_2026",
+   "group": "mild",
+   "verdict_v1": "consistent",
+   "verdict_v2": "indeterminate",
+   "check": "kim_cc5013"
+  },
+  {
+   "scenario": "primary",
+   "model": "lenalidomide_kim_2026",
+   "group": "moderate",
+   "verdict_v1": "consistent",
+   "verdict_v2": "indeterminate",
+   "check": "kim_cc5013"
+  },
+  {
+   "scenario": "primary",
+   "model": "lenalidomide_kim_2026",
+   "group": "severe",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "kim_cc5013"
+  },
+  {
+   "scenario": "sensitivity_exponential_form",
+   "model": "lenalidomide_kim_2026",
+   "group": "mild",
+   "verdict_v1": "consistent",
+   "verdict_v2": "indeterminate",
+   "check": "kim_cc5013"
+  },
+  {
+   "scenario": "sensitivity_exponential_form",
+   "model": "lenalidomide_kim_2026",
+   "group": "severe",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "kim_cc5013"
+  },
+  {
+   "scenario": "sensitivity_older",
+   "model": "lenalidomide_kim_2026",
+   "group": "moderate",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "kim_cc5013"
+  },
+  {
+   "scenario": "sensitivity_older",
+   "model": "lenalidomide_kim_2026",
+   "group": "severe",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "kim_cc5013"
+  },
+  {
+   "scenario": "sensitivity_severe_near_boundary",
+   "model": "lenalidomide_kim_2026",
+   "group": "mild",
+   "verdict_v1": "consistent",
+   "verdict_v2": "indeterminate",
+   "check": "kim_cc5013"
+  },
+  {
+   "scenario": "sensitivity_severe_near_boundary",
+   "model": "lenalidomide_kim_2026",
+   "group": "severe",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "kim_cc5013"
+  },
+  {
+   "scenario": "primary",
+   "model": "lenalidomide_kim_2026",
+   "group": "moderate",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "renal_recheck"
+  },
+  {
+   "scenario": "primary",
+   "model": "lenalidomide_kim_2026",
+   "group": "severe",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "renal_recheck"
+  },
+  {
+   "scenario": "sensitivity_uniform_crcl",
+   "model": "lenalidomide_kim_2026",
+   "group": "mild",
+   "verdict_v1": "consistent",
+   "verdict_v2": "indeterminate",
+   "check": "renal_recheck"
+  },
+  {
+   "scenario": "sensitivity_uniform_crcl",
+   "model": "lenalidomide_kim_2026",
+   "group": "moderate",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "renal_recheck"
+  },
+  {
+   "scenario": "sensitivity_uniform_crcl",
+   "model": "lenalidomide_kim_2026",
+   "group": "severe",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "consistent",
+   "check": "renal_recheck"
+  },
+  {
+   "scenario": "sensitivity_shorter",
+   "model": "lenalidomide_kim_2026",
+   "group": "moderate",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "renal_recheck"
+  },
+  {
+   "scenario": "sensitivity_shorter",
+   "model": "lenalidomide_kim_2026",
+   "group": "severe",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "renal_recheck"
+  },
+  {
+   "scenario": "sensitivity_kim_exponential",
+   "model": "lenalidomide_kim_2026",
+   "group": "mild",
+   "verdict_v1": "consistent",
+   "verdict_v2": "indeterminate",
+   "check": "renal_recheck"
+  },
+  {
+   "scenario": "sensitivity_kim_exponential",
+   "model": "lenalidomide_kim_2026",
+   "group": "moderate",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "renal_recheck"
+  },
+  {
+   "scenario": "sensitivity_kim_exponential",
+   "model": "lenalidomide_kim_2026",
+   "group": "severe",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "consistent",
+   "check": "renal_recheck"
+  },
+  {
+   "scenario": "primary",
+   "model": "lenalidomide_kim_2026",
+   "group": "moderate",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "bridoux_hughes_kim"
+  },
+  {
+   "scenario": "sensitivity_uniform_crcl",
+   "model": "lenalidomide_kim_2026",
+   "group": "moderate",
+   "verdict_v1": "consistent",
+   "verdict_v2": "indeterminate",
+   "check": "bridoux_hughes_kim"
+  },
+  {
+   "scenario": "sensitivity_shorter",
+   "model": "lenalidomide_kim_2026",
+   "group": "moderate",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "bridoux_hughes_kim"
+  },
+  {
+   "scenario": "sensitivity_kim_exponential",
+   "model": "lenalidomide_kim_2026",
+   "group": "moderate",
+   "verdict_v1": "model_under_predicts",
+   "verdict_v2": "indeterminate",
+   "check": "bridoux_hughes_kim"
+  }
+ ],
+ "not_this": [
+  "Not a new check of any model and not a blind test.",
+  "Parameter uncertainty is a lower bound: the papers publish no covariance and no bootstrap distributions.",
+  "A consistent verdict is not validation; an inconsistent one does not say why."
+ ],
+ "clinical_prediction_validated": false,
+ "report_sha256": "6ea5ec13bd80fc4d7e6ae273143980fba7d1c322c5ad71836e4e50378646c4fb"
+}

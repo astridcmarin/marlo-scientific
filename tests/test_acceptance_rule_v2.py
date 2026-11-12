@@ -83,5 +83,38 @@ class DryRun(unittest.TestCase):
         self.assertEqual(again['results']['hughes_cc5013']['rows'], self.report['results']['hughes_cc5013']['rows'])
 
 
+
+class Result(unittest.TestCase):
+    """The run of 12 November 2026 on the observed ratios, after the plan commit."""
+    @classmethod
+    def setUpClass(cls):
+        import json
+        cls.report = json.loads(ar.REPORT_PATH.read_text())
+
+    def test_report_follows_the_plan(self):
+        r = self.report
+        self.assertEqual(r['plan_sha256'], ar.PLAN_SHA256)
+        self.assertFalse(r['synthetic_observed'])
+        self.assertEqual((r['outer_parameter_sets'], r['inner_trials_per_set'], r['indeterminate_margin']), (200, 50, 0.05))
+        self.assertEqual(set(r['results']), set(ar.CHECKS))
+        self.assertFalse(r['clinical_prediction_validated'])
+
+    def test_hughes_check_reproduces(self):
+        fresh = ar.run_check(checks=('hughes_cc5013',))
+        self.assertEqual(fresh['results']['hughes_cc5013'], self.report['results']['hughes_cc5013'])
+
+    def test_every_changed_verdict_is_listed(self):
+        rows = [(c, r) for c, v in self.report['results'].items() for r in v['rows']]
+        changed = {(c, r['scenario'], r['model'], r['group']) for c, r in rows if r['verdict_v2'] != r['verdict_v1']}
+        listed = {(x['check'], x['scenario'], x['model'], x['group']) for x in self.report['changes_from_v1']}
+        self.assertEqual(changed, listed)
+
+    def test_findings_line_and_rule_labels(self):
+        from intelligence_store.check_findings import load_findings
+        f = load_findings()['findings']
+        self.assertTrue(all(x.get('acceptance_rule') for x in f))
+        line = next(x for x in f if x['id'] == 'acceptance_rule_v2')
+        self.assertEqual(line['report'], 'docs/verification/acceptance_rule_v2_lenalidomide_v1.json')
+
 if __name__ == '__main__':
     unittest.main()
