@@ -85,6 +85,20 @@ class Records(unittest.TestCase):
         finally:
             path.unlink()
 
+    def test_track_b_view_lists_what_the_plan_says_the_owner_reviews(self):
+        from intelligence_store.double_extraction import load_result
+        v = er.track_b_view()
+        self.assertEqual(v['track_b_counts'], {'disagree': 35, 'not_comparable': 33, 'sampled_agreement': 20, 'out_of_scope': 21})
+        self.assertEqual(v['round_total'], 109)
+        listed = {i['id'] for g in v['groups'] for i in g['items']}
+        todo = load_result()['owner_to_review']
+        self.assertTrue(set(todo['disagreements']) | set(todo['not_comparable']) | set(todo['sampled_agreements']) <= listed)
+        self.assertEqual(v['queue_sha256'], er.round_3_view()['queue_sha256'])
+        for g in v['groups']:
+            for i in g['items']:
+                if i['second_reading']['reason'] != 'out_of_scope':
+                    self.assertIsNotNone(i['second_reading']['value'], i['id'])
+
     def test_round_3_view(self):
         v = er.round_3_view()
         self.assertEqual((v['round'], v['round_total']), (3, 121))
