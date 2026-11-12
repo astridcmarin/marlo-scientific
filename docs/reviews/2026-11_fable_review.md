@@ -158,7 +158,7 @@ Closed without change: F21 (Chen 2007 Table II states a geometric CV).
 Deferred, each needing a method change or a new locked plan:
 - F03: an acceptance rule that samples the published parameter uncertainty, with an "indeterminate" result near the limit.
 - F04 (a)-(d): the exposure-safety reference (a model-consistent reference exposure) and the within-patient reading.
-- F08: sampling the typical curve from the bootstrap intervals (log-normal where skewed).
+- F08: sampling the typical curve from the bootstrap intervals (log-normal where skewed). **Done 12 November 2026** (population PK method v1.2): two-piece log-normal matched to both bootstrap percentiles; example AUC range 2,252–3,058 against 2,371–3,015 (about 25% wider; the review's own matching gave about 30%); the %RSE result kept for comparison.
 - F17, F20, F24: scenarios for successor plans (lighter body weight for Bridoux; correlated creatinine and a "lower of total and ideal weight" basis; mild as an alternative reference).
 - F19: the Kim equation-form assessment drops "and text" in its next version (the assessment is pinned in a locked report, so it changes when the authors answer).
 - F16 (second half): the Chen 2017 quotes, when that PDF is in the source folder.

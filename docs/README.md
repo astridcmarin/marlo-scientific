@@ -13,6 +13,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [Track C: a language-model eligibility extractor](ELIGIBILITY_LLM_EXTRACTOR.md) (plan v3, locked 11 November 2026): blind check on the v2 annotation, waiting for the annotation.
 - [AI design draft: organ-level lenalidomide model](reviews/2026-11_organ_level_design_draft.md) (12 November 2026): what the body map could truthfully show, with anatomy fixes; steps 1 and 3 approved. Not an independent review.
 - [AI evidence search: lenalidomide exposure–efficacy](reviews/2026-11_exposure_efficacy_search.md) (12 November 2026): none found in regulatory reviews or publications; closes nothing, sharpens checklist O7. Not an independent review.
+- [AI methods review of Track C (ChatGPT)](reviews/2026-11_chatgpt_track_c_review.md) (12 November 2026): ten findings on the locked language-model extractor test; none invalidates it; a run procedure was added. Not an independent review.
 - [AI audit of user-facing wording](reviews/2026-11_overclaiming_audit.md) (10 November 2026): 33 places where wording outran the evidence, and how each was fixed. Not an independent review.
 - Conventions for working in the repository: `CLAUDE.md` at the root.
 

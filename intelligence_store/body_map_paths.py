@@ -3,13 +3,16 @@
 The paths are geometry for drawing, not anatomy claims or a model: each one is computed from the simulation-organ GLB
 (step 1.3a) with fixed rules, so anyone can rebuild them and get the same file (body-map-flow-paths-v1 schema; file v3).
 
-- Into each kidney (paths v2): from the centre of the aorta at the renal artery's origin, along the centre line of that
-  renal artery, to the kidney's centre. The centre lines come from body_map_vessel_lines_v1.json, extracted from the
-  named Atlas vessels, because the route model merges all arteries into one part. Paths v1 took the aorta point from
-  that merged part and so started each kidney flow 2-4 cm in front of the aorta, off the renal arteries; v1 is kept
-  unchanged for traceability. Filtration and secretion are drawn as two strands along this path; each kidney carries
-  half of each flow.
-- Into urine: from each renal pelvis down the centre line of its ureter to the bladder.
+- Cleared by each kidney (paths v4, Track H items 2 and 3): filtration and secretion are drawn inside the kidney, from a
+  point in the outer cortex (the mean of the cortex vertices in the outermost tenth across the body), through the
+  centre of the renal pyramids (medulla) and the papillae, to that side's renal pelvis: the route of the tubular fluid.
+  Each kidney carries half of each flow. Paths v1-v3 drew them as two tubes inside the renal artery, from the aorta to
+  the kidney's centre; neither process happens in the artery. v3 is kept unchanged for traceability.
+- The renal artery lines (from the centre of the aorta at the artery's origin, along its centre line from
+  body_map_vessel_lines_v1.json, to the kidney's centre) are kept for the blood layer only ('arterial_lines'); they carry
+  no drug flow.
+- Into urine (paths v4, item 11): from each renal pelvis down the centre line of its own ureter to the ureter's lower
+  end, where it opens into the bladder; the two ureters no longer meet at the bladder's centre.
 - Absorption (paths v3, Track H item 1): from the small intestine to the nearest point of the superior mesenteric
   vein, up that vein and the hepatic portal vein to the liver, then straight through the liver to the inferior vena
   cava where the hepatic veins join it. Centre lines from body_map_portal_route_lines_v1.json. Drawn without a value;
@@ -29,8 +32,10 @@ from . import glb_mesh
 
 DATA = Path(__file__).parent / 'data'
 ROOT = Path(__file__).resolve().parents[1]
-PATHS_FILE = DATA / 'body_map_flow_paths_v3.json'
-PATHS_SHA256 = 'df8482e93c28633fb86152c782c84523bbc7349bd55a7803f36f9963bb5dff94'
+PATHS_FILE = DATA / 'body_map_flow_paths_v4.json'
+PATHS_SHA256 = 'f1cdb6d14b09556d8d95e258fe6efdb92767f9190a158b32a63ee5506de18b60'
+# Superseded, kept unchanged for traceability: body_map_flow_paths_v3.json (kidney flows drawn inside the renal artery)
+PATHS_V3_SHA256 = 'df8482e93c28633fb86152c782c84523bbc7349bd55a7803f36f9963bb5dff94'
 # Superseded, kept unchanged for traceability: body_map_flow_paths_v2.json (absorption drawn straight to the vena cava)
 PATHS_V2_SHA256 = '8f6df6c623513cdae9404799cd498bd2946bb0dc725a4b17f8b31e25b0a1149a'
 # Superseded, kept unchanged for traceability: body_map_flow_paths_v1.json (kidney flows started in front of the aorta)
@@ -42,7 +47,8 @@ VEINS_SHA256 = '12f9b5763291d4121ed7178a4c34e196a8c72a49a5cd2a24383aa4e6f981ec41
 PORTAL_FILE = DATA / 'body_map_portal_route_lines_v1.json'
 PORTAL_SHA256 = '5547b30e84ea29e501b8bc8342f36855567de1b80d446eaaf651bfc0e7b917d3'
 SCHEMA_VERSION = 'body-map-flow-paths-v1'
-METHOD_VERSION = 'body-map-flow-paths-build-v3.0'
+METHOD_VERSION = 'body-map-flow-paths-build-v4.0'
+CORTEX_OUTER_FRACTION = 0.1
 SOURCE_MODEL = 'landscape_ui/static/body-map/models/body-route-male-v1.glb'
 URETER_SAMPLES = 20
 DECIMALS = 4
@@ -107,23 +113,29 @@ def compute_paths(raw, vessels=None, portal=None):
     pelvis = parts['VH_M_renal_pelvis_ureter:renal pelvis and calyces']
     bladder = _centre(parts['VH_M_urinary_bladder'])
     aorta_line = vessels['aorta']['points']
-    paths, anchors, origins = [], {}, []
+    paths, anchors, origins, arterial = [], {}, [], {}
     for side, sign in (('left', 1), ('right', -1)):
         group = f'VH_M_{side}_kidney'
-        kidney = _centre(np.vstack([parts[f'{group}:kidney capsule']]))
+        kidney = _centre(parts[f'{group}:kidney capsule'])
         artery = [np.array(p) for p in vessels['renal_arteries'][side]['points']]
         if np.sign(artery[-1][0]) != sign or np.sign(kidney[0]) != sign:
             raise BodyMapPathError(f'The {side} renal artery and kidney are not on the same side.')
         aorta = _at_height(aorta_line, float(artery[0][1]))
         origins.append(float(artery[0][1]))
-        paths.append({'id': f'renal_inflow_{side}', 'flows': ['filtration', 'tubular_secretion'], 'share_per_path': 0.5,
+        arterial[side] = [aorta] + artery + [kidney]
+        cortex = parts[f'{group}:renal cortex']
+        outer = cortex[np.abs(cortex[:, 0]) >= np.quantile(np.abs(cortex[:, 0]), 1 - CORTEX_OUTER_FRACTION)].mean(axis=0)
+        medulla = parts[f'{group}:renal pyramids'].mean(axis=0)
+        papillae = parts[f'{group}:renal papillae'].mean(axis=0)
+        side_pelvis = pelvis[pelvis[:, 0] * sign > 0].mean(axis=0)
+        paths.append({'id': f'renal_clearance_{side}', 'flows': ['filtration', 'tubular_secretion'], 'share_per_path': 0.5,
                       'side': side, 'from_node': 'plasma', 'to_node': 'kidney',
-                      'points': [aorta] + artery + [kidney]})
-        side_pelvis = pelvis[pelvis[:, 0] * sign > 0]
+                      'route': ['outer renal cortex', 'renal pyramids (medulla)', 'renal papillae', 'renal pelvis'],
+                      'points': [outer, medulla, papillae, side_pelvis]})
         ureter = _centre_line(parts[f'VH_M_renal_pelvis_ureter:{side} ureter'], URETER_SAMPLES)
         paths.append({'id': f'urine_{side}', 'flows': ['renal_excretion'], 'share_per_path': 0.5, 'side': side,
                       'from_node': 'kidney', 'to_node': 'urine',
-                      'points': [side_pelvis.mean(axis=0)] + list(ureter) + [bladder]})
+                      'points': [side_pelvis] + list(ureter)})
         anchors[f'kidney_{side}'] = kidney
     gut = parts['VH_M_small_intestine'].mean(axis=0)
     renal_level = float(np.mean(origins))
@@ -146,6 +158,7 @@ def compute_paths(raw, vessels=None, portal=None):
         'coordinate_frame': 'HRA Visible Human male reference body; metres; +y up; body left is +x.',
         'not_this': 'Drawing paths only: where flows are drawn, not anatomical claims, measurements or a model.',
         'paths': [dict(p, points=[rounded(x) for x in p['points']]) for p in paths],
+        'arterial_lines': {side: [rounded(x) for x in pts] for side, pts in arterial.items()},
         'anchors': {k: rounded(v) for k, v in sorted(anchors.items())},
     }
 
@@ -160,8 +173,8 @@ def load_vein_lines():
 def blood_paths(paths=None, vessels=None, veins=None):
     """Digital human 1.1c: where reference blood flow is drawn (drawing geometry only; no value is attached here).
 
-    In: along each kidney flow path (aorta, renal artery, kidney). Out: from the kidney's centre along its renal vein
-    to the inferior vena cava at the vein's own height. Built from pinned files, so it is the same on every page.
+    In: along each renal artery line (aorta, renal artery, kidney's centre). Out: from the kidney's centre along its renal
+    vein to the inferior vena cava at the vein's own height. Built from pinned files, so it is the same on every page.
     """
     paths = paths or load_paths()
     vessels = vessels or load_vessel_lines()
@@ -169,12 +182,12 @@ def blood_paths(paths=None, vessels=None, veins=None):
     rounded = lambda p: [round(float(x), DECIMALS) for x in p]
     out = []
     for side in ('left', 'right'):
-        inflow = next(p for p in paths['paths'] if p['id'] == f'renal_inflow_{side}')
-        out.append({'id': f'blood_in_{side}', 'kind': 'arterial', 'side': side, 'points': inflow['points']})
+        inflow = paths['arterial_lines'][side]
+        out.append({'id': f'blood_in_{side}', 'kind': 'arterial', 'side': side, 'points': inflow})
         vein = veins['renal_veins'][side]['points']
         ivc = _at_height(vessels['inferior_vena_cava']['points'], float(vein[0][1]))
         out.append({'id': f'blood_out_{side}', 'kind': 'venous', 'side': side,
-                    'points': [inflow['points'][-1]] + list(reversed(vein)) + [rounded(ivc)]})
+                    'points': [inflow[-1]] + list(reversed(vein)) + [rounded(ivc)]})
     return out
 
 

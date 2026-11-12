@@ -68,7 +68,7 @@ class BodyMapPage(unittest.TestCase):
         self.assertEqual(flows['band']['status'], 'depends_on_bioavailability')
         self.assertEqual(flows['band']['outline'], 'caution')
         self.assertEqual({p['id'] for p in flows['paths']},
-                         {'renal_inflow_left', 'renal_inflow_right', 'urine_left', 'urine_right', 'absorption'})
+                         {'renal_clearance_left', 'renal_clearance_right', 'urine_left', 'urine_right', 'absorption'})
         self.assertIsNone(flows['values']['absorption'])
         self.assertIn('organ not known', flows['labels']['non_renal'])
         self.assertEqual(set(config['cards']), {'gut', 'plasma', 'kidney', 'urine'})

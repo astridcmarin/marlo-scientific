@@ -58,3 +58,33 @@ class Comparison(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class Result(unittest.TestCase):
+    """The second extraction of 12 November 2026, compared under the locked plan."""
+    def setUp(self):
+        self.result = de.load_result()
+        self.plan = de.load_plan()
+
+    def test_result_follows_the_locked_plan(self):
+        self.assertEqual(self.result['plan']['sha256'], de.PLAN_SHA256)
+        self.assertEqual(len(self.result['entries']), self.plan['in_scope']['entries'])
+        self.assertEqual(sum(self.result['counts'].values()), 100)
+        self.assertEqual(self.result['counts']['not_comparable'], 33)
+        self.assertFalse(self.result['clinical_prediction_validated'])
+
+    def test_comparison_and_sample_recompute(self):
+        queue = de.load_queue()
+        first = {it['id']: it['value'] for g in queue['groups'] for it in g['items']}
+        for e in self.result['entries']:
+            if e['result'] == 'not_comparable':
+                self.assertEqual(de.numbers(first[e['id']]), [])
+            elif e['result'] == 'agree':
+                # strict reading: every number in the second reader's entry, added notes included
+                self.assertEqual(de.compare(first[e['id']], e['second_reader_value'])['result'], 'agree', e['id'])
+                self.assertEqual(e.get('quotes_missing', 0), 0)
+        agree = [e['id'] for e in self.result['entries'] if e['result'] == 'agree']
+        sample = de.agreement_sample(agree, self.plan['owner_review']['agreements']['sample_size'],
+                                     self.plan['owner_review']['agreements']['seed'])
+        self.assertEqual(self.result['agreement_sample']['ids'], sample)
+
