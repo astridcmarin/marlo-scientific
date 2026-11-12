@@ -528,9 +528,8 @@
   /* labels: HTML text with leader lines, anchored to points in the body */
   var overlay = null, labelNodes = {};
   var LABELS = F ? [
-    { key: 'renal', anchor: 'aorta_renal_level', dx: 150, dy: -110 },
+    { key: 'renal', anchor: 'kidney_left', dx: 130, dy: -110 },
     { key: 'urine', anchor: 'bladder', dx: 150, dy: 0 },
-    { key: 'non_renal', anchor: 'aorta_renal_level', dx: 160, dy: 75 },
     { key: 'absorption', anchor: 'gut', dx: -170, dy: 70 },
   ].concat(B ? [{ key: 'blood', anchor: 'kidney_right', dx: -150, dy: -95, onlyWith: 'blood' }] : []) : [];
   function project(p) {
@@ -547,8 +546,9 @@
     key = document.createElement('div'); key.className = 'bm-flow-key';
     config.flow_key.forEach(function (k) {
       var row = document.createElement('span'); row.className = 'bm-key-row';
-      var sw = document.createElement('i'); sw.className = 'bm-key-swatch' + (k.dashed ? ' bm-key-dashed' : '');
-      sw.style.setProperty('--c', css(F.colors[k.kind])); row.appendChild(sw);
+      var sw = document.createElement('i'); sw.className = 'bm-key-swatch' + (k.dashed ? ' bm-key-dashed' : '') + (k.no_path ? ' bm-key-none' : '');
+      if (!k.no_path) sw.style.setProperty('--c', css(F.colors[k.kind]));
+      row.appendChild(sw);
       row.appendChild(document.createTextNode(k.label)); key.appendChild(row);
     });
     if (B) {
@@ -622,9 +622,28 @@
     if (banner) banner.style.top = top + 'px';
     card.style.top = (banner && !banner.hidden ? top + banner.offsetHeight + 8 : top) + 'px';
   }
+  // Body left and right (Track H item 9): small R and L markers beside the body at shoulder height, hidden when the two
+  // sides are less than 40 px apart on screen (seen from the side).
+  var sideMarks = null;
+  function placeSideMarks() {
+    if (!sideMarks) {
+      sideMarks = ['R', 'L'].map(function (t) {
+        var d = document.createElement('span'); d.className = 'bm-side-mark'; d.setAttribute('aria-hidden', 'true');
+        d.textContent = t; root.appendChild(d); return d;
+      });
+    }
+    var right = project([-0.27, 0.62, 0]), left = project([0.27, 0.62, 0]);   // body left is +x in this frame
+    var w = canvas.clientWidth, h = canvas.clientHeight, show = Math.abs(right[0] - left[0]) > 40;
+    [right, left].forEach(function (pt, i) {
+      var m = sideMarks[i], inside = pt[0] > 10 && pt[0] < w - 10 && pt[1] > 50 && pt[1] < h - 40;
+      m.hidden = !(show && inside);
+      m.style.left = pt[0] + 'px'; m.style.top = pt[1] + 'px';
+    });
+  }
   function placeLabels() {
     belowToolbar();
     updateKey();
+    placeSideMarks();
     if (!overlay) return;
     var w = canvas.clientWidth, h = canvas.clientHeight;
     overlay.setAttribute('viewBox', '0 0 ' + w + ' ' + h);

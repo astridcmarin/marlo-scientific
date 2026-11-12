@@ -28,7 +28,7 @@ CAMERA_PRESETS = [
     {'id': 'body', 'label': 'Whole body', 'yaw': 0.0, 'pitch': 0.0, 'scale': 1.05, 'cx': 0.0, 'cy': 0.0},
     {'id': 'abdomen', 'label': 'Abdomen', 'yaw': 0.0, 'pitch': 0.0, 'scale': 3.2, 'cx': 0.0, 'cy': 0.3},
     {'id': 'kidneys', 'label': 'Kidneys', 'yaw': 0.0, 'pitch': 0.0, 'scale': 6.5, 'cx': 0.0, 'cy': 0.29},
-    {'id': 'side', 'label': 'Side', 'yaw': 1.5708, 'pitch': 0.0, 'scale': 1.05, 'cx': 0.0, 'cy': 0.0},
+    {'id': 'side', 'label': 'Right side', 'yaw': 1.5708, 'pitch': 0.0, 'scale': 1.05, 'cx': 0.0, 'cy': 0.0},
 ]
 COLORS = {'filtration': '#1f6f8b', 'tubular_secretion': '#7b4fa0', 'non_renal': '#8a8f98', 'renal_excretion': '#b8892a'}
 MAX_STROKE = 30.0
@@ -86,9 +86,10 @@ def evidence_cards(view):
                   'basis': [r['basis']], 'source': source},
         'plasma': {'title': 'Blood (circulation)', 'status': 'calibrated', 'status_text': None,
                    'rows': [['Total clearance from plasma', f"{_fmt(totals['total_ml_min'])} mL/min"],
-                            ['Non-renal routes', f"{_fmt(n['value'])} mL/min (routes not identified; held constant)"],
+                            ['Non-renal routes', f"{_fmt(n['value'])} mL/min (organ not known; held constant)"],
                             ['Typical exposure at the same dose', f"about {totals['relative_exposure_same_dose']:.1f}x the normal-function reference"]],
-                   'basis': ['The heart and vessels stand for the blood; the heart itself carries no separate number.', n['basis']],
+                   'basis': ['The heart and vessels stand for the blood; the heart itself carries no separate number.',
+                             'Blood returning in the veins passes through the right heart, the lungs and the left heart before the aorta carries it to the kidneys; that passage is not drawn.', n['basis']],
                    'source': source},
         'gut': {'title': 'Small intestine (site of absorption)', 'status': None, 'status_text': None,
                 'rows': [['Absorption', 'drawn without a value']],
@@ -148,7 +149,7 @@ def viewer_config(manifest, view=None, paths=None):
             'scale_ml_min': view['drawing_scale']['max_flow_ml_min'],
             'tube_diameter_at_scale_m': TUBE_DIAMETER_AT_SCALE_M,
             'colors': FLOW_COLORS_3D,
-            'labels': {'renal': f"Into the kidneys: filtration {_fmt(flows['filtration']['value'])} + secretion {_fmt(flows['tubular_secretion']['value'])} mL/min",
+            'labels': {'renal': f"Cleared by the kidneys: filtration {_fmt(flows['filtration']['value'])} + secretion {_fmt(flows['tubular_secretion']['value'])} mL/min",
                        'urine': f"Into urine: {_fmt(flows['renal_excretion']['value'])} mL/min ({100 * view['totals']['fraction_excreted_unchanged']:.0f}% of the dose)",
                        'non_renal': f"Other routes: {_fmt(flows['non_renal']['value'])} mL/min; organ not known (about 4% of the dose in faeces, Chen 2012)",
                        'absorption': 'Absorbed into the blood (no value drawn)'},
@@ -161,7 +162,8 @@ def viewer_config(manifest, view=None, paths=None):
             {'kind': 'filtration', 'label': 'Filtration (glomerulus)'},
             {'kind': 'tubular_secretion', 'label': 'Tubular secretion'},
             {'kind': 'renal_excretion', 'label': 'Into urine'},
-            {'kind': 'absorption', 'label': 'Absorption (no value)', 'dashed': True}]
+            {'kind': 'absorption', 'label': 'Absorption (no value)', 'dashed': True},
+            {'kind': 'non_renal', 'label': f"Other routes {_fmt(flows['non_renal']['value'])} mL/min, not drawn: organ not known", 'no_path': True}]
         config['flows']['scale_reference_ml_min'] = SCALE_REFERENCE_ML_MIN
         if 'blood_flow' in view:
             bf, ex = view['blood_flow'], view['extraction']

@@ -304,3 +304,14 @@ Found in the AI design draft of 12 November (`docs/reviews/2026-11_organ_level_d
 - Flow paths v3 (`body_map_flow_paths_v3.json`, method `body-map-flow-paths-build-v3.0`): absorption runs from the small intestine to the nearest point of the superior mesenteric vein, up it and the portal vein, then straight through the liver to that point on the vena cava. Every other path is unchanged. v2 is kept unchanged for traceability.
 - **The liver is passed through, not modelled.** No loss in the liver is drawn or calculated; the path still carries no value. The liver stays a context organ. The hepatic veins branch inside the liver and are not followed; the segment through the liver is a straight line for drawing.
 
+## Correction (12 November 2026): kidney clearance drawn inside the kidneys; ureters end separately (flow paths v4)
+
+From the same design draft, section 7, items 2, 3, 8, 9, 11, 12 and 18:
+
+- **Filtration and secretion are no longer drawn in the renal artery.** Neither happens there: filtration is from the glomerular capillaries into Bowman's space, in the cortex, and secretion is into the tubule (ICRP 89, paragraph 379). Flow paths v4 (`body_map_flow_paths_v4.json`, method `body-map-flow-paths-build-v4.0`) draw both strands inside each kidney, along the route of the tubular fluid: from the outer cortex (the mean of the cortex vertices in the outermost tenth across the body), through the centre of the renal pyramids and the papillae, to that side's renal pelvis. The renal artery lines are kept in the file as `arterial_lines`, for the blood layer only. The 3D label reads "Cleared by the kidneys", anchored at the kidney.
+- **Each ureter ends at its own lower end**, where it opens into the bladder, not at the bladder's centre.
+- **Other (non-renal) routes** are not drawn as a place: their label left the body and is a row in the flow key ("not drawn: organ not known").
+- **Views:** the side view is labelled "Right side" (it shows the body's right side, checked on the rendered page); small R and L markers show the body's sides in front and back views.
+- **Blood card:** says that blood passes through the right heart, the lungs and the left heart before the aorta carries it to the kidneys, and that this passage is not drawn.
+- Every flow value, width and speed is unchanged; only where the strands are drawn. v3 is kept unchanged for traceability.
+

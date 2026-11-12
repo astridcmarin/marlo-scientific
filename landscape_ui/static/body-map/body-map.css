@@ -100,3 +100,5 @@
 .bm-tl-chart text { font-size:12px; fill:#4a5d66; }
 #bm-tl-slider { width:100%; max-width:780px; display:block; margin:6px 0 10px; }
 @media (prefers-color-scheme: dark) { .bm-tl-warning { background:#3a2c00; color:#ffe8b0; border-color:#ffc94d; } }
+.bm-key-none { background:none !important; border:1px dashed #8a8f98; }
+.bm-side-mark { position:absolute; transform:translate(-50%,-50%); font-size:12px; font-weight:600; color:#a9abd0; padding:1px 6px; border:1px solid rgba(169,171,208,.45); border-radius:999px; background:rgba(7,6,26,.6); pointer-events:none; z-index:1; }

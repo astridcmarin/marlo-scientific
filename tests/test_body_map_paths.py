@@ -24,10 +24,10 @@ class PathsFile(unittest.TestCase):
         vessels = body_map_paths.load_vessel_lines()
         aorta = vessels['aorta']['points']
         for side in ('left', 'right'):
-            path = next(p for p in self.paths['paths'] if p['id'] == f'renal_inflow_{side}')
+            line = self.paths['arterial_lines'][side]
             artery = vessels['renal_arteries'][side]['points']
-            self.assertEqual(path['points'][1:-1], artery)
-            start = path['points'][0]
+            self.assertEqual(line[1:-1], artery)
+            start = line[0]
             nearest = min(aorta, key=lambda q: abs(q[1] - start[1]))
             # on the aorta's centre line (within 2 mm), not in front of it as in paths v1
             self.assertLess(max(abs(a - b) for a, b in zip(start[::2], nearest[::2])), 0.002)
@@ -35,6 +35,26 @@ class PathsFile(unittest.TestCase):
         self.assertEqual(self.paths['vessel_lines']['sha256'], body_map_paths.VESSELS_SHA256)
         v1 = (ROOT / 'intelligence_store/data/body_map_flow_paths_v1.json').read_bytes()
         self.assertEqual(hashlib.sha256(v1).hexdigest(), body_map_paths.PATHS_V1_SHA256)
+        v3 = (ROOT / 'intelligence_store/data/body_map_flow_paths_v3.json').read_bytes()
+        self.assertEqual(hashlib.sha256(v3).hexdigest(), body_map_paths.PATHS_V3_SHA256)
+
+    def test_kidney_clearance_is_drawn_inside_the_kidney_not_in_the_artery(self):
+        # paths v4 (Track H items 2-3): outer cortex, medulla, papillae, renal pelvis; no drug flow in the renal artery
+        for side, sign in (('left', 1), ('right', -1)):
+            path = next(p for p in self.paths['paths'] if p['id'] == f'renal_clearance_{side}')
+            self.assertEqual(path['route'], ['outer renal cortex', 'renal pyramids (medulla)', 'renal papillae', 'renal pelvis'])
+            start, end = path['points'][0], path['points'][-1]
+            kidney = self.paths['anchors'][f'kidney_{side}']
+            # starts lateral to the kidney's centre (outer cortex) and ends medial to it (pelvis), on its own side
+            self.assertGreater(sign * start[0], sign * kidney[0] + 0.01)
+            self.assertLess(sign * end[0], sign * kidney[0])
+            self.assertGreater(sign * end[0], 0)
+            urine = next(p for p in self.paths['paths'] if p['id'] == f'urine_{side}')
+            self.assertEqual(urine['points'][0], end)
+        aorta = self.paths['anchors']['aorta_renal_level']
+        for path in self.paths['paths']:
+            if 'filtration' in path['flows']:
+                self.assertTrue(all(abs(pt[0] - aorta[0]) > 0.02 for pt in path['points']))
 
     def test_blood_paths_follow_the_renal_arteries_in_and_the_renal_veins_out(self):
         import hashlib
@@ -42,10 +62,10 @@ class PathsFile(unittest.TestCase):
         vessels = body_map_paths.load_vessel_lines()
         self.assertEqual(hashlib.sha256(body_map_paths.VEINS_FILE.read_bytes()).hexdigest(), body_map_paths.VEINS_SHA256)
         for side in ('left', 'right'):
-            inflow = next(p for p in self.paths['paths'] if p['id'] == f'renal_inflow_{side}')
-            self.assertEqual(blood[f'blood_in_{side}']['points'], inflow['points'])
+            inflow = self.paths['arterial_lines'][side]
+            self.assertEqual(blood[f'blood_in_{side}']['points'], inflow)
             out = blood[f'blood_out_{side}']['points']
-            self.assertEqual(out[0], inflow['points'][-1])
+            self.assertEqual(out[0], inflow[-1])
             end = out[-1]
             ivc = min(vessels['inferior_vena_cava']['points'], key=lambda q: abs(q[1] - end[1]))
             self.assertLess(max(abs(a - b) for a, b in zip(end[::2], ivc[::2])), 0.003)
@@ -78,13 +98,18 @@ class PathsFile(unittest.TestCase):
         self.assertGreater(next(p for p in inflows if p['side'] == 'left')['points'][-1][0], 0)
         self.assertLess(next(p for p in inflows if p['side'] == 'right')['points'][-1][0], 0)
 
-    def test_urine_paths_run_down_the_ureters_to_the_bladder(self):
+    def test_urine_paths_run_down_each_ureter_to_its_own_end_at_the_bladder(self):
         bladder = self.paths['anchors']['bladder']
+        ends = []
         for path in (p for p in self.paths['paths'] if p['to_node'] == 'urine'):
             heights = [pt[1] for pt in path['points']]
-            self.assertEqual(path['points'][-1], bladder)
+            self.assertNotEqual(path['points'][-1], bladder)
             self.assertGreater(heights[0], heights[-1] + 0.2)
             self.assertGreater(len(path['points']), 10)
+            self.assertLess(abs(path['points'][-1][1] - bladder[1]), 0.03)
+            ends.append(path['points'][-1])
+        # the ureters open separately, one each side of the midline
+        self.assertGreater(ends[0][0] * ends[1][0] * -1, 0)
 
     def test_non_renal_has_no_path(self):
         self.assertFalse(any('non_renal' in p['flows'] for p in self.paths['paths']))
