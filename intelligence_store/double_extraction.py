@@ -21,6 +21,8 @@ PLAN_PATH = DATA / 'extraction_double_extraction_plan_v1.json'
 PLAN_SHA256 = 'bdd87e4a95e94f54efb80474e77ec7f44bbc56af19bcd552d5a51448379e66cb'
 QUEUE_PATH = DATA / 'extraction_review_queue_round3_v4.json'
 QUEUE_SHA256 = 'e1627e36d00c5064a5f50dd712b4321db6b0e9df3a1d064e4f63ed6532f49324'
+RESULT_PATH = DATA / 'extraction_double_extraction_result_v1.json'
+RESULT_SHA256 = 'e221038b8c60a87884ace424c46bb74ea25e213663fbd3c55be322418a87757d'
 META_KEYS = frozenset({'id', 'location', 'check', 'source', 'file_sha256', 'dataset'})
 NUMBER = re.compile(r'(?<![A-Za-z])\d+(?:[.,]\d+)*')
 
@@ -38,6 +40,11 @@ def load_plan():
 
 def load_queue():
     return _pinned(QUEUE_PATH, QUEUE_SHA256, 'Round 3 queue')
+
+
+def load_result():
+    """The second extraction and its comparison (12 November 2026); the owner's review is recorded separately."""
+    return _pinned(RESULT_PATH, RESULT_SHA256, 'Double-extraction result')
 
 
 def opaque_id(item_id):

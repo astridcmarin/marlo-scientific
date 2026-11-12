@@ -1,0 +1,2378 @@
+{
+ "schema_version": "extraction-double-extraction-result-v1",
+ "plan": {
+  "file": "intelligence_store/data/extraction_double_extraction_plan_v1.json",
+  "sha256": "bdd87e4a95e94f54efb80474e77ec7f44bbc56af19bcd552d5a51448379e66cb"
+ },
+ "queue": {
+  "file": "intelligence_store/data/extraction_review_queue_round3_v4.json",
+  "sha256": "e1627e36d00c5064a5f50dd712b4321db6b0e9df3a1d064e4f63ed6532f49324"
+ },
+ "recorded_on": "2026-11-12",
+ "second_reader": {
+  "model_identifier": "claude-fable-5-2",
+  "sessions": 5,
+  "entries_per_session": 20,
+  "where": "five separate subagent sessions, each given only its 20 blinded entries, a written brief and the ten source PDFs in an isolated folder",
+  "source_pdfs_sha256": {
+   "bridoux_2016.pdf": "d02771e64459b3239ee45cc1aeb09ecb0c3981b41ecd5cc1a5f0d38435197b2d",
+   "chen_2007.pdf": "494067b57276b0bf8bf1377bab84e31c631331c5e11684404038176b2b269d78",
+   "empliciti_label_2022-03.pdf": "2186dc0f6d77030708a720bdecfece1f28d34756da883cd78a59a1101a931378",
+   "hughes_2019.pdf": "366eedc2236417d05ebe1523600327044825062e815b86e1fa6bd25089f9bdae",
+   "kim_2026.pdf": "5566d69421863a614bce59b64ddae4b048f6ced3078218a2b146ac3b8efe6afa",
+   "kyprolis_label_2025-06.pdf": "4e0d9b05ec6f1ed7daf3f943f03d87d0fecc444486890fcc401f3a6d90c62469",
+   "revlimid_label_2023-03.pdf": "3feea84a2363a1df7de9886897c4bfa04feffb042bea26d45afe3bbd5995dadf",
+   "sarclisa_label_2026-06.pdf": "9d175beaa7b700e5663c304d6606ff5082906385a8a05497bb6c064d081912de",
+   "thalomid_label_2026-09.pdf": "995777eeaf6701f886d3365dde2fee9fb1c62d0c811eeeff659e7f4f8c4bdac6",
+   "xpovio_label_2026-04.pdf": "24663ea4a735517af649c66b5f5fa4d1ed269470d66ef7d7e2f89482899f0bcc"
+  },
+  "brief_note": "The brief asked the reader to record caveats in a \"note\" key; several readers added one to entries whose fields_to_fill had none."
+ },
+ "handling_of_added_notes": "Strict reading of the plan (\"every number in the entry\"): numbers in a note the second reader added count. Six entries that agree on the requested fields but carry numbers in such a note are therefore disagreements and go to the owner. Had the added notes been ignored, agreements would be 38, not 32.",
+ "counts": {
+  "agree": 32,
+  "disagree": 35,
+  "not_comparable": 33
+ },
+ "agreement_sample": {
+  "size": 20,
+  "seed": 20261111,
+  "ids": [
+   "label_carfilzomib:/pk/cl_l_h",
+   "label_carfilzomib:/pk/excretion",
+   "label_carfilzomib:/pk/protein_binding_percent",
+   "label_carfilzomib:/pk/vss_l",
+   "label_elotuzumab:/pk/clearance_by_dose_ml_day_kg",
+   "label_isatuximab:/dosing/dose_10_mg_kg",
+   "label_isatuximab:/pk/v_total_l",
+   "label_selinexor:/pk/cl_f_l_h",
+   "label_selinexor:/pk/linearity",
+   "label_selinexor:/pk/protein_binding_percent",
+   "label_selinexor:/pk/tmax_h",
+   "label_selinexor:/special_populations/covariates_no_effect",
+   "label_thalidomide:/pk/cl_l_h_mm_by_weight",
+   "label_thalidomide:/pk/half_life_h",
+   "label_thalidomide:/pk/protein_binding_percent",
+   "label_thalidomide:/pk/single_dose_table_healthy",
+   "lenalidomide_label_pk:/distribution/semen",
+   "lenalidomide_label_pk:/drug_interactions_7/digoxin",
+   "lenalidomide_label_pk:/elimination/half_life",
+   "lenalidomide_label_pk:/renal_dialysis"
+  ]
+ },
+ "owner_to_review": {
+  "disagreements": [
+   "hughes_precision:/fixed_effects/theta_cl",
+   "hughes_precision:/fixed_effects/theta_crcl",
+   "hughes_precision:/fixed_effects/theta_ktr",
+   "hughes_precision:/fixed_effects/theta_v",
+   "label_carfilzomib:/dosing/twice_weekly_20_56_mg_m2",
+   "label_carfilzomib:/dosing/weekly_20_70_mg_m2",
+   "label_carfilzomib:/pk/auc_c1_avg_ng_h_ml",
+   "label_carfilzomib:/pk/auc_ss_ng_h_ml",
+   "label_carfilzomib:/pk/cmax_c1_ng_ml",
+   "label_carfilzomib:/pk/half_life_h",
+   "label_carfilzomib:/pk/infusion_duration_effect",
+   "label_carfilzomib:/special_populations/covariates_no_effect",
+   "label_carfilzomib:/special_populations/esrd_hemodialysis_auc_fold",
+   "label_carfilzomib:/special_populations/hepatic_mild_moderate_auc_fold",
+   "label_elotuzumab:/dosing/erd_10_mg_kg",
+   "label_elotuzumab:/special_populations/covariates_no_effect",
+   "label_isatuximab:/pk/nonlinearity",
+   "label_isatuximab:/pk/steady_state_ikd",
+   "label_isatuximab:/pk/steady_state_ipd",
+   "label_isatuximab:/special_populations/covariates_no_effect",
+   "label_selinexor:/dosing/hepatic_severe_starting_dose",
+   "label_selinexor:/dosing/xd_80_mg_twice_weekly",
+   "label_selinexor:/dosing/xvd_100_mg_weekly",
+   "label_selinexor:/pk/single_dose_auc_inf_ng_h_ml",
+   "label_selinexor:/pk/single_dose_cmax_ng_ml",
+   "label_selinexor:/special_populations/hepatic_mild_moderate",
+   "label_selinexor:/special_populations/hepatic_severe_exposure_fold",
+   "label_thalidomide:/dosing/mm_200_mg_daily",
+   "label_thalidomide:/interactions/cyp450",
+   "label_thalidomide:/pk/fraction_excreted_unchanged_urine",
+   "label_thalidomide:/special_populations/age_sex",
+   "lenalidomide_assays:/studies/0",
+   "lenalidomide_assays:/studies/1",
+   "lenalidomide_assays:/studies/2",
+   "lenalidomide_label_pk:/elimination/excretion"
+  ],
+  "not_comparable": [
+   "label_carfilzomib:/dosing/esrd_hemodialysis",
+   "label_carfilzomib:/interactions/midazolam",
+   "label_carfilzomib:/interactions/pgp_inhibitors_inducers",
+   "label_carfilzomib:/pk/accumulation",
+   "label_carfilzomib:/pk/table_21_definition",
+   "label_carfilzomib:/special_populations/hepatic_severe",
+   "label_elotuzumab:/pk/nonlinearity",
+   "label_elotuzumab:/special_populations/body_weight",
+   "label_elotuzumab:/special_populations/hepatic_moderate_severe",
+   "label_isatuximab:/pk/clearance_time_dependence",
+   "label_isatuximab:/special_populations/body_weight",
+   "label_isatuximab:/special_populations/hepatic_moderate_severe",
+   "label_selinexor:/interactions/acetaminophen",
+   "label_selinexor:/interactions/carbamazepine_strong_cyp3a4_inducer",
+   "label_selinexor:/interactions/clarithromycin_strong_cyp3a4_inhibitor",
+   "label_selinexor:/pk/food",
+   "label_selinexor:/pk/metabolism",
+   "label_selinexor:/special_populations/esrd_hemodialysis",
+   "label_thalidomide:/pk/bioavailability",
+   "label_thalidomide:/pk/linearity",
+   "label_thalidomide:/special_populations/hepatic",
+   "label_thalidomide:/special_populations/renal",
+   "lenalidomide_assays:/studies/3",
+   "lenalidomide_label_pk:/absorption/accumulation",
+   "lenalidomide_label_pk:/absorption/administration",
+   "lenalidomide_label_pk:/absorption/mcl",
+   "lenalidomide_label_pk:/drug_interactions_12_3/cyp_and_ugt",
+   "lenalidomide_label_pk:/drug_interactions_12_3/dexamethasone",
+   "lenalidomide_label_pk:/drug_interactions_12_3/quinidine",
+   "lenalidomide_label_pk:/drug_interactions_12_3/temsirolimus",
+   "lenalidomide_label_pk:/drug_interactions_12_3/transporters",
+   "lenalidomide_label_pk:/drug_interactions_7/thrombosis",
+   "lenalidomide_label_pk:/drug_interactions_7/warfarin"
+  ],
+  "sampled_agreements": [
+   "label_carfilzomib:/pk/cl_l_h",
+   "label_carfilzomib:/pk/excretion",
+   "label_carfilzomib:/pk/protein_binding_percent",
+   "label_carfilzomib:/pk/vss_l",
+   "label_elotuzumab:/pk/clearance_by_dose_ml_day_kg",
+   "label_isatuximab:/dosing/dose_10_mg_kg",
+   "label_isatuximab:/pk/v_total_l",
+   "label_selinexor:/pk/cl_f_l_h",
+   "label_selinexor:/pk/linearity",
+   "label_selinexor:/pk/protein_binding_percent",
+   "label_selinexor:/pk/tmax_h",
+   "label_selinexor:/special_populations/covariates_no_effect",
+   "label_thalidomide:/pk/cl_l_h_mm_by_weight",
+   "label_thalidomide:/pk/half_life_h",
+   "label_thalidomide:/pk/protein_binding_percent",
+   "label_thalidomide:/pk/single_dose_table_healthy",
+   "lenalidomide_label_pk:/distribution/semen",
+   "lenalidomide_label_pk:/drug_interactions_7/digoxin",
+   "lenalidomide_label_pk:/elimination/half_life",
+   "lenalidomide_label_pk:/renal_dialysis"
+  ],
+  "out_of_scope_entries": 21
+ },
+ "entries": [
+  {
+   "id": "lenalidomide_label_pk:/absorption/tmax",
+   "blind_id": "B-71f454342c",
+   "group": "lenalidomide_label_pk",
+   "label": "absorption: tmax",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "quote": "Following single and multiple doses of REVLIMID in patients with MM or MDS, the maximum plasma concentrations occurred between 0.5 and 6 hours post-dose.",
+    "tmax_range_h": [
+     0.5,
+     6
+    ]
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/absorption/accumulation",
+   "blind_id": "B-909873062a",
+   "group": "lenalidomide_label_pk",
+   "label": "absorption: accumulation",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "quote": "Multiple doses of REVLIMID at the recommended dosage does not result in drug accumulation."
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/absorption/food_effect",
+   "blind_id": "B-d33fecf6a8",
+   "group": "lenalidomide_label_pk",
+   "label": "absorption: food effect",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "quote": "Administration of a single 25 mg dose of REVLIMID with a high-fat meal in healthy subjects reduces the extent of absorption, with an approximate 20% decrease in AUC and 50% decrease in Cmax.",
+    "auc_decrease_percent_approx": 20,
+    "cmax_decrease_percent_approx": 50,
+    "conditions": "single 25 mg dose of REVLIMID with a high-fat meal in healthy subjects"
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/absorption/administration",
+   "blind_id": "B-102ee699de",
+   "group": "lenalidomide_label_pk",
+   "label": "absorption: administration",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "quote": "In the trials where the efficacy and safety were established for REVLIMID, the drug was administered without regard to food intake. REVLIMID can be administered with or without food."
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/absorption/mcl",
+   "blind_id": "B-f4704df81e",
+   "group": "lenalidomide_label_pk",
+   "label": "absorption: mcl",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "quote": "The oral absorption rate of lenalidomide in patients with MCL is similar to that observed in patients with MM or MDS."
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/distribution/semen",
+   "blind_id": "B-84f49cd176",
+   "group": "lenalidomide_label_pk",
+   "label": "distribution: semen",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "quote": "Lenalidomide is present in semen at 2 hours (1379 ng/ejaculate) and 24 hours (35 ng/ejaculate) after the administration of REVLIMID 25 mg daily.",
+    "ng_per_ejaculate": {
+     "2_h": 1379,
+     "24_h": 35
+    }
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/elimination/half_life",
+   "blind_id": "B-f99fc217e3",
+   "group": "lenalidomide_label_pk",
+   "label": "elimination: half life",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "quote": "The mean half-life of lenalidomide is 3 hours in healthy subjects and 3 to 5 hours in patients with MM, MDS or MCL.",
+    "healthy_h": 3,
+    "patients_h": [
+     3,
+     5
+    ]
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/elimination/metabolism",
+   "blind_id": "B-f1ff90545e",
+   "group": "lenalidomide_label_pk",
+   "label": "elimination: metabolism",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "quote": "Lenalidomide undergoes limited metabolism. Unchanged lenalidomide is the predominant circulating component in humans. Two identified metabolites are 5-hydroxy-lenalidomide and N-acetyl-lenalidomide; each constitutes less than 5% of parent levels in circulation.",
+    "metabolites": [
+     "5-hydroxy-lenalidomide",
+     "N-acetyl-lenalidomide"
+    ],
+    "each_metabolite_below_percent_of_parent": 5
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/elimination/excretion",
+   "blind_id": "B-a07782f9bb",
+   "group": "lenalidomide_label_pk",
+   "label": "elimination: excretion",
+   "result": "disagree",
+   "only_first": [
+    "0.82",
+    "0.85",
+    "2.0",
+    "2008.0",
+    "24.0",
+    "85.0"
+   ],
+   "only_second": [
+    "14.0",
+    "14.0",
+    "4.0",
+    "45.0",
+    "5.0",
+    "90.0"
+   ],
+   "quotes_missing": 1,
+   "missing_quotes": [
+    "Elimination is primarily renal. Following a single oral administration of [14C]-lenalidomide 25 mg to healthy subjects, approximately 90% and 4% of the radioact"
+   ],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "quote": "Elimination is primarily renal. Following a single oral administration of [14C]-lenalidomide 25 mg to healthy subjects, approximately 90% and 4% of the radioactive dose was eliminated within ten days in urine and feces, respectively. Approximately 82% of the radioactive dose was excreted as lenalidomide in the urine within 24 hours. Hydroxy-lenalidomide and N-acetyl-lenalidomide represented 4.6% and 1.8% of the excreted dose, respectively. The renal clearance of lenalidomide exceeds the glomerular filtration rate.",
+    "radioactive_dose_percent_10_days": {
+     "urine": 90,
+     "feces": 4
+    },
+    "unchanged_in_urine_24_h_percent_of_radioactive_dose": 82,
+    "metabolites_percent_of_excreted_dose": {
+     "hydroxy_lenalidomide": 4.6,
+     "n_acetyl_lenalidomide": 1.8
+    },
+    "note": "90%, 4% and 82% are printed as approximate ('approximately'). The Excretion paragraph names the metabolite 'Hydroxy-lenalidomide' (the Metabolism paragraph on page 45 says '5-hydroxy-lenalidomide'); 'Hydroxy-' is split across a line break in the PDF. '14C' is a superscript 14 in the PDF."
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/renal_dialysis",
+   "blind_id": "B-7a4e54b125",
+   "group": "lenalidomide_label_pk",
+   "label": "renal dialysis",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "quote": "Approximately 30% of the drug in body was removed during a 4-hour hemodialysis session.",
+    "removed_percent_of_drug_in_body": 30,
+    "session_h": 4
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/drug_interactions_12_3/dexamethasone",
+   "blind_id": "B-bd6e9f3831",
+   "group": "lenalidomide_label_pk",
+   "label": "drug interactions 12 3: dexamethasone",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "quote": "Co-administration of a single dose or multiple doses of dexamethasone (40 mg) had no clinically relevant effect on the multiple dose pharmacokinetics of REVLIMID (25 mg)."
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/drug_interactions_12_3/quinidine",
+   "blind_id": "B-e7135fe291",
+   "group": "lenalidomide_label_pk",
+   "label": "drug interactions 12 3: quinidine",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "quote": "Co-administration of REVLIMID (25 mg) after multiple doses of a P-gp inhibitor such as quinidine (600 mg twice daily) did not significantly increase the Cmax or AUC of lenalidomide."
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/drug_interactions_12_3/temsirolimus",
+   "blind_id": "B-bd2ea1d40c",
+   "group": "lenalidomide_label_pk",
+   "label": "drug interactions 12 3: temsirolimus",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "quote": "Co-administration of the P-gp inhibitor and substrate temsirolimus (25 mg),with REVLIMID (25 mg) did not significantly alter the pharmacokinetics of lenalidomide, temsirolimus, or sirolimus (metabolite of temsirolimus).",
+    "note": "The source prints '(25 mg),with' with no space after the comma; copied as printed."
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/drug_interactions_12_3/transporters",
+   "blind_id": "B-d093c1ff09",
+   "group": "lenalidomide_label_pk",
+   "label": "drug interactions 12 3: transporters",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "quote": "In vitro studies demonstrated that REVLIMID is a substrate of P-glycoprotein (P-gp).",
+    "substrate_of": [
+     "P-glycoprotein (P-gp)"
+    ],
+    "not_substrate_of": [
+     "BCRP",
+     "MRP1",
+     "MRP2",
+     "MRP3",
+     "OAT1",
+     "OAT3",
+     "OATP1B1",
+     "OCT1",
+     "OCT2",
+     "MATE1",
+     "OCTN1",
+     "OCTN2"
+    ],
+    "not_substrate_quote": "REVLIMID is not a substrate of human breast cancer resistance protein (BCRP), multidrug resistance protein (MRP) transporters MRP1, MRP2, or MRP3, organic anion transporters (OAT) OAT1 and OAT3, organic anion transporting polypeptide 1B1 (OATP1B1), organic cation transporters (OCT) OCT1 and OCT2, multidrug and toxin extrusion protein (MATE) MATE1, and organic cation transporters novel (OCTN) OCTN1 and OCTN2.",
+    "not_inhibitor_of": [
+     "P-gp",
+     "BSEP",
+     "BCRP",
+     "MRP2",
+     "OAT1",
+     "OAT3",
+     "OATP1B1",
+     "OATP1B3",
+     "OCT2"
+    ],
+    "not_inhibitor_quote": "Lenalidomide is not an inhibitor of P-gp, bile salt export pump (BSEP), BCRP, MRP2, OAT1, OAT3, OATP1B1, OATP1B3, or OCT2."
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/drug_interactions_12_3/cyp_and_ugt",
+   "blind_id": "B-cdeb55b158",
+   "group": "lenalidomide_label_pk",
+   "label": "drug interactions 12 3: cyp and ugt",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "quote": "Lenalidomide does not inhibit or induce CYP450 isoenzymes. Also, lenalidomide does not inhibit bilirubin glucuronidation formation in human liver microsomes with UGT1A1 genotyped as UGT1A1*1/*1, UGT1A1*1/*28, and UGT1A1*28/*28."
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/drug_interactions_7/digoxin",
+   "blind_id": "B-f2541b679a",
+   "group": "lenalidomide_label_pk",
+   "label": "drug interactions 7: digoxin",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "quote": "When digoxin was co-administered with multiple doses of REVLIMID (10 mg/day) the digoxin Cmax and AUCinf were increased by 14%. Periodically monitor digoxin plasma levels, in accordance with clinical judgment and based on standard clinical practice in patients receiving this medication, during administration of REVLIMID.",
+    "digoxin_cmax_and_auc_increase_percent": 14
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/drug_interactions_7/thrombosis",
+   "blind_id": "B-dcec83b39e",
+   "group": "lenalidomide_label_pk",
+   "label": "drug interactions 7: thrombosis",
+   "result": "not_comparable",
+   "quotes_missing": 1,
+   "second_reader_value": {
+    "quote": "Erythropoietic agents, or other agents that may increase the risk of thrombosis, such as estrogen containing therapies, should be used with caution after making a benefit-risk assessment in patients receiving REVLIMID [see Warnings and Precautions (5.4)]."
+   }
+  },
+  {
+   "id": "lenalidomide_label_pk:/drug_interactions_7/warfarin",
+   "blind_id": "B-b85421baa7",
+   "group": "lenalidomide_label_pk",
+   "label": "drug interactions 7: warfarin",
+   "result": "not_comparable",
+   "quotes_missing": 1,
+   "second_reader_value": {
+    "quote": "Co-administration of multiple doses of REVLIMID (10 mg/day) with a single dose of warfarin (25 mg) had no effect on the pharmacokinetics of lenalidomide or R- and S-warfarin. Expected changes in laboratory assessments of PT and INR were observed after warfarin administration, but these changes were not affected by concomitant REVLIMID administration. It is not known whether there is an interaction between dexamethasone and warfarin. Close monitoring of PT and INR is recommended in patients with MM taking concomitant warfarin."
+   }
+  },
+  {
+   "id": "lenalidomide_assays:/studies/0",
+   "blind_id": "B-0e81804145",
+   "group": "lenalidomide_assays",
+   "label": "CC-5013-PK-001 (Chen 2007)",
+   "result": "disagree",
+   "only_first": [
+    "200.0",
+    "765.0"
+   ],
+   "only_second": [
+    "0.0",
+    "0.3",
+    "0.3",
+    "13.0",
+    "20.0",
+    "300.0",
+    "4.5",
+    "5.0",
+    "5.0",
+    "5013.0",
+    "6.1",
+    "87.4",
+    "94.5"
+   ],
+   "quotes_missing": 1,
+   "missing_quotes": [
+    "Plasma and urine samples were analyzed for S- and R-lenalidomide concentrations by a validated chiral liquid chromatography/tandem mass spectrometry (LC/MS/MS) "
+   ],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "method": "validated chiral liquid chromatography/tandem mass spectrometry (LC/MS/MS) method (liquid-liquid extraction, HPLC on an Astec Chirobiotic V 5-μm column, electrospray ionization in the positive ion mode, multiple-reaction monitoring; internal standard 13C5-CC-5013 glutarimide), measuring S- and R-lenalidomide in plasma and urine",
+    "plasma_range_ng_ml": [
+     5,
+     200
+    ],
+    "plasma_lloq_ng_ml": 5,
+    "urine_range_ng_ml": [
+     100,
+     20000
+    ],
+    "urine_lloq_ng_ml": 100,
+    "between_day_precision_pct": {
+     "plasma": 6.1,
+     "urine": 4.5
+    },
+    "accuracy_pct": {
+     "plasma": [
+      97.3,
+      99.7
+     ],
+     "urine": [
+      92.7,
+      103.7
+     ]
+    },
+    "quotes": [
+     "Plasma and urine samples were analyzed for S- and R-lenalidomide concentrations by a validated chiral liquid chromatography/tandem mass spectrometry (LC/MS/MS) method.",
+     "The R- and S-lenalidomide standard curves were linear from 5 to 200 ng/mL in plasma and from 100 to 20 000 ng/mL in urine. The lower limit of quantification of lenalidomide was 5 ng/mL in plasma and 100 ng/mL in urine. Between-day precision was within 6.1% in plasma assays and within 4.5% in urine assays. Assay accuracy was 97.3% to 99.7% for plasma samples and 92.7% to 103.7% for urine samples."
+    ],
+    "note": "Precision values are printed as 'within 6.1%' and 'within 4.5%' (upper bounds). Urine upper limit is printed '20 000 ng/mL'. Words hyphenated across line breaks in the PDF ('liq-uid', 'LC/ MS/MS', 'lenalido-mide', 'accu-racy') were rejoined in the quotes. The same page describes a separate, non-chiral assay for the ex vivo plasma protein binding samples (ultrafiltrate and plasma, antipyrine IS, APCI): 'The lenalidomide standard curve was linear from 0.3 to 300 ng/mL. The lower limit of quantification was 0.3 ng/mL. Intraday precision was within 5%, and assay accuracy was 87.4% to 94.5%.' Those values are not entered in the plasma fields above because they belong to the protein-binding assay."
+   }
+  },
+  {
+   "id": "lenalidomide_assays:/studies/1",
+   "blind_id": "B-8c50d81d2a",
+   "group": "lenalidomide_assays",
+   "label": "Bridoux 2016 (myeloma patients)",
+   "result": "disagree",
+   "only_first": [
+    "1.0",
+    "5013.0"
+   ],
+   "only_second": [
+    "10.0",
+    "14.0",
+    "14.0",
+    "182.0",
+    "2016.0",
+    "3.0",
+    "30.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "method": "as described previously [14]",
+    "quotes": [
+     "Lenalidomide concentration in plasma was measured as described previously [14].",
+     "The methods for this study have been previously described [14].",
+     "14. Chen N, Lau H, Kong L, Kumar G, Zeldis JB, Knight R, Laskin OL (2007) Pharmacokinetics of lenalidomide in subjects with various degrees of renal impairment and in subjects on hemodialysis. J Clin Pharmacol 47:1466–1475"
+    ],
+    "note": "Bridoux 2016 does not itself state the analytical method, calibration range, LLOQ, precision or accuracy on PDF page 3; it only refers to reference 14 (Chen et al. 2007, reference list on PDF page 10, journal page 182). The second quote refers to the methods of the comparison study of 30 patients with RI due to nonmalignant conditions. Words hyphenated across line breaks in the reference ('hemodi-alysis') were rejoined."
+   }
+  },
+  {
+   "id": "lenalidomide_assays:/studies/2",
+   "blind_id": "B-fe44ed6ec9",
+   "group": "lenalidomide_assays",
+   "label": "Kim 2026 (Korean myeloma patients; total and unbound)",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "why": "numbers in a note the second reader added (strict reading of the plan)",
+   "second_reader_value": {
+    "method": "previously validated high-performance liquid chromatography-tandem mass spectrometry (HPLC-MS/MS) method; unbound form from plasma ultrafiltrate obtained by centrifugal ultrafiltration",
+    "plasma_range_ng_ml": [
+     5,
+     1000
+    ],
+    "plasma_lloq_ng_ml": 5,
+    "intra_assay_pct": {
+     "bias_below": 7.86,
+     "cv_below": 5.01
+    },
+    "inter_assay_pct": {
+     "bias_below": 6.05,
+     "cv_below": 10.55
+    },
+    "quotes": [
+     "Quantification of total and unbound lenalidomide concentrations in plasma was conducted using a previously validated high-performance liquid chromatography-tandem mass spectrometry (HPLC-MS/MS) method.30",
+     "The lower limit of quantification (LLOQ) for both total and unbound lenalidomide was determined to be 5 ng/mL, with a signal-to-noise (S/N) ratio of ≥10, confirming adequate sensitivity and selectivity. Calibration curves were constructed over a range of 5–1,000 ng/mL using 1/x2-weighted linear regression (R2 ≥ 0.999).",
+     "The analytical method demonstrated excellent accuracy and precision for both total and unbound lenalidomide: intra-assay bias (%) and precision (%CV) below 7.86% and 5.01%, and inter-assay bias and precision below 6.05% and 10.55%, respectively."
+    ],
+    "note": "LLOQ and range are stated for both total and unbound lenalidomide. Range printed as 5–1,000 ng/mL. '30' after 'method.' is a superscript reference number; x2 and R2 are superscripts flattened in the page text."
+   }
+  },
+  {
+   "id": "lenalidomide_assays:/studies/3",
+   "blind_id": "B-799d1b3209",
+   "group": "lenalidomide_assays",
+   "label": "Hughes 2019 fitting data (the model's source studies)",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "method": "published liquid chromatography/tandem mass spectrometry assay for lenalidomide (reference 27: Liu Q, Farley KL, Johnson AJ, et al.)",
+    "quotes": [
+     "Plasma samples were analysed using published liquid chromatography/ tandem mass spectrometry assay for lenalidomide.27",
+     "27. Liu Q, Farley KL, Johnson AJ, et al. Development and validation of a highly sensitive liquid chromatography/mass spectrometry method for simultaneous quantification of lenalidomide and flavopiridol in"
+    ],
+    "note": "Hughes page 3 states only the assay type and cites reference 27; it does not state calibration range, LLOQ, accuracy or precision (those are not given in this article). Reference 27 is on PDF page 11 (journal page 934), not page 3; its entry continues past the portion of the reference list I read, so the second quote stops where my reading stopped. In the first quote the line break falls after 'chromatography/' in the source ('chromatography/' then 'tandem'); '27' is a superscript reference number."
+   }
+  },
+  {
+   "id": "hughes_precision:/fixed_effects/theta_cl",
+   "blind_id": "B-371c6f3060",
+   "group": "hughes_precision",
+   "label": "CL/F (L/h), typical at FFM 55 kg and CrCl 90 mL/min",
+   "result": "disagree",
+   "only_first": [
+    "90.0"
+   ],
+   "only_second": [
+    "0.75"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "label": "CL/F (L/h) [θ*(FFM/55)0.75]",
+    "estimate": 12.0,
+    "rse_pct": 5.0,
+    "bootstrap_ci95": [
+     10.8,
+     13.6
+    ],
+    "row_quote": "CL/F (L/h) [θ*(FFM/55)0.75] 12.4 [5.2] 12.0 [5.0] 12.0 [10.8–13.6]",
+    "note": "Superscript exponents and bracket contents are flattened in the page text (e.g. (FFM/55)0.75, (CrCl/90)θ, h−1); columns are Base model [%RSE], Final model [%RSE], Bootstrap [95% CI]; estimate and rse_pct taken from the Final model column; column spacing collapsed to single spaces in row_quote. Bootstrap point value 12.0. The table row gives the FFM reference (55); the CrCl reference (90) is in the next row's label and in Equation 4, not in this row."
+   }
+  },
+  {
+   "id": "hughes_precision:/fixed_effects/theta_crcl",
+   "blind_id": "B-db0a877ef6",
+   "group": "hughes_precision",
+   "label": "CrCl covariate exponent",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [
+    "90.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "label": "CrCl covariate effect [*(CrCl/90)θ]",
+    "estimate": 0.224,
+    "rse_pct": 31.6,
+    "bootstrap_ci95": [
+     0.046,
+     0.396
+    ],
+    "row_quote": "CrCl covariate effect [*(CrCl/90)θ] 0.224 [31.6] 0.226 [0.046–0.396]",
+    "note": "Superscript exponents and bracket contents are flattened in the page text (e.g. (FFM/55)0.75, (CrCl/90)θ, h−1); columns are Base model [%RSE], Final model [%RSE], Bootstrap [95% CI]; estimate and rse_pct taken from the Final model column; column spacing collapsed to single spaces in row_quote. Base model column is blank for this row. Bootstrap point value 0.226."
+   }
+  },
+  {
+   "id": "hughes_precision:/fixed_effects/theta_v",
+   "blind_id": "B-c8c9b177a9",
+   "group": "hughes_precision",
+   "label": "Vd/F (L), typical at FFM 55 kg",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [
+    "1.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "label": "Vd/F (L) [θ*(FFM/55)1.0]",
+    "estimate": 68.8,
+    "rse_pct": 5.0,
+    "bootstrap_ci95": [
+     61.8,
+     76.3
+    ],
+    "row_quote": "Vd/F (L) [θ*(FFM/55)1.0] 75.4 [5.1] 68.8 [5.0] 68.8 [61.8–76.3]",
+    "note": "Superscript exponents and bracket contents are flattened in the page text (e.g. (FFM/55)0.75, (CrCl/90)θ, h−1); columns are Base model [%RSE], Final model [%RSE], Bootstrap [95% CI]; estimate and rse_pct taken from the Final model column; column spacing collapsed to single spaces in row_quote. Bootstrap point value 68.8."
+   }
+  },
+  {
+   "id": "hughes_precision:/fixed_effects/theta_ktr",
+   "blind_id": "B-eb670bdb00",
+   "group": "hughes_precision",
+   "label": "Transit rate KTR (1/h)",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "why": "numbers in a note the second reader added (strict reading of the plan)",
+   "second_reader_value": {
+    "label": "KTR (h−1)",
+    "estimate": 13.5,
+    "rse_pct": 5.8,
+    "bootstrap_ci95": [
+     11.9,
+     36.8
+    ],
+    "row_quote": "KTR (h−1) 13.5 [5.8] 13.5 [5.8] 13.4 [11.9–36.8]",
+    "note": "Superscript exponents and bracket contents are flattened in the page text (e.g. (FFM/55)0.75, (CrCl/90)θ, h−1); columns are Base model [%RSE], Final model [%RSE], Bootstrap [95% CI]; estimate and rse_pct taken from the Final model column; column spacing collapsed to single spaces in row_quote. Bootstrap point value 13.4."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/dosing/weekly_20_70_mg_m2",
+   "blind_id": "B-b0c147f284",
+   "group": "label_carfilzomib",
+   "label": "dosing: weekly 20 70 mg m2",
+   "result": "disagree",
+   "only_first": [
+    "1.0",
+    "1.0"
+   ],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "regimen": "Once Weekly 20/70 mg/m2 (30-minute infusion); Days 1, 8, and 15 of each 28-day cycle",
+    "dose_mg_m2": [
+     20,
+     70
+    ],
+    "quote": "The recommended starting dosage of Kyprolis is 20 mg/m2 on Cycle 1, Day 1. If tolerated, escalate the dose to 70 mg/m2 on Cycle 1, Day 8. Administer Kyprolis intravenously as a 30-minute infusion on Days 1, 8, and 15 of each 28-day cycle until disease progression or unacceptable toxicity as shown in Table 1 [see Clinical Studies (14.2)].",
+    "note": "Superscripts/subscripts appear flattened in the page text (e.g. mg/m2, Cmax, AUC0-INF); line breaks joined with spaces."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/dosing/twice_weekly_20_56_mg_m2",
+   "blind_id": "B-12e65f7c18",
+   "group": "label_carfilzomib",
+   "label": "dosing: twice weekly 20 56 mg m2",
+   "result": "disagree",
+   "only_first": [
+    "1.0",
+    "1.0",
+    "2.0"
+   ],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "regimen": "Twice Weekly 20/56 mg/m2 (30-minute infusion); Days 1, 2, 8, 9, 15, and 16 of each 28-day cycle",
+    "dose_mg_m2": [
+     20,
+     56
+    ],
+    "quote": "The recommended starting dosage of Kyprolis is 20 mg/m2 on Cycle 1, Days 1 and 2. If tolerated, escalate the dose to 56 mg/m2 on Cycle 1, Day 8. Administer Kyprolis intravenously as a 30-minute infusion on Days 1, 2, 8, 9, 15, and 16 of each 28-day cycle as shown in Table 2 until disease progression or unacceptable toxicity [see Clinical Studies (Section 14)].",
+    "note": "Superscripts/subscripts appear flattened in the page text (e.g. mg/m2, Cmax, AUC0-INF); line breaks joined with spaces. Page 6 also carries the heading 'Twice Weekly 20/27 mg/m2 (10-minute infusion)' at its foot, but that regimen's text is on the next page; I took the entry to mean the 20/56 regimen whose text is on page 6."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/dosing/hepatic_mild_moderate",
+   "blind_id": "B-24cd73c7b3",
+   "group": "label_carfilzomib",
+   "label": "dosing: hepatic mild moderate",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "modification": "reduce the dose of Kyprolis by 25% for mild or moderate hepatic impairment",
+    "quote": "For patients with mild (total bilirubin 1 to 1.5 × ULN and any AST or total bilirubin ≤ ULN and AST > ULN) or moderate (total bilirubin > 1.5 to 3 × ULN and any AST) hepatic impairment, reduce the dose of Kyprolis by 25% [see Use in Specific Populations (8.6), Clinical Pharmacology (12.3)]."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/dosing/esrd_hemodialysis",
+   "blind_id": "B-0071649292",
+   "group": "label_carfilzomib",
+   "label": "dosing: esrd hemodialysis",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "modification": "administer Kyprolis after the hemodialysis procedure (no dose change stated in section 2.5)",
+    "quote": "For patients with end stage renal disease who are on hemodialysis, administer Kyprolis after the hemodialysis procedure."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/pk/auc_c1_avg_ng_h_ml",
+   "blind_id": "B-c43683fe15",
+   "group": "label_carfilzomib",
+   "label": "pk: auc c1 avg ng h ml",
+   "result": "disagree",
+   "why": "1 quote(s) not found in source",
+   "missing_quotes": [
+    "AUCC1,avg (ng∙hr/mL) 95 (40) 170 (35) 114 (36)"
+   ],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "by_regimen": {
+     "20/27 twice weekly, 2-10 min": [
+      95,
+      40
+     ],
+     "20/56 twice weekly, 30 min": [
+      170,
+      35
+     ],
+     "20/70 once weekly, 30 min": [
+      114,
+      36
+     ]
+    },
+    "format": "value (%CV), i.e. [value, %CV] in each list",
+    "statistic": "estimated mean (%CV); CV = Coefficient of variation",
+    "quote": [
+     "Table 21 lists the estimated mean average daily area under the curve in the first cycle (AUCC1,avg), average daily area under the curve at steady-state (AUCss) and Cmax at the highest dose in the first cycle (Cmax,C1) for the different dosing regimens.",
+     "AUCC1,avg (ng∙hr/mL) 95 (40) 170 (35) 114 (36)",
+     "CV = Coefficient of variation"
+    ],
+    "note": "Table 21 column heads: '20/27 mg/m2 twice weekly with 2- to 10-minute infusion', '20/56 mg/m2 twice weekly with 30-minute infusion', '20/70 mg/m2 once weekly with 30-minute infusion'; row head 'Estimated Parameters (%CV)'. Row quote is the table row with cell spacing collapsed; subscripts flattened."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/pk/auc_ss_ng_h_ml",
+   "blind_id": "B-b991913c8e",
+   "group": "label_carfilzomib",
+   "label": "pk: auc ss ng h ml",
+   "result": "disagree",
+   "why": "1 quote(s) not found in source",
+   "missing_quotes": [
+    "AUCss (ng∙hr/mL) 111 (34) 228 (28) 150 (35)"
+   ],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "by_regimen": {
+     "20/27 twice weekly, 2-10 min": [
+      111,
+      34
+     ],
+     "20/56 twice weekly, 30 min": [
+      228,
+      28
+     ],
+     "20/70 once weekly, 30 min": [
+      150,
+      35
+     ]
+    },
+    "format": "value (%CV), i.e. [value, %CV] in each list",
+    "statistic": "estimated mean (%CV); CV = Coefficient of variation",
+    "quote": [
+     "Table 21 lists the estimated mean average daily area under the curve in the first cycle (AUCC1,avg), average daily area under the curve at steady-state (AUCss) and Cmax at the highest dose in the first cycle (Cmax,C1) for the different dosing regimens.",
+     "AUCss (ng∙hr/mL) 111 (34) 228 (28) 150 (35)",
+     "CV = Coefficient of variation"
+    ],
+    "note": "Table 21 column heads: '20/27 mg/m2 twice weekly with 2- to 10-minute infusion', '20/56 mg/m2 twice weekly with 30-minute infusion', '20/70 mg/m2 once weekly with 30-minute infusion'; row head 'Estimated Parameters (%CV)'. Row quote is the table row with cell spacing collapsed; subscripts flattened."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/pk/cmax_c1_ng_ml",
+   "blind_id": "B-8b19e38c35",
+   "group": "label_carfilzomib",
+   "label": "pk: cmax c1 ng ml",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "why": "numbers in a note the second reader added (strict reading of the plan)",
+   "second_reader_value": {
+    "by_regimen": {
+     "20/27 twice weekly, 2-10 min": [
+      1282,
+      17
+     ],
+     "20/56 twice weekly, 30 min": [
+      1166,
+      29
+     ],
+     "20/70 once weekly, 30 min": [
+      1595,
+      36
+     ]
+    },
+    "format": "value (%CV), i.e. [value, %CV] in each list",
+    "statistic": "estimated mean (%CV); CV = Coefficient of variation",
+    "quote": [
+     "Table 21 lists the estimated mean average daily area under the curve in the first cycle (AUCC1,avg), average daily area under the curve at steady-state (AUCss) and Cmax at the highest dose in the first cycle (Cmax,C1) for the different dosing regimens.",
+     "Cmax,C1 (ng/mL) 1282 (17) 1166 (29) 1595 (36)",
+     "CV = Coefficient of variation"
+    ],
+    "note": "Table 21 column heads: '20/27 mg/m2 twice weekly with 2- to 10-minute infusion', '20/56 mg/m2 twice weekly with 30-minute infusion', '20/70 mg/m2 once weekly with 30-minute infusion'; row head 'Estimated Parameters (%CV)'. Row quote is the table row with cell spacing collapsed; subscripts flattened."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/pk/table_21_definition",
+   "blind_id": "B-83587fcabc",
+   "group": "label_carfilzomib",
+   "label": "pk: table 21 definition",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "note": "Table 21 ('Carfilzomib Exposure Parameters for Different Dosing Regimens') gives estimated mean (%CV) of: AUCC1,avg = average daily area under the curve in the first cycle; AUCss = average daily area under the curve at steady-state; Cmax,C1 = Cmax at the highest dose in the first cycle. Subscripts flattened in the page text.",
+    "quote": "Table 21 lists the estimated mean average daily area under the curve in the first cycle (AUCC1,avg), average daily area under the curve at steady-state (AUCss) and Cmax at the highest dose in the first cycle (Cmax,C1) for the different dosing regimens."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/pk/infusion_duration_effect",
+   "blind_id": "B-8f7d2ece29",
+   "group": "label_carfilzomib",
+   "label": "pk: infusion duration effect",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [
+    "10.0",
+    "2.0",
+    "30.0"
+   ],
+   "quotes_missing": 1,
+   "missing_quotes": [
+    "A 30-minute infusion resulted in a similar AUC0-INF, but 2- to 3-fold lower Cmax than that observed with a 2- to 10-minute infusion at the same dose."
+   ],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "cmax_30min_vs_2_10min": "2- to 3-fold lower Cmax with a 30-minute infusion than with a 2- to 10-minute infusion at the same dose",
+    "auc": "similar AUC0-INF",
+    "quote": "A 30-minute infusion resulted in a similar AUC0-INF, but 2- to 3-fold lower Cmax than that observed with a 2- to 10-minute infusion at the same dose.",
+    "note": "'AUC0-INF' breaks across a line in the source ('AUC0-' / 'INF'); subscripts flattened."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/pk/accumulation",
+   "blind_id": "B-b9d573acfe",
+   "group": "label_carfilzomib",
+   "label": "pk: accumulation",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "stated": "no evidence of carfilzomib accumulation following repeated administration (70 mg/m2 30-minute once weekly; 15 and 20 mg/m2 2- to 10-minute twice weekly)",
+    "quote": "There was no evidence of carfilzomib accumulation following repeated administration of carfilzomib 70 mg/m2 as a 30-minute once weekly infusion or 15 and 20 mg/m2 as a 2- to 10-minute twice weekly infusion."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/pk/vss_l",
+   "blind_id": "B-8e42718a50",
+   "group": "label_carfilzomib",
+   "label": "pk: vss l",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "value": 28,
+    "note": "mean steady-state volume of distribution, stated for a 20 mg/m2 dose; unit L",
+    "quote": "The mean steady-state volume of distribution of a 20 mg/m2 dose of carfilzomib was 28 L."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/pk/protein_binding_percent",
+   "blind_id": "B-5b4db390c2",
+   "group": "label_carfilzomib",
+   "label": "pk: protein binding percent",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "value": 97,
+    "quote": "Carfilzomib is 97% bound to human plasma proteins over the concentration range of 0.4 to 4 micromolar in vitro."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/pk/half_life_h",
+   "blind_id": "B-8d41d3d87d",
+   "group": "label_carfilzomib",
+   "label": "pk: half life h",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [
+    "1.0",
+    "10.0",
+    "2.0",
+    "30.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "upper_bound": 1,
+    "note": "printed as '≤ 1 hour', on Day 1 of Cycle 1 following intravenous doses ≥ 15 mg/m2; similar for 30-minute and 2- to 10-minute infusions",
+    "quote": [
+     "Carfilzomib has a half-life of ≤ 1 hour on Day 1 of Cycle 1 following intravenous doses ≥ 15 mg/m2.",
+     "The half-life was similar when administered either as a 30-minute infusion or a 2- to 10-minute infusion."
+    ]
+   }
+  },
+  {
+   "id": "label_carfilzomib:/pk/cl_l_h",
+   "blind_id": "B-8baff64ea1",
+   "group": "label_carfilzomib",
+   "label": "pk: cl l h",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "range": [
+     151,
+     263
+    ],
+    "quote": "The systemic clearance ranged from 151 to 263 L/hour."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/pk/excretion",
+   "blind_id": "B-5ad0f55c1d",
+   "group": "label_carfilzomib",
+   "label": "pk: excretion",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "urine_metabolites_24h_percent": 25,
+    "parent_urine_and_feces_percent": 0.3,
+    "quote": "Approximately 25% of the administered dose of carfilzomib was excreted in urine as metabolites in 24 hours. Urinary and fecal excretion of the parent compound was negligible (0.3% of total dose)."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/special_populations/covariates_no_effect",
+   "blind_id": "B-e003b4b316",
+   "group": "label_carfilzomib",
+   "label": "special populations: covariates no effect",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [
+    "11.0",
+    "3.0",
+    "6.0",
+    "80.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "factors": [
+     "Age (35-89 years)",
+     "sex",
+     "race or ethnicity (80% White, 11% Black, 6% Asians, 3% Hispanics)",
+     "mild to severe renal impairment (creatinine clearance 15-89 mL/min)"
+    ],
+    "quote": "Age (35-89 years), sex, race or ethnicity (80% White, 11% Black, 6% Asians, 3% Hispanics), and mild to severe renal impairment (creatinine clearance 15-89 mL/min) did not have clinically meaningful effects on the pharmacokinetics of carfilzomib."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/special_populations/hepatic_mild_moderate_auc_fold",
+   "blind_id": "B-18dc910a6a",
+   "group": "label_carfilzomib",
+   "label": "special populations: hepatic mild moderate auc fold",
+   "result": "disagree",
+   "only_first": [
+    "1.5"
+   ],
+   "only_second": [
+    "50.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "value": 50,
+    "stated_as": "approximately 50% higher carfilzomib AUC",
+    "quote": "Compared to patients with normal hepatic function, patients with mild (total bilirubin 1 to 1.5 × ULN and any AST or total bilirubin ≤ ULN and AST > ULN) and moderate (total bilirubin > 1.5 to 3 × ULN and any AST) hepatic impairment had approximately 50% higher carfilzomib AUC.",
+    "note": "The source states a percent increase (50%), not a fold value; copied as printed, not converted to a fold."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/special_populations/hepatic_severe",
+   "blind_id": "B-3549b9d5ee",
+   "group": "label_carfilzomib",
+   "label": "special populations: hepatic severe",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "value": null,
+    "stated_as": "has not been evaluated",
+    "quote": "The pharmacokinetics of carfilzomib has not been evaluated in patients with severe hepatic impairment (total bilirubin > 3 × ULN and any AST).",
+    "note": "No numeric value: the source states the pharmacokinetics has not been evaluated in severe hepatic impairment."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/special_populations/esrd_hemodialysis_auc_fold",
+   "blind_id": "B-c406ad977c",
+   "group": "label_carfilzomib",
+   "label": "special populations: esrd hemodialysis auc fold",
+   "result": "disagree",
+   "only_first": [
+    "1.33"
+   ],
+   "only_second": [
+    "33.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "value": 33,
+    "stated_as": "33% higher carfilzomib AUC",
+    "quote": "Relative to patients with normal renal function, ESRD patients on hemodialysis showed 33% higher carfilzomib AUC.",
+    "note": "The source states a percent increase (33%), not a fold value; copied as printed, not converted to a fold."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/interactions/midazolam",
+   "blind_id": "B-f299c0dd02",
+   "group": "label_carfilzomib",
+   "label": "interactions: midazolam",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "effect_on": "Midazolam (a sensitive CYP3A substrate) pharmacokinetics",
+    "result": "not affected by concomitant administration of carfilzomib",
+    "quote": "Effect of Carfilzomib on Sensitive CYP3A Substrate: Midazolam (a sensitive CYP3A substrate) pharmacokinetics was not affected by concomitant administration of carfilzomib."
+   }
+  },
+  {
+   "id": "label_carfilzomib:/interactions/pgp_inhibitors_inducers",
+   "blind_id": "B-14f4127991",
+   "group": "label_carfilzomib",
+   "label": "interactions: pgp inhibitors inducers",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "result": "the pharmacokinetics of Kyprolis is unlikely to be affected by P-gp inhibitors or inducers",
+    "quote": "However, given that Kyprolis is administered intravenously and is extensively metabolized, the pharmacokinetics of Kyprolis is unlikely to be affected by P-gp inhibitors or inducers."
+   }
+  },
+  {
+   "id": "label_selinexor:/dosing/xvd_100_mg_weekly",
+   "blind_id": "B-19cda23afd",
+   "group": "label_selinexor",
+   "label": "dosing: xvd 100 mg weekly",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [
+    "1.0",
+    "1.0",
+    "1.0",
+    "1.3",
+    "2.0",
+    "20.0",
+    "4.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "dose_mg": 100,
+    "interval": "once weekly on Day 1 of each week",
+    "combination": "bortezomib and dexamethasone (XVd): Bortezomib 1.3 mg/m2 subcutaneously once weekly on Day 1 of each week for 4 weeks followed by 1 week off; Dexamethasone 20 mg orally twice weekly on Days 1 and 2 of each week",
+    "quote": "The recommended dosage of XPOVIO is 100 mg taken orally once weekly on Day 1 of each week until disease progression or unacceptable toxicity in combination with: Bortezomib 1.3 mg/m2 administered subcutaneously once weekly on Day 1 of each week for 4 weeks followed by 1 week off. Dexamethasone 20 mg taken orally twice weekly on Days 1 and 2 of each week."
+   }
+  },
+  {
+   "id": "label_selinexor:/dosing/xd_80_mg_twice_weekly",
+   "blind_id": "B-8a8a1943a6",
+   "group": "label_selinexor",
+   "label": "dosing: xd 80 mg twice weekly",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [
+    "1.0",
+    "20.0",
+    "3.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "dose_mg": 80,
+    "interval": "on Days 1 and 3 of each week",
+    "combination": "dexamethasone (Xd): dexamethasone 20 mg taken orally with each dose of XPOVIO on Days 1 and 3 of each week",
+    "quote": "The recommended dosage of XPOVIO is 80 mg taken orally on Days 1 and 3 of each week until disease progression or unacceptable toxicity in combination with dexamethasone 20 mg taken orally with each dose of XPOVIO on Days 1 and 3 of each week.",
+    "note": "The source says 'on Days 1 and 3 of each week'; it does not use the words 'twice weekly' for XPOVIO here. The sentence's last word ('week.') is at the top of PDF page 4."
+   }
+  },
+  {
+   "id": "label_selinexor:/dosing/hepatic_severe_starting_dose",
+   "blind_id": "B-21ced6c2e5",
+   "group": "label_selinexor",
+   "label": "dosing: hepatic severe starting dose",
+   "result": "disagree",
+   "why": "1 quote(s) not found in source",
+   "missing_quotes": [
+    "Table 4: XPOVIO Starting Dosage in Patients with Severe Hepatic Impairment. Total Bilirubin Levels >3x ULN (and any AST): Multiple Myeloma in Combination with B"
+   ],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "xvd": "80 mg once weekly",
+    "xd": "100 mg once weekly",
+    "definition": "defined by NCI-ODWG (National Cancer Institute Organ Dysfunction Working Group) criteria as total bilirubin >3x upper limit of normal with any level of AST",
+    "quote": [
+     "For patients with severe hepatic impairment, defined by NCI-ODWG (National Cancer Institute Organ Dysfunction Working Group) criteria as total bilirubin >3x upper limit of normal with any level of AST, use the starting dosage of XPOVIO as shown in Table 4 [see Use in Specific Populations (8.6) and Clinical Pharmacology (12.3)].",
+     "Table 4: XPOVIO Starting Dosage in Patients with Severe Hepatic Impairment. Total Bilirubin Levels >3x ULN (and any AST): Multiple Myeloma in Combination with Bortezomib and Dexamethasone (XVd) 80 mg once weekly; Multiple Myeloma in Combination with Dexamethasone (Xd) 100 mg once weekly"
+    ],
+    "note": "Second quote is a table row read cell by cell (Table 4); Table 5 'Recommended Starting Dosage' row prints the same two values."
+   }
+  },
+  {
+   "id": "label_selinexor:/pk/linearity",
+   "blind_id": "B-26b13b6533",
+   "group": "label_selinexor",
+   "label": "pk: linearity",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "dose_proportional_range_mg_m2": [
+     3,
+     85
+    ],
+    "accumulation": "No clinically relevant accumulation at steady state was observed.",
+    "quote": "Selinexor Cmax and AUC increased proportionally over a dose range from 3 mg/m2 to 85 mg/m2 (0.05 to 1.44) times the maximum approved recommended dose, based on 1.7 m2 body surface area. No clinically relevant accumulation at steady state was observed."
+   }
+  },
+  {
+   "id": "label_selinexor:/pk/single_dose_cmax_ng_ml",
+   "blind_id": "B-bae3ea0767",
+   "group": "label_selinexor",
+   "label": "pk: single dose cmax ng ml",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "why": "numbers in a note the second reader added (strict reading of the plan)",
+   "second_reader_value": {
+    "by_dose_mg": {
+     "60": [
+      442,
+      188
+     ],
+     "80": [
+      680,
+      124
+     ],
+     "100": [
+      693,
+      201
+     ]
+    },
+    "format": "Mean (SD)",
+    "population": "patients with hematologic malignancies",
+    "quote": [
+     "Selinexor Cmax and AUC0-INF after administration of a single dose of XPOVIO in patients with hematologic malignancies are presented in Table 9.",
+     "Mean (SD) 60 mg 80 mg 100 mg Cmax (ng/mL) 442 (188) 680 (124) 693 (201)"
+    ],
+    "note": "Table 9 title and intro sentence are on PDF page 19; the table rows with the values are at the top of PDF page 20. Second quote is the table row read cell by cell."
+   }
+  },
+  {
+   "id": "label_selinexor:/pk/single_dose_auc_inf_ng_h_ml",
+   "blind_id": "B-1c1ab5f8ea",
+   "group": "label_selinexor",
+   "label": "pk: single dose auc inf ng h ml",
+   "result": "disagree",
+   "why": "1 quote(s) not found in source",
+   "missing_quotes": [
+    "Mean (SD) 60 mg 80 mg 100 mg AUC0-INF (ng·h/mL) 4,096 (1,185) 5,386 (1,116) 6,998 (818)"
+   ],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "by_dose_mg": {
+     "60": [
+      4096,
+      1185
+     ],
+     "80": [
+      5386,
+      1116
+     ],
+     "100": [
+      6998,
+      818
+     ]
+    },
+    "format": "Mean (SD)",
+    "population": "patients with hematologic malignancies",
+    "quote": [
+     "Selinexor Cmax and AUC0-INF after administration of a single dose of XPOVIO in patients with hematologic malignancies are presented in Table 9.",
+     "Mean (SD) 60 mg 80 mg 100 mg AUC0-INF (ng·h/mL) 4,096 (1,185) 5,386 (1,116) 6,998 (818)"
+    ],
+    "note": "Table 9 title and intro sentence are on PDF page 19; the table rows with the values are at the top of PDF page 20. Second quote is the table row read cell by cell; values printed with thousands separators (4,096 etc.)."
+   }
+  },
+  {
+   "id": "label_selinexor:/pk/tmax_h",
+   "blind_id": "B-6efdae2dc7",
+   "group": "label_selinexor",
+   "label": "pk: tmax h",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "upper_bound": 4,
+    "quote": "The Cmax is reached within 4 hours following oral administration of XPOVIO."
+   }
+  },
+  {
+   "id": "label_selinexor:/pk/food",
+   "blind_id": "B-3868835859",
+   "group": "label_selinexor",
+   "label": "pk: food",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "result": "A high-fat meal did not affect the pharmacokinetics of selinexor to a clinically significant extent",
+    "quote": "Concomitant administration of a high-fat meal (800 to 1,000 calories with approximately 50% of total caloric content of the meal from fat) did not affect the pharmacokinetics of selinexor to a clinically significant extent."
+   }
+  },
+  {
+   "id": "label_selinexor:/pk/v_f_l",
+   "blind_id": "B-260fa6b69b",
+   "group": "label_selinexor",
+   "label": "pk: v f l",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "value": 133,
+    "population": "patients with cancer",
+    "quote": "The apparent volume of distribution of selinexor is 133 L in patients with cancer."
+   }
+  },
+  {
+   "id": "label_selinexor:/pk/protein_binding_percent",
+   "blind_id": "B-47ac7a52f6",
+   "group": "label_selinexor",
+   "label": "pk: protein binding percent",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "value": 95,
+    "quote": "The protein binding of selinexor is 95%."
+   }
+  },
+  {
+   "id": "label_selinexor:/pk/half_life_h",
+   "blind_id": "B-4a1eb04871",
+   "group": "label_selinexor",
+   "label": "pk: half life h",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "range": [
+     6,
+     8
+    ],
+    "note": "mean half-life, following a single dose of XPOVIO",
+    "quote": "Following a single dose of XPOVIO, the mean half-life is 6 to 8 hours."
+   }
+  },
+  {
+   "id": "label_selinexor:/pk/cl_f_l_h",
+   "blind_id": "B-91b1c0bb85",
+   "group": "label_selinexor",
+   "label": "pk: cl f l h",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "value": 18.6,
+    "population": "patients with cancer",
+    "quote": "The apparent total clearance of selinexor is 18.6 L/h in patients with cancer."
+   }
+  },
+  {
+   "id": "label_selinexor:/pk/metabolism",
+   "blind_id": "B-8dbca00fe1",
+   "group": "label_selinexor",
+   "label": "pk: metabolism",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "pathways": [
+     "CYP3A4",
+     "multiple UDP-glucuronosyltransferases (UGTs)",
+     "glutathione S-transferases (GSTs)"
+    ],
+    "quote": "Selinexor is metabolized by CYP3A4, multiple UDP-glucuronosyltransferases (UGTs) and glutathione S-transferases (GSTs)."
+   }
+  },
+  {
+   "id": "label_selinexor:/special_populations/covariates_no_effect",
+   "blind_id": "B-ed95e90f46",
+   "group": "label_selinexor",
+   "label": "special populations: covariates no effect",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "factors": [
+     "age (18 to 94 years old)",
+     "sex",
+     "body weight (36 to 168 kg)",
+     "ethnicity",
+     "mild to severe renal impairment (CLCR: 15 to 89 mL/min, estimated by the Cockcroft-Gault equation)",
+     "disease type (hematological, solid tumor)"
+    ],
+    "quote": "No clinically significant differences in the pharmacokinetics of selinexor were observed based on age (18 to 94 years old), sex, body weight (36 to 168 kg), ethnicity, mild to severe renal impairment (CLCR: 15 to 89 mL/min, estimated by the Cockcroft-Gault equation), and disease type (hematological, solid tumor)."
+   }
+  },
+  {
+   "id": "label_selinexor:/special_populations/esrd_hemodialysis",
+   "blind_id": "B-e8825ecdbc",
+   "group": "label_selinexor",
+   "label": "special populations: esrd hemodialysis",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "value": null,
+    "stated_as": "unknown",
+    "quote": "The effect of end-stage renal disease (CLCR <15 mL/min) or hemodialysis on selinexor pharmacokinetics is unknown.",
+    "note": "No numeric value; the source states the effect is unknown."
+   }
+  },
+  {
+   "id": "label_selinexor:/special_populations/hepatic_mild_moderate",
+   "blind_id": "B-928ada4a84",
+   "group": "label_selinexor",
+   "label": "special populations: hepatic mild moderate",
+   "result": "disagree",
+   "only_first": [
+    "1.0"
+   ],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "value": null,
+    "stated_as": "comparable to patients with normal hepatic function",
+    "quote": "In patients with mild (total bilirubin ≤1x ULN and AST >1x ULN, or total bilirubin >1 to 1.5x ULN and any AST) or moderate (total bilirubin >1.5 to 3x ULN and any AST, n=7) hepatic impairment the pharmacokinetics of selinexor was comparable to patients with normal hepatic function (total bilirubin and AST <ULN).",
+    "note": "No numeric value stated; n=7 is printed inside the moderate-impairment parenthesis."
+   }
+  },
+  {
+   "id": "label_selinexor:/special_populations/hepatic_severe_exposure_fold",
+   "blind_id": "B-a48f00d001",
+   "group": "label_selinexor",
+   "label": "special populations: hepatic severe exposure fold",
+   "result": "disagree",
+   "only_first": [
+    "1.32"
+   ],
+   "only_second": [
+    "32.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "value": 32,
+    "stated_as": "approximately 32% increase in total and free selinexor exposure compared to patients with normal hepatic function",
+    "n": 6,
+    "quote": "In patients with severe hepatic impairment (total bilirubin >3 ULN and any AST, n=6) there was approximately 32% increase in total and free selinexor exposure compared to patients with normal hepatic function [see Dosage and Administration (2.5) and Use in Specific Populations (8.6)].",
+    "note": "Source gives a percent increase (32%), not a fold value; copied as printed, not converted."
+   }
+  },
+  {
+   "id": "label_selinexor:/interactions/clarithromycin_strong_cyp3a4_inhibitor",
+   "blind_id": "B-20e3122724",
+   "group": "label_selinexor",
+   "label": "interactions: clarithromycin strong cyp3a4 inhibitor",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "result": "No clinically significant differences in selinexor pharmacokinetics (clarithromycin up to 1,000 mg daily dose)",
+    "quote": "Clarithromycin (a strong CYP3A4 inhibitor): No clinically significant differences in selinexor pharmacokinetics were observed when co-administered with clarithromycin (up to 1,000 mg daily dose of clarithromycin)."
+   }
+  },
+  {
+   "id": "label_selinexor:/interactions/carbamazepine_strong_cyp3a4_inducer",
+   "blind_id": "B-80072620dc",
+   "group": "label_selinexor",
+   "label": "interactions: carbamazepine strong cyp3a4 inducer",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "result": "No clinically significant differences in selinexor pharmacokinetics (carbamazepine up to 300 mg twice-daily dose)",
+    "quote": "Carbamazepine (a strong CYP3A4 inducer): No clinically significant differences in selinexor pharmacokinetics were observed when co-administered with carbamazepine (up to 300 mg twice-daily dose of carbamazepine)."
+   }
+  },
+  {
+   "id": "label_selinexor:/interactions/acetaminophen",
+   "blind_id": "B-8726715d0a",
+   "group": "label_selinexor",
+   "label": "interactions: acetaminophen",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "result": "No clinically significant differences in selinexor pharmacokinetics (acetaminophen up to 1,000 mg daily dose)",
+    "quote": "Acetaminophen: No clinically significant differences in selinexor pharmacokinetics were observed when co-administered with acetaminophen (up to 1,000 mg daily dose of acetaminophen)."
+   }
+  },
+  {
+   "id": "label_thalidomide:/dosing/mm_200_mg_daily",
+   "blind_id": "B-d300610ab1",
+   "group": "label_thalidomide",
+   "label": "dosing: mm 200 mg daily",
+   "result": "disagree",
+   "only_first": [
+    "24.0"
+   ],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "dose_mg": 200,
+    "interval_h": null,
+    "combination": "dexamethasone",
+    "quote": "The recommended dose of THALOMID in combination with dexamethasone is 200 mg once daily (in 28-day treatment cycles) orally with water, preferably at bedtime and at least 1 hour after the evening meal.",
+    "note": "Interval is printed as \"once daily\"; no interval in hours is stated, so interval_h left null (not converted)."
+   }
+  },
+  {
+   "id": "label_thalidomide:/pk/single_dose_table_healthy",
+   "blind_id": "B-640404b5b3",
+   "group": "label_thalidomide",
+   "label": "pk: single dose table healthy",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "by_dose_mg": {
+     "50": {
+      "auc_inf_ug_h_ml": [
+       4.9,
+       16
+      ],
+      "cmax_ug_ml": [
+       0.62,
+       52
+      ],
+      "tmax_h": [
+       2.9,
+       66
+      ],
+      "t_half_h": [
+       5.52,
+       37
+      ]
+     },
+     "200": {
+      "auc_inf_ug_h_ml": [
+       18.9,
+       17
+      ],
+      "cmax_ug_ml": [
+       1.76,
+       30
+      ],
+      "tmax_h": [
+       3.5,
+       57
+      ],
+      "t_half_h": [
+       5.53,
+       25
+      ]
+     },
+     "400": {
+      "auc_inf_ug_h_ml": [
+       36.4,
+       26
+      ],
+      "cmax_ug_ml": [
+       2.82,
+       28
+      ],
+      "tmax_h": [
+       4.3,
+       37
+      ],
+      "t_half_h": [
+       7.29,
+       36
+      ]
+     }
+    },
+    "format": "Mean (%CV); each list is [mean, %CV]",
+    "population": "Healthy Subjects (n=14)",
+    "quote": [
+     "Table 5: Pharmacokinetic Parameter Values for THALOMID Mean (%CV)",
+     "50 mg 4.9 (16%) 0.62 (52%) 2.9 (66%) 5.52 (37%)",
+     "200 mg 18.9 (17%) 1.76 (30%) 3.5 (57%) 5.53 (25%)",
+     "400 mg 36.4 (26%) 2.82 (28%) 4.3 (37%) 7.29 (36%)"
+    ],
+    "note": "Units printed as mcg•hr/mL and mcg/mL. Column headers: AUC0-∞, Cmax, Tmax (hrs), Half-life (hrs)."
+   }
+  },
+  {
+   "id": "label_thalidomide:/pk/single_dose_table_hansen",
+   "blind_id": "B-6f62b4b3f5",
+   "group": "label_thalidomide",
+   "label": "pk: single dose table hansen",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "by_dose_mg": {
+     "400": {
+      "auc_inf_ug_h_ml": [
+       46.4,
+       44.1
+      ],
+      "cmax_ug_ml": [
+       3.44,
+       52.6
+      ],
+      "tmax_h": [
+       5.7,
+       27
+      ],
+      "t_half_h": [
+       6.86,
+       17
+      ]
+     }
+    },
+    "format": "Mean (%CV); each list is [mean, %CV]",
+    "population": "Patients with Hansen's Disease (n=6)",
+    "quote": [
+     "Table 5: Pharmacokinetic Parameter Values for THALOMID Mean (%CV)",
+     "400 mg 46.4 (44.1%) 3.44 (52.6%) 5.7 (27%) 6.86 (17%)"
+    ],
+    "note": "Units printed as mcg•hr/mL and mcg/mL."
+   }
+  },
+  {
+   "id": "label_thalidomide:/pk/linearity",
+   "blind_id": "B-c9b2050d20",
+   "group": "label_thalidomide",
+   "label": "pk: linearity",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "auc": "proportional to dose in healthy subjects",
+    "cmax": "increased in a less than proportional manner",
+    "quote": "While the extent of absorption (as measured by area under the curve [AUC]) is proportional to dose in healthy subjects, the observed peak concentration (Cmax) increased in a less than proportional manner (see Table 5 below)."
+   }
+  },
+  {
+   "id": "label_thalidomide:/pk/tmax_h",
+   "blind_id": "B-7dd3eedf92",
+   "group": "label_thalidomide",
+   "label": "pk: tmax h",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "range": [
+     2,
+     5
+    ],
+    "quote": "The maximum plasma concentrations are reached approximately 2-5 hours after administration."
+   }
+  },
+  {
+   "id": "label_thalidomide:/pk/bioavailability",
+   "blind_id": "B-63f7c8625d",
+   "group": "label_thalidomide",
+   "label": "pk: bioavailability",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "value": null,
+    "stated_as": "absolute bioavailability has not yet been characterized in human subjects",
+    "quote": [
+     "The absolute bioavailability of thalidomide from thalidomide capsules has not yet been characterized in human subjects due to its poor aqueous solubility.",
+     "Based on the 14C-radiolabel thalidomide study in human, greater than 90% of the total radioactivity is recovered in urine suggesting good oral absorption."
+    ],
+    "note": "No bioavailability value stated; the label says it has not been characterized."
+   }
+  },
+  {
+   "id": "label_thalidomide:/pk/food",
+   "blind_id": "B-d75936b0b2",
+   "group": "label_thalidomide",
+   "label": "pk: food",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "auc_cmax_change": "minor (<10%)",
+    "tmax_h": 6,
+    "quote": "Coadministration of THALOMID (thalidomide) with a high-fat meal causes minor (<10%) changes in the observed AUC and Cmax values; however, it causes an increase in Tmax to approximately 6 hours."
+   }
+  },
+  {
+   "id": "label_thalidomide:/pk/protein_binding_percent",
+   "blind_id": "B-8e63018dbf",
+   "group": "label_thalidomide",
+   "label": "pk: protein binding percent",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "r_enantiomer": 55,
+    "s_enantiomer": 66,
+    "statistic": "geometric mean",
+    "quote": "In human plasma, the geometric mean plasma protein binding was 55% and 66%, respectively, for (+)-(R)- and (-)-(S)-thalidomide."
+   }
+  },
+  {
+   "id": "label_thalidomide:/pk/half_life_h",
+   "blind_id": "B-a618c768f2",
+   "group": "label_thalidomide",
+   "label": "pk: half life h",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "range": [
+     5.5,
+     7.3
+    ],
+    "note": "Mean elimination half-life in plasma following single oral doses between 50 mg and 400 mg",
+    "quote": "The mean elimination half-life of thalidomide in plasma following single oral doses between 50 mg and 400 mg was 5.5 to 7.3 hours."
+   }
+  },
+  {
+   "id": "label_thalidomide:/pk/fraction_excreted_unchanged_urine",
+   "blind_id": "B-181b385557",
+   "group": "label_thalidomide",
+   "label": "pk: fraction excreted unchanged urine",
+   "result": "disagree",
+   "only_first": [
+    "0.035"
+   ],
+   "only_second": [
+    "3.5"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "upper_bound": 3.5,
+    "quote": "Unchanged thalidomide is not eliminated by the kidney to a notable degree (<3.5% of the dose).",
+    "note": "Printed as <3.5% of the dose."
+   }
+  },
+  {
+   "id": "label_thalidomide:/pk/cl_l_h_mm_by_weight",
+   "blind_id": "B-6b2598c77b",
+   "group": "label_thalidomide",
+   "label": "pk: cl l h mm by weight",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "range": [
+     6,
+     12
+    ],
+    "weight_kg_range": [
+     47,
+     133
+    ],
+    "slope_l_h_per_10_kg": 0.605,
+    "population": "MM patients",
+    "quote": "In MM patients with body weight from 47-133 kg, thalidomide clearance ranged from approximately 6-12 L/h, representing an increase in thalidomide clearance of 0.605 L/h per 10 kg body weight increase."
+   }
+  },
+  {
+   "id": "label_thalidomide:/special_populations/renal",
+   "blind_id": "B-5ff0844920",
+   "group": "label_thalidomide",
+   "label": "special populations: renal",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "value": null,
+    "stated_as": "not expected to influence drug exposure",
+    "quote": "Patients with Renal Impairment: Renal impairment is not expected to influence drug exposure since <3.5% of the dose is excreted in the urine as unchanged drug.",
+    "note": "No numeric effect stated."
+   }
+  },
+  {
+   "id": "label_thalidomide:/special_populations/hepatic",
+   "blind_id": "B-8e5f382227",
+   "group": "label_thalidomide",
+   "label": "special populations: hepatic",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "value": null,
+    "stated_as": "No clinical studies have been conducted in patients with hepatic impairment",
+    "quote": "Patients with Hepatic Impairment: No clinical studies have been conducted in patients with hepatic impairment.",
+    "note": "No value stated; not studied."
+   }
+  },
+  {
+   "id": "label_thalidomide:/special_populations/age_sex",
+   "blind_id": "B-86ef7b3341",
+   "group": "label_thalidomide",
+   "label": "special populations: age sex",
+   "result": "disagree",
+   "why": "1 quote(s) not found in source",
+   "missing_quotes": [
+    "Analysis of the data from pharmacokinetic studies in healthy volunteers and patients with Hansen's disease ranging in age from 20 to 69 years does not reveal an"
+   ],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "stated_as": "No age-related changes (ages 20 to 69 years, healthy volunteers and patients with Hansen's disease); no significant gender differences in pharmacokinetic parameter values (no comparative trial conducted)",
+    "quote": [
+     "Analysis of the data from pharmacokinetic studies in healthy volunteers and patients with Hansen's disease ranging in age from 20 to 69 years does not reveal any age-related changes.",
+     "While a comparative trial of the effects of gender on thalidomide pharmacokinetics has not been conducted, examination of the data for thalidomide does not reveal any significant gender differences in pharmacokinetic parameter values."
+    ]
+   }
+  },
+  {
+   "id": "label_thalidomide:/interactions/cyp450",
+   "blind_id": "B-e45b0f514e",
+   "group": "label_thalidomide",
+   "label": "interactions: cyp450",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [
+    "50.0",
+    "50.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "result": "Not a substrate of the cytochrome P450 system; not an inhibitor or inducer of human cytochrome P450 enzymes in vitro at therapeutic concentrations; pharmacokinetic drug-drug interactions with substrates, inhibitors or inducers of CYP450 are not anticipated",
+    "quote": "Thalidomide is not a substrate of the cytochrome P450 system. At therapeutic concentrations, thalidomide is not an inhibitor or inducer of human cytochrome P450 enzymes in vitro. Pharmacokinetic drug-drug interactions with substrates, inhibitors or inducers of CYP450 are not anticipated.",
+    "note": "The entry's 'cyp4#' label: the page names no specific CYP isoform, only the cytochrome P450 system / CYP450 in general."
+   }
+  },
+  {
+   "id": "label_isatuximab:/dosing/dose_10_mg_kg",
+   "blind_id": "B-098faf1057",
+   "group": "label_isatuximab",
+   "label": "dosing: dose 10 mg kg",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "dose_mg_kg": 10,
+    "basis": "actual body weight",
+    "quote": "The recommended dose of SARCLISA is 10 mg/kg actual body weight administered as an intravenous infusion in combination with pomalidomide and dexamethasone or in combination with carfilzomib and dexamethasone, or in combination with bortezomib, lenalidomide, and dexamethasone."
+   }
+  },
+  {
+   "id": "label_isatuximab:/pk/steady_state_ipd",
+   "blind_id": "B-150af6f2d4",
+   "group": "label_isatuximab",
+   "label": "pk: steady state ipd",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "why": "numbers in a note the second reader added (strict reading of the plan)",
+   "second_reader_value": {
+    "cmax_ug_ml": [
+     351,
+     36.0
+    ],
+    "auc_ug_h_ml": [
+     72600,
+     51.7
+    ],
+    "format": "steady-state mean (CV%), predicted",
+    "combination": "pomalidomide and dexamethasone",
+    "quote": "Following administration of isatuximab-irfc in combination with pomalidomide and dexamethasone at the recommended dose and schedule, the steady-state mean (CV%) predicted maximum plasma concentration (Cmax) and area under the plasma concentration-time curve (AUC) of isatuximab-irfc were 351 µg/mL (36.0%) and 72,600 µg∙h/mL (51.7%), respectively.",
+    "note": "Lists are [mean, CV%]. AUC printed as 72,600."
+   }
+  },
+  {
+   "id": "label_isatuximab:/pk/steady_state_ikd",
+   "blind_id": "B-2176c3f67a",
+   "group": "label_isatuximab",
+   "label": "pk: steady state ikd",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "why": "numbers in a note the second reader added (strict reading of the plan)",
+   "second_reader_value": {
+    "cmax_ug_ml": [
+     655,
+     30.8
+    ],
+    "auc_ug_h_ml": [
+     159000,
+     37.1
+    ],
+    "format": "steady state mean (CV%), predicted",
+    "combination": "carfilzomib and dexamethasone",
+    "quote": "Following administration of isatuximab-irfc in combination with carfilzomib and dexamethasone at the recommended dose and schedule, the steady state mean (CV%) predicted Cmax and AUC of isatuximab-irfc were 655 µg/mL (30.8%) and 159,000 µg∙h/mL (37.1%), respectively.",
+    "note": "Lists are [mean, CV%]. AUC printed as 159,000."
+   }
+  },
+  {
+   "id": "label_isatuximab:/pk/time_to_steady_state",
+   "blind_id": "B-2ae225c3f2",
+   "group": "label_isatuximab",
+   "label": "pk: time to steady state",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "weeks_median": 18,
+    "accumulation_fold": 3.1,
+    "quote": "The median time to reach steady state of isatuximab-irfc was 18 weeks with a 3.1-fold accumulation."
+   }
+  },
+  {
+   "id": "label_isatuximab:/pk/nonlinearity",
+   "blind_id": "B-7dacf85831",
+   "group": "label_isatuximab",
+   "label": "pk: nonlinearity",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [
+    "2.0",
+    "20.0",
+    "4.0",
+    "5.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "stated_as": "AUC increases in a greater than dose proportional manner from 1 mg/kg to 20 mg/kg every 2 weeks; AUC increases proportionally from 5 mg/kg to 20 mg/kg every week for 4 weeks followed by every 2 weeks",
+    "quote": "Isatuximab-irfc AUC increases in a greater than dose proportional manner over a dosage range from 1 mg/kg to 20 mg/kg (0.1 to 2 times the approved recommended dosage) every 2 weeks. Isatuximab-irfc AUC increases proportionally over a dosage range from 5 mg/kg to 20 mg/kg (0.5 to 2 times the approved recommended dosage) every week for 4 weeks followed by every 2 weeks."
+   }
+  },
+  {
+   "id": "label_isatuximab:/pk/clearance_time_dependence",
+   "blind_id": "B-d9f4f0d476",
+   "group": "label_isatuximab",
+   "label": "pk: clearance time dependence",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "stated_as": "Total clearance decreased with increasing dose and with multiple doses",
+    "quote": "Isatuximab-irfc total clearance decreased with increasing dose and with multiple doses."
+   }
+  },
+  {
+   "id": "label_isatuximab:/pk/v_total_l",
+   "blind_id": "B-4851582a12",
+   "group": "label_isatuximab",
+   "label": "pk: v total l",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "value": 8.13,
+    "cv_percent": 26.2,
+    "statistic": "mean (CV%), predicted",
+    "quote": "The mean (CV%) predicted total volume of distribution of isatuximab-irfc is of 8.13 L (26.2%)."
+   }
+  },
+  {
+   "id": "label_isatuximab:/special_populations/covariates_no_effect",
+   "blind_id": "B-789dc78d82",
+   "group": "label_isatuximab",
+   "label": "special populations: covariates no effect",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [
+    "1.0",
+    "1.5",
+    "70.0",
+    "75.0"
+   ],
+   "quotes_missing": 1,
+   "missing_quotes": [
+    "The following factors have no clinically meaningful effect on the exposure of isatuximab-irfc: age (36 to 85 years, 70 patients were ≥75 years old), sex, renal "
+   ],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "factors": [
+     "age (36 to 85 years, 70 patients were ≥75 years old)",
+     "sex",
+     "renal impairment including patients with End-Stage Renal Disease (ESRD) or on dialysis (eGFR <90 mL/min/1.73 m2)",
+     "mild hepatic impairment (total bilirubin ≤ upper limit of normal [ULN] and aspartate aminotransferase [AST] >ULN, or total bilirubin >1 to 1.5 × ULN and any AST)"
+    ],
+    "quote": "The following factors have no clinically meaningful effect on the exposure of isatuximab-irfc: age (36 to 85 years, 70 patients were ≥75 years old), sex, renal impairment including patients with End-Stage Renal Disease (ESRD) or on dialysis (eGFR <90 mL/min/1.73 m2), and mild hepatic impairment (total bilirubin ≤ upper limit of normal [ULN] and aspartate aminotransferase [AST] >ULN, or total bilirubin >1 to 1.5 × ULN and any AST).",
+    "note": "A separate 'Race' paragraph on the same page also states White or Asian race have no clinically meaningful effect on exposure (Black race: unknown); not in the listed sentence, so not included in factors."
+   }
+  },
+  {
+   "id": "label_isatuximab:/special_populations/hepatic_moderate_severe",
+   "blind_id": "B-d1b8c15ce2",
+   "group": "label_isatuximab",
+   "label": "special populations: hepatic moderate severe",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "value": null,
+    "stated_as": "unknown",
+    "quote": "The effect of moderate (total bilirubin >1.5 to 3 × ULN and any AST) and severe (total bilirubin >3 × ULN and any AST) hepatic impairment on isatuximab-irfc pharmacokinetics is unknown.",
+    "note": "Source gives no numeric value; it states the effect is unknown."
+   }
+  },
+  {
+   "id": "label_isatuximab:/special_populations/body_weight",
+   "blind_id": "B-e63dbc84c0",
+   "group": "label_isatuximab",
+   "label": "special populations: body weight",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "stated_as": "Clearance increased with increasing body weight",
+    "quote": "The clearance of isatuximab-irfc increased with increasing body weight."
+   }
+  },
+  {
+   "id": "label_elotuzumab:/dosing/erd_10_mg_kg",
+   "blind_id": "B-7409dfe8c7",
+   "group": "label_elotuzumab",
+   "label": "dosing: erd 10 mg kg",
+   "result": "disagree",
+   "only_first": [
+    "1.0",
+    "2.0"
+   ],
+   "only_second": [
+    "28.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "dose_mg_kg": 10,
+    "schedule": "every week for the first two cycles (28-day cycle) and every 2 weeks thereafter",
+    "combination": "lenalidomide and low-dose dexamethasone",
+    "quote": "The recommended dosage of EMPLICITI is 10 mg/kg administered intravenously every week for the first two cycles (28-day cycle) and every 2 weeks thereafter in conjunction with the recommended dosing of lenalidomide and low-dose dexamethasone as described below."
+   }
+  },
+  {
+   "id": "label_elotuzumab:/pk/nonlinearity",
+   "blind_id": "B-4e0ed48ddb",
+   "group": "label_elotuzumab",
+   "label": "pk: nonlinearity",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "stated_as": "Nonlinear pharmacokinetics resulting in greater than proportional increases in AUC, indicative of target-mediated clearance",
+    "quote": "Elotuzumab exhibits nonlinear pharmacokinetics (PK) resulting in greater than proportional increases in area under the concentration-time curve (AUC) indicative of target-mediated clearance."
+   }
+  },
+  {
+   "id": "label_elotuzumab:/pk/trough_ss_erd_ug_ml",
+   "blind_id": "B-cdd6f31444",
+   "group": "label_elotuzumab",
+   "label": "pk: trough ss erd ug ml",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "value": 194,
+    "cv_percent": 52,
+    "statistic": "geometric mean (CV%), predicted",
+    "quote": "The administration of the recommended 10 mg/kg EMPLICITI regimen with lenalidomide and dexamethasone is predicted to result in geometric mean (CV%) steady-state trough concentrations of 194 μg/mL (52%)."
+   }
+  },
+  {
+   "id": "label_elotuzumab:/pk/trough_ss_epd_ug_ml",
+   "blind_id": "B-de7a81a47b",
+   "group": "label_elotuzumab",
+   "label": "pk: trough ss epd ug ml",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "value": 124,
+    "cv_percent": 59,
+    "statistic": "geometric mean (CV%), predicted",
+    "quote": "The administration of the recommended EMPLICITI regimen with pomalidomide and dexamethasone is predicted to result in geometric mean (CV%) steady-state trough concentrations of 124 μg/mL (59%)."
+   }
+  },
+  {
+   "id": "label_elotuzumab:/pk/clearance_by_dose_ml_day_kg",
+   "blind_id": "B-a9d1f149c1",
+   "group": "label_elotuzumab",
+   "label": "pk: clearance by dose ml day kg",
+   "result": "agree",
+   "only_first": [],
+   "only_second": [],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [
+    "note"
+   ],
+   "numbers_with_extra_keys": "agree",
+   "second_reader_value": {
+    "at_0_5_mg_kg": [
+     17.5,
+     21.2
+    ],
+    "at_20_mg_kg": [
+     5.8,
+     31
+    ],
+    "statistic": "geometric mean (CV%)",
+    "quote": "The clearance of elotuzumab in combination with lenalidomide and dexamethasone decreased from a geometric mean (CV%) of 17.5 (21.2%) to 5.8 (31%) mL/day/kg with an increase in dose from 0.5 (i.e., 0.05 times the recommended dosage) to 20 mg/kg (i.e., 2 times the recommended dosage).",
+    "note": "Lists are [geometric mean, CV%]."
+   }
+  },
+  {
+   "id": "label_elotuzumab:/special_populations/covariates_no_effect",
+   "blind_id": "B-c1b59b6391",
+   "group": "label_elotuzumab",
+   "label": "special populations: covariates no effect",
+   "result": "disagree",
+   "only_first": [],
+   "only_second": [
+    "1.0",
+    "1.5",
+    "15.0"
+   ],
+   "quotes_missing": 0,
+   "missing_quotes": [],
+   "extra_keys_ignored": [],
+   "numbers_with_extra_keys": "disagree",
+   "second_reader_value": {
+    "factors": [
+     "age (37 to 88 years)",
+     "sex",
+     "race",
+     "baseline lactate dehydrogenase",
+     "albumin",
+     "renal impairment (creatinine clearance (CLcr) 15 to 89 mL/min)",
+     "end-stage renal disease (CLcr <15 mL/min) with or without hemodialysis",
+     "mild hepatic impairment (total bilirubin ≤ upper limit of normal (ULN) and aspartate transaminase (AST) > ULN OR total bilirubin 1 to 1.5 times the ULN and AST any value)",
+     "coadministration with lenalidomide/dexamethasone or pomalidomide/dexamethasone"
+    ],
+    "quote": "Clinically significant differences were not observed in the PK of elotuzumab based on age (37 to 88 years), sex, race, baseline lactate dehydrogenase, albumin, renal impairment (creatinine clearance (CLcr) 15 to 89 mL/min), end-stage renal disease (CLcr <15 mL/min) with or without hemodialysis, mild hepatic impairment (total bilirubin ≤ upper limit of normal (ULN) and aspartate transaminase (AST) > ULN OR total bilirubin 1 to 1.5 times the ULN and AST any value), and coadministration with lenalidomide/dexamethasone or pomalidomide/dexamethasone."
+   }
+  },
+  {
+   "id": "label_elotuzumab:/special_populations/hepatic_moderate_severe",
+   "blind_id": "B-1f3ee4c580",
+   "group": "label_elotuzumab",
+   "label": "special populations: hepatic moderate severe",
+   "result": "not_comparable",
+   "quotes_missing": 0,
+   "second_reader_value": {
+    "value": null,
+    "stated_as": "unknown",
+    "quote": "The PK of elotuzumab in patients with moderate (total bilirubin > 1.5 to 3 times the ULN and AST any value) to severe (total bilirubin > 3 times the ULN and AST any value) hepatic impairment is unknown.",
+    "note": "Source gives no numeric value; it states the PK is unknown."
+   }
+  },
+  {
+   "id": "label_elotuzumab:/special_populations/body_weight",
+   "blind_id": "B-e0da9e4234",
+   "group": "label_elotuzumab",
+   "label": "special populations: body weight",
+   "result": "not_comparable",
+   "quotes_missing": 1,
+   "second_reader_value": {
+    "stated_as": "Clearance increased with increasing body weight, supporting a weight-based dose",
+    "quote": "The clearance of elotuzumab increased with increasing body weight supporting a weight-based dose."
+   }
+  }
+ ],
+ "decision": "pending the owner review (plan decision_rule)",
+ "clinical_prediction_validated": false
+}
