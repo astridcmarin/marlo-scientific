@@ -10,6 +10,11 @@
 .bm-toolbar button[aria-pressed="true"] { border-color:#a99cff; color:#fff; background:rgba(91,79,209,.55); }
 .bm-toolbar button:focus-visible { outline:2px solid #a99cff; outline-offset:2px; }
 .bm-toolbar-gap { flex:1; }
+.bm-drag-mode { display:inline-flex; gap:0; margin-right:6px; }
+.bm-drag-mode button:first-child { border-radius:999px 0 0 999px; }
+.bm-drag-mode button:last-child { border-radius:0 999px 999px 0; border-left:0; }
+.bm-card-focus { font:inherit; font-size:12px; margin:0 0 8px; padding:4px 10px; border-radius:999px; border:1px solid #a99cff; background:rgba(91,79,209,.45); color:#fff; cursor:pointer; }
+.bm-card-focus:focus-visible { outline:2px solid #a99cff; outline-offset:2px; }
 .bm-status { position:absolute; left:16px; right:16px; bottom:48px; margin:0; padding:8px 12px; border-radius:6px; background:rgba(12,10,38,.85); font-size:13px; }
 .bm-status.bm-error { border:1px solid #e6a28f; color:#ffd7cb; }
 .bm-card { position:absolute; top:56px; right:12px; width:min(290px,70%); padding:12px 14px; border-radius:8px; border:1px solid rgba(169,156,255,.4); background:rgba(12,10,38,.9); font-size:13px; line-height:1.5; z-index:3; }
@@ -42,6 +47,10 @@
 .bm-flow-non_renal { border-color:#8a8f98; border-style:dashed; }
 .bm-band-banner { position:absolute; top:52px; left:12px; max-width:min(420px,60%); margin:0; padding:7px 11px; border-radius:6px; font-size:12px; line-height:1.45; z-index:2; background:rgba(40,16,6,.85); color:#ffd9c2; border:1px solid #ff8a50; }
 .bm-band-caution { background:rgba(40,30,6,.85); color:#ffe8b0; border-color:#ffc94d; }
+.bm-band-text { margin:0; }
+.bm-band-banner.bm-collapsed .bm-band-text { display:-webkit-box; -webkit-line-clamp:2; line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.bm-band-toggle { font:inherit; font-size:11px; margin-top:5px; padding:2px 9px; border-radius:999px; border:1px solid currentColor; background:transparent; color:inherit; cursor:pointer; }
+.bm-band-toggle:focus-visible { outline:2px solid #a99cff; outline-offset:2px; }
 .bm-card { max-height:calc(100% - 80px); overflow:auto; background:#0c0a26; z-index:4; }
 .bm-card-sub { font-weight:600; color:#d4d1f5; margin-top:8px !important; }
 .bm-card dl { display:grid; grid-template-columns:auto 1fr; gap:3px 10px; margin:4px 0 8px; }

@@ -125,6 +125,7 @@
       var x = part.positions[v + c]; if (x < lo[c]) lo[c] = x; if (x > hi[c]) hi[c] = x;
     }
     part.centre = [(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, (lo[2] + hi[2]) / 2];
+    part.radius = Math.max(0.005, Math.hypot(hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]) / 2);
     part.id = parts.length + 1;
     part.idColor = [(part.id & 255) / 255, ((part.id >> 8) & 255) / 255, 0];
     parts.push(part);
@@ -295,6 +296,7 @@
   function showCard(part) {
     if (part && part.flow) {
       selected = null; redraw();
+      var fbf = card.querySelector('[data-role="card-focus"]'); if (fbf) fbf.hidden = true;
       var fc = (config.flow_cards || {})[part.flow];
       if (!fc) { card.hidden = true; return; }
       card.querySelector('[data-role="card-title"]').textContent = fc.title;
@@ -308,6 +310,7 @@
     selected = part;
     redraw();
     if (!part) { card.hidden = true; return; }
+    var fb2 = card.querySelector('[data-role="card-focus"]'); if (fb2) fb2.hidden = false;
     var e = part.extras;
     var info = config.parts[part.name] || {};
     var node = e.body_map_node ? config.node_labels[e.body_map_node] : null;
@@ -585,10 +588,29 @@
       labelNodes[l.key] = { div: div, line: line, spec: l };
     });
     if (F.band.outline) {
-      var banner = document.createElement('p');
+      // The caution is folded to two lines by default, with a button to read it all (12 November 2026). It is never
+      // removed: the same text stays on the page above the view and on the kidney and urine cards.
+      var banner = document.createElement('div');
       banner.className = 'bm-band-banner bm-band-' + F.band.outline;
-      banner.textContent = F.band.text;
+      banner.setAttribute('role', 'note');
+      var text = document.createElement('p'); text.className = 'bm-band-text'; text.id = 'bm-band-text';
+      var strong = document.createElement('strong'); strong.textContent = 'Caution for this kidney-function band: ';
+      text.appendChild(strong); text.appendChild(document.createTextNode(F.band.text));
+      var toggle = document.createElement('button'); toggle.type = 'button'; toggle.className = 'bm-band-toggle';
+      toggle.setAttribute('aria-controls', 'bm-band-text');
+      var open = false;
+      try { open = window.localStorage.getItem('bm-band-open') === '1'; } catch (e) { open = false; }
+      function setOpen(v) {
+        open = v; banner.classList.toggle('bm-collapsed', !open);
+        toggle.textContent = open ? 'Show less' : 'Read the full caution';
+        toggle.setAttribute('aria-expanded', String(open));
+        try { window.localStorage.setItem('bm-band-open', open ? '1' : '0'); } catch (e) { /* not stored */ }
+        if (typeof placeLabels === 'function') placeLabels();
+      }
+      toggle.addEventListener('click', function () { setOpen(!open); });
+      banner.appendChild(text); banner.appendChild(toggle);
       root.insertBefore(banner, overlay.nextSibling);
+      setOpen(open);
     }
   }
   function belowToolbar() {
@@ -660,9 +682,11 @@
   }
 
   /* ---------------------------------------------------------------- interaction */
-  // Navigation (4 November 2026): drag turns the body; Shift-drag, right-drag or two fingers move it; pinch, Ctrl/Cmd +
-  // scroll or the + and - buttons zoom towards the pointer; arrow keys move, Shift + arrows turn. Plain scrolling still
-  // scrolls the page.
+  // Navigation (12 November 2026, replaces 4 November): drag moves the body (or turns it, with the "Drag: turn" button);
+  // Shift-drag or right-drag does the other; scrolling over the view, pinch or the + and - buttons zoom towards the
+  // pointer, in small steps; double-click an organ to zoom to it and turn around it, or empty space to zoom in there;
+  // arrow keys move, Shift + arrows turn. Scrolling outside the view still scrolls the page.
+  var ZOOM_MIN = 0.5, ZOOM_MAX = 40, dragMode = 'move', flight = null;
   function axes() {
     var R = rotation();
     return { right: [R[0], R[3], R[6]], up: [R[1], R[4], R[7]] };
@@ -676,7 +700,8 @@
   }
   function zoomAt(factor, clientX, clientY) {
     var r = canvas.getBoundingClientRect(), w = r.width, h = r.height, ax = axes();
-    var next = Math.max(0.6, Math.min(16, cam.scale * factor));
+    flight = null;
+    var next = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, cam.scale * factor));
     if (clientX !== undefined) {
       // keep the point under the pointer where it is
       var nx = 2 * (clientX - r.left) / w - 1, ny = 1 - 2 * (clientY - r.top) / h;
@@ -686,6 +711,33 @@
     }
     cam.scale = next;
     redraw();
+  }
+  function flyTo(target, scale) {
+    // a short glide to a new centre and zoom (instant when reduced motion is preferred)
+    var from = { c: centre(), s: cam.scale }, to = { c: target, s: Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, scale)) };
+    function set(t) {
+      var e = t * t * (3 - 2 * t), c = add(from.c, mul(sub(to.c, from.c), e));
+      cam.cx = c[0]; cam.cy = c[1]; cam.cz = c[2];
+      cam.scale = from.s * Math.pow(to.s / from.s, e);
+      draw();
+    }
+    if (reducedMotion) { set(1); return; }
+    var start = null, token = flight = {};
+    requestAnimationFrame(function step(now) {
+      if (flight !== token) return;
+      if (start === null) start = now;
+      var t = Math.min(1, (now - start) / 350);
+      set(t);
+      if (t < 1) requestAnimationFrame(step); else flight = null;
+    });
+  }
+  function focusPart(part) {
+    // fill about two fifths of the view's height with the organ, and turn around its centre from now on
+    if (part && part.centre) flyTo(part.centre, 0.8 / part.radius);
+  }
+  function screenPoint(ev) {
+    var r = canvas.getBoundingClientRect(), scale = canvas.width / r.width;
+    return [Math.round((ev.clientX - r.left) * scale), Math.round((r.bottom - ev.clientY) * scale)];
   }
   var drag = null, touches = {}, pinch = null;
   canvas.addEventListener('contextmenu', function (ev) { ev.preventDefault(); });
@@ -697,8 +749,10 @@
       pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2 };
       drag = null;
     } else {
+      var other = ev.shiftKey || ev.button === 2 || ev.button === 1;
+      flight = null;
       drag = { x: ev.clientX, y: ev.clientY, yaw: cam.yaw, pitch: cam.pitch, moved: false,
-               move: ev.shiftKey || ev.button === 2 || ev.button === 1 };
+               move: (dragMode === 'move') !== other };
     }
     canvas.setPointerCapture(ev.pointerId);
   });
@@ -733,18 +787,24 @@
   canvas.addEventListener('pointerup', function (ev) {
     var wasPinch = !!pinch;
     endPointer(ev);
-    if (!wasPinch && drag && !drag.moved && !drag.move && parts.length) {
-      var r = canvas.getBoundingClientRect(), scale = canvas.width / r.width;
-      showCard(pickAt(Math.round((ev.clientX - r.left) * scale), Math.round((r.bottom - ev.clientY) * scale)));
+    if (!wasPinch && drag && !drag.moved && ev.button === 0 && parts.length) {
+      var sp = screenPoint(ev);
+      showCard(pickAt(sp[0], sp[1]));
     }
     drag = null;
   });
   canvas.addEventListener('pointercancel', function (ev) { endPointer(ev); drag = null; });
-  canvas.addEventListener('wheel', function (ev) {
-    // trackpad pinch arrives as Ctrl + wheel; Cmd/Ctrl + scroll zooms; plain scrolling is left to the page
-    if (!ev.ctrlKey && !ev.metaKey) return;
+  canvas.addEventListener('dblclick', function (ev) {
+    if (!parts.length) return;
     ev.preventDefault();
-    zoomAt(Math.exp(-ev.deltaY * 0.01), ev.clientX, ev.clientY);
+    var sp = screenPoint(ev), hit = pickAt(sp[0], sp[1]);
+    if (hit && !hit.flow) { showCard(hit); focusPart(hit); } else zoomAt(2, ev.clientX, ev.clientY);
+  });
+  canvas.addEventListener('wheel', function (ev) {
+    // scrolling over the view zooms at the pointer; trackpad pinch arrives as Ctrl + wheel, with smaller steps
+    ev.preventDefault();
+    var dy = ev.deltaMode === 1 ? ev.deltaY * 16 : ev.deltaMode === 2 ? ev.deltaY * 400 : ev.deltaY;
+    zoomAt(Math.exp(-dy * (ev.ctrlKey ? 0.01 : 0.0025)), ev.clientX, ev.clientY);
   }, { passive: false });
   canvas.tabIndex = 0;
   canvas.addEventListener('keydown', function (ev) {
@@ -759,6 +819,7 @@
   });
   root.querySelectorAll('[data-preset]').forEach(function (button) {
     button.addEventListener('click', function () {
+      flight = null;
       cam = Object.assign({ cz: 0 }, PRESETS[Number(button.dataset.preset)]);
       root.querySelectorAll('[data-preset]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === button)); });
       redraw();
@@ -769,6 +830,14 @@
       zoomAt(button.dataset.zoom === 'in' ? 1.25 : 0.8);
     });
   });
+  root.querySelectorAll('[data-drag]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      dragMode = button.dataset.drag;
+      root.querySelectorAll('[data-drag]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === button)); });
+    });
+  });
+  var focusButton = card.querySelector('[data-role="card-focus"]');
+  if (focusButton) focusButton.addEventListener('click', function () { focusPart(selected); });
   window.addEventListener('resize', redraw);
   card.querySelector('[data-role="card-close"]').addEventListener('click', function () { showCard(null); });
 
