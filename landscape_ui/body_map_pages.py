@@ -22,7 +22,7 @@ from .scenario_pages import _error
 from .workspace_pages import _response
 
 CONTEXT_LABEL = 'Anatomy for orientation, not simulated. No model result is attached to this organ.'
-LEGEND = 'Coloured organs carry model results; grey organs are anatomy for orientation.'
+LEGEND = 'Coloured organs are on the modelled route (the colours are anatomical and show no amount); grey organs are anatomy for orientation.'
 # Fixed camera presets (scene metres; yaw and pitch in radians). The first is the default, so screenshots are comparable.
 CAMERA_PRESETS = [
     {'id': 'body', 'label': 'Whole body', 'yaw': 0.0, 'pitch': 0.0, 'scale': 1.05, 'cx': 0.0, 'cy': 0.0},
@@ -80,17 +80,17 @@ def evidence_cards(view):
                             ['Blood flow (reference)', f"{_fmt(view['blood_flow']['renal_blood_flow_ml_min'])} mL/min, both kidneys"],
                             ['Removed in one pass', f"{100 * view['extraction']['ratio']:.0f}% of the drug arriving; {100 * view['extraction']['returned_by_renal_veins']:.0f}% returns"]],
                    'basis': [f['basis'], s['basis'], view['blood_flow']['not_this'], view['extraction']['basis']], 'source': source},
-        'urine': {'title': 'Ureters and bladder: unchanged drug in urine', 'status': band['status'], 'status_text': band_text(band),
+        'urine': {'title': 'Renal pelvis, ureters, bladder and urethra: unchanged drug in urine', 'status': band['status'], 'status_text': band_text(band),
                   'rows': [['Into urine', f"{_fmt(r['value'])} mL/min"],
                            ['Dose leaving unchanged in urine', f"{100 * totals['fraction_excreted_unchanged']:.0f}% (normal function {100 * normal['fraction_excreted_unchanged']:.0f}%)"]],
                   'basis': [r['basis']], 'source': source},
-        'plasma': {'title': 'Blood (plasma)', 'status': 'calibrated', 'status_text': None,
+        'plasma': {'title': 'Blood (circulation)', 'status': 'calibrated', 'status_text': None,
                    'rows': [['Total clearance from plasma', f"{_fmt(totals['total_ml_min'])} mL/min"],
                             ['Non-renal routes', f"{_fmt(n['value'])} mL/min (routes not identified; held constant)"],
                             ['Typical exposure at the same dose', f"about {totals['relative_exposure_same_dose']:.1f}x the normal-function reference"]],
                    'basis': ['The heart and vessels stand for the blood; the heart itself carries no separate number.', n['basis']],
                    'source': source},
-        'gut': {'title': 'Small intestine: oral dose', 'status': None, 'status_text': None,
+        'gut': {'title': 'Small intestine (site of absorption)', 'status': None, 'status_text': None,
                 'rows': [['Absorption', 'drawn without a value']],
                 'basis': [flows['absorption']['note']], 'source': source},
     }
@@ -110,7 +110,7 @@ def flow_cards(view):
     each = ' Drawn as two strands, one into each kidney, each carrying half.'
     return {
         'filtration': {'title': 'Filtration at the glomerulus', 'status': band['status'], 'status_text': band_text(band),
-                       'what': 'Plasma water, with the unbound drug in it, is pressed out of the glomerular capillaries into the tubule.' + each,
+                       'what': 'Plasma water, with the unbound drug in it, is pressed out of the glomerular capillaries into Bowman\'s space, the start of the tubule.' + each,
                        'rows': [['Clearance', f"{_fmt(f['value'])} mL/min ({_fmt(f['alternative_value'])} with fu 0.60)"],
                                 ['Share of elimination', f"{100 * f['share_of_elimination']:.0f}%"]],
                        'basis': [f['basis']], 'source': source},
@@ -150,7 +150,7 @@ def viewer_config(manifest, view=None, paths=None):
             'colors': FLOW_COLORS_3D,
             'labels': {'renal': f"Into the kidneys: filtration {_fmt(flows['filtration']['value'])} + secretion {_fmt(flows['tubular_secretion']['value'])} mL/min",
                        'urine': f"Into urine: {_fmt(flows['renal_excretion']['value'])} mL/min ({100 * view['totals']['fraction_excreted_unchanged']:.0f}% of the dose)",
-                       'non_renal': f"Non-renal: {_fmt(flows['non_renal']['value'])} mL/min, routes not identified",
+                       'non_renal': f"Other routes: {_fmt(flows['non_renal']['value'])} mL/min; organ not known (about 4% of the dose in faeces, Chen 2012)",
                        'absorption': 'Absorbed into the blood (no value drawn)'},
             'band': {'id': view['band']['id'], 'status': view['band']['status'], 'text': band_text(view['band']),
                      'outline': STATUS_OUTLINE[view['band']['status']]},
@@ -170,7 +170,7 @@ def viewer_config(manifest, view=None, paths=None):
             config['blood'] = {
                 'paths': blood_paths(paths),
                 'colors': {'arterial': [1.0, 0.3, 0.3], 'venous': [0.35, 0.55, 1.0]},
-                'label': (f"Blood to each kidney: {_fmt(bf['per_kidney_blood_flow_ml_min'])} mL/min (reference adult"
+                'label': (f"Blood to each kidney: {_fmt(bf['per_kidney_blood_flow_ml_min'])} mL/min, split equally for drawing (reference adult male, ICRP 89"
                           f"{'' if view.get('mode') == 'explorer' else ', not this record'}) · {100 * ex['ratio']:.0f}% of the "
                           f"drug arriving is removed per pass, {100 * ex['returned_by_renal_veins']:.0f}% returns"),
             }

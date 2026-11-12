@@ -13,7 +13,7 @@
 <label for="bm-tl-slider">Time after the dose: <output id="bm-tl-time" for="bm-tl-slider">0 h</output></label>
 <input type="range" id="bm-tl-slider" min="0" max="{{ tl.rows|length - 1 }}" step="1" value="0" aria-describedby="bm-tl-amounts">
 <div class="table-scroll"><table id="bm-tl-amounts" aria-live="polite"><caption>Share of the dose at the chosen time</caption>
-<thead><tr><th>Gut (not yet absorbed; model construct)</th><th>Body</th><th>Urine (unchanged)</th><th>Other routes</th><th>Plasma concentration</th></tr></thead>
+<thead><tr><th>Gut (not yet absorbed; model construct)</th><th>Body (blood and tissues together)</th><th>Urine (unchanged)</th><th>Other routes</th><th>Plasma concentration</th></tr></thead>
 <tbody><tr><td data-k="gut">100%</td><td data-k="body">0%</td><td data-k="urine">0%</td><td data-k="non_renal">0%</td><td data-k="plasma">0 ng/mL</td></tr></tbody></table></div>
 <p class="sp-src">Peak {{ '%.0f'|format(s.cmax_ng_ml) }} ng/mL at {{ '%.1f'|format(s.tmax_h) }} h; half-life {{ '%.1f'|format(s.half_life_h) }} h; {{ '%.0f'|format(100 * s.fraction_excreted_unchanged) }}% of the dose ends in urine unchanged.</p>
 <h3>What the locked check found for the {{ tl.study_group_checked }} group</h3>

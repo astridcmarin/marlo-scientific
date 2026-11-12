@@ -33,7 +33,7 @@
 <canvas aria-label="3D anatomy of the lenalidomide elimination route on a reference male body. Drag to turn, Shift-drag or right-drag to move, pinch or Command/Control and scroll to zoom, arrow keys to move; select an organ to identify it. The same numbers are in the table and the flow diagram." role="img"></canvas>
 <p class="bm-status" data-role="status" role="status"></p>
 <div class="bm-card" data-role="card" hidden><button type="button" class="bm-card-close" data-role="card-close" aria-label="Close">×</button><p class="bm-card-title" data-role="card-title"></p><p data-role="card-class"></p><div data-role="card-evidence"></div><p class="bm-card-ids" data-role="card-ids"></p></div>
-<p class="bm-legend"><span class="bm-swatch bm-sw-sim" aria-hidden="true"></span>Coloured: carries model results <span class="bm-swatch bm-sw-ctx" aria-hidden="true"></span>Grey: anatomy for orientation<span class="bm-visually-hidden"> ({{ legend }})</span></p>
+<p class="bm-legend"><span class="bm-swatch bm-sw-sim" aria-hidden="true"></span>Coloured: on the modelled route; colours are anatomical and show no amount <span class="bm-swatch bm-sw-ctx" aria-hidden="true"></span>Grey: anatomy for orientation<span class="bm-visually-hidden"> ({{ legend }})</span></p>
 </div>
 {% endif %}
 <p class="bm-help">Drag to turn · <kbd>Shift</kbd>-drag, right-drag or two fingers to move · pinch or <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + scroll to zoom at the pointer · arrow keys move, <kbd>Shift</kbd> + arrows turn · the view buttons reset</p>
@@ -62,13 +62,13 @@
 <section class="panel" aria-labelledby="bm-flow-heading">
 <h2 id="bm-flow-heading">Flow diagram</h2>
 <p>Line widths are proportional to clearance on one fixed scale (the normal-function total, {{ '%.0f'|format(view.drawing_scale.max_flow_ml_min) }} mL/min), so maps for different {{ 'kidney functions' if explorer else 'records' }} can be compared.</p>
-<svg class="bm-flow" viewBox="0 60 640 160" role="img" aria-labelledby="bm-flow-title"><title id="bm-flow-title">Gut to blood; blood to kidney by filtration {{ '%.0f'|format(flows.filtration.value) }} and tubular secretion {{ '%.0f'|format(flows.tubular_secretion.value) }} mL/min; kidney to urine {{ '%.0f'|format(flows.renal_excretion.value) }} mL/min; blood to non-renal routes {{ '%.0f'|format(flows.non_renal.value) }} mL/min.</title>
-<rect x="10" y="80" width="90" height="56" rx="8" class="bm-node"/><text x="55" y="104" text-anchor="middle">Gut</text><text x="55" y="122" text-anchor="middle" class="bm-sub">oral dose</text>
+<svg class="bm-flow" viewBox="0 60 640 160" role="img" aria-labelledby="bm-flow-title"><title id="bm-flow-title">Small intestine to blood; blood to the kidneys by filtration {{ '%.0f'|format(flows.filtration.value) }} and tubular secretion {{ '%.0f'|format(flows.tubular_secretion.value) }} mL/min; kidneys to urine {{ '%.0f'|format(flows.renal_excretion.value) }} mL/min; blood to non-renal routes {{ '%.0f'|format(flows.non_renal.value) }} mL/min.</title>
+<rect x="10" y="80" width="90" height="56" rx="8" class="bm-node"/><text x="55" y="104" text-anchor="middle">Small intestine</text><text x="55" y="122" text-anchor="middle" class="bm-sub">absorption</text>
 <line x1="100" y1="108" x2="160" y2="108" class="bm-absorb"/>
 <rect x="160" y="80" width="100" height="56" rx="8" class="bm-node"/><text x="210" y="104" text-anchor="middle">Blood</text><text x="210" y="122" text-anchor="middle" class="bm-sub">plasma</text>
 <line x1="260" y1="94" x2="380" y2="94" stroke="{{ colors.filtration }}" stroke-width="{{ widths.filtration }}" stroke-opacity="0.85"/>
 <line x1="260" y1="122" x2="380" y2="122" stroke="{{ colors.tubular_secretion }}" stroke-width="{{ widths.tubular_secretion }}" stroke-opacity="0.85"/>
-<rect x="380" y="70" width="100" height="76" rx="8" class="bm-node"/><text x="430" y="104" text-anchor="middle">Kidney</text><text x="430" y="122" text-anchor="middle" class="bm-sub">glomerulus, tubule</text>
+<rect x="380" y="70" width="100" height="76" rx="8" class="bm-node"/><text x="430" y="104" text-anchor="middle">Kidneys</text><text x="430" y="122" text-anchor="middle" class="bm-sub">glomerulus, tubule</text>
 <line x1="480" y1="108" x2="540" y2="108" stroke="{{ colors.renal_excretion }}" stroke-width="{{ widths.renal_excretion }}" stroke-opacity="0.85"/>
 <rect x="540" y="80" width="90" height="56" rx="8" class="bm-node"/><text x="585" y="104" text-anchor="middle">Urine</text><text x="585" y="122" text-anchor="middle" class="bm-sub">unchanged drug</text>
 <line x1="210" y1="136" x2="210" y2="170" stroke="{{ colors.non_renal }}" stroke-width="{{ widths.non_renal }}" stroke-opacity="0.85"/>

@@ -42,7 +42,7 @@ class BodyMapPage(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         html = response.get_data(as_text=True)
         for text in ('body-map-viewer', 'Not a clinical prediction', 'depends on how much of the dose is absorbed', 'Flow diagram',
-                     'Tubular secretion', 'with fu 0.60', 'Run record', 'Coloured: carries model results',
+                     'Tubular secretion', 'with fu 0.60', 'Run record', 'Coloured: on the modelled route',
                      'Grey: anatomy for orientation', 'Human Reference Atlas', 'placed by hand (approximate)',
                      'body-map-viewer.js', 'Limits of this map'):
             self.assertIn(text, html)
@@ -70,7 +70,7 @@ class BodyMapPage(unittest.TestCase):
         self.assertEqual({p['id'] for p in flows['paths']},
                          {'renal_inflow_left', 'renal_inflow_right', 'urine_left', 'urine_right', 'absorption'})
         self.assertIsNone(flows['values']['absorption'])
-        self.assertIn('routes not identified', flows['labels']['non_renal'])
+        self.assertIn('organ not known', flows['labels']['non_renal'])
         self.assertEqual(set(config['cards']), {'gut', 'plasma', 'kidney', 'urine'})
         view = record_map(rev.id)
         self.assertEqual(flows['scale_ml_min'], view['drawing_scale']['max_flow_ml_min'])
