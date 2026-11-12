@@ -14,6 +14,8 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [AI design draft: organ-level lenalidomide model](reviews/2026-11_organ_level_design_draft.md) (12 November 2026): what the body map could truthfully show, with anatomy fixes; steps 1 and 3 approved. Not an independent review.
 - [AI evidence search: lenalidomide exposure–efficacy](reviews/2026-11_exposure_efficacy_search.md) (12 November 2026): none found in regulatory reviews or publications; closes nothing, sharpens checklist O7. Not an independent review.
 - [AI methods review of Track C (ChatGPT)](reviews/2026-11_chatgpt_track_c_review.md) (12 November 2026): ten findings on the locked language-model extractor test; none invalidates it; a run procedure was added. Not an independent review.
+- [AI methods review of acceptance rule v2 (ChatGPT)](reviews/2026-11_chatgpt_f03_review.md) (12 November 2026): eight findings; none invalidates the calculation; the "lower bound" wording is withdrawn. Not an independent review.
+- [AI extraction: parameter precision of Gupta 2017, Luo 2021, Li 2017](reviews/2026-11_precision_extraction_gupta_luo_li.md) (12 November 2026): no 95% bootstrap intervals published; what the rule needs before it covers those models.
 - [AI audit of user-facing wording](reviews/2026-11_overclaiming_audit.md) (10 November 2026): 33 places where wording outran the evidence, and how each was fixed. Not an independent review.
 - Conventions for working in the repository: `CLAUDE.md` at the root.
 
