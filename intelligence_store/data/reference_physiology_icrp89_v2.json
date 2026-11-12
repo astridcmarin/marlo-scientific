@@ -1,0 +1,497 @@
+{
+ "schema_version": "reference-physiology-v2",
+ "extract_version": "reference-physiology-icrp89-v2.0",
+ "recorded_on": "2026-11-12",
+ "source": {
+  "title": "ICRP Publication 89: Basic Anatomical and Physiological Data for Use in Radiological Protection: Reference Values",
+  "citation": "ICRP, 2002. Annals of the ICRP 32(3-4).",
+  "editor": "J. Valentin",
+  "file": {
+   "name": "ANIB_32_3-4.pdf",
+   "pages": 282,
+   "sha256": "99f3165571a0a4c717ca31f84f4a28cf6792679483ff385e28df11a473c6691a"
+  },
+  "obtained_from": "ICRP website, free to download under the Free the Annals Initiative (reuse needs ICRP permission; only individual values are recorded here, with citation).",
+  "storage": "Kept on the platform owner's computer; not committed.",
+  "extraction": "AI-assisted (Claude Fable, the owner's second account, 12 November 2026, in its Track H design draft), checked in this session: every quote is found in the PDF's text layer by scripts/check_source_quotes.py, with the PDF's SHA-256 matching file.sha256. Footnote letters printed beside a row name are kept as in the text layer ('Adipose tissuea'). Not yet reviewed by the platform owner."
+ },
+ "applies_to": "Reference adult woman and reference adult man (ICRP 89), each column read separately from the source; no sex multiplier. Not a patient value.",
+ "values": {
+  "height": {
+   "women": 163,
+   "men": 176,
+   "unit": "cm",
+   "location": "Table 2.9 (printed page 19, PDF page 33)",
+   "quote": "Adult 176 163 73 60 1.90 1.66",
+   "column_order": "height M, F; mass M, F; surface area M, F"
+  },
+  "body_mass": {
+   "women": 60,
+   "men": 73,
+   "unit": "kg",
+   "location": "Table 2.9 (printed page 19, PDF page 33)",
+   "quote": "Adult 176 163 73 60 1.90 1.66",
+   "column_order": "height M, F; mass M, F; surface area M, F"
+  },
+  "body_surface_area": {
+   "women": 1.66,
+   "men": 1.9,
+   "unit": "m2",
+   "location": "Table 2.9 (printed page 19, PDF page 33)",
+   "quote": "Adult 176 163 73 60 1.90 1.66",
+   "column_order": "height M, F; mass M, F; surface area M, F"
+  },
+  "cardiac_output": {
+   "women": 5.9,
+   "men": 6.5,
+   "unit": "L/min",
+   "location": "Table 2.39 (printed page 28, PDF page 42)",
+   "quote": "Adult 6.5 5.9",
+   "column_order": "male, female"
+  },
+  "total_blood_volume": {
+   "women": 3900,
+   "men": 5300,
+   "unit": "mL",
+   "location": "Section 7.3, paragraph 309 (printed page 138, PDF page 152)",
+   "quote": "reference values for total blood volume (5300 ml for adult males and 3900 ml for adult females)"
+  },
+  "plasma_volume": {
+   "women": 2400,
+   "men": 3000,
+   "unit": "mL",
+   "location": "Table 2.12 (printed page 20, PDF page 34)",
+   "quote": "Plasma 3000 2400",
+   "column_order": "male, female"
+  },
+  "red_cell_volume": {
+   "women": 1500,
+   "men": 2300,
+   "unit": "mL",
+   "location": "Table 2.12 (printed page 20, PDF page 34)",
+   "quote": "Red blood cells 2300 1500",
+   "column_order": "male, female"
+  },
+  "red_cell_fraction_of_blood": {
+   "women": 38,
+   "men": 43,
+   "unit": "% of total blood volume",
+   "location": "Section 7.3, paragraph 309 (printed page 138, PDF page 152)",
+   "quote": "red blood cells represent about 43% (42–52%) of the total blood volume in adult males and about 38% (37–48%) in adult females",
+   "range_women": [
+    37,
+    48
+   ],
+   "range_men": [
+    42,
+    52
+   ]
+  },
+  "blood_mass": {
+   "women": 4100,
+   "men": 5600,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Blood 290 530 1500 2500 4800 3500 5600 4100",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "kidneys_mass": {
+   "women": 275,
+   "men": 310,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Kidneys (2) 25 70 110 180 250 240 310 275",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "liver_mass": {
+   "women": 1400,
+   "men": 1800,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Liver 130 330 570 830 1300 1300 1800 1400",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "small_intestine_wall_mass": {
+   "women": 600,
+   "men": 650,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Wall 30 85 220 370 520 520 650 600",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "small_intestine_contents_mass": {
+   "women": 280,
+   "men": 350,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Contents 56 93 117 163 280 280 350 280",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "stomach_wall_mass": {
+   "women": 140,
+   "men": 150,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Wall 7 20 50 85 120 120 150 140",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "heart_tissue_mass": {
+   "women": 250,
+   "men": 330,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Heart – tissue only 20 50 85 140 230 220 330 250",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "lung_tissue_mass": {
+   "women": 420,
+   "men": 500,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Lung – tissue only 30 80 125 210 330 290 500 420",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "brain_mass": {
+   "women": 1300,
+   "men": 1450,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Brain 380 950 1310/1180 1400/1220 1420 1300 1450 1300",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "skeletal_muscle_mass": {
+   "women": 17500,
+   "men": 29000,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Muscle, skeletal 800 1900 5600 11 000 24 000 17 000 29 000 17 500",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "adipose_tissue_mass": {
+   "women": 22500,
+   "men": 18200,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Adipose tissuea 930 3800 5500 8600 12 000 18 700 18 200 22 500",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "skin_mass": {
+   "women": 2300,
+   "men": 3300,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Skin 175 350 570 820 2000 1700 3300 2300",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "total_skeleton_mass": {
+   "women": 7800,
+   "men": 10500,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Total skeleton 370 1170 2430 4500 7950 7180 10 500 7800",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "active_marrow_mass": {
+   "women": 900,
+   "men": 1170,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Marrow, active 50 150 340 630 1080 1000 1170 900",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "spleen_mass": {
+   "women": 130,
+   "men": 150,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Spleen 9.5 29 50 80 130 130 150 130",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "pancreas_mass": {
+   "women": 120,
+   "men": 140,
+   "unit": "g",
+   "location": "Table 2.8 (printed pages 18-19, PDF pages 32-33); columns newborn, 1, 5, 10, 15 y (M, F), adult male, adult female",
+   "quote": "Pancreas 6 20 35 60 110 100 140 120",
+   "column_order": "last two values: adult male, adult female"
+  },
+  "kidneys_blood_flow": {
+   "women": 17,
+   "men": 19,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Kidneys 19 17",
+   "column_order": "male, female"
+  },
+  "liver_arterial_blood_flow": {
+   "women": 6.5,
+   "men": 6.5,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Liver 6.5 (arterial) 6.5 (arterial)",
+   "column_order": "male, female"
+  },
+  "liver_total_blood_flow": {
+   "women": 27.0,
+   "men": 25.5,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "25.5 (total) 27.0 (total)",
+   "column_order": "male, female",
+   "consistency_note": "Men: arterial 6.5 + portal organs 19.0 = 25.5, as printed. Women: arterial 6.5 + portal organs 21.0 = 27.5, but both tables print 27.0. Recorded as printed; which figure a model uses is a decision for its plan."
+  },
+  "small_intestine_blood_flow": {
+   "women": 11,
+   "men": 10,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Small intestine 10 11",
+   "column_order": "male, female"
+  },
+  "large_intestine_blood_flow": {
+   "women": 5.0,
+   "men": 4.0,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Large intestine 4.0 5.0",
+   "column_order": "male, female"
+  },
+  "stomach_oesophagus_blood_flow": {
+   "women": 1.0,
+   "men": 1.0,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Stomach and oesophagus 1.0 1.0",
+   "column_order": "male, female"
+  },
+  "pancreas_blood_flow": {
+   "women": 1.0,
+   "men": 1.0,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Pancreas 1.0 1.0",
+   "column_order": "male, female"
+  },
+  "spleen_blood_flow": {
+   "women": 3.0,
+   "men": 3.0,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Spleen 3.0 3.0",
+   "column_order": "male, female"
+  },
+  "brain_blood_flow": {
+   "women": 12,
+   "men": 12,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Brain 12 12",
+   "column_order": "male, female"
+  },
+  "coronary_blood_flow": {
+   "women": 5.0,
+   "men": 4.0,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Coronary tissue 4.0 5.0",
+   "column_order": "male, female"
+  },
+  "skeletal_muscle_blood_flow": {
+   "women": 12,
+   "men": 17,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Skeletal muscle 17 12",
+   "column_order": "male, female"
+  },
+  "fat_blood_flow": {
+   "women": 8.5,
+   "men": 5.0,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Fat 5.0 8.5",
+   "column_order": "male, female"
+  },
+  "skin_blood_flow": {
+   "women": 5.0,
+   "men": 5.0,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Skin 5.0 5.0",
+   "column_order": "male, female"
+  },
+  "skeleton_blood_flow": {
+   "women": 5.0,
+   "men": 5.0,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Skeleton 5.0 5.0",
+   "column_order": "male, female"
+  },
+  "bronchial_blood_flow": {
+   "women": 2.5,
+   "men": 2.5,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Bronchial tissue 2.5 2.5",
+   "column_order": "male, female"
+  },
+  "thyroid_blood_flow": {
+   "women": 1.5,
+   "men": 1.5,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Thyroid 1.5 1.5",
+   "column_order": "male, female"
+  },
+  "lymph_nodes_blood_flow": {
+   "women": 1.7,
+   "men": 1.7,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Lymph nodes 1.7 1.7",
+   "column_order": "male, female"
+  },
+  "gonads_blood_flow": {
+   "women": 0.02,
+   "men": 0.05,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Gonads 0.05 0.02",
+   "column_order": "male, female"
+  },
+  "adrenals_blood_flow": {
+   "women": 0.3,
+   "men": 0.3,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Adrenals 0.3 0.3",
+   "column_order": "male, female"
+  },
+  "urinary_bladder_blood_flow": {
+   "women": 0.06,
+   "men": 0.06,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Urinary bladder 0.06 0.06",
+   "column_order": "male, female"
+  },
+  "other_tissues_blood_flow": {
+   "women": 1.92,
+   "men": 1.39,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "All other tissues 1.39 1.92",
+   "column_order": "male, female"
+  },
+  "red_marrow_blood_flow_within_skeleton": {
+   "women": 3.0,
+   "men": 3.0,
+   "unit": "% of cardiac output",
+   "location": "Table 2.40 (printed page 29, PDF page 43); same values in the Section 7.7.2 table (printed page 142, PDF page 156)",
+   "quote": "Red marrow 3.0 3.0",
+   "column_order": "male, female",
+   "part_of": "skeleton_blood_flow (a sub-row; not added to the column sum)"
+  },
+  "kidneys_blood_volume": {
+   "women": 2.0,
+   "men": 2.0,
+   "unit": "% of total blood volume",
+   "location": "Table 2.14 (printed page 21, PDF page 35)",
+   "quote": "Kidneys 2.0 2.0",
+   "column_order": "male, female"
+  },
+  "liver_blood_volume": {
+   "women": 10,
+   "men": 10,
+   "unit": "% of total blood volume",
+   "location": "Table 2.14 (printed page 21, PDF page 35)",
+   "quote": "Liver 10 10",
+   "column_order": "male, female"
+  },
+  "small_intestine_blood_volume": {
+   "women": 3.8,
+   "men": 3.8,
+   "unit": "% of total blood volume",
+   "location": "Table 2.14 (printed page 21, PDF page 35)",
+   "quote": "Small intestine 3.8 3.8",
+   "column_order": "male, female"
+  },
+  "skeletal_muscle_blood_volume": {
+   "women": 10.5,
+   "men": 14,
+   "unit": "% of total blood volume",
+   "location": "Table 2.14 (printed page 21, PDF page 35)",
+   "quote": "Skeletal muscle 14 10.5",
+   "column_order": "male, female"
+  },
+  "fat_blood_volume": {
+   "women": 8.5,
+   "men": 5.0,
+   "unit": "% of total blood volume",
+   "location": "Table 2.14 (printed page 21, PDF page 35)",
+   "quote": "Fat 5.0 8.5",
+   "column_order": "male, female"
+  },
+  "brain_blood_volume": {
+   "women": 1.2,
+   "men": 1.2,
+   "unit": "% of total blood volume",
+   "location": "Table 2.14 (printed page 21, PDF page 35)",
+   "quote": "Brain 1.2 1.2",
+   "column_order": "male, female"
+  },
+  "glomerular_filtration_rate": {
+   "women": null,
+   "men": 125,
+   "unit": "mL/min",
+   "location": "Section 8.3, paragraph 380 (printed page 159, PDF page 173)",
+   "quote": "In a middle-aged adult male, the glomerular ﬁlration rate (GFR) averages about 125 ml/min",
+   "also_quote": "is lower on average in females than males",
+   "women_note": "ICRP 89 gives no value for women; left empty, not estimated."
+  }
+ },
+ "derived_by_platform": {
+  "regional_flow_column_sums": {
+   "formula": "sum of the % of cardiac output columns, the liver counted by its arterial share (portal organs listed separately)",
+   "women": 100.0,
+   "men": 100.0,
+   "unit": "%"
+  },
+  "kidney_blood_flow_ml_min": {
+   "formula": "cardiac output x kidney share",
+   "women": 1003.0,
+   "men": 1235.0,
+   "unit": "mL/min"
+  },
+  "renal_plasma_flow_ml_min": {
+   "formula": "kidney blood flow x (1 - red cell fraction)",
+   "women": 621.86,
+   "men": 703.95,
+   "unit": "mL/min"
+  },
+  "liver_portal_sum_pct": {
+   "formula": "arterial + stomach and oesophagus + small intestine + large intestine + pancreas + spleen",
+   "women": 27.5,
+   "men": 25.5,
+   "unit": "% of cardiac output",
+   "printed_total": {
+    "women": 27.0,
+    "men": 25.5
+   }
+  }
+ },
+ "not_in_icrp_89": [
+  "A glomerular filtration rate for women",
+  "Tissue densities (to turn masses into volumes), apart from blood",
+  "Tissue composition (water, neutral lipid, phospholipid) needed by partition-prediction methods"
+ ],
+ "supersedes": {
+  "file": "intelligence_store/data/reference_physiology_icrp89_v1.json",
+  "sha256": "d1d6663757a6355164ffbe38dbc433526a3702f70c44eff66a78551b51734195",
+  "change": "Adds the reference woman and more quantities; the three men's values of v1 (6.5 L/min, 19%, 43%) are unchanged. v1 stays pinned and is still what the pages use."
+ },
+ "not_this": "Reference physiology for a reference woman or man: not this patient's values, not adjusted for kidney function, age or body size.",
+ "clinical_prediction_validated": false,
+ "ready_for_patient_simulation": false
+}

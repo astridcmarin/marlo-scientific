@@ -15,6 +15,10 @@ from pathlib import Path
 DATA = Path(__file__).parent / 'data'
 ICRP_PATH = DATA / 'reference_physiology_icrp89_v1.json'
 ICRP_SHA256 = 'd1d6663757a6355164ffbe38dbc433526a3702f70c44eff66a78551b51734195'
+# v2 (12 November 2026): the reference woman and man side by side, from the Track H design draft, every quote checked
+# against the PDF. The pages still use v1 (men only); v2 is for the organ-level work.
+ICRP_V2_PATH = DATA / 'reference_physiology_icrp89_v2.json'
+ICRP_V2_SHA256 = '8d699fe0794e1e56671e3536551b44ad7d755b5aa8f8751d55084677ad679338'
 CHEN_PATH = DATA / 'lenalidomide_blood_plasma_chen_2012_v1.json'
 CHEN_SHA256 = '789986fa01ee5a9f375e71a28e5f03345f00f827d8defb654818ede35c2638cf'
 
@@ -35,6 +39,10 @@ def _pinned(path, sha256, label, schema):
 
 def load_reference_physiology(path=ICRP_PATH):
     return _pinned(path, ICRP_SHA256, 'ICRP 89 reference physiology extract', 'reference-physiology-v1')
+
+
+def load_reference_physiology_v2(path=ICRP_V2_PATH):
+    return _pinned(path, ICRP_V2_SHA256, 'ICRP 89 reference physiology extract v2', 'reference-physiology-v2')
 
 
 def load_blood_plasma(path=CHEN_PATH):
