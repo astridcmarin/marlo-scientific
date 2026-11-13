@@ -1,0 +1,70 @@
+{
+ "schema_version": "eligibility-second-annotation-plan-v1",
+ "plan_version": "eligibility-second-annotation-plan-v1.0",
+ "recorded_on": "2026-11-13",
+ "status": "locked before the second annotator sees any trial",
+ "why": "Both extractors failed their blind checks against a reference made by one annotator (the owner). Whether the reference itself is reliable enough to judge an extractor at the plan v2 bar (precision 0.90) is unknown. An outside review (docs/reviews/2026-11_chatgpt_eligibility_results_review.md, finding 5) advised an independent second annotation before revising either extractor.",
+ "decided_by_owner": "A smaller random sample rather than all 200 trials (13 November 2026).",
+ "inputs": {
+  "annotation": {
+   "file": "intelligence_store/data/eligibility_annotations_v2.json",
+   "sha256": "768f427f43bc2ea76460a8b4bd07abec3544b7c6b699bbddd0f2982dc3f6d3d2"
+  },
+  "guide": {
+   "file": "docs/ELIGIBILITY_ANNOTATION_GUIDE_V2.md",
+   "sha256": "96fdfefe45ba54933d07a2befe728b21ad40b4f9227183e48dfc4ca4c3987b8f"
+  },
+  "sample": {
+   "file": "intelligence_store/data/eligibility_validation_sample_v2.json",
+   "sha256": "5b7b4718957f03cd3cffd99886f39add228135517b0dbcac474899edf996c20f"
+  }
+ },
+ "annotator": {
+  "code": "B",
+  "description_by_owner": "An engineer with a physics background working in radiation oncology; not the owner, and not involved in building either extractor.",
+  "reported": "B describes their own background in the record; it is reported with the results. B is not named."
+ },
+ "sample": {
+  "size": 50,
+  "seed": 20261115,
+  "drawn_from": "the 200-trial annotation order of eligibility_validation_sample_v2.json, by simple random sampling; no result, label, error or difficulty is used"
+ },
+ "presentation_order_seed": 20261116,
+ "practice": {
+  "size": 5,
+  "seed": 20261117,
+  "drawn_from": "the eligibility v1 validation sample (trials outside the 200), not scored",
+  "questions": "After the practice, B may ask about the guide. Answers explain guide v2 as written, use only practice trials as examples, and are recorded in writing with the result. No convention is added."
+ },
+ "blinding": [
+  "B works from a standalone page that holds only the guide, the criteria texts and the form: no owner label, extractor output or error selection is in it.",
+  "B does not see the reference re-reading page, the repository results, or the owner's working files, and does not discuss study trials with the owner before locking.",
+  "B uses only the criteria text: no lookups, no other tools or people, no AI assistance."
+ ],
+ "record": "One locked JSON file (page checksum, background, all 50 trials). Every trial must pass the annotation tool's own rules (eligibility_annotations_v2.parse_form). It is pinned unchanged before any analysis.",
+ "analysis": {
+  "primary": "Agreement between B and the owner's pinned annotation (v2, as committed; not the re-read version).",
+  "exact_agreement": "Per trial-and-type pair: same status and the same set of (eligible-side comparator, value, unit). Per type (50 pairs each, Wilson 95% interval) and overall (400 pairs, 95% interval by trial-level bootstrap, because the eight pairs of a trial are not independent).",
+  "detection": "Whether a threshold is given (stated or multiple), not stated, or unclear: agreement and Cohen's kappa, per type and overall.",
+  "values_when_both_found": "Among pairs both call a threshold, how often the values agree; for kidney function also the estimating method.",
+  "bootstrap_seed": 20261118,
+  "bootstrap_resamples": 2000,
+  "reliability_bar": 0.9,
+  "reading_rule": "If the lower bound of the overall exact-agreement interval is below 0.90, the single-annotator reference is not reliable enough to judge an extractor at the plan v2 precision bar: the next step is an adjudicated two-annotator reference before either extractor is revised. If it is at or above 0.90, the reference is taken as adequate at that bar, per type results permitting.",
+  "descriptive_only": "Both extractors (v1.1; language model run 1) scored on the 50 trials against the owner's annotation and against B's, with the same scorer. With 50 trials this is descriptive, not a new pass or fail.",
+  "relation_to_re_reading": "If the owner's re-reading (eligibility_reference_review_plan_v1) is finished first, B is also compared with the re-read reference as a secondary analysis; the primary comparison stays with the pinned annotation."
+ },
+ "adjudication": "Only after B's record is pinned and the analysis committed: the owner and B go through each disagreement under guide v2; each pair ends as the owner's value, B's value, or unclear, with a reason. An adjudicated reference would be a new annotation version under its own plan.",
+ "limitations": [
+  "50 trials give wide per-type intervals (about plus or minus 0.1 to 0.15).",
+  "B is not a clinician; part of any disagreement may reflect clinical reading conventions rather than errors. This is reported, not corrected for.",
+  "The owner wrote the guide; agreement measures how reproducibly the guide is applied by a second reader, not whether the guide matches clinical practice.",
+  "The page checks a sentence is in the text after light normalisation; the returned record is re-checked with the annotation tool's Python code."
+ ],
+ "executable": {
+  "module": "intelligence_store/eligibility_second_annotation.py",
+  "page": "scripts/eligibility_second_annotation_page.py writes the standalone page",
+  "dry_run": "tests/test_eligibility_second_annotation.py runs validate_record and agreement on synthetic records; no record from B exists when the plan is committed."
+ },
+ "clinical_prediction_validated": false
+}

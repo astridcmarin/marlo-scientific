@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eligibility annotation (annotator B)</title>
+<style>
+:root{--ink:#1b2b31;--muted:#3d5560;--line:#dbe5e9;--accent:#2f6f7e;--bg:#fff;--soft:#f7fafb;--bad:#8a3b2f;--ok:#22603a}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+main{max-width:980px;margin:0 auto;padding:16px}
+h1{font-size:26px;margin:8px 0}
+h2{font-size:20px;margin:18px 0 6px}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+.note{color:var(--muted);font-size:14px}
+.bar{position:sticky;top:0;z-index:5;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:12px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button,.btn{font:inherit;font-size:15px;padding:6px 12px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}
+button.secondary,.btn.secondary{background:#fff;color:var(--accent)}
+button[disabled]{opacity:.5;cursor:default}
+details.panel{border:1px solid var(--line);border-radius:8px;padding:6px 12px;margin:10px 0}
+details.panel summary{cursor:pointer;font-weight:600;color:var(--accent)}
+.guide table{border-collapse:collapse;font-size:14px;margin:8px 0}
+.guide td,.guide th{border:1px solid var(--line);padding:4px 8px;text-align:left;vertical-align:top}
+.guide{font-size:15px;max-height:70vh;overflow:auto}
+pre.text{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13.5px;max-height:420px;overflow:auto;background:var(--soft);padding:10px;border-radius:6px;border:1px solid var(--line)}
+fieldset{border:1px solid var(--line);border-radius:8px;margin:10px 0;padding:8px 12px}
+legend{font-weight:600;font-size:15px;padding:0 4px}
+fieldset.val{margin:6px 0;background:var(--soft)}
+fieldset.val legend{font-size:13px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px 10px;margin:4px 0}
+label{display:flex;flex-direction:column;font-size:13px;color:var(--muted);gap:2px}
+select,input,textarea{font:inherit;font-size:14px;padding:4px 6px;border:1px solid #c5d3d9;border-radius:6px;color:var(--ink);background:#fff;width:100%}
+textarea{min-height:2.4em}
+[disabled]{background:#f1f4f5}
+.problems{color:var(--bad);font-size:14px;margin:6px 0;padding-left:18px}
+.ok{color:var(--ok);font-size:14px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:10px;background:#e8f1f3}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+@media (max-width:600px){main{padding:12px 16px}h1{font-size:22px}}
+</style>
+</head>
+<body>
+<main>
+<h1>Eligibility annotation: second annotator</h1>
+<p>Thank you for doing this. You will read the registered eligibility criteria of {{ p.trials|length }} multiple myeloma trials and record, for each of eight laboratory or performance measures, the numerical threshold the trial sets (if any). The rules are in the guide below; please read it first, then do the {{ p.practice|length }} practice trials, then the study trials.</p>
+<ul>
+<li>Use only the criteria text shown. Don't look the trials up, and don't use any other tool or person to decide an answer.</li>
+<li>Please don't discuss any study trial with anyone until you have locked and sent your record.</li>
+<li>Practice trials are not scored. Questions about the guide are welcome after the practice; the answer will explain the guide as written and will be recorded.</li>
+<li>Your work is saved in this browser as you go. Use <em>Save a copy</em> now and then; <em>Load a copy</em> restores it (for example on another computer).</li>
+<li>When every study trial passes the checks, <em>Lock and download</em> produces the final file. Send that file back unchanged.</li>
+</ul>
+<p class="note">Page checksum <code>{{ p.page_sha256[:12] }}</code> · plan <code>{{ p.plan_version }}</code> · guide <code>{{ p.guide_sha256[:12] }}</code></p>
+
+<p class="note">The guide was written for the first annotation of 200 trials; where it mentions the 200 trials, the review page or exporting, this page and its instructions above take their place. Everything else in it applies to you as written.</p>
+<details class="panel" open><summary>The annotation guide (version 2)</summary><div class="guide">{{ guide_html|safe }}</div></details>
+
+<fieldset><legend>About you</legend>
+<div class="row"><label>Background, in your own words (it will be reported with the results)<input id="bg"></label></div>
+</fieldset>
+
+<div class="bar">
+<span id="progress" aria-live="polite"></span>
+<label style="flex-direction:row;align-items:center;gap:6px">Go to <select id="goto" style="width:auto"></select></label>
+<button type="button" class="secondary" id="next-open">Next unfinished</button>
+<button type="button" class="secondary" id="save">Save a copy</button>
+<label class="btn secondary" style="display:inline-block;color:var(--accent);font-size:15px">Load a copy<input type="file" id="load" accept="application/json" hidden></label>
+<button type="button" id="lock">Lock and download</button>
+</div>
+<div id="lockmsg" aria-live="polite"></div>
+
+<section id="item"></section>
+<div class="nav"><button type="button" class="secondary" id="prev">← Previous</button><button type="button" class="secondary" id="next">Next →</button></div>
+<noscript><p>This page needs JavaScript.</p></noscript>
+</main>
+<script type="application/json" id="data">{{ p|tojson }}</script>
+<script>
+(function () {
+  var P = JSON.parse(document.getElementById('data').textContent);
+  var KEY = 'marlo-second-annotation-' + P.page_sha256.slice(0, 16);
+  var LIST = P.practice.map(function (t, i) { return {nct_id: t.nct_id, text: t.criteria_text, practice: true, label: 'Practice ' + (i + 1)}; })
+    .concat(P.trials.map(function (t) { return {nct_id: t.nct_id, text: t.criteria_text, practice: false, label: 'Trial ' + t.position + ' of ' + P.trials.length}; }));
+  var S = {annotations: {}, practice: {}, background: '', position: 0};
+  try { var j = JSON.parse(localStorage.getItem(KEY) || 'null'); if (j) S = j; } catch (e) {}
+  var pos = Math.min(S.position || 0, LIST.length - 1), box = document.getElementById('item');
+  var bg = document.getElementById('bg'); bg.value = S.background || '';
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]; }); }
+  function norm(s) { return (s || '').normalize('NFKC').toLowerCase().replace(/\*/g, ' ').split(/\s+/).filter(Boolean).join(' '); }
+  function store(it) { var k = it.practice ? 'practice' : 'annotations'; return S[k][it.nct_id] || (S[k][it.nct_id] = {}); }
+  function save() { S.position = pos; S.background = bg.value; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} progress(); }
+  function opts(list, cur, blank) { return (blank != null ? '<option value="">' + blank + '</option>' : '') + list.map(function (x) { return '<option value="' + esc(x) + '"' + (x === cur ? ' selected' : '') + '>' + esc(x.replace(/_/g, ' ')) + '</option>'; }).join(''); }
+
+  // The same rules as the annotation tool (eligibility_annotations_v2.parse_form); the returned file is checked again with that code.
+  function check(f, text) {
+    var errs = [], hay = norm(text);
+    P.types.forEach(function (T) {
+      var k = T.key, st = f[k + '__status'] || '', n = 0;
+      if (P.statuses.indexOf(st) < 0) { errs.push(T.short + ': choose a status.'); return; }
+      for (var i = 1; i <= P.max_values; i++) {
+        var g = function (x) { return (f[k + '__v' + i + '__' + x] || '').trim(); }, w = T.short + ', value ' + i;
+        if (!g('value') && !g('sentence')) continue;
+        n++;
+        if (P.comparators.indexOf(g('comparator_as_written')) < 0) errs.push(w + ': choose the comparator as written.');
+        if (!/^\d+(\.\d+)?$/.test(g('value').replace(/,/g, ''))) errs.push(w + ': the value must be a number as written (for example 30, 1.5 or 75000).');
+        if (T.units.indexOf(g('unit')) < 0) errs.push(w + ': choose a unit.');
+        if (P.sections.indexOf(g('section')) < 0) errs.push(w + ': choose inclusion or exclusion.');
+        if (!g('sentence')) errs.push(w + ': copy the sentence it comes from.');
+        else if (hay.indexOf(norm(g('sentence'))) < 0) errs.push(w + ': the sentence was not found in the criteria text; copy it exactly.');
+      }
+      if (T.equations.length && n && T.equations.indexOf(f[k + '__equation'] || '') < 0) errs.push(T.short + ': choose the estimating method (or not stated).');
+      var need = {stated: [1, 1], multiple: [2, P.max_values], not_stated: [0, 0], unclear: [0, P.max_values]}[st];
+      if (n < need[0] || n > need[1]) errs.push(T.short + ': “' + st.replace(/_/g, ' ') + '” needs ' + {stated: 'exactly one value.', multiple: 'two or three values.', not_stated: 'no values.', unclear: 'at most three values.'}[st]);
+      if (st === 'unclear' && !(f[k + '__note'] || '').trim()) errs.push(T.short + ': say briefly why it is unclear.');
+    });
+    return errs;
+  }
+  function progress() {
+    var done = 0;
+    P.trials.forEach(function (t) { var f = S.annotations[t.nct_id]; if (f && !check(f, t.criteria_text).length) done++; });
+    document.getElementById('progress').textContent = LIST[pos].label + ' · ' + done + ' of ' + P.trials.length + ' study trials complete' + (S.locked_at ? ' · locked' : '');
+  }
+
+  function render() {
+    var it = LIST[pos], f = store(it), dis = S.locked_at && !it.practice ? ' disabled' : '';
+    var h = '<h2>' + esc(it.nct_id) + ' <span class="tag">' + esc(it.label) + '</span></h2>';
+    if (it.practice) h += '<p class="note">Practice: not scored.</p>';
+    h += '<details class="panel" open><summary>Eligibility criteria</summary><pre class="text">' + esc(it.text) + '</pre></details><form id="f" onsubmit="return false">';
+    P.types.forEach(function (T) {
+      var k = T.key, st = f[k + '__status'] || '';
+      h += '<fieldset><legend>' + esc(T.label) + '</legend><div class="row"><label>Status<select name="' + k + '__status"' + dis + '>' + opts(P.statuses, st, 'choose') + '</select></label>';
+      if (T.equations.length) h += '<label>Estimating method (if a value is given)<select name="' + k + '__equation"' + dis + '>' + opts(T.equations, f[k + '__equation'], '—') + '</select></label>';
+      h += '</div>';
+      var shown = st === 'stated' ? 1 : (st === 'multiple' || st === 'unclear') ? P.max_values : 0;
+      for (var i = 1; i <= shown; i++) {
+        var p = k + '__v' + i + '__', g = function (x) { return f[p + x] || ''; };
+        h += '<fieldset class="val"><legend>Value ' + i + '</legend><div class="row">' +
+          '<label>Comparator as written<select name="' + p + 'comparator_as_written"' + dis + '>' + opts(P.comparators, g('comparator_as_written'), '—') + '</select></label>' +
+          '<label>Value<input name="' + p + 'value" value="' + esc(g('value')) + '" inputmode="decimal"' + dis + '></label>' +
+          '<label>Unit<select name="' + p + 'unit"' + dis + '>' + opts(T.units, g('unit'), '—') + '</select></label>' +
+          '<label>Section<select name="' + p + 'section"' + dis + '>' + opts(P.sections, g('section'), '—') + '</select></label>' +
+          '<label>Describes (if not the section default)<select name="' + p + 'describes"' + dis + '>' + opts(P.describes, g('describes'), 'section default') + '</select></label></div>' +
+          '<label>Sentence, copied exactly<textarea name="' + p + 'sentence"' + dis + '>' + esc(g('sentence')) + '</textarea></label>' +
+          '<label>Qualifier (optional)<input name="' + p + 'qualifier" value="' + esc(g('qualifier')) + '"' + dis + '></label></fieldset>';
+      }
+      h += '<label>Note (needed for “unclear”)<input name="' + k + '__note" value="' + esc(f[k + '__note'] || '') + '"' + dis + '></label></fieldset>';
+    });
+    h += '</form><ul class="problems" id="problems"></ul>';
+    box.innerHTML = h;
+    var form = document.getElementById('f');
+    function upd(e) {
+      if (!e.target.name || !document.body.contains(e.target)) return;  // ignore late events from fields already removed
+      f[e.target.name] = e.target.value;
+      if (/__status$/.test(e.target.name) && e.type === 'change') {
+        var act = document.activeElement; if (act && act !== e.target && form.contains(act)) act.blur();  // let a pending edit land before clearing
+        var k = e.target.name.replace(/__status$/, ''), keep = {stated: 1, multiple: P.max_values, unclear: P.max_values}[e.target.value] || 0;
+        Object.keys(f).forEach(function (x) { var m = x.match(/^(.+)__v(\d+)__/); if (m && m[1] === k && +m[2] > keep) delete f[x]; });
+        if (!keep) delete f[k + '__equation'];
+        save(); render(); return;
+      }
+      save(); showProblems();
+    }
+    form.addEventListener('input', upd); form.addEventListener('change', upd);
+    showProblems(); save();
+  }
+  function showProblems() {
+    var it = LIST[pos], errs = check(store(it), it.text), el = document.getElementById('problems');
+    el.innerHTML = errs.length ? errs.map(function (e) { return '<li>' + esc(e) + '</li>'; }).join('') : '<li class="ok" style="list-style:none">All checks pass for this trial.</li>';
+  }
+  function go(n) { pos = Math.max(0, Math.min(LIST.length - 1, n)); render(); document.getElementById('goto').value = pos; window.scrollTo(0, box.offsetTop - 70); }
+  var sel = document.getElementById('goto');
+  sel.innerHTML = LIST.map(function (it, i) { return '<option value="' + i + '">' + esc(it.label) + '</option>'; }).join('');
+  sel.value = pos;
+  sel.addEventListener('change', function () { go(parseInt(sel.value, 10)); });
+  document.getElementById('prev').addEventListener('click', function () { go(pos - 1); });
+  document.getElementById('next').addEventListener('click', function () { go(pos + 1); });
+  document.getElementById('next-open').addEventListener('click', function () {
+    for (var k = 1; k <= LIST.length; k++) { var q = (pos + k) % LIST.length, it = LIST[q]; if (!it.practice && check(store(it), it.text).length) { go(q); return; } }
+  });
+  bg.addEventListener('input', save);
+  function file(obj, name) {
+    var blob = new Blob([JSON.stringify(obj, null, 1) + '\n'], {type: 'application/json'}), a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+  }
+  function record() {
+    return {schema_version: 'eligibility-second-annotation-record-v1', page_sha256: P.page_sha256, plan_sha256: P.plan_sha256,
+            annotator: {code: 'B', background: bg.value}, saved_at: new Date().toISOString(), locked_at: S.locked_at || null,
+            annotations: S.annotations, practice: S.practice};
+  }
+  document.getElementById('save').addEventListener('click', function () { file(record(), 'eligibility_annotator_b_copy_' + new Date().toISOString().slice(0, 10) + '.json'); });
+  document.getElementById('load').addEventListener('change', function (e) {
+    var fl = e.target.files[0]; if (!fl) return;
+    fl.text().then(function (txt) {
+      var j = JSON.parse(txt), m = document.getElementById('lockmsg');
+      if (j.page_sha256 !== P.page_sha256) { m.innerHTML = '<p class="problems">That copy was made from a different page; not loaded.</p>'; return; }
+      S.annotations = j.annotations || {}; S.practice = j.practice || {}; S.locked_at = j.locked_at || null; bg.value = (j.annotator || {}).background || '';
+      m.innerHTML = '<p class="ok">Copy loaded.</p>'; save(); render();
+    });
+  });
+  document.getElementById('lock').addEventListener('click', function () {
+    var m = document.getElementById('lockmsg');
+    var open = P.trials.filter(function (t) { return check(S.annotations[t.nct_id] || {}, t.criteria_text).length; });
+    if (open.length) { m.innerHTML = '<p class="problems">' + open.length + ' study trial(s) still have problems or are not done. “Next unfinished” takes you to them.</p>'; return; }
+    if (!bg.value.trim()) { m.innerHTML = '<p class="problems">Please describe your background first (top of the page).</p>'; return; }
+    if (!S.locked_at) S.locked_at = new Date().toISOString();
+    save(); render();
+    file(record(), 'eligibility_annotator_b_final_' + S.locked_at.slice(0, 10) + '.json');
+    m.innerHTML = '<p class="ok">Locked. Please send the downloaded file back unchanged.</p>';
+  });
+  render();
+})();
+</script>
+</body>
+</html>
