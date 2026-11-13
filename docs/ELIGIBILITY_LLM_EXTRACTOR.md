@@ -21,3 +21,14 @@ Adopted after the ChatGPT methods review ([reviews/2026-11_chatgpt_track_c_revie
 5. **Malformed output.** Output files are never edited. A line that is not valid JSON is treated as no answer for that trial, as the plan intends; because the runner would stop on it, the handling is reported as a deviation, with the number of trials affected.
 6. **Reporting.** Invalid outputs (transport, format, content) are counted separately from extraction errors; run-to-run agreement is reported for annotated-positive pairs as well as overall; precision and recall are named "the prespecified pair-based measures"; the "within normal limits" difference between prompt and guide is named as a possible source of disagreement on creatinine and AST/ALT. Results describe agreement with the owner's annotation on these registry texts, not a gold standard, generalisation or clinical use.
 
+## Result (13 November 2026)
+
+Report: `docs/verification/eligibility_validation_llm_c1.json`. Outputs pinned before scoring: `docs/development/eligibility_llm_c1_outputs/`; every attempt, including two stopped by the usage limit, in `docs/development/eligibility_llm_c1_run_attempts.json`.
+
+- **No type passes** the plan v2 rule on run 1, the primary run; neither does rule-based v1.1 on the same 200 trials (`docs/verification/eligibility_validation_v2.json`).
+- **Against v1.1, pair by pair:** the language model is right where v1.1 is wrong more often than the reverse in seven of eight types (for example kidney function 9 against 3); haemoglobin goes the other way (1 against 3). Recall is higher for kidney function (0.82 against 0.72), platelets (0.79 against 0.74) and ECOG (0.94 against 0.89); precision is similar. These are paired counts, not a test of superiority, and are not reported as one.
+- **Repeatability:** the two runs agree on 99.75% of answers (1,596 of 1,600); no output had a format problem or a missing trial.
+- **Shared errors:** in every type, 13 to 33 of the 200 trials are wrong for both extractors. Errors two different methods share may come from the reference rather than from either method: one annotator's reading, the guide's conventions, or the prompt's wider "within normal limits" rule for creatinine and AST/ALT. An error review of the shared cases comes before any statement about either extractor's accuracy.
+
+What the result may be read as, following the outside review (`docs/reviews/2026-11_chatgpt_track_c_review.md`): agreement of two frozen extraction workflows with one annotator's reading of these 200 myeloma registry texts, on comparator, value and unit only, under the prespecified pair-based measures. Not a gold standard, not generalisation to other texts, not superiority, and not suitability for screening patients.
+
