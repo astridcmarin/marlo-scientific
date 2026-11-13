@@ -1,0 +1,345 @@
+{
+ "schema_version": "eligibility-llm-c1-audit-v1",
+ "recorded_on": "2026-11-13",
+ "what": "Supplement to docs/verification/eligibility_validation_llm_c1.json, added after the ChatGPT review of 13 November (findings 2 and 4). The report is unchanged.",
+ "run_to_run_agreement_strata": {
+  "definition": "Same status, comparator, value and unit (eligibility_validation_llm._key); evidence segments, qualifiers and cohort links are not compared.",
+  "all": {
+   "agree": 1596,
+   "of": 1600
+  },
+  "annotated_positive": {
+   "agree": 658,
+   "of": 661
+  },
+  "annotated_not_stated": {
+   "agree": 932,
+   "of": 933
+  },
+  "either_run_returned_a_threshold": {
+   "agree": 684,
+   "of": 688
+  },
+  "per_type": {
+   "kidney_function_min": {
+    "agree": 200,
+    "of": 200
+   },
+   "creatinine_max": {
+    "agree": 200,
+    "of": 200
+   },
+   "anc_min": {
+    "agree": 198,
+    "of": 200
+   },
+   "platelets_min": {
+    "agree": 200,
+    "of": 200
+   },
+   "hemoglobin_min": {
+    "agree": 199,
+    "of": 200
+   },
+   "bilirubin_max": {
+    "agree": 200,
+    "of": 200
+   },
+   "ast_alt_max": {
+    "agree": 200,
+    "of": 200
+   },
+   "ecog_max": {
+    "agree": 199,
+    "of": 200
+   }
+  },
+  "disagreements": [
+   {
+    "nct_id": "NCT02230917",
+    "type": "hemoglobin_min",
+    "run_1": [
+     "stated",
+     [
+      [
+       ">=",
+       7.5,
+       "g/dL"
+      ]
+     ]
+    ],
+    "run_2": [
+     "stated",
+     [
+      [
+       "<=",
+       13.0,
+       "g/dL"
+      ],
+      [
+       ">=",
+       7.5,
+       "g/dL"
+      ]
+     ]
+    ]
+   },
+   {
+    "nct_id": "NCT01315132",
+    "type": "ecog_max",
+    "run_1": [
+     "stated",
+     [
+      [
+       "<",
+       3.0,
+       "score"
+      ]
+     ]
+    ],
+    "run_2": [
+     "stated",
+     [
+      [
+       "<=",
+       2.0,
+       "score"
+      ]
+     ]
+    ]
+   },
+   {
+    "nct_id": "NCT00405756",
+    "type": "anc_min",
+    "run_1": [
+     "stated",
+     [
+      [
+       ">=",
+       1500.0,
+       "other"
+      ]
+     ]
+    ],
+    "run_2": [
+     "stated",
+     [
+      [
+       ">=",
+       1.5,
+       "x 10^9/L"
+      ]
+     ]
+    ]
+   },
+   {
+    "nct_id": "NCT05346198",
+    "type": "anc_min",
+    "run_1": [
+     "stated",
+     [
+      [
+       ">=",
+       1.0,
+       "x 10^9/L"
+      ]
+     ]
+    ],
+    "run_2": [
+     "not_stated",
+     []
+    ]
+   }
+  ],
+  "note": "One of the four is the same ECOG limit written two ways (< 3 against <= 2). Two runs show limited repeatability, not accuracy or robustness across model versions."
+ },
+ "transcripts": {
+  "kept": "Privately by the owner (supplemental-information/eligibility/trackc_session_transcripts_2026-11-13.tar.gz); not published, because the session context in them includes personal contact details.",
+  "bundle_sha256": "47a74d36cd42435d249fa088c4e9227c0739d806b7960b80891a8f6fc4113bac",
+  "files": [
+   {
+    "attempt": 1,
+    "run": 1,
+    "session": 1,
+    "file": "attempt1_run1_session1.jsonl",
+    "bytes": 535146,
+    "sha256": "2b3a82ccf28d29a04e7b4dd83f0a0c2bdf8433d957f41fe76bf9c3fb6f23f602"
+   },
+   {
+    "attempt": 1,
+    "run": 1,
+    "session": 2,
+    "file": "attempt1_run1_session2.jsonl",
+    "bytes": 554220,
+    "sha256": "18c80504bd4cb0747cf64a00284b251b834516baa2402371a907ad7143ea8e54"
+   },
+   {
+    "attempt": 1,
+    "run": 1,
+    "session": 3,
+    "file": "attempt1_run1_session3.jsonl",
+    "bytes": 548614,
+    "sha256": "c90d26df11aef872a74184c9bea4354db4f987962c62dabbb205ed6fa2aee7a8"
+   },
+   {
+    "attempt": 1,
+    "run": 1,
+    "session": 4,
+    "file": "attempt1_run1_session4.jsonl",
+    "bytes": 538938,
+    "sha256": "eaf57fb6cc7d292bdecc8428a65e9dfd9b225a2be85d0a8a75384e4f1cea0924"
+   },
+   {
+    "attempt": 1,
+    "run": 1,
+    "session": 5,
+    "file": "attempt1_run1_session5.jsonl",
+    "bytes": 498079,
+    "sha256": "c0ff174a01bd2e28a6e443ec1723f64f4557ff5aa5ae63616d60f66dc6c355e1"
+   },
+   {
+    "attempt": 1,
+    "run": 2,
+    "session": 1,
+    "file": "attempt1_run2_session1.jsonl",
+    "bytes": 555597,
+    "sha256": "fc57bd195c01b967e1cd004c531f0ec668a20fdb3cbae3bf6d42c68f37dc552b"
+   },
+   {
+    "attempt": 1,
+    "run": 2,
+    "session": 2,
+    "file": "attempt1_run2_session2.jsonl",
+    "bytes": 563285,
+    "sha256": "4e7d99affb4e3defa856fbeb7e34f7f6a8ba0079930fc07faed696154d8e230d"
+   },
+   {
+    "attempt": 1,
+    "run": 2,
+    "session": 3,
+    "file": "attempt1_run2_session3.jsonl",
+    "bytes": 508483,
+    "sha256": "679c375218500b57715dd1d42b94a115f516e95ce65acbaaa48304069436f5ed"
+   },
+   {
+    "attempt": 1,
+    "run": 2,
+    "session": 4,
+    "file": "attempt1_run2_session4.jsonl",
+    "bytes": 579904,
+    "sha256": "ee5fe52ae3c59cb78ad0b0bebb25de74fe468839fa0907b9ef9fb5e5f213b371"
+   },
+   {
+    "attempt": 1,
+    "run": 2,
+    "session": 5,
+    "file": "attempt1_run2_session5.jsonl",
+    "bytes": 502609,
+    "sha256": "565d6739b95a2cecfc4ae0553abdea6a2dc5d6004cbbb4e7f0c541504c83edf2"
+   },
+   {
+    "attempt": 2,
+    "run": 1,
+    "session": 1,
+    "file": "attempt2_run1_session1.jsonl",
+    "bytes": 571313,
+    "sha256": "ed166e2d6886c9ffa11a97b99de1758a167ec7fb42e1827947c6be4ec4f7eaa5"
+   },
+   {
+    "attempt": 2,
+    "run": 1,
+    "session": 2,
+    "file": "attempt2_run1_session2.jsonl",
+    "bytes": 574266,
+    "sha256": "6506ad3169266cf8c5ba92b0d4a3ca9b182f0b4503ec00bb8489b8f690c0d371"
+   },
+   {
+    "attempt": 2,
+    "run": 1,
+    "session": 3,
+    "file": "attempt2_run1_session3.jsonl",
+    "bytes": 563383,
+    "sha256": "54a7c091663919c4db5525e38de0aac3076abbb1bcfe982a7dd0c1946b64d3a6"
+   },
+   {
+    "attempt": 2,
+    "run": 1,
+    "session": 4,
+    "file": "attempt2_run1_session4.jsonl",
+    "bytes": 597813,
+    "sha256": "2fc90dcbe03b413f80487fe0738ebf7993109fba6703b938bf63a5eba8af6630"
+   },
+   {
+    "attempt": 2,
+    "run": 1,
+    "session": 5,
+    "file": "attempt2_run1_session5.jsonl",
+    "bytes": 599320,
+    "sha256": "479a76b70c5406f22e8bde338ab066640cc812d973353b74ab9b4aab68fb40f9"
+   },
+   {
+    "attempt": 2,
+    "run": 2,
+    "session": 1,
+    "file": "attempt2_run2_session1.jsonl",
+    "bytes": 531606,
+    "sha256": "51a585e35c56dddb3def91853b1328e5c37cc362009f18f7680018a3769e664f"
+   },
+   {
+    "attempt": 2,
+    "run": 2,
+    "session": 2,
+    "file": "attempt2_run2_session2.jsonl",
+    "bytes": 567665,
+    "sha256": "526eb61b15b3e0d86478ce65ddde3a6c66bbab925ac52377fd8eb647ec515c53"
+   },
+   {
+    "attempt": 2,
+    "run": 2,
+    "session": 3,
+    "file": "attempt2_run2_session3.jsonl",
+    "bytes": 553561,
+    "sha256": "ade73072f2b0ec992cab88773a5ad150231e0c46b12ad0fe82e664d931672b79"
+   },
+   {
+    "attempt": 2,
+    "run": 2,
+    "session": 4,
+    "file": "attempt2_run2_session4.jsonl",
+    "bytes": 596368,
+    "sha256": "f4fda78fb2745d87f693dacd28dddb023dadafb0cc488e304d076221297eefce"
+   },
+   {
+    "attempt": 2,
+    "run": 2,
+    "session": 5,
+    "file": "attempt2_run2_session5.jsonl",
+    "bytes": 540096,
+    "sha256": "88c873f1811fd468c7a5e330f2d02e18800a8da42627bf9a973230dc4f564674"
+   },
+   {
+    "attempt": 3,
+    "run": 2,
+    "session": 1,
+    "file": "attempt3_run2_session1.jsonl",
+    "bytes": 642281,
+    "sha256": "50199c167ff24d244a522918d565c4b81be0888c494519d33f930c0c226b8b54"
+   },
+   {
+    "attempt": 3,
+    "run": 2,
+    "session": 5,
+    "file": "attempt3_run2_session5.jsonl",
+    "bytes": 604377,
+    "sha256": "d6e535762af08f54b2e6027e9e88332600813102fd69446b26f47f65d7bdb882"
+   }
+  ]
+ },
+ "completion": {
+  "sessions_launched": 22,
+  "complete_outputs": 12,
+  "scored": 10,
+  "note": "Scored results are conditional on completion. Twelve of 22 launched sessions stopped at the account usage limit before a complete output (10 in attempt 1, 2 in attempt 2); the failures were account-wide, not tied to particular trials. Not a measure of first-attempt reliability."
+ },
+ "clinical_prediction_validated": false
+}
