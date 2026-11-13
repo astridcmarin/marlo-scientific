@@ -71,22 +71,10 @@ def sample_typical_parameters_bootstrap(n, seed, precision):
     the 2.5th percentile is the interval's lower end, and above it so the 97.5th is the upper end. This reproduces both
     published percentiles and keeps an asymmetric interval asymmetric (KTR: 11.9-36.8 1/h around 13.5). Independent, as
     the covariance is not published. Every draw is positive by construction."""
-    z975 = 1.959963984540054
-    fx = precision['fixed_effects']
-    spread = {}
-    for k, v in fx.items():
-        lo, hi = v['bootstrap_ci95']
-        if not 0 < lo < v['estimate'] < hi:
-            raise ValueError(f'{k}: the bootstrap interval does not bracket a positive estimate.')
-        spread[k] = (math.log(v['estimate'] / lo) / z975, math.log(hi / v['estimate']) / z975)
+    from .parameter_draws import spreads, draw
+    spread = spreads({k: (v['estimate'], v['bootstrap_ci95']) for k, v in precision['fixed_effects'].items()})
     rng = random.Random(seed)
-    draws = []
-    for _ in range(n):
-        d = {}
-        for k, v in fx.items():
-            z = rng.gauss(0.0, 1.0)
-            d[k] = v['estimate'] * math.exp(z * (spread[k][0] if z < 0 else spread[k][1]))
-        draws.append(d)
+    draws = [draw(rng, spread) for _ in range(n)]
     return draws
 
 

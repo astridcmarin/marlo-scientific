@@ -4,6 +4,7 @@ Research and educational platform: clinical-trial intelligence, drug/regulatory 
 
 ## Start here
 
+- `docs/HANDOFF.md` — state of open work at the last account switch (12 November 2026): what is next, the blind-data rules, how to run tests without the database.
 - `docs/README.md` — index of all documentation.
 - `docs/PRODUCT_AND_SCIENCE_ROADMAP.md` — product direction and phases.
 - `docs/STATUS_BY_DRUG.md` — plain-language status per drug; `/models/findings` lists every locked check.

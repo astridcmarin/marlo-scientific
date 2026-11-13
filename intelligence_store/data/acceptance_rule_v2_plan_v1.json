@@ -1,0 +1,134 @@
+{
+ "schema_version": "acceptance-rule-plan-v1",
+ "plan_version": "acceptance-rule-v2-plan-v1.0",
+ "recorded_on": "2026-11-12",
+ "status": "locked_before_the_rule_is_run_on_observed_values",
+ "source_of_the_question": {
+  "review": "docs/reviews/2026-11_fable_review.md",
+  "finding": "F03",
+  "summary": "Three different acceptance rules feed one findings page; the published-model rule includes between-subject variability only, so it is lenient where the model is imprecise and too sharp where it is not (Kim in Bridoux moderate: 0.25% inside the limit)."
+ },
+ "approved_by_owner": "12 November 2026: scope the four lenalidomide published-model checks; margin 5%.",
+ "question": "For Hughes 2019 and Kim 2026 against kidney-function groups, which verdicts hold when the uncertainty of the published estimates is added, and which sit too close to a limit to call?",
+ "scope": {
+  "checks": [
+   {
+    "id": "hughes_cc5013",
+    "plan": {
+     "file": "intelligence_store/data/hughes_renal_group_check_plan_v1.json",
+     "sha256": "8f733d98aa4e155dd8ab50d97c00d54d481ac09daa04dd6d3dd6c450e863ca97"
+    },
+    "report": {
+     "file": "docs/verification/hughes_renal_group_check_v1.json",
+     "sha256": "70cae05e8dca498bc3e9774177dd4fc406c9508f419ad1f8a64be80c84c0c159"
+    }
+   },
+   {
+    "id": "kim_cc5013",
+    "plan": {
+     "file": "intelligence_store/data/kim_renal_group_check_plan_v1.json",
+     "sha256": "a15179d0d7b366b59841a7333adc4547a7bbded4610f43b59488d8598a206bb8"
+    },
+    "report": {
+     "file": "docs/verification/kim_renal_group_check_v1.json",
+     "sha256": "e53f62db6506346a3d5027388b0c9165de51b8fab0c5f9efc1ad7b29d34da4bb"
+    }
+   },
+   {
+    "id": "renal_recheck",
+    "plan": {
+     "file": "intelligence_store/data/lenalidomide_renal_recheck_plan_v1.json",
+     "sha256": "1766ddb3c353602a6892f69b6308155acbfd531d3971dd54d0656ea5dcee0a42"
+    },
+    "report": {
+     "file": "docs/verification/lenalidomide_renal_recheck_v1.json",
+     "sha256": "c98e29919cd9e90981439a37d03883a8cfd834f397b8c0383e723b1f923e2991"
+    }
+   },
+   {
+    "id": "bridoux_hughes_kim",
+    "plan": {
+     "file": "intelligence_store/data/lenalidomide_bridoux_check_plan_v1.json",
+     "sha256": "7cf4070eb2d979404e8bba5650817b3b93a28bc41438654c7aaa66cafa10e329"
+    },
+    "report": {
+     "file": "docs/verification/lenalidomide_bridoux_check_v1.json",
+     "sha256": "febf0e3b6ea090dd44172bc44b4cedf30e820b2227a07cea4ea7eed4fa3daccb"
+    }
+   }
+  ],
+  "endpoint": "Each check's own primary endpoint: the exposure ratio of the mild, moderate and severe groups to the normal group (AUC to infinity for the first three; dose-normalised AUC24 for Bridoux), in every scenario of the check's plan.",
+  "not_in_scope": "The pathway-model checks (95% interval of the observed mean) and the time-course checks (90% interval of the observed geometric mean) answer a different question; they keep their rules and get a one-line label naming the rule. Other drugs follow in a later plan version once their bootstrap intervals are extracted and reviewed."
+ },
+ "rule": {
+  "simulation": "Each check's own simulation code, scenarios, group sizes, covariate construction and between-subject variability, unchanged, called through optional hooks that leave the checks' own results unchanged (their reproduction tests pass).",
+  "parameter_uncertainty": {
+   "method": "intelligence_store/parameter_draws.py: each published estimate drawn from a two-piece log-normal with median at the estimate and 2.5th and 97.5th percentiles at its published bootstrap 95% interval, independently (covariance not published).",
+   "hughes_2019": {
+    "estimates": [
+     "CL/F (theta_cl)",
+     "CrCl exponent (theta_crcl)",
+     "Vd/F (theta_v)"
+    ],
+    "note": "KTR does not enter AUC or the ratio, so it is not drawn.",
+    "source": {
+     "file": "intelligence_store/data/hughes_parameter_precision_v2.json",
+     "sha256": "a0d5e5cf4081196a9fd7653a4aeddd0aa75537b8075527f72684a08f5c0f774d"
+    }
+   },
+   "kim_2026": {
+    "estimates": "every parameter with a bootstrap interval and not fixed (unbound CL/F, V1, Q, V2, fraction unbound, the eGFR coefficient, the two BSA coefficients)",
+    "source": {
+     "file": "intelligence_store/data/kim_2026_model_extract_v1.json",
+     "sha256": "c8d4c4bff1d84adae8016d0a1e6e864423b578d7564f2ffbf81c70501e0c25af"
+    }
+   }
+  },
+  "outer_parameter_sets": 200,
+  "inner_trials_per_set": 50,
+  "total_note": "200 x 50 = 10,000 virtual trials per scenario, the same number each check used.",
+  "seeds": [
+   20261112,
+   20261113,
+   20261114,
+   20261115,
+   20261116
+  ],
+  "seed_note": "Scenario i of a check uses seed + 1000 i; one parameter set of each model is drawn per outer step, then that step's virtual trials.",
+  "indeterminate_margin": 0.05,
+  "classes": {
+   "consistent": "observed ratio inside the 5th-95th percentile of the simulated ratios, and not within the margin of either limit",
+   "model_under_predicts": "observed above the 95th percentile, beyond the margin",
+   "model_over_predicts": "observed below the 5th percentile, beyond the margin",
+   "indeterminate": "observed within 5% (relative) of either limit, or the class differs between any of the five seeds"
+  }
+ },
+ "reported": [
+  "every (check, scenario, model, group): observed ratio, simulated 5th/50th/95th percentile, class under each seed, verdict v2, verdict v1, margin to the nearest limit",
+  "the list of every verdict that changed from v1",
+  "on the findings page: one line per check naming the rule that judged it (all checks, not only these four)"
+ ],
+ "old_verdicts": "Not changed. The v1 reports stay as committed; v2 verdicts are reported beside them.",
+ "blindness": "Not blind. Every observed value used here was seen before this plan; the dataset ledger records the uses as checked_not_blind.",
+ "model": "lenalidomide_hughes_2019 and lenalidomide_kim_2026",
+ "datasets": [
+  {
+   "id": "cc5013_pk001",
+   "role": "checked_not_blind"
+  },
+  {
+   "id": "bridoux_2016",
+   "role": "checked_not_blind"
+  }
+ ],
+ "executable": {
+  "module": "intelligence_store/acceptance_rule_v2.py",
+  "dry_run": "tests/test_acceptance_rule_v2.py runs the rule end to end on synthetic observed ratios with few draws; nothing is run on the observed ratios before this plan is committed."
+ },
+ "not_this": [
+  "Not a new check of any model and not a blind test.",
+  "Parameter uncertainty is a lower bound: the papers publish no covariance and no bootstrap distributions.",
+  "A consistent verdict is not validation; an inconsistent one does not say why."
+ ],
+ "clinical_prediction_validated": false
+}

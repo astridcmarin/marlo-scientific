@@ -22,6 +22,7 @@
     .rv-how{display:block;margin-top:4px;font-size:14px;color:#3d5560}
     .rv-status{display:inline-block;font-size:13px;font-weight:600;padding:1px 7px;border-radius:10px;background:#e8f1f3}
     .rv-status-wrong{background:#f6dcd7}.rv-status-cannot_check{background:#fdecd8}.rv-status-matches{background:#dcefe2}
+    .rv-second{margin-top:8px;padding:6px 8px;border-left:3px solid #7b4fa0;background:#f6f1fa;font-size:13px}
     .rv-bar{position:sticky;top:0;z-index:5;background:#fff;border:1px solid #dbe5e9;border-radius:10px;padding:10px 14px;margin:14px 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
     .rv-bar input[type=text],.rv-bar input[type=date]{font:inherit;padding:4px 6px;border:1px solid #c5d3d9;border-radius:6px}
     .rv-bar button{font:inherit;padding:6px 12px;border-radius:8px;border:1px solid #2f6f7e;background:#2f6f7e;color:#fff;cursor:pointer}
@@ -44,10 +45,12 @@
         <p class="rv-caution"><strong>Check against the source document.</strong> {{ v.round_caution }}</p>
         {% else %}<p class="prose-lede">{{ v.purpose }} Check each value against the original source at the stated location.</p>{% endif %}
     </header>
-    {% if v.round == 3 %}<p>{{ v.round_total }} entries in this round, each one label or guidance entry with its values and the sentence it comes from: <strong>{{ v.counts.unreviewed }}</strong> not yet reviewed, {{ v.counts.matches }} match, {{ v.counts.wrong }} wrong, {{ v.counts.cannot_check }} could not be checked. None of them feeds a calculation. <a href="{{ url_for('extraction_review') }}">Rounds 1 and 2 (values that feed calculations)</a>.</p>
+    {% if v.track_b %}<p>{{ v.round_total }} entries: {{ v.track_b_counts.disagree }} where the two extractions disagree, {{ v.track_b_counts.not_comparable }} with no numbers to compare, {{ v.track_b_counts.sampled_agreement }} sampled agreements and {{ v.track_b_counts.out_of_scope }} FDA guidance entries the second reader could not read. Check each against the source: the second reading is there to help you look and can be wrong too. {{ v.track_b_fail_rule }} <a href="{{ url_for('extraction_review_round_3') }}">All round 3 entries</a>.</p>
+    {% elif v.round == 3 %}<p>{{ v.round_total }} entries in this round, each one label or guidance entry with its values and the sentence it comes from: <strong>{{ v.counts.unreviewed }}</strong> not yet reviewed, {{ v.counts.matches }} match, {{ v.counts.wrong }} wrong, {{ v.counts.cannot_check }} could not be checked. None of them feeds a calculation. <a href="{{ url_for('extraction_review') }}">Rounds 1 and 2 (values that feed calculations)</a>.</p>
     {% elif v.round %}<p>{{ v.round_total }} values in this round. <a href="{{ url_for('extraction_review') }}">Full queue</a>. Status across all {{ v.total }} values: {{ v.counts.matches }} match, {{ v.counts.wrong }} wrong, {{ v.counts.cannot_check }} could not be checked, {{ v.counts.unreviewed }} not reviewed. A round 2 record replaces round 1's decisions for the items it covers.</p>
     {% else %}<p>{{ v.total }} values: <strong>{{ v.counts.unreviewed }}</strong> not yet reviewed, {{ v.counts.matches }} match, {{ v.counts.wrong }} wrong, {{ v.counts.cannot_check }} could not be checked. {{ v.excluded }}</p>
     {% if v.counts.wrong or v.counts.cannot_check or v.counts.unreviewed %}<p><a href="{{ url_for('extraction_review_round_2') }}">Round 2: re-check the values not yet marked as matching</a>.</p>{% endif %}
+    <p><a href="{{ url_for('extraction_review_track_b') }}">Round 3 after the second extraction (Track B): the entries to review</a>.</p>
     <p><a href="{{ url_for('extraction_review_round_3') }}">Round 3: values extracted since 4 November that are shown on pages (label extracts, the FDA kidney and liver guidances, REVLIMID pharmacokinetics and interactions)</a>.</p>{% endif %}
     {% if v.records %}<p>Pinned review records: {% for r in v.records %}{{ r.file }} ({{ r.reviewer }}, {{ r.reviewed_on }}, {{ r.decisions }} decisions, SHA-256 {{ r.sha256[:12] }}…){% if not loop.last %}; {% endif %}{% endfor %}.</p>{% endif %}
     <ol>
@@ -72,7 +75,7 @@
         {% for i in g['items'] %}<tr data-item="{{ i.id }}" data-group="{{ g.id }}">
             <td>{{ i.label }}{% if i.status %}<br><span class="rv-status rv-status-{{ i.status.decision }}">pinned: {{ i.status.decision|replace('_', ' ') }}{% if v.round and i.status.note %} (note: {{ i.status.note }}){% endif %}</span>{% endif %}</td>
             <td class="rv-value{% if i.value is string or i.value is mapping %} rv-text{% endif %}">{% if i.value is string %}{{ i.value }}{% elif i.value is mapping %}{% for k, x in i.value|dictsort if not k.endswith('quote') and k not in ('location', 'check') %}<span class="rv-how"><strong>{{ k|replace('_', ' ') }}:</strong> {{ x|tojson if x is not string else x }}</span>{% endfor %}{% elif i.value is sequence %}[{% for x in i.value %}{{ x }}{% if not loop.last %}, {% endif %}{% endfor %}]{% else %}{{ i.value }}{% endif %}</td>
-            <td>{% if i.where_to_look %}{{ i.where_to_look }}<span class="rv-how"><strong>How stored:</strong> {{ i.how_stored }}</span>{% else %}{{ i.location }}{% endif %}</td>
+            <td>{% if i.where_to_look %}{{ i.where_to_look }}<span class="rv-how"><strong>How stored:</strong> {{ i.how_stored }}</span>{% else %}{{ i.location }}{% endif %}{% if i.second_reading %}{% set s = i.second_reading %}<div class="rv-second"><strong>{{ s.reason_text }}.</strong>{% if s.note %} {{ s.note }}.{% endif %}{% if s.platform_only or s.second_only %} Numbers only in the platform's value: {{ s.platform_only|join(', ') or 'none' }}; only in the second reading: {{ s.second_only|join(', ') or 'none' }}.{% endif %}{% if s.quotes_not_found %} Quote not found in the source: {{ s.quotes_not_found|join(' / ') }}.{% endif %}{% if s.value %}<details><summary>The second reading</summary>{% for k, x in s.value|dictsort %}<span class="rv-how"><strong>{{ k|replace('_', ' ') }}:</strong> {{ x|tojson if x is not string else x }}</span>{% endfor %}</details>{% endif %}</div>{% endif %}</td>
             <td class="rv-choices">{% for d in decisions %}<label><input type="radio" name="{{ i.id }}" value="{{ d }}"> {{ {'matches': 'Matches', 'wrong': 'Wrong', 'cannot_check': "Can't check"}[d] }}</label>{% endfor %}</td>
             <td><input class="rv-note" type="text" aria-label="Note for {{ i.label }}" data-note="{{ i.id }}"></td>
         </tr>{% endfor %}
@@ -84,8 +87,8 @@
 </main>
 <script>
 (function () {
-  var QUEUE = {{ {'sha': v.queue_sha256, 'version': v.queue_version, 'round': v.round|default(0)}|tojson }};
-  var KEY = 'marlo-extraction-review-' + QUEUE.sha.slice(0, 16) + (QUEUE.round ? '-round-' + QUEUE.round : '');
+  var QUEUE = {{ {'sha': v.queue_sha256, 'version': v.queue_version, 'round': v.round|default(0), 'part': 'track-b' if v.track_b else ''}|tojson }};
+  var KEY = 'marlo-extraction-review-' + QUEUE.sha.slice(0, 16) + (QUEUE.round ? '-round-' + QUEUE.round : '') + (QUEUE.part ? '-' + QUEUE.part : '');
   var draft = {};
   try { draft = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { draft = {}; }
   draft.decisions = draft.decisions || {};
@@ -135,7 +138,7 @@
                reviewer: reviewer.value.trim(), reviewed_on: date.value, decisions: draft.decisions};
     var blob = new Blob([JSON.stringify(rec, null, 1) + '\n'], {type: 'application/json'});
     var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = 'extraction_review_' + (QUEUE.round ? 'round' + QUEUE.round + '_' : '') + (date.value || 'undated') + '.json'; document.body.appendChild(a); a.click();
+    a.download = 'extraction_review_' + (QUEUE.round ? 'round' + QUEUE.round + '_' : '') + (QUEUE.part ? 'track_b_' : '') + (date.value || 'undated') + '.json'; document.body.appendChild(a); a.click();
     setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
   });
   update();

@@ -205,6 +205,54 @@ def round_3_view(records=None):
     return view
 
 
+SECOND_READING_REASONS = {
+    'disagree': 'In the list because the two extractions disagree',
+    'not_comparable': 'In the list because it has no numbers to compare: check the whole entry',
+    'sampled_agreement': 'In the list as one of the 20 sampled agreements (seed 20261111)',
+    'out_of_scope': 'In the list because the second reader had no source PDF for it: check the whole entry',
+}
+
+
+def track_b_view(records=None):
+    """Round 3 limited to the entries the owner reviews under the Track B plan (every disagreement, every entry without
+    numbers, the 20 sampled agreements, the 21 out-of-scope entries), each with the second reading beside it.
+
+    Decisions made on this page are ordinary round 3 decisions on the same queue checksum, so a record downloaded here
+    is validated and pinned like any round 3 record. They are the owner's decisions; the second reading only helps."""
+    from .double_extraction import load_plan as load_track_b_plan, load_result
+    plan, result = load_track_b_plan(), load_result()
+    reason = {}
+    for key, ids in (('disagree', result['owner_to_review']['disagreements']),
+                     ('not_comparable', result['owner_to_review']['not_comparable']),
+                     ('sampled_agreement', result['owner_to_review']['sampled_agreements'])):
+        reason.update(dict.fromkeys(ids, key))
+    second = {e['id']: e for e in result['entries']}
+    outside = set(plan['out_of_scope']['groups'])
+    base = round_3_view(records)
+    groups = []
+    for g in base['groups']:
+        items = []
+        for item in g['items']:
+            why = 'out_of_scope' if g['id'] in outside else reason.get(item['id'])
+            if why is None:
+                continue
+            e = second.get(item['id'], {})
+            items.append(dict(item, second_reading={
+                'reason': why, 'reason_text': SECOND_READING_REASONS[why], 'value': e.get('second_reader_value'),
+                'platform_only': e.get('only_first') or [], 'second_only': e.get('only_second') or [],
+                'note': e.get('why', ''), 'quotes_not_found': e.get('missing_quotes') or []}))
+        if items:
+            groups.append(dict(g, items=items, reviewed=sum(1 for i in items if i['status'])))
+    counts = {k: sum(1 for g in groups for i in g['items'] if i['second_reading']['reason'] == k) for k in SECOND_READING_REASONS}
+    view = dict(base, groups=groups, track_b=True, round_total=sum(counts.values()), track_b_counts=counts,
+                round_purpose=(f"Track B ({plan['plan_version']}): the round 3 entries you review after the second, independent "
+                               'extraction. Each shows the platform\'s values, the second reading and why the entry is listed.'),
+                track_b_fail_rule=plan['decision_rule']['fail'])
+    view.pop('view_sha256', None)
+    view['view_sha256'] = digest(view)
+    return view
+
+
 def register_extraction_review_commands(app):
     import click
 

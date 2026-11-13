@@ -78,7 +78,8 @@ def _scenario(plan, name):
     return {'crcl_ml_min': spec.get('crcl_ml_min', primary['crcl_ml_min']), 'ffm_kg': spec.get('ffm_kg', primary['ffm_kg'])}
 
 
-def simulate_scenario(plan, scenario, observed, parameters, omega, trials, seed):
+def simulate_scenario(plan, scenario, observed, parameters, omega, trials, seed, collect=None):
+    """collect (acceptance rule v2): a dict that receives the raw simulated group means; the result is unchanged."""
     p = {k: v['value'] for k, v in parameters.items()}
     l11 = math.sqrt(omega[0][0])
     l21 = omega[0][1] / l11
@@ -104,6 +105,8 @@ def simulate_scenario(plan, scenario, observed, parameters, omega, trials, seed)
                 halves.append(math.log(2) * v / cl)
             auc_means[group].append(math.fsum(aucs) / len(aucs))
             half_means[group].append(math.fsum(halves) / len(halves))
+    if collect is not None:
+        collect['auc_means'] = auc_means
     rows = []
     for group in GROUPS:
         obs = observed[group]

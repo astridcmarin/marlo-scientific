@@ -87,7 +87,8 @@ def _distribution(values):
     return {'min': ordered[0], 'median': _summary(ordered)['p50'], 'max': ordered[-1]}
 
 
-def simulate_scenario(plan, settings, observed, extract, trials, seed):
+def simulate_scenario(plan, settings, observed, extract, trials, seed, collect=None):
+    """collect (acceptance rule v2): a dict that receives the raw simulated group means; the result is unchanged."""
     dose = plan['virtual_trial']['dose_mg']
     ranges = extract['study_population']['ranges_table1']
     omega_sd = {'cl': extract['random_effects']['reported']['cl_pct_cv'] / 100.0,
@@ -108,6 +109,8 @@ def simulate_scenario(plan, settings, observed, extract, trials, seed):
                     covariates[group][key].append(subject[key])
             auc_means[group].append(math.fsum(aucs) / len(aucs))
             half_means[group].append(math.fsum(halves) / len(halves))
+    if collect is not None:
+        collect['auc_means'] = auc_means
     rows = []
     for group in GROUPS:
         obs = observed[group]

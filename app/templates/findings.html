@@ -45,6 +45,7 @@
         <li>
             <div class="fd-head"><span class="fd-q">{{ r.question }}</span><span class="status status-{{ cls[r.tone] }}" title="{{ r.outcome_label }}">{{ r.outcome|replace('_', ' ')|capitalize }}</span></div>
             <p style="margin:0">{{ r.headline }}</p>
+            {% if r.acceptance_rule %}<p class="fd-meta">Judged by: {{ r.acceptance_rule }}</p>{% endif %}
             <p class="fd-meta"><span class="fd-blind">{{ r.blindness_label }}</span> · Step {{ r.step }} · {{ r.date }} · <a href="{{ url_for('model_report', name=r.report_name) }}">{{ r.report_name }}</a></p>
         </li>
     {% endfor %}

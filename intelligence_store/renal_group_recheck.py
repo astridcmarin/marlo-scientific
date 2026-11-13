@@ -101,13 +101,15 @@ def _dist(values):
     return {'min': s[0], 'median': _summary(s)['p50'], 'max': s[-1]}
 
 
-def simulate(plan, scenario, models, demo, observed, trials, seed):
+def simulate(plan, scenario, models, demo, observed, trials, seed, collect=None, hughes_parameters=None, kim_extract=None):
+    """collect, hughes_parameters, kim_extract (acceptance rule v2): receive the raw group means, and replace the pinned
+    parameter values with drawn ones; with the defaults the result is unchanged."""
     rng = random.Random(seed)
     dose = plan['virtual_trial']['dose_mg']
-    hp = {k: v['value'] for k, v in load_parameter_extract()['parameters'].items()}
+    hp = {k: v['value'] for k, v in (hughes_parameters or load_parameter_extract()['parameters']).items()}
     om = load_variability_extract()['random_effects']['omega_matrix']
     l11 = math.sqrt(om[0][0]); l21 = om[0][1] / l11; l22 = math.sqrt(om[1][1] - l21 ** 2)
-    kx = load_extract()
+    kx = kim_extract or load_extract()
     ksd = {'cl': kx['random_effects']['reported']['cl_pct_cv'] / 100.0}
     ranges = kx['study_population']['ranges_table1']
     cl_form = 'exponential' if scenario == 'sensitivity_kim_exponential' else 'linear_multiplicative'
@@ -124,6 +126,8 @@ def simulate(plan, scenario, models, demo, observed, trials, seed):
                     for k, v in c.items():
                         cov[m][g].setdefault(k, []).append(v)
                 means[m][g].append(math.fsum(aucs) / len(aucs))
+    if collect is not None:
+        collect['means'] = means
     out = {}
     for m in models:
         rows = []
