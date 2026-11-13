@@ -25,6 +25,8 @@ from .patient_state import digest
 DATA = Path(__file__).parent / 'data'
 PLAN_PATH = DATA / 'eligibility_reference_review_plan_v1.json'
 PLAN_SHA256 = 'df4bdbed36269b9e6bc418494bd41ba56cbaf49fb698b604dc79ede1663f4206'
+DEVIATIONS_PATH = Path(__file__).resolve().parent.parent / 'docs' / 'development' / 'eligibility_reference_review_deviations_v1.json'
+DEVIATIONS_SHA256 = '2acf033e004ba2c7af5ed40ed0330c82c6dd7aa498bcb8dc240f110b5c0756a6'
 DECISIONS = ('annotation_stands', 'annotation_needs_correcting', 'trial_unclear')
 OK = ('tp', 'tn')
 
@@ -151,7 +153,30 @@ def _same(ctype, a, b):
         sorted((x['comparator'], str(x['value']), x['unit']) for x in b['values'])
 
 
-def sensitivity(record, v=None):
+def unblinded_items():
+    """Pairs seen with the answers before their blind reading (recorded deviation, 13 November 2026)."""
+    raw = DEVIATIONS_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != DEVIATIONS_SHA256:
+        raise ValueError('The deviation record is missing or changed.')
+    return tuple(json.loads(raw)['items_seen_unblinded'])
+
+
+def report(record, v=None):
+    """The result as the deviation record fixes it: the analysis with all decisions, and with the unblinded items' decisions set aside."""
+    v = v or view()
+    skip = set(unblinded_items())
+    kept = json.loads(json.dumps(record))
+    for k in skip & set(kept.get('items', {})):
+        kept['items'][k]['decision'] = None
+    out = {'deviation': {'file': 'docs/development/eligibility_reference_review_deviations_v1.json', 'sha256': DEVIATIONS_SHA256,
+                         'items_seen_unblinded': sorted(skip)},
+           'all_decisions': sensitivity(record, v, not_blind=skip),
+           'without_unblinded_items': sensitivity(kept, v, not_blind=skip)}
+    out['report_sha256'] = digest(out)
+    return out
+
+
+def sensitivity(record, v=None, not_blind=()):
     """The plan's post hoc corrected-reference sensitivity analysis. Raises if the record is invalid."""
     v = v or view()
     problems, parsed = validate_record(record, v)
@@ -190,7 +215,7 @@ def sensitivity(record, v=None):
                     transitions.append({'analysis': name, 'extractor': ex, 'type': t, 'from': before, 'to': after})
     reproducibility = {}
     for g in ('shared', 'control'):
-        ids = [k for k in parsed if by_id[k]['group'] == g]
+        ids = [k for k in parsed if by_id[k]['group'] == g and k not in not_blind]
         same = sum(1 for k in ids if _same(by_id[k]['type'], parsed[k], annotations[k.split(':')[0]]['criteria'][by_id[k]['type']]))
         reproducibility[g] = {'blind_reading_equals_original': same, 'of': len(ids)}
     rate = {g: {'corrections': sum(1 for c in corrections if c['group'] == g), 'unclear': sum(1 for u in unclear if u['group'] == g),

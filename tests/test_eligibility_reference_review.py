@@ -111,6 +111,22 @@ class Review(unittest.TestCase):
         self.assertFalse(rep['clinical_prediction_validated'])
         self.assertEqual(set(rep['analyses']), {'original_primary', 'corrected_unclear_kept', 'corrected_unclear_excluded'})
 
+    def test_deviation_handling(self):
+        skip = rr.unblinded_items()
+        self.assertEqual(len(skip), 5)
+        self.assertTrue(all(k in self.by_id and self.by_id[k]['group'] == 'shared' for k in skip))
+        item = self.by_id[skip[0]]
+        t = item['type']
+        record = {'view_sha256': self.v['view_sha256'], 'items': {
+            item['id']: {'reading': {f'{t}__status': 'not_stated'}, 'locked_at': '2026-11-14T10:00:00Z',
+                         'decision': 'annotation_needs_correcting', 'decided_at': '2026-11-14T10:01:00Z', 'note': 'synthetic dry run'}}}
+        out = rr.report(record, self.v)
+        self.assertEqual(out['all_decisions']['correction_rates']['shared']['corrections'], 1)
+        self.assertEqual(out['without_unblinded_items']['correction_rates']['shared']['corrections'], 0)
+        self.assertEqual(out['all_decisions']['blind_reading_reproducibility']['shared']['of'], 0)
+        self.assertEqual(out['without_unblinded_items']['analyses']['corrected_unclear_kept'],
+                         out['without_unblinded_items']['analyses']['original_primary'])
+
 
 if __name__ == '__main__':
     unittest.main()
