@@ -10,8 +10,10 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v7.json'
-LEDGER_SHA256 = '90a8eece3161a3bac678aaaf22b97b5d59aa73c58e983ad758c81e64c22c9230'
+LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v8.json'
+LEDGER_SHA256 = '4f10d2d3879b5819bb468a7dba50ba75c210cd95e8d8456e4114884d31f448f8'
+# Superseded, kept unchanged for traceability: dataset_ledger_v7.json
+LEDGER_V7_SHA256 = '90a8eece3161a3bac678aaaf22b97b5d59aa73c58e983ad758c81e64c22c9230'
 # Superseded, kept unchanged for traceability: dataset_ledger_v6.json
 LEDGER_V6_SHA256 = '369f47a18a1431bfe5a50a6523d58832783aee2912a6a5f7daf22ffe2d3e06af'
 # Superseded, kept unchanged for traceability: dataset_ledger_v5.json
@@ -61,11 +63,25 @@ def model_uses(model, ledger=None):
     return [u for u in ledger['uses'] if u['model'] == model]
 
 
+def _reserved_before_seen(model, dataset_id, ledger):
+    """True when the model holds a reserved_for_blind_check use of the dataset whose plan was recorded on or before the
+    day the dataset's values were first seen (12 November 2026: the eligibility v2 sample was scored for extractor v1.1
+    after the Track C plan and prompt were locked). The same date test the completed blind checks must pass."""
+    from datetime import date
+    seen = ledger['datasets'][dataset_id]['values_first_seen']
+    for u in model_uses(model, ledger):
+        if u['dataset'] == dataset_id and u['role'] == 'reserved_for_blind_check' and u.get('plan'):
+            plan = json.loads((Path(__file__).resolve().parent.parent / u['plan']).read_text())
+            if date.fromisoformat(plan['recorded_on']) <= date.fromisoformat(seen):
+                return True
+    return False
+
+
 def blind_check_problems(model, dataset_id, ledger=None):
     """Reasons a blind check of `model` against `dataset_id` is not possible; empty if it is."""
     ledger = ledger or load_ledger()
     problems = []
-    if is_seen(dataset_id, ledger):
+    if is_seen(dataset_id, ledger) and not _reserved_before_seen(model, dataset_id, ledger):
         d = ledger['datasets'][dataset_id]
         problems.append(f"{dataset_id} values were first seen on {d['values_first_seen']}: {d['seen_note']}")
     for u in model_uses(model, ledger):

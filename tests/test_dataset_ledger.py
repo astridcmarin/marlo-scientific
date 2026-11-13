@@ -42,7 +42,8 @@ class Ledger(unittest.TestCase):
         self.assertEqual(blind, {('lenalidomide_hughes_2019', 'bridoux_2016', 'checked_blind_with_deviation'),
                                  ('lenalidomide_kim_2026', 'bridoux_2016', 'checked_blind_with_deviation'),
                                  ('label_exposure_dexamethasone', 'neofordex_epar_studies', 'checked_blind'),
-                                 ('eligibility_extractor_v1', 'eligibility_v1_sample', 'checked_blind')})
+                                 ('eligibility_extractor_v1', 'eligibility_v1_sample', 'checked_blind'),
+                                 ('eligibility_extractor_v1_1', 'eligibility_v2_sample', 'checked_blind')})
 
     def test_reports_that_say_not_blind_are_not_listed_as_blind(self):
         for u in self.ledger['uses']:
@@ -57,9 +58,13 @@ class Gate(unittest.TestCase):
             with self.assertRaises(dl.LedgerError):
                 dl.assert_blind_allowed('lenalidomide_renal_pathways_2026', did)
 
-    def test_unseen_reserved_sample_is_allowed(self):
-        self.assertEqual(dl.blind_check_problems('eligibility_extractor_v1_1', 'eligibility_v2_sample'), [])
-        self.assertIn('eligibility_v2_sample', dl.summary()['unseen_datasets'])
+    def test_reserved_before_the_values_were_seen_is_allowed(self):
+        # The v2 sample was seen on 12 November (extractor v1.1 scored); the Track C plan was locked on 11 November.
+        self.assertEqual(dl.blind_check_problems('eligibility_extractor_llm_c1', 'eligibility_v2_sample'), [])
+        self.assertNotIn('eligibility_v2_sample', dl.summary()['unseen_datasets'])
+        # A model with no such reservation is refused.
+        with self.assertRaises(dl.LedgerError):
+            dl.assert_blind_allowed('eligibility_extractor_v2_future', 'eligibility_v2_sample')
 
     def test_unknown_dataset_must_be_added_first(self):
         with self.assertRaises(dl.LedgerError):
@@ -129,13 +134,20 @@ class Gate(unittest.TestCase):
 
     def test_v7_adds_four_acceptance_rule_v2_uses(self):
         v6 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v6.json'), dl.LEDGER_V6_SHA256)
-        v7 = dl.load_ledger()
+        v7 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v7.json'), dl.LEDGER_V7_SHA256)
         self.assertEqual(v7['datasets'], v6['datasets'])
         self.assertEqual(v7['uses'][:len(v6['uses'])], v6['uses'])
         added = v7['uses'][len(v6['uses']):]
         self.assertEqual({(u['model'], u['dataset'], u['role']) for u in added},
                          {(m, d, 'checked_not_blind') for m in ('lenalidomide_hughes_2019', 'lenalidomide_kim_2026')
                           for d in ('cc5013_pk001', 'bridoux_2016')})
+
+    def test_v8_records_the_blind_eligibility_v2_check(self):
+        v8 = dl.load_ledger()
+        use = next(u for u in v8['uses'] if (u['model'], u['dataset']) == ('eligibility_extractor_v1_1', 'eligibility_v2_sample'))
+        self.assertEqual((use['role'], use['report']), ('checked_blind', 'docs/verification/eligibility_validation_v2.json'))
+        llm = next(u for u in v8['uses'] if (u['model'], u['dataset']) == ('eligibility_extractor_llm_c1', 'eligibility_v2_sample'))
+        self.assertEqual(llm['role'], 'reserved_for_blind_check')
 
     def test_changed_ledger_is_refused(self):
         with self.assertRaises(dl.LedgerError):

@@ -108,4 +108,4 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
 
 ## Protocol benchmarking (not a drug)
 
-- **Checked:** extractor v1 failed its blind accuracy check *(finding: eligibility_v1)*. Extractor v2 waits for the owner's annotation of 200 unseen trials.
+- **Checked:** extractor v1 failed its blind accuracy check *(finding: eligibility_v1)*. Extractor v1.1 also failed, on 200 new trials annotated blind and self-reviewed by the owner: no type passes; ECOG comes closest (precision 0.88, recall 0.89) and kidney function, creatinine and the liver tests are furthest off *(finding: eligibility_v2)*. The language-model extractor (Track C) is next, on the same 200 trials.

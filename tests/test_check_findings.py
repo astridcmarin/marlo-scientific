@@ -19,14 +19,14 @@ class Findings(unittest.TestCase):
 
     def test_failures_are_listed(self):
         failed = {r['id'] for r in self.rows if r['outcome'] == 'failed'}
-        self.assertEqual(failed, {'kuan', 'falling_clearance', 'iwasaki', 'melphalan_label', 'eligibility_v1'})
+        self.assertEqual(failed, {'kuan', 'falling_clearance', 'iwasaki', 'melphalan_label', 'eligibility_v1', 'eligibility_v2'})
         self.assertGreaterEqual(self.view['counts']['gap'], 9)
 
     def test_blindness_comes_from_the_ledger(self):
         blind = {r['id']: r['blindness'] for r in self.rows if r['blind']}
         self.assertEqual(blind, {'bridoux_hughes_kim': 'checked_blind_with_deviation', 'dexamethasone_outside': 'checked_blind',
-                                 'eligibility_v1': 'checked_blind'})
-        self.assertEqual(self.view['blind'], 3)
+                                 'eligibility_v1': 'checked_blind', 'eligibility_v2': 'checked_blind'})
+        self.assertEqual(self.view['blind'], 4)
 
     def test_outcomes_match_recorded_decisions(self):
         """Spot checks against the reports' own decision fields."""

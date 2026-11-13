@@ -1,0 +1,461 @@
+{
+ "schema_version": "check-findings-v1",
+ "findings_version": "check-findings-v5.0",
+ "recorded_on": "2026-11-12",
+ "purpose": "Every locked check on the platform in one line each, including those that failed. Written from the check reports and the scorecard summaries; nothing is computed here.",
+ "outcomes": {
+  "consistent": "Consistent with the comparison data",
+  "passed": "Passed its own consistency rule",
+  "mixed": "Some comparisons consistent, others not",
+  "disagrees": "The comparison data disagree with the model",
+  "failed": "Candidate or tool rejected under its plan",
+  "not_adopted": "Partly consistent; not adopted under the plan's rule",
+  "inconclusive": "Cannot be decided from the data available"
+ },
+ "findings": [
+  {
+   "id": "hughes_cc5013",
+   "step": "2.0g",
+   "date": "2026-10-13",
+   "area": "Lenalidomide: kidney function",
+   "subjects": [
+    "lenalidomide_hughes_2019"
+   ],
+   "question": "Does Hughes 2019 predict how exposure rises with kidney impairment (CC-5013-PK-001)?",
+   "outcome": "disagrees",
+   "headline": "Mild consistent; moderate and severe exposure under-predicted.",
+   "report": "docs/verification/hughes_renal_group_check_v1.json",
+   "report_file_sha256": "70cae05e8dca498bc3e9774177dd4fc406c9508f419ad1f8a64be80c84c0c159",
+   "acceptance_rule": "Simulated percentile: observed inside the 5th-95th percentile of simulated group values (between-subject variability only). Re-judged under acceptance rule v2 (12 November)."
+  },
+  {
+   "id": "kim_cc5013",
+   "step": "2.1c",
+   "date": "2026-10-14",
+   "area": "Lenalidomide: kidney function",
+   "subjects": [
+    "lenalidomide_kim_2026"
+   ],
+   "question": "Does Kim 2026 predict how exposure rises with kidney impairment (CC-5013-PK-001)?",
+   "outcome": "mixed",
+   "headline": "Mild and moderate consistent; severe under-predicted in the primary scenario.",
+   "report": "docs/verification/kim_renal_group_check_v1.json",
+   "report_file_sha256": "e53f62db6506346a3d5027388b0c9165de51b8fab0c5f9efc1ad7b29d34da4bb",
+   "acceptance_rule": "Simulated percentile: observed inside the 5th-95th percentile of simulated group values (between-subject variability only). Re-judged under acceptance rule v2 (12 November)."
+  },
+  {
+   "id": "renal_recheck",
+   "step": "2.1e",
+   "date": "2026-10-31",
+   "area": "Lenalidomide: kidney function",
+   "subjects": [
+    "lenalidomide_hughes_2019",
+    "lenalidomide_kim_2026"
+   ],
+   "question": "Do the first two results hold with virtual subjects matched to the study?",
+   "outcome": "disagrees",
+   "headline": "Hughes unchanged; Kim's consistent moderate result disappears. Both under-predict moderate and severe.",
+   "report": "docs/verification/lenalidomide_renal_recheck_v1.json",
+   "report_file_sha256": "c98e29919cd9e90981439a37d03883a8cfd834f397b8c0383e723b1f923e2991",
+   "acceptance_rule": "Simulated percentile: observed inside the 5th-95th percentile of simulated group values (between-subject variability only). Re-judged under acceptance rule v2 (12 November)."
+  },
+  {
+   "id": "bridoux_hughes_kim",
+   "step": "2.1h",
+   "date": "2026-11-04",
+   "area": "Lenalidomide: kidney function",
+   "subjects": [
+    "lenalidomide_hughes_2019",
+    "lenalidomide_kim_2026"
+   ],
+   "question": "Do Hughes and Kim hold in myeloma patients (Bridoux 2016)?",
+   "outcome": "disagrees",
+   "headline": "Both under-predict moderate and severe again, so the non-cancer population of CC-5013-PK-001 does not explain the gap.",
+   "report": "docs/verification/lenalidomide_bridoux_check_v1.json",
+   "report_file_sha256": "febf0e3b6ea090dd44172bc44b4cedf30e820b2227a07cea4ea7eed4fa3daccb",
+   "acceptance_rule": "Simulated percentile: observed inside the 5th-95th percentile of simulated group values (between-subject variability only). Re-judged under acceptance rule v2 (12 November)."
+  },
+  {
+   "id": "pathways_2_0a",
+   "step": "2.0a",
+   "date": "2026-10-16",
+   "area": "Lenalidomide: kidney function",
+   "subjects": [
+    "lenalidomide_renal_pathways_2026"
+   ],
+   "question": "Does the elimination-pathway model, calibrated on normal kidney function, predict the impaired groups of the same study?",
+   "outcome": "mixed",
+   "headline": "Secretion-preserved reading rejected. Intact-nephron reading consistent in mild, in severe in the primary scenario only, and under-predicts moderate (0.79 of observed AUC); the moderate result assumes all of the dose is absorbed.",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v1.json",
+   "report_file_sha256": "163b5ca1a95a7f3d745c8e25a93ef58d4bedd0e1e48d6e4bfdfb4a25457a93d5",
+   "acceptance_rule": "Confidence interval: model value inside the 95% CI of the observed mean (t, n-1)."
+  },
+  {
+   "id": "pathways_esrd",
+   "step": "2.0c",
+   "date": "2026-10-16",
+   "area": "Lenalidomide: kidney function",
+   "subjects": [
+    "lenalidomide_renal_pathways_2026"
+   ],
+   "question": "Does it extend to end-stage kidney disease on non-dialysis days?",
+   "outcome": "inconclusive",
+   "headline": "Over-predicts 1.31-fold with no residual function, consistent at 5-10 mL/min; residual function of the subjects not reported.",
+   "report": "docs/verification/lenalidomide_esrd_dialysis_check_v1.json",
+   "report_file_sha256": "f82caa14d665e4f3d4aeefffef6030da7f3cbd5ced495e0e342bcc86108eed52",
+   "acceptance_rule": "Confidence interval: model value inside the 95% CI of the observed mean (t, n-1). At residual CrCl 0, 5 and 10 mL/min."
+  },
+  {
+   "id": "pathways_2_0d",
+   "step": "2.0d",
+   "date": "2026-11-04",
+   "area": "Lenalidomide: kidney function",
+   "subjects": [
+    "lenalidomide_renal_pathways_2026",
+    "lenalidomide_renal_pathways_v2_candidate"
+   ],
+   "question": "Does a model in which secretion falls faster than filtration fit better?",
+   "outcome": "not_adopted",
+   "headline": "Three of four deciding comparisons consistent, so not adopted. The current model is consistent with both myeloma studies in moderate and severe impairment in the main scenario (Kim severe too high in 2 of 3 sensitivity scenarios) and predicts too much exposure in Bridoux's normal and mild groups.",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v2.json",
+   "report_file_sha256": "277108de99726588a04c11468e7004f93068d6fa0ca3372ae5c564dbe756dbdd",
+   "acceptance_rule": "Confidence interval: model value inside the 90% CI of the observed geometric mean (Bridoux) or mean (Kim), t, n-1."
+  },
+  {
+   "id": "time_course_v1",
+   "step": "1.1d",
+   "date": "2026-11-04",
+   "area": "Lenalidomide: body map",
+   "subjects": [
+    "lenalidomide_body_map_time_course"
+   ],
+   "question": "Does the body map's one-compartment time course reproduce peaks and half-lives?",
+   "outcome": "mixed",
+   "headline": "Peak under-predicted in every group, including normal (367 vs 568 ng/mL); half-life consistent in moderate and severe.",
+   "report": "docs/verification/lenalidomide_body_map_time_course_check_v1.json",
+   "report_file_sha256": "c5b98b878bdb206e2ed46d8ea203a8950f3a8ac06e3a87372dd5c92d6cb4aaf7",
+   "acceptance_rule": "Confidence interval: model value inside the 90% CI of the observed geometric mean (t, n-1)."
+  },
+  {
+   "id": "time_course_v2",
+   "step": "1.1d v2",
+   "date": "2026-11-04",
+   "area": "Lenalidomide: body map",
+   "subjects": [
+    "lenalidomide_body_map_time_course"
+   ],
+   "question": "Does a two-compartment version, nothing fitted, do better?",
+   "outcome": "not_adopted",
+   "headline": "Peak consistent in 2 of 4 groups (3 needed) and the moderate half-life got worse, so the body map keeps version 1.",
+   "report": "docs/verification/lenalidomide_body_map_time_course_check_v2.json",
+   "report_file_sha256": "3b43f07bc46d373b911ae8b8d902c141a8b66fcec0e096be3ee46fca2a0f2c9f",
+   "acceptance_rule": "Confidence interval: model value inside the 90% CI of the observed geometric mean (t, n-1)."
+  },
+  {
+   "id": "ogawa",
+   "step": "3.0f",
+   "date": "2026-10-16",
+   "area": "Bortezomib: exposure",
+   "subjects": [
+    "bortezomib_pk_lignet_2022"
+   ],
+   "question": "Does the constant-clearance bortezomib model match Ogawa 2008 on days 1 and 11?",
+   "outcome": "disagrees",
+   "headline": "Day 1 exposure 2.9-fold too high; the rise from day 1 to day 11 is 1.9-fold against 5.1-fold observed.",
+   "report": "docs/verification/bortezomib_pk_ogawa_check_v1.json",
+   "report_file_sha256": "d0d5f464c954d83cca4767af674afc7d8c2ca372d32606f8a2885f6ae418a85d",
+   "acceptance_rule": "Confidence interval: model value inside the 95% CI of the observed mean (t, n-1)."
+  },
+  {
+   "id": "kuan",
+   "step": "3.0g",
+   "date": "2026-10-19",
+   "area": "Bortezomib: exposure",
+   "subjects": [
+    "bortezomib_pk_kuan_2012_candidate"
+   ],
+   "question": "Does the Kuan 2012 model fix the day 1 to day 11 rise?",
+   "outcome": "failed",
+   "headline": "No: under neither reading of its saturable term does it reproduce the rise; candidate rejected.",
+   "report": "docs/verification/bortezomib_pk_kuan_check_v1.json",
+   "report_file_sha256": "a4f4433921faaf155c10168967d2dda4ea870817a98bc3b2cebc1154d03892d7",
+   "acceptance_rule": "Confidence interval: model value inside the 95% CI of the observed mean (t, n-1)."
+  },
+  {
+   "id": "can1004",
+   "step": "3.0h",
+   "date": "2026-10-20",
+   "area": "Bortezomib: exposure",
+   "subjects": [
+    "bortezomib_pk_lignet_2022"
+   ],
+   "question": "Does the model match a second study (CAN-1004, 72 h sampling)?",
+   "outcome": "disagrees",
+   "headline": "Day 1 consistent; day 11 under-predicted (127 vs 241 ng.h/mL). Both studies show a larger rise than a constant clearance allows.",
+   "report": "docs/verification/bortezomib_pk_can1004_check_v1.json",
+   "report_file_sha256": "fc9f61cc67c79b4a798935bf5112ed9c28c4d7c4056fb4f8f36ea8e73df8b408",
+   "acceptance_rule": "Confidence interval: model value inside the 95% CI of the observed mean (t, n-1)."
+  },
+  {
+   "id": "falling_clearance",
+   "step": "3.0i",
+   "date": "2026-10-20",
+   "area": "Bortezomib: exposure",
+   "subjects": [
+    "bortezomib_pk_falling_clearance_candidate"
+   ],
+   "question": "Can an empirical clearance that falls over repeated doses explain the rise?",
+   "outcome": "failed",
+   "headline": "Neither one-parameter form reached the CAN-1004 day 11 exposure, so neither was tested on Ogawa; candidates rejected.",
+   "report": "docs/verification/bortezomib_pk_falling_clearance_v1.json",
+   "report_file_sha256": "d3fb4383df9c5d80923796e10139f9b0d17f1cde3d3cdc7e4469b5e373b22fbc",
+   "acceptance_rule": "Confidence interval: model value inside the 95% CI of the observed mean (t, n-1)."
+  },
+  {
+   "id": "iwasaki",
+   "step": "3.0k",
+   "date": "2026-10-29",
+   "area": "Bortezomib: exposure",
+   "subjects": [
+    "bortezomib_pbpk_iwasaki_2020_candidate"
+   ],
+   "question": "Does the Iwasaki 2020 target-binding PBPK model explain the rise?",
+   "outcome": "failed",
+   "headline": "No: day 1 over-predicted (107 vs 46.5 ng.h/mL), day 11/day 1 ratio 2.0 vs 5.1; it behaves like constant clearance. Candidate rejected.",
+   "report": "docs/verification/bortezomib_pbpk_iwasaki_check_v1.json",
+   "report_file_sha256": "00fbad4484f81586d9cc1d474a2f95ae59140cd8baaef73a2bf71b61b4c5a504",
+   "acceptance_rule": "Confidence interval: model value inside the 95% CI of the observed mean (t, n-1)."
+  },
+  {
+   "id": "mmy3021",
+   "step": "3.0m",
+   "date": "2026-10-31",
+   "area": "Bortezomib: exposure",
+   "subjects": [
+    "bortezomib_pk_lignet_2022"
+   ],
+   "question": "Does the model match a third study (MMY-3021, day 11)?",
+   "outcome": "mixed",
+   "headline": "Day 11 exposure consistent only at the edge and not robust; peak under-predicted (111 vs 223 ng/mL).",
+   "report": "docs/verification/bortezomib_pk_mmy3021_check_v1.json",
+   "report_file_sha256": "2241a18dcf7ca7ca85b8a3805e5719417c6111d7b0edcd42a6c9b3babeafae15",
+   "acceptance_rule": "Confidence interval: model value inside the 95% CI of the observed mean (t, n-1)."
+  },
+  {
+   "id": "reece",
+   "step": "3.0n",
+   "date": "2026-10-31",
+   "area": "Bortezomib: exposure",
+   "subjects": [
+    "bortezomib_pk_lignet_2022"
+   ],
+   "question": "Does the model reproduce Reece 2011, the study its source compared it with?",
+   "outcome": "disagrees",
+   "headline": "Not reproduced: day 1 exposure about 2-fold too high at both doses; rise to day 11 1.5-fold against 2.4-3.1.",
+   "report": "docs/verification/bortezomib_pk_reece_reproduction_v1.json",
+   "report_file_sha256": "cc6f085a75990a33a71ed4f8e4be7c6b30e340c6171bdbd6e57d158e592f24e2",
+   "acceptance_rule": "Confidence interval: model value inside the 95% CI of the observed mean (t, n-1)."
+  },
+  {
+   "id": "platelets",
+   "step": "3.0c",
+   "date": "2026-10-14",
+   "area": "Bortezomib: platelets",
+   "subjects": [
+    "bortezomib_platelets_lignet_2022"
+   ],
+   "question": "Does the platelet model reproduce its own fitting data?",
+   "outcome": "mixed",
+   "headline": "Consistent with the cycle 1 day 11 fall only with concentrations in ng/mL and the effect term as printed.",
+   "report": "docs/verification/bortezomib_platelet_check_v1.json",
+   "report_file_sha256": "1fc74f8757364d0befe15bf9dad2d54e817398ad056b5f4f13091a9021ab5e9f",
+   "acceptance_rule": "Interval: primary ratio inside the plan's stated interval (0.58-0.72), numerically resolved."
+  },
+  {
+   "id": "ixazomib",
+   "step": "3.2a",
+   "date": "2026-10-30",
+   "area": "Ixazomib: exposure",
+   "subjects": [
+    "ixazomib_pk_gupta_2017"
+   ],
+   "question": "Does Gupta 2017 match the dedicated renal and hepatic impairment studies?",
+   "outcome": "mixed",
+   "headline": "Myeloma with normal kidney function consistent; solid-tumour and hepatic groups under-predicted about 1.4-fold; peaks 2-4-fold low, so only AUC is shown.",
+   "report": "docs/verification/ixazomib_pk_gupta_check_v1.json",
+   "report_file_sha256": "087966b6535d0082c5acf7e7f018eca258b74037a671a3febabae5c523f80506",
+   "acceptance_rule": "Simulated percentile: observed inside the 5th-95th percentile of simulated group values (between-subject variability only)."
+  },
+  {
+   "id": "daratumumab_v1",
+   "step": "3.2b",
+   "date": "2026-10-30",
+   "area": "Daratumumab: exposure",
+   "subjects": [
+    "daratumumab_pk_luo_2021"
+   ],
+   "question": "Does Luo 2021 match GEN501 and SIRIUS first-dose data?",
+   "outcome": "mixed",
+   "headline": "Peaks and 8 mg/kg AUC consistent; first-week AUC at 16 mg/kg over-predicted (observed 0.87 of model).",
+   "report": "docs/verification/daratumumab_pk_luo_check_v1.json",
+   "report_file_sha256": "89c8310ea73ab5388553a125ba8389630f047d555019124985000b22632b0a26",
+   "acceptance_rule": "Simulated percentile: observed inside the 5th-95th percentile of simulated group values (between-subject variability only)."
+  },
+  {
+   "id": "daratumumab_v2",
+   "step": "3.2c",
+   "date": "2026-10-30",
+   "area": "Daratumumab: exposure",
+   "subjects": [
+    "daratumumab_pk_luo_2021"
+   ],
+   "question": "Does the result hold with each study's own demographics?",
+   "outcome": "mixed",
+   "headline": "The 16 mg/kg over-prediction widens (0.83); the albumin effect predicts the two studies in the opposite order.",
+   "report": "docs/verification/daratumumab_pk_luo_check_v2.json",
+   "report_file_sha256": "40862b42fb00d8095653c39c601955eff7141b98d6119eb0d1b3ee9ab342d028",
+   "acceptance_rule": "Simulated percentile: observed inside the 5th-95th percentile of simulated group values (between-subject variability only)."
+  },
+  {
+   "id": "pomalidomide_label",
+   "step": "3.1c",
+   "date": "2026-10-20",
+   "area": "Label-based curves",
+   "subjects": [
+    "label_exposure_pomalidomide"
+   ],
+   "question": "Can a curve built from the POMALYST label reproduce the label's own exposure?",
+   "outcome": "passed",
+   "headline": "The myeloma-only parameter set passes (Cmax 71.6 vs 75 ng/mL); the label's pooled clearance and volume ranges would predict about half and fail.",
+   "report": "docs/verification/label_exposure_pomalidomide_consistency_v1.json",
+   "report_file_sha256": "f5b91ce96404f0fc9f39eb83c531f7fef8e6385e0cdb00211cb7c31de5288711",
+   "acceptance_rule": "Tolerance: model / label value within 0.67 to 1.5."
+  },
+  {
+   "id": "pomalidomide_li",
+   "step": "3.1d",
+   "date": "2026-10-20",
+   "area": "Label-based curves",
+   "subjects": [
+    "label_exposure_pomalidomide"
+   ],
+   "question": "Is the label curve consistent with the Li 2017 population model?",
+   "outcome": "consistent",
+   "headline": "Consistent (AUC 860 vs Li 780; dialysis fold 1.38 in both). Model to model, not observed data.",
+   "report": "docs/verification/label_exposure_pomalidomide_li_check_v1.json",
+   "report_file_sha256": "3439bf93699061f31fc6a962410126e2d29825149fe0c51b3deb5af58e674129",
+   "acceptance_rule": "Tolerance, model to model: each ratio within 0.8 to 1.25."
+  },
+  {
+   "id": "melphalan_label",
+   "step": "3.1f",
+   "date": "2026-10-20",
+   "area": "Label-based curves",
+   "subjects": [
+    "label_exposure_melphalan"
+   ],
+   "question": "Can a one-compartment curve from the EVOMELA label reproduce its exposure?",
+   "outcome": "failed",
+   "headline": "Not eligible: peak under-predicted (3.64 vs 5.8 ug/mL), and the label's clearance and volume imply a 197-minute half-life against the stated 75.",
+   "report": "docs/verification/label_exposure_melphalan_consistency_v1.json",
+   "report_file_sha256": "fddfccef97de0988b569b335540677fbf543cc496afdb0e9d24bcc6cb155ecce",
+   "acceptance_rule": "Tolerance: model / label value within 0.67 to 1.5."
+  },
+  {
+   "id": "dexamethasone_label",
+   "step": "3.1f",
+   "date": "2026-10-21",
+   "area": "Label-based curves",
+   "subjects": [
+    "label_exposure_dexamethasone"
+   ],
+   "question": "Can a curve from the HEMADY label reproduce its exposure?",
+   "outcome": "passed",
+   "headline": "Passes: clearance and AUC within 1%; peak 186 vs 247 ng/mL (ratio 0.75), within the plan's limits.",
+   "report": "docs/verification/label_exposure_dexamethasone_consistency_v1.json",
+   "report_file_sha256": "7fe9506f01e07568ba161ab25a67ef65196c5190e3f7f1f5bb5a2f1b97620a14",
+   "acceptance_rule": "Tolerance: model / label value within 0.67 to 1.5."
+  },
+  {
+   "id": "dexamethasone_outside",
+   "step": "3.1g",
+   "date": "2026-10-21",
+   "area": "Label-based curves",
+   "subjects": [
+    "label_exposure_dexamethasone"
+   ],
+   "question": "Is the dexamethasone curve consistent with the NEOFORDEX studies?",
+   "outcome": "consistent",
+   "headline": "Consistent on the primary endpoint and both AUCs; patients' apparent clearance was lower than the label's, a caveat shown with the curve.",
+   "report": "docs/verification/label_exposure_dexamethasone_outside_check_v1.json",
+   "report_file_sha256": "931d8ee532deda19ee242e9a13658cad156e73aae598a8f32008a81a13e84add",
+   "acceptance_rule": "Confidence interval: model value inside the 95% CI of the observed mean (t, n-1). Geometric mean and CV converted on the log scale where reported that way."
+  },
+  {
+   "id": "eligibility_v1",
+   "step": "4.1e",
+   "date": "2026-10-28",
+   "area": "Protocol benchmarking",
+   "subjects": [
+    "eligibility_extractor_v1"
+   ],
+   "question": "Does the rule-based eligibility extractor meet its accuracy thresholds?",
+   "outcome": "failed",
+   "headline": "All eight criterion types failed (precision 0.73-0.83, recall 0.64-0.80); version 2 was planned with a new 200-trial sample.",
+   "report": "docs/verification/eligibility_validation_v1.json",
+   "report_file_sha256": "355d6c2627c02c8d7a78c516b6db6b26d48f4a2909fb121a93f92e260ffe6d00",
+   "acceptance_rule": "Pass rule: precision >= 0.95 (Wilson lower bound >= 0.90) and recall >= 0.85 (lower bound >= 0.75), at least 20 pairs per type."
+  },
+  {
+   "id": "pathways_2_0e",
+   "step": "2.0e",
+   "date": "2026-11-04",
+   "area": "Lenalidomide: kidney function",
+   "subjects": [
+    "lenalidomide_renal_pathways_2026"
+   ],
+   "question": "Does the kidney-pathway result hold across the bioavailability the data allow (90-100% absorbed)?",
+   "outcome": "inconclusive",
+   "headline": "No single bioavailability fits every study. At 90% the source study's moderate group becomes consistent, but its severe group, Bridoux's moderate group and the end-stage prediction fit worse; at 100% the reverse. Both bands are now marked as depending on absorption, and \"faster than proportional\" is not established.",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v3.json",
+   "report_file_sha256": "a60437cc58e174c88b79434a6eee104455995bf64cd0f935f8c39f4877615533",
+   "acceptance_rule": "Confidence interval: model value inside the 95% CI of the observed mean (t, n-1). For CC-5013-PK-001; 90% CIs for Bridoux and Kim as in 2.0d; at each bioavailability."
+  },
+  {
+   "id": "acceptance_rule_v2",
+   "step": "F03",
+   "date": "2026-11-12",
+   "area": "Lenalidomide: kidney function",
+   "subjects": [
+    "lenalidomide_hughes_2019",
+    "lenalidomide_kim_2026"
+   ],
+   "question": "Do the four published-model kidney-function verdicts hold when the uncertainty of the published estimates is added?",
+   "outcome": "mixed",
+   "headline": "Hughes: every verdict holds, moderate and severe under-predicted by a wide margin. Kim: most moderate and severe verdicts become indeterminate (observed within 1-4% of the widened limit); only Bridoux severe stays under-predicted.",
+   "acceptance_rule": "Acceptance rule v2: simulated percentile with published parameter uncertainty (bootstrap-matched, 200 sets x 50 trials), five seeds; indeterminate within 5% of a limit or when seeds disagree.",
+   "report": "docs/verification/acceptance_rule_v2_lenalidomide_v1.json",
+   "report_file_sha256": "47b815d1b9b2f10602dd6a63f35b7e10cfe6c5455917d38146fe3fbc440df9ae"
+  },
+  {
+   "id": "eligibility_v2",
+   "step": "4.2c",
+   "date": "2026-11-12",
+   "area": "Eligibility extraction",
+   "subjects": [
+    "eligibility_extractor_v1_1"
+   ],
+   "question": "Does the rule-based eligibility extractor v1.1 meet the plan v2 accuracy rule on 200 new trials, annotated blind?",
+   "outcome": "failed",
+   "headline": "No type passes. ECOG comes closest (precision 0.88, recall 0.89); kidney function, creatinine, bilirubin and AST/ALT have precision 0.71-0.81 and recall 0.68-0.76. Agreement is with one annotator's reading.",
+   "acceptance_rule": "Pass rule: precision >= 0.90 (Wilson lower bound >= 0.80) and recall >= 0.80 (lower bound >= 0.70), at least 30 pairs per type; pair-based measures.",
+   "report": "docs/verification/eligibility_validation_v2.json",
+   "report_file_sha256": "16969266b9452bf06c785b02ca353eed62fe5e909334576ab9079bef8245be89"
+  }
+ ],
+ "supersedes": {
+  "file": "intelligence_store/data/check_findings_v4.json",
+  "sha256": "ce0478a3c7c6bb43e69ffa09cb14a768706be11467edb1a84572ad6896b9ebd5",
+  "change": "Adds the blind v2 check of eligibility extractor v1.1."
+ }
+}
