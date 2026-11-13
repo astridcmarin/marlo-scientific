@@ -22,6 +22,20 @@ class Findings(unittest.TestCase):
         self.assertEqual(failed, {'kuan', 'falling_clearance', 'iwasaki', 'melphalan_label', 'eligibility_v1', 'eligibility_v2', 'eligibility_llm_c1'})
         self.assertGreaterEqual(self.view['counts']['gap'], 9)
 
+    def test_v7_only_rewords_the_track_c_headline(self):
+        import hashlib
+        old_raw = cf.FINDINGS_PATH.with_name('check_findings_v6.json').read_bytes()
+        self.assertEqual(hashlib.sha256(old_raw).hexdigest(), cf.FINDINGS_V6_SHA256)
+        old, new = json.loads(old_raw), json.loads(cf.FINDINGS_PATH.read_bytes())
+        self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V6_SHA256)
+        before, after = {f['id']: f for f in old['findings']}, {f['id']: f for f in new['findings']}
+        self.assertEqual(set(before), set(after))
+        changed = {k for k in before if before[k] != after[k]}
+        self.assertEqual(changed, {'eligibility_llm_c1'})
+        self.assertEqual({k: v for k, v in before['eligibility_llm_c1'].items() if k != 'headline'},
+                         {k: v for k, v in after['eligibility_llm_c1'].items() if k != 'headline'})
+        self.assertIn('Pair-based', after['eligibility_llm_c1']['headline'])
+
     def test_blindness_comes_from_the_ledger(self):
         blind = {r['id']: r['blindness'] for r in self.rows if r['blind']}
         self.assertEqual(blind, {'bridoux_hughes_kim': 'checked_blind_with_deviation', 'dexamethasone_outside': 'checked_blind',
