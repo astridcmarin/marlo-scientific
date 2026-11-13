@@ -47,7 +47,7 @@ Both extractors failed (v1.1 and Track C). The plan `intelligence_store/data/eli
 
 ### 2. Track B: the owner's review of 109 entries
 
-Page: `/models/extraction-review/round-3/track-b` (35 disagreements, 33 without numbers, 20 sampled agreements, 21 FDA guidance entries; the second reading is shown beside each). The owner downloads the record; validate with `flask --app app/app.py extraction-review-check FILE`, then pin it as a round 3 record. The plan's decision rule (`extraction_double_extraction_plan_v1.json`) then decides; if any sampled agreement is wrong, the plan says what follows. The 21 FDA entries need the FDA renal (2024) and hepatic (2026 draft) guidance PDFs.
+Page: `/models/extraction-review/round-3/track-b` (35 disagreements, 33 without numbers, 20 sampled agreements, 21 FDA guidance entries; the second reading is shown beside each). The owner downloads the record; validate with `flask --app app/app.py extraction-review-check FILE`, then pin it as a round 3 record. The plan's decision rule (`extraction_double_extraction_plan_v1.json`) then decides; if any sampled agreement is wrong, the plan says what follows. The 21 FDA entries were read a second time on 13 November by the second Claude account from the blinded list (`docs/development/trackb_fda_second_reading_comparison_v1.json`, outside the locked plan, shown beside each entry): 10 agree, 2 disagree, 9 have no numbers. Two platform quotes drop words (indexed eGFR: "and"; Cockcroft–Gault weight: "of renal function"), and the Child–Pugh groups sentence is on printed page 5 (PDF page 8) of the September 2026 draft, not page 6. Corrections, if the owner confirms them, go into new versioned files.
 
 ### 3. Acceptance rule v2 for more drugs (F03 follow-up)
 
