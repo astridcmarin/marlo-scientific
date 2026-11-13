@@ -31,7 +31,9 @@ For the next AI session working on this repository, possibly from a different Cl
 
 ### 1. Eligibility: pin the annotation, score extractor v1.1, run Track C (blind; locked plans v2 and v3)
 
-State on 12 November, evening: all 200 trials annotated; the owner is doing the **self-review** that plan v2 requires before export (review page `/landscape/benchmarking/review`). When every trial shows as reviewed:
+**Progress, 12 November, night:** the self-review was completed (200 of 200); steps 1-3 below are **done** (annotation pinned, commit "Eligibility v2: reference annotation pinned"; extractor v1.1 scored, commit "Eligibility v2 result": no type passes). Track C attempt 1 stopped at the Fable usage limit with no complete output (recorded in `docs/development/eligibility_llm_c1_run_attempts.json`); attempt 2 was launched the same night with identical inputs. If its result is not committed on `main`, rerun step 4 from scratch (the scratch folders of the old session are gone): rebuild the folders, check the input SHA-256s against the attempts record, add an attempt entry, and score only complete outputs. An older 46-trial working copy that sat in `app/instance/` was moved, unread, to `supplemental-information/eligibility/` on the iMac; the review page refuses to run while two annotation files exist.
+
+The steps, as they were planned:
 
 1. **Export** on the iMac: `PYTHONPATH=. flask --app app/app.py eligibility-annotations-v2-export --output supplemental-information/eligibility/eligibility_annotations_v2_export.json`. It prints the count reviewed and the content SHA-256. If fewer than 200 are reviewed, the shortfall is a deviation from plan v2 and is reported as one.
 2. **Pin** (one commit, before anything is scored): copy the export to `intelligence_store/data/eligibility_annotations_v2.json` without opening it; set `ANNOTATIONS_SHA256` in `intelligence_store/eligibility_validation_v2.py` to the file's SHA-256; run the data file index. Commit: "Eligibility v2: reference annotation pinned".

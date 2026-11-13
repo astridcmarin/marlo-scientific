@@ -31,9 +31,10 @@ class Frozen(unittest.TestCase):
         self.assertEqual(hashlib.sha256(v2_plan.read_bytes()).hexdigest(), plan['inputs']['plan_v2']['sha256'])
         self.assertFalse(plan['clinical_prediction_validated'])
 
-    def test_plan_passes_the_ledger_blind_rule(self):
-        dl.validate_plan_datasets(val.load_plan())
-        self.assertTrue(any(u['model'] == 'eligibility_extractor_llm_c1' and u['role'] == 'reserved_for_blind_check'
+    def test_plan_was_locked_before_the_sample_was_seen(self):
+        plan = val.load_plan()
+        self.assertLessEqual(plan['recorded_on'], dl.load_ledger()['datasets']['eligibility_v2_sample']['values_first_seen'])
+        self.assertTrue(any(u['model'] == 'eligibility_extractor_llm_c1' and u['role'] == 'checked_blind'
                             for u in dl.load_ledger()['uses']))
 
 
@@ -92,3 +93,22 @@ class Development(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class Result(unittest.TestCase):
+    """13 November 2026: both runs scored after their outputs were pinned."""
+    def test_report_reproduces_from_the_pinned_outputs(self):
+        import json
+        out = ROOT / 'docs/development/eligibility_llm_c1_outputs'
+        committed = json.loads((ROOT / 'docs/verification/eligibility_validation_llm_c1.json').read_text())
+        attempts = json.loads((ROOT / 'docs/development/eligibility_llm_c1_run_attempts.json').read_text())
+        for f in attempts['scored_outputs']['files']:
+            self.assertEqual(hashlib.sha256((ROOT / f['file']).read_bytes()).hexdigest(), f['sha256'])
+        fresh = val.run_check([out / f'run1_session{s}.jsonl' for s in range(1, 6)], [out / f'run2_session{s}.jsonl' for s in range(1, 6)],
+                              {'run_1': committed['runs']['run_1']['sessions'], 'run_2': committed['runs']['run_2']['sessions']})
+        fresh_files = [f['sha256'] for k in ('run_1', 'run_2') for f in fresh['runs'][k]['files']]
+        self.assertEqual(fresh_files, [f['sha256'] for k in ('run_1', 'run_2') for f in committed['runs'][k]['files']])
+        for key in ('run_1', 'run_2', 'v1_1', 'run_to_run_agreement', 'paired_with_v1_1'):
+            self.assertEqual(fresh[key], committed[key], key)
+        self.assertFalse(committed['clinical_prediction_validated'])
+

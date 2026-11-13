@@ -13,8 +13,12 @@ from .dataset_ledger import BLIND_ROLES, LEDGER_SHA256, load_ledger
 from .patient_state import digest
 
 ROOT = Path(__file__).resolve().parent.parent
-FINDINGS_PATH = Path(__file__).parent / 'data' / 'check_findings_v4.json'
-FINDINGS_SHA256 = 'ce0478a3c7c6bb43e69ffa09cb14a768706be11467edb1a84572ad6896b9ebd5'
+FINDINGS_PATH = Path(__file__).parent / 'data' / 'check_findings_v6.json'
+FINDINGS_SHA256 = '52a4ba422c41cebf05abdce970d9614ad4c4aee7322799c4039846c101c19a61'
+# Superseded, kept unchanged: check_findings_v5.json (v6 adds the blind Track C check)
+FINDINGS_V5_SHA256 = '9079dd3890caf2af72c9255891c7e47a520090f58aa4194ab5b0009fd9f49ab6'
+# Superseded, kept unchanged: check_findings_v4.json (v5 adds the blind v2 eligibility check)
+FINDINGS_V4_SHA256 = 'ce0478a3c7c6bb43e69ffa09cb14a768706be11467edb1a84572ad6896b9ebd5'
 # Superseded, kept unchanged: check_findings_v3.json (v4 adds acceptance rule v2 and a rule line for every check)
 FINDINGS_V3_SHA256 = '39cda90c1ebb6afa80d9dbb47a66ddb98acb20dac2f3e5bcf4f4a05ea3f40332'
 # Superseded, kept unchanged: check_findings_v2.json (v3 adds 2.0e)

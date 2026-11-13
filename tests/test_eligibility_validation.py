@@ -112,6 +112,27 @@ class Version2Scoring(unittest.TestCase):
                 v2.run_check()
 
 
+class AnnotationV2Pinned(unittest.TestCase):
+    """12 November 2026: the v2 reference annotation is pinned before extractor v1.1 or Track C runs on the sample."""
+    def test_pinned_complete_and_self_reviewed(self):
+        from intelligence_store import eligibility_validation_v2 as v2
+        a = v2.load_annotations()
+        order = v2.load_sample()['annotation_order']
+        self.assertEqual(sorted(a['annotations']), sorted(order))
+        self.assertEqual((a['annotated'], a['reviewed']), (200, 200))
+
+
+class ReportV2(unittest.TestCase):
+    """12 November 2026: the blind v2 check of extractor v1.1, run after the annotation was pinned."""
+    def test_report_reproduces(self):
+        import json
+        from intelligence_store import eligibility_validation_v2 as v2
+        committed = json.loads(v2.REPORT_PATH.read_text())
+        self.assertEqual(v2.run_check()['report_sha256'], committed['report_sha256'])
+        self.assertEqual(committed['passing_types'], [])
+        self.assertEqual(committed['annotation']['reviewed_before_export'], 200)
+
+
 class ReportsReproduce(unittest.TestCase):
     """Checkpoint 2026-10-30: the committed v1 and post-hoc reports are regenerated exactly."""
     def test_v1_and_posthoc_reports(self):

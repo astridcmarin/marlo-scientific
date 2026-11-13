@@ -755,6 +755,16 @@ def extraction_review_track_b():
     return Response(render_template("extraction_review.html", v=view, decisions=DECISIONS), headers={"Cache-Control": "no-store"})
 
 
+@app.route("/models/eligibility/shared-errors")
+def eligibility_shared_errors():
+    from intelligence_store.eligibility_shared_errors import build
+    try:
+        view = build()
+    except (ValueError, OSError) as exc:
+        return Response(str(exc), status=503, mimetype="text/plain", headers={"Cache-Control": "no-store"})
+    return Response(render_template("eligibility_shared_errors.html", v=view), headers={"Cache-Control": "no-store"})
+
+
 @app.route("/models/extraction-review.json")
 def extraction_review_json():
     from intelligence_store.extraction_review import ReviewError, queue_view

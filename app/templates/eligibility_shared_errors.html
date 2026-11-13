@@ -1,0 +1,121 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shared-error review | Marlo Scientific</title>
+    <link rel="icon" href="{{ url_for('landscape.static', filename='images/favicon.ico', v=2) }}" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('landscape.static', filename='images/favicon.svg', v=2) }}">
+    <link rel="apple-touch-icon" href="{{ url_for('landscape.static', filename='images/apple-touch-icon.png', v=2) }}">
+    {{ site_head_links() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <style>
+    .se-item{border-top:1px solid #dbe5e9;padding:14px 0}
+    .se-head{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+    .se-head h3{margin:0;font-size:17px}
+    .se-tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:10px;background:#e8f1f3}
+    .se-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:10px 0}
+    .se-box{border:1px solid #dbe5e9;border-radius:8px;padding:8px 10px;font-size:14px}
+    .se-box strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:#3d5560;margin-bottom:3px}
+    .se-box em{display:block;font-size:12px;color:#8a3b2f;margin-bottom:4px}
+    .se-box.se-yours{border-color:#2f6f7e;background:#f2f8f9}
+    .se-val{font-family:ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+    .se-src{font-size:12px;color:#3d5560;margin:2px 0 4px;overflow-wrap:anywhere}
+    .se-lines{margin:6px 0 0;padding-left:18px;font-size:14px}
+    .se-lines li{margin:2px 0;overflow-wrap:anywhere}
+    details.se-full summary{cursor:pointer;font-size:14px;color:#2f6f7e}
+    details.se-full pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;max-height:340px;overflow:auto;background:#f7fafb;padding:8px;border-radius:6px}
+    .se-choices{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 4px;font-size:14px}
+    .se-choices label{display:inline-flex;gap:5px;align-items:center}
+    .se-note{width:100%;font:inherit;font-size:14px;padding:5px 7px;border:1px solid #c5d3d9;border-radius:6px}
+    .se-bar{position:sticky;top:0;z-index:5;background:#fff;border:1px solid #dbe5e9;border-radius:10px;padding:10px 14px;margin:14px 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .se-bar select,.se-bar input{font:inherit;padding:4px 6px;border:1px solid #c5d3d9;border-radius:6px}
+    .se-bar button{font:inherit;padding:6px 12px;border-radius:8px;border:1px solid #2f6f7e;background:#2f6f7e;color:#fff;cursor:pointer}
+    .se-bar button.secondary{background:#fff;color:#2f6f7e}
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{{ site_header(active='models') }}
+<main id="main" class="section">
+<article class="wrap prose prose-wide">
+    <p><a href="{{ url_for('model_scorecards') }}">← Models</a></p>
+    <h1>Shared-error review: eligibility extraction</h1>
+    <p>Both blind checks are done: rule-based extractor v1.1 and the language-model extractor (Track C, run 1) were each scored against your 200-trial annotation, and neither passed. These are the {{ v.total }} trial-and-type pairs that <strong>both</strong> got wrong. Errors two different methods share often come from the trial text or the reference rather than from either method, so each one is worth a second look.</p>
+    <p>For each pair, read the lines shown (or the full text), compare with your annotation and the two extractions, and choose one answer. Your decisions do not change either locked result: a correction would go into a new version of the annotation, and any rescoring would be a new, labelled analysis.</p>
+    <p class="panel-note">Per type: {% for t, n in v.counts.items() %}{{ t|replace('_', ' ') }} {{ n }}{% if not loop.last %} · {% endif %}{% endfor %}. List checksum <code>{{ v.view_sha256[:12] }}</code>.</p>
+
+    <div class="se-bar">
+        <label>Show <select id="se-filter"><option value="">all types</option>{% for t in v.counts %}<option value="{{ t }}">{{ t|replace('_', ' ') }}</option>{% endfor %}</select></label>
+        <label><input type="checkbox" id="se-open"> only unanswered</label>
+        <span id="se-progress" aria-live="polite"></span>
+        <button type="button" id="se-download">Download record</button>
+        <button type="button" class="secondary" id="se-clear">Clear draft</button>
+    </div>
+
+    {% for i in v['items'] %}
+    <section class="se-item" data-item="{{ i.id }}" data-type="{{ i.type }}">
+        <div class="se-head"><h3>{{ i.nct_id }}</h3><span class="se-tag">{{ i.type_label }}</span></div>
+        <div class="se-grid">
+            <div class="se-box se-yours"><strong>Your annotation</strong>{{ i.annotated.status|replace('_', ' ') }}{% for x in i.annotated['values'] %}<div class="se-val">{{ x.comparator|default('') }} {{ x.value }} {{ x.unit|default('') }}{% if x.qualifier %} · {{ x.qualifier }}{% endif %}</div>{% if x.sentence %}<div class="se-src">“{{ x.sentence }}”</div>{% endif %}{% endfor %}{% if i.annotated.note %}<div>Note: {{ i.annotated.note }}</div>{% endif %}</div>
+            <div class="se-box"><strong>Rule-based v1.1</strong><em>{{ i.v1_1.outcome_text }}</em>{% for x in i.v1_1['values'] %}<div class="se-val">{{ x.comparator|default('') }} {{ x.value }} {{ x.unit|default('') }}{% if x.equation %} ({{ x.equation }}){% endif %}</div>{% if x.segment %}<div class="se-src">“{{ x.segment }}”</div>{% endif %}{% else %}nothing found{% endfor %}</div>
+            <div class="se-box"><strong>Language model</strong><em>{{ i.llm_run_1.outcome_text }}</em>{% if i.llm_run_1.status %}{{ i.llm_run_1.status|replace('_', ' ') }}{% endif %}{% for x in i.llm_run_1['values'] %}<div class="se-val">{{ x.comparator|default('') }} {{ x.value }} {{ x.unit|default('') }}{% if x.equation %} ({{ x.equation }}){% endif %}</div>{% if x.segment %}<div class="se-src">“{{ x.segment }}”</div>{% endif %}{% endfor %}</div>
+        </div>
+        {% if i.relevant_lines %}<ul class="se-lines">{% for ln in i.relevant_lines %}<li>{{ ln }}</li>{% endfor %}</ul>{% else %}<p class="panel-note">No line mentions this measure by its usual words; see the full text.</p>{% endif %}
+        <details class="se-full"><summary>Full eligibility criteria</summary><pre>{{ i.criteria_text }}</pre></details>
+        <div class="se-choices" role="radiogroup" aria-label="Decision for {{ i.nct_id }}, {{ i.type_label }}">
+            {% for k, label in v.decisions.items() %}<label><input type="radio" name="d-{{ i.id }}" value="{{ k }}"> {{ label }}</label>{% endfor %}
+        </div>
+        <input class="se-note" type="text" data-note placeholder="Note (required for a correction: what should the annotation be?)" aria-label="Note for {{ i.nct_id }}, {{ i.type_label }}">
+    </section>
+    {% endfor %}
+</article>
+</main>
+<script>
+(function () {
+  var VIEW = {{ v.view_sha256|tojson }};
+  var KEY = 'marlo-shared-errors-' + VIEW.slice(0, 16);
+  var draft = {};
+  try { draft = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { draft = {}; }
+  draft.decisions = draft.decisions || {};
+  var items = Array.prototype.slice.call(document.querySelectorAll('[data-item]'));
+  var filter = document.getElementById('se-filter'), onlyOpen = document.getElementById('se-open');
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(draft)); } catch (e) {} update(); }
+  function update() {
+    var done = 0;
+    items.forEach(function (el) {
+      var id = el.getAttribute('data-item'), answered = !!draft.decisions[id];
+      if (answered) done++;
+      el.hidden = (filter.value && el.getAttribute('data-type') !== filter.value) || (onlyOpen.checked && answered);
+    });
+    document.getElementById('se-progress').textContent = done + ' of ' + items.length + ' answered in this draft';
+  }
+  items.forEach(function (el) {
+    var id = el.getAttribute('data-item'), note = el.querySelector('[data-note]'), d = draft.decisions[id];
+    if (d) { var r = el.querySelector('input[type=radio][value="' + d.decision + '"]'); if (r) r.checked = true; note.value = d.note || ''; }
+    Array.prototype.forEach.call(el.querySelectorAll('input[type=radio]'), function (r) {
+      r.addEventListener('change', function () { draft.decisions[id] = {decision: r.value, note: note.value}; save(); });
+    });
+    note.addEventListener('input', function () { if (draft.decisions[id]) { draft.decisions[id].note = note.value; save(); } });
+  });
+  filter.addEventListener('change', update); onlyOpen.addEventListener('change', update);
+  document.getElementById('se-clear').addEventListener('click', function () {
+    draft = {decisions: {}}; try { localStorage.removeItem(KEY); } catch (e) {}
+    items.forEach(function (el) { Array.prototype.forEach.call(el.querySelectorAll('input'), function (i) { if (i.type === 'radio') i.checked = false; else i.value = ''; }); });
+    update();
+  });
+  document.getElementById('se-download').addEventListener('click', function () {
+    var missing = Object.keys(draft.decisions).filter(function (k) { var d = draft.decisions[k]; return d.decision === 'annotation_needs_correcting' && !(d.note || '').trim(); });
+    if (missing.length) { document.getElementById('se-progress').textContent = missing.length + ' correction(s) need a note.'; return; }
+    var rec = {schema_version: 'eligibility-shared-errors-record-v1', view_sha256: VIEW, reviewed_on: new Date().toISOString().slice(0, 10), decisions: draft.decisions};
+    var blob = new Blob([JSON.stringify(rec, null, 1) + '\n'], {type: 'application/json'});
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'eligibility_shared_errors_review_' + rec.reviewed_on + '.json'; document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+  });
+  update();
+})();
+</script>
+</body>
+</html>
