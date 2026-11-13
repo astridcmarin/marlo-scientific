@@ -1,0 +1,204 @@
+{% from "site_header.html" import site_head_links, site_header with context %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reference re-reading | Marlo Scientific</title>
+    <link rel="icon" href="{{ url_for('landscape.static', filename='images/favicon.ico', v=2) }}" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('landscape.static', filename='images/favicon.svg', v=2) }}">
+    <link rel="apple-touch-icon" href="{{ url_for('landscape.static', filename='images/apple-touch-icon.png', v=2) }}">
+    {{ site_head_links() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <style>
+    .rr-bar{position:sticky;top:0;z-index:5;background:#fff;border:1px solid #dbe5e9;border-radius:10px;padding:10px 14px;margin:14px 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .rr-bar button,.rr-btn{font:inherit;padding:6px 12px;border-radius:8px;border:1px solid #2f6f7e;background:#2f6f7e;color:#fff;cursor:pointer}
+    .rr-bar button.secondary,.rr-btn.secondary{background:#fff;color:#2f6f7e}
+    .rr-btn[disabled]{opacity:.5;cursor:default}
+    .rr-bar input[type=number]{width:5em;font:inherit;padding:4px 6px;border:1px solid #c5d3d9;border-radius:6px}
+    .rr-head{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+    .rr-head h2{margin:0;font-size:20px}
+    .rr-tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:10px;background:#e8f1f3}
+    .rr-tag.locked{background:#e5f2e8;color:#22603a}
+    .rr-lines{margin:6px 0;padding-left:18px;font-size:14px}
+    .rr-lines li{margin:2px 0;overflow-wrap:anywhere}
+    details.rr-full summary{cursor:pointer;font-size:14px;color:#2f6f7e}
+    details.rr-full pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;max-height:380px;overflow:auto;background:#f7fafb;padding:8px;border-radius:6px}
+    fieldset{border:1px solid #dbe5e9;border-radius:8px;margin:10px 0;padding:8px 12px}
+    legend{font-weight:600;font-size:14px;padding:0 4px}
+    .rr-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px 10px;margin:4px 0}
+    .rr-row label,.rr-wide label{display:flex;flex-direction:column;font-size:13px;color:#3d5560;gap:2px}
+    .rr-wide{margin:4px 0}
+    .rr-form select,.rr-form input,.rr-form textarea{font:inherit;font-size:14px;padding:4px 6px;border:1px solid #c5d3d9;border-radius:6px;color:#1b2b31}
+    .rr-form textarea{width:100%;min-height:2.6em}
+    .rr-form [disabled]{background:#f3f6f7}
+    .rr-problems{color:#8a3b2f;font-size:14px;margin:6px 0;padding-left:18px}
+    .rr-reveal{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;margin:12px 0}
+    .rr-box{border:1px solid #dbe5e9;border-radius:8px;padding:8px 10px;font-size:14px}
+    .rr-box strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:#3d5560;margin-bottom:3px}
+    .rr-box.mine{border-color:#2f6f7e;background:#f2f8f9}
+    .rr-val{font-family:ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+    .rr-src{font-size:12px;color:#3d5560;margin:2px 0 4px;overflow-wrap:anywhere}
+    .rr-choices{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0;font-size:14px}
+    .rr-choices label{display:inline-flex;gap:5px;align-items:center}
+    .rr-nav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{{ site_header(active='models') }}
+<main id="main" class="section">
+<article class="wrap prose prose-wide">
+    <p><a href="{{ url_for('model_scorecards') }}">← Models</a></p>
+    <h1>Reference re-reading: eligibility extraction</h1>
+    <p>This follows the plan locked on 13 November 2026 (<code>{{ v.plan_version }}</code>). The list mixes pairs where both extractors disagreed with your annotation and pairs where both agreed; the page does not say which is which. For each item:</p>
+    <ol>
+        <li><strong>Read blind.</strong> Record what the criteria say for this measure, with the same rules as the annotation tool (guide v2). You do not see your original annotation or either extractor's answer yet.</li>
+        <li><strong>Lock the reading.</strong> It is checked by the annotation rules, time-stamped and cannot be changed afterwards.</li>
+        <li><strong>Compare and decide.</strong> Your original annotation and both answers appear. Choose: the annotation stands; it needs correcting (your locked reading becomes the correction, with a note); or the trial is unclear (with a note).</li>
+    </ol>
+    <p class="panel-note">The original blind results stay primary. Your decisions feed only a labelled post hoc sensitivity analysis. Please don't open the page source or developer tools: the comparison answers are in it. Your draft is kept in this browser; download the record now and then, and at the end save it to <code>supplemental-information/eligibility/</code>. List checksum <code>{{ v.view_sha256[:12] }}</code>.</p>
+
+    <div class="rr-bar">
+        <span id="rr-progress" aria-live="polite"></span>
+        <label>Go to <input type="number" id="rr-goto" min="1" max="{{ v.total }}"></label>
+        <button type="button" class="secondary" id="rr-next-open">Next unfinished</button>
+        <button type="button" id="rr-download">Download record</button>
+        <label class="rr-btn secondary" style="display:inline-block">Load record<input type="file" id="rr-load" accept="application/json" hidden></label>
+    </div>
+
+    <section id="rr-item" aria-live="polite"></section>
+    <div class="rr-nav">
+        <button type="button" class="rr-btn secondary" id="rr-prev">← Previous</button>
+        <button type="button" class="rr-btn secondary" id="rr-next">Next →</button>
+    </div>
+    <noscript><p>This page needs JavaScript.</p></noscript>
+</article>
+</main>
+<script type="application/json" id="rr-items">{{ {'items': v['items'], 'statuses': v.statuses, 'comparators': v.comparators, 'sections': v.sections, 'describes': v.describes, 'max_values': v.max_values, 'decisions': v.decisions, 'total': v.total}|tojson }}</script>
+<template id="rr-hidden">{{ v.reveals|tojson }}</template>
+<script>
+(function () {
+  var V = JSON.parse(document.getElementById('rr-items').textContent);
+  var VIEW = {{ v.view_sha256|tojson }};
+  var CHECK = {{ url_for('eligibility_reference_review_check')|tojson }};
+  var KEY = 'marlo-reference-review-' + VIEW.slice(0, 16);
+  var DEC = {annotation_stands: 'The annotation stands', annotation_needs_correcting: 'The annotation needs correcting (my locked reading)', trial_unclear: 'The trial is unclear'};
+  var FIELDS = ['comparator_as_written', 'value', 'unit', 'section', 'describes', 'sentence', 'qualifier'];
+  var draft = {items: {}};
+  try { draft = JSON.parse(localStorage.getItem(KEY) || '{"items":{}}') || {items: {}}; } catch (e) {}
+  draft.items = draft.items || {};
+  var pos = Math.max(1, Math.min(V.total, draft.position || 1));
+  var box = document.getElementById('rr-item');
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]; }); }
+  function save() { draft.position = pos; try { localStorage.setItem(KEY, JSON.stringify(draft)); } catch (e) {} progress(); }
+  function rec(id) { return draft.items[id] || (draft.items[id] = {reading: {}}); }
+  function reveal(id) { return JSON.parse(document.getElementById('rr-hidden').content.textContent)[id]; }
+  function done(d) { return d && d.locked_at && d.decision; }
+  function progress() {
+    var locked = 0, decided = 0;
+    V.items.forEach(function (i) { var d = draft.items[i.id]; if (d && d.locked_at) locked++; if (done(d)) decided++; });
+    document.getElementById('rr-progress').textContent = 'Item ' + pos + ' of ' + V.total + ' · ' + locked + ' readings locked · ' + decided + ' decided';
+  }
+  function opts(list, cur, blank) { return (blank ? '<option value="">' + blank + '</option>' : '') + list.map(function (x) { return '<option value="' + esc(x) + '"' + (x === cur ? ' selected' : '') + '>' + esc(x.replace(/_/g, ' ')) + '</option>'; }).join(''); }
+  function values(list) {
+    if (!list || !list.length) return '<div>no value</div>';
+    return list.map(function (x) {
+      return '<div class="rr-val">' + esc(x.comparator || '') + ' ' + esc(x.value) + ' ' + esc(x.unit || '') + (x.equation ? ' (' + esc(x.equation) + ')' : '') + (x.qualifier ? ' · ' + esc(x.qualifier) : '') + '</div>' +
+        ((x.sentence || x.segment) ? '<div class="rr-src">“' + esc(x.sentence || x.segment) + '”</div>' : '');
+    }).join('');
+  }
+
+  function render() {
+    var it = V.items[pos - 1], d = rec(it.id), r = d.reading, t = it.type, lock = !!d.locked_at, dis = lock ? ' disabled' : '';
+    var h = '<div class="rr-head"><h2>' + esc(it.nct_id) + '</h2><span class="rr-tag">' + esc(it.type_label) + '</span>' + (lock ? '<span class="rr-tag locked">reading locked ' + esc(d.locked_at.slice(0, 16).replace('T', ' ')) + ' UTC</span>' : '') + '</div>';
+    h += it.relevant_lines.length ? '<p class="panel-note">Lines that mention this measure by its usual words (check the full text too):</p><ul class="rr-lines">' + it.relevant_lines.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>' : '<p class="panel-note">No line mentions this measure by its usual words; read the full text.</p>';
+    h += '<details class="rr-full"' + (it.relevant_lines.length ? '' : ' open') + '><summary>Full eligibility criteria</summary><pre>' + esc(it.criteria_text) + '</pre></details>';
+    h += '<form class="rr-form" id="rr-form" onsubmit="return false"><fieldset><legend>Your blind reading</legend>';
+    h += '<div class="rr-row"><label>Status<select name="' + t + '__status"' + dis + '>' + opts(V.statuses, r[t + '__status'], 'choose') + '</select></label>';
+    if (it.equations.length) h += '<label>Estimating method (if a value is given)<select name="' + t + '__equation"' + dis + '>' + opts(it.equations, r[t + '__equation'], 'choose') + '</select></label>';
+    h += '</div>';
+    for (var n = 1; n <= V.max_values; n++) {
+      var p = t + '__v' + n + '__', g = function (f) { return r[p + f] || ''; };
+      h += '<fieldset><legend>Value ' + n + (n > 1 ? ' (only for “multiple” or “unclear”)' : '') + '</legend><div class="rr-row">' +
+        '<label>Comparator as written<select name="' + p + 'comparator_as_written"' + dis + '>' + opts(V.comparators, g('comparator_as_written'), '—') + '</select></label>' +
+        '<label>Value<input name="' + p + 'value" value="' + esc(g('value')) + '" inputmode="decimal"' + dis + '></label>' +
+        '<label>Unit<select name="' + p + 'unit"' + dis + '>' + opts(it.units, g('unit'), '—') + '</select></label>' +
+        '<label>Section<select name="' + p + 'section"' + dis + '>' + opts(V.sections, g('section'), '—') + '</select></label>' +
+        '<label>Describes (if not the section default)<select name="' + p + 'describes"' + dis + '>' + opts(V.describes, g('describes'), 'section default') + '</select></label></div>' +
+        '<div class="rr-wide"><label>Sentence, copied exactly<textarea name="' + p + 'sentence"' + dis + '>' + esc(g('sentence')) + '</textarea></label></div>' +
+        '<div class="rr-wide"><label>Qualifier (optional)<input name="' + p + 'qualifier" value="' + esc(g('qualifier')) + '"' + dis + '></label></div></fieldset>';
+    }
+    h += '<div class="rr-wide"><label>Note (needed for “unclear”)<textarea name="' + t + '__note"' + dis + '>' + esc(r[t + '__note'] || '') + '</textarea></label></div>';
+    h += '<ul class="rr-problems" id="rr-problems"></ul>';
+    if (!lock) h += '<button type="button" class="rr-btn" id="rr-lock">Lock my reading and show the comparison</button>';
+    h += '</fieldset></form>';
+    if (lock) {
+      var rv = reveal(it.id), a = rv.annotated, m = rv.llm_run_1;
+      h += '<h3>Comparison</h3><div class="rr-reveal">' +
+        '<div class="rr-box mine"><strong>Your original annotation</strong>' + esc((a.status || '').replace(/_/g, ' ')) + (a.equation ? ' · ' + esc(a.equation) : '') + values(a.values) + (a.note ? '<div>Note: ' + esc(a.note) + '</div>' : '') + '</div>' +
+        '<div class="rr-box"><strong>Rule-based v1.1</strong>' + values(rv.v1_1.values) + '</div>' +
+        '<div class="rr-box"><strong>Language model (run 1)</strong>' + (m.status ? esc(m.status.replace(/_/g, ' ')) : '') + values(m.values) + '</div></div>';
+      h += '<fieldset><legend>Decision</legend><div class="rr-choices" role="radiogroup">' + V.decisions.map(function (k) {
+        return '<label><input type="radio" name="rr-decision" value="' + k + '"' + (d.decision === k ? ' checked' : '') + '> ' + DEC[k] + '</label>'; }).join('') + '</div>' +
+        '<div class="rr-wide"><label>Note (needed for a correction or “unclear”: which guide v2 rule, and why)<textarea id="rr-dnote">' + esc(d.note || '') + '</textarea></label></div>' +
+        '<p class="panel-note">A correction means your locked reading above replaces the original annotation. If neither is right, choose “The trial is unclear” and say why.</p></fieldset>';
+    }
+    box.innerHTML = h;
+    var form = document.getElementById('rr-form');
+    if (!lock) {
+      form.addEventListener('input', function (e) { if (e.target.name) { r[e.target.name] = e.target.value; save(); } });
+      form.addEventListener('change', function (e) { if (e.target.name) { r[e.target.name] = e.target.value; save(); } });
+      document.getElementById('rr-lock').addEventListener('click', function () { lockReading(it, d); });
+    } else {
+      Array.prototype.forEach.call(box.querySelectorAll('input[name=rr-decision]'), function (el) {
+        el.addEventListener('change', function () { d.decision = el.value; d.decided_at = new Date().toISOString(); save(); });
+      });
+      document.getElementById('rr-dnote').addEventListener('input', function (e) { d.note = e.target.value; if (d.decision) d.decided_at = new Date().toISOString(); save(); });
+    }
+    save();
+  }
+
+  function lockReading(it, d) {
+    var btn = document.getElementById('rr-lock'), list = document.getElementById('rr-problems');
+    btn.disabled = true; list.innerHTML = '';
+    fetch(CHECK, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({id: it.id, reading: d.reading})})
+      .then(function (res) { return res.json(); })
+      .then(function (j) {
+        if (j.problems && j.problems.length) { list.innerHTML = j.problems.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join(''); btn.disabled = false; return; }
+        d.locked_at = new Date().toISOString(); save(); render();
+      })
+      .catch(function () { list.innerHTML = '<li>The reading could not be checked (is the app running?). Nothing was locked.</li>'; btn.disabled = false; });
+  }
+
+  function go(n) { pos = Math.max(1, Math.min(V.total, n)); render(); window.scrollTo(0, box.offsetTop - 80); }
+  document.getElementById('rr-prev').addEventListener('click', function () { go(pos - 1); });
+  document.getElementById('rr-next').addEventListener('click', function () { go(pos + 1); });
+  document.getElementById('rr-goto').addEventListener('change', function (e) { var n = parseInt(e.target.value, 10); if (n) go(n); });
+  document.getElementById('rr-next-open').addEventListener('click', function () {
+    for (var k = 0; k < V.total; k++) { var q = (pos + k) % V.total; if (!done(draft.items[V.items[q].id])) { go(q + 1); return; } }
+  });
+  document.getElementById('rr-download').addEventListener('click', function () {
+    var items = {};
+    Object.keys(draft.items).forEach(function (k) { var d = draft.items[k]; if (d.locked_at) items[k] = {reading: d.reading, locked_at: d.locked_at, decision: d.decision || null, note: d.note || '', decided_at: d.decided_at || null}; });
+    var out = {schema_version: 'eligibility-reference-review-record-v1', view_sha256: VIEW, saved_at: new Date().toISOString(), items: items};
+    var blob = new Blob([JSON.stringify(out, null, 1) + '\n'], {type: 'application/json'});
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'eligibility_reference_review_' + out.saved_at.slice(0, 10) + '.json'; document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+  });
+  document.getElementById('rr-load').addEventListener('change', function (e) {
+    var f = e.target.files[0]; if (!f) return;
+    f.text().then(function (txt) {
+      var j = JSON.parse(txt);
+      if (j.view_sha256 !== VIEW) { document.getElementById('rr-progress').textContent = 'That record was made from a different list; not loaded.'; return; }
+      Object.keys(j.items || {}).forEach(function (k) { var cur = draft.items[k]; if (!cur || !cur.locked_at) draft.items[k] = j.items[k]; });
+      save(); render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

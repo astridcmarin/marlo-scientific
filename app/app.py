@@ -1,7 +1,7 @@
 # Clinical Trials Intelligence Explorer
 import json
 from pathlib import Path
-from flask import Flask, Response, abort, redirect, render_template, request, url_for
+from flask import Flask, Response, abort, jsonify, redirect, render_template, request, url_for
 import requests
 from intelligence_store import init_storage
 from intelligence_store.snapshots import save_trial_snapshots
@@ -757,12 +757,42 @@ def extraction_review_track_b():
 
 @app.route("/models/eligibility/shared-errors")
 def eligibility_shared_errors():
-    from intelligence_store.eligibility_shared_errors import build
+    # Replaced by the blind re-reading under plan eligibility_reference_review_plan_v1 (13 November 2026).
+    return redirect(url_for("eligibility_reference_review"))
+
+
+_REFERENCE_REVIEW_VIEW = {}
+
+
+def _reference_review_view():
+    from intelligence_store.eligibility_reference_review import PLAN_SHA256, view
+    if PLAN_SHA256 not in _REFERENCE_REVIEW_VIEW:
+        _REFERENCE_REVIEW_VIEW.clear()
+        _REFERENCE_REVIEW_VIEW[PLAN_SHA256] = view()
+    return _REFERENCE_REVIEW_VIEW[PLAN_SHA256]
+
+
+@app.route("/models/eligibility/reference-review")
+def eligibility_reference_review():
+    from intelligence_store.eligibility_reference_review import client_view
     try:
-        view = build()
+        cv = client_view(_reference_review_view())
     except (ValueError, OSError) as exc:
         return Response(str(exc), status=503, mimetype="text/plain", headers={"Cache-Control": "no-store"})
-    return Response(render_template("eligibility_shared_errors.html", v=view), headers={"Cache-Control": "no-store"})
+    return Response(render_template("eligibility_reference_review.html", v=cv), headers={"Cache-Control": "no-store"})
+
+
+@app.route("/models/eligibility/reference-review/check", methods=["POST"])
+def eligibility_reference_review_check():
+    """Stateless: checks one reading by the annotation rules before it is locked; nothing is stored."""
+    from intelligence_store.eligibility_reference_review import check_reading
+    body = request.get_json(silent=True) or {}
+    reading = body.get("reading") if isinstance(body.get("reading"), dict) else {}
+    try:
+        problems = check_reading(_reference_review_view(), str(body.get("id", "")), reading)
+    except (ValueError, OSError) as exc:
+        return jsonify({"problems": [str(exc)]}), 503
+    return jsonify({"problems": problems})
 
 
 @app.route("/models/extraction-review.json")

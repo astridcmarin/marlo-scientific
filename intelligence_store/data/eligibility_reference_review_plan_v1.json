@@ -1,0 +1,67 @@
+{
+ "schema_version": "eligibility-reference-review-plan-v1",
+ "plan_version": "eligibility-reference-review-plan-v1.0",
+ "recorded_on": "2026-11-13",
+ "status": "locked before any review decision",
+ "why": "Both blind checks failed (docs/verification/eligibility_validation_v2.json; docs/verification/eligibility_validation_llm_c1.json). 166 trial-and-type pairs are wrong for both extractors. An outside review (docs/reviews/2026-11_chatgpt_eligibility_results_review.md, finding 3) warned that revising the reference only where both systems failed, while seeing their answers, is unblinded, outcome-selected revision. This plan fixes the rules first.",
+ "disclosure": "No review decision had been made when this plan was committed (the owner confirmed on 13 November 2026 that no case was marked on the earlier shared-error page).",
+ "inputs": {
+  "annotation": {
+   "file": "intelligence_store/data/eligibility_annotations_v2.json",
+   "sha256": "768f427f43bc2ea76460a8b4bd07abec3544b7c6b699bbddd0f2982dc3f6d3d2"
+  },
+  "guide": {
+   "file": "docs/ELIGIBILITY_ANNOTATION_GUIDE_V2.md",
+   "sha256": "96fdfefe45ba54933d07a2befe728b21ad40b4f9227183e48dfc4ca4c3987b8f"
+  },
+  "v1_1_report": {
+   "file": "docs/verification/eligibility_validation_v2.json",
+   "sha256": "16969266b9452bf06c785b02ca353eed62fe5e909334576ab9079bef8245be89"
+  },
+  "llm_report": {
+   "file": "docs/verification/eligibility_validation_llm_c1.json",
+   "sha256": "5dd53e6d6dd2be9c0ab3dcda9b1909571e5de71e171e63812d5f8a5254419f28"
+  }
+ },
+ "scope": {
+  "shared": "Every pair whose outcome under plan v2 scoring is neither tp nor tn for both extractor v1.1 and the language-model extractor (run 1), excluding pairs annotated unclear.",
+  "controls": "A seeded random sample of pairs both extractors got right (tp or tn for both), so that corrections in the shared set can be compared with a general re-reading effect."
+ },
+ "controls": {
+  "size": 50,
+  "seed": 20261113
+ },
+ "presentation_order_seed": 20261114,
+ "procedure": [
+  "Items are shown one at a time in the seeded order; shared and control items look the same.",
+  "Step 1, blind reading: the owner sees the trial text and the measure only, and records status and values under annotation guide v2, with the same rules as the annotation tool (comparator as written, unit, section, the exact sentence, the equation for kidney function). The reading is then locked with a time stamp and cannot be changed.",
+  "Step 2, reveal: the original annotation and both extractors' answers are shown.",
+  "Step 3, decision: annotation_stands; annotation_needs_correcting (the locked reading becomes the corrected annotation; no other values may be entered; a note with the reason is required); or trial_unclear (a note is required). If neither the original nor the locked reading is right, the decision is trial_unclear with a note.",
+  "Corrections follow guide v2 as written; no convention is changed to match either extractor."
+ ],
+ "blinding_limit": "The original annotation and the answers are present in the page source before reveal; the owner commits not to look before locking a reading. Lock and decision time stamps are recorded and checked (a decision before its lock is invalid).",
+ "reporting": {
+  "label": "Post hoc corrected-reference sensitivity analysis (not a new blind test)",
+  "primary": "The original blind results stay primary and unchanged.",
+  "analyses": [
+   "original_primary",
+   "corrected_unclear_kept (unclear decisions keep the original annotation)",
+   "corrected_unclear_excluded (unclear decisions are excluded as unclear)"
+  ],
+  "same_everything": "The same pinned outputs (v1.1 frozen; language model run 1), the same scorer (eligibility_validation_v2.score_pair) and the same pass rule (plan v2), for both extractors, side by side, with denominators.",
+  "also_reported": [
+   "every correction (from, to, note) and every unclear decision",
+   "every pass/fail transition",
+   "correction and unclear rates in the shared set and in the control set",
+   "blind-reading reproducibility: how often the locked reading equals the original annotation, per set",
+   "items not completed, if the review stops early"
+  ],
+  "not_this": "Not evidence that either extractor is accurate; a change after correction is reported as a sensitivity result, never as passing the original test."
+ },
+ "next_step_not_in_this_plan": "An independent second annotator (blind to the owner's labels, both outputs and the error selection), under its own plan locked before they start.",
+ "executable": {
+  "module": "intelligence_store/eligibility_reference_review.py",
+  "dry_run": "tests/test_eligibility_reference_review.py runs validate_record and sensitivity on synthetic decisions; no real decision exists when the plan is committed."
+ },
+ "clinical_prediction_validated": false
+}
