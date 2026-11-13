@@ -16,6 +16,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [AI methods review of Track C (ChatGPT)](reviews/2026-11_chatgpt_track_c_review.md) (12 November 2026): ten findings on the locked language-model extractor test; none invalidates it; a run procedure was added. Not an independent review.
 - [AI methods review of acceptance rule v2 (ChatGPT)](reviews/2026-11_chatgpt_f03_review.md) (12 November 2026): eight findings; none invalidates the calculation; the "lower bound" wording is withdrawn. Not an independent review.
 - [AI extraction: parameter precision of Gupta 2017, Luo 2021, Li 2017](reviews/2026-11_precision_extraction_gupta_luo_li.md) (12 November 2026): no 95% bootstrap intervals published; what the rule needs before it covers those models.
+- [Handoff, 12 November 2026](HANDOFF.md): open work in order, where things are kept, and the rules that are easy to break.
 - [AI audit of user-facing wording](reviews/2026-11_overclaiming_audit.md) (10 November 2026): 33 places where wording outran the evidence, and how each was fixed. Not an independent review.
 - Conventions for working in the repository: `CLAUDE.md` at the root.
 
