@@ -1,0 +1,23 @@
+{
+ "schema_version": "eligibility-reference-review-deviation-v1",
+ "recorded_on": "2026-11-13",
+ "plan": {
+  "file": "intelligence_store/data/eligibility_reference_review_plan_v1.json",
+  "sha256": "df4bdbed36269b9e6bc418494bd41ba56cbaf49fb698b604dc79ede1663f4206"
+ },
+ "what_happened": "On 13 November 2026, after the plan was locked and pushed, the owner opened the old shared-error page (the app had not yet been updated) and chose answers for five pairs there, seeing the original annotation and both extractors' answers. Those choices stayed in the browser, were never downloaded and are not used. The owner reported this the same morning; the pair identifiers were read from the browser (identifiers only, not the choices).",
+ "items_seen_unblinded": [
+  "NCT00597714:platelets_min",
+  "NCT01183663:kidney_function_min",
+  "NCT02230917:hemoglobin_min",
+  "NCT02230917:bilirubin_max",
+  "NCT02230917:ast_alt_max"
+ ],
+ "recorded_before": "any reading was locked on the re-reading page (the record downloaded at 14:37 UTC held no items).",
+ "handling": [
+  "The five items stay in the list and are read on the new page as planned; their blind reading is not blind and is labelled so.",
+  "The sensitivity analysis is reported twice: with all decisions, and with the decisions on these five items set aside (their original annotation kept).",
+  "Blind-reading reproducibility is reported without these five items.",
+  "The result states this deviation."
+ ]
+}

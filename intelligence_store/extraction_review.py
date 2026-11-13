@@ -205,11 +205,23 @@ def round_3_view(records=None):
     return view
 
 
+FDA_SUPPLEMENT_PATH = Path(__file__).resolve().parent.parent / 'docs' / 'development' / 'trackb_fda_second_reading_comparison_v1.json'
+FDA_SUPPLEMENT_SHA256 = '3517755e0b4f54524d0cf192246ef781d290672dd0765d38712e43f4e96d36b0'
+
+
+def fda_second_reading():
+    """The second reading of the 21 out-of-scope FDA entries (13 November 2026, outside the locked plan; information only)."""
+    raw = FDA_SUPPLEMENT_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != FDA_SUPPLEMENT_SHA256:
+        raise ReviewError('The FDA second-reading comparison is missing or changed.')
+    return json.loads(raw)
+
+
 SECOND_READING_REASONS = {
     'disagree': 'In the list because the two extractions disagree',
     'not_comparable': 'In the list because it has no numbers to compare: check the whole entry',
     'sampled_agreement': 'In the list as one of the 20 sampled agreements (seed 20261111)',
-    'out_of_scope': 'In the list because the second reader had no source PDF for it: check the whole entry',
+    'out_of_scope': 'In the list in full: an FDA guidance entry outside the plan; read a second time on 13 November, beside it for information',
 }
 
 
@@ -227,6 +239,7 @@ def track_b_view(records=None):
                      ('sampled_agreement', result['owner_to_review']['sampled_agreements'])):
         reason.update(dict.fromkeys(ids, key))
     second = {e['id']: e for e in result['entries']}
+    second.update({e['id']: e for e in fda_second_reading()['entries']})
     outside = set(plan['out_of_scope']['groups'])
     base = round_3_view(records)
     groups = []
