@@ -39,6 +39,12 @@ This does not establish either extractor's accuracy. 16 corrections, 18 of the 7
 
 The forms `/>`, `/<`, `⩾` (U+2A7E), `⩽` (U+2A7D), `&ge;`, `&le;` and a spaced `> =` appear nowhere in the criteria text of the 216 items. Extractor v1.1 mishandles all of them — it reads `/>` and `/<` as strict comparators and drops the other five entirely — but none of the corrections is attributable to them. They are recorded here as known defects without effect on this sample.
 
+## Bands: a schema limitation, not an annotation error
+
+Four items carried a value from each section in the original annotation. Three are bands rather than repetitions: inclusion "haemoglobin < 10 g/dL" with exclusion eligible-side "≥ 8", inclusion "creatinine > 2" with exclusion "≤ 2.5", and a platelet pair. These are trials enrolling patients who already have impairment, where the floor sits in one section and the ceiling in the other, so both bounds are operative. The re-reading kept the inclusion bound in all four and so lost the other, which makes these four corrections a loss of information rather than a repair.
+
+The eight types each hold one threshold in one direction, so no band can be recorded as such. Guide v3 records both bounds under the `multiple` status with a "band" note, which is what the original annotation did and what v1.1 emits when the two bounds differ. A later annotation version should carry bands in their own right. These are the trials in the impaired populations the platform is built around, so the limitation is worth retiring rather than living with.
+
 ## Extractor defect found while checking the conventions
 
 For a genuine multi-part trial ("≥ 100,000 for cohort A and ≥ 75,000 for cohort B") v1.1 returns status `stated` with the first value only, where the guide calls for `multiple` with both. Annotation and extractor will therefore disagree on every true multi-cohort trial, in the annotation's favour. Not yet recorded as a finding; it needs its own plan.

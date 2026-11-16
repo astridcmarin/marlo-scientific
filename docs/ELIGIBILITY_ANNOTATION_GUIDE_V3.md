@@ -15,6 +15,8 @@ The re-reading of 14 November corrected 108 of 215 items. The causes are classif
 3. **17 items used "multiple" for a single value with an exception.** Version 2 had this rule and gave the right example; it did not take, so section 5 promotes it to a two-question test.
 4. **Bilirubin, AST/ALT and ANC were the weakest types**, and they are the ones measured in × ULN or in several interchangeable units. Section 6 gives each a worked rule.
 
+5. **Four items recorded a bound in each section**, which version 2 covered only for a repeated threshold. Three of the four were bands, and the re-reading dropped one bound in each. Section 5, question 3 and section 8 now treat them as bands.
+
 Nothing else changes. Where version 3 is silent, version 2's rule still stands.
 
 ## 1. Where to look, before you record not_stated
@@ -46,7 +48,7 @@ The bold forms in the AST/ALT row are the ones that caused missed values in roun
 | Status | Use when |
 |---|---|
 | **stated** | One threshold applies to all participants. An exception for some patients goes in the qualifier, and the status stays stated. |
-| **multiple** | Different thresholds apply to different **parts of the study**: cohorts, arms, parts, phases or dose levels. Record each. |
+| **multiple** | Either different thresholds apply to different **parts of the study** (cohorts, arms, parts, phases, dose levels), or the measure carries a **band** — a floor and a ceiling in different sections (section 5, question 3). Record each value. |
 | **not_stated** | No numerical threshold appears in any of the six places in section 1, under any of the names, apart from disease definitions (section 7). |
 | **unclear** | A threshold seems intended but cannot be read with confidence: garbled or truncated text, or contradictory statements. Add a note. |
 
@@ -104,6 +106,7 @@ Two questions, in this order:
 
 1. **Do the different numbers belong to different parts of the study** — a cohort, arm, part, phase or dose level? If yes, **multiple**, and record each.
 2. **Does a second number apply to a kind of patient inside the same part?** If yes, **stated** with one value, and the second number goes in the **qualifier**.
+3. **Does the same measure carry one bound in the inclusion list and a *different* bound in the exclusion list?** That is a **band**, not a repetition: a trial enrolling patients who already have impairment sets the floor in one section and the ceiling in the other, and both bounds are real. Record **multiple** with both values and write "band" in the note. If the two sections state the *same* threshold, it is a repetition — record it once, from inclusion (section 8).
 
 Worked examples:
 
@@ -111,6 +114,8 @@ Worked examples:
 - "Platelets ≥ 100,000 for cohort A and ≥ 75,000 for cohort B" → **multiple**, both values.
 - Bilirubin with a Gilbert's syndrome carve-out → **stated** plus qualifier.
 - "≥ 500 for patients with liver involvement" → **stated** plus qualifier.
+- Inclusion "haemoglobin < 10 g/dL", exclusion "haemoglobin < 8 g/dL" → **multiple**, `< 10` and `≥ 8`, note "band". Eligibility is 8 g/dL up to 10 g/dL, and recording either bound alone loses the other.
+- Inclusion "creatinine > 2 mg/dL", exclusion "creatinine > 2.5 mg/dL" → **multiple**, `> 2` and `≤ 2.5`, note "band".
 
 **The one exception**, which version 2 stated in its unit table and which contradicted its own rule: when **AST and ALT carry different limits** ("AST ≤ 2.5 × ULN and ALT ≤ 3 × ULN"), record them as **multiple**, both values, and say in the qualifier which is which. Two analytes are not two parts of the study, but the type holds both measures, so this is the only way to record both.
 
@@ -137,7 +142,9 @@ If the measure appears **only** in the disease definition, the status is **not_s
 
 ## 8. Common situations
 
-- **The same threshold in inclusion and exclusion:** record it once, from inclusion.
+- **The same measure in inclusion and exclusion.** If both sections state the **same** threshold, record it once, from inclusion. If they state **different** bounds, it is a band: record **multiple** with both values and note "band" (section 5, question 3).
+  - *Known limitation.* Each of the eight types holds one threshold in one direction, so a band has to borrow the `multiple` status, which otherwise means different parts of the study. The note is what distinguishes them. A later annotation version should carry bands in their own right; recorded here rather than worked around silently.
+  - Extractor v1.1 behaves the same way: `stated` from inclusion where the two thresholds match, `multiple` with both where they differ. So this convention and the extractor remain comparable.
 - **Criteria with "or":** if either a creatinine limit or a CrCl limit qualifies ("creatinine ≤ 2 mg/dL or CrCl ≥ 40"), record each under its own type and note "either".
 - **Thresholds that apply later in the study** — before cycle 2, for re-treatment, for dose modification: not eligibility. Leave them out and note it.
 - **Thresholds conditional on a transfusion or growth factor** ("platelets ≥ 50,000 without transfusion support in the past 7 days"): record the value, and put the condition in the qualifier.
