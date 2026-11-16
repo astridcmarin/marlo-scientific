@@ -114,6 +114,42 @@ class Record(unittest.TestCase):
         self.assertLessEqual(lo, rep['overall']['exact_rate'])
         self.assertGreaterEqual(hi, rep['overall']['exact_rate'])
 
+    def test_regression_pinned_report_digests(self):
+        """Pins agreement's output before the reader-A change of 16 November (plan v1 path must not move)."""
+        rep = sa.agreement(self.rec(self.forms), self.p)
+        self.assertEqual(rep['report_sha256'], 'a6c96f5e16bd816e82b2b9c0a7a186289891433edb6bb30ca5a01206b8d1a406')
+        forms = json.loads(json.dumps(self.forms))
+        for t in self.p['trials'][:30]:
+            f = forms[t['nct_id']]
+            for k in [k for k in f if k.startswith('ecog_max__')]:
+                del f[k]
+            f['ecog_max__status'] = 'not_stated'
+        rep2 = sa.agreement(self.rec(forms), self.p)
+        self.assertEqual(rep2['report_sha256'], '9738b1cbfa2f22316a44180ab517371abe560e9aded573a7d2fa7ba966688bb9')
+        self.assertEqual(rep2['overall']['exact_rate'], 0.9675)
+
+    def test_reader_a_record_matches_the_pinned_annotation_path(self):
+        """Passing the owner's own annotation as reader A reproduces the default path."""
+        rep = sa.agreement(self.rec(self.forms), self.p)
+        owner = self.rec(self.forms)
+        rep_b = sa.agreement(self.rec(self.forms), self.p, record_a=owner)
+        self.assertEqual(rep_b['overall']['exact_rate'], 1.0)
+        self.assertEqual(rep_b['readers']['a'], 'record')
+        self.assertNotIn('readers', rep)  # the default path's report is unchanged, digest included
+
+    def test_pair_subset_restricts_the_second_overall_block(self):
+        forms = json.loads(json.dumps(self.forms))
+        for t in self.p['trials'][:30]:
+            f = forms[t['nct_id']]
+            for k in [k for k in f if k.startswith('ecog_max__')]:
+                del f[k]
+            f['ecog_max__status'] = 'not_stated'
+        subset = [f"{t['nct_id']}:ecog_max" for t in self.p['trials'][:30]]
+        rep = sa.agreement(self.rec(forms), self.p, pair_subset=subset)
+        self.assertEqual(rep['overall_subset']['pairs'], len(subset))
+        self.assertLess(rep['overall_subset']['exact_rate'], rep['overall']['exact_rate'])
+        self.assertIsNone(sa.agreement(self.rec(forms), self.p).get('overall_subset'))
+
 
 if __name__ == '__main__':
     unittest.main()
