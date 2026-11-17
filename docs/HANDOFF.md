@@ -68,7 +68,7 @@ Done: ICRP 89 women and men (`reference_physiology_icrp89_v2.json`, not yet used
 ### 5. Smaller items
 
 - Corrections for the Li 2017 extract when it is next versioned: Table 3 is on journal page 137, not 139; "ω (V/F):ω (CL/F)" is not stated to be a covariance.
-- Not yet checked from the Track G search (`docs/reviews/2026-11_exposure_efficacy_search.md`): Dimopoulos 2011, Kado 2015 and 2020, the Akita report.
+- Track G is closed: Dimopoulos 2011, Kado 2015 and 2020 and the Akita grant report were checked against their full texts on 13 November and the O7 verdict is unchanged (`docs/reviews/2026-11_exposure_efficacy_search.md`, "Checked against the full texts").
 - Draft emails to the Hughes and Kim authors (Hughes: the weight basis of Cockcroft–Gault) were offered and not written.
 
 ## Two events worth knowing about
