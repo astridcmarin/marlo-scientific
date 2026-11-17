@@ -33,6 +33,22 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = Path(__file__).parent / 'data'
 PLAN_PATH = DATA / 'eligibility_second_annotation_plan_v1.json'
 PLAN_SHA256 = '2642765af8c98b17e1193d5a89cfaa9f662023419b8d657ff312053035698048'
+# Every plan file this module may run, pinned by its loader as the repository convention requires. Plan v2.1 was
+# reachable only by reading the file unpinned until 17 November 2026.
+PLANS = {
+    'eligibility-second-annotation-plan-v1.0': (PLAN_PATH, PLAN_SHA256),
+    'eligibility-second-annotation-plan-v2.0': (DATA / 'eligibility_second_annotation_plan_v2.json',
+                                                '15015076f61ab7d6093cf3b1ea4fe6fbc3b7b87bd0f8ffffca8cde7b19d49cf8'),
+    'eligibility-second-annotation-plan-v2.1': (DATA / 'eligibility_second_annotation_plan_v2_1.json',
+                                                '848a81b9750326a74128f8e0b979a0b5e2be15ff20a8cb496f014a0c1849a770'),
+}
+_PLAN_PINS = {str(path): sha for path, sha in PLANS.values()}
+# Who a page is for. Round one had one reader and the page said so in five places, which is why round two's two
+# pages both came out as annotator B's (found 17 November 2026).
+READERS = {
+    'owner': {'code': 'A', 'label': 'the owner', 'heading': 'the owner', 'slug': 'owner'},
+    'annotator_b': {'code': 'B', 'label': 'annotator B', 'heading': 'second annotator', 'slug': 'annotator_b'},
+}
 GUIDE_PATH = ROOT / 'docs' / 'ELIGIBILITY_ANNOTATION_GUIDE_V2.md'
 
 
@@ -56,18 +72,92 @@ def load_record(path=RECORD_PATH):
 
 def load_plan(path=PLAN_PATH):
     raw = Path(path).read_bytes()
-    if PLAN_SHA256 is not None and hashlib.sha256(raw).hexdigest() != PLAN_SHA256:
+    pinned = _PLAN_PINS.get(str(Path(path)))
+    if pinned is None:
+        raise ValueError(f'{Path(path).name} is not a pinned second-annotation plan; add it to PLANS first.')
+    if hashlib.sha256(raw).hexdigest() != pinned:
         raise ValueError('The second-annotation plan is missing or changed.')
     return json.loads(raw)
 
 
-def sample(plan=None):
-    """(study trials in presentation order, practice trials). Uses only the annotation order and the plan's seeds."""
+def plan_sha256(plan):
+    """The checksum of the plan file in use.
+
+    Not PLAN_SHA256, which is plan v1's and was written onto every page and every report whatever plan governed
+    them: round two's pages declared plan v2.1 and carried v1's checksum (found 17 November 2026).
+    """
+    version = plan['plan_version']
+    if version not in PLANS:
+        raise ValueError(f'unknown plan version {version!r}; pin its file in PLANS first')
+    path, pinned = PLANS[version]
+    got = hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    if got != pinned:
+        raise ValueError(f'The second-annotation plan {version} is missing or changed.')
+    return got
+
+
+def reader_identity(reader):
+    """The identity a page carries. None is round one, which had annotator B alone."""
+    if reader is None:
+        return READERS['annotator_b']
+    if reader not in READERS:
+        raise ValueError(f'unknown reader {reader!r}; expected one of {", ".join(sorted(READERS))}')
+    return READERS[reader]
+
+
+def guide_label(plan=None):
+    """How the page names the guide it carries, taken from the file the plan pins."""
+    m = re.search(r'_V(\d+)\.md$', guide_path(plan).name)
+    return f'version {m.group(1)}' if m else 'version 1'
+
+
+def _pool(order, spec):
+    """The trials a plan may draw from. Without a spec, all of them, which is what plan v1 does.
+
+    A spec names exclusions by rule rather than by listing ids, so the pool is reproducible from pinned files:
+    `exclude_round_one` drops the trials the first round used as study or practice, and `exclude_re_read` drops
+    every trial appearing in the 14 November reference-review view. Round two uses both, so that annotator B has
+    seen none of its trials and the owner has not seen them since the original annotation.
+    """
+    if not spec:
+        return list(order)
+    drop = set()
+    if spec.get('exclude_round_one'):
+        study, practice = sample(load_plan())
+        drop |= set(study) | set(practice)
+    if spec.get('exclude_re_read'):
+        from .eligibility_reference_review import view as rr_view
+        drop |= {it['nct_id'] for it in rr_view()['items']}
+    pool = [n for n in order if n not in drop]
+    if spec.get('expected_size') is not None and len(pool) != spec['expected_size']:
+        raise ValueError(f"pool has {len(pool)} trials, the plan expects {spec['expected_size']}")
+    return pool
+
+
+def _order_seed(plan, reader):
+    """The presentation-order seed. Plan v1 has one; plan v2 has one per reader, so the orders cannot coincide."""
+    seed = plan['presentation_order_seed']
+    if not isinstance(seed, dict):
+        return seed
+    seeds = {k: v for k, v in seed.items() if isinstance(v, int)}
+    if reader is None:
+        raise ValueError(f'this plan has a presentation order per reader; pass reader as one of {", ".join(sorted(seeds))}')
+    if reader not in seeds:
+        raise ValueError(f'unknown reader {reader!r}; expected one of {", ".join(sorted(seeds))}')
+    return seeds[reader]
+
+
+def sample(plan=None, reader=None):
+    """(study trials in presentation order, practice trials). Uses only the annotation order and the plan's seeds.
+
+    reader: required when the plan gives a presentation order per reader, as round two's does.
+    """
     plan = plan or load_plan()
     order = v2.load_sample()['annotation_order']
     s = plan['sample']
-    chosen = random.Random(s['seed']).sample(order, s['size'])
-    random.Random(plan['presentation_order_seed']).shuffle(chosen)
+    pool = _pool(order, s.get('pool'))
+    chosen = random.Random(s['seed']).sample(pool, s['size'])
+    random.Random(_order_seed(plan, reader)).shuffle(chosen)
     v1_sample = json.loads((DATA / 'eligibility_validation_sample_v1.json').read_text())['annotation_order']
     p = plan['practice']
     pool = [n for n in v1_sample if n not in set(order)]
@@ -138,15 +228,15 @@ def _md(text):
     return '\n'.join(out)
 
 
-def page_payload(plan=None):
+def page_payload(plan=None, reader=None):
     """Everything the standalone page holds. Contains no label, extractor output or error selection."""
     plan = plan or load_plan()
-    study, practice = sample(plan)
+    study, practice = sample(plan, reader)
     texts = dict(llm.criteria_texts(study))
     v1_texts = {t['nct_id']: t['eligibility']['criteria_text'] for t in llm.load_corpus()['trials'] if t['nct_id'] in set(practice)}
     types = [{'key': k, 'label': s['label'], 'units': list(s['units']), 'equations': list(s.get('equations', ())),
               'short': se.LABELS[k]} for k, s in ann2.TYPES.items()]
-    p = {'plan_version': plan['plan_version'], 'plan_sha256': PLAN_SHA256, 'guide_sha256': hashlib.sha256(guide_path(plan).read_bytes()).hexdigest(),
+    p = {'plan_version': plan['plan_version'], 'plan_sha256': plan_sha256(plan), 'guide_sha256': hashlib.sha256(guide_path(plan).read_bytes()).hexdigest(),
          'types': types, 'statuses': list(ann2.STATUSES), 'comparators': list(ann2.COMPARATORS), 'sections': list(ann2.SECTIONS),
          'describes': list(ann2.DESCRIBES), 'max_values': ann2.MAX_VALUES,
          'practice': [{'nct_id': n, 'criteria_text': v1_texts[n]} for n in practice],
@@ -155,22 +245,39 @@ def page_payload(plan=None):
     return p
 
 
-def write_page(path):
-    """Writes the standalone page (one HTML file, no server needed). Returns its page_sha256."""
+def write_page(path, plan=None, reader=None):
+    """Writes the standalone page (one HTML file, no server needed). Returns its page_sha256.
+
+    plan and reader are needed from round two on, where each reader has its own presentation order, so each
+    reader gets their own page and their own page checksum.
+    """
     import jinja2
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(str(ROOT / 'app' / 'templates')), autoescape=True)
-    p = page_payload()
-    page = env.get_template('eligibility_second_annotation_standalone.html').render(p=p, guide_html=_md(guide_path().read_text(encoding='utf-8')))
+    p = page_payload(plan, reader)
+    page = env.get_template('eligibility_second_annotation_standalone.html').render(
+        p=p, reader=reader_identity(reader), guide_label=guide_label(plan),
+        guide_html=_md(guide_path(plan).read_text(encoding='utf-8')))
     Path(path).write_text(page, encoding='utf-8')
     return p['page_sha256']
 
 
-def validate_record(record, p=None):
-    """A returned record -> (problems, parsed annotations by NCT ID). Every study trial must be complete and valid."""
-    p = p or page_payload()
+def validate_record(record, p=None, reader=None, plan=None):
+    """A returned record -> (problems, parsed annotations by NCT ID). Every study trial must be complete and valid.
+
+    reader: who the record should be from ('owner' or 'annotator_b'). Checked against the record's own annotator
+    code, so the two readers' records cannot be passed the wrong way round without the analysis saying so.
+    plan: with reader, builds the payload for that reader's page instead of round one's.
+    """
+    if p is None:
+        p = page_payload(plan, reader) if (plan is not None or reader is not None) else page_payload()
     problems, parsed = [], {}
     if record.get('schema_version') != RECORD_SCHEMA:
         problems.append('Unknown record format.')
+    if reader is not None:
+        want = reader_identity(reader)['code']
+        got = (record.get('annotator') or {}).get('code')
+        if got != want:
+            problems.append(f'The record is from reader {got!r}, but reader {want!r} was expected.')
     if record.get('page_sha256') != p['page_sha256']:
         problems.append('The record was made from a different page (page checksum differs).')
     if not record.get('locked_at'):
@@ -220,43 +327,66 @@ def _same(a, b):
     return same(None, a, b)
 
 
-def agreement(record, p=None, record_a=None, pair_subset=None):
+def _comparison(name):
+    """The comparison a plan pins. v1 is as written, v2 applies the platform's equivalences (decision 0002)."""
+    from .eligibility_reference_review import COMPARISONS
+    if name not in COMPARISONS:
+        raise ValueError(f'unknown comparison {name!r}; expected one of {", ".join(sorted(COMPARISONS))}')
+    return COMPARISONS[name]
+
+
+def agreement(record, p=None, record_a=None, pair_subset=None, comparison='v1', plan=None, p_a=None):
     """The plan's analysis. Raises if a record is invalid.
 
     record_a: an optional reader-A record, used in place of the owner's pinned annotation. Plan v2 has both
     readers work under annotation guide v3, so neither side is the pinned v2 annotation.
     pair_subset: optional "NCT:type" ids; adds an `overall_subset` block restricted to them, for the pairs
     the owner did not re-read in November.
+    comparison: 'v1' (default) compares the value and unit as written; 'v2' applies the equivalences the extractor
+    scoring already uses, which round two's plan pins. See docs/decisions/0002.
+    plan: the plan whose analysis parameters govern. Defaults to plan v1, which is what produced the locked result;
+    round two must pass its own, or the bootstrap seed and the bar would come from the wrong plan.
+    p_a: reader A's own page payload, needed from round two on because each reader reads from their own page and a
+    record carries the checksum of the page it was made from. Defaults to p, which is round one's arrangement.
 
-    With both left unset the report is byte-identical to the plan v1 path, digest included.
+    With all three left at their defaults the report is byte-identical to the plan v1 path, digest included.
     """
     p = p or page_payload()
     problems, b = validate_record(record, p)
     if problems:
         raise ValueError(problems)
-    plan = load_plan()
+    plan = plan or load_plan()
     trials = [t['nct_id'] for t in p['trials']]
+    if (plan['analysis'].get('trial_order') or 'page') == 'sorted':
+        # Each reader has their own page order from round two on, and the bootstrap resamples this list, so the
+        # interval would depend on whose page was passed. Sorting makes it the same either way.
+        trials = sorted(trials)
     if record_a is None:
         a_all = v2.load_annotations()['annotations']
         def a_get(n, t):
             return a_all[n]['criteria'][t]
         a_ref = {n: a_all[n] for n in trials}
     else:
-        problems_a, a_parsed = validate_record(record_a, p)
+        problems_a, a_parsed = validate_record(record_a, p_a or p)
         if problems_a:
             raise ValueError(problems_a)
         def a_get(n, t):
             return a_parsed[n][t]
         a_ref = {n: {'criteria': a_parsed[n]} for n in trials}
+    cmp = _comparison(comparison)
+
+    def agree(t, x, y):
+        return cmp(t, x, y)
+
     per_type, all_exact, all_detect, pair_exact = {}, {}, [], {}
     for t in v2.TYPES:
-        exact = [_same(a_get(n, t), b[n][t]) for n in trials]
+        exact = [agree(t, a_get(n, t), b[n][t]) for n in trials]
         det = [(_detect(a_get(n, t)), _detect(b[n][t])) for n in trials]
         both = [n for n in trials if _detect(a_get(n, t)) == 'threshold' == _detect(b[n][t])]
         row = {'trials': len(trials), 'exact_agreement': sum(exact), 'exact_rate': round(sum(exact) / len(trials), 4),
                'exact_wilson_95': _wilson(sum(exact), len(trials)),
                'detection_agreement': sum(1 for x, y in det if x == y), 'detection_kappa': _kappa(det),
-               'both_threshold': len(both), 'values_agree_when_both_threshold': sum(1 for n in both if _same(a_get(n, t), b[n][t]))}
+               'both_threshold': len(both), 'values_agree_when_both_threshold': sum(1 for n in both if agree(t, a_get(n, t), b[n][t]))}
         if t == 'kidney_function_min':
             row['equation_agree_when_both_threshold'] = sum(1 for n in both if a_get(n, t).get('equation') == b[n][t].get('equation'))
         per_type[t] = row
@@ -286,8 +416,8 @@ def agreement(record, p=None, record_a=None, pair_subset=None):
     extractors = {ref_name: {'v1_1': v2.summarise(val.score_run(ref, trials, rule)),
                              'llm_run_1': v2.summarise(val.score_run(ref, trials, model))}
                   for ref_name, ref in (('owner_annotation', a_ref), ('annotator_b', b_ref))}
-    disagreements = [{'nct_id': n, 'type': t} for n in trials for t in v2.TYPES if not _same(a_get(n, t), b[n][t])]
-    report = {'schema_version': 'eligibility-second-annotation-report-v1', 'plan_version': plan['plan_version'], 'plan_sha256': PLAN_SHA256,
+    disagreements = [{'nct_id': n, 'type': t} for n in trials for t in v2.TYPES if not agree(t, a_get(n, t), b[n][t])]
+    report = {'schema_version': 'eligibility-second-annotation-report-v1', 'plan_version': plan['plan_version'], 'plan_sha256': plan_sha256(plan),
               'page_sha256': p['page_sha256'], 'annotator': record.get('annotator', {}),
               'per_type': per_type, 'overall': overall,
               'reliability_reading': {'bar': bar, 'statistic': 'lower bound of the trial-bootstrap 95% interval of overall exact agreement',
@@ -295,6 +425,8 @@ def agreement(record, p=None, record_a=None, pair_subset=None):
               'extractors_on_sample_descriptive': extractors,
               'disagreements_for_adjudication': disagreements,
               'clinical_prediction_validated': False}
+    if comparison != 'v1':
+        report['comparison'] = comparison
     if record_a is not None:
         report['readers'] = {'a': 'record', 'b': 'record'}
     if pair_subset is not None:

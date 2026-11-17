@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Eligibility annotation (annotator B)</title>
+<title>Eligibility annotation ({{ reader.label }})</title>
 <style>
 :root{--ink:#1b2b31;--muted:#3d5560;--line:#dbe5e9;--accent:#2f6f7e;--bg:#fff;--soft:#f7fafb;--bad:#8a3b2f;--ok:#22603a}
 *{box-sizing:border-box}
@@ -41,7 +41,7 @@ textarea{min-height:2.4em}
 </head>
 <body>
 <main>
-<h1>Eligibility annotation: second annotator</h1>
+<h1>Eligibility annotation: {{ reader.heading }}</h1>
 <p>Thank you for doing this. You will read the registered eligibility criteria of {{ p.trials|length }} multiple myeloma trials and record, for each of eight laboratory or performance measures, the numerical threshold the trial sets (if any). The rules are in the guide below; please read it first, then do the {{ p.practice|length }} practice trials, then the study trials.</p>
 <ul>
 <li>Use only the criteria text shown. Don't look the trials up, and don't use any other tool or person to decide an answer.</li>
@@ -53,7 +53,7 @@ textarea{min-height:2.4em}
 <p class="note">Page checksum <code>{{ p.page_sha256[:12] }}</code> · plan <code>{{ p.plan_version }}</code> · guide <code>{{ p.guide_sha256[:12] }}</code></p>
 
 <p class="note">The guide was written for the first annotation of 200 trials; where it mentions the 200 trials, the review page or exporting, this page and its instructions above take their place. Everything else in it applies to you as written.</p>
-<details class="panel" open><summary>The annotation guide (version 2)</summary><div class="guide">{{ guide_html|safe }}</div></details>
+<details class="panel" open><summary>The annotation guide ({{ guide_label }})</summary><div class="guide">{{ guide_html|safe }}</div></details>
 
 <fieldset><legend>About you</legend>
 <div class="row"><label>Background, in your own words (it will be reported with the results)<input id="bg"></label></div>
@@ -185,10 +185,10 @@ textarea{min-height:2.4em}
   }
   function record() {
     return {schema_version: 'eligibility-second-annotation-record-v1', page_sha256: P.page_sha256, plan_sha256: P.plan_sha256,
-            annotator: {code: 'B', background: bg.value}, saved_at: new Date().toISOString(), locked_at: S.locked_at || null,
+            annotator: {code: '{{ reader.code }}', background: bg.value}, saved_at: new Date().toISOString(), locked_at: S.locked_at || null,
             annotations: S.annotations, practice: S.practice};
   }
-  document.getElementById('save').addEventListener('click', function () { file(record(), 'eligibility_annotator_b_copy_' + new Date().toISOString().slice(0, 10) + '.json'); });
+  document.getElementById('save').addEventListener('click', function () { file(record(), 'eligibility_{{ reader.slug }}_copy_' + new Date().toISOString().slice(0, 10) + '.json'); });
   document.getElementById('load').addEventListener('change', function (e) {
     var fl = e.target.files[0]; if (!fl) return;
     fl.text().then(function (txt) {
@@ -205,7 +205,7 @@ textarea{min-height:2.4em}
     if (!bg.value.trim()) { m.innerHTML = '<p class="problems">Please describe your background first (top of the page).</p>'; return; }
     if (!S.locked_at) S.locked_at = new Date().toISOString();
     save(); render();
-    file(record(), 'eligibility_annotator_b_final_' + S.locked_at.slice(0, 10) + '.json');
+    file(record(), 'eligibility_{{ reader.slug }}_final_' + S.locked_at.slice(0, 10) + '.json');
     m.innerHTML = '<p class="ok">Locked. Please send the downloaded file back unchanged.</p>';
   });
   render();

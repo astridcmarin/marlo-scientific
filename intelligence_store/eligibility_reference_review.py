@@ -147,10 +147,50 @@ def validate_record(record, v=None):
 
 
 def _same(ctype, a, b):
+    """Comparison v1: the comparator, the value as written and the unit as written. No normalisation.
+
+    Both locked results are scored with this, so it does not change. See docs/decisions/0002 and
+    tests.test_eligibility_reference_review.ComparisonV1, which pins it. ctype is unused here.
+    """
     if a['status'] != b['status']:
         return False
     return sorted((x['comparator'], str(x['value']), x['unit']) for x in a['values']) == \
         sorted((x['comparator'], str(x['value']), x['unit']) for x in b['values'])
+
+
+def _key_v2(ctype, x):
+    """The comparator plus the value and unit put on the type's canonical basis, where one is defined."""
+    from .eligibility_extractor_v1_1 import canonical
+    try:
+        got = canonical(ctype, x['value'], x['unit'])
+    except Exception:
+        got = None
+    if isinstance(got, tuple) and len(got) == 2:
+        unit, value = got
+    else:
+        unit, value = x['unit'], x['value']
+        try:
+            value = float(str(value))
+        except (TypeError, ValueError):
+            value = str(value)
+    return (x['comparator'], str(value), str(unit))
+
+
+def _same_v2(ctype, a, b):
+    """Comparison v2: as v1, but through the equivalences the extractor scoring already applies.
+
+    Uses eligibility_extractor_v1_1.canonical, so within a type it converts umol/L to mg/dL, g/L to g/dL and the
+    count units to a per-microlitre basis, and it compares numbers as numbers so "8" equals "8.0". It is therefore
+    more permissive than "same spelling": a reader who records the same threshold in another of the type's units
+    is not scored as disagreeing. Adopted for round two by docs/decisions/0002; never the default, so the locked
+    results keep reproducing from v1.
+    """
+    if a['status'] != b['status']:
+        return False
+    return sorted(_key_v2(ctype, x) for x in a['values']) == sorted(_key_v2(ctype, x) for x in b['values'])
+
+
+COMPARISONS = {'v1': _same, 'v2': _same_v2}
 
 
 def unblinded_items():

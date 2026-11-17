@@ -39,6 +39,15 @@ class Page(unittest.TestCase):
     def setUpClass(cls):
         cls.p = sa.page_payload()
 
+    def test_sample_is_pinned_for_plan_v1(self):
+        """Pins the draw before the sampler learned about restricted pools (17 November 2026)."""
+        import hashlib
+        study, practice = sa.sample()
+        self.assertEqual(hashlib.sha256(json.dumps(study).encode()).hexdigest(),
+                         'a9c720b27e66c5aa5e78f304385b38e6f5f9a34e3ef68363f70705ba8ec0e3d3')
+        self.assertEqual(hashlib.sha256(json.dumps(practice).encode()).hexdigest(),
+                         '6bf834f57f65aad766e71266d2a08719dd1369cc3ce86c7914a23bb36ae713dc')
+
     def test_sample(self):
         study, practice = sa.sample()
         order = v2.load_sample()['annotation_order']
@@ -149,6 +158,133 @@ class Record(unittest.TestCase):
         self.assertEqual(rep['overall_subset']['pairs'], len(subset))
         self.assertLess(rep['overall_subset']['exact_rate'], rep['overall']['exact_rate'])
         self.assertIsNone(sa.agreement(self.rec(forms), self.p).get('overall_subset'))
+
+    def test_comparison_v1_is_the_default_and_leaves_no_trace(self):
+        rep = sa.agreement(self.rec(self.forms), self.p)
+        self.assertNotIn('comparison', rep)
+        self.assertEqual(rep['report_sha256'],
+                         sa.agreement(self.rec(self.forms), self.p, comparison='v1')['report_sha256'])
+
+    def test_comparison_v2_is_recorded_in_the_report(self):
+        rep = sa.agreement(self.rec(self.forms), self.p, comparison='v2')
+        self.assertEqual(rep['comparison'], 'v2')
+
+    def test_an_unknown_comparison_is_refused(self):
+        with self.assertRaises(ValueError):
+            sa.agreement(self.rec(self.forms), self.p, comparison='v3')
+
+
+class RoundTwoPlan(unittest.TestCase):
+    """Round two draws from a restricted pool and gives each reader its own order (plan v2, 17 November 2026)."""
+
+    @classmethod
+    def setUpClass(cls):
+        import json as _json
+        cls.plan = _json.loads((sa.DATA / 'eligibility_second_annotation_plan_v2_1.json').read_bytes())
+
+    def test_pins_guide_v3(self):
+        import hashlib
+        g = self.plan['inputs']['guide']
+        self.assertTrue(g['file'].endswith('ELIGIBILITY_ANNOTATION_GUIDE_V3.md'))
+        self.assertEqual(hashlib.sha256((sa.ROOT / g['file']).read_bytes()).hexdigest(), g['sha256'])
+
+    def test_pins_comparison_v2(self):
+        self.assertEqual(self.plan['inputs']['comparison'], 'v2')
+
+    def test_both_readers_get_the_same_50_trials_in_different_orders(self):
+        a, _ = sa.sample(self.plan, 'owner')
+        b, _ = sa.sample(self.plan, 'annotator_b')
+        self.assertEqual(len(a), 50)
+        self.assertEqual(set(a), set(b))
+        self.assertNotEqual(a, b)
+
+    def test_the_pool_excludes_round_one_and_the_re_reading(self):
+        from intelligence_store import eligibility_reference_review as rr
+        a, practice = sa.sample(self.plan, 'owner')
+        r1_study, r1_practice = sa.sample()
+        self.assertEqual(set(a) & (set(r1_study) | set(r1_practice)), set())
+        self.assertEqual(set(a) & {it['nct_id'] for it in rr.view()['items']}, set())
+        self.assertEqual(len(set(a)), 50)
+        self.assertEqual(set(a) & set(practice), set())
+
+    def test_the_pool_size_is_asserted_so_it_cannot_drift(self):
+        plan = json.loads(json.dumps(self.plan))
+        plan['sample']['pool']['expected_size'] = 999
+        with self.assertRaises(ValueError):
+            sa.sample(plan, 'owner')
+
+    def test_a_reader_is_required_and_checked(self):
+        with self.assertRaises(ValueError):
+            sa.sample(self.plan)
+        with self.assertRaises(ValueError):
+            sa.sample(self.plan, 'somebody_else')
+
+    def test_plan_v1_still_takes_no_reader(self):
+        study, _ = sa.sample()
+        self.assertEqual(len(study), 50)
+
+    def test_the_reading_rule_names_what_a_second_failure_means(self):
+        does_not = self.plan['reading']['does_not_clear'].lower()
+        self.assertIn('not viable', does_not)
+        self.assertIn('no third round', does_not)
+        self.assertEqual(self.plan['analysis']['bar'], 0.90)
+
+    def test_adjudication_gains_a_fourth_choice(self):
+        self.assertIn('both', self.plan['adjudication'].lower())
+
+    def test_the_owner_is_recorded_as_not_naive(self):
+        self.assertIn('never a naive reader', ' '.join(self.plan['limitations']))
+        self.assertFalse(self.plan['clinical_prediction_validated'])
+
+    def test_the_plan_carries_the_keys_its_executable_reads(self):
+        """v2.0 did not, so it would have run under plan v1's bootstrap seed and bar."""
+        a = self.plan['analysis']
+        for key in ('bootstrap_seed', 'bootstrap_resamples', 'reliability_bar', 'reading_rule', 'trial_order'):
+            self.assertIn(key, a, key)
+        self.assertEqual(a['reliability_bar'], 0.90)
+        self.assertEqual(a['trial_order'], 'sorted')
+        self.assertNotEqual(a['bootstrap_seed'], json.loads(
+            (sa.DATA / 'eligibility_second_annotation_plan_v1.json').read_bytes())['analysis']['bootstrap_seed'])
+
+    def test_it_supersedes_v2_0_and_says_why(self):
+        sup = self.plan['supersedes']
+        self.assertEqual(sup['plan_version'], 'eligibility-second-annotation-plan-v2.0')
+        self.assertIn('could not govern its own analysis', sup['change'])
+        self.assertIn('draw is identical', sup['change'])
+
+    def _blank(self, payload):
+        return {'schema_version': sa.RECORD_SCHEMA, 'page_sha256': payload['page_sha256'],
+                'plan_version': self.plan['plan_version'], 'plan_sha256': payload.get('plan_sha256'),
+                'locked_at': '2026-11-20T10:00:00Z', 'annotator': {'code': 'X', 'background': 'synthetic'},
+                'annotations': {t['nct_id']: {f'{k}__status': 'not_stated' for k in v2.TYPES}
+                                for t in payload['trials']}}
+
+    def test_dry_run_two_readers_on_their_own_pages(self):
+        pb, pa = sa.page_payload(self.plan, 'annotator_b'), sa.page_payload(self.plan, 'owner')
+        self.assertNotEqual(pb['page_sha256'], pa['page_sha256'])
+        rep = sa.agreement(self._blank(pb), pb, record_a=self._blank(pa), comparison='v2',
+                           plan=self.plan, p_a=pa)
+        self.assertEqual(rep['comparison'], 'v2')
+        self.assertEqual(rep['reliability_reading']['bar'], 0.90)
+        self.assertEqual(rep['overall']['pairs'], 400)
+
+    def test_the_interval_does_not_depend_on_whose_page_was_passed(self):
+        pb, pa = sa.page_payload(self.plan, 'annotator_b'), sa.page_payload(self.plan, 'owner')
+        rb, ra = self._blank(pb), self._blank(pa)
+        first = next(iter(ra['annotations']))
+        ra['annotations'][first]['ecog_max__status'] = 'unclear'
+        ra['annotations'][first]['ecog_max__note'] = 'synthetic difference'
+        one = sa.agreement(rb, pb, record_a=ra, comparison='v2', plan=self.plan, p_a=pa)
+        two = sa.agreement(ra, pa, record_a=rb, comparison='v2', plan=self.plan, p_a=pb)
+        self.assertLess(one['overall']['exact_rate'], 1.0)
+        self.assertEqual(one['overall']['exact_rate'], two['overall']['exact_rate'])
+        self.assertEqual(one['overall']['exact_trial_bootstrap_95'],
+                         two['overall']['exact_trial_bootstrap_95'])
+
+    def test_record_a_is_validated_against_its_own_page(self):
+        pb, pa = sa.page_payload(self.plan, 'annotator_b'), sa.page_payload(self.plan, 'owner')
+        with self.assertRaises(ValueError):
+            sa.agreement(self._blank(pb), pb, record_a=self._blank(pa), comparison='v2', plan=self.plan)
 
 
 if __name__ == '__main__':
