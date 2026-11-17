@@ -10,8 +10,10 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v10.json'
-LEDGER_SHA256 = 'd80cec5b2701a8f760d9f1a3979bade1c10ce56d79cfa8d2a79b50fca8658c4b'
+LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v11.json'
+LEDGER_SHA256 = '6e08cd753efab500b41891101250f80b0f854b4e91f542fa08dfed600bcb70d9'
+# Superseded, kept unchanged for traceability: dataset_ledger_v10.json (v11 adds annotator B's second annotation)
+LEDGER_V10_SHA256 = 'd80cec5b2701a8f760d9f1a3979bade1c10ce56d79cfa8d2a79b50fca8658c4b'
 # Superseded, kept unchanged for traceability: dataset_ledger_v9.json (v10 adds the reference re-reading uses)
 LEDGER_V9_SHA256 = '29eef56918499a515a0f014399ffa1ff04a4b76bdcccec5d8a0bf623f9d09376'
 # Superseded, kept unchanged for traceability: dataset_ledger_v8.json

@@ -55,7 +55,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 ## Trial design
 
 - [Protocol benchmarking](PROTOCOL_BENCHMARKING.md): eligibility criteria across similar trials; v1 failed its locked check, v2 waits for annotation (4.1).
-- Annotation guides: [v2, current](ELIGIBILITY_ANNOTATION_GUIDE_V2.md) and [v1](ELIGIBILITY_ANNOTATION_GUIDE.md).
+- Annotation guides: [v3, current](ELIGIBILITY_ANNOTATION_GUIDE_V3.md), [v2](ELIGIBILITY_ANNOTATION_GUIDE_V2.md) (still pins the locked plans) and [v1](ELIGIBILITY_ANNOTATION_GUIDE.md). Why v3: [causes of the v2 corrections](development/ELIGIBILITY_REFERENCE_CAUSES.md).
 
 ## Data, schemas and verification foundations
 

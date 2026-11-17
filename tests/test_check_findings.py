@@ -19,7 +19,8 @@ class Findings(unittest.TestCase):
 
     def test_failures_are_listed(self):
         failed = {r['id'] for r in self.rows if r['outcome'] == 'failed'}
-        self.assertEqual(failed, {'kuan', 'falling_clearance', 'iwasaki', 'melphalan_label', 'eligibility_v1', 'eligibility_v2', 'eligibility_llm_c1'})
+        self.assertEqual(failed, {'kuan', 'falling_clearance', 'iwasaki', 'melphalan_label', 'eligibility_v1', 'eligibility_v2',
+                                  'eligibility_llm_c1', 'eligibility_second_annotation_v1'})
         self.assertGreaterEqual(self.view['counts']['gap'], 9)
 
     def test_v7_only_rewords_the_track_c_headline(self):
@@ -40,7 +41,8 @@ class Findings(unittest.TestCase):
 
     def test_v8_only_adds_the_reference_re_reading(self):
         old_raw = cf.FINDINGS_PATH.with_name('check_findings_v7.json').read_bytes()
-        old, new = json.loads(old_raw), json.loads(cf.FINDINGS_PATH.read_bytes())
+        new_raw = cf.FINDINGS_PATH.with_name('check_findings_v8.json').read_bytes()
+        old, new = json.loads(old_raw), json.loads(new_raw)
         self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V7_SHA256)
         before, after = {f['id']: f for f in old['findings']}, {f['id']: f for f in new['findings']}
         self.assertEqual(set(after) - set(before), {'eligibility_reference_review_v1'})
@@ -49,6 +51,18 @@ class Findings(unittest.TestCase):
         self.assertEqual(added['outcome'], 'inconclusive')
         self.assertIn('not blind', added['headline'])
         self.assertIn('stay primary', added['headline'])
+
+    def test_v9_only_adds_the_second_annotation(self):
+        old_raw = cf.FINDINGS_PATH.with_name('check_findings_v8.json').read_bytes()
+        old, new = json.loads(old_raw), json.loads(cf.FINDINGS_PATH.read_bytes())
+        self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V8_SHA256)
+        before, after = {f['id']: f for f in old['findings']}, {f['id']: f for f in new['findings']}
+        self.assertEqual(set(after) - set(before), {'eligibility_second_annotation_v1'})
+        self.assertEqual({k: before[k] for k in before}, {k: after[k] for k in before})
+        added = after['eligibility_second_annotation_v1']
+        self.assertEqual(added['outcome'], 'failed')
+        self.assertIn('0.90', added['acceptance_rule'])
+        self.assertIn('adjudicated', added['headline'])
 
     def test_blindness_comes_from_the_ledger(self):
         blind = {r['id']: r['blindness'] for r in self.rows if r['blind']}

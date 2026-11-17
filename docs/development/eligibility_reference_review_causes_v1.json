@@ -1,0 +1,3057 @@
+[
+ {
+  "id": "NCT00635024:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT07751783:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00112827:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT00424242:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01712789:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT00792142:platelets_min",
+  "type": "platelets_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00424242:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00725634:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_stated_to_multiple",
+  "cause": "status_stated_to_multiple",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "multiple"
+ },
+ {
+  "id": "NCT00750815:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT03346135:ecog_max",
+  "type": "ecog_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01668719:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00004088:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00003341:creatinine_max",
+  "type": "creatinine_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT05920876:ecog_max",
+  "type": "ecog_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT02230917:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01372540:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01057225:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00131261:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_and_value",
+  "cause": "comparator_and_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00792142:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00508209:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00060021:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT03196414:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01936532:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00406978:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05477797:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT06348108:ecog_max",
+  "type": "ecog_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02506959:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01758328:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT07567014:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05536154:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT07567014:creatinine_max",
+  "type": "creatinine_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01435720:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00597714:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "withdrawn_value",
+  "cause": "withdrawn_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT07139509:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_not_stated",
+  "cause": "status_multiple_to_not_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT03272633:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_not_stated",
+  "cause": "status_multiple_to_not_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT02221479:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "verbal_comparator",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00405756:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05892393:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00051311:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00281476:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00726869:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00427557:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT02086552:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT03287804:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01668719:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "withdrawn_value",
+  "cause": "disease_definition_scoping",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT02990338:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01040026:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT04320420:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT00800839:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05430945:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05055063:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT04268498:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01447914:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT02230917:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01208818:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00725634:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01269593:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "control",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01435720:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00405756:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT06182696:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT00505895:platelets_min",
+  "type": "platelets_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT01332617:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01208818:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01668719:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00428545:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT07764861:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "comparator_and_value",
+  "cause": "comparator_and_value",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00427765:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01057225:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00003341:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00003853:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00427765:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00427557:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT04106700:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT03393273:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT04634435:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT04776330:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT01946477:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "control",
+  "decision": "annotation_needs_correcting",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00248547:platelets_min",
+  "type": "platelets_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT00907452:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00054236:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "withdrawn_value",
+  "cause": "withdrawn_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT07764861:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01997840:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02221479:creatinine_max",
+  "type": "creatinine_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT01183663:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02221479:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01372540:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00428545:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01183663:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01421524:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "withdrawn_value",
+  "cause": "withdrawn_other",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT03333746:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00405756:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00725634:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT04776330:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "withdrawn_value",
+  "cause": "withdrawn_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT07751783:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01208818:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01393964:creatinine_max",
+  "type": "creatinine_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT02188537:platelets_min",
+  "type": "platelets_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01145989:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT05892393:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00405756:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT07336823:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00792142:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT07581704:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01670994:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02230917:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00907452:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05892393:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00112827:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05477797:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02221479:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT07751783:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00248547:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01668719:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05892393:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00434161:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01208818:ecog_max",
+  "type": "ecog_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT06799676:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "withdrawn_value",
+  "cause": "withdrawn_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT06189833:ecog_max",
+  "type": "ecog_max",
+  "group": "control",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_and_value",
+  "cause": "comparator_and_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00131261:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00154388:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT01332617:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT03393273:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT04194931:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01668719:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT06799676:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01355705:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02499081:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_and_value",
+  "cause": "comparator_and_value",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00726869:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02977494:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01668719:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02538198:creatinine_max",
+  "type": "creatinine_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT00946283:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02221479:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "verbal_comparator",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01596257:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT03275285:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00002556:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00002556:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00008164:ecog_max",
+  "type": "ecog_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT07764861:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02538198:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01402284:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00406978:creatinine_max",
+  "type": "creatinine_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT00750815:platelets_min",
+  "type": "platelets_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02221479:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "verbal_comparator",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00004088:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "withdrawn_value",
+  "cause": "withdrawn_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT05536154:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00428545:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01965834:ecog_max",
+  "type": "ecog_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00789776:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00725634:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02188537:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00489203:ecog_max",
+  "type": "ecog_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT00317811:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT07139509:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05274763:creatinine_max",
+  "type": "creatinine_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT03710603:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00112827:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02086552:anc_min",
+  "type": "anc_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00792142:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT04439136:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT06691685:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05430945:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_and_value",
+  "cause": "comparator_and_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05050097:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT01208818:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01946477:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT03710603:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00750815:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01453088:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT04634435:platelets_min",
+  "type": "platelets_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT04106700:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT07567014:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00008359:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "verbal_comparator",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00002556:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT03100877:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "comparator_and_value",
+  "cause": "comparator_and_value",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05430945:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01453088:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT05055063:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT07139509:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00002850:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT00726869:anc_min",
+  "type": "anc_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01372540:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT04439136:creatinine_max",
+  "type": "creatinine_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "withdrawn_value",
+  "cause": "withdrawn_other",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT03272633:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "multiple",
+  "new_status": "multiple"
+ },
+ {
+  "id": "NCT03804424:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT03393273:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00002556:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT01353625:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00060645:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT04776330:ecog_max",
+  "type": "ecog_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT01145989:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "withdrawn_value",
+  "cause": "withdrawn_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1"
+  ],
+  "orig_status": "stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT00725634:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02628704:creatinine_max",
+  "type": "creatinine_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT02499081:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02188537:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT07581704:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00577642:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "control",
+  "decision": "annotation_needs_correcting",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00317811:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT03859427:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT06196255:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02990338:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00615589:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT02086552:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "withdrawn_value",
+  "cause": "withdrawn_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1"
+  ],
+  "orig_status": "stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT01332617:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00452569:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "control",
+  "decision": "annotation_needs_correcting",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02086552:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "other_fields",
+  "cause": "other_fields",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "multiple",
+  "new_status": "multiple"
+ },
+ {
+  "id": "NCT00154388:ast_alt_max",
+  "type": "ast_alt_max",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00946283:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00427557:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_and_value",
+  "cause": "comparator_and_value",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02628704:ecog_max",
+  "type": "ecog_max",
+  "group": "control",
+  "decision": "annotation_stands",
+  "shape": "other",
+  "cause": "other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "not_stated",
+  "new_status": "not_stated"
+ },
+ {
+  "id": "NCT01131169:kidney_function_min",
+  "type": "kidney_function_min",
+  "group": "shared",
+  "decision": "trial_unclear",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02221479:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "missed_value",
+  "cause": "missed_plain_value",
+  "forms": [],
+  "new_agrees_with": [],
+  "orig_status": "not_stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01997840:anc_min",
+  "type": "anc_min",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT02561962:platelets_min",
+  "type": "platelets_min",
+  "group": "shared",
+  "decision": "annotation_stands",
+  "shape": "status_multiple_to_stated",
+  "cause": "status_multiple_to_stated",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "multiple",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT00963495:ecog_max",
+  "type": "ecog_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "comparator_only",
+  "cause": "comparator_other",
+  "forms": [],
+  "new_agrees_with": [
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ },
+ {
+  "id": "NCT01315132:bilirubin_max",
+  "type": "bilirubin_max",
+  "group": "shared",
+  "decision": "annotation_needs_correcting",
+  "shape": "value_or_unit",
+  "cause": "value_or_unit",
+  "forms": [],
+  "new_agrees_with": [
+   "v1_1",
+   "llm"
+  ],
+  "orig_status": "stated",
+  "new_status": "stated"
+ }
+]

@@ -1,12 +1,17 @@
 """Independent second annotation of a random sample of the eligibility v2 trials (plan eligibility_second_annotation_plan_v1.json).
 
-A second annotator ("annotator B") reads a seeded random sample of the 200 v2 trials under annotation guide v2, in a
+Module version 1.1 (16 November 2026): `agreement` takes an optional reader-A record and an optional pair subset;
+with both unset its report is byte-identical to version 1, which a regression test pins. The page now carries whichever
+annotation guide its plan pins.
+
+A second annotator ("annotator B") reads a seeded random sample of the 200 v2 trials under the plan's annotation guide, in a
 standalone page that holds only the guide, the criteria texts and the form: never the owner's labels, either
 extractor's output, or which pairs were errors. The sample is drawn from the annotation order alone, with no use of any
 result. B's record is validated by the annotation tool's own rules (eligibility_annotations_v2.parse_form).
 
-`agreement` produces the plan's analysis: B against the owner's pinned annotation (exact, detection and kappa, per type
-and overall), and, descriptively, both extractors scored against each reference on the same trials. Adjudication comes
+`agreement` produces the plan's analysis: reader B against reader A (exact, detection and kappa, per type and overall),
+where reader A is the owner's pinned annotation unless a reader-A record is given, and, descriptively, both extractors
+scored against each reference on the same trials. Adjudication comes
 only after both sets are locked and is not part of this module.
 """
 import hashlib
@@ -29,7 +34,24 @@ DATA = Path(__file__).parent / 'data'
 PLAN_PATH = DATA / 'eligibility_second_annotation_plan_v1.json'
 PLAN_SHA256 = '2642765af8c98b17e1193d5a89cfaa9f662023419b8d657ff312053035698048'
 GUIDE_PATH = ROOT / 'docs' / 'ELIGIBILITY_ANNOTATION_GUIDE_V2.md'
+
+
+def guide_path(plan=None):
+    """The guide the plan pins, so a later plan version carries its own guide into the page."""
+    plan = plan or load_plan()
+    named = (plan.get('inputs') or {}).get('guide', {}).get('file')
+    return (ROOT / named) if named else GUIDE_PATH
 RECORD_SCHEMA = 'eligibility-second-annotation-record-v1'
+# Annotator B's locked record, pinned unchanged before any analysis, as plan v1 requires.
+RECORD_PATH = DATA / 'eligibility_annotator_b_record_v1.json'
+RECORD_SHA256 = '8a491e1a37158dfc25034687cba7b31665ad3b6acf47d4d7d9c49a19b0a8ddd0'
+
+
+def load_record(path=RECORD_PATH):
+    raw = Path(path).read_bytes()
+    if RECORD_SHA256 is not None and hashlib.sha256(raw).hexdigest() != RECORD_SHA256:
+        raise ValueError("Annotator B's record is missing or changed.")
+    return json.loads(raw)
 
 
 def load_plan(path=PLAN_PATH):
@@ -124,7 +146,7 @@ def page_payload(plan=None):
     v1_texts = {t['nct_id']: t['eligibility']['criteria_text'] for t in llm.load_corpus()['trials'] if t['nct_id'] in set(practice)}
     types = [{'key': k, 'label': s['label'], 'units': list(s['units']), 'equations': list(s.get('equations', ())),
               'short': se.LABELS[k]} for k, s in ann2.TYPES.items()]
-    p = {'plan_version': plan['plan_version'], 'plan_sha256': PLAN_SHA256, 'guide_sha256': hashlib.sha256(GUIDE_PATH.read_bytes()).hexdigest(),
+    p = {'plan_version': plan['plan_version'], 'plan_sha256': PLAN_SHA256, 'guide_sha256': hashlib.sha256(guide_path(plan).read_bytes()).hexdigest(),
          'types': types, 'statuses': list(ann2.STATUSES), 'comparators': list(ann2.COMPARATORS), 'sections': list(ann2.SECTIONS),
          'describes': list(ann2.DESCRIBES), 'max_values': ann2.MAX_VALUES,
          'practice': [{'nct_id': n, 'criteria_text': v1_texts[n]} for n in practice],
@@ -138,7 +160,7 @@ def write_page(path):
     import jinja2
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(str(ROOT / 'app' / 'templates')), autoescape=True)
     p = page_payload()
-    page = env.get_template('eligibility_second_annotation_standalone.html').render(p=p, guide_html=_md(GUIDE_PATH.read_text(encoding='utf-8')))
+    page = env.get_template('eligibility_second_annotation_standalone.html').render(p=p, guide_html=_md(guide_path().read_text(encoding='utf-8')))
     Path(path).write_text(page, encoding='utf-8')
     return p['page_sha256']
 
@@ -198,29 +220,49 @@ def _same(a, b):
     return same(None, a, b)
 
 
-def agreement(record, p=None):
-    """The plan's analysis. Raises if the record is invalid."""
+def agreement(record, p=None, record_a=None, pair_subset=None):
+    """The plan's analysis. Raises if a record is invalid.
+
+    record_a: an optional reader-A record, used in place of the owner's pinned annotation. Plan v2 has both
+    readers work under annotation guide v3, so neither side is the pinned v2 annotation.
+    pair_subset: optional "NCT:type" ids; adds an `overall_subset` block restricted to them, for the pairs
+    the owner did not re-read in November.
+
+    With both left unset the report is byte-identical to the plan v1 path, digest included.
+    """
     p = p or page_payload()
     problems, b = validate_record(record, p)
     if problems:
         raise ValueError(problems)
     plan = load_plan()
-    a_all = v2.load_annotations()['annotations']
     trials = [t['nct_id'] for t in p['trials']]
-    per_type, all_exact, all_detect = {}, {}, []
+    if record_a is None:
+        a_all = v2.load_annotations()['annotations']
+        def a_get(n, t):
+            return a_all[n]['criteria'][t]
+        a_ref = {n: a_all[n] for n in trials}
+    else:
+        problems_a, a_parsed = validate_record(record_a, p)
+        if problems_a:
+            raise ValueError(problems_a)
+        def a_get(n, t):
+            return a_parsed[n][t]
+        a_ref = {n: {'criteria': a_parsed[n]} for n in trials}
+    per_type, all_exact, all_detect, pair_exact = {}, {}, [], {}
     for t in v2.TYPES:
-        exact = [_same(a_all[n]['criteria'][t], b[n][t]) for n in trials]
-        det = [(_detect(a_all[n]['criteria'][t]), _detect(b[n][t])) for n in trials]
-        both = [n for n in trials if _detect(a_all[n]['criteria'][t]) == 'threshold' == _detect(b[n][t])]
+        exact = [_same(a_get(n, t), b[n][t]) for n in trials]
+        det = [(_detect(a_get(n, t)), _detect(b[n][t])) for n in trials]
+        both = [n for n in trials if _detect(a_get(n, t)) == 'threshold' == _detect(b[n][t])]
         row = {'trials': len(trials), 'exact_agreement': sum(exact), 'exact_rate': round(sum(exact) / len(trials), 4),
                'exact_wilson_95': _wilson(sum(exact), len(trials)),
                'detection_agreement': sum(1 for x, y in det if x == y), 'detection_kappa': _kappa(det),
-               'both_threshold': len(both), 'values_agree_when_both_threshold': sum(1 for n in both if _same(a_all[n]['criteria'][t], b[n][t]))}
+               'both_threshold': len(both), 'values_agree_when_both_threshold': sum(1 for n in both if _same(a_get(n, t), b[n][t]))}
         if t == 'kidney_function_min':
-            row['equation_agree_when_both_threshold'] = sum(1 for n in both if a_all[n]['criteria'][t].get('equation') == b[n][t].get('equation'))
+            row['equation_agree_when_both_threshold'] = sum(1 for n in both if a_get(n, t).get('equation') == b[n][t].get('equation'))
         per_type[t] = row
         for n, e in zip(trials, exact):
             all_exact.setdefault(n, []).append(e)
+            pair_exact[f'{n}:{t}'] = e
         all_detect += det
     total = sum(len(v) for v in all_exact.values())
     hits = sum(sum(v) for v in all_exact.values())
@@ -237,7 +279,6 @@ def agreement(record, p=None):
     reading = ('adequate' if lo >= bar else 'not_adequate')
 
     b_ref = {n: {'criteria': b[n]} for n in trials}
-    a_ref = {n: a_all[n] for n in trials}
     texts = {t['nct_id']: t['criteria_text'] for t in p['trials']}
     rule = {n: v2.ex.extract(texts[n]) for n in trials}
     model_all = se._llm_run_1(v2.load_sample()['annotation_order'])
@@ -245,7 +286,7 @@ def agreement(record, p=None):
     extractors = {ref_name: {'v1_1': v2.summarise(val.score_run(ref, trials, rule)),
                              'llm_run_1': v2.summarise(val.score_run(ref, trials, model))}
                   for ref_name, ref in (('owner_annotation', a_ref), ('annotator_b', b_ref))}
-    disagreements = [{'nct_id': n, 'type': t} for n in trials for t in v2.TYPES if not _same(a_all[n]['criteria'][t], b[n][t])]
+    disagreements = [{'nct_id': n, 'type': t} for n in trials for t in v2.TYPES if not _same(a_get(n, t), b[n][t])]
     report = {'schema_version': 'eligibility-second-annotation-report-v1', 'plan_version': plan['plan_version'], 'plan_sha256': PLAN_SHA256,
               'page_sha256': p['page_sha256'], 'annotator': record.get('annotator', {}),
               'per_type': per_type, 'overall': overall,
@@ -254,5 +295,14 @@ def agreement(record, p=None):
               'extractors_on_sample_descriptive': extractors,
               'disagreements_for_adjudication': disagreements,
               'clinical_prediction_validated': False}
+    if record_a is not None:
+        report['readers'] = {'a': 'record', 'b': 'record'}
+    if pair_subset is not None:
+        keys = [k for k in pair_subset if k in pair_exact]
+        n_sub, hits_sub = len(keys), sum(1 for k in keys if pair_exact[k])
+        report['overall_subset'] = {'pairs': n_sub, 'exact_agreement': hits_sub,
+                                    'exact_rate': round(hits_sub / n_sub, 4) if n_sub else None,
+                                    'exact_wilson_95': _wilson(hits_sub, n_sub) if n_sub else None,
+                                    'note': 'a prespecified subset of the 400 pairs; see the plan'}
     report['report_sha256'] = digest(report)
     return report
