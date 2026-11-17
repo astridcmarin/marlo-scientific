@@ -74,6 +74,14 @@ Done: ICRP 89 women and men (`reference_physiology_icrp89_v2.json`, not yet used
 - Track G is closed: Dimopoulos 2011, Kado 2015 and 2020 and the Akita grant report were checked against their full texts on 13 November and the O7 verdict is unchanged (`docs/reviews/2026-11_exposure_efficacy_search.md`, "Checked against the full texts").
 - Draft emails to the Hughes and Kim authors (Hughes: the weight basis of Cockcroft–Gault) were offered and not written.
 
+### 6. Six sources obtained unread (17 November)
+
+Dataset ledger v13 registers Badros 2013 and Quach 2017 (carfilzomib, renal impairment), Dimopoulos 2021 and the SARCLISA EPAR (isatuximab), NCT04256707 (selinexor, hepatic impairment) and the Zhang and Mager 2020 supplement (bortezomib), each with the SHA-256 of the file obtained (kept in `supplemental-information/articles`, outside the repository) and a note of exactly what was read before registration. With the Hughes, Gupta and Luo fitting data, which the platform cannot obtain, they are its only unseen datasets, and the only ones it holds.
+
+- Reading their results sections, tables, figures, posted results or supplement makes them seen, and they can then no longer give a blind check. So far only file names, title pages and checksums have been handled. A check that wants to use one locks its plan first and passes `dataset_ledger.assert_blind_allowed`.
+- Even then, a blind check may not use anything an abstract reports, since each source was found by web search and search results show abstract sentences. For Badros, Dimopoulos and the SARCLISA EPAR, the direction of a renal or covariate effect is also known (the ledger notes say how). What remains blind is the tabulated values.
+- The Zhang and Mager main article is not held; a reprint was requested from Donald Mager on 17 November. The Nguyen PAGE abstract (isatuximab population PK) returned access forbidden and was not obtained.
+
 ## Two events worth knowing about
 
 **Explained (13 November).** `docs/HANDOFF.md` item 3 was edited through the GitHub web editor to say the extended acceptance rule was locked and committed with the ledger and findings updated. None of it was on `main`, and the commit message described work its one-line diff did not contain. The owner confirmed on 16 November that the edit was hers and a mistake; the paragraph was restored in PR #126. A web edit also moves a file's checksum out from under anything pinned to it, so changes belong in a commit from a working copy.
