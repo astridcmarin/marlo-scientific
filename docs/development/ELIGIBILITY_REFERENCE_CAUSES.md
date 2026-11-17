@@ -47,4 +47,6 @@ The eight types each hold one threshold in one direction, so no band can be reco
 
 ## Extractor defect found while checking the conventions
 
+A limit written as the bare abbreviation "WNL" is missed entirely: v1.1 returns not_stated where "within normal limits" and "<= ULN" are both read as `<= 1 x ULN`. Guide v3 records "WNL" as a stated limit, so the annotation is right and the extractor is wrong on any trial that abbreviates it.
+
 For a genuine multi-part trial ("≥ 100,000 for cohort A and ≥ 75,000 for cohort B") v1.1 returns status `stated` with the first value only, where the guide calls for `multiple` with both. Annotation and extractor will therefore disagree on every true multi-cohort trial, in the annotation's favour. Not yet recorded as a finding; it needs its own plan.

@@ -121,6 +121,9 @@ Worked examples:
 
 ## 6. Units, by type
 
+**A limit given as "ULN" with no number is `≤ 1 × ULN`.** This covers "≤ ULN", "within normal limits", "within institutional normal limits", "≤ upper limit of normal" and "WNL", and it applies to all three types measured in × ULN — **bilirubin, AST/ALT and creatinine**. It is a stated threshold, not not_stated: the trial is requiring a result at or below the top of the local normal range, which is 1 × ULN by definition. Extractor v1.1 reads every one of these forms the same way **except the bare abbreviation "WNL", which it misses**; record it as `≤ 1 × ULN` regardless, since the trial states a limit.
+
+
 | Type | Units | How to read common wordings |
 |---|---|---|
 | kidney_function | mL/min; mL/min/1.73 m² | "cc/min" and "mL per minute" are mL/min. Record the method if stated: Cockcroft–Gault, MDRD, CKD-EPI, measured (24-hour urine) or not stated. |
@@ -128,7 +131,7 @@ Worked examples:
 | anc | × 10⁹/L; /mm³ (= /µL); cells/µL; × 10³/µL (K/µL) | /µL, /mcL, /µl, /mm³ and cells/mm³ are the same unit to the scoring. "1.0 K/µL" is × 10³/µL. **1.0 × 10⁹/L, 1,000/mm³ and 1.0 K/µL are the same number in three units — record the one written, do not convert.** |
 | platelets | × 10⁹/L; /mm³ (= /µL); × 10³/µL (K/µL) | As for ANC. **"75,000" with no unit at all is /mm³ (= /µL); "75" with no unit is × 10⁹/L.** |
 | hemoglobin | g/dL; g/L; mmol/L | 8 g/dL and 80 g/L are the same number. Record the one written. |
-| bilirubin | × ULN; mg/dL; µmol/L | "Within normal limits", "WNL", "within institutional normal limits" or "≤ ULN" with no number is **1 × ULN, comparator ≤**. A number with "× ULN", "times ULN" or "x the upper limit of normal" is × ULN, never mg/dL. **"Total bilirubin" is this type; "direct bilirubin" alone is not — record not_stated and note it.** |
+| bilirubin | × ULN; mg/dL; µmol/L | A number with "× ULN", "times ULN" or "x the upper limit of normal" is × ULN, never mg/dL. **"Total bilirubin" is this type; "direct bilirubin" alone is not — record not_stated and note it.** |
 | ast_alt | × ULN; U/L | A number with "× ULN" is × ULN; a number with "U/L", "IU/L" or "units/L" is U/L. Different limits for AST and ALT → multiple (section 5). A limit given for "transaminases" or "aminotransferases" without naming which covers both: **stated**, one value. |
 | ecog | score | "0–2", "0, 1 or 2" and "0 to 2" are `≤ 2`, as written. "< 2" is recorded as `< 2`; the scoring treats it as `≤ 1`. Karnofsky or Lansky alone is **not_stated** for ECOG, with a note. WHO, Zubrod and SWOG are the same 0–4 scale: record them as ECOG. |
 
