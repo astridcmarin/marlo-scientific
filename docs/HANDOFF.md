@@ -64,9 +64,11 @@ Page: `/models/extraction-review/round-3/track-b` (35 disagreements, 33 without 
 
 Done for the four lenalidomide checks (`docs/verification/acceptance_rule_v2_lenalidomide_v1.json`; reviews in `docs/reviews/2026-11_chatgpt_f03_review.md`). **An extension to ixazomib and daratumumab was built and run in another account on 13 November and lost with batch 14** — not in the owner's working copy, the bundles or GitHub, so it is not done and cannot be reconstructed from the description of its own results. Extending it needs a new locked plan, and an owner decision first: Gupta 2017 (ixazomib) and Luo 2021 (daratumumab) publish %RSE only, Li 2017 (pomalidomide) publishes 90% bootstrap intervals (`docs/reviews/2026-11_precision_extraction_gupta_luo_li.md`). Also from ChatGPT's review, for that plan: joint bootstrap vectors or correlation scenarios, more outer draws, other marginal shapes.
 
+**Owner decision, 17 November: convert, with correlation scenarios** (`docs/decisions/0004-acceptance-rule-precision-conversion.md`). %RSE and 90% intervals are turned into draws, and the verdict is shown under the independent case and under each correlation scenario. The scales, correlations, draw count and alternative shapes are fixed in the plan before it runs. Next: write and lock that plan. The lost extension is not reconstructed.
+
 ### 4. Body map (Track H, `docs/reviews/2026-11_organ_level_design_draft.md`)
 
-Done: ICRP 89 women and men (`reference_physiology_icrp89_v2.json`, not yet used by pages), label fixes, absorption through the portal vein (paths v3), kidney clearance inside the kidneys and separate ureter ends (paths v4), R/L markers, navigation (drag moves, scroll zooms at the pointer, double-click focuses). Open: arrowheads (item 16), node names and UBERON terms in `body_map.py` (a versioned step), the eight open questions for the owner in the design draft before any organ-level model.
+Done: ICRP 89 women and men (`reference_physiology_icrp89_v2.json`, not yet used by pages), label fixes, absorption through the portal vein (paths v3), kidney clearance inside the kidneys and separate ureter ends (paths v4), R/L markers, navigation (drag moves, scroll zooms at the pointer, double-click focuses). Open: arrowheads (item 16), node names and UBERON terms in `body_map.py` (a versioned step). The design draft's eight questions were answered by the owner on 17 November (its Handling section): lumped compartments first, renal clearance 162 mL/min, a reference woman's physiology but no female picture before a female mesh, no mouse check until the model goes beyond lumped compartments, fu as decided on 31 October, both parent shares quoted with their methods, the women's liver flow as the sum of its parts, the semen finding as text only.
 
 ### 5. Smaller items
 
@@ -80,6 +82,7 @@ Dataset ledger v13 registers Badros 2013 and Quach 2017 (carfilzomib, renal impa
 
 - Reading their results sections, tables, figures, posted results or supplement makes them seen, and they can then no longer give a blind check. So far only file names, title pages and checksums have been handled. A check that wants to use one locks its plan first and passes `dataset_ledger.assert_blind_allowed`.
 - Even then, a blind check may not use anything an abstract reports, since each source was found by web search and search results show abstract sentences. For Badros, Dimopoulos and the SARCLISA EPAR, the direction of a renal or covariate effect is also known (the ledger notes say how). What remains blind is the tabulated values.
+- **Badros stays unseen** (owner, 17 November). What "seen" means for these six is `docs/decisions/0003-what-makes-a-dataset-seen.md`; the gate does not enforce its exclusions, so a plan claiming a blind check on one of them must quote the dataset's note and show its prediction avoids them.
 - The Zhang and Mager main article is not held; a reprint was requested from Donald Mager on 17 November. The Nguyen PAGE abstract (isatuximab population PK) returned access forbidden and was not obtained.
 
 ## Two events worth knowing about
