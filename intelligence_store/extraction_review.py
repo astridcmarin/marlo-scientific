@@ -289,6 +289,8 @@ KEY_FILES = {
     'model:lenalidomide_hughes_2019': ('intelligence_store/data/hughes_parameter_extract_v1.json',
                                        'intelligence_store/data/hughes_variability_extract_v1.json'),
     'model:lenalidomide_kim_2026': ('intelligence_store/data/kim_2026_model_extract_v1.json',),
+    # Stays v2: the owner's review of these values was made against v2, and the queue records that file.
+    # v3 changes quote typography only, no value, so the review carries over without being re-pointed.
     'model:lenalidomide_exposure_safety_2016': ('intelligence_store/data/lenalidomide_exposure_safety_v2.json',),
     'model:ixazomib_pk_gupta_2017': ('intelligence_store/data/ixazomib_pk_gupta_2017_extract_v1.json',),
     'model:daratumumab_pk_luo_2021': ('intelligence_store/data/daratumumab_pk_luo_2021_extract_v1.json',),

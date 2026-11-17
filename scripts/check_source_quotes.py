@@ -5,7 +5,7 @@ Usage, from the repository root:
 
 Text is taken with `pdftotext` for a PDF (layout, default and raw text, all searched), from the document XML for a .docx (paragraphs and table cells), or read
 as UTF-8 for a text file. Whitespace is collapsed on both sides before matching; nothing else is normalised. Every string
-under a key ending in "quote" (or in a list under "quotes") is checked. Prints one line per quote and exits non-zero if
+under a key ending in "quote", or in a list or dict under "quotes", is checked. Prints one line per quote and exits non-zero if
 any quote is missing or the source's SHA-256 differs from --sha256. Sources stay in supplemental-information/ (not in git),
 so this runs where the source is, not in CI.
 """
@@ -34,7 +34,15 @@ def source_text(path):
         text = re.sub(r'<[^>]+>', '', xml)
         return (text.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>')
                 .replace('&quot;', '"').replace('&apos;', "'"))
-    return path.read_text(encoding='utf-8')
+    # A text copy saved from Word is often cp1252, not UTF-8; the AusPAR copy pinned by
+    # lenalidomide_exposure_safety_v2.json could not be read at all until 16 November 2026.
+    raw = path.read_bytes()
+    for encoding in ('utf-8', 'cp1252', 'latin-1'):
+        try:
+            return raw.decode(encoding)
+        except UnicodeDecodeError:
+            continue
+    return raw.decode('utf-8', errors='replace')
 
 
 def collapse(text):
@@ -51,6 +59,14 @@ def quotes(node, pointer=''):
                 for i, q in enumerate(value):
                     if isinstance(q, str):
                         yield f'{here}/{i}', q
+            elif key == 'quotes' and isinstance(value, dict):
+                # Six extracts hold their quotes in a dict under "quotes" rather than a list, and 57 quotes
+                # were skipped silently until 16 November 2026. Named keys are walked the same way.
+                for name, q in value.items():
+                    if isinstance(q, str):
+                        yield f'{here}/{name}', q
+                    else:
+                        yield from quotes(q, f'{here}/{name}')
             else:
                 yield from quotes(value, here)
     elif isinstance(node, list):
