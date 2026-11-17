@@ -61,13 +61,53 @@ def load_plan(path=PLAN_PATH):
     return json.loads(raw)
 
 
-def sample(plan=None):
-    """(study trials in presentation order, practice trials). Uses only the annotation order and the plan's seeds."""
+def _pool(order, spec):
+    """The trials a plan may draw from. Without a spec, all of them, which is what plan v1 does.
+
+    A spec names exclusions by rule rather than by listing ids, so the pool is reproducible from pinned files:
+    `exclude_round_one` drops the trials the first round used as study or practice, and `exclude_re_read` drops
+    every trial appearing in the 14 November reference-review view. Round two uses both, so that annotator B has
+    seen none of its trials and the owner has not seen them since the original annotation.
+    """
+    if not spec:
+        return list(order)
+    drop = set()
+    if spec.get('exclude_round_one'):
+        study, practice = sample(load_plan())
+        drop |= set(study) | set(practice)
+    if spec.get('exclude_re_read'):
+        from .eligibility_reference_review import view as rr_view
+        drop |= {it['nct_id'] for it in rr_view()['items']}
+    pool = [n for n in order if n not in drop]
+    if spec.get('expected_size') is not None and len(pool) != spec['expected_size']:
+        raise ValueError(f"pool has {len(pool)} trials, the plan expects {spec['expected_size']}")
+    return pool
+
+
+def _order_seed(plan, reader):
+    """The presentation-order seed. Plan v1 has one; plan v2 has one per reader, so the orders cannot coincide."""
+    seed = plan['presentation_order_seed']
+    if not isinstance(seed, dict):
+        return seed
+    seeds = {k: v for k, v in seed.items() if isinstance(v, int)}
+    if reader is None:
+        raise ValueError(f'this plan has a presentation order per reader; pass reader as one of {", ".join(sorted(seeds))}')
+    if reader not in seeds:
+        raise ValueError(f'unknown reader {reader!r}; expected one of {", ".join(sorted(seeds))}')
+    return seeds[reader]
+
+
+def sample(plan=None, reader=None):
+    """(study trials in presentation order, practice trials). Uses only the annotation order and the plan's seeds.
+
+    reader: required when the plan gives a presentation order per reader, as round two's does.
+    """
     plan = plan or load_plan()
     order = v2.load_sample()['annotation_order']
     s = plan['sample']
-    chosen = random.Random(s['seed']).sample(order, s['size'])
-    random.Random(plan['presentation_order_seed']).shuffle(chosen)
+    pool = _pool(order, s.get('pool'))
+    chosen = random.Random(s['seed']).sample(pool, s['size'])
+    random.Random(_order_seed(plan, reader)).shuffle(chosen)
     v1_sample = json.loads((DATA / 'eligibility_validation_sample_v1.json').read_text())['annotation_order']
     p = plan['practice']
     pool = [n for n in v1_sample if n not in set(order)]
@@ -138,10 +178,10 @@ def _md(text):
     return '\n'.join(out)
 
 
-def page_payload(plan=None):
+def page_payload(plan=None, reader=None):
     """Everything the standalone page holds. Contains no label, extractor output or error selection."""
     plan = plan or load_plan()
-    study, practice = sample(plan)
+    study, practice = sample(plan, reader)
     texts = dict(llm.criteria_texts(study))
     v1_texts = {t['nct_id']: t['eligibility']['criteria_text'] for t in llm.load_corpus()['trials'] if t['nct_id'] in set(practice)}
     types = [{'key': k, 'label': s['label'], 'units': list(s['units']), 'equations': list(s.get('equations', ())),

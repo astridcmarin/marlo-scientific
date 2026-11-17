@@ -1,0 +1,96 @@
+{
+ "schema_version": "eligibility-second-annotation-plan-v1",
+ "plan_version": "eligibility-second-annotation-plan-v2.0",
+ "recorded_on": "2026-11-17",
+ "status": "locked 17 November 2026, before either reader saw a trial of this sample and before either page was built; committed with its executable, which was dry-run on synthetic records",
+ "supersedes": {
+  "file": "intelligence_store/data/eligibility_second_annotation_plan_v1.json",
+  "sha256": "2642765af8c98b17e1193d5a89cfaa9f662023419b8d657ff312053035698048",
+  "plan_version": "eligibility-second-annotation-plan-v1.0",
+  "change": "Round two. Both readers work under annotation guide v3 instead of v2, on a fresh 50 trials that neither round one nor the November re-reading touched, and the agreement is scored with comparison v2. Plan v1 and its result stand unchanged."
+ },
+ "why": "Round one failed its own test: two readers of the same 50 trials agreed on 357 of 400 pairs, and the lower bound of the trial-level bootstrap interval, 0.8475, is below the 0.90 bar, so a one-reader reference was not shown adequate to judge an extractor. The adjudication then showed both readers erring: the reference wrong in at least 31 of the 400 pairs and annotator B's reading in at least 16. An exploratory classification put 32 of the 43 disagreements in classes annotation guide v3 was written to resolve. This round asks the question that leaves: under a guide that names where to look, states the equality rule, and settles multiple against qualifier, can two readers agree well enough for a reference to judge an extractor at the same bar? It is not a retry of round one on better terms: the sample is different, so only the bar is comparable, not the numbers.",
+ "decided_by_owner": [
+  "Annotation guide v3 reviewed and accepted, 16 November 2026.",
+  "The owner reads the same 50 trials as annotator B, so the agreement compares two readers under one guide.",
+  "Comparison v2 is pinned, per docs/decisions/0002-agreement-comparison-equivalences.md."
+ ],
+ "inputs": {
+  "guide": {
+   "file": "docs/ELIGIBILITY_ANNOTATION_GUIDE_V3.md",
+   "sha256": "633ff2264009a49da84428d3fc5523f60fd429f19bef67d54a7a496d3dd2f2ae"
+  },
+  "sample": {
+   "file": "intelligence_store/data/eligibility_validation_sample_v2.json",
+   "sha256": "5b7b4718957f03cd3cffd99886f39add228135517b0dbcac474899edf996c20f"
+  },
+  "round_one_plan": {
+   "file": "intelligence_store/data/eligibility_second_annotation_plan_v1.json",
+   "sha256": "2642765af8c98b17e1193d5a89cfaa9f662023419b8d657ff312053035698048"
+  },
+  "round_one_record": {
+   "file": "intelligence_store/data/eligibility_annotator_b_record_v1.json",
+   "sha256": "8a491e1a37158dfc25034687cba7b31665ad3b6acf47d4d7d9c49a19b0a8ddd0"
+  },
+  "round_one_report": {
+   "file": "docs/verification/eligibility_second_annotation_v1.json",
+   "sha256": "627a4e13661a8736a8eee1f363508952422b840c75da21ee9e25764d29bb2040"
+  },
+  "comparison": "v2"
+ },
+ "readers": {
+  "a": "the platform owner, who wrote the annotation and the guide",
+  "b": "annotator B, the same reader as round one: an engineer with a physics background working in radiation oncology, not a clinician and not involved in the platform",
+  "independence": "Each reads alone, from their own standalone page, and sends back a locked record. Neither sees the other's record, the pinned v2 annotation, round one's results, the adjudication, or any extractor output."
+ },
+ "sample": {
+  "size": 50,
+  "seed": 20261118,
+  "drawn_from": "the 200-trial annotation order of eligibility_validation_sample_v2.json, restricted by the pool rule below, by simple random sampling; no result, label, error or difficulty is used",
+  "pool": {
+   "exclude_round_one": true,
+   "exclude_re_read": true,
+   "expected_size": 61
+  },
+  "pool_reason": "Round one's 50 study and 5 practice trials are excluded because annotator B has read them. Every trial appearing in the 14 November reference-review view is excluded because the owner read those again three days ago. What remains is 61 trials that B has never seen and that the owner has not seen since the original annotation of 4 to 13 November. The exclusions are stated as rules over pinned files, not as a list of ids, so the pool is reproducible and cannot be adjusted after the fact."
+ },
+ "presentation_order_seed": {
+  "owner": 20261119,
+  "annotator_b": 20261120,
+  "why": "a different order for each reader, so neither order can carry information about the other"
+ },
+ "practice": {
+  "size": 5,
+  "seed": 20261121,
+  "drawn_from": "the eligibility v1 validation sample (trials outside the 200), not scored",
+  "questions": "After the practice each reader may ask about the guide. Answers explain guide v3 as written, use only practice trials as examples, and are recorded in writing with the result. No convention is added, and the same answer goes to both readers."
+ },
+ "blinding": "Each page holds annotation guide v3, the criteria texts and the form, and nothing else. The owner has annotated all 200 trials once, in the original pass, so she is not a naive reader of these 50 and cannot be made one; B is naive. That asymmetry is reported, not corrected.",
+ "record": "One locked JSON per reader, carrying the page checksum, the plan version and all 50 trials. Each is pinned unchanged before any analysis, as round one did.",
+ "analysis": {
+  "primary": "Overall exact agreement between the two guide v3 readings over the 400 trial-and-type pairs, with a trial-level bootstrap 95 per cent interval, scored with comparison v2.",
+  "bar": 0.9,
+  "rule": "The lower bound of that interval against 0.90, the same bar round one used. Reading the lower bound, not the point estimate, is what makes a near miss a failure rather than a pass.",
+  "secondary": [
+   "The same agreement under comparison v1, so the guide’s effect and the comparison’s effect can be told apart.",
+   "Per type, with Wilson intervals, and detection agreement with Cohen’s kappa.",
+   "Each reader’s v3 reading against the pinned v2 annotation, which measures how much the guide moved each of them.",
+   "Both extractors scored against each reader’s v3 reading, descriptively, on 50 trials; not a pass or fail."
+  ]
+ },
+ "reading": {
+  "clears_the_bar": "A two-reader reference under guide v3 is adequate at the plan v2 bar. An adjudicated annotation version may then be built under its own plan and the extractors re-scored against it.",
+  "does_not_clear": "Recorded plainly: protocol benchmarking is not viable at the plan v2 bar by this method. The project then either lowers the bar explicitly, with the new bar and its justification written down before any rescoring, or records protocol benchmarking as not a validated capability. There is no third round without a stated reason that is not \"try again\"."
+ },
+ "adjudication": "If the bar is missed, the disagreements are adjudicated as in round one, by the two readers together under guide v3, each pair ending as reader A’s value, reader B’s value, both wrong, or unclear. Round one offered only three choices and 7 of its 10 unclear decisions turned out to mean \"both wrong\", which the per-reader counts could not express; the fourth choice fixes that.",
+ "limitations": [
+  "The owner annotated all 200 trials in the original pass, so she is never a naive reader; B is. The asymmetry is reported.",
+  "Round one and round two use different trials, so their agreement figures are not directly comparable. Only the bar is.",
+  "Fifty trials give a wide interval, as round one showed; a near miss will again be a failure to demonstrate rather than a demonstration of disagreement.",
+  "Comparison v2 converts between a type’s magnitudes, so it is more permissive than matching the spelling. Decision 0002 records that.",
+  "Errors both readers share cannot be found by comparing them, in this round any more than the last.",
+  "Nothing here scores an extractor for adoption. The extractor figures are descriptive."
+ ],
+ "executable": "intelligence_store/eligibility_second_annotation.py, committed with this plan and dry-run on synthetic records, with sample() restricted by the pool rule and agreement(comparison=\"v2\").",
+ "clinical_prediction_validated": false
+}

@@ -39,6 +39,15 @@ class Page(unittest.TestCase):
     def setUpClass(cls):
         cls.p = sa.page_payload()
 
+    def test_sample_is_pinned_for_plan_v1(self):
+        """Pins the draw before the sampler learned about restricted pools (17 November 2026)."""
+        import hashlib
+        study, practice = sa.sample()
+        self.assertEqual(hashlib.sha256(json.dumps(study).encode()).hexdigest(),
+                         'a9c720b27e66c5aa5e78f304385b38e6f5f9a34e3ef68363f70705ba8ec0e3d3')
+        self.assertEqual(hashlib.sha256(json.dumps(practice).encode()).hexdigest(),
+                         '6bf834f57f65aad766e71266d2a08719dd1369cc3ce86c7914a23bb36ae713dc')
+
     def test_sample(self):
         study, practice = sa.sample()
         order = v2.load_sample()['annotation_order']
@@ -163,6 +172,69 @@ class Record(unittest.TestCase):
     def test_an_unknown_comparison_is_refused(self):
         with self.assertRaises(ValueError):
             sa.agreement(self.rec(self.forms), self.p, comparison='v3')
+
+
+class RoundTwoPlan(unittest.TestCase):
+    """Round two draws from a restricted pool and gives each reader its own order (plan v2, 17 November 2026)."""
+
+    @classmethod
+    def setUpClass(cls):
+        import json as _json
+        cls.plan = _json.loads((sa.DATA / 'eligibility_second_annotation_plan_v2.json').read_bytes())
+
+    def test_pins_guide_v3(self):
+        import hashlib
+        g = self.plan['inputs']['guide']
+        self.assertTrue(g['file'].endswith('ELIGIBILITY_ANNOTATION_GUIDE_V3.md'))
+        self.assertEqual(hashlib.sha256((sa.ROOT / g['file']).read_bytes()).hexdigest(), g['sha256'])
+
+    def test_pins_comparison_v2(self):
+        self.assertEqual(self.plan['inputs']['comparison'], 'v2')
+
+    def test_both_readers_get_the_same_50_trials_in_different_orders(self):
+        a, _ = sa.sample(self.plan, 'owner')
+        b, _ = sa.sample(self.plan, 'annotator_b')
+        self.assertEqual(len(a), 50)
+        self.assertEqual(set(a), set(b))
+        self.assertNotEqual(a, b)
+
+    def test_the_pool_excludes_round_one_and_the_re_reading(self):
+        from intelligence_store import eligibility_reference_review as rr
+        a, practice = sa.sample(self.plan, 'owner')
+        r1_study, r1_practice = sa.sample()
+        self.assertEqual(set(a) & (set(r1_study) | set(r1_practice)), set())
+        self.assertEqual(set(a) & {it['nct_id'] for it in rr.view()['items']}, set())
+        self.assertEqual(len(set(a)), 50)
+        self.assertEqual(set(a) & set(practice), set())
+
+    def test_the_pool_size_is_asserted_so_it_cannot_drift(self):
+        plan = json.loads(json.dumps(self.plan))
+        plan['sample']['pool']['expected_size'] = 999
+        with self.assertRaises(ValueError):
+            sa.sample(plan, 'owner')
+
+    def test_a_reader_is_required_and_checked(self):
+        with self.assertRaises(ValueError):
+            sa.sample(self.plan)
+        with self.assertRaises(ValueError):
+            sa.sample(self.plan, 'somebody_else')
+
+    def test_plan_v1_still_takes_no_reader(self):
+        study, _ = sa.sample()
+        self.assertEqual(len(study), 50)
+
+    def test_the_reading_rule_names_what_a_second_failure_means(self):
+        does_not = self.plan['reading']['does_not_clear'].lower()
+        self.assertIn('not viable', does_not)
+        self.assertIn('no third round', does_not)
+        self.assertEqual(self.plan['analysis']['bar'], 0.90)
+
+    def test_adjudication_gains_a_fourth_choice(self):
+        self.assertIn('both', self.plan['adjudication'].lower())
+
+    def test_the_owner_is_recorded_as_not_naive(self):
+        self.assertIn('never a naive reader', ' '.join(self.plan['limitations']))
+        self.assertFalse(self.plan['clinical_prediction_validated'])
 
 
 if __name__ == '__main__':
