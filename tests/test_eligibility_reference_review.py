@@ -128,5 +128,103 @@ class Review(unittest.TestCase):
                          out['without_unblinded_items']['analyses']['original_primary'])
 
 
+class ComparisonV1(unittest.TestCase):
+    """Pins _same's behaviour before comparison v2 was added (17 November 2026).
+
+    Both locked results — the reference re-reading and the second-annotation agreement — are scored with this
+    function, so it must keep comparing the comparator, the value as written and the unit as written, with no
+    normalisation at all. Comparison v2 is a separate function; this test is what stops it leaking into v1.
+    """
+
+    @staticmethod
+    def e(status, *values):
+        return {'status': status, 'note': '',
+                'values': [{'comparator': c, 'value': v, 'unit': u} for c, v, u in values]}
+
+    def test_identical_entries_agree(self):
+        a = self.e('stated', ('>=', '8', 'g/dL'))
+        self.assertTrue(rr._same('hemoglobin_min', a, self.e('stated', ('>=', '8', 'g/dL'))))
+
+    def test_status_difference_disagrees(self):
+        self.assertFalse(rr._same('hemoglobin_min', self.e('stated', ('>=', '8', 'g/dL')), self.e('not_stated')))
+
+    def test_trailing_zero_disagrees_under_v1(self):
+        """">=8" against ">=8.0": the same threshold, scored as a disagreement."""
+        self.assertFalse(rr._same('hemoglobin_min',
+                                  self.e('stated', ('>=', '8', 'g/dL')),
+                                  self.e('stated', ('>=', '8.0', 'g/dL'))))
+
+    def test_equivalent_unit_spellings_disagree_under_v1(self):
+        """Two spellings of per-microlitre, both offered by the same picker, scored as a disagreement."""
+        self.assertFalse(rr._same('anc_min',
+                                  self.e('stated', ('>', '1000', 'cells/uL')),
+                                  self.e('stated', ('>', '1000', '/mm3 (= /uL)'))))
+
+    def test_converted_units_disagree_under_v1(self):
+        self.assertFalse(rr._same('hemoglobin_min',
+                                  self.e('stated', ('>=', '8', 'g/dL')),
+                                  self.e('stated', ('>=', '80', 'g/L'))))
+
+    def test_comparator_difference_disagrees(self):
+        self.assertFalse(rr._same('hemoglobin_min',
+                                  self.e('stated', ('>=', '8', 'g/dL')),
+                                  self.e('stated', ('>', '8', 'g/dL'))))
+
+    def test_value_order_does_not_matter(self):
+        a = self.e('multiple', ('>=', '100', 'x 10^9/L'), ('>=', '75', 'x 10^9/L'))
+        b = self.e('multiple', ('>=', '75', 'x 10^9/L'), ('>=', '100', 'x 10^9/L'))
+        self.assertTrue(rr._same('platelets_min', a, b))
+
+    def test_ctype_is_ignored_by_v1(self):
+        a, b = self.e('stated', ('>=', '8', 'g/dL')), self.e('stated', ('>=', '8', 'g/dL'))
+        self.assertTrue(rr._same(None, a, b))
+        self.assertTrue(rr._same('anything', a, b))
+
+
+class ComparisonV2(unittest.TestCase):
+    """Comparison v2 applies the equivalences the extractor scoring already uses (docs/decisions/0002)."""
+
+    e = staticmethod(ComparisonV1.e)
+
+    def test_trailing_zero_agrees(self):
+        self.assertTrue(rr._same_v2('hemoglobin_min',
+                                    self.e('stated', ('>=', '8', 'g/dL')),
+                                    self.e('stated', ('>=', '8.0', 'g/dL'))))
+
+    def test_equivalent_unit_spellings_agree(self):
+        """The two per-microlitre spellings anc_min's own picker offers."""
+        self.assertTrue(rr._same_v2('anc_min',
+                                    self.e('stated', ('>', '1000', 'cells/uL')),
+                                    self.e('stated', ('>', '1000', '/mm3 (= /uL)'))))
+
+    def test_it_also_converts_magnitudes_which_v1_did_not(self):
+        """Documented consequence: v2 is more permissive than "same spelling"."""
+        self.assertTrue(rr._same_v2('hemoglobin_min',
+                                    self.e('stated', ('>=', '8', 'g/dL')),
+                                    self.e('stated', ('>=', '80', 'g/L'))))
+        self.assertTrue(rr._same_v2('anc_min',
+                                    self.e('stated', ('>=', '1', 'x 10^9/L')),
+                                    self.e('stated', ('>=', '1000', '/mm3 (= /uL)'))))
+
+    def test_a_real_difference_still_disagrees(self):
+        for a, b in (((">=", '8', 'g/dL'), ('>', '8', 'g/dL')),
+                     ((">=", '8', 'g/dL'), ('>=', '9', 'g/dL'))):
+            self.assertFalse(rr._same_v2('hemoglobin_min', self.e('stated', a), self.e('stated', b)))
+        self.assertFalse(rr._same_v2('hemoglobin_min', self.e('stated', ('>=', '8', 'g/dL')), self.e('not_stated')))
+
+    def test_a_unit_outside_the_canonical_basis_falls_back_to_the_unit_as_written(self):
+        self.assertTrue(rr._same_v2('kidney_function_min',
+                                    self.e('stated', ('>=', '45', 'mL/min')),
+                                    self.e('stated', ('>=', '45.0', 'mL/min'))))
+        self.assertFalse(rr._same_v2('kidney_function_min',
+                                     self.e('stated', ('>=', '45', 'mL/min')),
+                                     self.e('stated', ('>=', '45', 'mL/min/1.73 m2'))))
+
+    def test_both_versions_are_registered(self):
+        self.assertEqual(set(rr.COMPARISONS), {'v1', 'v2'})
+        self.assertIs(rr.COMPARISONS['v1'], rr._same)
+        self.assertIs(rr.COMPARISONS['v2'], rr._same_v2)
+
+
 if __name__ == '__main__':
     unittest.main()

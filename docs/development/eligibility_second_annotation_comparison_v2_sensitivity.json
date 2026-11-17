@@ -1,0 +1,34 @@
+{
+  "schema_version": "eligibility-agreement-comparison-sensitivity-v1",
+  "recorded_on": "2026-11-17",
+  "status": "exploratory; the locked result in docs/verification/eligibility_second_annotation_v1.json stands",
+  "decision_record": "docs/decisions/0002-agreement-comparison-equivalences.md",
+  "v1": {
+    "exact_agreement": 357,
+    "exact_rate": 0.8925,
+    "bootstrap_95": [
+      0.8475,
+      0.935
+    ],
+    "disagreements": 43
+  },
+  "v2": {
+    "exact_agreement": 359,
+    "exact_rate": 0.8975,
+    "bootstrap_95": [
+      0.855,
+      0.9375
+    ],
+    "disagreements": 41
+  },
+  "forgiven_by_v2": [
+    {
+      "type": "hemoglobin_min"
+    },
+    {
+      "type": "anc_min"
+    }
+  ],
+  "verdict_unchanged": true,
+  "note": "The plan reads the lower bound of the trial-level bootstrap interval against 0.90. Under comparison v2 it is still below that bar, so the reading of the locked result does not change. Round two pins v2."
+}

@@ -150,6 +150,20 @@ class Record(unittest.TestCase):
         self.assertLess(rep['overall_subset']['exact_rate'], rep['overall']['exact_rate'])
         self.assertIsNone(sa.agreement(self.rec(forms), self.p).get('overall_subset'))
 
+    def test_comparison_v1_is_the_default_and_leaves_no_trace(self):
+        rep = sa.agreement(self.rec(self.forms), self.p)
+        self.assertNotIn('comparison', rep)
+        self.assertEqual(rep['report_sha256'],
+                         sa.agreement(self.rec(self.forms), self.p, comparison='v1')['report_sha256'])
+
+    def test_comparison_v2_is_recorded_in_the_report(self):
+        rep = sa.agreement(self.rec(self.forms), self.p, comparison='v2')
+        self.assertEqual(rep['comparison'], 'v2')
+
+    def test_an_unknown_comparison_is_refused(self):
+        with self.assertRaises(ValueError):
+            sa.agreement(self.rec(self.forms), self.p, comparison='v3')
+
 
 if __name__ == '__main__':
     unittest.main()

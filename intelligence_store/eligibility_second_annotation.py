@@ -220,15 +220,25 @@ def _same(a, b):
     return same(None, a, b)
 
 
-def agreement(record, p=None, record_a=None, pair_subset=None):
+def _comparison(name):
+    """The comparison a plan pins. v1 is as written, v2 applies the platform's equivalences (decision 0002)."""
+    from .eligibility_reference_review import COMPARISONS
+    if name not in COMPARISONS:
+        raise ValueError(f'unknown comparison {name!r}; expected one of {", ".join(sorted(COMPARISONS))}')
+    return COMPARISONS[name]
+
+
+def agreement(record, p=None, record_a=None, pair_subset=None, comparison='v1'):
     """The plan's analysis. Raises if a record is invalid.
 
     record_a: an optional reader-A record, used in place of the owner's pinned annotation. Plan v2 has both
     readers work under annotation guide v3, so neither side is the pinned v2 annotation.
     pair_subset: optional "NCT:type" ids; adds an `overall_subset` block restricted to them, for the pairs
     the owner did not re-read in November.
+    comparison: 'v1' (default) compares the value and unit as written; 'v2' applies the equivalences the extractor
+    scoring already uses, which round two's plan pins. See docs/decisions/0002.
 
-    With both left unset the report is byte-identical to the plan v1 path, digest included.
+    With all three left at their defaults the report is byte-identical to the plan v1 path, digest included.
     """
     p = p or page_payload()
     problems, b = validate_record(record, p)
@@ -248,15 +258,20 @@ def agreement(record, p=None, record_a=None, pair_subset=None):
         def a_get(n, t):
             return a_parsed[n][t]
         a_ref = {n: {'criteria': a_parsed[n]} for n in trials}
+    cmp = _comparison(comparison)
+
+    def agree(t, x, y):
+        return cmp(t, x, y)
+
     per_type, all_exact, all_detect, pair_exact = {}, {}, [], {}
     for t in v2.TYPES:
-        exact = [_same(a_get(n, t), b[n][t]) for n in trials]
+        exact = [agree(t, a_get(n, t), b[n][t]) for n in trials]
         det = [(_detect(a_get(n, t)), _detect(b[n][t])) for n in trials]
         both = [n for n in trials if _detect(a_get(n, t)) == 'threshold' == _detect(b[n][t])]
         row = {'trials': len(trials), 'exact_agreement': sum(exact), 'exact_rate': round(sum(exact) / len(trials), 4),
                'exact_wilson_95': _wilson(sum(exact), len(trials)),
                'detection_agreement': sum(1 for x, y in det if x == y), 'detection_kappa': _kappa(det),
-               'both_threshold': len(both), 'values_agree_when_both_threshold': sum(1 for n in both if _same(a_get(n, t), b[n][t]))}
+               'both_threshold': len(both), 'values_agree_when_both_threshold': sum(1 for n in both if agree(t, a_get(n, t), b[n][t]))}
         if t == 'kidney_function_min':
             row['equation_agree_when_both_threshold'] = sum(1 for n in both if a_get(n, t).get('equation') == b[n][t].get('equation'))
         per_type[t] = row
@@ -286,7 +301,7 @@ def agreement(record, p=None, record_a=None, pair_subset=None):
     extractors = {ref_name: {'v1_1': v2.summarise(val.score_run(ref, trials, rule)),
                              'llm_run_1': v2.summarise(val.score_run(ref, trials, model))}
                   for ref_name, ref in (('owner_annotation', a_ref), ('annotator_b', b_ref))}
-    disagreements = [{'nct_id': n, 'type': t} for n in trials for t in v2.TYPES if not _same(a_get(n, t), b[n][t])]
+    disagreements = [{'nct_id': n, 'type': t} for n in trials for t in v2.TYPES if not agree(t, a_get(n, t), b[n][t])]
     report = {'schema_version': 'eligibility-second-annotation-report-v1', 'plan_version': plan['plan_version'], 'plan_sha256': PLAN_SHA256,
               'page_sha256': p['page_sha256'], 'annotator': record.get('annotator', {}),
               'per_type': per_type, 'overall': overall,
@@ -295,6 +310,8 @@ def agreement(record, p=None, record_a=None, pair_subset=None):
               'extractors_on_sample_descriptive': extractors,
               'disagreements_for_adjudication': disagreements,
               'clinical_prediction_validated': False}
+    if comparison != 'v1':
+        report['comparison'] = comparison
     if record_a is not None:
         report['readers'] = {'a': 'record', 'b': 'record'}
     if pair_subset is not None:
