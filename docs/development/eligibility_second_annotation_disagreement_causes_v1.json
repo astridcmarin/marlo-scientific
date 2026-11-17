@@ -1,0 +1,260 @@
+[
+ {
+  "id": "NCT07751783:anc_min",
+  "type": "anc_min",
+  "shape": "comparator only",
+  "cause": "comparator direction"
+ },
+ {
+  "id": "NCT07751783:platelets_min",
+  "type": "platelets_min",
+  "shape": "comparator only",
+  "cause": "comparator direction"
+ },
+ {
+  "id": "NCT07751783:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "shape": "comparator only",
+  "cause": "comparator direction"
+ },
+ {
+  "id": "NCT01997840:kidney_function_min",
+  "type": "kidney_function_min",
+  "shape": "comparator only",
+  "cause": "comparator direction"
+ },
+ {
+  "id": "NCT01997840:anc_min",
+  "type": "anc_min",
+  "shape": "comparator and value",
+  "cause": "comparator and value"
+ },
+ {
+  "id": "NCT01997840:platelets_min",
+  "type": "platelets_min",
+  "shape": "status stated vs multiple",
+  "cause": "multiple versus single value"
+ },
+ {
+  "id": "NCT01997840:ast_alt_max",
+  "type": "ast_alt_max",
+  "shape": "status not_stated vs stated",
+  "cause": "one reader found a value the other did not"
+ },
+ {
+  "id": "NCT07139509:kidney_function_min",
+  "type": "kidney_function_min",
+  "shape": "status multiple vs stated",
+  "cause": "multiple versus single value"
+ },
+ {
+  "id": "NCT07139509:creatinine_max",
+  "type": "creatinine_max",
+  "shape": "status stated vs not_stated",
+  "cause": "one reader found a value the other did not"
+ },
+ {
+  "id": "NCT07139509:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "shape": "status multiple vs not_stated",
+  "cause": "multiple versus single value"
+ },
+ {
+  "id": "NCT07139509:bilirubin_max",
+  "type": "bilirubin_max",
+  "shape": "status multiple vs stated",
+  "cause": "multiple versus single value"
+ },
+ {
+  "id": "NCT01315132:ecog_max",
+  "type": "ecog_max",
+  "shape": "status stated vs multiple",
+  "cause": "multiple versus single value"
+ },
+ {
+  "id": "NCT06691685:bilirubin_max",
+  "type": "bilirubin_max",
+  "shape": "value or unit only",
+  "cause": "unit mismatch"
+ },
+ {
+  "id": "NCT02506959:kidney_function_min",
+  "type": "kidney_function_min",
+  "shape": "status not_stated vs stated",
+  "cause": "one reader found a value the other did not"
+ },
+ {
+  "id": "NCT02506959:ast_alt_max",
+  "type": "ast_alt_max",
+  "shape": "status not_stated vs stated",
+  "cause": "one reader found a value the other did not"
+ },
+ {
+  "id": "NCT07764861:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "shape": "comparator and value",
+  "cause": "comparator and value"
+ },
+ {
+  "id": "NCT05055063:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "shape": "comparator only",
+  "cause": "comparator direction"
+ },
+ {
+  "id": "NCT05892393:kidney_function_min",
+  "type": "kidney_function_min",
+  "shape": "comparator only",
+  "cause": "equality only (>= vs > or <= vs <)"
+ },
+ {
+  "id": "NCT05892393:creatinine_max",
+  "type": "creatinine_max",
+  "shape": "comparator only",
+  "cause": "equality only (>= vs > or <= vs <)"
+ },
+ {
+  "id": "NCT05892393:bilirubin_max",
+  "type": "bilirubin_max",
+  "shape": "comparator only",
+  "cause": "equality only (>= vs > or <= vs <)"
+ },
+ {
+  "id": "NCT05892393:ast_alt_max",
+  "type": "ast_alt_max",
+  "shape": "comparator only",
+  "cause": "equality only (>= vs > or <= vs <)"
+ },
+ {
+  "id": "NCT04776330:kidney_function_min",
+  "type": "kidney_function_min",
+  "shape": "status not_stated vs stated",
+  "cause": "one reader found a value the other did not"
+ },
+ {
+  "id": "NCT04776330:creatinine_max",
+  "type": "creatinine_max",
+  "shape": "status stated vs not_stated",
+  "cause": "one reader found a value the other did not"
+ },
+ {
+  "id": "NCT01183663:kidney_function_min",
+  "type": "kidney_function_min",
+  "shape": "value or unit only",
+  "cause": "unit mismatch"
+ },
+ {
+  "id": "NCT02616640:ecog_max",
+  "type": "ecog_max",
+  "shape": "status stated vs not_stated",
+  "cause": "one reader found a value the other did not"
+ },
+ {
+  "id": "NCT03393273:anc_min",
+  "type": "anc_min",
+  "shape": "value or unit only",
+  "cause": "unit mismatch"
+ },
+ {
+  "id": "NCT01131169:kidney_function_min",
+  "type": "kidney_function_min",
+  "shape": "status multiple vs stated",
+  "cause": "multiple versus single value"
+ },
+ {
+  "id": "NCT01131169:ast_alt_max",
+  "type": "ast_alt_max",
+  "shape": "comparator only",
+  "cause": "equality only (>= vs > or <= vs <)"
+ },
+ {
+  "id": "NCT00317811:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "shape": "comparator and value",
+  "cause": "comparator and value"
+ },
+ {
+  "id": "NCT00317811:bilirubin_max",
+  "type": "bilirubin_max",
+  "shape": "comparator only",
+  "cause": "comparator direction"
+ },
+ {
+  "id": "NCT00317811:ast_alt_max",
+  "type": "ast_alt_max",
+  "shape": "comparator only",
+  "cause": "comparator direction"
+ },
+ {
+  "id": "NCT02507479:ast_alt_max",
+  "type": "ast_alt_max",
+  "shape": "status stated vs not_stated",
+  "cause": "one reader found a value the other did not"
+ },
+ {
+  "id": "NCT01946477:platelets_min",
+  "type": "platelets_min",
+  "shape": "comparator and value",
+  "cause": "comparator and value"
+ },
+ {
+  "id": "NCT01946477:bilirubin_max",
+  "type": "bilirubin_max",
+  "shape": "status stated vs multiple",
+  "cause": "multiple versus single value"
+ },
+ {
+  "id": "NCT01208818:kidney_function_min",
+  "type": "kidney_function_min",
+  "shape": "status stated vs multiple",
+  "cause": "multiple versus single value"
+ },
+ {
+  "id": "NCT01208818:creatinine_max",
+  "type": "creatinine_max",
+  "shape": "value or unit only",
+  "cause": "unit mismatch"
+ },
+ {
+  "id": "NCT01208818:anc_min",
+  "type": "anc_min",
+  "shape": "comparator only",
+  "cause": "equality only (>= vs > or <= vs <)"
+ },
+ {
+  "id": "NCT01208818:platelets_min",
+  "type": "platelets_min",
+  "shape": "status not_stated vs stated",
+  "cause": "one reader found a value the other did not"
+ },
+ {
+  "id": "NCT01421524:creatinine_max",
+  "type": "creatinine_max",
+  "shape": "value or unit only",
+  "cause": "unit mismatch"
+ },
+ {
+  "id": "NCT01421524:hemoglobin_min",
+  "type": "hemoglobin_min",
+  "shape": "status stated vs not_stated",
+  "cause": "one reader found a value the other did not"
+ },
+ {
+  "id": "NCT01421524:ast_alt_max",
+  "type": "ast_alt_max",
+  "shape": "status stated vs multiple",
+  "cause": "multiple versus single value"
+ },
+ {
+  "id": "NCT00427557:bilirubin_max",
+  "type": "bilirubin_max",
+  "shape": "comparator only",
+  "cause": "equality only (>= vs > or <= vs <)"
+ },
+ {
+  "id": "NCT00427557:ast_alt_max",
+  "type": "ast_alt_max",
+  "shape": "status not_stated vs stated",
+  "cause": "one reader found a value the other did not"
+ }
+]

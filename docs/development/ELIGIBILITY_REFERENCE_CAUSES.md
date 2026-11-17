@@ -39,6 +39,23 @@ This does not establish either extractor's accuracy. 16 corrections, 18 of the 7
 
 The forms `/>`, `/<`, `⩾` (U+2A7E), `⩽` (U+2A7D), `&ge;`, `&le;` and a spaced `> =` appear nowhere in the criteria text of the 216 items. Extractor v1.1 mishandles all of them — it reads `/>` and `/<` as strict comparators and drops the other five entirely — but none of the corrections is attributable to them. They are recorded here as known defects without effect on this sample.
 
+## The 43 second-annotation disagreements, classified
+
+**Also exploratory and post hoc**, on the locked result in `docs/verification/eligibility_second_annotation_v1.json`. Record: [`eligibility_second_annotation_disagreement_causes_v1.json`](eligibility_second_annotation_disagreement_causes_v1.json). It does not change the locked reading, which is not adequate at the 0.90 bar.
+
+| Cause | Count | Addressed by guide v3 |
+|---|---|---|
+| One reader found a value the other did not | 11 | section 1, where to look |
+| Multiple versus a single value | 9 | section 5 and the band rule |
+| Comparator direction | 7 | no |
+| Equality only (≥ against >, ≤ against <) | 7 | section 4, the equality rule |
+| Unit mismatch | 5 | section 6, per-type unit rules |
+| Comparator and value both | 4 | no |
+
+By type: kidney function 8, AST/ALT 8, haemoglobin 6, bilirubin 6, creatinine 5, ANC 4, platelets 4, ECOG 2.
+
+So 32 of the 43 fall in classes guide v3 was written to resolve, and 11 are genuine differences in reading that no guide wording settles. **This is a count of classes, not a prediction.** It does not establish that two readers under guide v3 would clear the bar: v3 may not fully resolve a class, and it may introduce disagreements of its own. What it does support is that the failure is concentrated where the guide was known to be underspecified, which is a reason to run a second round under v3 rather than to abandon a one-reader reference. The adjudication of the 43, which the plan prescribes next, will give better evidence than this classification, because the two readers will say which of them was right.
+
 ## Bands: a schema limitation, not an annotation error
 
 Four items carried a value from each section in the original annotation. Three are bands rather than repetitions: inclusion "haemoglobin < 10 g/dL" with exclusion eligible-side "≥ 8", inclusion "creatinine > 2" with exclusion "≤ 2.5", and a platelet pair. These are trials enrolling patients who already have impairment, where the floor sits in one section and the ceiling in the other, so both bounds are operative. The re-reading kept the inclusion bound in all four and so lost the other, which makes these four corrections a loss of information rather than a repair.
