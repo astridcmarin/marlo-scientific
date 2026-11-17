@@ -56,6 +56,16 @@ By type: kidney function 8, AST/ALT 8, haemoglobin 6, bilirubin 6, creatinine 5,
 
 So 32 of the 43 fall in classes guide v3 was written to resolve, and 11 are genuine differences in reading that no guide wording settles. **This is a count of classes, not a prediction.** It does not establish that two readers under guide v3 would clear the bar: v3 may not fully resolve a class, and it may introduce disagreements of its own. What it does support is that the failure is concentrated where the guide was known to be underspecified, which is a reason to run a second round under v3 rather than to abandon a one-reader reference. The adjudication of the 43, which the plan prescribes next, will give better evidence than this classification, because the two readers will say which of them was right.
 
+## No learning curve: a negative result that rules out a cheap fix
+
+The owner's recollection was that the earliest annotations held most of the mistakes, which would have meant the reference could be repaired by re-annotating the first trials only. Tested against the per-trial `saved_at_utc` in the annotation file, which spans 4 to 13 November, it does not hold.
+
+Correction rate in the re-reading, by quartile of the annotation order: 46%, 49%, 48%, 58%. Annotator B's disagreement rate over the same quartiles: 13.4%, 10.2%, 4.2%, 12.5%. Neither falls across the sequence, and the trials annotated **last** were corrected most often.
+
+The numbers are small — about 50 items a quartile — so the differences are inside the noise, and this is an underpowered test of a trend rather than a measurement of one. What it does rule out is the cheap remedy: there is no early segment carrying the errors, so re-annotating the first trials would not repair the reference, and any second round has to cover a proper sample.
+
+If anything the pattern runs the other way, and pace is a better candidate than inexperience: 121 of the 200 trials were annotated on 12 and 13 November, against 79 over the preceding eight days. At the guide's own 3 to 4 minutes a trial, those two days were about seven hours of annotation. That is a hypothesis from the timestamps, not a finding.
+
 ## Bands: a schema limitation, not an annotation error
 
 Four items carried a value from each section in the original annotation. Three are bands rather than repetitions: inclusion "haemoglobin < 10 g/dL" with exclusion eligible-side "≥ 8", inclusion "creatinine > 2" with exclusion "≤ 2.5", and a platelet pair. These are trials enrolling patients who already have impairment, where the floor sits in one section and the ceiling in the other, so both bounds are operative. The re-reading kept the inclusion bound in all four and so lost the other, which makes these four corrections a loss of information rather than a repair.
