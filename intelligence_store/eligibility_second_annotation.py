@@ -42,6 +42,16 @@ def guide_path(plan=None):
     named = (plan.get('inputs') or {}).get('guide', {}).get('file')
     return (ROOT / named) if named else GUIDE_PATH
 RECORD_SCHEMA = 'eligibility-second-annotation-record-v1'
+# Annotator B's locked record, pinned unchanged before any analysis, as plan v1 requires.
+RECORD_PATH = DATA / 'eligibility_annotator_b_record_v1.json'
+RECORD_SHA256 = '8a491e1a37158dfc25034687cba7b31665ad3b6acf47d4d7d9c49a19b0a8ddd0'
+
+
+def load_record(path=RECORD_PATH):
+    raw = Path(path).read_bytes()
+    if RECORD_SHA256 is not None and hashlib.sha256(raw).hexdigest() != RECORD_SHA256:
+        raise ValueError("Annotator B's record is missing or changed.")
+    return json.loads(raw)
 
 
 def load_plan(path=PLAN_PATH):
