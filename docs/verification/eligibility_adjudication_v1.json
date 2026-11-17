@@ -1,0 +1,79 @@
+{
+  "schema_version": "eligibility-adjudication-report-v1",
+  "plan_version": "eligibility-second-annotation-plan-v1.0",
+  "view_sha256": "633aef548b842c208ddde29e4d1f15a4542c5afd0c3dc2d2ec1728725a879988",
+  "report_file_sha256": "627a4e13661a8736a8eee1f363508952422b840c75da21ee9e25764d29bb2040",
+  "report_sha256": "f2c86792d9547ac85d3ada8856db31a822eea860326063caae2b59378a9e0a38",
+  "guide_sha256": "96fdfefe45ba54933d07a2befe728b21ad40b4f9227183e48dfc4ca4c3987b8f",
+  "adjudicators": "the owner and annotator B together (owner-confirmed, 16 November 2026)",
+  "adjudicated_pairs": 43,
+  "of_pairs_compared": 400,
+  "resolved_to": {
+    "owner": 9,
+    "annotator_b": 24,
+    "unclear": 10
+  },
+  "by_type": {
+    "anc_min": {
+      "owner": 1,
+      "annotator_b": 0,
+      "unclear": 3
+    },
+    "platelets_min": {
+      "owner": 1,
+      "annotator_b": 1,
+      "unclear": 2
+    },
+    "hemoglobin_min": {
+      "owner": 3,
+      "annotator_b": 3,
+      "unclear": 0
+    },
+    "kidney_function_min": {
+      "owner": 0,
+      "annotator_b": 7,
+      "unclear": 1
+    },
+    "ast_alt_max": {
+      "owner": 1,
+      "annotator_b": 5,
+      "unclear": 2
+    },
+    "creatinine_max": {
+      "owner": 1,
+      "annotator_b": 4,
+      "unclear": 0
+    },
+    "bilirubin_max": {
+      "owner": 1,
+      "annotator_b": 4,
+      "unclear": 1
+    },
+    "ecog_max": {
+      "owner": 1,
+      "annotator_b": 0,
+      "unclear": 1
+    }
+  },
+  "reader_errors_among_adjudicated": {
+    "owner_annotation_wrong": 24,
+    "annotator_b_wrong": 9,
+    "neither_settled": 10,
+    "note": "Counted only among the pairs the two readers disagreed on. Pairs they agreed on are not adjudicated, so a shared error is invisible here and these are lower bounds on each reader's error count, not error rates."
+  },
+  "scorer_note": {
+    "finding": "The agreement scorer compares (comparator, value as written, unit as written) with no normalisation, so two readings of the same threshold can be scored as a disagreement. Two of the 43 are of that kind: \">=8 g/dL\" against \">=8.0 g/dL\", and \">1000 cells/uL\" against \">1000 /mm3 (= /uL)\" - the second being an equivalence annotation guide v2 explicitly promises the scoring treats as the same.",
+    "effect": "Overall exact agreement would be 0.8975 rather than 0.8925 with those equivalences applied. The plan reads the lower bound of the bootstrap interval against 0.90, and 0.8475 is far enough below it that the verdict does not change. The locked result stands as scored.",
+    "next": "A successor plan should either normalise values and units in the scorer or stop promising the equivalence in the guide. Not changed here: the scorer belongs to a locked result."
+  },
+  "limitations": [
+    "Adjudication is not blind: both readings are shown, labelled, because the readers sit together.",
+    "The three choices cannot express \"both readings wrong\". Seven of the ten unclear decisions say so in their reason, which is why the per-reader counts below are lower bounds.",
+    "Sixteen of the 43 reasons restate the verdict rather than giving one; 27 are substantive.",
+    "The guide's author is one of the two readers, so B may defer to her; this is not corrected for.",
+    "Only disagreements are adjudicated, so errors both readers share are not detected.",
+    "An adjudicated reference is not produced here; that is a new annotation version under its own plan."
+  ],
+  "clinical_prediction_validated": false,
+  "report_sha256_self": "c5e370de5191a6825e1cc1c89c4fe64ab08150ea8260f75fa7782b15caa9f786"
+}

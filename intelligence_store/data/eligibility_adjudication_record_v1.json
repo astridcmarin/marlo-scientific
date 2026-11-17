@@ -1,0 +1,180 @@
+{
+ "schema_version": "eligibility-adjudication-record-v1",
+ "view_sha256": "633aef548b842c208ddde29e4d1f15a4542c5afd0c3dc2d2ec1728725a879988",
+ "plan_version": "eligibility-second-annotation-plan-v1.0",
+ "locked_at": "2026-11-17T03:01:09.009Z",
+ "decisions": {
+  "NCT07751783:anc_min": {
+   "choice": "unclear",
+   "reason": "The owner's reading is correct (< 1,000/μL), but the owner stated the criteria as inclusion when it is actually an exclusion."
+  },
+  "NCT07751783:platelets_min": {
+   "choice": "owner",
+   "reason": "Owners reading is correct < 50,000/μL, however, the criteria was set to inclusion and it is actually an exclusion"
+  },
+  "NCT07751783:hemoglobin_min": {
+   "choice": "owner",
+   "reason": "Owners reading is correct < 8 g/dL but the criteria is incorrect, its supposed to be an exclusion"
+  },
+  "NCT01997840:kidney_function_min": {
+   "choice": "annotator_b",
+   "reason": "Creatine clearance \\< 45mL/min is an exclusion and Annotator B got it right"
+  },
+  "NCT01997840:anc_min": {
+   "choice": "unclear",
+   "reason": "Both readings are incorrect: qualifier and criteria exclusion or inclusion are incorrect"
+  },
+  "NCT01997840:platelets_min": {
+   "choice": "unclear",
+   "reason": "Both readings are incorrect. the value qualifier is wrong (\\< 75,000/ µL)"
+  },
+  "NCT01997840:ast_alt_max": {
+   "choice": "unclear",
+   "reason": "It is listed as \\> 3.0 × ULN, but annotator B got the comparator incorrect."
+  },
+  "NCT07139509:kidney_function_min": {
+   "choice": "annotator_b",
+   "reason": "Annotator B's reading is correct. Creatinine clearance rate ≥60 mL/min (calculated according to the Cockcroft-Gault formula);"
+  },
+  "NCT07139509:creatinine_max": {
+   "choice": "annotator_b",
+   "reason": "Owner's reading listed stated value, but the one stated was a CRAB value, not a patient criteria"
+  },
+  "NCT07139509:hemoglobin_min": {
+   "choice": "annotator_b",
+   "reason": "Annotator B answer is correct because the owner reading listed as hemoglobin stated but it was a CRAB not patient criteria"
+  },
+  "NCT07139509:bilirubin_max": {
+   "choice": "owner",
+   "reason": "The owners reading is correct, and it states a band of two values "
+  },
+  "NCT01315132:ecog_max": {
+   "choice": "unclear",
+   "reason": "Both readings are correct for the inclusion score of < 2, but for the exclusion score of 3 or 4, which could have been <=, the annotator's reading is incorrect on that portion."
+  },
+  "NCT06691685:bilirubin_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct because it listed the right criteria"
+  },
+  "NCT02506959:kidney_function_min": {
+   "choice": "annotator_b",
+   "reason": "Annotator B isted the criteria whereas the owner said it was not stated when it was."
+  },
+  "NCT02506959:ast_alt_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B answer is correct because it is listed, and owner reading listed it as not stated."
+  },
+  "NCT07764861:hemoglobin_min": {
+   "choice": "annotator_b",
+   "reason": "Annotation is correct"
+  },
+  "NCT05055063:hemoglobin_min": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT05892393:kidney_function_min": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT05892393:creatinine_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT05892393:bilirubin_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT05892393:ast_alt_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT04776330:kidney_function_min": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall. Owner listed parameter as not stated when it was stated"
+  },
+  "NCT04776330:creatinine_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT01183663:kidney_function_min": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT02616640:ecog_max": {
+   "choice": "owner",
+   "reason": "Owner is correct overall"
+  },
+  "NCT03393273:anc_min": {
+   "choice": "owner",
+   "reason": "Owner is correct overall"
+  },
+  "NCT01131169:kidney_function_min": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall but missed the second part of it which would make it a multiple answer having dose adjustment of Fludarabine for \\<70ml/min."
+  },
+  "NCT01131169:ast_alt_max": {
+   "choice": "owner",
+   "reason": "Owner reading is correct overall"
+  },
+  "NCT00317811:hemoglobin_min": {
+   "choice": "owner",
+   "reason": "Both readings are correct"
+  },
+  "NCT00317811:bilirubin_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT00317811:ast_alt_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT02507479:ast_alt_max": {
+   "choice": "unclear",
+   "reason": "Both annotators got it incorrectly"
+  },
+  "NCT01946477:platelets_min": {
+   "choice": "unclear",
+   "reason": "Both annotators got the comparators wrong but got the numbers and criteria correct. Platelet count \\< 75,000/μL for subjects in whom \\< 50% of bone marrow nucleated cells are plasma cells; or a platelet count \\< 30,000/μL for subjects in whom ≥ 50% of bone marrow nucleated cells are plasma cells."
+  },
+  "NCT01946477:bilirubin_max": {
+   "choice": "unclear",
+   "reason": "Both annotators got the comparators wrong, but the numbers correct. Annotator B listed it as a multiple value which is correct but comparators are wrong"
+  },
+  "NCT01208818:kidney_function_min": {
+   "choice": "unclear",
+   "reason": "Annotator B got both values and criteria correct, but the comparators are wrong"
+  },
+  "NCT01208818:creatinine_max": {
+   "choice": "owner",
+   "reason": "Both annotators got it correctly"
+  },
+  "NCT01208818:anc_min": {
+   "choice": "unclear",
+   "reason": "Annotator B is correct about the information but the criteria is not inclusion, its supposed to be exclusion."
+  },
+  "NCT01208818:platelets_min": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT01421524:creatinine_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT01421524:hemoglobin_min": {
+   "choice": "owner",
+   "reason": "Owners reading is correct overall"
+  },
+  "NCT01421524:ast_alt_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT00427557:bilirubin_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  },
+  "NCT00427557:ast_alt_max": {
+   "choice": "annotator_b",
+   "reason": "Annotator B is correct overall"
+  }
+ }
+}

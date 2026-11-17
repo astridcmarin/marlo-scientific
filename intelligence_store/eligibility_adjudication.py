@@ -26,10 +26,21 @@ from . import eligibility_validation_v2 as v2
 from .patient_state import digest
 
 ROOT = Path(__file__).resolve().parent.parent
+DATA = Path(__file__).parent / 'data'
 REPORT_PATH = ROOT / 'docs' / 'verification' / 'eligibility_second_annotation_v1.json'
 REPORT_SHA256 = '627a4e13661a8736a8eee1f363508952422b840c75da21ee9e25764d29bb2040'
 RECORD_SCHEMA = 'eligibility-adjudication-record-v1'
 CHOICES = ('owner', 'annotator_b', 'unclear')
+# The locked adjudication record of 17 November 2026, pinned before its analysis.
+RECORD_PATH = DATA / 'eligibility_adjudication_record_v1.json'
+RECORD_SHA256 = '0f63e47e80d676d795b46c1a7ab5cc2ceeba22933c1ee380545b19339d1fb8f5'
+
+
+def load_record(path=RECORD_PATH):
+    raw = Path(path).read_bytes()
+    if RECORD_SHA256 is not None and hashlib.sha256(raw).hexdigest() != RECORD_SHA256:
+        raise ValueError('The adjudication record is missing or changed.')
+    return json.loads(raw)
 
 
 def load_report(path=REPORT_PATH):
@@ -113,8 +124,12 @@ def validate_record(record, v=None):
     return problems, out
 
 
-def resolution(record, v=None):
-    """The split, and each reader's error count among the adjudicated pairs. Raises if the record is invalid."""
+def resolution(record, v=None, adjudicators=None):
+    """The split, and each reader's error count among the adjudicated pairs. Raises if the record is invalid.
+
+    adjudicators: who was present, which the record itself does not carry. The page should ask for it; until it
+    does, it is passed in and recorded as the owner stated it.
+    """
     v = v or view()
     problems, decisions = validate_record(record, v)
     if problems:
@@ -131,6 +146,7 @@ def resolution(record, v=None):
            'plan_version': v['plan_version'], 'view_sha256': v['view_sha256'],
            'report_file_sha256': v['report_file_sha256'], 'report_sha256': v['report_sha256'],
            'guide_sha256': v['guide_sha256'],
+           'adjudicators': adjudicators or 'not recorded',
            'adjudicated_pairs': v['total'], 'of_pairs_compared': pairs,
            'resolved_to': dict(totals), 'by_type': by_type,
            'reader_errors_among_adjudicated': {
@@ -139,8 +155,23 @@ def resolution(record, v=None):
                'note': ('Counted only among the pairs the two readers disagreed on. Pairs they agreed on are not '
                         'adjudicated, so a shared error is invisible here and these are lower bounds on each '
                         "reader's error count, not error rates.")},
+           'scorer_note': {
+               'finding': ('The agreement scorer compares (comparator, value as written, unit as written) with no '
+                           'normalisation, so two readings of the same threshold can be scored as a disagreement. Two of '
+                           'the 43 are of that kind: ">=8 g/dL" against ">=8.0 g/dL", and ">1000 cells/uL" against '
+                           '">1000 /mm3 (= /uL)" - the second being an equivalence annotation guide v2 explicitly '
+                           'promises the scoring treats as the same.'),
+               'effect': ('Overall exact agreement would be 0.8975 rather than 0.8925 with those equivalences applied. '
+                          'The plan reads the lower bound of the bootstrap interval against 0.90, and 0.8475 is far '
+                          'enough below it that the verdict does not change. The locked result stands as scored.'),
+               'next': ('A successor plan should either normalise values and units in the scorer or stop promising the '
+                        'equivalence in the guide. Not changed here: the scorer belongs to a locked result.'),
+           },
            'limitations': [
                'Adjudication is not blind: both readings are shown, labelled, because the readers sit together.',
+               'The three choices cannot express "both readings wrong". Seven of the ten unclear decisions say so in '
+               'their reason, which is why the per-reader counts below are lower bounds.',
+               'Sixteen of the 43 reasons restate the verdict rather than giving one; 27 are substantive.',
                "The guide's author is one of the two readers, so B may defer to her; this is not corrected for.",
                'Only disagreements are adjudicated, so errors both readers share are not detected.',
                'An adjudicated reference is not produced here; that is a new annotation version under its own plan.'],

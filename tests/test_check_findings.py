@@ -54,7 +54,8 @@ class Findings(unittest.TestCase):
 
     def test_v9_only_adds_the_second_annotation(self):
         old_raw = cf.FINDINGS_PATH.with_name('check_findings_v8.json').read_bytes()
-        old, new = json.loads(old_raw), json.loads(cf.FINDINGS_PATH.read_bytes())
+        new_raw = cf.FINDINGS_PATH.with_name('check_findings_v9.json').read_bytes()
+        old, new = json.loads(old_raw), json.loads(new_raw)
         self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V8_SHA256)
         before, after = {f['id']: f for f in old['findings']}, {f['id']: f for f in new['findings']}
         self.assertEqual(set(after) - set(before), {'eligibility_second_annotation_v1'})
@@ -63,6 +64,18 @@ class Findings(unittest.TestCase):
         self.assertEqual(added['outcome'], 'failed')
         self.assertIn('0.90', added['acceptance_rule'])
         self.assertIn('adjudicated', added['headline'])
+
+    def test_v10_only_adds_the_adjudication(self):
+        old_raw = cf.FINDINGS_PATH.with_name('check_findings_v9.json').read_bytes()
+        old, new = json.loads(old_raw), json.loads(cf.FINDINGS_PATH.read_bytes())
+        self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V9_SHA256)
+        before, after = {f['id']: f for f in old['findings']}, {f['id']: f for f in new['findings']}
+        self.assertEqual(set(after) - set(before), {'eligibility_adjudication_v1'})
+        self.assertEqual({k: before[k] for k in before}, {k: after[k] for k in before})
+        added = after['eligibility_adjudication_v1']
+        self.assertEqual(added['outcome'], 'mixed')
+        self.assertIn('lower bounds', added['acceptance_rule'])
+        self.assertIn('measures the readers', added['headline'])
 
     def test_blindness_comes_from_the_ledger(self):
         blind = {r['id']: r['blindness'] for r in self.rows if r['blind']}
