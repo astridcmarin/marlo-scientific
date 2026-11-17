@@ -33,6 +33,22 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = Path(__file__).parent / 'data'
 PLAN_PATH = DATA / 'eligibility_second_annotation_plan_v1.json'
 PLAN_SHA256 = '2642765af8c98b17e1193d5a89cfaa9f662023419b8d657ff312053035698048'
+# Every plan file this module may run, pinned by its loader as the repository convention requires. Plan v2.1 was
+# reachable only by reading the file unpinned until 17 November 2026.
+PLANS = {
+    'eligibility-second-annotation-plan-v1.0': (PLAN_PATH, PLAN_SHA256),
+    'eligibility-second-annotation-plan-v2.0': (DATA / 'eligibility_second_annotation_plan_v2.json',
+                                                '15015076f61ab7d6093cf3b1ea4fe6fbc3b7b87bd0f8ffffca8cde7b19d49cf8'),
+    'eligibility-second-annotation-plan-v2.1': (DATA / 'eligibility_second_annotation_plan_v2_1.json',
+                                                '848a81b9750326a74128f8e0b979a0b5e2be15ff20a8cb496f014a0c1849a770'),
+}
+_PLAN_PINS = {str(path): sha for path, sha in PLANS.values()}
+# Who a page is for. Round one had one reader and the page said so in five places, which is why round two's two
+# pages both came out as annotator B's (found 17 November 2026).
+READERS = {
+    'owner': {'code': 'A', 'label': 'the owner', 'heading': 'the owner', 'slug': 'owner'},
+    'annotator_b': {'code': 'B', 'label': 'annotator B', 'heading': 'second annotator', 'slug': 'annotator_b'},
+}
 GUIDE_PATH = ROOT / 'docs' / 'ELIGIBILITY_ANNOTATION_GUIDE_V2.md'
 
 
@@ -56,9 +72,43 @@ def load_record(path=RECORD_PATH):
 
 def load_plan(path=PLAN_PATH):
     raw = Path(path).read_bytes()
-    if PLAN_SHA256 is not None and hashlib.sha256(raw).hexdigest() != PLAN_SHA256:
+    pinned = _PLAN_PINS.get(str(Path(path)))
+    if pinned is None:
+        raise ValueError(f'{Path(path).name} is not a pinned second-annotation plan; add it to PLANS first.')
+    if hashlib.sha256(raw).hexdigest() != pinned:
         raise ValueError('The second-annotation plan is missing or changed.')
     return json.loads(raw)
+
+
+def plan_sha256(plan):
+    """The checksum of the plan file in use.
+
+    Not PLAN_SHA256, which is plan v1's and was written onto every page and every report whatever plan governed
+    them: round two's pages declared plan v2.1 and carried v1's checksum (found 17 November 2026).
+    """
+    version = plan['plan_version']
+    if version not in PLANS:
+        raise ValueError(f'unknown plan version {version!r}; pin its file in PLANS first')
+    path, pinned = PLANS[version]
+    got = hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    if got != pinned:
+        raise ValueError(f'The second-annotation plan {version} is missing or changed.')
+    return got
+
+
+def reader_identity(reader):
+    """The identity a page carries. None is round one, which had annotator B alone."""
+    if reader is None:
+        return READERS['annotator_b']
+    if reader not in READERS:
+        raise ValueError(f'unknown reader {reader!r}; expected one of {", ".join(sorted(READERS))}')
+    return READERS[reader]
+
+
+def guide_label(plan=None):
+    """How the page names the guide it carries, taken from the file the plan pins."""
+    m = re.search(r'_V(\d+)\.md$', guide_path(plan).name)
+    return f'version {m.group(1)}' if m else 'version 1'
 
 
 def _pool(order, spec):
@@ -186,7 +236,7 @@ def page_payload(plan=None, reader=None):
     v1_texts = {t['nct_id']: t['eligibility']['criteria_text'] for t in llm.load_corpus()['trials'] if t['nct_id'] in set(practice)}
     types = [{'key': k, 'label': s['label'], 'units': list(s['units']), 'equations': list(s.get('equations', ())),
               'short': se.LABELS[k]} for k, s in ann2.TYPES.items()]
-    p = {'plan_version': plan['plan_version'], 'plan_sha256': PLAN_SHA256, 'guide_sha256': hashlib.sha256(guide_path(plan).read_bytes()).hexdigest(),
+    p = {'plan_version': plan['plan_version'], 'plan_sha256': plan_sha256(plan), 'guide_sha256': hashlib.sha256(guide_path(plan).read_bytes()).hexdigest(),
          'types': types, 'statuses': list(ann2.STATUSES), 'comparators': list(ann2.COMPARATORS), 'sections': list(ann2.SECTIONS),
          'describes': list(ann2.DESCRIBES), 'max_values': ann2.MAX_VALUES,
          'practice': [{'nct_id': n, 'criteria_text': v1_texts[n]} for n in practice],
@@ -205,17 +255,29 @@ def write_page(path, plan=None, reader=None):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(str(ROOT / 'app' / 'templates')), autoescape=True)
     p = page_payload(plan, reader)
     page = env.get_template('eligibility_second_annotation_standalone.html').render(
-        p=p, guide_html=_md(guide_path(plan).read_text(encoding='utf-8')))
+        p=p, reader=reader_identity(reader), guide_label=guide_label(plan),
+        guide_html=_md(guide_path(plan).read_text(encoding='utf-8')))
     Path(path).write_text(page, encoding='utf-8')
     return p['page_sha256']
 
 
-def validate_record(record, p=None):
-    """A returned record -> (problems, parsed annotations by NCT ID). Every study trial must be complete and valid."""
-    p = p or page_payload()
+def validate_record(record, p=None, reader=None, plan=None):
+    """A returned record -> (problems, parsed annotations by NCT ID). Every study trial must be complete and valid.
+
+    reader: who the record should be from ('owner' or 'annotator_b'). Checked against the record's own annotator
+    code, so the two readers' records cannot be passed the wrong way round without the analysis saying so.
+    plan: with reader, builds the payload for that reader's page instead of round one's.
+    """
+    if p is None:
+        p = page_payload(plan, reader) if (plan is not None or reader is not None) else page_payload()
     problems, parsed = [], {}
     if record.get('schema_version') != RECORD_SCHEMA:
         problems.append('Unknown record format.')
+    if reader is not None:
+        want = reader_identity(reader)['code']
+        got = (record.get('annotator') or {}).get('code')
+        if got != want:
+            problems.append(f'The record is from reader {got!r}, but reader {want!r} was expected.')
     if record.get('page_sha256') != p['page_sha256']:
         problems.append('The record was made from a different page (page checksum differs).')
     if not record.get('locked_at'):
@@ -355,7 +417,7 @@ def agreement(record, p=None, record_a=None, pair_subset=None, comparison='v1', 
                              'llm_run_1': v2.summarise(val.score_run(ref, trials, model))}
                   for ref_name, ref in (('owner_annotation', a_ref), ('annotator_b', b_ref))}
     disagreements = [{'nct_id': n, 'type': t} for n in trials for t in v2.TYPES if not agree(t, a_get(n, t), b[n][t])]
-    report = {'schema_version': 'eligibility-second-annotation-report-v1', 'plan_version': plan['plan_version'], 'plan_sha256': PLAN_SHA256,
+    report = {'schema_version': 'eligibility-second-annotation-report-v1', 'plan_version': plan['plan_version'], 'plan_sha256': plan_sha256(plan),
               'page_sha256': p['page_sha256'], 'annotator': record.get('annotator', {}),
               'per_type': per_type, 'overall': overall,
               'reliability_reading': {'bar': bar, 'statistic': 'lower bound of the trial-bootstrap 95% interval of overall exact agreement',
