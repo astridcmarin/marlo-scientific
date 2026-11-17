@@ -1,48 +1,66 @@
-# Repository checkpoint — 10 November 2026, end of batch 4
+# Repository checkpoint — 16 November 2026, end of batch 16
 
-**Verified tree:** branch `batch-4`, 9 commits on top of `main` after PR #115 (3 updates of 9 November, 5 review-fix updates of 10 November, this checkpoint). CI runs when the pull request is opened; the owner chose to push before a run on the iMac, so the unit-test count is the CI run's.
-**Machine-readable record:** [`verification/repository_checkpoint_2026-11-10.json`](verification/repository_checkpoint_2026-11-10.json).
-**Previous checkpoint:** 6 November (b), end of batch 3, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-11-06b.md). CI on PR #115 matched the iMac run (1,330 tests).
+**Verified tree:** `main` at the merge of PR #127 (batch 16). This checkpoint covers batches 5 to 16, which were merged without one: the previous checkpoint is dated 10 November, eleven batches back, and the convention is one per batch. The gap is recorded rather than quietly closed.
+**Machine-readable record:** [`verification/repository_checkpoint_2026-11-16.json`](verification/repository_checkpoint_2026-11-16.json).
+**Previous checkpoint:** 10 November, end of batch 4, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-11-10.md).
 
 This is a software and repository verification. It does not validate any model scientifically, and it is not a clinical-readiness review.
 
-## What was delivered (batch 4)
+## What was delivered (batches 5 to 16)
 
-| Area | What | Main files |
+| Batch | PR | What |
 |---|---|---|
-| Model analysis report (M3) | The exposure–safety odds ratios, stating plainly that the model has no locked check | `model_analysis_report.py`, narrative file |
-| Parameter uncertainty (M7) | The Hughes typical curve's uncertainty from the published %RSE, shown as a lower bound | `population_pk.py` v1.1, `hughes_parameter_precision_v2.json` |
-| Digital human 1.1e | The body-map timeline: one dose over 48 hours, with the locked check and the observed urine share beside it | `body_map_time_course.timeline` v1.1 |
-| AI review (Track A) | A Fable review of the lenalidomide work: 29 findings, 28 open (1 high, 8 medium, 19 low); handled in five updates | `docs/reviews/2026-11_fable_review.md` |
-| Review fixes | Kim moderate band reread; the Bridoux check no longer called blind; checklist corrected; provenance notes and a quote-check script; dose view renamed | see the review file's "Handling" section |
+| 5 | #117 | AI audit of user-facing wording; all 33 findings fixed, wording only |
+| 6 | #118 | Track C and Track B plans locked; evidence index and evidence states; sex in the evidence |
+| 7 | #119 | ICRP reference women and men; body-map anatomy fixes; the exposure–efficacy search (O7) |
+| 8 | #120 | Body map 3D navigation and the foldable caution |
+| 9 | #121 | Kidney anatomy (paths v4); Track B result; Track C review; F08 bootstrap uncertainty |
+| 10 | #122 | Acceptance rule v2 (F03) and its lenalidomide result; Track B review page; handoff note |
+| 11 | #123 | The two blind eligibility checks: extractor v1.1 and Track C, both failing every type |
+| 12 | #124 | Eligibility reference re-reading plan, locked |
+| 13 | #125 | Re-reading deviation; second-annotator plan; FDA second reading; Track G full texts; findings v7 |
+| 15 | #126 | Handoff corrections; the reference re-reading result |
+| 16 | #127 | Annotation guide v3; annotator B's record pinned; the second-annotation result |
+
+Batch 14 was never pushed and is not recoverable: see "What was lost" below.
 
 ## Checks
 
 | Check | Result |
 |---|---|
-| Unit tests | **CI on the pull request.** In the cloud session without the database packages, all tests that can run there pass (1,338 collected; the database-backed and page tests cannot run there). |
+| Unit tests | **Pass.** CI on PR #127: 1,450 tests. In a cloud session without the database packages, 1,430 collected and 300 database-backed errors by design. |
 | Compile all modules | **Pass.** |
 | Migration chain | **Unchanged.** 9 revisions. |
-| Pinned data | **Pass.** 191 data files; 190 pinned (the observation template is unpinned by design). |
-| Locked checks | **Unchanged.** 27. Three carry blind roles; the two Bridoux uses are now labelled "prespecified, outcome largely known beforehand". |
-| Validation flags | **Pass.** None set to true. |
-| Repository hygiene | **Pass.** No source PDFs, correspondence or email addresses tracked. |
+| Pinned data | **Pass.** 223 JSON data files in 147 families, 76 of them earlier versions kept unchanged because locked plans and reports cite them by checksum. |
+| Locked checks | **32**, in findings v9. Of 60 ledger uses, 4 are blind and 2 blind with a recorded deviation. |
+| Validation flags | **Pass.** No `clinical_prediction_validated` is true anywhere. |
+| Repository hygiene | **Pass, with the previous checkpoint's wording corrected.** One source PDF is tracked on purpose: the EMA 2008 public assessment report, with its checksum in `landscape_ui/data/renal_pk/SHA256SUMS.json` and cited as the local copy by several pinned evidence files. No journal-article PDFs (`.gitignore` excludes one by name) and no correspondence are tracked. The 10 November line "No source PDFs … tracked" was inaccurate when written; the file predates it by many batches. |
 
 ## Findings
 
-1. **The AI review found interpretation errors, not arithmetic ones.** All ten lenalidomide check reports regenerate byte for byte, and every transcription checked against its PDF is correct (Hughes, Kim, Bridoux, EMA, Chen 2007, TGA). The moderate-band warning for Kim, the "blind" label and three checklist scores overstated what the checks show; each is corrected in a new versioned file.
-2. **A supplied PDF was misnamed in the session copy.** `280_2011_Article_1760.pdf` is Chen 2012 (mass balance), not Hughes 2019; the Hughes article was in the owner's folder under its own name.
-3. **One quote is not verbatim.** The TGA population quote ends with a full stop where the report has a comma; recorded in `lenalidomide_source_notes_v1.json`, words and numbers unchanged.
-4. **Superseded narrative texts were briefly unpinned** when their v2 replaced them; caught by the pin count before this checkpoint and fixed in the same updates.
+1. **The eligibility track reached its answer, and it is a recorded failure.** Both extractors failed their blind checks on all eight criterion types (#123). The owner's blind re-reading then corrected 108 of 215 items (#126), and an independent second reader agreed with the owner on 357 of 400 pairs, a bootstrap lower bound of 0.8475 against the plan's 0.90 bar (#127). The prespecified reading is that a one-reader reference is **not shown** adequate to judge an extractor at that bar.
+2. **Anchoring was tested and not supported.** Every re-reading was locked before its own reveal, and agreement with the extractors falls across the session where drift would raise it.
+3. **No learning curve in the reference.** Correction and disagreement rates are flat across the annotation order, which rules out repairing the reference by redoing the early trials.
+4. **The ledger's blind gate rejected a wrong entry.** The second-annotation result was first recorded as `checked_blind`; the sample's values were seen on 12 November and the plan locked on 13 November, so the gate refused it. Reader blinding and dataset blindness are now distinguished in the use's step text.
+5. **A handoff paragraph asserted work that did not exist.** `docs/HANDOFF.md` item 3 described the extended acceptance rule as locked and committed with ledger and findings updated. None of it was on `main`; the edit was made through the GitHub web editor and its commit message described work the diff did not contain (#126).
+6. **Three extractor v1.1 defects are recorded with no effect on the current sample:** `/>` and `/<` read as strict comparators and five further forms dropped entirely, none of which occur in the 216 items; a bare "WNL" missed; and a true multi-cohort trial returning the first value only.
+
+## What was lost
+
+Batch 14 — the body-map update and the extended acceptance rule's plan and result for ixazomib and daratumumab — existed only in a cloud session's workspace and was never pushed. It is not in the owner's working copy, not in `supplemental-information/bundles/`, and not on GitHub. The narrative survives in `docs/HANDOFF.md` item 3's history, but a locked plan cannot be reconstructed from a description of its own results. The extended acceptance rule is therefore **not done** and needs a fresh locked plan.
+
+From batch 17 a batch branch is pushed when its first commit exists, not when the batch is full, so an unpushed branch is never the only copy.
 
 ## Scientific state
 
-- Reviewer's checklist for lenalidomide (self-assessed): 19 of 29 answered, 8 partly, 2 gaps (O7 exposure–efficacy, M8 independent review). The AI review is not an independent review.
-- 27 locked checks. No model is validated for clinical prediction.
+- 32 locked checks: 2 passed, 2 consistent, 9 mixed, 6 disagree, 8 failed, 3 inconclusive, 2 not adopted. No model is validated for clinical prediction.
+- Reviewer's checklist for lenalidomide (self-assessed): 2 gaps remain — O7 exposure–efficacy, which is a gap in the published evidence, and M8 independent review, which has never been done. AI reviews are not independent reviews.
+- Of 27 datasets in the ledger, 24 have had their values seen. The three that have not are the Hughes, Gupta and Luo fitting datasets, each recorded as unavailable to the platform. **No dataset currently on the platform can support a further blind check.**
 
 ## Remaining gates
 
-- **This batch:** the pull request and CI; the owner merges with "Create a merge commit".
-- **Deferred review findings:** F03, F04 (a)–(d), F08 sampling, F17, F19, F20, F24 (method changes or new locked plans).
-- **Owner work:** review round 3 (now 121 entries); the eligibility annotation (46 of 200, on the iMac); the two FDA guidance PDFs and Chen 2017.
-- **Independent review:** none yet. **Authors:** Hughes (weight basis, CRCL2), Kim, Iwasaki.
+- **Eligibility (1b):** adjudicate the 43 second-annotation disagreements with annotator B, which the plan prescribes next; then a second round under guide v3 with B reading a fresh 50 of the other 150 trials.
+- **Owner work:** extraction review round 3 (109 of its 121 entries); the two FDA guidance PDFs and Chen 2017.
+- **Deferred review findings:** F04 (a)–(d), F17, F19, F20, F24, and F16's second half.
+- **Not done, needs a fresh locked plan:** the acceptance rule extended beyond lenalidomide.
+- **Independent review:** none yet. **Authors:** Hughes (weight basis, CRCL2), Kim (CL/F equation form), Iwasaki (which human data evaluated the model) — questions drafted, not sent.
