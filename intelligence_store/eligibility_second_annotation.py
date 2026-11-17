@@ -195,12 +195,17 @@ def page_payload(plan=None, reader=None):
     return p
 
 
-def write_page(path):
-    """Writes the standalone page (one HTML file, no server needed). Returns its page_sha256."""
+def write_page(path, plan=None, reader=None):
+    """Writes the standalone page (one HTML file, no server needed). Returns its page_sha256.
+
+    plan and reader are needed from round two on, where each reader has its own presentation order, so each
+    reader gets their own page and their own page checksum.
+    """
     import jinja2
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(str(ROOT / 'app' / 'templates')), autoescape=True)
-    p = page_payload()
-    page = env.get_template('eligibility_second_annotation_standalone.html').render(p=p, guide_html=_md(guide_path().read_text(encoding='utf-8')))
+    p = page_payload(plan, reader)
+    page = env.get_template('eligibility_second_annotation_standalone.html').render(
+        p=p, guide_html=_md(guide_path(plan).read_text(encoding='utf-8')))
     Path(path).write_text(page, encoding='utf-8')
     return p['page_sha256']
 
@@ -268,7 +273,7 @@ def _comparison(name):
     return COMPARISONS[name]
 
 
-def agreement(record, p=None, record_a=None, pair_subset=None, comparison='v1'):
+def agreement(record, p=None, record_a=None, pair_subset=None, comparison='v1', plan=None, p_a=None):
     """The plan's analysis. Raises if a record is invalid.
 
     record_a: an optional reader-A record, used in place of the owner's pinned annotation. Plan v2 has both
@@ -277,6 +282,10 @@ def agreement(record, p=None, record_a=None, pair_subset=None, comparison='v1'):
     the owner did not re-read in November.
     comparison: 'v1' (default) compares the value and unit as written; 'v2' applies the equivalences the extractor
     scoring already uses, which round two's plan pins. See docs/decisions/0002.
+    plan: the plan whose analysis parameters govern. Defaults to plan v1, which is what produced the locked result;
+    round two must pass its own, or the bootstrap seed and the bar would come from the wrong plan.
+    p_a: reader A's own page payload, needed from round two on because each reader reads from their own page and a
+    record carries the checksum of the page it was made from. Defaults to p, which is round one's arrangement.
 
     With all three left at their defaults the report is byte-identical to the plan v1 path, digest included.
     """
@@ -284,15 +293,19 @@ def agreement(record, p=None, record_a=None, pair_subset=None, comparison='v1'):
     problems, b = validate_record(record, p)
     if problems:
         raise ValueError(problems)
-    plan = load_plan()
+    plan = plan or load_plan()
     trials = [t['nct_id'] for t in p['trials']]
+    if (plan['analysis'].get('trial_order') or 'page') == 'sorted':
+        # Each reader has their own page order from round two on, and the bootstrap resamples this list, so the
+        # interval would depend on whose page was passed. Sorting makes it the same either way.
+        trials = sorted(trials)
     if record_a is None:
         a_all = v2.load_annotations()['annotations']
         def a_get(n, t):
             return a_all[n]['criteria'][t]
         a_ref = {n: a_all[n] for n in trials}
     else:
-        problems_a, a_parsed = validate_record(record_a, p)
+        problems_a, a_parsed = validate_record(record_a, p_a or p)
         if problems_a:
             raise ValueError(problems_a)
         def a_get(n, t):

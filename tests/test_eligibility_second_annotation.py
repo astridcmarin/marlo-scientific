@@ -180,7 +180,7 @@ class RoundTwoPlan(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         import json as _json
-        cls.plan = _json.loads((sa.DATA / 'eligibility_second_annotation_plan_v2.json').read_bytes())
+        cls.plan = _json.loads((sa.DATA / 'eligibility_second_annotation_plan_v2_1.json').read_bytes())
 
     def test_pins_guide_v3(self):
         import hashlib
@@ -235,6 +235,56 @@ class RoundTwoPlan(unittest.TestCase):
     def test_the_owner_is_recorded_as_not_naive(self):
         self.assertIn('never a naive reader', ' '.join(self.plan['limitations']))
         self.assertFalse(self.plan['clinical_prediction_validated'])
+
+    def test_the_plan_carries_the_keys_its_executable_reads(self):
+        """v2.0 did not, so it would have run under plan v1's bootstrap seed and bar."""
+        a = self.plan['analysis']
+        for key in ('bootstrap_seed', 'bootstrap_resamples', 'reliability_bar', 'reading_rule', 'trial_order'):
+            self.assertIn(key, a, key)
+        self.assertEqual(a['reliability_bar'], 0.90)
+        self.assertEqual(a['trial_order'], 'sorted')
+        self.assertNotEqual(a['bootstrap_seed'], json.loads(
+            (sa.DATA / 'eligibility_second_annotation_plan_v1.json').read_bytes())['analysis']['bootstrap_seed'])
+
+    def test_it_supersedes_v2_0_and_says_why(self):
+        sup = self.plan['supersedes']
+        self.assertEqual(sup['plan_version'], 'eligibility-second-annotation-plan-v2.0')
+        self.assertIn('could not govern its own analysis', sup['change'])
+        self.assertIn('draw is identical', sup['change'])
+
+    def _blank(self, payload):
+        return {'schema_version': sa.RECORD_SCHEMA, 'page_sha256': payload['page_sha256'],
+                'plan_version': self.plan['plan_version'], 'plan_sha256': payload.get('plan_sha256'),
+                'locked_at': '2026-11-20T10:00:00Z', 'annotator': {'code': 'X', 'background': 'synthetic'},
+                'annotations': {t['nct_id']: {f'{k}__status': 'not_stated' for k in v2.TYPES}
+                                for t in payload['trials']}}
+
+    def test_dry_run_two_readers_on_their_own_pages(self):
+        pb, pa = sa.page_payload(self.plan, 'annotator_b'), sa.page_payload(self.plan, 'owner')
+        self.assertNotEqual(pb['page_sha256'], pa['page_sha256'])
+        rep = sa.agreement(self._blank(pb), pb, record_a=self._blank(pa), comparison='v2',
+                           plan=self.plan, p_a=pa)
+        self.assertEqual(rep['comparison'], 'v2')
+        self.assertEqual(rep['reliability_reading']['bar'], 0.90)
+        self.assertEqual(rep['overall']['pairs'], 400)
+
+    def test_the_interval_does_not_depend_on_whose_page_was_passed(self):
+        pb, pa = sa.page_payload(self.plan, 'annotator_b'), sa.page_payload(self.plan, 'owner')
+        rb, ra = self._blank(pb), self._blank(pa)
+        first = next(iter(ra['annotations']))
+        ra['annotations'][first]['ecog_max__status'] = 'unclear'
+        ra['annotations'][first]['ecog_max__note'] = 'synthetic difference'
+        one = sa.agreement(rb, pb, record_a=ra, comparison='v2', plan=self.plan, p_a=pa)
+        two = sa.agreement(ra, pa, record_a=rb, comparison='v2', plan=self.plan, p_a=pb)
+        self.assertLess(one['overall']['exact_rate'], 1.0)
+        self.assertEqual(one['overall']['exact_rate'], two['overall']['exact_rate'])
+        self.assertEqual(one['overall']['exact_trial_bootstrap_95'],
+                         two['overall']['exact_trial_bootstrap_95'])
+
+    def test_record_a_is_validated_against_its_own_page(self):
+        pb, pa = sa.page_payload(self.plan, 'annotator_b'), sa.page_payload(self.plan, 'owner')
+        with self.assertRaises(ValueError):
+            sa.agreement(self._blank(pb), pb, record_a=self._blank(pa), comparison='v2', plan=self.plan)
 
 
 if __name__ == '__main__':
