@@ -15,8 +15,12 @@ from pathlib import Path
 
 from .covariate_estimation import _load_pinned
 
-EVIDENCE_PATH = Path(__file__).parent / 'data' / 'lenalidomide_exposure_safety_v2.json'
-EVIDENCE_SHA256 = 'a839525eb7fc0554201f14a5641ce64ad4e04f0f806e4ceec3d20c2d6171ed73'
+# v3 records the Chen 2017 quote check (F16) and sets three numeric ranges with the journal's en dash;
+# superseded v2 kept unchanged. No value or odds ratio differs between them.
+EVIDENCE_PATH = Path(__file__).parent / 'data' / 'lenalidomide_exposure_safety_v3.json'
+EVIDENCE_SHA256 = '02a9a57cdc9e7ab5cabedf3ed176b4894ccb2e885aff529586f3427229e19000'
+# Superseded, kept unchanged: lenalidomide_exposure_safety_v2.json
+EVIDENCE_V2_SHA256 = 'a839525eb7fc0554201f14a5641ce64ad4e04f0f806e4ceec3d20c2d6171ed73'
 # Superseded, kept unchanged for traceability.
 EVIDENCE_V1_PATH = Path(__file__).parent / 'data' / 'lenalidomide_exposure_safety_tga_v1.json'
 EVIDENCE_V1_SHA256 = '7be5103a41a5c8f5fe2529d524951c1a94db8c4996c81299a364b84c51288b8c'

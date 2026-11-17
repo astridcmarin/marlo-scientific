@@ -1,5 +1,6 @@
 """Simulation 4.0a: relative odds of grade 3/4 cytopenia from simulated lenalidomide exposure."""
 import hashlib
+import json
 import math
 from pathlib import Path
 import re
@@ -33,7 +34,12 @@ class Evidence(unittest.TestCase):
     def test_superseded_v1_kept_and_reconciliation_recorded(self):
         self.assertEqual(hashlib.sha256(ro.EVIDENCE_V1_PATH.read_bytes()).hexdigest(), ro.EVIDENCE_V1_SHA256)
         e = ro.load_evidence()
-        self.assertEqual(e['supersedes']['evidence_version'], 'lenalidomide-exposure-safety-tga-v1.0')
+        # The chain is asserted by name, not against whichever file is pinned, so a new version does not break it.
+        v2 = json.loads(ro.EVIDENCE_PATH.with_name('lenalidomide_exposure_safety_v2.json').read_bytes())
+        self.assertEqual(v2['supersedes']['evidence_version'], 'lenalidomide-exposure-safety-tga-v1.0')
+        self.assertEqual(hashlib.sha256(ro.EVIDENCE_PATH.with_name('lenalidomide_exposure_safety_v2.json').read_bytes()).hexdigest(),
+                         ro.EVIDENCE_V2_SHA256)
+        self.assertEqual(e['supersedes']['evidence_version'], 'lenalidomide-exposure-safety-v2.0')
         pooled = e['second_source']['odds_ratios_all_diseases']['grade_3_4_thrombocytopenia']
         self.assertEqual((pooled['odds_ratio'], pooled['ci95']), (3.337, [1.183, 9.415]))
         self.assertIn('first cycle', e['time_window']['statement'])

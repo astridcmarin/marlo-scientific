@@ -1,0 +1,54 @@
+{
+ "schema_version": "repository-checkpoint-v1",
+ "checkpoint": "2026-11-16",
+ "classification": "software_and_repository_verification",
+ "tree": {"branch": "main", "base": "merge of PR #127 (batch 16)", "covers_batches": "5 to 16"},
+ "machine": "cloud session without the database packages; CI on the pull request is the authoritative run",
+ "gap_since_previous": "Eleven batches were merged without a checkpoint. Recorded rather than closed quietly.",
+ "unit_tests": {"where": "CI on PR #127", "ci_tests": 1450, "ci_result": "pass",
+                "cloud_session": "1,430 collected, 300 database-backed errors by design"},
+ "compileall": "pass",
+ "migrations": {"revisions": 9, "changed_since_previous": false},
+ "pinned_data": {"json_files": 223, "families": 147, "earlier_versions_kept": 76,
+                 "note": "Earlier versions stay unchanged because locked plans and reports cite them by checksum."},
+ "validation_flags_true": [],
+ "locked_checks": 32,
+ "findings_version": "check-findings-v9.0",
+ "ledger_version": "dataset-ledger-v11.0",
+ "ledger_uses": {"total": 60, "checked_blind": 4, "checked_blind_with_deviation": 2, "checked_not_blind": 34,
+                 "built_from": 12, "tuned_on": 5, "reproduction": 2, "compared_model_to_model": 1},
+ "outcomes": {"passed": 2, "consistent": 2, "mixed": 9, "disagrees": 6, "failed": 8, "inconclusive": 3, "not_adopted": 2},
+ "unseen_datasets": {"of": 27, "values_seen": 24, "still_unseen": 3,
+                     "note": "The three are the Hughes, Gupta and Luo fitting datasets, each recorded as unavailable to the platform. No dataset currently on the platform can support a further blind check."},
+ "reviewer_checklist": {"gaps": ["O7 exposure-efficacy (a gap in the published evidence)", "M8 independent review (never done)"],
+                        "self_assessed": true},
+ "repository_hygiene": {
+  "result": "pass, with the previous checkpoint's wording corrected",
+  "tracked_source_pdfs": ["landscape_ui/data/renal_pk/ema_lenalidomide_2008.pdf"],
+  "note": "An EMA public assessment report, tracked on purpose with its checksum in landscape_ui/data/renal_pk/SHA256SUMS.json and cited as the local copy by several pinned evidence files. No journal-article PDFs and no correspondence are tracked. The 10 November line 'No source PDFs ... tracked' was inaccurate when written; the file predates it by many batches."
+ },
+ "findings": [
+  "The eligibility track reached its answer and it is a recorded failure: both extractors failed every type blind; the owner's blind re-reading corrected 108 of 215 items; an independent second reader agreed on 357 of 400 pairs, bootstrap lower bound 0.8475 against a 0.90 bar, so a one-reader reference is not shown adequate to judge an extractor",
+  "Anchoring in the re-reading was tested and not supported: every reading was locked before its own reveal, and agreement with the extractors falls across the session where drift would raise it",
+  "No learning curve in the reference: correction and disagreement rates are flat across the annotation order, which rules out repairing it by redoing the early trials",
+  "The ledger's blind gate rejected a wrong entry: the second-annotation result was first recorded as checked_blind, but the values were seen on 12 November and the plan locked on 13 November; reader blinding and dataset blindness are now distinguished",
+  "A handoff paragraph asserted work that did not exist: HANDOFF.md item 3 described the extended acceptance rule as locked and committed, none of it was on main, and the web-editor commit message described work its diff did not contain",
+  "Three extractor v1.1 defects recorded with no effect on the current sample: '/>' and '/<' read as strict and five further forms dropped, none occurring in the 216 items; a bare 'WNL' missed; a true multi-cohort trial returning the first value only"
+ ],
+ "lost_work": {
+  "batch": 14,
+  "contents": "the body-map update and the extended acceptance rule's plan and result for ixazomib and daratumumab",
+  "where_checked": ["main", "the owner's working copy on the iMac", "supplemental-information/bundles/", "GitHub branches"],
+  "status": "not recoverable; the extended acceptance rule is not done and needs a fresh locked plan",
+  "process_change": "From batch 17 a batch branch is pushed when its first commit exists, not when the batch is full."
+ },
+ "remaining_gates": [
+  "Eligibility 1b: adjudicate the 43 second-annotation disagreements with annotator B, then a second round under guide v3 with B reading a fresh 50 of the other 150 trials",
+  "Owner work: extraction review round 3 (109 of 121 entries); the two FDA guidance PDFs and Chen 2017",
+  "Deferred review findings: F04 (a)-(d), F17, F19, F20, F24, F16 second half",
+  "Not done, needs a fresh locked plan: the acceptance rule extended beyond lenalidomide",
+  "Independent review: none yet",
+  "Author questions drafted and not sent: Hughes (weight basis, CRCL2), Kim (CL/F equation form), Iwasaki (which human data evaluated the model)"
+ ],
+ "clinical_prediction_validated": false
+}

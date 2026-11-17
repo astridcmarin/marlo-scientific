@@ -164,3 +164,5 @@ Deferred, each needing a method change or a new locked plan:
 - F16 (second half): the Chen 2017 quotes, when that PDF is in the source folder.
 
 Still not checked: the two FDA guidance PDFs and Chen 2017.
+
+**Update, 16 November 2026.** All three PDFs are now on the owner's iMac. The two FDA guidances were checked with `scripts/check_source_quotes.py`: the hepatic draft's 7 quotes are verbatim; both of the renal guidance's quotes were missing words and are corrected in `fda_renal_impairment_guidance_2024_v2.json` (the indexed-eGFR quote dropped "and", and the Cockcroft-Gault weight quote dropped "of renal function"). Chen 2017 is on file; its five quotes, F16's second half, are still unchecked.

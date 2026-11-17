@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eligibility adjudication — {{ v.total }} disagreements</title>
+<style>
+  :root { --line: #d8d8d8; --ink: #1a1a1a; --muted: #5a5a5a; --bg: #fcfcfc; --owner: #f3f6fb; --b: #fbf5f0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+         color: var(--ink); background: var(--bg); }
+  header { padding: 18px 24px; border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 5; }
+  h1 { font-size: 19px; margin: 0 0 4px; }
+  .muted { color: var(--muted); font-size: 13px; }
+  main { max-width: 1060px; margin: 0 auto; padding: 24px; }
+  section { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; margin-bottom: 20px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+  .reading { border: 1px solid var(--line); border-radius: 5px; padding: 12px 14px; }
+  .reading h4 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+  .reading.owner { background: var(--owner); }
+  .reading.b { background: var(--b); }
+  .val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; }
+  .crit { white-space: pre-wrap; font-size: 13.5px; max-height: 320px; overflow: auto;
+          background: #fafafa; border: 1px solid var(--line); border-radius: 5px; padding: 12px; }
+  label { display: block; font-size: 13px; margin: 10px 0 4px; }
+  textarea { width: 100%; min-height: 62px; font: inherit; padding: 8px; border: 1px solid var(--line); border-radius: 4px; }
+  .choices { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 6px; }
+  .choices label { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-size: 14px; }
+  nav { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  button { font: inherit; padding: 7px 14px; border: 1px solid #bbb; border-radius: 4px; background: #fff; cursor: pointer; }
+  button.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  details.guide { margin-bottom: 20px; }
+  details.guide > summary { cursor: pointer; font-weight: 600; padding: 10px 0; }
+  .guide-body { border: 1px solid var(--line); border-radius: 6px; padding: 16px 20px; background: #fff; max-height: 70vh; overflow: auto; }
+  .guide-body table { border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+  .guide-body td, .guide-body th { border: 1px solid var(--line); padding: 5px 8px; text-align: left; vertical-align: top; }
+  .problems { color: #8a1c1c; font-size: 13px; }
+  .pill { display: inline-block; font-size: 12px; padding: 2px 8px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Eligibility adjudication — {{ v.total }} disagreements</h1>
+  <div class="muted">
+    Plan {{ v.plan_version }} · view <span class="val">{{ v.view_sha256[:16] }}</span> ·
+    guide <span class="val">{{ v.guide_sha256[:16] }}</span>
+  </div>
+</header>
+<main>
+
+<section>
+  <h3 style="margin-top:0">How this works</h3>
+  <ul>
+    <li>These are the {{ v.total }} trial-and-type pairs where the two readings differ. Pairs the readers agreed on are not here, so an error both readers made cannot be found this way.</li>
+    <li>Judge each pair <strong>under annotation guide v2</strong>, below — the guide both readers worked from. Not guide v3.</li>
+    <li>Each pair ends as <strong>the owner's reading</strong>, <strong>annotator B's reading</strong>, or <strong>unclear</strong>, and a reason is required in every case.</li>
+    <li>Both readings are shown and labelled: the two readers sit together and each knows their own answers, so hiding the labels would buy nothing. It does mean the guide's author is in the room, which the result records as a limitation.</li>
+    <li>Work is kept in this browser as you go. <em>Lock and download</em> produces the file to send back unchanged.</li>
+  </ul>
+</section>
+
+<details class="guide">
+  <summary>Annotation guide v2 (the guide both readers used)</summary>
+  <div class="guide-body">{{ guide_html|safe }}</div>
+</details>
+
+<section>
+  <nav>
+    <button type="button" id="prev">Previous</button>
+    <button type="button" id="next">Next</button>
+    <span class="pill" id="progress"></span>
+    <span style="flex:1"></span>
+    <button type="button" class="primary" id="lock">Lock and download</button>
+  </nav>
+  <div class="problems" id="problems"></div>
+</section>
+
+<section id="item"></section>
+
+</main>
+<script type="application/json" id="data">{{ v|tojson }}</script>
+<script>
+(function () {
+  var V = JSON.parse(document.getElementById('data').textContent);
+  var KEY = 'marlo-adjudication-' + V.view_sha256.slice(0, 12);
+  var S = {decisions: {}, position: 1};
+  try { var j = JSON.parse(localStorage.getItem(KEY) || 'null'); if (j && j.decisions) S = j; } catch (e) {}
+  var pos = Math.min(Math.max(1, S.position || 1), V.total);
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c];
+    });
+  }
+  function save() { S.position = pos; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} progress(); }
+  function dec(id) { return S.decisions[id] || (S.decisions[id] = {choice: '', reason: ''}); }
+
+  function readingHtml(r) {
+    if (!r.values.length) {
+      return '<div class="val">' + esc(r.status) + '</div>' +
+        (r.note ? '<div class="muted">note: ' + esc(r.note) + '</div>' : '');
+    }
+    return '<div class="val">' + esc(r.status) + '</div>' + r.values.map(function (x) {
+      return '<div class="val">' + esc(x.comparator) + ' ' + esc(x.value) + ' ' + esc(x.unit) +
+        '<span class="muted"> · ' + esc(x.section) + (x.describes ? ', ' + esc(x.describes) : '') + '</span></div>' +
+        (x.qualifier ? '<div class="muted">qualifier: ' + esc(x.qualifier) + '</div>' : '') +
+        (x.sentence ? '<div class="muted">“' + esc(x.sentence) + '”</div>' : '');
+    }).join('') + (r.note ? '<div class="muted">note: ' + esc(r.note) + '</div>' : '');
+  }
+
+  function render() {
+    var it = V.items[pos - 1], d = dec(it.id);
+    document.getElementById('item').innerHTML =
+      '<div class="muted">Pair ' + it.position + ' of ' + V.total + ' · ' + esc(it.nct_id) + '</div>' +
+      '<h3 style="margin:4px 0 2px">' + esc(it.type_label) + '</h3>' +
+      '<div class="muted">Units for this type: ' + esc(it.units.join(', ')) + '</div>' +
+      '<div class="grid">' +
+        '<div class="reading owner"><h4>Owner\'s reading</h4>' + readingHtml(it.owner) + '</div>' +
+        '<div class="reading b"><h4>Annotator B\'s reading</h4>' + readingHtml(it.annotator_b) + '</div>' +
+      '</div>' +
+      '<label>Registered eligibility text</label><div class="crit">' + esc(it.criteria_text) + '</div>' +
+      '<label>Which reading stands?</label><div class="choices">' +
+        V.choices.map(function (c) {
+          var lab = c === 'owner' ? "The owner's reading" : c === 'annotator_b' ? "Annotator B's reading" : 'Unclear — neither settles it';
+          return '<label><input type="radio" name="choice" value="' + c + '"' + (d.choice === c ? ' checked' : '') + '> ' + lab + '</label>';
+        }).join('') +
+      '</div>' +
+      '<label for="reason">Reason (required) — which rule in guide v2 decides it, or why it cannot be settled</label>' +
+      '<textarea id="reason">' + esc(d.reason) + '</textarea>';
+
+    Array.prototype.forEach.call(document.querySelectorAll('input[name=choice]'), function (r) {
+      r.addEventListener('change', function () { dec(it.id).choice = r.value; save(); });
+    });
+    document.getElementById('reason').addEventListener('input', function () {
+      dec(it.id).reason = this.value; save();
+    });
+    progress();
+  }
+
+  function problemList() {
+    var out = [];
+    V.items.forEach(function (it) {
+      var d = S.decisions[it.id];
+      if (!d || !d.choice) { out.push('Pair ' + it.position + ' (' + it.short + '): no choice'); }
+      else if (!(d.reason || '').trim()) { out.push('Pair ' + it.position + ' (' + it.short + '): no reason'); }
+    });
+    return out;
+  }
+
+  function progress() {
+    var done = V.total - problemList().length;
+    document.getElementById('progress').textContent = done + ' of ' + V.total + ' complete';
+  }
+
+  document.getElementById('prev').addEventListener('click', function () { if (pos > 1) { pos--; render(); save(); } });
+  document.getElementById('next').addEventListener('click', function () { if (pos < V.total) { pos++; render(); save(); } });
+  document.getElementById('lock').addEventListener('click', function () {
+    var probs = problemList();
+    document.getElementById('problems').innerHTML = probs.length
+      ? 'Not ready: ' + probs.length + ' pair(s) incomplete.<br>' + probs.slice(0, 12).map(esc).join('<br>')
+      : '';
+    if (probs.length) { return; }
+    var rec = {schema_version: 'eligibility-adjudication-record-v1', view_sha256: V.view_sha256,
+               plan_version: V.plan_version, locked_at: new Date().toISOString(), decisions: S.decisions};
+    var blob = new Blob([JSON.stringify(rec, null, 1)], {type: 'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'eligibility_adjudication_' + new Date().toISOString().slice(0, 10) + '.json';
+    a.click();
+  });
+
+  render();
+}());
+</script>
+</body>
+</html>
