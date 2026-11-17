@@ -21,8 +21,10 @@ DATA = 'intelligence_store/data/'
 VIEW_VERSION = 'kidney-function-classifications-v1.0'
 
 SOURCES = {
-    'fda_2024': (DATA + 'fda_renal_impairment_guidance_2024_v1.json',
-                 '9fb3498ab4d479a2ce4d523f85c5fc29648621a0cf084ef732945ce3fda362b5',
+    # v2 corrects two quotes that were missing words; superseded v1 kept unchanged at
+    # 9fb3498ab4d479a2ce4d523f85c5fc29648621a0cf084ef732945ce3fda362b5
+    'fda_2024': (DATA + 'fda_renal_impairment_guidance_2024_v2.json',
+                 '9741d10353e393e48ee0b4d9c1060af630e364f59201f428f4b55eba86f99b85',
                  'FDA, Pharmacokinetics in Patients with Impaired Renal Function, final guidance, March 2024'),
     'ema_2008': (DATA + 'lenalidomide_renal_pathways_evidence_v1.json',
                  'e7c62bc477bfc6170f42f1f01e5935ea222bec0fbf513da718178030c42d2c8f',
