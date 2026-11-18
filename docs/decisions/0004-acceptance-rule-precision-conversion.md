@@ -2,6 +2,8 @@
 
 **Date:** 17 November 2026 · **Status:** accepted by the owner, 17 November 2026
 
+**Correction, 17 November 2026, while writing the plan:** Li 2017 (pomalidomide) is out of scope. The platform's only check of that model compares it with the label engine (`label_exposure_pomalidomide_li_check_v1`, role `compared_model_to_model`); no observed values are involved, so the rule has nothing to judge. The extension covers the Gupta 2017 ixazomib check and the second Luo 2021 daratumumab check (`intelligence_store/data/acceptance_rule_v2_plan_v2.json`). The rest of this record is unchanged.
+
 ## Problem
 
 Acceptance rule v2 compares a published model with observed data by drawing many parameter sets from the model's published uncertainty. When the observation falls within the spread those draws produce, the verdict is indeterminate rather than a disagreement. It has been applied to the four lenalidomide checks (`docs/verification/acceptance_rule_v2_lenalidomide_v1.json`).
