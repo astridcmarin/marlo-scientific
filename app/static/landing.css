@@ -64,6 +64,8 @@ h3 { font-size: 24px; letter-spacing: -0.01em; }
 .mark { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font-size: 13px; flex-shrink: 0; }
 .mark-done { background: var(--ok-bg); color: var(--ok); }
 .mark-part { background: var(--warn-bg); color: var(--warn); }
+.mark-gap { background: var(--flag-bg); color: var(--flag); }
+.mark-neutral { background: #eef1f4; color: #5b6472; }
 .check-note { font-family: var(--ms-font-mono); font-size: 12px; color: var(--warn); margin-left: auto; }
 .finding { font-size: 14px; color: var(--body); background: var(--ground); border-radius: 10px; padding: 12px 14px; }
 

@@ -64,6 +64,19 @@ def _blindness(report, ledger):
     return role
 
 
+def subject_drug_matches(subject, drug_id):
+    """Whether a findings subject (a model or tool id) belongs to a drug: its id starts with the drug's, or it is
+    that drug's label-based curve."""
+    return subject.startswith(drug_id + '_') or subject == 'label_exposure_' + drug_id
+
+
+def findings_for_drug(drug_id, view=None):
+    """The findings rows whose subjects belong to one drug, in the order the findings page shows them."""
+    view = view or findings_view()
+    return [r for area in view['areas'] for r in area['rows']
+            if any(subject_drug_matches(s, drug_id) for s in r['subjects'])]
+
+
 def findings_view():
     doc, ledger = load_findings(), load_ledger()
     listed = {f['report'] for f in doc['findings']}

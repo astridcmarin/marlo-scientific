@@ -678,7 +678,13 @@ def landing():
     if request.args:
         return redirect(url_for("home", **request.args.to_dict(flat=False)), code=301)
     from landscape_ui.landing_examples import curve_example, kidney_example
-    return render_template("landing.html", github_url=GITHUB_URL, curve=curve_example(), kidney=kidney_example())
+    from intelligence_store.check_findings import FindingsError, findings_view
+    try:
+        findings = findings_view()
+    except (FindingsError, ValueError, OSError):
+        findings = None            # the hero card is left out rather than showing unverified counts
+    return render_template("landing.html", github_url=GITHUB_URL, curve=curve_example(), kidney=kidney_example(),
+                           findings=findings)
 
 
 @app.route("/models")

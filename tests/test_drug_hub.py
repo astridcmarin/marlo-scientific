@@ -62,5 +62,35 @@ class DrugHubTests(unittest.TestCase):
         self.assertIn('guide', hub)
 
 
+class HubFindings(unittest.TestCase):
+    """Evidence-first plan item 4 (18 November 2026): each drug's checks, linked to their rows on the findings page."""
+
+    def setUp(self):
+        self.app = Flask(__name__)
+        self.app.add_url_rule('/', 'home', lambda: 'Home')
+        self.app.add_url_rule('/models/<model_id>', 'model_scorecard', lambda model_id: '')
+        self.app.add_url_rule('/models/findings', 'check_findings', lambda: '')
+        register_landscape(self.app)
+
+    def hub(self, entity_id, label):
+        with self.app.test_request_context():
+            return {g['id']: g for g in hub_links(entity_id, label)}
+
+    def test_bortezomib_lists_all_eight_checks_with_anchors_and_outcomes(self):
+        links = self.hub('bortezomib', 'Bortezomib')['findings']['links']
+        self.assertEqual(len(links), 8)
+        self.assertTrue(all(link['url'].startswith('/models/findings#') for link in links))
+        self.assertIn('/models/findings#kuan', [link['url'] for link in links])
+        self.assertTrue(all(link['note'].endswith('.') for link in links))
+
+    def test_findings_follow_models_in_the_hub(self):
+        order = list(self.hub('ixazomib', 'Ixazomib'))
+        self.assertLess(order.index('models'), order.index('findings'))
+
+    def test_a_drug_whose_only_record_is_a_failed_check_now_shows_it(self):
+        hub = self.hub('melphalan', 'Melphalan')
+        self.assertEqual(list(hub), ['findings'])
+        self.assertEqual([link['url'] for link in hub['findings']['links']], ['/models/findings#melphalan_label'])
+
 if __name__ == '__main__':
     unittest.main()

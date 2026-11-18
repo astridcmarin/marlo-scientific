@@ -298,3 +298,11 @@ h1 { font-weight:600; }
 
 /* Run record: short summary visible, full record folded (layout step 4, 3 November 2026). */
 .rr-summary{font-size:13px;margin:6px 0 8px}.rr-details{border-top:1px solid var(--line);padding-top:8px}.rr-details>summary{cursor:pointer;font-weight:500;color:var(--teal);font-size:13px}.rr-details[open]>summary{margin-bottom:8px}
+/* Which trials the counts come from (cohort_note_macros.html, 18 November 2026). */
+.cohort-note { margin: 8px 0 14px; font-size: 13px; }
+.cohort-note > summary { cursor: pointer; color: var(--ms-accent-dark, #3a3a8c); }
+.cohort-note ul { margin: 6px 0; padding-left: 18px; }
+.cohort-note p { margin: 6px 0; }
+/* Folded caveat on drug pages (evidence-first plan, item 9): the full wording, one click away. */
+.scope-details { margin: 8px 0 14px; }
+.scope-details > summary { cursor: pointer; font-size: 14px; }
