@@ -36,6 +36,7 @@
 .bm-flow .bm-sub { font-size:10px; fill:var(--muted,#62727e); }
 .bm-node { fill:#f6f6fb; stroke:#c9c5ee; }
 .bm-absorb { stroke:#c9a3b6; stroke-width:3; stroke-dasharray:5 4; }
+.bm-absorb-head { fill:#c9a3b6; }
 .bm-visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 @media (max-width:900px) { .bm-layout { grid-template-columns:1fr; } .bm-viewer canvas { height:70vh; } }
 .bm-overlay { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }

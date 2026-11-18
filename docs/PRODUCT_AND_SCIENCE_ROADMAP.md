@@ -1,6 +1,6 @@
 # Product and science roadmap
 
-Direction recorded 19 October 2026; shortened and verified against the repository on 5 November 2026. Owner: Astrid Marin. Each phase gives its goal, where it stands, what comes next and where the detail lives. The dated log of every step is in the drug and topic documents (index: [README.md](README.md)) and in the archived full roadmap, [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-05.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-05.md); the 10 October version is also in [history/](history/). Per-drug status in plain language: [STATUS_BY_DRUG.md](STATUS_BY_DRUG.md). Latest software verification: [REPOSITORY_CHECKPOINT.md](REPOSITORY_CHECKPOINT.md).
+Direction recorded 19 October 2026; shortened and verified against the repository on 5 November 2026; the "Now" section rewritten after the regroup of 18 November 2026. Owner: Astrid Marin. Each phase gives its goal, where it stands, what comes next and where the detail lives. The dated log of every step is in the drug and topic documents (index: [README.md](README.md)) and in the archived full roadmap, [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-05.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-05.md); the 10 October version is also in [history/](history/). Per-drug status in plain language: [STATUS_BY_DRUG.md](STATUS_BY_DRUG.md). Latest software verification: [REPOSITORY_CHECKPOINT.md](REPOSITORY_CHECKPOINT.md).
 
 ## Positioning
 
@@ -28,7 +28,7 @@ Primary users first: trial designers, clinical pharmacologists and regulatory pr
 | Differentiator | Status |
 |---|---|
 | **Shows its work.** Every value carries its source; every model shows what has and has not been checked, including failures. | In place: run records, scorecards at `/models`, a capability level on every drug. |
-| **Checks planned before they run.** | 27 checks, each locked by commit before computation, all at `/models/findings`. Only 3 were blind (dataset ledger). |
+| **Checks planned before they run.** | 34 checks on 18 November, each locked by commit before computation, all at `/models/findings`. Only 5 were blind (dataset ledger). |
 | **A regulatory reviewer's structure.** | Partly: for lenalidomide, 19 of 29 reviewer questions answered, 8 partly, 2 gaps, self-scored and corrected after the AI review of 10 November ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
 | **The whole chain in one place.** Trial → drug → evidence → exposure → regulatory context. | Partly: a guided path exists for lenalidomide only. |
 | **Reproducible snapshots.** Frozen cohorts; checksum-pinned, versioned data. | In place. |
@@ -89,6 +89,7 @@ The phases overlap. Every step keeps the rules at the end of this page.
 
 **Where it stands:**
 - **Protocol benchmarking:** extractor v1 failed its locked check (all eight criterion types). v2 is locked with 200 new trials and a pass rule sized to the sample. **The owner's annotation is the platform's only unseen dataset**, so the extractor must not be run on it before the check.
+- **18 November:** both extractors then failed every type blind (13 November), and the reference itself is not yet shown adequate (two readers agreed on 0.8925 of pairs against a 0.90 bar; adjudication found the reference wrong in at least 31 of 400). Round two under guide v3 is locked and waiting; if it misses, benchmarking is recorded as not validated ([decision 0006](decisions/0006-eligibility-round-two-miss-rule.md)).
 - **Special populations** for six drugs, and the **dose view** and **guided path** for lenalidomide: built.
 
 **Next:** the annotation, the locked v2 check, then the benchmarking page with passing criterion types only.
@@ -134,48 +135,26 @@ The visual layer of the long-term vision, built only on models that have passed 
 
 Multi-organ physiology, disease progression, combination therapies, the body → organ → tissue → cell → target interface, and mechanistic + machine-learning hybrid models. Each builds only on models that have passed the earlier phases' checks.
 
-## Now: consolidate before adding
+## Now (18 November 2026): evidence first, carfilzomib next
 
-Agreed with the owner on 4 November: the platform has grown faster than it has been used or checked (27 checks, 3 blind; about 165 pinned data files; 33 docs). Until user conversations are possible, work consolidates and reviews rather than adds.
+Decided with the owner on 18 November ([REGROUP_2026-11-18.md](REGROUP_2026-11-18.md)); the previous version of this section, with batches 1–4, is in [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-18.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-18.md). The 4 November rule still holds: consolidate and check before adding.
 
-**Done:** full suite on the owner's Mac and the 4 and 5 November checkpoints; docs index by question, status by drug and the data-file index; the reviewer's checklist; an AI review of the kidney pathway model and the bioavailability re-check (2.0e); this roadmap verified and shortened.
+**Direction.** The first release leads with sourced evidence: the trial landscape, special-population evidence, regulatory references and the check findings. The models stay research tools behind their credibility records, because two months of checks show most of them carry a recorded disagreement or an indeterminate result (34 locked checks, 5 blind, on 18 November). No outside user conversations yet; the owner works with one engineer, and will include an independent reviewer.
 
-**Batch 1 (done; PR #113, merged 5 November):** commit-count rules; roadmap verified and shortened; FDA 2024 kidney categories and each model's kidney-function measure (R1, R2); the rest of REVLIMID sections 12.3 and 7, shown on the special-populations page and in the guided path (O1, O2, O5); the 5 November checkpoint. Checklist 17 answered, 9 partly, 3 gaps.
-
-**Batch 2 (done; PR #114, merged 6 November; CI 1,310 tests):** review round 3 opened (113 entries); label kidney doses and exposure (R9); the label's 82% shown not to change 2.0e; credibility records v3; the first model analysis report (M3); liver-function classifications (H2). Checklist 19 answered, 8 partly, 2 gaps.
-
-**Moved to the iMac, 6 November.** The project now runs on the owner's iMac (1,310 tests passing there). Moving it showed that annotations were saved in `app/instance/` while the database was in `instance/`.
-
-**Batch 3 (done; PR #115, merged 6 November; 1,330 tests on the iMac and in CI):**
-1. One instance folder for the database, workspace key and annotations (done).
-2. Model analysis reports for Hughes 2019 and Kim 2026 (M3) (done).
-3. What is known in dialysis, on the special-populations page (R7) (done).
-4. Assay summary for the kidney studies (O8) (done; added to review round 3).
-5. Precision of the dose-exposure ratios (R5) (done: approximate intervals from the published geometric CVs; R5 stays partly, as parameter uncertainty is not propagated).
-6. Checkpoint (done).
-
-**Batch 4 (done 10 November; pull request open):**
-1. Model analysis report for the exposure–safety odds ratios (M3; every lenalidomide model now has one).
-2. Parameter uncertainty for the Hughes typical curve, from its published precision (M7).
-3. Digital human 1.1e: the body-map timeline and running amounts (Digital human 1.1 complete).
-4. The Fable AI review of the lenalidomide work (Track A of the Fable plan) and five updates handling its findings.
-5. Checkpoint.
-
-**Next, from the Fable plan:** E, an overclaiming audit of the pages; then the eligibility extractor's plan locked (C) while the annotation continues; the deferred review findings (F03, F04, F08 sampling) as method changes with their own plans.
-
-**Then:** label-consistency plans for selinexor, carfilzomib and thalidomide once round 3 is done.
-
-**Owner's work:** the v2 eligibility annotation, then its locked check; extraction review round 3 when there is time.
-
-**Paused:** special-population pages and label curves for the five new drugs (until round 3), and further kidney or bortezomib modelling without new data.
+**Queue, in order:**
+1. **Owner:** eligibility round two with annotator B (plan v2.1 locked; if the bar is missed, benchmarking is recorded as not validated, [decision 0006](decisions/0006-eligibility-round-two-miss-rule.md)). Track B, the 109 entries of review round 3.
+2. **When Track B closes round 3:** the carfilzomib label-consistency plan, its curve through the intravenous engine, then a locked blind check against the tabulated values of Badros 2013 and Quach 2017, held unread since 17 November (ledger v13; what a blind check may not use: [decision 0003](decisions/0003-what-makes-a-dataset-seen.md)). Then selinexor and thalidomide.
+3. **When round two returns:** its locked analysis, read against decision 0006.
+4. **Evidence first:** make the evidence pages complete and easy to use before adding model pages, page by page as [EVIDENCE_FIRST_PLAN.md](EVIDENCE_FIRST_PLAN.md) sets out: small fixes first (the home page leads with evidence; one cohort per count; live versus frozen trials; each drug's findings on its page), then ixazomib's missing drug page, then what the platform holds per drug and its regulatory documents, then catalogue growth after review round 3.
+5. **Organ-level model:** lumped compartments first ([decision 0005](decisions/0005-organ-level-model-lumped-first.md)). Phased-plan steps 2 and 4, the tissue-distribution evidence and evidence classes on the map, are evidence work and come first; the model and its check follow.
 
 **Blocked or waiting:**
-- **Lenalidomide kidney model:** every available renal-impairment dataset has been seen; a further check needs unseen data.
-- **Bortezomib exposure:** individual concentration data or a mechanism (Phase 2).
-- **Author answers:** Hughes (Cockcroft–Gault weight basis), Kim (CL/F equation form), Iwasaki (which human data evaluated the model).
-- **People:** user conversations with five to ten trial designers, clinical pharmacologists or regulatory professionals, and an independent human reviewer. Postponed by the owner.
+- **Lenalidomide kidney model:** every renal-impairment dataset available has been seen.
+- **Bortezomib exposure:** individual concentrations or a mechanism (Phase 2). The Zhang and Mager supplement is held unread; the article is requested.
+- **Exposure–efficacy for lenalidomide (O7):** recorded as a gap in the published evidence, and searching stopped (reviewer's checklist O7, 18 November). Reopens only if an analysis is published or released.
+- **Author answers, none blocking:** Zhang and Mager (reprint requested 17 November), Hughes (LinkedIn, pending), Kim (email bounced 18 November). Iwasaki was never contacted.
 
-**Repository:** GitHub reconnected on 5 November; PR #112 and PR #113 merged after CI passed. Work goes in batches: one commit per update, one push and one pull request per batch (`CLAUDE.md`). No model is validated for clinical prediction.
+**Repository:** work goes in batches: one commit per update, one push and one pull request per batch, the branch pushed when its first commit exists (`CLAUDE.md`, HANDOFF). No model is validated for clinical prediction.
 
 ## Rules that do not change
 

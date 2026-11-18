@@ -12,6 +12,10 @@ For the next AI session working on this repository, possibly from a different Cl
 | The owner's working annotation files | `instance/` in the iMac repository (git-ignored) |
 | Batch backups | `supplemental-information/bundles/` on the iMac (`git bundle`; restore with `git fetch <bundle> <branch>`). The newest is 4 November, and batch 14 was lost because nothing newer existed: push the branch instead, as the rules below now say. |
 
+## Decided on 18 November: read this before the open work below
+
+The regroup of 18 November (`docs/REGROUP_2026-11-18.md`) set the direction, and the roadmap's "Now" section holds the queue. In brief: the first release leads with sourced evidence; carfilzomib is the next drug, so that Badros and Quach can test it blind; a missed bar in eligibility round two means benchmarking is recorded as not validated (decision 0006); the organ-level model starts lumped (decision 0005); the owner will include an independent reviewer. The numbered items below are the open work under that direction.
+
 ## Rules that are easy to break
 
 - **The 200-trial eligibility v2 annotation and the v2 sample are the blind test data.** Never open, print or summarise their contents, and never run an extractor on them, except through the locked steps below. Sizes, dates, checksums and counts only. Tell every subagent, in its brief, not to open `instance/`, the annotation files or the v2 sample.
@@ -68,13 +72,13 @@ Done for the four lenalidomide checks (`docs/verification/acceptance_rule_v2_len
 
 ### 4. Body map (Track H, `docs/reviews/2026-11_organ_level_design_draft.md`)
 
-Done: ICRP 89 women and men (`reference_physiology_icrp89_v2.json`, not yet used by pages), label fixes, absorption through the portal vein (paths v3), kidney clearance inside the kidneys and separate ureter ends (paths v4), R/L markers, navigation (drag moves, scroll zooms at the pointer, double-click focuses). Open: arrowheads (item 16), node names and UBERON terms in `body_map.py` (a versioned step). The design draft's eight questions were answered by the owner on 17 November (its Handling section): lumped compartments first, renal clearance 162 mL/min, a reference woman's physiology but no female picture before a female mesh, no mouse check until the model goes beyond lumped compartments, fu as decided on 31 October, both parent shares quoted with their methods, the women's liver flow as the sum of its parts, the semen finding as text only.
+Done: ICRP 89 women and men (`reference_physiology_icrp89_v2.json`, not yet used by pages), label fixes, absorption through the portal vein (paths v3), kidney clearance inside the kidneys and separate ureter ends (paths v4), R/L markers, navigation (drag moves, scroll zooms at the pointer, double-click focuses). Arrowheads, node names and UBERON terms done 18 November (body map method v1.2; review items 4, 6, 10, 16). Open: item 17, reporting the Atlas's swapped renal-artery names to the Human Reference Atlas, which is the owner's call. The design draft's eight questions were answered by the owner on 17 November (its Handling section): lumped compartments first, renal clearance 162 mL/min, a reference woman's physiology but no female picture before a female mesh, no mouse check until the model goes beyond lumped compartments, fu as decided on 31 October, both parent shares quoted with their methods, the women's liver flow as the sum of its parts, the semen finding as text only.
 
 ### 5. Smaller items
 
 - Corrections for the Li 2017 extract when it is next versioned: Table 3 is on journal page 137, not 139; "ω (V/F):ω (CL/F)" is not stated to be a covariance.
 - Track G is closed: Dimopoulos 2011, Kado 2015 and 2020 and the Akita grant report were checked against their full texts on 13 November and the O7 verdict is unchanged (`docs/reviews/2026-11_exposure_efficacy_search.md`, "Checked against the full texts").
-- Draft emails to the Hughes and Kim authors (Hughes: the weight basis of Cockcroft–Gault) were offered and not written.
+- Author contact, 18 November: the Kim email (CL/F equation form; covariance of the estimates) bounced at the paper's correspondence address; Hughes (Cockcroft–Gault weight basis; what CRCL2 is) was approached on LinkedIn and has not yet accepted. Zhang and Mager: reprint requested 17 November. None blocks anything; each model runs on a recorded assumption.
 
 ### 6. Six sources obtained unread (17 November)
 

@@ -91,6 +91,11 @@ class MapData(unittest.TestCase):
         ids = {n['id']: n for n in v['nodes']}
         self.assertEqual(ids['kidney']['uberon_id'], 'UBERON:0002113')
         self.assertEqual(ids['glomerulus']['parent'], 'kidney')
+        # Review items 4, 6 and 10 (18 November 2026): one name per node, the term of what is drawn.
+        self.assertEqual((ids['gut']['label'], ids['gut']['uberon_id']), ('Small intestine (site of absorption)', 'UBERON:0002108'))
+        self.assertEqual((ids['plasma']['label'], ids['plasma']['uberon_id']), ('Blood (circulation)', 'UBERON:0000178'))
+        self.assertEqual((ids['urine']['label'], ids['urine']['uberon_id']), ('Urinary tract (unchanged drug in urine)', 'UBERON:0001008'))
+        self.assertEqual(v['method_version'], 'lenalidomide-body-map-v1.2')
         for f in v['flows']:
             self.assertIn(f['from'], ids)
             self.assertIn(f['to'], ids)
@@ -140,6 +145,33 @@ class RecordMode(unittest.TestCase):
         else:
             self.assertNotEqual(v['status'], 'completed')
 
+
+
+class FlowDiagram(unittest.TestCase):
+    """Review item 16 (18 November 2026): every flow in the 2D diagram has an arrowhead, and the filtration and
+    secretion labels sit the same distance from their lines, clear of the widest line the scale draws."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.src = (ROOT / 'landscape_ui/templates/landscape_body_map.html').read_text()
+
+    def test_every_flow_is_drawn_with_a_head(self):
+        for kind in ('filtration', 'tubular_secretion', 'renal_excretion', 'non_renal'):
+            self.assertRegex(self.src, r'{{ [hv]arrow\([^)]*widths\.%s, colors\.%s\) }}' % (kind, kind), kind)
+        self.assertIn('class="bm-absorb-head"', self.src)
+
+    def test_labels_are_equidistant_and_clear_of_the_widest_line(self):
+        import re
+        lines = {'filtration': 94, 'secretion': 122}
+        labels = {m.group(2): float(m.group(1)) for m in re.finditer(r'<text x="320" y="([0-9.]+)"[^>]*>(filtration|secretion)</text>', self.src)}
+        cap = 7.0                                    # cap height of the 10 px label font
+        gap_above = lines['filtration'] - labels['filtration']
+        gap_below = labels['secretion'] - cap - lines['secretion']
+        self.assertAlmostEqual(gap_above, gap_below, delta=0.5)
+        widest = max(bm.explorer_map(140)['flows'], key=lambda f: f['value'] if f['kind'] in ('filtration', 'tubular_secretion') else 0)
+        from landscape_ui.body_map_pages import MAX_STROKE
+        half = MAX_STROKE * widest['value'] / bm.explorer_map(140)['drawing_scale']['max_flow_ml_min'] / 2
+        self.assertGreater(min(gap_above, gap_below), half)
 
 if __name__ == '__main__':
     unittest.main()

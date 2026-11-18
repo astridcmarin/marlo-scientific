@@ -31,7 +31,7 @@ from .reference_physiology import CHEN_SHA256, ICRP_SHA256, load_blood_plasma, r
 
 DATA = Path(__file__).parent / 'data'
 SCHEMA_VERSION = 'body-map-view-v2'
-METHOD_VERSION = 'lenalidomide-body-map-v1.1'
+METHOD_VERSION = 'lenalidomide-body-map-v1.2'
 DRUG = 'lenalidomide'
 RANGE = (10.0, 140.0)
 
@@ -47,14 +47,22 @@ MYELOMA_GROUPS = {'moderate': {'bridoux': 'moderate', 'kim': 'moderate'}, 'sever
 FU_RECORD_PATH = DATA / 'lenalidomide_pathway_unbound_fraction_assessment_v1.json'
 FU_RECORD_SHA256 = '8796799193207c3fffb9001e6a6d1cd6ad45f165c94a5986c944cf47a2faa7df'
 
-# Anatomy vocabulary (UBERON IDs checked against the ontology on 31 October 2026).
+# Anatomy vocabulary (UBERON IDs checked against the ontology on 31 October 2026; gut, plasma and urine renamed and
+# re-termed on 18 November 2026 after review items 4, 6 and 10 of docs/reviews/2026-11_organ_level_design_draft.md,
+# terms checked that day). Node ids are unchanged, so nothing that refers to a node by id moves.
 NODES = [
-    {'id': 'gut', 'label': 'Digestive tract (oral dose)', 'uberon_id': 'UBERON:0001555'},
-    {'id': 'plasma', 'label': 'Blood plasma', 'uberon_id': 'UBERON:0001969'},
+    {'id': 'gut', 'label': 'Small intestine (site of absorption)', 'uberon_id': 'UBERON:0002108',
+     'note': 'Only the small intestine is drawn as a simulation organ; the oral dose passes the stomach, drawn as context.'},
+    {'id': 'plasma', 'label': 'Blood (circulation)', 'uberon_id': 'UBERON:0000178',
+     'note': 'Drawn by the heart and vessels. The heart stands for the blood as pump and container; heart muscle has no value '
+             'and would be its own node if it ever had one.'},
     {'id': 'kidney', 'label': 'Kidney', 'uberon_id': 'UBERON:0002113'},
     {'id': 'glomerulus', 'label': 'Glomerulus (filtration)', 'uberon_id': 'UBERON:0000074', 'parent': 'kidney'},
     {'id': 'tubule', 'label': 'Renal tubule (secretion)', 'uberon_id': 'UBERON:0009773', 'parent': 'kidney'},
-    {'id': 'urine', 'label': 'Urine (unchanged drug)', 'uberon_id': 'UBERON:0001088'},
+    {'id': 'urine', 'label': 'Urinary tract (unchanged drug in urine)', 'uberon_id': 'UBERON:0001008',
+     'note': 'UBERON renal system, whose exact synonyms include urinary tract. It contains the kidneys, which keep their '
+             'own node; this node stands for the renal pelvis, ureters, bladder and urethra that the drawing uses, and '
+             'the value is the drug in the urine (UBERON:0001088).'},
     {'id': 'non_renal', 'label': 'Non-renal routes', 'uberon_id': None,
      'note': 'Everything that is not unchanged drug in urine; the source does not identify the routes (not via cytochrome P450).'},
 ]
