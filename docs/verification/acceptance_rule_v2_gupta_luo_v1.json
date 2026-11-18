@@ -1,0 +1,5643 @@
+{
+ "schema_version": "acceptance-rule-v2-report-v2",
+ "method_version": "acceptance-rule-v2-gupta-luo-v1.0",
+ "plan_version": "acceptance-rule-v2-plan-v2.1",
+ "plan_sha256": "baa6debe3d85e22b27348b0780d6d7011f617a43a385d786724f6254943de6c1",
+ "synthetic_observed": false,
+ "seeds": [
+  20261117,
+  20261118,
+  20261119,
+  20261120,
+  20261121
+ ],
+ "indeterminate_margin": 0.05,
+ "uncertainty_scenarios": [
+  "independent",
+  "uniform_positive_0_5",
+  "identifiability_pairs",
+  "normal_on_natural_scale",
+  "rse_rounding_upper"
+ ],
+ "results": {
+  "gupta_ixazomib": {
+   "outer_parameter_sets": 400,
+   "inner_trials_per_set": 5,
+   "endpoints": {
+    "renal.normal.auc_last": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "f_capped_at_1": "consistent",
+      "bsa_1_5": "consistent",
+      "bsa_2_25": "consistent",
+      "auc_linear_up_log_down": "consistent"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "consistent",
+     "changed": false
+    },
+    "renal.normal.cmax": {
+     "kind": "primary",
+     "verdict_v2": "model_under_predicts",
+     "by_uncertainty_scenario": {
+      "independent": "model_under_predicts",
+      "uniform_positive_0_5": "model_under_predicts",
+      "identifiability_pairs": "model_under_predicts",
+      "normal_on_natural_scale": "model_under_predicts",
+      "rse_rounding_upper": "model_under_predicts"
+     },
+     "stable": true,
+     "reading": "model_under_predicts",
+     "by_simulation_scenario": {
+      "primary": "model_under_predicts",
+      "omega_equals_cv": "model_under_predicts",
+      "f_capped_at_1": "model_under_predicts",
+      "bsa_1_5": "model_under_predicts",
+      "bsa_2_25": "model_under_predicts",
+      "auc_linear_up_log_down": "model_under_predicts"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "model_under_predicts",
+     "changed": false
+    },
+    "renal.severe_ri.auc_last": {
+     "kind": "primary",
+     "verdict_v2": "indeterminate",
+     "by_uncertainty_scenario": {
+      "independent": "indeterminate",
+      "uniform_positive_0_5": "indeterminate",
+      "identifiability_pairs": "indeterminate",
+      "normal_on_natural_scale": "indeterminate",
+      "rse_rounding_upper": "indeterminate"
+     },
+     "stable": true,
+     "reading": "indeterminate",
+     "by_simulation_scenario": {
+      "primary": "indeterminate",
+      "omega_equals_cv": "indeterminate",
+      "f_capped_at_1": "model_under_predicts",
+      "bsa_1_5": "consistent",
+      "bsa_2_25": "model_under_predicts",
+      "auc_linear_up_log_down": "indeterminate"
+     },
+     "robust_across_simulation_scenarios": false,
+     "verdict_v1": "model_under_predicts",
+     "changed": true
+    },
+    "renal.severe_ri.cmax": {
+     "kind": "primary",
+     "verdict_v2": "model_under_predicts",
+     "by_uncertainty_scenario": {
+      "independent": "model_under_predicts",
+      "uniform_positive_0_5": "model_under_predicts",
+      "identifiability_pairs": "model_under_predicts",
+      "normal_on_natural_scale": "model_under_predicts",
+      "rse_rounding_upper": "model_under_predicts"
+     },
+     "stable": true,
+     "reading": "model_under_predicts",
+     "by_simulation_scenario": {
+      "primary": "model_under_predicts",
+      "omega_equals_cv": "model_under_predicts",
+      "f_capped_at_1": "model_under_predicts",
+      "bsa_1_5": "model_under_predicts",
+      "bsa_2_25": "model_under_predicts",
+      "auc_linear_up_log_down": "model_under_predicts"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "model_under_predicts",
+     "changed": false
+    },
+    "renal.esrd.auc_last": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "f_capped_at_1": "indeterminate",
+      "bsa_1_5": "consistent",
+      "bsa_2_25": "indeterminate",
+      "auc_linear_up_log_down": "consistent"
+     },
+     "robust_across_simulation_scenarios": false,
+     "verdict_v1": "consistent",
+     "changed": false
+    },
+    "renal.esrd.cmax": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "f_capped_at_1": "indeterminate",
+      "bsa_1_5": "consistent",
+      "bsa_2_25": "consistent",
+      "auc_linear_up_log_down": "consistent"
+     },
+     "robust_across_simulation_scenarios": false,
+     "verdict_v1": "consistent",
+     "changed": false
+    },
+    "hepatic.normal.auc_last": {
+     "kind": "primary",
+     "verdict_v2": "model_under_predicts",
+     "by_uncertainty_scenario": {
+      "independent": "model_under_predicts",
+      "uniform_positive_0_5": "model_under_predicts",
+      "identifiability_pairs": "model_under_predicts",
+      "normal_on_natural_scale": "model_under_predicts",
+      "rse_rounding_upper": "model_under_predicts"
+     },
+     "stable": true,
+     "reading": "model_under_predicts",
+     "by_simulation_scenario": {
+      "primary": "model_under_predicts",
+      "omega_equals_cv": "model_under_predicts",
+      "f_capped_at_1": "model_under_predicts",
+      "bsa_1_5": "indeterminate",
+      "bsa_2_25": "model_under_predicts",
+      "auc_linear_up_log_down": "model_under_predicts"
+     },
+     "robust_across_simulation_scenarios": false,
+     "verdict_v1": "model_under_predicts",
+     "changed": false
+    },
+    "hepatic.normal.cmax": {
+     "kind": "primary",
+     "verdict_v2": "model_under_predicts",
+     "by_uncertainty_scenario": {
+      "independent": "model_under_predicts",
+      "uniform_positive_0_5": "model_under_predicts",
+      "identifiability_pairs": "model_under_predicts",
+      "normal_on_natural_scale": "model_under_predicts",
+      "rse_rounding_upper": "model_under_predicts"
+     },
+     "stable": true,
+     "reading": "model_under_predicts",
+     "by_simulation_scenario": {
+      "primary": "model_under_predicts",
+      "omega_equals_cv": "model_under_predicts",
+      "f_capped_at_1": "model_under_predicts",
+      "bsa_1_5": "model_under_predicts",
+      "bsa_2_25": "model_under_predicts",
+      "auc_linear_up_log_down": "model_under_predicts"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "model_under_predicts",
+     "changed": false
+    },
+    "hepatic.moderate.auc_last": {
+     "kind": "primary",
+     "verdict_v2": "model_under_predicts",
+     "by_uncertainty_scenario": {
+      "independent": "model_under_predicts",
+      "uniform_positive_0_5": "model_under_predicts",
+      "identifiability_pairs": "model_under_predicts",
+      "normal_on_natural_scale": "model_under_predicts",
+      "rse_rounding_upper": "model_under_predicts"
+     },
+     "stable": true,
+     "reading": "model_under_predicts",
+     "by_simulation_scenario": {
+      "primary": "model_under_predicts",
+      "omega_equals_cv": "model_under_predicts",
+      "f_capped_at_1": "model_under_predicts",
+      "bsa_1_5": "model_under_predicts",
+      "bsa_2_25": "model_under_predicts",
+      "auc_linear_up_log_down": "model_under_predicts"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "model_under_predicts",
+     "changed": false
+    },
+    "hepatic.moderate.cmax": {
+     "kind": "primary",
+     "verdict_v2": "model_under_predicts",
+     "by_uncertainty_scenario": {
+      "independent": "model_under_predicts",
+      "uniform_positive_0_5": "model_under_predicts",
+      "identifiability_pairs": "model_under_predicts",
+      "normal_on_natural_scale": "model_under_predicts",
+      "rse_rounding_upper": "model_under_predicts"
+     },
+     "stable": true,
+     "reading": "model_under_predicts",
+     "by_simulation_scenario": {
+      "primary": "model_under_predicts",
+      "omega_equals_cv": "model_under_predicts",
+      "f_capped_at_1": "model_under_predicts",
+      "bsa_1_5": "model_under_predicts",
+      "bsa_2_25": "model_under_predicts",
+      "auc_linear_up_log_down": "model_under_predicts"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "model_under_predicts",
+     "changed": false
+    },
+    "hepatic.severe.auc_last": {
+     "kind": "primary",
+     "verdict_v2": "model_under_predicts",
+     "by_uncertainty_scenario": {
+      "independent": "model_under_predicts",
+      "uniform_positive_0_5": "model_under_predicts",
+      "identifiability_pairs": "model_under_predicts",
+      "normal_on_natural_scale": "model_under_predicts",
+      "rse_rounding_upper": "model_under_predicts"
+     },
+     "stable": true,
+     "reading": "model_under_predicts",
+     "by_simulation_scenario": {
+      "primary": "model_under_predicts",
+      "omega_equals_cv": "model_under_predicts",
+      "f_capped_at_1": "model_under_predicts",
+      "bsa_1_5": "model_under_predicts",
+      "bsa_2_25": "model_under_predicts",
+      "auc_linear_up_log_down": "model_under_predicts"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "model_under_predicts",
+     "changed": false
+    },
+    "hepatic.severe.cmax": {
+     "kind": "primary",
+     "verdict_v2": "model_under_predicts",
+     "by_uncertainty_scenario": {
+      "independent": "model_under_predicts",
+      "uniform_positive_0_5": "model_under_predicts",
+      "identifiability_pairs": "model_under_predicts",
+      "normal_on_natural_scale": "model_under_predicts",
+      "rse_rounding_upper": "model_under_predicts"
+     },
+     "stable": true,
+     "reading": "model_under_predicts",
+     "by_simulation_scenario": {
+      "primary": "model_under_predicts",
+      "omega_equals_cv": "model_under_predicts",
+      "f_capped_at_1": "model_under_predicts",
+      "bsa_1_5": "model_under_predicts",
+      "bsa_2_25": "model_under_predicts",
+      "auc_linear_up_log_down": "model_under_predicts"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "model_under_predicts",
+     "changed": false
+    },
+    "renal.severe_ri_vs_normal.auc_last": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "f_capped_at_1": "indeterminate",
+      "bsa_1_5": "indeterminate",
+      "bsa_2_25": "consistent",
+      "auc_linear_up_log_down": "consistent"
+     },
+     "robust_across_simulation_scenarios": false,
+     "verdict_v1": "consistent",
+     "changed": false
+    },
+    "renal.severe_ri_vs_normal.cmax": {
+     "kind": "primary",
+     "verdict_v2": "model_under_predicts",
+     "by_uncertainty_scenario": {
+      "independent": "model_under_predicts",
+      "uniform_positive_0_5": "model_under_predicts",
+      "identifiability_pairs": "model_under_predicts",
+      "normal_on_natural_scale": "model_under_predicts",
+      "rse_rounding_upper": "model_under_predicts"
+     },
+     "stable": true,
+     "reading": "model_under_predicts",
+     "by_simulation_scenario": {
+      "primary": "model_under_predicts",
+      "omega_equals_cv": "model_under_predicts",
+      "f_capped_at_1": "model_under_predicts",
+      "bsa_1_5": "model_under_predicts",
+      "bsa_2_25": "model_under_predicts",
+      "auc_linear_up_log_down": "model_under_predicts"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "model_under_predicts",
+     "changed": false
+    },
+    "renal.esrd_vs_normal.auc_last": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "f_capped_at_1": "consistent",
+      "bsa_1_5": "consistent",
+      "bsa_2_25": "consistent",
+      "auc_linear_up_log_down": "consistent"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "consistent",
+     "changed": false
+    },
+    "renal.esrd_vs_normal.cmax": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "f_capped_at_1": "consistent",
+      "bsa_1_5": "consistent",
+      "bsa_2_25": "consistent",
+      "auc_linear_up_log_down": "consistent"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "consistent",
+     "changed": false
+    },
+    "hepatic.moderate_vs_normal.auc_last": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "f_capped_at_1": "indeterminate",
+      "bsa_1_5": "consistent",
+      "bsa_2_25": "consistent",
+      "auc_linear_up_log_down": "consistent"
+     },
+     "robust_across_simulation_scenarios": false,
+     "verdict_v1": "consistent",
+     "changed": false
+    },
+    "hepatic.moderate_vs_normal.cmax": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "f_capped_at_1": "consistent",
+      "bsa_1_5": "consistent",
+      "bsa_2_25": "consistent",
+      "auc_linear_up_log_down": "consistent"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "consistent",
+     "changed": false
+    },
+    "hepatic.severe_vs_normal.auc_last": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "f_capped_at_1": "indeterminate",
+      "bsa_1_5": "consistent",
+      "bsa_2_25": "indeterminate",
+      "auc_linear_up_log_down": "consistent"
+     },
+     "robust_across_simulation_scenarios": false,
+     "verdict_v1": "consistent",
+     "changed": false
+    },
+    "hepatic.severe_vs_normal.cmax": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "f_capped_at_1": "consistent",
+      "bsa_1_5": "consistent",
+      "bsa_2_25": "consistent",
+      "auc_linear_up_log_down": "consistent"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "consistent",
+     "changed": false
+    }
+   },
+   "redraws_non_positive": {
+    "primary/independent": 0,
+    "primary/uniform_positive_0_5": 0,
+    "primary/identifiability_pairs": 0,
+    "primary/normal_on_natural_scale": 0,
+    "primary/rse_rounding_upper": 0,
+    "omega_equals_cv/independent": 0,
+    "f_capped_at_1/independent": 0,
+    "bsa_1_5/independent": 0,
+    "bsa_2_25/independent": 0,
+    "auc_linear_up_log_down/independent": 0
+   },
+   "rows": [
+    {
+     "endpoint": "renal.normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 575,
+     "simulated_first_seed": {
+      "p05": 420.4466854853029,
+      "p50": 595.8544948584637,
+      "p95": 774.8849127674599
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 25.8,
+     "simulated_first_seed": {
+      "p05": 10.062503481396348,
+      "p50": 13.534279880597985,
+      "p95": 18.12939491113704
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 813,
+     "simulated_first_seed": {
+      "p05": 408.50486759292335,
+      "p50": 594.693301420128,
+      "p95": 809.6330221666303
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "renal.severe_ri.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 45.3,
+     "simulated_first_seed": {
+      "p05": 10.036199597639566,
+      "p50": 13.49645045924185,
+      "p95": 18.497311115642084
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 783,
+     "simulated_first_seed": {
+      "p05": 350.6379318117115,
+      "p50": 596.6277568048782,
+      "p95": 861.6487448270724
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 18.7,
+     "simulated_first_seed": {
+      "p05": 8.565433268479518,
+      "p50": 13.50873246583621,
+      "p95": 21.051411309427507
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 1160,
+     "simulated_first_seed": {
+      "p05": 604.4303279438872,
+      "p50": 812.464284061403,
+      "p95": 1059.4141512565043
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 61.0,
+     "simulated_first_seed": {
+      "p05": 12.908803606507345,
+      "p50": 18.10960178454392,
+      "p95": 25.127533140524857
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 846,
+     "simulated_first_seed": {
+      "p05": 263.14659148251945,
+      "p50": 427.6863946316897,
+      "p95": 604.1313800905394
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 42.5,
+     "simulated_first_seed": {
+      "p05": 7.468214135027576,
+      "p50": 10.346768704305017,
+      "p95": 14.39974876421241
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 489,
+     "simulated_first_seed": {
+      "p05": 118.81631881392599,
+      "p50": 219.22591775219823,
+      "p95": 345.0870895632733
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 26.1,
+     "simulated_first_seed": {
+      "p05": 5.07681462302133,
+      "p50": 6.737394795150957,
+      "p95": 9.018747104224555
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 1.413913043478261,
+     "simulated_first_seed": {
+      "p05": 0.6527636907768516,
+      "p50": 1.0025808962880296,
+      "p95": 1.5311550028332996
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 1.755813953488372,
+     "simulated_first_seed": {
+      "p05": 0.6955865878227687,
+      "p50": 0.9961105256031345,
+      "p95": 1.4491610671940591
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 1.3617391304347828,
+     "simulated_first_seed": {
+      "p05": 0.5763550490814867,
+      "p50": 1.000630878340273,
+      "p95": 1.598909538164079
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 0.7248062015503877,
+     "simulated_first_seed": {
+      "p05": 0.6113628517740147,
+      "p50": 0.9936290775660941,
+      "p95": 1.615880800432601
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2683658170914542,
+     "simulated_first_seed": {
+      "p05": 0.5472941281560029,
+      "p50": 0.9135512391583857,
+      "p95": 1.4167262701923766
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2116892373485388,
+     "simulated_first_seed": {
+      "p05": 0.6485563186661628,
+      "p50": 0.9954664034799192,
+      "p95": 1.5280641776650767
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1241379310344828,
+     "simulated_first_seed": {
+      "p05": 0.38058695901221,
+      "p50": 0.714651985284767,
+      "p95": 1.2113661270971052
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1409836065573773,
+     "simulated_first_seed": {
+      "p05": 0.6762537880800096,
+      "p50": 0.9971889352109389,
+      "p95": 1.4823560072674657
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 575,
+     "simulated_first_seed": {
+      "p05": 427.56836347997717,
+      "p50": 596.4214078204784,
+      "p95": 766.451693750661
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 25.8,
+     "simulated_first_seed": {
+      "p05": 10.2270743901824,
+      "p50": 13.544118081512401,
+      "p95": 17.875816361564098
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 813,
+     "simulated_first_seed": {
+      "p05": 412.6263745243565,
+      "p50": 596.0297459226301,
+      "p95": 807.9984199681609
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "renal.severe_ri.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 45.3,
+     "simulated_first_seed": {
+      "p05": 10.228319387228394,
+      "p50": 13.494165131359534,
+      "p95": 18.121121949180882
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 783,
+     "simulated_first_seed": {
+      "p05": 356.1097540899505,
+      "p50": 598.1871120959427,
+      "p95": 855.4738887111256
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 18.7,
+     "simulated_first_seed": {
+      "p05": 8.641844452514661,
+      "p50": 13.544170541297472,
+      "p95": 20.87929901645632
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 1160,
+     "simulated_first_seed": {
+      "p05": 611.0832440535422,
+      "p50": 813.4469144055588,
+      "p95": 1048.8713828170482
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 61.0,
+     "simulated_first_seed": {
+      "p05": 13.14591002307264,
+      "p50": 18.136516045154877,
+      "p95": 24.7415155537978
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 846,
+     "simulated_first_seed": {
+      "p05": 266.8644237303865,
+      "p50": 428.83363409523736,
+      "p95": 599.4407263420238
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 42.5,
+     "simulated_first_seed": {
+      "p05": 7.543119346980648,
+      "p50": 10.38028988334111,
+      "p95": 14.21853326652307
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 489,
+     "simulated_first_seed": {
+      "p05": 119.44195322492452,
+      "p50": 218.1724551586089,
+      "p95": 341.83576315579734
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 26.1,
+     "simulated_first_seed": {
+      "p05": 5.161527909434584,
+      "p50": 6.735608319682431,
+      "p95": 8.923479466789537
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 1.413913043478261,
+     "simulated_first_seed": {
+      "p05": 0.649660953609178,
+      "p50": 1.0018815508914138,
+      "p95": 1.5270809731142272
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 1.755813953488372,
+     "simulated_first_seed": {
+      "p05": 0.6953555260536255,
+      "p50": 0.99575427672203,
+      "p95": 1.4500447719231508
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 1.3617391304347828,
+     "simulated_first_seed": {
+      "p05": 0.5781045885638891,
+      "p50": 1.001723833916202,
+      "p95": 1.5911298770450588
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 0.7248062015503877,
+     "simulated_first_seed": {
+      "p05": 0.6111160048027355,
+      "p50": 0.9940576579275522,
+      "p95": 1.6157525355129774
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 1.2683658170914542,
+     "simulated_first_seed": {
+      "p05": 0.5463661251659989,
+      "p50": 0.9138347773799385,
+      "p95": 1.4141881791519315
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 1.2116892373485388,
+     "simulated_first_seed": {
+      "p05": 0.6488609119908539,
+      "p50": 0.9957487637528518,
+      "p95": 1.5270023203205676
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 1.1241379310344828,
+     "simulated_first_seed": {
+      "p05": 0.37911579185873767,
+      "p50": 0.7185961271936082,
+      "p95": 1.2087394536816334
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 1.1409836065573773,
+     "simulated_first_seed": {
+      "p05": 0.6763668572328543,
+      "p50": 0.9974177951823618,
+      "p95": 1.4793539831388933
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 575,
+     "simulated_first_seed": {
+      "p05": 430.10553588721837,
+      "p50": 596.4927934547379,
+      "p95": 765.6119202727922
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 25.8,
+     "simulated_first_seed": {
+      "p05": 10.067718171373196,
+      "p50": 13.540295260896544,
+      "p95": 18.059165707202933
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 813,
+     "simulated_first_seed": {
+      "p05": 409.5717213853741,
+      "p50": 593.9916851374874,
+      "p95": 806.8362159611747
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "renal.severe_ri.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 45.3,
+     "simulated_first_seed": {
+      "p05": 10.046105356297865,
+      "p50": 13.480381321093667,
+      "p95": 18.294050056647073
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 783,
+     "simulated_first_seed": {
+      "p05": 355.68977931478673,
+      "p50": 595.0354923409432,
+      "p95": 850.1600399988373
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 18.7,
+     "simulated_first_seed": {
+      "p05": 8.68598446683499,
+      "p50": 13.538095534585857,
+      "p95": 21.171716284448664
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 1160,
+     "simulated_first_seed": {
+      "p05": 610.6803381582747,
+      "p50": 814.8425956741303,
+      "p95": 1040.446934720083
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 61.0,
+     "simulated_first_seed": {
+      "p05": 13.033336731806141,
+      "p50": 18.112862768144467,
+      "p95": 25.258769520646233
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 846,
+     "simulated_first_seed": {
+      "p05": 270.34737431141036,
+      "p50": 427.99529793497345,
+      "p95": 596.7652782679104
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 42.5,
+     "simulated_first_seed": {
+      "p05": 7.5151258412704625,
+      "p50": 10.301685503577417,
+      "p95": 14.332460121220583
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 489,
+     "simulated_first_seed": {
+      "p05": 119.37974297194627,
+      "p50": 218.70561013966443,
+      "p95": 341.5037650912301
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 26.1,
+     "simulated_first_seed": {
+      "p05": 5.053618396953426,
+      "p50": 6.7499752462164775,
+      "p95": 8.999695211395267
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 1.413913043478261,
+     "simulated_first_seed": {
+      "p05": 0.6561626403764677,
+      "p50": 1.0026555740143108,
+      "p95": 1.5166527354637473
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 1.755813953488372,
+     "simulated_first_seed": {
+      "p05": 0.6955865878227688,
+      "p50": 0.9961105256031346,
+      "p95": 1.449161067194059
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 1.3617391304347828,
+     "simulated_first_seed": {
+      "p05": 0.5747316318195512,
+      "p50": 1.0012615234354492,
+      "p95": 1.5919815165222788
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 0.7248062015503877,
+     "simulated_first_seed": {
+      "p05": 0.6113628517740148,
+      "p50": 0.993629077566094,
+      "p95": 1.6158808004326013
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 1.2683658170914542,
+     "simulated_first_seed": {
+      "p05": 0.5502196857378653,
+      "p50": 0.9141201718226031,
+      "p95": 1.4071286879158795
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 1.2116892373485388,
+     "simulated_first_seed": {
+      "p05": 0.6485563186661626,
+      "p50": 0.9954664034799192,
+      "p95": 1.5280641776650772
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 1.1241379310344828,
+     "simulated_first_seed": {
+      "p05": 0.3790695236729416,
+      "p50": 0.714727917795604,
+      "p95": 1.21468484643396
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 1.1409836065573773,
+     "simulated_first_seed": {
+      "p05": 0.6762537880800097,
+      "p50": 0.997188935210939,
+      "p95": 1.4823560072674657
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 575,
+     "simulated_first_seed": {
+      "p05": 420.1457155756298,
+      "p50": 596.1145690657248,
+      "p95": 776.3937566274768
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 25.8,
+     "simulated_first_seed": {
+      "p05": 10.026223072589248,
+      "p50": 13.533384056941944,
+      "p95": 18.108588545037097
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 813,
+     "simulated_first_seed": {
+      "p05": 408.70181614602524,
+      "p50": 595.0207037876737,
+      "p95": 809.4087842027911
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "renal.severe_ri.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 45.3,
+     "simulated_first_seed": {
+      "p05": 10.007792864379748,
+      "p50": 13.494500487247537,
+      "p95": 18.494821810981897
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 783,
+     "simulated_first_seed": {
+      "p05": 351.395870822788,
+      "p50": 596.971829572873,
+      "p95": 861.2154453914563
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 18.7,
+     "simulated_first_seed": {
+      "p05": 8.531996430482712,
+      "p50": 13.497301875253832,
+      "p95": 21.061093113342324
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 1160,
+     "simulated_first_seed": {
+      "p05": 603.5436013345214,
+      "p50": 812.3673579101069,
+      "p95": 1060.3677281212608
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 61.0,
+     "simulated_first_seed": {
+      "p05": 12.892914552970225,
+      "p50": 18.127655626630798,
+      "p95": 25.129252149043918
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 846,
+     "simulated_first_seed": {
+      "p05": 263.467303529678,
+      "p50": 428.18740951953157,
+      "p95": 606.0507053278515
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 42.5,
+     "simulated_first_seed": {
+      "p05": 7.4578424567634025,
+      "p50": 10.352741588916826,
+      "p95": 14.337621534467972
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 489,
+     "simulated_first_seed": {
+      "p05": 118.91867998001678,
+      "p50": 219.76708583156264,
+      "p95": 345.1893139053028
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 26.1,
+     "simulated_first_seed": {
+      "p05": 5.067403199689168,
+      "p50": 6.740690014346606,
+      "p95": 9.01153854213252
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 1.413913043478261,
+     "simulated_first_seed": {
+      "p05": 0.6529119266994692,
+      "p50": 1.0027051622421403,
+      "p95": 1.5278361775448033
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 1.755813953488372,
+     "simulated_first_seed": {
+      "p05": 0.6954986829744605,
+      "p50": 0.9960319048621318,
+      "p95": 1.4492766249292797
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 1.3617391304347828,
+     "simulated_first_seed": {
+      "p05": 0.5766008268879866,
+      "p50": 1.0005632471417474,
+      "p95": 1.5985460674824623
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 0.7248062015503877,
+     "simulated_first_seed": {
+      "p05": 0.6113715731159538,
+      "p50": 0.9938578473161648,
+      "p95": 1.6155910773198696
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 1.2683658170914542,
+     "simulated_first_seed": {
+      "p05": 0.5474887782840325,
+      "p50": 0.9129695131674394,
+      "p95": 1.4179784980766963
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 1.2116892373485388,
+     "simulated_first_seed": {
+      "p05": 0.6485016424976349,
+      "p50": 0.9955588567368587,
+      "p95": 1.5277720353393631
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 1.1241379310344828,
+     "simulated_first_seed": {
+      "p05": 0.38033667146934996,
+      "p50": 0.7152305125223961,
+      "p95": 1.2135443777830544
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 1.1409836065573773,
+     "simulated_first_seed": {
+      "p05": 0.6763441692690729,
+      "p50": 0.9972036580228261,
+      "p95": 1.482054634529663
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 575,
+     "simulated_first_seed": {
+      "p05": 420.51885197931796,
+      "p50": 595.5568146880119,
+      "p95": 778.8143575778539
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 25.8,
+     "simulated_first_seed": {
+      "p05": 10.028036279541857,
+      "p50": 13.539312942130756,
+      "p95": 18.285320351494686
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 813,
+     "simulated_first_seed": {
+      "p05": 406.7262897250844,
+      "p50": 594.2193200937888,
+      "p95": 813.2750602209479
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "renal.severe_ri.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 45.3,
+     "simulated_first_seed": {
+      "p05": 9.995942219159213,
+      "p50": 13.51780701425963,
+      "p95": 18.566616377130455
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 783,
+     "simulated_first_seed": {
+      "p05": 348.7068283442145,
+      "p50": 597.1706442500551,
+      "p95": 863.4485146014304
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 18.7,
+     "simulated_first_seed": {
+      "p05": 8.530358216803744,
+      "p50": 13.488971348396259,
+      "p95": 21.18709125974296
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 1160,
+     "simulated_first_seed": {
+      "p05": 599.5122691211942,
+      "p50": 810.9621455994103,
+      "p95": 1066.3262393501204
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 61.0,
+     "simulated_first_seed": {
+      "p05": 12.84360012045909,
+      "p50": 18.116319805165915,
+      "p95": 25.390302415988533
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 846,
+     "simulated_first_seed": {
+      "p05": 261.5175602130908,
+      "p50": 428.30538064615143,
+      "p95": 608.0207079424955
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 42.5,
+     "simulated_first_seed": {
+      "p05": 7.4156337467314515,
+      "p50": 10.366573515489652,
+      "p95": 14.524364452331893
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 489,
+     "simulated_first_seed": {
+      "p05": 116.64421537731427,
+      "p50": 219.40826683276353,
+      "p95": 346.1503834811794
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 26.1,
+     "simulated_first_seed": {
+      "p05": 5.046810185188539,
+      "p50": 6.753462759354515,
+      "p95": 9.118827078716512
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 1.413913043478261,
+     "simulated_first_seed": {
+      "p05": 0.6497101085750858,
+      "p50": 1.0014104352159663,
+      "p95": 1.5320627379760405
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 1.755813953488372,
+     "simulated_first_seed": {
+      "p05": 0.6956970597681318,
+      "p50": 0.9962402225428608,
+      "p95": 1.4496241374990386
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 1.3617391304347828,
+     "simulated_first_seed": {
+      "p05": 0.576001672684292,
+      "p50": 1.0004198979854908,
+      "p95": 1.604129557788785
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 0.7248062015503877,
+     "simulated_first_seed": {
+      "p05": 0.6118873294121046,
+      "p50": 0.9935898508273839,
+      "p95": 1.6159043549620138
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 1.2683658170914542,
+     "simulated_first_seed": {
+      "p05": 0.548942398460513,
+      "p50": 0.9133683017265248,
+      "p95": 1.4183766113240386
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 1.2116892373485388,
+     "simulated_first_seed": {
+      "p05": 0.6483021983633734,
+      "p50": 0.994953567426061,
+      "p95": 1.5284165024527028
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.auc_last",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 1.1241379310344828,
+     "simulated_first_seed": {
+      "p05": 0.3806206530743209,
+      "p50": 0.7137586835760328,
+      "p95": 1.211552206936475
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 1.1409836065573773,
+     "simulated_first_seed": {
+      "p05": 0.6760068813596589,
+      "p50": 0.9969663015541738,
+      "p95": 1.4827883161877655
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.auc_last",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 575,
+     "simulated_first_seed": {
+      "p05": 386.8336879780787,
+      "p50": 576.9678558602467,
+      "p95": 781.66654335373
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 25.8,
+     "simulated_first_seed": {
+      "p05": 10.04622344224864,
+      "p50": 13.665528361157364,
+      "p95": 18.64254184560769
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.auc_last",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 813,
+     "simulated_first_seed": {
+      "p05": 362.160217660407,
+      "p50": 575.8728750715924,
+      "p95": 822.5595663281331
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "renal.severe_ri.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 45.3,
+     "simulated_first_seed": {
+      "p05": 9.489268391869937,
+      "p50": 13.602081281574874,
+      "p95": 19.206383637467443
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd.auc_last",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 783,
+     "simulated_first_seed": {
+      "p05": 298.42048102121777,
+      "p50": 572.7508688785783,
+      "p95": 882.9429203436104
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 18.7,
+     "simulated_first_seed": {
+      "p05": 8.119954222143233,
+      "p50": 13.467226407446844,
+      "p95": 22.49613111344775
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.normal.auc_last",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 1160,
+     "simulated_first_seed": {
+      "p05": 542.13042674265,
+      "p50": 787.4552522739639,
+      "p95": 1072.1560365785667
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.normal.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 61.0,
+     "simulated_first_seed": {
+      "p05": 12.516756583598266,
+      "p50": 18.075904646205984,
+      "p95": 26.025610924131314
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.auc_last",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 846,
+     "simulated_first_seed": {
+      "p05": 222.2747750443452,
+      "p50": 406.6797950251171,
+      "p95": 614.2803256844063
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 42.5,
+     "simulated_first_seed": {
+      "p05": 7.201111569702788,
+      "p50": 10.458911964698608,
+      "p95": 14.988163573967693
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.auc_last",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 489,
+     "simulated_first_seed": {
+      "p05": 103.02887948905067,
+      "p50": 201.4064818433144,
+      "p95": 340.9896825451624
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 26.1,
+     "simulated_first_seed": {
+      "p05": 4.9647802818314,
+      "p50": 6.811176849684155,
+      "p95": 9.268266900318013
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.auc_last",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 1.413913043478261,
+     "simulated_first_seed": {
+      "p05": 0.5926778348837156,
+      "p50": 1.0043219361120628,
+      "p95": 1.6660429815566198
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 1.755813953488372,
+     "simulated_first_seed": {
+      "p05": 0.6523654750371071,
+      "p50": 0.9944319648892553,
+      "p95": 1.50971295857769
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.auc_last",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 1.3617391304347828,
+     "simulated_first_seed": {
+      "p05": 0.5082896761585448,
+      "p50": 1.0007939630938247,
+      "p95": 1.7740703409798717
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 0.7248062015503877,
+     "simulated_first_seed": {
+      "p05": 0.5543314683022127,
+      "p50": 0.9857860115250887,
+      "p95": 1.7258961733746732
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.auc_last",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2683658170914542,
+     "simulated_first_seed": {
+      "p05": 0.46132486576066195,
+      "p50": 0.8915670820381496,
+      "p95": 1.5066071260567244
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2116892373485388,
+     "simulated_first_seed": {
+      "p05": 0.6201724887510468,
+      "p50": 1.0081013424990708,
+      "p95": 1.5914016138341243
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.auc_last",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1241379310344828,
+     "simulated_first_seed": {
+      "p05": 0.3431399459127687,
+      "p50": 0.6910432664099455,
+      "p95": 1.280805838707294
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1409836065573773,
+     "simulated_first_seed": {
+      "p05": 0.6417452618527443,
+      "p50": 0.9968878189850126,
+      "p95": 1.5385506496412698
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.auc_last",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 575,
+     "simulated_first_seed": {
+      "p05": 402.17751835210817,
+      "p50": 552.0271329538671,
+      "p95": 681.6142045475241
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.cmax",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 25.8,
+     "simulated_first_seed": {
+      "p05": 9.592948781722008,
+      "p50": 12.493696794217122,
+      "p95": 15.976200660118902
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.auc_last",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 813,
+     "simulated_first_seed": {
+      "p05": 378.54668923426357,
+      "p50": 551.6684302408764,
+      "p95": 705.782444606383
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.cmax",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 45.3,
+     "simulated_first_seed": {
+      "p05": 9.392240485744214,
+      "p50": 12.483327712770956,
+      "p95": 16.389321647388805
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd.auc_last",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 783,
+     "simulated_first_seed": {
+      "p05": 350.49532976343437,
+      "p50": 561.7446830881887,
+      "p95": 750.7593629510852
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "renal.esrd.cmax",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 18.7,
+     "simulated_first_seed": {
+      "p05": 8.456189217868033,
+      "p50": 12.625123106906244,
+      "p95": 17.79266004173234
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "hepatic.normal.auc_last",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 1160,
+     "simulated_first_seed": {
+      "p05": 574.8667857751133,
+      "p50": 752.7455729411079,
+      "p95": 924.6488469612032
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.normal.cmax",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 61.0,
+     "simulated_first_seed": {
+      "p05": 12.35050529217852,
+      "p50": 16.643821526074827,
+      "p95": 21.872078171142366
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.auc_last",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 846,
+     "simulated_first_seed": {
+      "p05": 254.52073325616163,
+      "p50": 396.66655188453046,
+      "p95": 534.5696164739473
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.cmax",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 42.5,
+     "simulated_first_seed": {
+      "p05": 7.1770794620429665,
+      "p50": 9.624191421780246,
+      "p95": 12.598286970251005
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.auc_last",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 489,
+     "simulated_first_seed": {
+      "p05": 115.14919850770919,
+      "p50": 201.1406640803891,
+      "p95": 304.6512778261612
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.cmax",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 26.1,
+     "simulated_first_seed": {
+      "p05": 4.854386648471779,
+      "p50": 6.259396915868433,
+      "p95": 7.8819578714266685
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.auc_last",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 1.413913043478261,
+     "simulated_first_seed": {
+      "p05": 0.6639214595802683,
+      "p50": 1.002661961008031,
+      "p95": 1.4536901584365447
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.cmax",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 1.755813953488372,
+     "simulated_first_seed": {
+      "p05": 0.7183589254844729,
+      "p50": 1.0053578465511959,
+      "p95": 1.395133317240613
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.auc_last",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 1.3617391304347828,
+     "simulated_first_seed": {
+      "p05": 0.617179296266985,
+      "p50": 1.0172928364321612,
+      "p95": 1.5176097239415705
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.cmax",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 0.7248062015503877,
+     "simulated_first_seed": {
+      "p05": 0.6648994052555495,
+      "p50": 1.0161685685757942,
+      "p95": 1.48119437967642
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.auc_last",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2683658170914542,
+     "simulated_first_seed": {
+      "p05": 0.581815798610085,
+      "p50": 0.9091700970221819,
+      "p95": 1.3288661041744168
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "consistent",
+      "consistent",
+      "indeterminate",
+      "consistent"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.cmax",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2116892373485388,
+     "simulated_first_seed": {
+      "p05": 0.7178238579071617,
+      "p50": 0.9994563577791113,
+      "p95": 1.392006425806554
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.auc_last",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1241379310344828,
+     "simulated_first_seed": {
+      "p05": 0.40180788165319864,
+      "p50": 0.711284028482533,
+      "p95": 1.137813997346425
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.cmax",
+     "simulation_scenario": "f_capped_at_1",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1409836065573773,
+     "simulated_first_seed": {
+      "p05": 0.7292811170981521,
+      "p50": 1.0027467861879145,
+      "p95": 1.3654094314210778
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.auc_last",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 575,
+     "simulated_first_seed": {
+      "p05": 487.9199254513564,
+      "p50": 651.4087379191064,
+      "p95": 826.4319386132482
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.cmax",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 25.8,
+     "simulated_first_seed": {
+      "p05": 10.557602590243919,
+      "p50": 14.26054257469454,
+      "p95": 18.79059673554865
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.auc_last",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 813,
+     "simulated_first_seed": {
+      "p05": 465.5747060674999,
+      "p50": 647.2786457375194,
+      "p95": 863.4604154203038
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.severe_ri.cmax",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 45.3,
+     "simulated_first_seed": {
+      "p05": 10.329016272213758,
+      "p50": 14.158029458205704,
+      "p95": 19.17588633889665
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd.auc_last",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 783,
+     "simulated_first_seed": {
+      "p05": 419.6446205549423,
+      "p50": 651.8456661881546,
+      "p95": 909.3478403616588
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd.cmax",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 18.7,
+     "simulated_first_seed": {
+      "p05": 9.038245043726155,
+      "p50": 14.087643737912284,
+      "p95": 22.217201266361396
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.normal.auc_last",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 1160,
+     "simulated_first_seed": {
+      "p05": 670.9964864574821,
+      "p50": 874.5555643418132,
+      "p95": 1133.0351309932257
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "hepatic.normal.cmax",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 61.0,
+     "simulated_first_seed": {
+      "p05": 13.584193208756497,
+      "p50": 18.80324123364187,
+      "p95": 26.42542293333789
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.auc_last",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 846,
+     "simulated_first_seed": {
+      "p05": 314.76223657370565,
+      "p50": 476.38860402121423,
+      "p95": 651.9682083235044
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.cmax",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 42.5,
+     "simulated_first_seed": {
+      "p05": 7.7891985021028285,
+      "p50": 10.801861578588518,
+      "p95": 15.085921044963904
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.auc_last",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 489,
+     "simulated_first_seed": {
+      "p05": 148.92872986419184,
+      "p50": 251.23298662826934,
+      "p95": 376.6569135520462
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.cmax",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 26.1,
+     "simulated_first_seed": {
+      "p05": 5.285330594074016,
+      "p50": 7.0476131776249185,
+      "p95": 9.339563766766272
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.auc_last",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 1.413913043478261,
+     "simulated_first_seed": {
+      "p05": 0.6700121252909054,
+      "p50": 0.9940543373977248,
+      "p95": 1.463531890007488
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "consistent",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.cmax",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 1.755813953488372,
+     "simulated_first_seed": {
+      "p05": 0.6973562629770134,
+      "p50": 0.9834914231660401,
+      "p95": 1.4508277163083285
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.auc_last",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 1.3617391304347828,
+     "simulated_first_seed": {
+      "p05": 0.6200752615163001,
+      "p50": 1.0043535869082483,
+      "p95": 1.5425487064664543
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.cmax",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 0.7248062015503877,
+     "simulated_first_seed": {
+      "p05": 0.5946819546908353,
+      "p50": 0.9997611727541822,
+      "p95": 1.5989528423575143
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.auc_last",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2683658170914542,
+     "simulated_first_seed": {
+      "p05": 0.596554554443243,
+      "p50": 0.937270013156313,
+      "p95": 1.4042991652691674
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.cmax",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2116892373485388,
+     "simulated_first_seed": {
+      "p05": 0.6583127934168848,
+      "p50": 0.9919474077893444,
+      "p95": 1.516762167791226
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.auc_last",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1241379310344828,
+     "simulated_first_seed": {
+      "p05": 0.4396170783891512,
+      "p50": 0.7610878195575906,
+      "p95": 1.2014229608383722
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.cmax",
+     "simulation_scenario": "bsa_1_5",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1409836065573773,
+     "simulated_first_seed": {
+      "p05": 0.6726365696675274,
+      "p50": 1.0040242215454245,
+      "p95": 1.4661363806387622
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.auc_last",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 575,
+     "simulated_first_seed": {
+      "p05": 359.51851899442556,
+      "p50": 533.8086623045216,
+      "p95": 718.5302963610555
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.cmax",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 25.8,
+     "simulated_first_seed": {
+      "p05": 9.899111481763532,
+      "p50": 13.345834118135759,
+      "p95": 18.172567251712074
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.auc_last",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 813,
+     "simulated_first_seed": {
+      "p05": 335.2240305279205,
+      "p50": 540.4880407547527,
+      "p95": 754.1383952977045
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.cmax",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 45.3,
+     "simulated_first_seed": {
+      "p05": 9.612006859461559,
+      "p50": 13.442292994381482,
+      "p95": 18.537710464233655
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd.auc_last",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 783,
+     "simulated_first_seed": {
+      "p05": 279.8586263462942,
+      "p50": 539.9226901070946,
+      "p95": 815.8338391089201
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "renal.esrd.cmax",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 18.7,
+     "simulated_first_seed": {
+      "p05": 8.34478853190852,
+      "p50": 13.270917287102803,
+      "p95": 21.234024009528834
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.normal.auc_last",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 1160,
+     "simulated_first_seed": {
+      "p05": 525.6405244357517,
+      "p50": 738.1302687921395,
+      "p95": 991.4005576378146
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.normal.cmax",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 61.0,
+     "simulated_first_seed": {
+      "p05": 12.777141140119232,
+      "p50": 17.708728647701292,
+      "p95": 24.98488968530576
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.auc_last",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 846,
+     "simulated_first_seed": {
+      "p05": 218.50312581020745,
+      "p50": 379.53958426189723,
+      "p95": 559.4933603700496
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.cmax",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 42.5,
+     "simulated_first_seed": {
+      "p05": 7.358592059502089,
+      "p50": 10.241249484135274,
+      "p95": 14.450559720639523
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.auc_last",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 489,
+     "simulated_first_seed": {
+      "p05": 89.21719656959048,
+      "p50": 181.75808327083382,
+      "p95": 309.84191259264463
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.cmax",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 26.1,
+     "simulated_first_seed": {
+      "p05": 4.957765155969828,
+      "p50": 6.685879270855656,
+      "p95": 8.955995153691937
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.auc_last",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 1.413913043478261,
+     "simulated_first_seed": {
+      "p05": 0.5933773378070274,
+      "p50": 1.0121813077937807,
+      "p95": 1.6372718427859108
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.cmax",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 1.755813953488372,
+     "simulated_first_seed": {
+      "p05": 0.6896692688808945,
+      "p50": 0.9960751007751842,
+      "p95": 1.4411751249794758
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.auc_last",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 1.3617391304347828,
+     "simulated_first_seed": {
+      "p05": 0.530094478833966,
+      "p50": 1.0161777201277418,
+      "p95": 1.739925574570849
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.cmax",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 0.7248062015503877,
+     "simulated_first_seed": {
+      "p05": 0.6150663626025674,
+      "p50": 0.9898502902447925,
+      "p95": 1.6132721334850648
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.auc_last",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2683658170914542,
+     "simulated_first_seed": {
+      "p05": 0.48623208121527045,
+      "p50": 0.8944126733200938,
+      "p95": 1.4442224434831812
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.cmax",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2116892373485388,
+     "simulated_first_seed": {
+      "p05": 0.6575587537417817,
+      "p50": 0.9978621478656062,
+      "p95": 1.502109448968307
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.auc_last",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1241379310344828,
+     "simulated_first_seed": {
+      "p05": 0.3247570072103529,
+      "p50": 0.6553689723069893,
+      "p95": 1.2045568435496643
+     },
+     "class_by_seed": [
+      "consistent",
+      "indeterminate",
+      "consistent",
+      "consistent",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.cmax",
+     "simulation_scenario": "bsa_2_25",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1409836065573773,
+     "simulated_first_seed": {
+      "p05": 0.6799207598070398,
+      "p50": 1.002229479429376,
+      "p95": 1.4482202325045754
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.auc_last",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 575,
+     "simulated_first_seed": {
+      "p05": 427.59299338646537,
+      "p50": 592.1487088869251,
+      "p95": 765.4277661195522
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.normal.cmax",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 25.8,
+     "simulated_first_seed": {
+      "p05": 10.194739150464416,
+      "p50": 13.624967405220302,
+      "p95": 18.348786524192338
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri.auc_last",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 813,
+     "simulated_first_seed": {
+      "p05": 394.6658617020174,
+      "p50": 594.3361753430563,
+      "p95": 801.8795868489195
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "renal.severe_ri.cmax",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 45.3,
+     "simulated_first_seed": {
+      "p05": 9.930464303781322,
+      "p50": 13.610553502614513,
+      "p95": 18.498205249995927
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd.auc_last",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 783,
+     "simulated_first_seed": {
+      "p05": 352.8095132109473,
+      "p50": 591.2480268171782,
+      "p95": 847.7831436938352
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd.cmax",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 18.7,
+     "simulated_first_seed": {
+      "p05": 8.536413007149202,
+      "p50": 13.605118044281587,
+      "p95": 20.83683241217619
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.normal.auc_last",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 1160,
+     "simulated_first_seed": {
+      "p05": 594.0671463421085,
+      "p50": 806.9140509728336,
+      "p95": 1050.0724190103303
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.normal.cmax",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 61.0,
+     "simulated_first_seed": {
+      "p05": 12.9360119951899,
+      "p50": 18.107304632423578,
+      "p95": 25.59727368078332
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.auc_last",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 846,
+     "simulated_first_seed": {
+      "p05": 263.8790734347108,
+      "p50": 425.6991146154958,
+      "p95": 602.5915578800216
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.moderate.cmax",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 42.5,
+     "simulated_first_seed": {
+      "p05": 7.5531797738054935,
+      "p50": 10.460442773136002,
+      "p95": 14.473776418391488
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.auc_last",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 489,
+     "simulated_first_seed": {
+      "p05": 117.49213466975752,
+      "p50": 217.87908114187192,
+      "p95": 348.22370460557056
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "hepatic.severe.cmax",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 26.1,
+     "simulated_first_seed": {
+      "p05": 5.123819669278123,
+      "p50": 6.810982005565115,
+      "p95": 9.106347497231843
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.auc_last",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 1.413913043478261,
+     "simulated_first_seed": {
+      "p05": 0.6399251559247598,
+      "p50": 1.0050790806088186,
+      "p95": 1.5209789330346033
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.severe_ri_vs_normal.cmax",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 1.755813953488372,
+     "simulated_first_seed": {
+      "p05": 0.676270993842253,
+      "p50": 1.0050295628650576,
+      "p95": 1.4341120089712625
+     },
+     "class_by_seed": [
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts",
+      "model_under_predicts"
+     ],
+     "verdict": "model_under_predicts"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.auc_last",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 1.3617391304347828,
+     "simulated_first_seed": {
+      "p05": 0.5816924808671547,
+      "p50": 1.0080011835023113,
+      "p95": 1.5348040275538641
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "renal.esrd_vs_normal.cmax",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 0.7248062015503877,
+     "simulated_first_seed": {
+      "p05": 0.5944891173127832,
+      "p50": 0.9989190570923145,
+      "p95": 1.577690290795419
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.auc_last",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2683658170914542,
+     "simulated_first_seed": {
+      "p05": 0.5517853312904506,
+      "p50": 0.9097920110354498,
+      "p95": 1.429891384197789
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.moderate_vs_normal.cmax",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 1.2116892373485388,
+     "simulated_first_seed": {
+      "p05": 0.6646207058907291,
+      "p50": 0.9932862289255675,
+      "p95": 1.5245034701979476
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.auc_last",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1241379310344828,
+     "simulated_first_seed": {
+      "p05": 0.38631844802406085,
+      "p50": 0.7254888711947381,
+      "p95": 1.2439210433522216
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "hepatic.severe_vs_normal.cmax",
+     "simulation_scenario": "auc_linear_up_log_down",
+     "uncertainty_scenario": "independent",
+     "observed": 1.1409836065573773,
+     "simulated_first_seed": {
+      "p05": 0.6815748140267857,
+      "p50": 0.9999266157696245,
+      "p95": 1.507429767404444
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    }
+   ]
+  },
+  "luo_daratumumab": {
+   "outer_parameter_sets": 200,
+   "inner_trials_per_set": 5,
+   "endpoints": {
+    "sirius_8.cmax": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "igg_0_40": "consistent",
+      "igg_0_75": "consistent",
+      "covariate_spread": "consistent",
+      "sex_factor_on_females": "consistent",
+      "infusion_3h": "consistent",
+      "kdes_zero": "consistent"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "consistent",
+     "changed": false
+    },
+    "sirius_8.auc_inf": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "indeterminate",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": false,
+     "reading": "undecided_across_uncertainty_scenarios",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "igg_0_40": "consistent",
+      "igg_0_75": "indeterminate",
+      "covariate_spread": "consistent",
+      "sex_factor_on_females": "consistent",
+      "infusion_3h": "consistent",
+      "kdes_zero": "indeterminate"
+     },
+     "robust_across_simulation_scenarios": false,
+     "verdict_v1": "consistent",
+     "changed": true
+    },
+    "gen501_16.cmax": {
+     "kind": "primary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "igg_0_40": "consistent",
+      "igg_0_75": "consistent",
+      "covariate_spread": "consistent",
+      "sex_factor_on_females": "consistent",
+      "infusion_3h": "consistent",
+      "kdes_zero": "consistent"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "consistent",
+     "changed": false
+    },
+    "gen501_16.auc_0_7d": {
+     "kind": "primary",
+     "verdict_v2": "indeterminate",
+     "by_uncertainty_scenario": {
+      "independent": "indeterminate",
+      "uniform_positive_0_5": "indeterminate",
+      "identifiability_pairs": "indeterminate",
+      "normal_on_natural_scale": "model_over_predicts",
+      "rse_rounding_upper": "indeterminate"
+     },
+     "stable": false,
+     "reading": "undecided_across_uncertainty_scenarios",
+     "by_simulation_scenario": {
+      "primary": "indeterminate",
+      "omega_equals_cv": "indeterminate",
+      "igg_0_40": "model_over_predicts",
+      "igg_0_75": "indeterminate",
+      "covariate_spread": "indeterminate",
+      "sex_factor_on_females": "indeterminate",
+      "infusion_3h": "model_over_predicts",
+      "kdes_zero": "indeterminate"
+     },
+     "robust_across_simulation_scenarios": false,
+     "verdict_v1": "model_over_predicts",
+     "changed": true
+    },
+    "gen501_8.cmax": {
+     "kind": "secondary",
+     "verdict_v2": "consistent",
+     "by_uncertainty_scenario": {
+      "independent": "consistent",
+      "uniform_positive_0_5": "consistent",
+      "identifiability_pairs": "consistent",
+      "normal_on_natural_scale": "consistent",
+      "rse_rounding_upper": "consistent"
+     },
+     "stable": true,
+     "reading": "consistent",
+     "by_simulation_scenario": {
+      "primary": "consistent",
+      "omega_equals_cv": "consistent",
+      "igg_0_40": "consistent",
+      "igg_0_75": "consistent",
+      "covariate_spread": "consistent",
+      "sex_factor_on_females": "consistent",
+      "infusion_3h": "consistent",
+      "kdes_zero": "consistent"
+     },
+     "robust_across_simulation_scenarios": true,
+     "verdict_v1": "consistent",
+     "changed": false
+    }
+   },
+   "redraws_non_positive": {
+    "primary/independent": 0,
+    "primary/uniform_positive_0_5": 0,
+    "primary/identifiability_pairs": 0,
+    "primary/normal_on_natural_scale": 3,
+    "primary/rse_rounding_upper": 0,
+    "omega_equals_cv/independent": 0,
+    "igg_0_40/independent": 0,
+    "igg_0_75/independent": 0,
+    "covariate_spread/independent": 0,
+    "sex_factor_on_females/independent": 0,
+    "infusion_3h/independent": 0,
+    "kdes_zero/independent": 0
+   },
+   "rows": [
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 111.52856033971128,
+      "p50": 131.13386067569468,
+      "p95": 152.51878714124848
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 14286.295861759068,
+      "p50": 18046.07341155572,
+      "p95": 22657.445531991198
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 238.7992357881985,
+      "p50": 271.58752332678387,
+      "p95": 307.0732552685143
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 26497.478575577738,
+      "p50": 30302.902220514516,
+      "p95": 34341.85744455524
+     },
+     "class_by_seed": [
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "independent",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 115.32722965072374,
+      "p50": 134.44659825588462,
+      "p95": 154.40312889900764
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 112.10652555751889,
+      "p50": 131.01033710811757,
+      "p95": 152.37228755753787
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 13975.37769378599,
+      "p50": 17953.886905091167,
+      "p95": 23075.665447484218
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 238.3961084864655,
+      "p50": 271.15243098798953,
+      "p95": 306.1113079896496
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 26306.766951298054,
+      "p50": 30291.348888870467,
+      "p95": 34920.44628692824
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "uniform_positive_0_5",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 115.40886091978071,
+      "p50": 134.7327998929092,
+      "p95": 153.60434313672698
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 111.56722318567131,
+      "p50": 131.19119837858557,
+      "p95": 152.4209850412691
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 14336.110377749777,
+      "p50": 17994.509255631594,
+      "p95": 22270.485856427164
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "indeterminate",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 238.96021252301105,
+      "p50": 271.6099760397259,
+      "p95": 307.1280702510356
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 26500.537080116817,
+      "p50": 30294.554597375733,
+      "p95": 34238.41949591097
+     },
+     "class_by_seed": [
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "identifiability_pairs",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 115.34099962373642,
+      "p50": 134.36987940366515,
+      "p95": 154.48506561363794
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 111.56970734142904,
+      "p50": 131.2200897033741,
+      "p95": 152.5741004432917
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 14326.140518855656,
+      "p50": 18087.917256862733,
+      "p95": 22641.367656883005
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 238.90009803889296,
+      "p50": 271.68913960349056,
+      "p95": 307.4361960986133
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 26541.244621965412,
+      "p50": 30345.935145612035,
+      "p95": 34400.83849187789
+     },
+     "class_by_seed": [
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts"
+     ],
+     "verdict": "model_over_predicts"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "normal_on_natural_scale",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 115.70500405185572,
+      "p50": 134.45963605759397,
+      "p95": 154.4383679614905
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 111.49670100253013,
+      "p50": 131.11110286208213,
+      "p95": 152.48266115766145
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 14282.008200371898,
+      "p50": 18041.060881173413,
+      "p95": 22665.305436473634
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 238.71328791183893,
+      "p50": 271.53446669785274,
+      "p95": 307.2507108533881
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 26507.856394041377,
+      "p50": 30300.872276338876,
+      "p95": 34352.71728663474
+     },
+     "class_by_seed": [
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "primary",
+     "uncertainty_scenario": "rse_rounding_upper",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 115.2858947765333,
+      "p50": 134.45800088383896,
+      "p95": 154.42908633683922
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 110.7064016347046,
+      "p50": 131.04733846285606,
+      "p95": 154.18495841136152
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 13999.356500175836,
+      "p50": 18068.93853146347,
+      "p95": 24554.340993458572
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 237.9961733119233,
+      "p50": 270.3121483746975,
+      "p95": 310.0371716644765
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 26306.912434916725,
+      "p50": 30040.186780921154,
+      "p95": 34467.846618507334
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "model_over_predicts",
+      "indeterminate",
+      "model_over_predicts",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "omega_equals_cv",
+     "uncertainty_scenario": "independent",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 114.48438662590475,
+      "p50": 134.9321887440828,
+      "p95": 156.20092832639241
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "igg_0_40",
+     "uncertainty_scenario": "independent",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 109.8637040801963,
+      "p50": 130.4873117852457,
+      "p95": 152.37761559174686
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "igg_0_40",
+     "uncertainty_scenario": "independent",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 14019.585263350942,
+      "p50": 18104.043225896035,
+      "p95": 23269.33626238008
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "igg_0_40",
+     "uncertainty_scenario": "independent",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 240.2050747407842,
+      "p50": 269.9564535211057,
+      "p95": 308.2926998495114
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "igg_0_40",
+     "uncertainty_scenario": "independent",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 26752.713228527016,
+      "p50": 30577.927126218798,
+      "p95": 34708.08343669695
+     },
+     "class_by_seed": [
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts"
+     ],
+     "verdict": "model_over_predicts"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "igg_0_40",
+     "uncertainty_scenario": "independent",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 115.44177427920724,
+      "p50": 133.646141928902,
+      "p95": 155.85416213632163
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "igg_0_75",
+     "uncertainty_scenario": "independent",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 109.8537772783455,
+      "p50": 129.65844665893425,
+      "p95": 152.8798556057474
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "igg_0_75",
+     "uncertainty_scenario": "independent",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 13155.478529507289,
+      "p50": 16666.685000902093,
+      "p95": 20621.660830198423
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "igg_0_75",
+     "uncertainty_scenario": "independent",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 238.8598593711745,
+      "p50": 269.7526943946507,
+      "p95": 304.8945620864543
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "igg_0_75",
+     "uncertainty_scenario": "independent",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 26082.295031455793,
+      "p50": 29309.785853569563,
+      "p95": 33309.076923622546
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "igg_0_75",
+     "uncertainty_scenario": "independent",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 116.43371193270849,
+      "p50": 133.1506198985704,
+      "p95": 154.91710635972427
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "covariate_spread",
+     "uncertainty_scenario": "independent",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 111.4504450108913,
+      "p50": 130.56847169926243,
+      "p95": 153.79838277849748
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "covariate_spread",
+     "uncertainty_scenario": "independent",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 13978.094054929681,
+      "p50": 17838.893620116243,
+      "p95": 22678.420282862244
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "covariate_spread",
+     "uncertainty_scenario": "independent",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 238.7037966617282,
+      "p50": 272.64530525203736,
+      "p95": 310.143432295266
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "covariate_spread",
+     "uncertainty_scenario": "independent",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 26299.01972121654,
+      "p50": 30197.09337047615,
+      "p95": 34549.7913688359
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "covariate_spread",
+     "uncertainty_scenario": "independent",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 116.10124366418528,
+      "p50": 134.09173671898424,
+      "p95": 154.67793820365745
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "sex_factor_on_females",
+     "uncertainty_scenario": "independent",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 111.11060970519695,
+      "p50": 130.15193573840665,
+      "p95": 153.538997414781
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "sex_factor_on_females",
+     "uncertainty_scenario": "independent",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 13778.004771040987,
+      "p50": 17721.874052308092,
+      "p95": 22685.195534192924
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "sex_factor_on_females",
+     "uncertainty_scenario": "independent",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 228.42174303584198,
+      "p50": 259.07323734176225,
+      "p95": 290.87488263900804
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "sex_factor_on_females",
+     "uncertainty_scenario": "independent",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 25757.562907547454,
+      "p50": 29263.921595575597,
+      "p95": 33313.9100591009
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "sex_factor_on_females",
+     "uncertainty_scenario": "independent",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 110.56088576102829,
+      "p50": 128.48365158125196,
+      "p95": 147.97555992444103
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "infusion_3h",
+     "uncertainty_scenario": "independent",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 113.882372789476,
+      "p50": 133.06463569068637,
+      "p95": 156.263513745608
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "infusion_3h",
+     "uncertainty_scenario": "independent",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 13953.729087185695,
+      "p50": 17870.838816711497,
+      "p95": 22445.486712724145
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "infusion_3h",
+     "uncertainty_scenario": "independent",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 239.26552624008872,
+      "p50": 273.2673520416828,
+      "p95": 311.463360845379
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "infusion_3h",
+     "uncertainty_scenario": "independent",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 26614.16786653791,
+      "p50": 30559.690146125533,
+      "p95": 34842.430078487
+     },
+     "class_by_seed": [
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts"
+     ],
+     "verdict": "model_over_predicts"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "infusion_3h",
+     "uncertainty_scenario": "independent",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 117.94067791545808,
+      "p50": 136.76638769042466,
+      "p95": 158.93949914572795
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.cmax",
+     "simulation_scenario": "kdes_zero",
+     "uncertainty_scenario": "independent",
+     "observed": 138.7,
+     "simulated_first_seed": {
+      "p05": 112.33399595648268,
+      "p50": 129.88109716562911,
+      "p95": 151.19275446226837
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "sirius_8.auc_inf",
+     "simulation_scenario": "kdes_zero",
+     "uncertainty_scenario": "independent",
+     "observed": 21070.0,
+     "simulated_first_seed": {
+      "p05": 13759.691769337558,
+      "p50": 17128.191425189878,
+      "p95": 21686.66342675511
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "indeterminate",
+      "consistent",
+      "consistent",
+      "indeterminate"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_16.cmax",
+     "simulation_scenario": "kdes_zero",
+     "uncertainty_scenario": "independent",
+     "observed": 263.4,
+     "simulated_first_seed": {
+      "p05": 235.49695231529745,
+      "p50": 269.8734505103579,
+      "p95": 305.51343675859437
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    },
+    {
+     "endpoint": "gen501_16.auc_0_7d",
+     "simulation_scenario": "kdes_zero",
+     "uncertainty_scenario": "independent",
+     "observed": 25123.3,
+     "simulated_first_seed": {
+      "p05": 26400.629633748744,
+      "p50": 30193.517122373174,
+      "p95": 33992.26620858234
+     },
+     "class_by_seed": [
+      "indeterminate",
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts",
+      "model_over_predicts"
+     ],
+     "verdict": "indeterminate"
+    },
+    {
+     "endpoint": "gen501_8.cmax",
+     "simulation_scenario": "kdes_zero",
+     "uncertainty_scenario": "independent",
+     "observed": 133.5,
+     "simulated_first_seed": {
+      "p05": 115.11724128471842,
+      "p50": 133.56568582393325,
+      "p95": 154.32895180267263
+     },
+     "class_by_seed": [
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent",
+      "consistent"
+     ],
+     "verdict": "consistent"
+    }
+   ]
+  }
+ },
+ "changes_from_v1": [
+  {
+   "check": "gupta_ixazomib",
+   "endpoint": "renal.severe_ri.auc_last",
+   "verdict_v1": "model_under_predicts",
+   "reading": "indeterminate"
+  },
+  {
+   "check": "luo_daratumumab",
+   "endpoint": "sirius_8.auc_inf",
+   "verdict_v1": "consistent",
+   "reading": "undecided_across_uncertainty_scenarios"
+  },
+  {
+   "check": "luo_daratumumab",
+   "endpoint": "gen501_16.auc_0_7d",
+   "verdict_v1": "model_over_predicts",
+   "reading": "undecided_across_uncertainty_scenarios"
+  }
+ ],
+ "not_this": [
+  "Not a new check of either model and not a blind test.",
+  "Parameter uncertainty is converted from %RSE with assumptions the papers do not state; each uncertainty scenario is one such assumption, and none is the paper’s own.",
+  "A consistent verdict is not validation; an inconsistent one does not say why."
+ ],
+ "clinical_prediction_validated": false,
+ "report_sha256": "882dcb5557fa66a75a3bf8b8e6e19a209ccefab2091a07b2cbe4668e6b1d639b"
+}

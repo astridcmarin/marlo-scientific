@@ -13,8 +13,10 @@ from .dataset_ledger import BLIND_ROLES, LEDGER_SHA256, load_ledger
 from .patient_state import digest
 
 ROOT = Path(__file__).resolve().parent.parent
-FINDINGS_PATH = Path(__file__).parent / 'data' / 'check_findings_v10.json'
-FINDINGS_SHA256 = 'b104c8680c8d851ffc593600da528cbbe3c0dcd4d6b245248970b727d52b4d23'
+FINDINGS_PATH = Path(__file__).parent / 'data' / 'check_findings_v11.json'
+FINDINGS_SHA256 = '1329a0d242379ae1e851cfd74942173790c324c1963b4f379b85593f9a92328b'
+# Superseded, kept unchanged: check_findings_v10.json (v11 adds acceptance rule v2 for Gupta and Luo)
+FINDINGS_V10_SHA256 = 'b104c8680c8d851ffc593600da528cbbe3c0dcd4d6b245248970b727d52b4d23'
 # Superseded, kept unchanged: check_findings_v9.json (v10 adds the adjudication result)
 FINDINGS_V9_SHA256 = 'e4bf64999e6840aa70ed5010c78c64f715d755224450f0d32e0a3f4311cb8fc3'
 # Superseded, kept unchanged: check_findings_v8.json (v9 adds the second-annotation agreement result)

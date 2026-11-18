@@ -222,5 +222,45 @@ class DryRun(unittest.TestCase):
                            simulation_scenarios=['primary', 'omega_equals_cv'], workers=2)
         self.assertEqual(two['report_sha256'], self.report['report_sha256'])
 
+
+class CommittedReport(unittest.TestCase):
+    """The result committed after the lock: intact, run under this plan, every change listed, and one cell
+    reproduced (the full run takes about 47 minutes on two processes)."""
+
+    @classmethod
+    def setUpClass(cls):
+        import json
+        cls.report = json.loads(ar.REPORT_PATH.read_text())
+
+    def test_intact_and_run_under_plan_v2_1_on_observed_values(self):
+        from intelligence_store.patient_state import digest
+        body = dict(self.report)
+        claimed = body.pop('report_sha256')
+        self.assertEqual(digest(body), claimed)
+        self.assertEqual(self.report['plan_sha256'], ar.PLAN_SHA256)
+        self.assertFalse(self.report['synthetic_observed'])
+        self.assertEqual(self.report['seeds'], ar.load_plan()['rule']['seeds'])
+        self.assertFalse(self.report['clinical_prediction_validated'])
+
+    def test_every_change_is_listed(self):
+        changed = {(c, e) for c, r in self.report['results'].items() for e, v in r['endpoints'].items() if v['changed']}
+        self.assertEqual(changed, {(x['check'], x['endpoint']) for x in self.report['changes_from_v1']})
+
+    def test_one_cell_reproduces(self):
+        plan = ar.load_plan()
+        a = ar._adapters(plan)['gupta_ixazomib']
+        seed = plan['rule']['seeds'][0]
+        got = ar.cell(plan, 'gupta_ixazomib', a, 'primary', 0, 'independent', seed,
+                      plan['rule']['outer_parameter_sets']['gupta_ixazomib'], plan['rule']['inner_trials_per_set']['gupta_ixazomib'])
+        rows = [r for r in self.report['results']['gupta_ixazomib']['rows']
+                if r['simulation_scenario'] == 'primary' and r['uncertainty_scenario'] == 'independent']
+        for r in rows:
+            self.assertEqual(got['summaries'][r['endpoint']], r['simulated_first_seed'], r['endpoint'])
+
+    def test_findings_lines(self):
+        from intelligence_store.check_findings import load_findings
+        lines = [x for x in load_findings()['findings'] if x['report'] == 'docs/verification/acceptance_rule_v2_gupta_luo_v1.json']
+        self.assertEqual([x['id'] for x in lines], ['acceptance_rule_v2_gupta_luo'])
+
 if __name__ == '__main__':
     unittest.main()

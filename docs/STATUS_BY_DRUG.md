@@ -43,7 +43,7 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
 ## Ixazomib (NINLARO) — published model, checked against outside data
 
 - **On the platform:** the Gupta 2017 population model (AUC shown, peaks not); its scope; special populations.
-- **Checked:** against the dedicated kidney and liver impairment studies *(finding: ixazomib)*.
+- **Checked:** against the dedicated kidney and liver impairment studies *(finding: ixazomib)*. Re-judged with the published estimates' uncertainty added (converted from %RSE, under five ways of doing so): 19 of 20 verdicts hold under all five, and severe kidney impairment AUC becomes too close to call *(finding: acceptance_rule_v2_gupta_luo)*.
 - **Known to be wrong:**
   - exposure is about 1.4-fold too low in solid-tumour and liver-impairment groups;
   - peaks are 2–4-fold too low, which is why only AUC is shown.
@@ -54,7 +54,7 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
 - **On the platform:** the Luo 2021 population model; its scope (no page runs it); special populations.
 - **Checked:** against GEN501 and SIRIUS first-dose data *(finding: daratumumab_v1)*, and again with each study's demographics *(finding: daratumumab_v2)*.
 - **Known to be wrong:**
-  - first-week exposure at 16 mg/kg is too high;
+  - first-week exposure at 16 mg/kg came out too high; with the published estimates' uncertainty added it sits at the 5% margin of the widened limit, and whether it is too high depends on how that uncertainty is converted *(finding: acceptance_rule_v2_gupta_luo)*;
   - the albumin effect predicts the two studies in the opposite order.
 - **Missing:** data that are fully independent of the model's structure.
 
