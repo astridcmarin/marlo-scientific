@@ -12,6 +12,10 @@ For the next AI session working on this repository, possibly from a different Cl
 | The owner's working annotation files | `instance/` in the iMac repository (git-ignored) |
 | Batch backups | `supplemental-information/bundles/` on the iMac (`git bundle`; restore with `git fetch <bundle> <branch>`). The newest is 4 November, and batch 14 was lost because nothing newer existed: push the branch instead, as the rules below now say. |
 
+## Decided on 18 November: read this before the open work below
+
+The regroup of 18 November (`docs/REGROUP_2026-11-18.md`) set the direction, and the roadmap's "Now" section holds the queue. In brief: the first release leads with sourced evidence; carfilzomib is the next drug, so that Badros and Quach can test it blind; a missed bar in eligibility round two means benchmarking is recorded as not validated (decision 0006); the organ-level model starts lumped (decision 0005); the owner will include an independent reviewer. The numbered items below are the open work under that direction.
+
 ## Rules that are easy to break
 
 - **The 200-trial eligibility v2 annotation and the v2 sample are the blind test data.** Never open, print or summarise their contents, and never run an extractor on them, except through the locked steps below. Sizes, dates, checksums and counts only. Tell every subagent, in its brief, not to open `instance/`, the annotation files or the v2 sample.
