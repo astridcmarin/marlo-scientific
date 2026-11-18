@@ -18,7 +18,23 @@ class Plan(unittest.TestCase):
         cls.adapters = ar._adapters(cls.plan)
 
     def test_pinned_and_declares_only_not_blind_uses(self):
-        self.assertEqual(self.plan['plan_version'], 'acceptance-rule-v2-plan-v2.0')
+        self.assertEqual(self.plan['plan_version'], 'acceptance-rule-v2-plan-v2.1')
+        self.assertEqual(self.plan['supersedes']['sha256'], ar.PLAN_V2_0_SHA256)
+        import hashlib
+        self.assertEqual(hashlib.sha256(ar.PLAN_V2_0_PATH.read_bytes()).hexdigest(), ar.PLAN_V2_0_SHA256)
+
+    def test_amendment_1_changes_only_the_simulation_line(self):
+        import json
+        old = json.loads(ar.PLAN_V2_0_PATH.read_text())
+        new = copy.deepcopy(self.plan)
+        for k in ('plan_version', 'supersedes', 'amendments', 'amendment_approved_by_owner'):
+            new.pop(k)
+        old.pop('plan_version'); old.pop('supersedes')
+        self.assertNotEqual(new['rule'].pop('simulation'), old['rule'].pop('simulation'))
+        self.assertEqual(new, old)
+        self.assertIn('v1.1', self.plan['rule']['simulation'])
+        from intelligence_store import daratumumab_pk_luo
+        self.assertEqual(daratumumab_pk_luo.MODEL_VERSION, 'daratumumab-pk-luo-2021-v1.1')
         self.assertIs(dl.validate_plan_datasets(self.plan), self.plan)
         self.assertTrue(all(d['role'] == 'checked_not_blind' for d in self.plan['datasets']))
 

@@ -55,6 +55,47 @@ class Model(unittest.TestCase):
         self.assertAlmostEqual(r['auc_infinity'] / (600.0 / q['cl']), 1.0, places=3)
 
 
+
+class StiffPatients(unittest.TestCase):
+    """Model v1.1 (18 November 2026): the step shortens where Vmax / (Km V1) is beyond RK4's stability at the 1 h
+    coarse step; elsewhere the output is bit-identical to v1.0."""
+
+    def setUp(self):
+        self.p = model.typical_parameters(model.load_extract())
+        self.stiff = dict(self.p, vmax=self.p['vmax'] * 10, v1=self.p['v1'] * 0.3, km=self.p['km'] * 0.5)
+        self.dose = [(0.0, 8.0 * 70.0, 4.0)]
+
+    def _run(self, p, **kw):
+        return model.simulate(p, self.dose, [1.0, 4.0, 168.0], until_fraction_of_max=0.001, **kw)
+
+    def test_a_stiff_patient_matches_a_fine_step(self):
+        coarse, fine = self._run(self.stiff), self._run(self.stiff, coarse_step_h=0.05)
+        self.assertGreater(coarse['at'][168.0]['conc'], 0)
+        self.assertAlmostEqual(coarse['auc_infinity'] / fine['auc_infinity'], 1.0, places=5)
+
+    def test_the_v1_0_step_was_unstable_there(self):
+        saved = model.STABILITY_BOUND
+        try:
+            model.STABILITY_BOUND = float('inf')          # v1.0 behaviour: no limit
+            old = self._run(self.stiff)
+        finally:
+            model.STABILITY_BOUND = saved
+        self.assertLess(old['at'][168.0]['conc'], 0)       # a negative concentration, as v1.0 returned it
+
+    def test_ordinary_patients_are_unchanged(self):
+        rng = random.Random(42)
+        saved = model.STABILITY_BOUND
+        for _ in range(20):
+            q = dict(self.p, vmax=self.p['vmax'] * rng.lognormvariate(0, 0.61), v1=self.p['v1'] * rng.lognormvariate(0, 0.36),
+                     cl=self.p['cl'] * rng.lognormvariate(0, 0.53), kdes=self.p['kdes'] * rng.lognormvariate(0, 1.04))
+            new = self._run(q)
+            try:
+                model.STABILITY_BOUND = float('inf')
+                old = self._run(q)
+            finally:
+                model.STABILITY_BOUND = saved
+            self.assertEqual(new, old)
+
 class Check(unittest.TestCase):
     def test_plan_is_pinned_and_matches_the_code(self):
         plan = c.load_plan()

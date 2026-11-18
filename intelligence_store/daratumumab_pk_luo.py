@@ -17,7 +17,10 @@ from pathlib import Path
 
 EXTRACT_PATH = Path(__file__).parent / 'data' / 'daratumumab_pk_luo_2021_extract_v1.json'
 EXTRACT_SHA256 = '8c68ddb7a849ce00a6340e0a7b4ec58ecf9e720491be8b55f1a47c774293d4f6'
-MODEL_VERSION = 'daratumumab-pk-luo-2021-v1.0'
+MODEL_VERSION = 'daratumumab-pk-luo-2021-v1.1'
+# v1.1 (18 November 2026): the fixed-step integrator shortens its step where the system is stiff. Same equations and
+# parameters; output is bit-identical wherever v1.0's step was already within RK4's stability limit (see simulate).
+STABILITY_BOUND = 2.0   # largest step x rate-bound allowed; RK4's stability limit on a real eigenvalue is about 2.785
 REFERENCE_WEIGHT_KG = 78.6
 REFERENCE_ALBUMIN_G_L = 37.0
 
@@ -59,7 +62,14 @@ def simulate(p, infusions, output_times, fine_step_h=0.05, coarse_step_h=1.0, fi
 
     If until_fraction_of_max is set, integration continues past the last output time, in 24 h blocks, until the
     concentration is below that fraction of its maximum; the result then includes auc_infinity (with a log-linear
-    tail C / k over the last 24 h)."""
+    tail C / k over the last 24 h).
+
+    Step size (v1.1). Below Km the saturable pathway acts as a first-order rate up to Vmax / (Km V1), which for a
+    patient with high Vmax and small V1 can exceed what RK4 tolerates at the 1 h coarse step: v1.0 then returned
+    wrong concentrations, negative ones or a crash (found 18 November 2026, when acceptance rule v2 drew such
+    patients). Each block now uses at least ceil(span x k / STABILITY_BOUND) steps, with k the Gershgorin bound
+    (CL + Q + Vmax e^(-kdes t0) / Km) / V1 + Q / V2 at the block's start (the saturable term only falls with time).
+    Where v1.0's step already satisfied the bound, the number of steps, and so every output, is unchanged."""
     f = _rhs(p)
     fine = [(s, s + d + fine_after_end_h) for s, _, d in infusions]
     bps = sorted({0.0, *output_times, *(s for s, _, _ in infusions), *(s + d for s, _, d in infusions),
@@ -78,6 +88,9 @@ def simulate(p, infusions, output_times, fine_step_h=0.05, coarse_step_h=1.0, fi
             return
         is_fine = any(a <= t0 and t1 <= b + 1e-9 for a, b in fine)
         n = max(1, math.ceil(span / (fine_step_h if is_fine else coarse_step_h) - 1e-9))
+        k_bound = (p['cl'] + p['q'] + p['vmax'] * math.exp(-p['kdes'] * t0) / p['km']) / p['v1'] + p['q'] / p['v2']
+        if span / n * k_bound > STABILITY_BOUND:
+            n = math.ceil(span * k_bound / STABILITY_BOUND)
         h = span / n
         rate = rate_at(t0 + span / 2)
         t = t0

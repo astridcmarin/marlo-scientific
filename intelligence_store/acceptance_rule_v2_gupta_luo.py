@@ -25,8 +25,12 @@ from .patient_state import digest
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = Path(__file__).parent / 'data'
-PLAN_PATH = DATA / 'acceptance_rule_v2_plan_v2.json'
-PLAN_SHA256 = 'fb790f68d960afc336ce8d3a25ecbb42126cce45930b7e744c963a0ae3c13d95'
+PLAN_PATH = DATA / 'acceptance_rule_v2_plan_v2_1.json'
+PLAN_SHA256 = 'baa6debe3d85e22b27348b0780d6d7011f617a43a385d786724f6254943de6c1'
+# Plan v2.0, locked in 4fe85cd and superseded by v2.1 (amendment 1: Luo model v1.1 after the first run stopped on an
+# unstable integration step, before any result was computed). Kept unchanged for traceability.
+PLAN_V2_0_PATH = DATA / 'acceptance_rule_v2_plan_v2.json'
+PLAN_V2_0_SHA256 = 'fb790f68d960afc336ce8d3a25ecbb42126cce45930b7e744c963a0ae3c13d95'
 REPORT_PATH = ROOT / 'docs' / 'verification' / 'acceptance_rule_v2_gupta_luo_v1.json'
 SCHEMA_VERSION = 'acceptance-rule-v2-report-v2'
 METHOD_VERSION = 'acceptance-rule-v2-gupta-luo-v1.0'
