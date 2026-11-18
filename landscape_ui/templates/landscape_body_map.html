@@ -1,5 +1,9 @@
 {% extends "landscape_base.html" %}
 {% from "run_record_macros.html" import simulation_banner, run_record_panel %}
+{# Flow-diagram arrows: the line stops 10 units short and a head of height w + 8 finishes it, so the head stays wider
+   than its line at every width the scale gives (1.5 to about 33). Review item 16, 18 November 2026. #}
+{% macro harrow(x1, x2, y, w, color) %}<line x1="{{ x1 }}" y1="{{ y }}" x2="{{ x2 - 10 }}" y2="{{ y }}" stroke="{{ color }}" stroke-width="{{ w }}" stroke-opacity="0.85"/><polygon points="{{ x2 - 10 }},{{ '%.1f'|format(y - (w + 8) / 2) }} {{ x2 }},{{ y }} {{ x2 - 10 }},{{ '%.1f'|format(y + (w + 8) / 2) }}" fill="{{ color }}" fill-opacity="0.85"/>{% endmacro %}
+{% macro varrow(x, y1, y2, w, color) %}<line x1="{{ x }}" y1="{{ y1 }}" x2="{{ x }}" y2="{{ y2 - 10 }}" stroke="{{ color }}" stroke-width="{{ w }}" stroke-opacity="0.85"/><polygon points="{{ '%.1f'|format(x - (w + 8) / 2) }},{{ y2 - 10 }} {{ x }},{{ y2 }} {{ '%.1f'|format(x + (w + 8) / 2) }},{{ y2 - 10 }}" fill="{{ color }}" fill-opacity="0.85"/>{% endmacro %}
 {% block title %}Lenalidomide body map · {{ 'Explorer' if explorer else 'Record ' ~ revision.id }}{% endblock %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('landscape.static', filename='body-map/body-map.css') }}">
@@ -64,16 +68,16 @@
 <p>Line widths are proportional to clearance on one fixed scale (the normal-function total, {{ '%.0f'|format(view.drawing_scale.max_flow_ml_min) }} mL/min), so maps for different {{ 'kidney functions' if explorer else 'records' }} can be compared.</p>
 <svg class="bm-flow" viewBox="0 60 640 160" role="img" aria-labelledby="bm-flow-title"><title id="bm-flow-title">Small intestine to blood; blood to the kidneys by filtration {{ '%.0f'|format(flows.filtration.value) }} and tubular secretion {{ '%.0f'|format(flows.tubular_secretion.value) }} mL/min; kidneys to urine {{ '%.0f'|format(flows.renal_excretion.value) }} mL/min; blood to non-renal routes {{ '%.0f'|format(flows.non_renal.value) }} mL/min.</title>
 <rect x="10" y="80" width="90" height="56" rx="8" class="bm-node"/><text x="55" y="104" text-anchor="middle">Small intestine</text><text x="55" y="122" text-anchor="middle" class="bm-sub">absorption</text>
-<line x1="100" y1="108" x2="160" y2="108" class="bm-absorb"/>
-<rect x="160" y="80" width="100" height="56" rx="8" class="bm-node"/><text x="210" y="104" text-anchor="middle">Blood</text><text x="210" y="122" text-anchor="middle" class="bm-sub">plasma</text>
-<line x1="260" y1="94" x2="380" y2="94" stroke="{{ colors.filtration }}" stroke-width="{{ widths.filtration }}" stroke-opacity="0.85"/>
-<line x1="260" y1="122" x2="380" y2="122" stroke="{{ colors.tubular_secretion }}" stroke-width="{{ widths.tubular_secretion }}" stroke-opacity="0.85"/>
+<line x1="100" y1="108" x2="150" y2="108" class="bm-absorb"/><polygon points="150,102.5 160,108 150,113.5" class="bm-absorb-head"/>
+<rect x="160" y="80" width="100" height="56" rx="8" class="bm-node"/><text x="210" y="104" text-anchor="middle">Blood</text><text x="210" y="122" text-anchor="middle" class="bm-sub">circulation</text>
+{{ harrow(260, 380, 94, widths.filtration, colors.filtration) }}
+{{ harrow(260, 380, 122, widths.tubular_secretion, colors.tubular_secretion) }}
 <rect x="380" y="70" width="100" height="76" rx="8" class="bm-node"/><text x="430" y="104" text-anchor="middle">Kidneys</text><text x="430" y="122" text-anchor="middle" class="bm-sub">glomerulus, tubule</text>
-<line x1="480" y1="108" x2="540" y2="108" stroke="{{ colors.renal_excretion }}" stroke-width="{{ widths.renal_excretion }}" stroke-opacity="0.85"/>
-<rect x="540" y="80" width="90" height="56" rx="8" class="bm-node"/><text x="585" y="104" text-anchor="middle">Urine</text><text x="585" y="122" text-anchor="middle" class="bm-sub">unchanged drug</text>
-<line x1="210" y1="136" x2="210" y2="170" stroke="{{ colors.non_renal }}" stroke-width="{{ widths.non_renal }}" stroke-opacity="0.85"/>
+{{ harrow(480, 540, 108, widths.renal_excretion, colors.renal_excretion) }}
+<rect x="540" y="80" width="90" height="56" rx="8" class="bm-node"/><text x="585" y="104" text-anchor="middle">Urinary tract</text><text x="585" y="122" text-anchor="middle" class="bm-sub">drug in urine</text>
+{{ varrow(210, 136, 170, widths.non_renal, colors.non_renal) }}
 <rect x="150" y="170" width="120" height="40" rx="8" class="bm-node"/><text x="210" y="195" text-anchor="middle">Non-renal routes</text>
-<text x="320" y="84" text-anchor="middle" class="bm-sub">filtration</text><text x="320" y="146" text-anchor="middle" class="bm-sub">secretion</text>
+{# Both labels 13 units from their line's centre: clear of the widest line drawn (17, at creatinine clearance 140). #}<text x="320" y="81" text-anchor="middle" class="bm-sub">filtration</text><text x="320" y="142" text-anchor="middle" class="bm-sub">secretion</text>
 </svg>
 </section>
 {% include "body_map_context_panel.html" %}
