@@ -151,7 +151,7 @@ Decided with the owner on 18 November ([REGROUP_2026-11-18.md](REGROUP_2026-11-1
 **Blocked or waiting:**
 - **Lenalidomide kidney model:** every renal-impairment dataset available has been seen.
 - **Bortezomib exposure:** individual concentrations or a mechanism (Phase 2). The Zhang and Mager supplement is held unread; the article is requested.
-- **Exposure–efficacy for lenalidomide (O7):** three searches found no relationship to check against; to be recorded as a finding.
+- **Exposure–efficacy for lenalidomide (O7):** recorded as a gap in the published evidence, and searching stopped (reviewer's checklist O7, 18 November). Reopens only if an analysis is published or released.
 - **Author answers, none blocking:** Zhang and Mager (reprint requested 17 November), Hughes (LinkedIn, pending), Kim (email bounced 18 November). Iwasaki was never contacted.
 
 **Repository:** work goes in batches: one commit per update, one push and one pull request per batch, the branch pushed when its first commit exists (`CLAUDE.md`, HANDOFF). No model is validated for clinical prediction.
