@@ -1,0 +1,75 @@
+{
+ "schema_version": "repository-checkpoint-v1",
+ "checkpoint": "2026-11-18",
+ "classification": "software_and_repository_verification",
+ "tree": {
+  "branch": "main + batch-20",
+  "base": "merge of PR #130 (batch 19)",
+  "covers_batches": "17 to 20"
+ },
+ "machine": "cloud session without the database packages; CI on the pull request is the authoritative run",
+ "unit_tests": {
+  "where": "CI on PR #130",
+  "ci_result": "pass",
+  "cloud_session": "1,526 collected, 300 database-backed errors by design"
+ },
+ "compileall": "pass",
+ "migrations": {
+  "revisions": 9,
+  "changed_since_previous": false
+ },
+ "pinned_data": {
+  "json_files": 232,
+  "earlier_versions_kept": 86,
+  "note": "Counted by stripping version suffixes; the 16 November family count used a slightly different grouping."
+ },
+ "validation_flags_true": [],
+ "locked_checks": 34,
+ "blind_checks": 5,
+ "findings_version": "check-findings-v11.0",
+ "ledger_version": "dataset-ledger-v14.0",
+ "ledger_uses": {
+  "total": 63,
+  "checked_blind": 4,
+  "checked_blind_with_deviation": 2,
+  "checked_not_blind": 37,
+  "built_from": 12,
+  "tuned_on": 5,
+  "reproduction": 2,
+  "compared_model_to_model": 1
+ },
+ "outcomes": {
+  "passed": 2,
+  "consistent": 2,
+  "mixed": 11,
+  "disagrees": 6,
+  "failed": 8,
+  "inconclusive": 3,
+  "not_adopted": 2
+ },
+ "unseen_datasets": {
+  "of": 33,
+  "still_unseen": 9,
+  "note": "Six obtained unread on 17 November; the Hughes, Gupta and Luo fitting datasets cannot be obtained."
+ },
+ "reviewer_checklist": {
+  "O7": "settled as a gap in the published evidence (18 November)",
+  "M8": "not done; the owner will include an independent reviewer"
+ },
+ "repository_hygiene": "pass; one PDF tracked on purpose (EMA 2008 public assessment report, checksummed)",
+ "findings": [
+  "Acceptance rule plan v2's first run failed on an unstable solver step in the Luo model; amended before any result (plan v2.1, Luo model v1.1); committed Luo reports reproduce exactly.",
+  "Round two's pages carried the wrong reader identity and plan checksum; caught and fixed before any reading.",
+  "Reduced-count dry runs do not show that a plan runs at full size.",
+  "None of the six unread sources can give a blind check until its drug has a platform model.",
+  "Decisions 0002 to 0006 recorded; 0003, 0005 and 0006 fix how results are read before they exist."
+ ],
+ "remaining_gates": [
+  "eligibility round two (decision 0006 if missed)",
+  "Track B",
+  "carfilzomib after Track B",
+  "evidence-first small fixes, then ixazomib's drug page",
+  "deferred review findings F04 (a)-(d), F17, F19, F20, F24, F16 second half"
+ ],
+ "clinical_prediction_validated": false
+}
