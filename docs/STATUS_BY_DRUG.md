@@ -42,7 +42,7 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
 
 ## Ixazomib (NINLARO) — published model, checked against outside data
 
-- **On the platform:** the Gupta 2017 population model (AUC shown, peaks not); its scope; special populations.
+- **On the platform:** a drug page (catalogue v2: names, mechanism, label warnings and interactions from the DailyMed SPL version 18, summaries not yet owner-reviewed); the Gupta 2017 population model (AUC shown, peaks not); its scope; special populations.
 - **Checked:** against the dedicated kidney and liver impairment studies *(finding: ixazomib)*. Re-judged with the published estimates' uncertainty added (converted from %RSE, under five ways of doing so): 19 of 20 verdicts hold under all five, and severe kidney impairment AUC becomes too close to call *(finding: acceptance_rule_v2_gupta_luo)*.
 - **Known to be wrong:**
   - exposure is about 1.4-fold too low in solid-tumour and liver-impairment groups;

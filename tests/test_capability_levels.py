@@ -43,8 +43,11 @@ class LevelRules(unittest.TestCase):
         self.assertEqual(levels['Melphalan']['id'], 'knowledge_only')          # not eligible (3.1f)
         self.assertEqual(levels['Daratumumab']['id'], 'published_model_checked')         # evidence status v7
         self.assertEqual(levels['Daratumumab']['outside_data_disagreements'], 2)
+        self.assertEqual(levels['Ixazomib']['id'], 'published_model_checked')            # drug catalogue v2 (18 Nov 2026)
+        self.assertEqual(levels['Ixazomib']['outside_data_disagreements'], 5)
         self.assertTrue(all(levels[d]['id'] == 'knowledge_only' for d in levels
-                            if d not in ('Lenalidomide', 'Bortezomib', 'Pomalidomide', 'Dexamethasone', 'Daratumumab')))
+                            if d not in ('Lenalidomide', 'Bortezomib', 'Pomalidomide', 'Dexamethasone', 'Daratumumab',
+                                         'Ixazomib')))
 
 
 class LevelPages(unittest.TestCase):

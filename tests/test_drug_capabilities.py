@@ -18,7 +18,7 @@ class DrugCapabilitiesTests(unittest.TestCase):
         report = capabilities.capability_inventory()
         # Checkpoint 2026-10-16 finding 2: Hughes 2019 and Kim 2026 are both educational exposure models;
         # the bortezomib PK engine runs only inside the platelet research tool.
-        self.assertEqual(report['counts'], {'drug_entities':9,'educational_exposure_models':2,'research_exposure_components':1,
+        self.assertEqual(report['counts'], {'drug_entities':10,'educational_exposure_models':2,'research_exposure_components':1,
                                            'efficacy_models':0,'toxicity_models':0})
         for row in report['entries']:
             self.assertEqual(row['capabilities']['efficacy']['status'],'not_registered')
@@ -50,7 +50,7 @@ class DrugCapabilitiesTests(unittest.TestCase):
         self.assertNotIn('<h2>Bortezomib</h2>',body)
         self.assertEqual(body.count('class="nav-item active"'),1)
         self.assertEqual(data['selection']['entity_ids'],['lenalidomide'])
-        self.assertEqual(len(data['inventory']['entries']),9)
+        self.assertEqual(len(data['inventory']['entries']),10)
         self.assertEqual(response.headers['Cache-Control'],'no-store')
 
     def test_unavailable_reference_is_not_reported_as_absent(self):

@@ -36,6 +36,7 @@ The reader in mind is a trial designer, clinical pharmacologist or regulatory pr
 ## Done
 
 - **18 November 2026, batch 21:** items 1, 2, 3, 4 and 9. The home page's first exhibit is now the check record (the counts from the findings file, left out if that file fails its checksum), and the Patient Lab example's recorded limitation moved into the lab section. Every count page names its cohort, and a note lists the four cohorts. The explorer says it is live. Drug pages list their checks, each linked to its row on the findings page. The drug pages' caveat is folded, with its wording unchanged. Checked on renderings of the home, trial explorer, landscape and bortezomib pages.
+- **18 November 2026, batch 21:** item 5. Ixazomib is in the drug catalogue (v2, from the NINLARO DailyMed SPL version 18), so `/landscape/drugs/ixazomib` exists, with names, mechanism, six label warnings and two studied interactions. The reviewed names Ixazomib Citrate and MLN9708 now count on its row. The safety, interaction and mechanism catalogues moved to v2 with it; every v1 entry is carried over unchanged. The summaries are AI-written from the label and await the owner's review.
 
 ## Suggested order
 
