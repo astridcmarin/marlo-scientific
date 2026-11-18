@@ -145,7 +145,7 @@ Decided with the owner on 18 November ([REGROUP_2026-11-18.md](REGROUP_2026-11-1
 1. **Owner:** eligibility round two with annotator B (plan v2.1 locked; if the bar is missed, benchmarking is recorded as not validated, [decision 0006](decisions/0006-eligibility-round-two-miss-rule.md)). Track B, the 109 entries of review round 3.
 2. **When Track B closes round 3:** the carfilzomib label-consistency plan, its curve through the intravenous engine, then a locked blind check against the tabulated values of Badros 2013 and Quach 2017, held unread since 17 November (ledger v13; what a blind check may not use: [decision 0003](decisions/0003-what-makes-a-dataset-seen.md)). Then selinexor and thalidomide.
 3. **When round two returns:** its locked analysis, read against decision 0006.
-4. **Evidence first:** make the evidence pages complete and easy to use before adding model pages. What that means page by page is the next plan to write.
+4. **Evidence first:** make the evidence pages complete and easy to use before adding model pages, page by page as [EVIDENCE_FIRST_PLAN.md](EVIDENCE_FIRST_PLAN.md) sets out: small fixes first (the home page leads with evidence; one cohort per count; live versus frozen trials; each drug's findings on its page), then ixazomib's missing drug page, then what the platform holds per drug and its regulatory documents, then catalogue growth after review round 3.
 5. **Organ-level model:** lumped compartments first ([decision 0005](decisions/0005-organ-level-model-lumped-first.md)). Phased-plan steps 2 and 4, the tissue-distribution evidence and evidence classes on the map, are evidence work and come first; the model and its check follow.
 
 **Blocked or waiting:**
