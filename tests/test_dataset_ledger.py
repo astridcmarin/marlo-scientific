@@ -155,6 +155,42 @@ class Gate(unittest.TestCase):
         llm = next(u for u in dl.load_ledger()['uses'] if (u['model'], u['dataset']) == ('eligibility_extractor_llm_c1', 'eligibility_v2_sample'))
         self.assertEqual((llm['role'], llm['report']), ('checked_blind', 'docs/verification/eligibility_validation_llm_c1.json'))
 
+    def test_v13_adds_six_unread_sources_and_nothing_else(self):
+        v12 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v12.json'), dl.LEDGER_V12_SHA256)
+        v13 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v13.json'), dl.LEDGER_V13_SHA256)
+        self.assertEqual(v13['ledger_version'], 'dataset-ledger-v13.0')
+        self.assertEqual(v13['uses'], v12['uses'])
+        self.assertEqual({d: v13['datasets'][d] for d in v12['datasets']}, v12['datasets'])
+        added = set(v13['datasets']) - set(v12['datasets'])
+        self.assertEqual(added, {'badros_2013_carfilzomib_renal', 'quach_2017_carfilzomib_esrd', 'dimopoulos_2021_icaria_renal',
+                                 'sarclisa_epar_2020', 'nct04256707_selinexor_hepatic',
+                                 'zhang_mager_2020_bortezomib_er_supplement'})
+        for d in added:
+            entry = v13['datasets'][d]
+            self.assertIsNone(entry['values_first_seen'], d)
+            self.assertEqual(entry['files'], [], d)
+            self.assertEqual(len(entry['source_files']), 1, d)
+            self.assertRegex(entry['source_files'][0]['sha256'], r'^[0-9a-f]{64}$')
+            self.assertTrue(entry['seen_note'], d)
+            self.assertIn(d, dl.summary()['unseen_datasets'])
+
+    def test_v14_adds_the_two_acceptance_rule_uses_and_nothing_else(self):
+        v13 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v13.json'), dl.LEDGER_V13_SHA256)
+        v14 = dl.load_ledger()
+        self.assertEqual(v14['datasets'], v13['datasets'])
+        self.assertEqual(v14['uses'][:len(v13['uses'])], v13['uses'])
+        added = v14['uses'][len(v13['uses']):]
+        self.assertEqual({(u['model'], u['dataset'], u['role']) for u in added},
+                         {('ixazomib_pk_gupta_2017', 'ixazomib_impairment_studies', 'checked_not_blind'),
+                          ('daratumumab_pk_luo_2021', 'clemens_2017_gen501_sirius', 'checked_not_blind')})
+        self.assertTrue(all(u['report'] == 'docs/verification/acceptance_rule_v2_gupta_luo_v1.json' for u in added))
+
+    def test_sources_whose_conclusion_was_read_say_what_a_blind_check_may_not_use(self):
+        datasets = dl.load_ledger()['datasets']
+        for d in ('badros_2013_carfilzomib_renal', 'dimopoulos_2021_icaria_renal', 'sarclisa_epar_2020'):
+            self.assertIn('never the direction' if d != 'sarclisa_epar_2020' else 'not the direction',
+                          datasets[d]['seen_note'], d)
+
     def test_changed_ledger_is_refused(self):
         with self.assertRaises(dl.LedgerError):
             dl.load_ledger(sha256='0' * 64)

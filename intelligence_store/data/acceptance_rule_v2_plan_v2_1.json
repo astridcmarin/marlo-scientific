@@ -1,0 +1,357 @@
+{
+ "schema_version": "acceptance-rule-plan-v2",
+ "plan_version": "acceptance-rule-v2-plan-v2.1",
+ "recorded_on": "2026-11-18",
+ "drafted_on": "2026-11-17",
+ "status": "locked_before_the_rule_is_run_on_observed_values",
+ "supersedes": {
+  "file": "intelligence_store/data/acceptance_rule_v2_plan_v2.json",
+  "sha256": "fb790f68d960afc336ce8d3a25ecbb42126cce45930b7e744c963a0ae3c13d95",
+  "plan_version": "acceptance-rule-v2-plan-v2.0",
+  "locked_in_commit": "4fe85cd"
+ },
+ "amendments": [
+  {
+   "amendment": "1",
+   "recorded_on": "2026-11-18",
+   "reason": "The first run under plan v2.0 stopped with an error after about 45 minutes, inside a daratumumab cell: the Luo model’s fixed-step integrator produced a negative concentration for a simulated patient, and the log-linear tail then failed. The run aborts inside the parallel map before any cell result is returned, so no pooled percentile, classification or verdict was computed or seen; nothing from the run was kept.",
+   "cause": "Below Km the saturable pathway acts as a first-order rate up to Vmax / (Km V1). For a patient with a high Vmax and a small V1 (the model has 67% and 37% between-subject variability on them) that rate passes RK4’s stability limit at the 1 h coarse step (about 2.785 per step). Model v1.0 then returned wrong concentrations, sometimes negative, sometimes with no error at all; the error only appears when the tail needs a logarithm. Drawing the parameter uncertainty, under five scenarios, reached such patients; the reduced-count dry run did not.",
+   "change": "Luo model v1.1 (intelligence_store/daratumumab_pk_luo.py): each integration block uses at least ceil(span x k / 2.0) steps, k being a Gershgorin bound on the system’s rate at the block’s start. Same equations and parameters. Nothing in this plan’s rule, scope, conversions, scenarios, counts, seeds or margin changes.",
+   "verification": [
+    "Where v1.0’s step already met the bound, the output is bit-identical: 41 ordinary patients at two doses, and 20 in tests/test_daratumumab_pk_luo.py (StiffPatients).",
+    "A stiff patient (Vmax x10, V1 x0.3, Km x0.5) now matches a 0.05 h step to five decimal places of the ratio; under v1.0 it returned a negative concentration at 168 h.",
+    "Both committed Luo check reports (v1 and v2) were rerun in full under v1.1 and are identical to the committed ones in every field except model_version and report_sha256: no patient in either check reached the unstable region, so neither report changes."
+   ]
+  }
+ ],
+ "previous_plan": {
+  "file": "intelligence_store/data/acceptance_rule_v2_plan_v1.json",
+  "sha256": "75ea018e97adde8ec9af997f6fe0099515e0928c586d237b8fa41aa7303a4046",
+  "plan_version": "acceptance-rule-v2-plan-v1.0",
+  "relation": "Plan v1 applied the rule to the four lenalidomide checks and stays in force for them. This plan extends the rule to two more checks and does not change plan v1 or its report."
+ },
+ "source_of_the_question": {
+  "decision": "docs/decisions/0004-acceptance-rule-precision-conversion.md",
+  "finding": "F03 (docs/reviews/2026-11_fable_review.md)",
+  "precision_extraction": "docs/reviews/2026-11_precision_extraction_gupta_luo_li.md",
+  "summary": "The rule draws parameter sets from published uncertainty. Gupta 2017 and Luo 2021 publish %RSE only, so their estimates are converted into draws, with correlation scenarios because neither publishes a covariance."
+ },
+ "amendment_approved_by_owner": "18 November 2026: amendment 1 approved.",
+ "approved_by_owner": "18 November 2026: approved as drafted on 17 November, including scope (Gupta 2017 and the second Luo 2021 check; Li 2017 out), the %RSE conversions, the five uncertainty scenarios and their correlation values, the counts, seeds and margin.",
+ "question": "For the Gupta 2017 ixazomib check and the second Luo 2021 daratumumab check, which verdicts hold when the uncertainty of the published estimates is added, which sit too close to a limit to call, and which depend on how that uncertainty is converted?",
+ "scope": {
+  "checks": [
+   {
+    "id": "gupta_ixazomib",
+    "model": "ixazomib_pk_gupta_2017",
+    "module": "intelligence_store/ixazomib_pk_gupta_check.py",
+    "plan": {
+     "file": "intelligence_store/data/ixazomib_pk_gupta_check_plan_v1_1.json",
+     "sha256": "2c91074731f5cecefa6c84fea915aa7aff28e5f8fb58e0e3e37f857e1dc9e4c4"
+    },
+    "report": {
+     "file": "docs/verification/ixazomib_pk_gupta_check_v1.json",
+     "sha256": "087966b6535d0082c5acf7e7f018eca258b74037a671a3febabae5c523f80506"
+    },
+    "extract": {
+     "file": "intelligence_store/data/ixazomib_pk_gupta_2017_extract_v1.json",
+     "sha256": "d4fe97e4a8659b993541c9bd960ff6d6c519b4fe913b3ad27de84ce894b233bf"
+    },
+    "endpoints": "Every endpoint in the report’s classification_by_endpoint: the geometric mean Cmax and AUC0-last of each renal and hepatic group, and the ratio of each impaired group to its study’s normal group (20 endpoints).",
+    "own_virtual_trials": 2000
+   },
+   {
+    "id": "luo_daratumumab",
+    "model": "daratumumab_pk_luo_2021",
+    "module": "intelligence_store/daratumumab_pk_luo_check_v2.py",
+    "plan": {
+     "file": "intelligence_store/data/daratumumab_pk_luo_check_plan_v2.json",
+     "sha256": "52952fd5d3347d22a2d1b5691be0c63c51ef1f5fd47cc1fda28ab3aba55d73db"
+    },
+    "report": {
+     "file": "docs/verification/daratumumab_pk_luo_check_v2.json",
+     "sha256": "40862b42fb00d8095653c39c601955eff7141b98d6119eb0d1b3ee9ab342d028"
+    },
+    "extract": {
+     "file": "intelligence_store/data/daratumumab_pk_luo_2021_extract_v1.json",
+     "sha256": "8c68ddb7a849ce00a6340e0a7b4ec58ecf9e720491be8b55f1a47c774293d4f6"
+    },
+    "endpoints": "Every endpoint of the check: SIRIUS 8 mg/kg Cmax and AUCinf, GEN501 16 mg/kg Cmax and AUC0-7d (primary) and GEN501 8 mg/kg Cmax (secondary), first full intravenous infusion.",
+    "own_virtual_trials": 1000
+   }
+  ],
+  "not_in_scope": {
+   "li_2017_pomalidomide": "Out of scope. The platform’s only check of the Li 2017 model compares it with the label engine (label_exposure_pomalidomide_li_check_v1, compared_model_to_model); no observed data are involved, so the rule has nothing to judge. Decision 0004 named Li 2017 in error, and is corrected in the commit that records this plan.",
+   "luo_check_v1": "Superseded by the second Luo check (study demographics), which is the one in scope.",
+   "random_effects": "The precision of the between-subject variances is not drawn, as in plan v1. Uncertainty is therefore understated.",
+   "between_study_normal_groups": "The Gupta check’s descriptive between-study comparison is not a classified endpoint of that check and is not judged here."
+  }
+ },
+ "parameter_uncertainty": {
+  "module": "intelligence_store/parameter_uncertainty.py",
+  "gupta_2017": {
+   "scale_evidence": "Gupta 2017 Table 3 note: “Model parameters and RSEs correspond to the raw estimates provided by NONMEM”; the structural estimates are printed on the log scale (log CL 0.62 and so on), so each %RSE belongs to the log-scale estimate.",
+   "draw": [
+    {
+     "name": "ka_per_h",
+     "distribution": "log_normal",
+     "sd": "rse_of_log_estimate"
+    },
+    {
+     "name": "cl_l_h",
+     "distribution": "log_normal",
+     "sd": "rse_of_log_estimate"
+    },
+    {
+     "name": "v2_l",
+     "distribution": "log_normal",
+     "sd": "rse_of_log_estimate"
+    },
+    {
+     "name": "f",
+     "distribution": "log_normal",
+     "sd": "rse_of_log_estimate"
+    },
+    {
+     "name": "q3_l_h",
+     "distribution": "log_normal",
+     "sd": "rse_of_log_estimate"
+    },
+    {
+     "name": "v3_l",
+     "distribution": "log_normal",
+     "sd": "rse_of_log_estimate"
+    },
+    {
+     "name": "q4_l_h",
+     "distribution": "log_normal",
+     "sd": "rse_of_log_estimate"
+    },
+    {
+     "name": "v4_l",
+     "distribution": "log_normal",
+     "sd": "rse_of_log_estimate"
+    },
+    {
+     "name": "bsa_exponent_on_v4",
+     "distribution": "normal",
+     "sd": "rse_of_value"
+    }
+   ],
+   "median": "The platform’s untransformed value (for example 1.86 L/h), not exp of the two-decimal log estimate, so the draws centre on the curve the check simulated.",
+   "not_drawn": {
+    "tlag_h": "Printed RSE 0%; treated as fixed."
+   },
+   "note": "RSEs are printed as whole numbers: V3 and V4 at 1% could be anywhere from 0.5% to 1.5%. The rse_rounding_upper scenario covers the upper end."
+  },
+  "luo_2021": {
+   "scale_evidence": "Luo 2021 Table S1 prints the estimates on the natural scale and does not say on which scale the %RSE was computed; it is taken as a coefficient of variation of the printed estimate.",
+   "draw": [
+    {
+     "name": "cl_l_h",
+     "distribution": "log_normal",
+     "sd": "rse_as_cv"
+    },
+    {
+     "name": "v1_l",
+     "distribution": "log_normal",
+     "sd": "rse_as_cv"
+    },
+    {
+     "name": "v2_l",
+     "distribution": "log_normal",
+     "sd": "rse_as_cv"
+    },
+    {
+     "name": "q_l_h",
+     "distribution": "log_normal",
+     "sd": "rse_as_cv"
+    },
+    {
+     "name": "vmax_mg_h",
+     "distribution": "log_normal",
+     "sd": "rse_as_cv"
+    },
+    {
+     "name": "km_ug_ml",
+     "distribution": "log_normal",
+     "sd": "rse_as_cv"
+    },
+    {
+     "name": "kdes_per_h",
+     "distribution": "log_normal",
+     "sd": "rse_as_cv"
+    },
+    {
+     "name": "alb_exponent_on_cl",
+     "distribution": "normal",
+     "sd": "rse_of_value"
+    },
+    {
+     "name": "wt_exponent_on_cl",
+     "distribution": "normal",
+     "sd": "rse_of_value"
+    },
+    {
+     "name": "igg_shift_on_cl",
+     "distribution": "normal",
+     "sd": "rse_of_value"
+    },
+    {
+     "name": "wt_exponent_on_v1",
+     "distribution": "normal",
+     "sd": "rse_of_value"
+    },
+    {
+     "name": "sex_shift_on_v1",
+     "distribution": "normal",
+     "sd": "rse_of_value"
+    }
+   ],
+   "not_drawn": {
+    "ka_per_h": "Subcutaneous absorption; does not enter a first intravenous infusion.",
+    "f_sc": "Subcutaneous bioavailability; does not enter a first intravenous infusion."
+   },
+   "note": "Exponents and the IgG and sex shifts can be zero or negative, so they are normal. The IgG shift enters clearance as (1 + shift) and the sex shift volume as (1 + shift); with the printed RSEs both factors stay positive in every practical draw."
+  }
+ },
+ "uncertainty_scenarios": {
+  "independent": {
+   "role": "primary",
+   "correlation": null,
+   "shape": "as_planned",
+   "rse_add_percentage_points": {
+    "gupta_2017": 0.0,
+    "luo_2021": 0.0
+   },
+   "run_on": "every simulation scenario of the check"
+  },
+  "uniform_positive_0_5": {
+   "role": "correlation",
+   "correlation": {
+    "uniform": 0.5,
+    "among": "log_normal"
+   },
+   "shape": "as_planned",
+   "rse_add_percentage_points": {
+    "gupta_2017": 0.0,
+    "luo_2021": 0.0
+   },
+   "run_on": "primary simulation scenario",
+   "why": "Structural estimates of a population PK model usually move together; a common positive correlation is the simplest scenario that says so. The exponents and shifts, whose signs are arbitrary, are left out."
+  },
+  "identifiability_pairs": {
+   "role": "correlation",
+   "correlation": {
+    "pairs": {
+     "gupta_2017": [
+      [
+       "cl_l_h",
+       "f",
+       0.8
+      ]
+     ],
+     "luo_2021": [
+      [
+       "vmax_mg_h",
+       "km_ug_ml",
+       0.8
+      ],
+      [
+       "cl_l_h",
+       "vmax_mg_h",
+       -0.5
+      ]
+     ]
+    }
+   },
+   "shape": "as_planned",
+   "rse_add_percentage_points": {
+    "gupta_2017": 0.0,
+    "luo_2021": 0.0
+   },
+   "run_on": "primary simulation scenario",
+   "why": "The pairs the data separate least. Oral exposure fixes F/CL better than either, so their estimates rise together; Vmax and Km of a saturable pathway trade against each other; linear and saturable clearance share the elimination. The values are chosen, not published."
+  },
+  "normal_on_natural_scale": {
+   "role": "shape",
+   "correlation": null,
+   "shape": "normal_on_natural_scale",
+   "rse_add_percentage_points": {
+    "gupta_2017": 0.0,
+    "luo_2021": 0.0
+   },
+   "run_on": "primary simulation scenario",
+   "why": "The other common reading of a %RSE. A non-positive draw is redrawn and counted."
+  },
+  "rse_rounding_upper": {
+   "role": "rounding",
+   "correlation": null,
+   "shape": "as_planned",
+   "rse_add_percentage_points": {
+    "gupta_2017": 0.5,
+    "luo_2021": 0.05
+   },
+   "run_on": "primary simulation scenario",
+   "why": "Each printed RSE at the upper end of its rounding (whole numbers in Gupta, one decimal in Luo)."
+  }
+ },
+ "rule": {
+  "simulation": "Each check’s own simulate_scenario, scenarios, group sizes, covariates and between-subject variability, unchanged, with the Luo model at v1.1 (amendment 1). The drawn estimates are passed in as a copy of the check’s own pinned extract with those values replaced; the check modules are not edited.",
+  "outer_parameter_sets": {
+   "gupta_ixazomib": 400,
+   "luo_daratumumab": 200
+  },
+  "inner_trials_per_set": {
+   "gupta_ixazomib": 5,
+   "luo_daratumumab": 5
+  },
+  "total_note": "Outer x inner equals each check’s own number of virtual trials (2000 and 1000).",
+  "seeds": [
+   20261117,
+   20261118,
+   20261119,
+   20261120,
+   20261121
+  ],
+  "seed_note": "For simulation scenario i, parameter draws use seed + 1000 i and the virtual trials use seed + 1000 i + 500, from separate generators. Both are the same under every uncertainty scenario, so the scenarios differ only in how the same random numbers become parameter values.",
+  "indeterminate_margin": 0.05,
+  "classes": {
+   "consistent": "observed value inside the 5th-95th percentile of the pooled simulated values, and not within the margin of either limit",
+   "model_under_predicts": "observed above the 95th percentile, beyond the margin",
+   "model_over_predicts": "observed below the 5th percentile, beyond the margin",
+   "indeterminate": "observed within 5% (relative) of either limit, or the class differs between any of the five seeds"
+  },
+  "reading": {
+   "verdict_v2": "The class under the independent scenario on the check’s primary simulation scenario.",
+   "stable": "The class is the same under all five uncertainty scenarios on the primary simulation scenario.",
+   "reading": "verdict_v2 when stable; otherwise undecided_across_uncertainty_scenarios. Decision 0004: the rule does not pick a scenario.",
+   "robust_across_simulation_scenarios": "The independent-scenario class is the same in every simulation scenario of the check, reported as the checks themselves do."
+  }
+ },
+ "reported": [
+  "every (check, endpoint, simulation scenario, uncertainty scenario): observed value, pooled 5th/50th/95th percentile of the first seed, class under each seed, verdict",
+  "per endpoint: verdict_v2, stable, reading, robust across simulation scenarios, the check’s own v1 class and whether it changed",
+  "the number of redrawn non-positive values under normal_on_natural_scale"
+ ],
+ "old_verdicts": "Not changed. The two check reports stay as committed; v2 readings are reported beside them.",
+ "blindness": "Not blind. Every observed value used here was read before this plan; the ledger records the uses as checked_not_blind.",
+ "model": "ixazomib_pk_gupta_2017 and daratumumab_pk_luo_2021",
+ "datasets": [
+  {
+   "id": "ixazomib_impairment_studies",
+   "role": "checked_not_blind"
+  },
+  {
+   "id": "clemens_2017_gen501_sirius",
+   "role": "checked_not_blind"
+  }
+ ],
+ "dry_run": "tests/test_acceptance_rule_v2_gupta_luo.py runs this plan’s own executable end to end through this plan object at reduced counts, before the lock, with every observed value replaced by a synthetic one; the executable refuses a synthetic run that leaves any observed value in place. No observed value is classified before the lock.",
+ "not_this": [
+  "Not a new check of either model and not a blind test.",
+  "Parameter uncertainty is converted from %RSE with assumptions the papers do not state; each uncertainty scenario is one such assumption, and none is the paper’s own.",
+  "A consistent verdict is not validation; an inconsistent one does not say why."
+ ],
+ "clinical_prediction_validated": false
+}

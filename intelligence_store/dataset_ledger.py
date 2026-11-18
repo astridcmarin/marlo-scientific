@@ -10,8 +10,12 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v12.json'
-LEDGER_SHA256 = '742f420380f1a8f32b7ef4e876e53104bb083a76cef812ab9a8321e4b1b795e8'
+LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v14.json'
+LEDGER_SHA256 = '7de169002e2f789374085df9dd53a057a9d4c73862e2b5d20668a1d91e5d5a1b'
+# Superseded, kept unchanged for traceability: dataset_ledger_v13.json (v14 adds the acceptance rule v2 plan v2.1 uses)
+LEDGER_V13_SHA256 = 'c90c91f52ecaf282f3dabb0080f782d6fe0cd055dedcb1fdf73cd0002f3acf1b'
+# Superseded, kept unchanged for traceability: dataset_ledger_v12.json (v13 adds six sources obtained unread)
+LEDGER_V12_SHA256 = '742f420380f1a8f32b7ef4e876e53104bb083a76cef812ab9a8321e4b1b795e8'
 # Superseded, kept unchanged for traceability: dataset_ledger_v11.json (v12 adds the adjudication)
 LEDGER_V11_SHA256 = '6e08cd753efab500b41891101250f80b0f854b4e91f542fa08dfed600bcb70d9'
 # Superseded, kept unchanged for traceability: dataset_ledger_v10.json (v11 adds annotator B's second annotation)

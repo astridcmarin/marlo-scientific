@@ -179,8 +179,7 @@ class RoundTwoPlan(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        import json as _json
-        cls.plan = _json.loads((sa.DATA / 'eligibility_second_annotation_plan_v2_1.json').read_bytes())
+        cls.plan = sa.load_plan(sa.PLANS['eligibility-second-annotation-plan-v2.1'][0])
 
     def test_pins_guide_v3(self):
         import hashlib
@@ -267,6 +266,9 @@ class RoundTwoPlan(unittest.TestCase):
         self.assertEqual(rep['comparison'], 'v2')
         self.assertEqual(rep['reliability_reading']['bar'], 0.90)
         self.assertEqual(rep['overall']['pairs'], 400)
+        # The report names the plan that governed it, not plan v1 (found 17 November 2026).
+        self.assertEqual(rep['plan_version'], 'eligibility-second-annotation-plan-v2.1')
+        self.assertEqual(rep['plan_sha256'], sa.PLANS['eligibility-second-annotation-plan-v2.1'][1])
 
     def test_the_interval_does_not_depend_on_whose_page_was_passed(self):
         pb, pa = sa.page_payload(self.plan, 'annotator_b'), sa.page_payload(self.plan, 'owner')
@@ -285,6 +287,116 @@ class RoundTwoPlan(unittest.TestCase):
         pb, pa = sa.page_payload(self.plan, 'annotator_b'), sa.page_payload(self.plan, 'owner')
         with self.assertRaises(ValueError):
             sa.agreement(self._blank(pb), pb, record_a=self._blank(pa), comparison='v2', plan=self.plan)
+
+
+class PinnedPlans(unittest.TestCase):
+    """Every plan the module may run is pinned by its loader, and carries the analysis keys the executable reads."""
+
+    def test_every_pinned_plan_loads_and_declares_its_own_version(self):
+        for version, (path, sha) in sa.PLANS.items():
+            plan = sa.load_plan(path)
+            self.assertEqual(plan['plan_version'], version)
+            self.assertEqual(sa.plan_sha256(plan), sha)
+
+    # Plan v2.0 is pinned only so v2.1 can name what it supersedes. It omitted the bootstrap seed and resample count
+    # and named the bar `bar`, so it cannot govern its own analysis; that is why v2.1 exists.
+    NOT_RUNNABLE = {'eligibility-second-annotation-plan-v2.0'}
+    KEYS = ('bootstrap_seed', 'bootstrap_resamples', 'reliability_bar', 'reading_rule')
+
+    def test_every_runnable_plan_carries_the_analysis_keys_the_executable_reads(self):
+        for version, (path, _) in sa.PLANS.items():
+            if version in self.NOT_RUNNABLE:
+                continue
+            a = sa.load_plan(path)['analysis']
+            for key in self.KEYS:
+                self.assertIn(key, a, f'{version}: {key}')
+
+    def test_plan_v2_0_is_the_one_that_does_not(self):
+        a = sa.load_plan(sa.PLANS['eligibility-second-annotation-plan-v2.0'][0])['analysis']
+        self.assertNotIn('bootstrap_seed', a)
+        later = sa.load_plan(sa.PLANS['eligibility-second-annotation-plan-v2.1'][0])
+        self.assertEqual(later['supersedes']['plan_version'], 'eligibility-second-annotation-plan-v2.0')
+
+    def test_an_unpinned_plan_file_is_refused(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d) / 'plan.json'
+            p.write_bytes((sa.DATA / 'eligibility_second_annotation_plan_v2_1.json').read_bytes())
+            with self.assertRaises(ValueError):
+                sa.load_plan(p)
+
+
+class RoundTwoPages(unittest.TestCase):
+    """Each reader's page carries its own identity and the checksum of the plan in force (17 November 2026: both
+    pages had come out as annotator B's, declaring plan v2.1 and carrying plan v1's checksum)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.plan = sa.load_plan(sa.PLANS['eligibility-second-annotation-plan-v2.1'][0])
+        cls.dir = tempfile.TemporaryDirectory()
+        cls.html = {}
+        for reader in ('owner', 'annotator_b'):
+            path = Path(cls.dir.name) / f'{reader}.html'
+            sa.write_page(path, cls.plan, reader)
+            cls.html[reader] = path.read_text(encoding='utf-8')
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.dir.cleanup()
+
+    def test_each_page_names_its_own_reader(self):
+        own, b = self.html['owner'], self.html['annotator_b']
+        self.assertIn('<title>Eligibility annotation (the owner)</title>', own)
+        self.assertIn("annotator: {code: 'A'", own)
+        self.assertIn("'eligibility_owner_final_'", own)
+        self.assertNotIn("'eligibility_annotator_b_", own)
+        self.assertIn('<title>Eligibility annotation (annotator B)</title>', b)
+        self.assertIn("annotator: {code: 'B'", b)
+        self.assertIn("'eligibility_annotator_b_final_'", b)
+        self.assertNotIn("'eligibility_owner_", b)
+
+    def test_each_page_carries_the_checksum_of_the_plan_in_force(self):
+        want = sa.PLANS['eligibility-second-annotation-plan-v2.1'][1]
+        self.assertNotEqual(want, sa.PLAN_SHA256)
+        for reader in ('owner', 'annotator_b'):
+            self.assertEqual(sa.page_payload(self.plan, reader)['plan_sha256'], want)
+            self.assertNotIn(sa.PLAN_SHA256, self.html[reader])
+
+    def test_each_page_names_the_guide_it_carries(self):
+        for reader in ('owner', 'annotator_b'):
+            self.assertIn('The annotation guide (version 3)', self.html[reader])
+
+    def test_a_record_from_the_other_reader_is_refused(self):
+        p = sa.page_payload(self.plan, 'owner')
+        record = {'schema_version': sa.RECORD_SCHEMA, 'page_sha256': p['page_sha256'], 'locked_at': '2026-11-20T10:00:00Z',
+                  'annotator': {'code': 'B', 'background': 'synthetic'},
+                  'annotations': {t['nct_id']: {f'{k}__status': 'not_stated' for k in v2.TYPES} for t in p['trials']}}
+        problems, _ = sa.validate_record(record, p, reader='owner')
+        self.assertTrue(any('reader' in x for x in problems), problems)
+        record['annotator']['code'] = 'A'
+        problems, _ = sa.validate_record(record, p, reader='owner')
+        self.assertFalse(any('reader' in x for x in problems), problems)
+
+    def test_reader_and_plan_build_that_readers_payload(self):
+        p = sa.page_payload(self.plan, 'annotator_b')
+        record = {'schema_version': sa.RECORD_SCHEMA, 'page_sha256': p['page_sha256'], 'locked_at': '2026-11-20T10:00:00Z',
+                  'annotator': {'code': 'B', 'background': 'synthetic'},
+                  'annotations': {t['nct_id']: {f'{k}__status': 'not_stated' for k in v2.TYPES} for t in p['trials']}}
+        self.assertEqual(sa.validate_record(record, reader='annotator_b', plan=self.plan)[0], [])
+
+    def test_round_one_page_is_unchanged(self):
+        pinned = json.loads((sa.DATA / 'eligibility_annotator_b_record_v1.json').read_bytes())['page_sha256']
+        self.assertEqual(sa.page_payload()['page_sha256'], pinned)
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / 'round_one.html'
+            sa.write_page(path)
+            page = path.read_text(encoding='utf-8')
+        self.assertIn('<title>Eligibility annotation (annotator B)</title>', page)
+        self.assertIn("annotator: {code: 'B'", page)
+        self.assertIn('The annotation guide (version 2)', page)
+
+    def test_an_unknown_reader_is_refused(self):
+        with self.assertRaises(ValueError):
+            sa.reader_identity('annotator_c')
 
 
 if __name__ == '__main__':

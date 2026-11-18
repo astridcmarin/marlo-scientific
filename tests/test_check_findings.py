@@ -67,7 +67,7 @@ class Findings(unittest.TestCase):
 
     def test_v10_only_adds_the_adjudication(self):
         old_raw = cf.FINDINGS_PATH.with_name('check_findings_v9.json').read_bytes()
-        old, new = json.loads(old_raw), json.loads(cf.FINDINGS_PATH.read_bytes())
+        old, new = json.loads(old_raw), json.loads(cf.FINDINGS_PATH.with_name('check_findings_v10.json').read_bytes())
         self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V9_SHA256)
         before, after = {f['id']: f for f in old['findings']}, {f['id']: f for f in new['findings']}
         self.assertEqual(set(after) - set(before), {'eligibility_adjudication_v1'})
@@ -76,6 +76,20 @@ class Findings(unittest.TestCase):
         self.assertEqual(added['outcome'], 'mixed')
         self.assertIn('lower bounds', added['acceptance_rule'])
         self.assertIn('measures the readers', added['headline'])
+
+    def test_v11_adds_acceptance_rule_v2_for_gupta_and_luo(self):
+        old = json.loads(cf.FINDINGS_PATH.with_name('check_findings_v10.json').read_bytes())
+        new = json.loads(cf.FINDINGS_PATH.read_bytes())
+        self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V10_SHA256)
+        before, after = {f['id']: f for f in old['findings']}, {f['id']: f for f in new['findings']}
+        self.assertEqual(set(after) - set(before), {'acceptance_rule_v2_gupta_luo'})
+        for k in before:
+            if k in ('ixazomib', 'daratumumab_v2'):
+                self.assertEqual(after[k]['acceptance_rule'], before[k]['acceptance_rule'] + ' Re-judged under acceptance rule v2 (18 November).')
+                self.assertEqual({x: y for x, y in after[k].items() if x != 'acceptance_rule'},
+                                 {x: y for x, y in before[k].items() if x != 'acceptance_rule'})
+            else:
+                self.assertEqual(after[k], before[k], k)
 
     def test_blindness_comes_from_the_ledger(self):
         blind = {r['id']: r['blindness'] for r in self.rows if r['blind']}
