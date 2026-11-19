@@ -72,7 +72,8 @@ class Records(unittest.TestCase):
 
     def test_other_queues_are_not_affected_by_the_round_4_record(self):
         self.assertEqual(er.queue_view()['counts']['matches'], 166)
-        self.assertEqual(er.round_3_view()['records'], [])
+        self.assertEqual([r['file'] for r in er.round_3_view()['records']],
+                         ['extraction_review_record_2026-11-19_round3_track_b_v1.json'])
 
 
 class Page(unittest.TestCase):

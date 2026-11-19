@@ -47,6 +47,32 @@ def load_result():
     return _pinned(RESULT_PATH, RESULT_SHA256, 'Double-extraction result')
 
 
+def decision(records=None):
+    """The plan's decision rule, applied to the owner's pinned round 3 record(s).
+
+    pass: none of the 20 sampled agreements is wrong (and all were reviewed); the agreements not sampled are then
+    "agreed by two independent extractions, sampled", not owner-reviewed. fail: any sampled agreement is wrong, and
+    every remaining agreement is to be reviewed in full. pending: a sampled agreement has no decision yet.
+    """
+    from .extraction_review import QUEUES, load_records
+    plan, result = load_plan(), load_result()
+    status = {}
+    for rec in load_records(records):
+        if rec['queue_sha256'] == QUEUES['round_3'][1]:
+            status.update(rec['decisions'])
+    sampled = result['agreement_sample']['ids']
+    agreeing = sorted(e['id'] for e in result['entries'] if e['result'] == 'agree')
+    decided = {i: status[i]['decision'] for i in sampled if i in status}
+    wrong = sorted(i for i, d in decided.items() if d == 'wrong')
+    outcome = 'fail' if wrong else ('pass' if len(decided) == len(sampled) else 'pending')
+    rest = [i for i in agreeing if i not in sampled]
+    return {'outcome': outcome, 'rule': plan['decision_rule'][outcome] if outcome in ('pass', 'fail') else None,
+            'sampled': len(sampled), 'sampled_reviewed': len(decided), 'sampled_wrong': wrong,
+            'sampled_cannot_check': sorted(i for i, d in decided.items() if d == 'cannot_check'),
+            'agreed_sampled_ids': rest if outcome == 'pass' else [],
+            'review_in_full_ids': [i for i in rest if i not in status] if outcome == 'fail' else []}
+
+
 def opaque_id(item_id):
     return 'B-' + hashlib.sha256(item_id.encode()).hexdigest()[:10]
 

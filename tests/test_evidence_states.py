@@ -20,12 +20,15 @@ class States(unittest.TestCase):
         for f, s in self.states.items():
             if s['state'] == 'reviewed_by_owner':
                 self.assertEqual(s['counts']['matches'], sum(s['counts'].values()), f)
-            self.assertNotEqual(s['state'], 'agreed_by_two_extractions', 'No double-extraction record exists yet')
+            if s['state'] == 'agreed_by_two_extractions':
+                self.assertEqual(s['counts']['matches'] + s['counts']['agreed_sampled'], sum(s['counts'].values()), f)
 
     def test_known_states(self):
         self.assertEqual(self.states[DATA + 'hughes_parameter_extract_v1.json']['state'], 'reviewed_by_owner')
-        self.assertEqual(self.states[DATA + 'hughes_parameter_precision_v2.json']['state'], 'extracted')
+        # After Track B (19 November 2026): reviewed in full; two quotes found wrong (corrected in v2); some agreed.
+        self.assertEqual(self.states[DATA + 'hughes_parameter_precision_v2.json']['state'], 'reviewed_by_owner')
         self.assertEqual(self.states[DATA + 'fda_renal_impairment_guidance_2024_v1.json']['state'], 'extracted')
+        self.assertEqual(self.states[DATA + 'lenalidomide_label_2023_pk_v1.json']['state'], 'agreed_by_two_extractions')
 
     def test_model_checks_are_reported_separately_from_the_value(self):
         s = self.states[DATA + 'hughes_parameter_extract_v1.json']

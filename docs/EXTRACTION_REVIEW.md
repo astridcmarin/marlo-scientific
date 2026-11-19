@@ -129,3 +129,11 @@ Page `/models/extraction-review/round-4` (linked from the full queue). It lists 
 ### Round 4 result (reviewed and pinned 19 November 2026)
 
 Record `intelligence_store/data/extraction_review_record_2026-11-19_round4_v1.json`, reviewer "Platform owner", pinned in `REVIEW_RECORDS`. All 14 ixazomib catalogue entries marked **matches**: the names, mechanism, label warnings and interactions of drug catalogue v2 are owner-reviewed against the NINLARO label. No catalogue changes.
+
+### Round 3 result, Track B (reviewed and pinned 19 November 2026)
+
+Record `intelligence_store/data/extraction_review_record_2026-11-19_round3_track_b_v1.json`, reviewer "Platform owner", pinned in `REVIEW_RECORDS`: all 109 Track B entries, **102 matches and 7 wrong**. The seven are FDA guidance entries, checked against the two PDFs in `supplemental-information/articles` (kidney March 2024, SHA-256 47b59f97…; liver draft September 2026, 414cb360…):
+- kidney guidance: the indexed-eGFR quote drops "and", the Cockcroft–Gault weight quote drops "of renal function". Both were already corrected in `fda_renal_impairment_guidance_2024_v2.json` (16 November), which the pages use;
+- liver guidance: five locations are one printed page off (the Child–Pugh sentence is on page 4, line 145; the groups sentence and Table 1 on page 5). Values unchanged.
+
+**The plan's decision rule passes:** none of the 20 sampled agreements is wrong. The 12 agreements not sampled are recorded as "agreed by two independent extractions, sampled", not as owner-reviewed (`double_extraction.decision()`; the round 3 page and each file's review line count them separately). Round 3 is settled: 102 match, 7 wrong, 12 agreed and sampled. Six extracts now have the state "agreed by two extractions, sampled": the REVLIMID pharmacokinetics extract and the five label extracts of 4 November.

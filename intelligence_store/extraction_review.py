@@ -42,6 +42,7 @@ REVIEW_RECORDS = (
     ('extraction_review_record_2026-11-03_v1.json', '8bf417fb74bce88361db9a1c7f171dc8e12f96d2be1f8b100b250635b9ffb478'),  # round 1, Astrid, 3 November 2026
     ('extraction_review_record_2026-11-04_round2_v1.json', 'e7e6da378e62fa9884cb55a1edc4359dc8a0fdf3a2bce76521187969b28128e7'),  # round 2, Astrid, 4 November 2026
     ('extraction_review_record_2026-11-19_round4_v1.json', '4251b8ab823baaddef28f28733e60e9d2a6de14f0062514cbea54927e890c777'),  # round 4, platform owner, 19 November 2026
+    ('extraction_review_record_2026-11-19_round3_track_b_v1.json', 'c4b4c04f148fddf1bd4ed85fa4ef6b0098a758318b028983642276bc23cda745'),  # round 3 Track B, platform owner, 19 November 2026
 )
 
 
@@ -200,10 +201,24 @@ def round_2_view(records=None):
     return view
 
 
+def agreed_sampled_ids(records=None):
+    """Round 3 entries the Track B rule labels "agreed by two independent extractions, sampled" (empty unless it passed)."""
+    from .double_extraction import decision
+    return set(decision(records)['agreed_sampled_ids'])
+
+
 def round_3_view(records=None, queue_name='round_3'):
     """The round 3 queue (values shown on pages, no calculation), in the round layout of the review page.
-    Round 4 (queue_name='round_4') uses the same layout."""
+    Round 4 (queue_name='round_4') uses the same layout. In round 3, entries the Track B rule accepted without an
+    owner decision carry `agreed_sampled` and are counted apart from the unreviewed ones."""
     view = queue_view(records, queue_name)
+    if queue_name == 'round_3':
+        agreed = agreed_sampled_ids(records)
+        for g in view['groups']:
+            for i in g['items']:
+                i['agreed_sampled'] = (not i['status']) and i['id'] in agreed
+        n = sum(1 for g in view['groups'] for i in g['items'] if i['agreed_sampled'])
+        view['counts'] = dict(view['counts'], unreviewed=view['counts']['unreviewed'] - n, agreed_sampled=n)
     queue = load_queue(*QUEUES[queue_name])
     view = dict(view, round=queue['round'], round_purpose=queue['purpose'], round_caution=queue['excluded'],
                 round_total=view['total'])
@@ -312,10 +327,12 @@ KEY_FILES = {
 }
 
 
-def _file_status(group):
+def _file_status(group, agreed=frozenset()):
     items = group['items']
     counts = {d: sum(1 for i in items if i['status'] and i['status']['decision'] == d) for d in DECISIONS}
-    counts['unreviewed'] = sum(1 for i in items if not i['status'])
+    counts['unreviewed'] = sum(1 for i in items if not i['status'] and i['id'] not in agreed)
+    if any(not i['status'] and i['id'] in agreed for i in items):
+        counts['agreed_sampled'] = sum(1 for i in items if not i['status'] and i['id'] in agreed)
     dates = sorted({i['status']['reviewed_on'] for i in items if i['status']})
     reviewers = sorted({i['status']['reviewer'] for i in items if i['status']})
     n, name = len(items), group['file'].rsplit('/', 1)[-1]
@@ -328,7 +345,8 @@ def _file_status(group):
     else:
         parts = [f"{counts['matches']} of {n} values the platform uses from {name} match the source"]
         parts += [f"{counts[k]} {label}" for k, label in (('wrong', 'found wrong'), ('cannot_check', 'could not be checked'),
-                                                          ('unreviewed', 'not yet reviewed')) if counts[k]]
+                                                          ('agreed_sampled', 'agreed by two independent extractions, sampled, not owner-reviewed'),
+                                                          ('unreviewed', 'not yet reviewed')) if counts.get(k)]
         text = 'Owner review: ' + '; '.join(parts) + f' (platform owner, {when}). Not an independent review.'
     return {'file': group['file'], 'values': n, 'counts': counts, 'reviewed_on': dates, 'reviewers': reviewers,
             'all_match': counts['matches'] == n, 'text': text}
@@ -343,4 +361,8 @@ def owner_review(keys, view=None):
         for f in KEY_FILES.get(key, (key,)):
             if f in by_file and f not in files:
                 files.append(f)
-    return [_file_status(by_file[f]) for f in files]
+    try:
+        agreed = agreed_sampled_ids()
+    except (ReviewError, ValueError, OSError):
+        agreed = set()
+    return [_file_status(by_file[f], agreed) for f in files]

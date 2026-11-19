@@ -1,0 +1,445 @@
+{
+ "schema_version": "extraction-review-record-v1",
+ "queue_version": "extraction-review-queue-round3-v4.0",
+ "queue_sha256": "e1627e36d00c5064a5f50dd712b4321db6b0e9df3a1d064e4f63ed6532f49324",
+ "reviewer": "Platform owner",
+ "reviewed_on": "2026-11-19",
+ "decisions": {
+  "lenalidomide_label_pk:/absorption/mcl": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/absorption/administration": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/absorption/accumulation": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/distribution/semen": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/elimination/half_life": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/elimination/excretion": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/renal_dialysis": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/drug_interactions_12_3/dexamethasone": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/drug_interactions_12_3/quinidine": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/drug_interactions_12_3/transporters": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/drug_interactions_12_3/temsirolimus": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/drug_interactions_12_3/cyp_and_ugt": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/drug_interactions_7/digoxin": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/drug_interactions_7/thrombosis": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_label_pk:/drug_interactions_7/warfarin": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_renal_2024:/table_1/categories/0": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_renal_2024:/table_1/categories/1": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_renal_2024:/table_1/categories/2": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_renal_2024:/table_1/categories/3": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_renal_2024:/table_1/footnotes/c": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_renal_2024:/renal_function_measure/indexed_egfr/quote": {
+   "decision": "wrong",
+   "note": "PDF p.6 reads \"1.73 m2 and expressed\"; platform drops \"and\""
+  },
+  "fda_renal_2024:/renal_function_measure/cockcroft_gault_weight/quote": {
+   "decision": "wrong",
+   "note": "PDF p.6 reads \"estimate of renal function than\"; platform drops \"of renal function\""
+  },
+  "fda_hepatic_2026:/recommendations/child_pugh/quote": {
+   "decision": "wrong",
+   "note": "Printed page 4, line 145, not page 5"
+  },
+  "fda_hepatic_2026:/recommendations/nci_in_cancer/quote": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_hepatic_2026:/recommendations/nci_not_in_non_cancer/quote": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_hepatic_2026:/recommendations/cp_groups/quote": {
+   "decision": "wrong",
+   "note": "Printed page 5, lines 164-165, section IV.A; not page 6, IV.A.1"
+  },
+  "fda_hepatic_2026:/recommendations/nci_components/quote": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_hepatic_2026:/recommendations/other_systems/quote": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_hepatic_2026:/child_pugh_table_1/groups/0": {
+   "decision": "wrong",
+   "note": "Table 1 is on printed page 5, not page 6"
+  },
+  "fda_hepatic_2026:/child_pugh_table_1/groups/1": {
+   "decision": "wrong",
+   "note": "Table 1 is on printed page 5, not page 6"
+  },
+  "fda_hepatic_2026:/child_pugh_table_1/groups/2": {
+   "decision": "wrong",
+   "note": "Table 1 is on printed page 5, not page 6"
+  },
+  "fda_hepatic_2026:/nci_odwg_table_2/groups/0": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_hepatic_2026:/nci_odwg_table_2/groups/1": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_hepatic_2026:/nci_odwg_table_2/groups/2": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_hepatic_2026:/nci_odwg_table_2/groups/3": {
+   "decision": "matches",
+   "note": ""
+  },
+  "fda_hepatic_2026:/nci_odwg_table_2/groups/4": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_assays:/studies/0": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_assays:/studies/1": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_assays:/studies/2": {
+   "decision": "matches",
+   "note": ""
+  },
+  "lenalidomide_assays:/studies/3": {
+   "decision": "matches",
+   "note": ""
+  },
+  "hughes_precision:/fixed_effects/theta_cl": {
+   "decision": "matches",
+   "note": ""
+  },
+  "hughes_precision:/fixed_effects/theta_crcl": {
+   "decision": "matches",
+   "note": ""
+  },
+  "hughes_precision:/fixed_effects/theta_v": {
+   "decision": "matches",
+   "note": ""
+  },
+  "hughes_precision:/fixed_effects/theta_ktr": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/dosing/weekly_20_70_mg_m2": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/dosing/twice_weekly_20_56_mg_m2": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/dosing/esrd_hemodialysis": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/pk/auc_c1_avg_ng_h_ml": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/pk/auc_ss_ng_h_ml": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/pk/cmax_c1_ng_ml": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/pk/table_21_definition": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/pk/infusion_duration_effect": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/pk/accumulation": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/pk/vss_l": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/pk/protein_binding_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/pk/half_life_h": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/pk/cl_l_h": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/pk/excretion": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/special_populations/covariates_no_effect": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/special_populations/hepatic_mild_moderate_auc_fold": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/special_populations/hepatic_severe": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/special_populations/esrd_hemodialysis_auc_fold": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/interactions/pgp_inhibitors_inducers": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/dosing/xvd_100_mg_weekly": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/dosing/xd_80_mg_twice_weekly": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/dosing/hepatic_severe_starting_dose": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/pk/linearity": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/pk/single_dose_cmax_ng_ml": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/pk/single_dose_auc_inf_ng_h_ml": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/pk/tmax_h": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/pk/food": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/pk/protein_binding_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/pk/cl_f_l_h": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/pk/metabolism": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/special_populations/covariates_no_effect": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/special_populations/esrd_hemodialysis": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/special_populations/hepatic_mild_moderate": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/special_populations/hepatic_severe_exposure_fold": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/interactions/clarithromycin_strong_cyp3a4_inhibitor": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/interactions/carbamazepine_strong_cyp3a4_inducer": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_selinexor:/interactions/acetaminophen": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/dosing/mm_200_mg_daily": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/pk/single_dose_table_healthy": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/pk/linearity": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/pk/bioavailability": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/pk/protein_binding_percent": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/pk/half_life_h": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/pk/fraction_excreted_unchanged_urine": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/pk/cl_l_h_mm_by_weight": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/special_populations/renal": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/special_populations/hepatic": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/special_populations/age_sex": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_thalidomide:/interactions/cyp450": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_isatuximab:/dosing/dose_10_mg_kg": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_isatuximab:/pk/steady_state_ipd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_isatuximab:/pk/steady_state_ikd": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_isatuximab:/pk/clearance_time_dependence": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_isatuximab:/pk/nonlinearity": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_isatuximab:/pk/v_total_l": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_isatuximab:/special_populations/covariates_no_effect": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_isatuximab:/special_populations/hepatic_moderate_severe": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_isatuximab:/special_populations/body_weight": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_elotuzumab:/dosing/erd_10_mg_kg": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_elotuzumab:/pk/nonlinearity": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_elotuzumab:/pk/clearance_by_dose_ml_day_kg": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_elotuzumab:/special_populations/covariates_no_effect": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_elotuzumab:/special_populations/hepatic_moderate_severe": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_elotuzumab:/special_populations/body_weight": {
+   "decision": "matches",
+   "note": ""
+  },
+  "label_carfilzomib:/interactions/midazolam": {
+   "decision": "matches",
+   "note": ""
+  }
+ }
+}

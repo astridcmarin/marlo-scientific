@@ -62,7 +62,7 @@ class Page(unittest.TestCase):
         client = app.test_client()
         html = client.get('/landscape/drugs/lenalidomide/special-populations').get_data(as_text=True)
         for text in ('Liver-function classifications compared', 'NCI Organ Dysfunction Working Group', 'Child–Pugh',
-                     'did not influence the disposition of lenalidomide', 'No pharmacokinetic data', 'have not been reviewed yet'):
+                     'did not influence the disposition of lenalidomide', 'No pharmacokinetic data', '9 of 14 values', '5 found wrong'):
             self.assertIn(text, html)
         self.assertNotIn('sp-hepatic-classifications', client.get('/landscape/drugs/ixazomib/special-populations').get_data(as_text=True))
 
