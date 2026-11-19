@@ -10,8 +10,10 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v15.json'
-LEDGER_SHA256 = '3732c0c0b2dd206cc69201bf07d340e7fa385e6f57f8e9998f52848194af1120'
+LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v16.json'
+LEDGER_SHA256 = 'f39423173d71869cd27ebdef476eeac7d2f614868433459887ff0ed665b2adf5'
+# Superseded, kept unchanged: dataset_ledger_v15.json (v16 adds the eligibility second-annotation round two uses)
+LEDGER_V15_SHA256 = '3732c0c0b2dd206cc69201bf07d340e7fa385e6f57f8e9998f52848194af1120'
 # Superseded, kept unchanged for traceability: dataset_ledger_v14.json (v15 adds the NINLARO label as seen)
 LEDGER_V14_SHA256 = '7de169002e2f789374085df9dd53a057a9d4c73862e2b5d20668a1d91e5d5a1b'
 # Superseded, kept unchanged for traceability: dataset_ledger_v13.json (v14 adds the acceptance rule v2 plan v2.1 uses)

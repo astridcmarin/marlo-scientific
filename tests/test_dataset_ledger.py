@@ -187,7 +187,7 @@ class Gate(unittest.TestCase):
 
     def test_v15_adds_the_ninlaro_label_as_seen_and_nothing_else(self):
         v14 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v14.json'), dl.LEDGER_V14_SHA256)
-        v15 = dl.load_ledger()
+        v15 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v15.json'), dl.LEDGER_V15_SHA256)
         self.assertEqual(v15['ledger_version'], 'dataset-ledger-v15.0')
         self.assertEqual(v15['uses'], v14['uses'])
         self.assertEqual({d: v15['datasets'][d] for d in v14['datasets']}, v14['datasets'])
@@ -198,6 +198,18 @@ class Gate(unittest.TestCase):
         for f in label['files']:
             self.assertTrue((dl.ROOT / f).exists(), f)
         self.assertEqual(v15['supersedes']['sha256'], dl.LEDGER_V14_SHA256)
+
+    def test_v16_adds_the_round_two_uses_only_and_they_are_not_blind(self):
+        v15 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v15.json'), dl.LEDGER_V15_SHA256)
+        v16 = dl.load_ledger()
+        self.assertEqual(v16['datasets'], v15['datasets'])
+        self.assertEqual(v16['uses'][:-2], v15['uses'])
+        added = v16['uses'][-2:]
+        self.assertEqual({u['model'] for u in added}, {'eligibility_extractor_v1_1', 'eligibility_extractor_llm_c1'})
+        self.assertTrue(all(u['role'] == 'checked_not_blind' and u['dataset'] == 'eligibility_v2_sample'
+                            and u['report'] == 'docs/verification/eligibility_second_annotation_v2.json'
+                            and u['plan'] == 'intelligence_store/data/eligibility_second_annotation_plan_v2_1.json' for u in added))
+        self.assertEqual(v16['supersedes']['sha256'], dl.LEDGER_V15_SHA256)
 
     def test_sources_whose_conclusion_was_read_say_what_a_blind_check_may_not_use(self):
         datasets = dl.load_ledger()['datasets']
