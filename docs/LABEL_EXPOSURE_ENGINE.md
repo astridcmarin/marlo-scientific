@@ -217,3 +217,24 @@ The platform owner downloaded five current DailyMed labels, so catalog growth no
 | Elotuzumab (EMPLICITI, 3/2022) | 8 | No: target-mediated clearance. Special-population summary only. |
 
 Nothing is computed yet, and no drug's capability level changes. The labels are in the dataset ledger (v2) as seen on 4 November. The extracts still need the owner's review (they are not yet in the review queue). **Next:** special-population summaries for all five; then label-consistency plans for selinexor, carfilzomib and thalidomide, each locked before any curve is computed.
+
+## Result — carfilzomib (KYPROLIS): not eligible
+
+Label: KYPROLIS (carfilzomib) for injection, revised 6/2025, DailyMed set ea66eb30-e665-4693-99a1-a9d3b4bbe2d6; extract `label_extract_carfilzomib_v1.json`. Plan `label_exposure_consistency_plan_carfilzomib_v1.json`, approved by the owner and locked on 19 November 2026 before any curve was computed, with its executable `intelligence_store/label_exposure_carfilzomib.py` (the intravenous engine's infusion function, dose in mg at a stated body surface area). Report `docs/verification/label_exposure_carfilzomib_consistency_v1.json`; finding `carfilzomib_label`. Same tolerance as the other label drugs (0.67–1.5).
+
+| At 1.8 m² | Set A: from the 20/70 steady-state AUC | Set B: midpoint of the stated clearance |
+|---|---|---|
+| CL, V | 90.0 L/h, 28 L | 199.3 L/h, 28 L |
+| C1 clearance inside 151–263 L/h | **fail** | pass |
+| C2 half-life ≤ 1 h | 0.22 h, pass | 0.10 h, pass |
+| C3 peak, 70 mg/m² over 30 min, vs 1595 ng/mL | 1.40, pass | 0.77, pass |
+| C4/C5 average daily AUC, 20/70 (steady state, cycle 1) | 1.00 (by construction), 1.00 | **0.45, 0.45, fail** |
+| C6 peak, 56 mg/m², vs 1166 ng/mL | **1.54, fail** | 0.84, pass |
+| C7 average daily AUC at steady state, 20/56 | 1.05, pass | **0.48, fail** |
+| C8 no accumulation | pass | pass |
+
+- **Recorded as not eligible.** Neither set passes at 1.8 m², nor at 1.6 or 2.0 m² (set A's clearance is 80–100 L/h across them). Carfilzomib stays at *Knowledge only*; no curve is shown.
+- **The label disagrees with itself about two-fold.** Its Table 21 exposure implies a clearance of about 90 L/h; its stated clearance is 151–263 L/h. Both 30-minute regimens imply nearly the same clearance (90 and 95 L/h), so reading "average daily AUC" as cycle AUC over 28 days is coherent, and the disagreement is between the label's statements, not in how they were read. Set A's clearance is 50 L/h per m² of body surface area, so reaching even the bottom of the stated range (151 L/h) would need about 3.0 m².
+- **Descriptive:** a 2- to 10-minute infusion of 27 mg/m² gives a peak 1.0–1.3 times Table 21's (set A), and the curve's ratio of short to 30-minute peaks is 1.6–1.9 (set A) or 2.1–3.3 (set B) against the label's 2- to 3-fold.
+- **Numerical checks passed** (AUC by quadrature equals Dose / CL; continuity at the end of the infusion).
+- **What follows:** with no label curve there is nothing for the planned blind check against Badros 2013 and Quach 2017 to test, so they stay unread. The route for carfilzomib, as for melphalan, is a published population model.

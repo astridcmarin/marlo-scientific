@@ -1,0 +1,989 @@
+{
+ "schema_version": "dataset-ledger-v1",
+ "ledger_version": "dataset-ledger-v17.0",
+ "recorded_on": "2026-11-19",
+ "purpose": "Which datasets each model or tool was built from, tuned on or checked against, and whether each check was blind. A dataset whose values anyone on the platform has seen can no longer give a blind check, for any model.",
+ "roles": {
+  "built_from": "The model's parameters come from this dataset (published fit or platform calibration).",
+  "tuned_on": "One or more parameters were set or fitted on this dataset by the platform.",
+  "reproduction": "Compared with the data the model was fitted to, or that its source compared it with; tests transcription and implementation, not prediction.",
+  "checked_blind": "Compared under a plan locked before anyone on the platform saw the dataset's values.",
+  "checked_blind_with_deviation": "As checked_blind, with a recorded deviation in which some results were seen before the check was run. The use's note says how much of the outcome was already known when the plan was locked.",
+  "checked_not_blind": "Compared under a locked plan, but the values had been seen before the plan was written.",
+  "compared_model_to_model": "Compared with another model, not with observed data.",
+  "reserved_for_blind_check": "Set aside for a locked check not yet run; its values must not be read by whoever develops the model."
+ },
+ "rules": [
+  "A blind check (checked_blind) is allowed only on a dataset whose values_first_seen is null and that the model was not built from or tuned on.",
+  "A dataset becomes seen on the date anyone working on the platform first reads its values; that date is recorded here in a new ledger version.",
+  "Every check report in docs/verification is listed here, so a new check cannot be added without its role."
+ ],
+ "datasets": {
+  "cc5013_pk001": {
+   "title": "CC-5013-PK-001: lenalidomide single 25 mg in renal impairment (people without cancer)",
+   "sources": [
+    "EMA withdrawal assessment report 2008 (EMEA/CHMP/249329/2008)",
+    "EMA variation report II-0056 (2013)",
+    "Chen et al. J Clin Pharmacol 2007"
+   ],
+   "files": [
+    "landscape_ui/data/renal_pk/renal_pk_group_evidence_v1.json",
+    "intelligence_store/data/lenalidomide_renal_pathways_evidence_v1.json",
+    "intelligence_store/data/lenalidomide_renal_pk_ema_2013_v1.json",
+    "intelligence_store/data/lenalidomide_esrd_dialysis_evidence_v1.json"
+   ],
+   "values_first_seen": "2026-10-13",
+   "seen_note": "Group values read for the Hughes renal-group check plan (13 October 2026)."
+  },
+  "bridoux_2016": {
+   "title": "Bridoux 2016: lenalidomide in myeloma patients with renal impairment (steady state)",
+   "sources": [
+    "Bridoux et al. Cancer Chemother Pharmacol 2016"
+   ],
+   "files": [
+    "intelligence_store/data/lenalidomide_bridoux_design_v1.json",
+    "intelligence_store/data/lenalidomide_bridoux_observed_v1.json",
+    "intelligence_store/data/lenalidomide_bridoux_observed_v2.json"
+   ],
+   "values_first_seen": "2026-11-04",
+   "seen_note": "Check plan locked 31 October before any per-group value was seen; values read in two committed stages on 4 November (deviation recorded: results text seen while locating Table 1)."
+  },
+  "kim_2026_patients": {
+   "title": "Kim 2026: 30 Korean myeloma patients with renal impairment (steady state)",
+   "sources": [
+    "Kim et al. Drug Des Devel Ther 2026",
+    "PAGE 2025 abstract 11504 (same patients)"
+   ],
+   "files": [
+    "intelligence_store/data/kim_2026_model_extract_v1.json"
+   ],
+   "values_first_seen": "2026-10-13",
+   "seen_note": "Table 1 and Table 2 group values transcribed with the model (13 October 2026)."
+  },
+  "hughes_2019_fitting_data": {
+   "title": "Hughes 2019 fitting data (pooled B-cell malignancy studies)",
+   "sources": [
+    "Hughes et al. Br J Clin Pharmacol 2019"
+   ],
+   "files": [],
+   "values_first_seen": null,
+   "seen_note": "Not available to the platform; only the published parameters are used."
+  },
+  "ogawa_2008": {
+   "title": "Ogawa 2008: bortezomib in Japanese myeloma patients, days 1 and 11",
+   "sources": [
+    "Ogawa et al. Cancer Sci 2008"
+   ],
+   "files": [
+    "intelligence_store/data/bortezomib_pk_ogawa_2008_observed_v1.json"
+   ],
+   "values_first_seen": "2026-10-16",
+   "seen_note": "Read before the 3.0f plan."
+  },
+  "can_1004": {
+   "title": "CAN-1004: bortezomib, 72 h sampling (FDA review, NDA 021602 S-027)",
+   "sources": [
+    "FDA approval package NDA 021602 S-027"
+   ],
+   "files": [
+    "intelligence_store/data/bortezomib_pk_can1004_observed_v1.json"
+   ],
+   "values_first_seen": "2026-10-20",
+   "seen_note": "Table 7 read before the 3.0h plan."
+  },
+  "mmy_3021": {
+   "title": "MMY-3021: bortezomib IV, day 11 (Moreau 2012)",
+   "sources": [
+    "Moreau et al. Clin Pharmacokinet 2012"
+   ],
+   "files": [
+    "intelligence_store/data/bortezomib_pk_mmy3021_observed_v1.json"
+   ],
+   "values_first_seen": "2026-10-31",
+   "seen_note": "Table 1 read before the 3.0m plan."
+  },
+  "reece_2011": {
+   "title": "Reece 2011: bortezomib at 1.0 and 1.3 mg/m2",
+   "sources": [
+    "Reece et al. 2011 (author manuscript)"
+   ],
+   "files": [
+    "intelligence_store/data/bortezomib_pk_reece_2011_observed_v1.json"
+   ],
+   "values_first_seen": "2026-10-31",
+   "seen_note": "Table 2 read before the 3.0n plan."
+  },
+  "lignet_2022_platelet_data": {
+   "title": "Lignet 2022 platelet data (the platelet model's own fitting data)",
+   "sources": [
+    "Lignet et al. CPT Pharmacometrics Syst Pharmacol 2022"
+   ],
+   "files": [
+    "intelligence_store/data/bortezomib_platelet_observed_v1.json"
+   ],
+   "values_first_seen": "2026-10-14",
+   "seen_note": "Read before the platelet check plan."
+  },
+  "ixazomib_impairment_studies": {
+   "title": "Ixazomib renal (NCT01830816) and hepatic (NCT01912222) impairment studies",
+   "sources": [
+    "Gupta 2016 Br J Haematol; hepatic study as cited in the extract"
+   ],
+   "files": [
+    "intelligence_store/data/ixazomib_impairment_observed_v1.json"
+   ],
+   "values_first_seen": "2026-10-30",
+   "seen_note": "Read while transcribing, before the 3.2a plan."
+  },
+  "gupta_2017_fitting_data": {
+   "title": "Gupta 2017 fitting data (ten pooled ixazomib studies)",
+   "sources": [
+    "Gupta et al. Clin Pharmacokinet 2017"
+   ],
+   "files": [],
+   "values_first_seen": null,
+   "seen_note": "Not available; only the published parameters are used."
+  },
+  "clemens_2017_gen501_sirius": {
+   "title": "GEN501 and SIRIUS: daratumumab IV (Clemens 2017)",
+   "sources": [
+    "Clemens et al. Clin Pharmacokinet 2017"
+   ],
+   "files": [
+    "intelligence_store/data/daratumumab_iv_clemens_2017_observed_v1.json"
+   ],
+   "values_first_seen": "2026-10-30",
+   "seen_note": "Read while transcribing, before the 3.2b plan."
+  },
+  "luo_2021_fitting_data": {
+   "title": "Luo 2021 fitting data (four pooled daratumumab studies)",
+   "sources": [
+    "Luo et al. J Clin Pharmacol 2021"
+   ],
+   "files": [],
+   "values_first_seen": null,
+   "seen_note": "Not available; only the published parameters are used."
+  },
+  "pomalyst_label": {
+   "title": "POMALYST label pharmacokinetics",
+   "sources": [
+    "POMALYST prescribing information, revised 2/2025"
+   ],
+   "files": [
+    "intelligence_store/data/label_pk_pomalidomide_v1.json"
+   ],
+   "values_first_seen": "2026-10-20",
+   "seen_note": "Label read in full before the 3.1b plan."
+  },
+  "li_2017_model": {
+   "title": "Li 2017 pomalidomide population model (parameters, no observed data)",
+   "sources": [
+    "Li et al. Clin Pharmacol Adv Appl 2017"
+   ],
+   "files": [
+    "intelligence_store/data/pomalidomide_popk_li_2017_extract_v1.json"
+   ],
+   "values_first_seen": "2026-10-20",
+   "seen_note": "A model, not observations: comparisons with it are model to model."
+  },
+  "hemady_label": {
+   "title": "HEMADY label pharmacokinetics",
+   "sources": [
+    "HEMADY prescribing information, revised 1/2026"
+   ],
+   "files": [
+    "intelligence_store/data/label_pk_dexamethasone_hemady_v1.json"
+   ],
+   "values_first_seen": "2026-10-21",
+   "seen_note": "Label read in full before the 3.1f plan."
+  },
+  "neofordex_epar_studies": {
+   "title": "NEOFORDEX EPAR pharmacokinetic studies (EMA/CHMP/6613/2016)",
+   "sources": [
+    "NEOFORDEX assessment report, section 2.4.2"
+   ],
+   "files": [
+    "intelligence_store/data/dexamethasone_outside_pk_v1.json"
+   ],
+   "values_first_seen": "2026-10-21",
+   "seen_note": "Plan locked after reading only the study design and before the results tables (Tables 11-14)."
+  },
+  "evomela_label": {
+   "title": "EVOMELA label pharmacokinetics",
+   "sources": [
+    "EVOMELA prescribing information"
+   ],
+   "files": [
+    "intelligence_store/data/label_pk_melphalan_evomela_v1.json"
+   ],
+   "values_first_seen": "2026-10-20",
+   "seen_note": "Label read in full before the 3.1f plan."
+  },
+  "tga_exposure_safety": {
+   "title": "TGA AusPAR 2016 lenalidomide exposure-safety odds ratios",
+   "sources": [
+    "TGA AusPAR lenalidomide 2016, clinical evaluation report 4.2.4.1"
+   ],
+   "files": [
+    "intelligence_store/data/lenalidomide_exposure_safety_v2.json"
+   ],
+   "values_first_seen": "2026-10-16",
+   "seen_note": "Transcribed to build the relative-odds model."
+  },
+  "eligibility_v1_sample": {
+   "title": "Eligibility validation sample v1 (120 myeloma trials)",
+   "sources": [
+    "Pinned myeloma interventional corpus"
+   ],
+   "files": [],
+   "values_first_seen": "2026-10-22",
+   "seen_note": "Annotated after the v1 plan was locked and before any extraction rule was written; used to develop extractor v1.1 after the v1 check."
+  },
+  "eligibility_v2_sample": {
+   "title": "Eligibility validation sample v2 (200 new myeloma trials)",
+   "sources": [
+    "Pinned myeloma interventional corpus"
+   ],
+   "files": [
+    "intelligence_store/data/eligibility_validation_plan_v2.json"
+   ],
+   "values_first_seen": "2026-11-12",
+   "seen_note": "Criteria text read only by the annotator (the platform owner) until 12 November 2026; the annotation was pinned, then extractor v1.1 was scored and its results seen by the main session on 12 November. The Track C prompt was frozen on 11 November, before any extractor read the sample; Track C sessions never receive the annotation or the v1.1 results."
+  },
+  "kyprolis_label": {
+   "title": "KYPROLIS label pharmacokinetics (carfilzomib)",
+   "sources": [
+    "KYPROLIS prescribing information, revised 6/2025"
+   ],
+   "files": [
+    "intelligence_store/data/label_extract_carfilzomib_v1.json"
+   ],
+   "values_first_seen": "2026-11-04",
+   "seen_note": "Section 12.3 read in full while extracting (4 November 2026). Not blind for a carfilzomib label check: a rough hand comparison of the clearance range with the Table 21 exposures was made while reading."
+  },
+  "xpovio_label": {
+   "title": "XPOVIO label pharmacokinetics (selinexor)",
+   "sources": [
+    "XPOVIO prescribing information, revised 4/2026"
+   ],
+   "files": [
+    "intelligence_store/data/label_extract_selinexor_v1.json"
+   ],
+   "values_first_seen": "2026-11-04",
+   "seen_note": "Label read in full while extracting (4 November 2026)."
+  },
+  "thalomid_label": {
+   "title": "THALOMID label pharmacokinetics (thalidomide)",
+   "sources": [
+    "THALOMID prescribing information, revised 9/2026"
+   ],
+   "files": [
+    "intelligence_store/data/label_extract_thalidomide_v1.json"
+   ],
+   "values_first_seen": "2026-11-04",
+   "seen_note": "Label read in full while extracting (4 November 2026)."
+  },
+  "sarclisa_label": {
+   "title": "SARCLISA label pharmacokinetics (isatuximab)",
+   "sources": [
+    "SARCLISA prescribing information, revised 6/2026"
+   ],
+   "files": [
+    "intelligence_store/data/label_extract_isatuximab_v1.json"
+   ],
+   "values_first_seen": "2026-11-04",
+   "seen_note": "Label read in full while extracting (4 November 2026)."
+  },
+  "empliciti_label": {
+   "title": "EMPLICITI label pharmacokinetics (elotuzumab)",
+   "sources": [
+    "EMPLICITI prescribing information, revised 3/2022"
+   ],
+   "files": [
+    "intelligence_store/data/label_extract_elotuzumab_v1.json"
+   ],
+   "values_first_seen": "2026-11-04",
+   "seen_note": "Label read in full while extracting (4 November 2026)."
+  },
+  "chen_2012_mass_balance": {
+   "title": "Chen 2012: [14C]-lenalidomide mass balance in 6 healthy men",
+   "sources": [
+    "Chen et al. Cancer Chemother Pharmacol 2012;69:789-797"
+   ],
+   "files": [
+    "intelligence_store/data/lenalidomide_mass_balance_chen_2012_v1.json",
+    "intelligence_store/data/lenalidomide_blood_plasma_chen_2012_v1.json"
+   ],
+   "values_first_seen": "2026-11-03",
+   "seen_note": "Blood-to-plasma ratio read on 3 November (1.1a); mass-balance results read on 4 November to bound bioavailability for 2.0e."
+  },
+  "badros_2013_carfilzomib_renal": {
+   "title": "Badros 2013: carfilzomib pharmacokinetics by renal-function group, values in the tables and figures (phase 2, Leukemia)",
+   "sources": [
+    "Badros AZ, Vij R, Martin T, et al. Carfilzomib in multiple myeloma patients with renal impairment: pharmacokinetics and safety. Leukemia 2013;27:1707–1714. doi:10.1038/leu.2013.29"
+   ],
+   "files": [],
+   "source_files": [
+    {
+     "name": "Badros 2013 - Carfilzomib PK and safety in myeloma with renal impairment, phase II (Leukemia) [leu201329a].pdf",
+     "sha256": "32b49ca94b5fec7620df462c78e8fdfa131a91ed203c17c5785389b84c4e0817",
+     "bytes": 470860,
+     "held_in": "supplemental-information/articles (on the owner’s computer; not in the repository)",
+     "supplied_by": "project owner",
+     "supplied_on": "2026-11-17"
+    }
+   ],
+   "values_first_seen": null,
+   "seen_note": "Values in the tables, figures and any supplement not yet read. The abstract was read in full on 17 November 2026, while the file was being renamed: it states that carfilzomib clearance and exposure did not differ between normal renal function and any impaired group, and gives grade 3/4 adverse-event rates, proteasome inhibition up to 85% not differing among groups, and the response rate. A blind check on this dataset may therefore compare only numerical predictions with tabulated values; never the direction or absence of a renal effect, and nothing the abstract reports."
+  },
+  "quach_2017_carfilzomib_esrd": {
+   "title": "Quach 2017: carfilzomib pharmacokinetics at 27 and 56 mg/m2 in end-stage renal disease and normal renal function, values in the tables and figures (phase 1, Cancer Chemother Pharmacol)",
+   "sources": [
+    "Quach H, White D, Spencer A, et al. Pharmacokinetics and safety of carfilzomib in patients with relapsed multiple myeloma and end-stage renal disease (ESRD): an open-label, single-arm, phase I study. Cancer Chemother Pharmacol 2017;79:1067–1076. doi:10.1007/s00280-017-3287-8"
+   ],
+   "files": [],
+   "source_files": [
+    {
+     "name": "Quach 2017 - Carfilzomib PK and safety in myeloma with end-stage renal disease, phase I (Cancer Chemother Pharmacol) [280_2017_Article_3287].pdf",
+     "sha256": "f28a25c145f291a5a87e21e0037618d5ae203b270e5b63a6983477e6ab629047",
+     "bytes": 748818,
+     "held_in": "supplemental-information/articles (on the owner’s computer; not in the repository)",
+     "supplied_by": "project owner",
+     "supplied_on": "2026-11-17"
+    }
+   ],
+   "values_first_seen": null,
+   "seen_note": "Values not yet read. The title page was read on 17 November 2026, while the file was being renamed, as far as the Methods paragraph of the abstract (design, doses, schedule); its Results paragraph was not displayed. It was found by web search on 17 November 2026, and search results can show sentences of an abstract; those snippets are not kept in the session record, so whatever the abstract reports is treated as possibly seen. A blind check on this dataset may use only values the abstract does not report."
+  },
+  "dimopoulos_2021_icaria_renal": {
+   "title": "Dimopoulos 2021: ICARIA-MM renal-impairment subgroup, isatuximab pharmacokinetics, efficacy and safety by renal function, values in the tables and figures (Leukemia)",
+   "sources": [
+    "Dimopoulos MA, Leleu X, Moreau P, et al. Isatuximab plus pomalidomide and dexamethasone in relapsed/refractory multiple myeloma patients with renal impairment: ICARIA-MM subgroup analysis. Leukemia 2021;35:562–572. doi:10.1038/s41375-020-0868-z"
+   ],
+   "files": [],
+   "source_files": [
+    {
+     "name": "Dimopoulos 2021 - Isatuximab plus pomalidomide and dexamethasone in renal impairment, ICARIA-MM subgroup (Leukemia) [41375_2020_Article_868].pdf",
+     "sha256": "9d278d42932fb77070fface04eefeac7aa376ff7773ddfc75380ec8b8c22c5eb",
+     "bytes": 622809,
+     "held_in": "supplemental-information/articles (on the owner’s computer; not in the repository)",
+     "supplied_by": "project owner",
+     "supplied_on": "2026-11-17"
+    }
+   ],
+   "values_first_seen": null,
+   "seen_note": "Values not yet read; the title page was read as far as the author list on 17 November 2026. Its conclusion that isatuximab pharmacokinetics were comparable between renal subgroups was read the same day in a web-search snippet, before the file was obtained. A blind check on this dataset may therefore compare only numerical predictions with tabulated values; never the direction or absence of a renal effect, and nothing the abstract reports."
+  },
+  "sarclisa_epar_2020": {
+   "title": "SARCLISA (isatuximab) EPAR, initial assessment report EMEA/H/C/004977/0000 (CHMP, 26 March 2020): clinical pharmacology and population pharmacokinetics",
+   "sources": [
+    "European Medicines Agency. Sarclisa assessment report, EMA/CHMP/200978/2020, procedure EMEA/H/C/004977/0000, 26 March 2020"
+   ],
+   "files": [],
+   "source_files": [
+    {
+     "name": "SARCLISA (isatuximab) EPAR public assessment report, EMA, initial authorisation 2020 [sarclisa-epar-public-assessment-report_en].pdf",
+     "sha256": "e96ddd6246ad2ed97a15604d5a36f038923fe70866d8e1f70612d1ac9a17c7cb",
+     "bytes": 3500243,
+     "held_in": "supplemental-information/articles (on the owner’s computer; not in the repository)",
+     "supplied_by": "project owner",
+     "supplied_on": "2026-11-17"
+    }
+   ],
+   "values_first_seen": null,
+   "seen_note": "Values not yet read; the cover and administrative pages were read on 17 November 2026. Separate from sarclisa_label, the label extracted on 4 November 2026. A population-pharmacokinetic conclusion that renal impairment and mild hepatic impairment do not affect isatuximab pharmacokinetics was read the same day in a web-search snippet about a conference abstract (Nguyen, PAGE), not this report. The report’s covariate conclusions may agree, so a blind check on this dataset may compare only numerical values, not the direction or absence of a covariate effect."
+  },
+  "nct04256707_selinexor_hepatic": {
+   "title": "ClinicalTrials.gov NCT04256707 (SPRINT): selinexor formulations and hepatic impairment, posted results",
+   "sources": [
+    "ClinicalTrials.gov NCT04256707. Open-label phase 1/2 study evaluating the relative bioavailability/bioequivalence of different formulations of selinexor, the impact of hepatic impairment on selinexor pharmacokinetics, and the tolerability and antitumor activity of selinexor combination treatment (SPRINT). Record downloaded 17 November 2026; completed 31 July 2024; results posted."
+   ],
+   "files": [],
+   "source_files": [
+    {
+     "name": "ClinicalTrials.gov NCT04256707 - selinexor hepatic impairment PK and formulations, SPRINT, posted results [NCT04256707].json",
+     "sha256": "bdbb62176d8ac15c05ba82bd17ab780f68f2d8d207edc5e024548a7f0230ecb3",
+     "bytes": 221164,
+     "held_in": "supplemental-information/articles (on the owner’s computer; not in the repository)",
+     "supplied_by": "project owner",
+     "supplied_on": "2026-11-17"
+    }
+   ],
+   "values_first_seen": null,
+   "seen_note": "Posted result values not yet read. On 17 November 2026 the brief and official titles, the overall status, the completion date and the has-results flag were read from the downloaded record. A web-search snippet the same day said the record posts apparent clearance of total selinexor by hepatic-function group; no values from it appear in the session record. The registry record can change; the checksum pins the copy downloaded that day."
+  },
+  "zhang_mager_2020_bortezomib_er_supplement": {
+   "title": "Zhang and Mager 2020: bortezomib exposure–response meta-analysis in multiple myeloma, electronic supplementary material (contents not yet read)",
+   "sources": [
+    "Zhang L, Mager DE. Population-based meta-analysis of bortezomib exposure–response relationships in multiple myeloma patients. J Pharmacokinet Pharmacodyn 2020;47(1):77–90. doi:10.1007/s10928-019-09670-3. Supplementary file 1 (DOCX)."
+   ],
+   "files": [],
+   "source_files": [
+    {
+     "name": "Zhang Mager 2020 - Bortezomib exposure-response meta-analysis, electronic supplementary material (J Pharmacokinet Pharmacodyn) [10928_2019_9670_MOESM1_ESM].docx",
+     "sha256": "639405f080637db7a07be4d9f65fa90a8ed4c1de8d8222f7096e754e56ab79e9",
+     "bytes": 86577,
+     "held_in": "supplemental-information/articles (on the owner’s computer; not in the repository)",
+     "supplied_by": "project owner",
+     "supplied_on": "2026-11-17"
+    }
+   ],
+   "values_first_seen": null,
+   "seen_note": "Not opened. The main article is not held; a reprint was requested from the corresponding author on 17 November 2026. It was found by web search on 17 November 2026, and search results can show sentences of an abstract; those snippets are not kept in the session record, so whatever the abstract reports is treated as possibly seen. A blind check on this dataset may use only values the abstract does not report."
+  },
+  "ninlaro_label": {
+   "title": "NINLARO label (ixazomib)",
+   "sources": [
+    "NINLARO prescribing information, revised 7/2024 (FDA label file)",
+    "NINLARO DailyMed SPL, set 038f2461-834b-4488-9ebd-863c83eef5a7, version 18, effective 11 August 2026"
+   ],
+   "files": [
+    "intelligence_store/data/ixazomib_label_2024_v1.json",
+    "intelligence_store/data/drug_safety_v2.json",
+    "intelligence_store/data/drug_interactions_v2.json",
+    "intelligence_store/data/drug_annotations_v2.json"
+   ],
+   "values_first_seen": "2026-10-31",
+   "seen_note": "The 7/2024 label was read while building ixazomib_label_2024_v1.json (31 October 2026); it was not recorded here until v15. The version 18 SPL (sections 5, 7, 11, 12.1 and the drug-interaction part of 12.3) was read on 18 November 2026 for the drug catalogue entries."
+  }
+ },
+ "uses": [
+  {
+   "model": "lenalidomide_hughes_2019",
+   "dataset": "hughes_2019_fitting_data",
+   "role": "built_from",
+   "step": null,
+   "plan": null,
+   "report": null
+  },
+  {
+   "model": "lenalidomide_hughes_2019",
+   "dataset": "cc5013_pk001",
+   "role": "checked_not_blind",
+   "step": "Hughes renal-group check",
+   "plan": "intelligence_store/data/hughes_renal_group_check_plan_v1.json",
+   "report": "docs/verification/hughes_renal_group_check_v1.json"
+  },
+  {
+   "model": "lenalidomide_hughes_2019",
+   "dataset": "cc5013_pk001",
+   "role": "checked_not_blind",
+   "step": "Renal recheck with study-matched subjects",
+   "plan": "intelligence_store/data/lenalidomide_renal_recheck_plan_v1.json",
+   "report": "docs/verification/lenalidomide_renal_recheck_v1.json"
+  },
+  {
+   "model": "lenalidomide_hughes_2019",
+   "dataset": "bridoux_2016",
+   "role": "checked_blind_with_deviation",
+   "step": "2.1h Bridoux check",
+   "plan": "intelligence_store/data/lenalidomide_bridoux_check_plan_v1.json",
+   "report": "docs/verification/lenalidomide_bridoux_check_v1.json",
+   "note": "Prespecified before the per-group values were seen, but the outcome was largely known: the abstract stated that AUC stayed within ±25% of target on label doses, which the plan recorded as implying a dose-normalised ratio of about 2.5 in moderate impairment; and the relative AUC24 values seen in the deviation give the primary endpoint once multiplied by the known dose ratios (AI review of 10 November, F02)."
+  },
+  {
+   "model": "lenalidomide_kim_2026",
+   "dataset": "kim_2026_patients",
+   "role": "built_from",
+   "step": "Published model; Table 2 reproduced descriptively only",
+   "plan": null,
+   "report": null
+  },
+  {
+   "model": "lenalidomide_kim_2026",
+   "dataset": "cc5013_pk001",
+   "role": "checked_not_blind",
+   "step": "Kim renal-group check",
+   "plan": "intelligence_store/data/kim_renal_group_check_plan_v1.json",
+   "report": "docs/verification/kim_renal_group_check_v1.json"
+  },
+  {
+   "model": "lenalidomide_kim_2026",
+   "dataset": "cc5013_pk001",
+   "role": "checked_not_blind",
+   "step": "Renal recheck with study-matched subjects",
+   "plan": "intelligence_store/data/lenalidomide_renal_recheck_plan_v1.json",
+   "report": "docs/verification/lenalidomide_renal_recheck_v1.json"
+  },
+  {
+   "model": "lenalidomide_kim_2026",
+   "dataset": "bridoux_2016",
+   "role": "checked_blind_with_deviation",
+   "step": "2.1h Bridoux check",
+   "plan": "intelligence_store/data/lenalidomide_bridoux_check_plan_v1.json",
+   "report": "docs/verification/lenalidomide_bridoux_check_v1.json",
+   "note": "Prespecified before the per-group values were seen, but the outcome was largely known: the abstract stated that AUC stayed within ±25% of target on label doses, which the plan recorded as implying a dose-normalised ratio of about 2.5 in moderate impairment; and the relative AUC24 values seen in the deviation give the primary endpoint once multiplied by the known dose ratios (AI review of 10 November, F02)."
+  },
+  {
+   "model": "lenalidomide_renal_pathways_2026",
+   "dataset": "cc5013_pk001",
+   "role": "built_from",
+   "step": "2.0a calibration on the normal group",
+   "plan": "intelligence_store/data/lenalidomide_renal_pathways_plan_v1.json",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v1.json"
+  },
+  {
+   "model": "lenalidomide_renal_pathways_2026",
+   "dataset": "cc5013_pk001",
+   "role": "checked_not_blind",
+   "step": "2.0a impaired groups of the same study",
+   "plan": "intelligence_store/data/lenalidomide_renal_pathways_plan_v1.json",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v1.json"
+  },
+  {
+   "model": "lenalidomide_renal_pathways_2026",
+   "dataset": "cc5013_pk001",
+   "role": "checked_not_blind",
+   "step": "2.0c end-stage kidney disease group",
+   "plan": "intelligence_store/data/lenalidomide_esrd_dialysis_plan_v1.json",
+   "report": "docs/verification/lenalidomide_esrd_dialysis_check_v1.json"
+  },
+  {
+   "model": "lenalidomide_renal_pathways_2026",
+   "dataset": "bridoux_2016",
+   "role": "checked_not_blind",
+   "step": "2.0d comparator (current model)",
+   "plan": "intelligence_store/data/lenalidomide_renal_pathways_plan_v2.json",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v2.json"
+  },
+  {
+   "model": "lenalidomide_renal_pathways_2026",
+   "dataset": "kim_2026_patients",
+   "role": "checked_not_blind",
+   "step": "2.0d comparator (current model)",
+   "plan": "intelligence_store/data/lenalidomide_renal_pathways_plan_v2.json",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v2.json"
+  },
+  {
+   "model": "lenalidomide_renal_pathways_v2_candidate",
+   "dataset": "cc5013_pk001",
+   "role": "tuned_on",
+   "step": "2.0d: k fitted on the impaired groups (not adopted)",
+   "plan": "intelligence_store/data/lenalidomide_renal_pathways_plan_v2.json",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v2.json"
+  },
+  {
+   "model": "lenalidomide_renal_pathways_v2_candidate",
+   "dataset": "bridoux_2016",
+   "role": "checked_not_blind",
+   "step": "2.0d",
+   "plan": "intelligence_store/data/lenalidomide_renal_pathways_plan_v2.json",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v2.json"
+  },
+  {
+   "model": "lenalidomide_renal_pathways_v2_candidate",
+   "dataset": "kim_2026_patients",
+   "role": "checked_not_blind",
+   "step": "2.0d",
+   "plan": "intelligence_store/data/lenalidomide_renal_pathways_plan_v2.json",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v2.json"
+  },
+  {
+   "model": "lenalidomide_body_map_time_course",
+   "dataset": "cc5013_pk001",
+   "role": "tuned_on",
+   "step": "1.1d v1: volume and absorption from the normal group",
+   "plan": "intelligence_store/data/lenalidomide_body_map_time_course_plan_v1.json",
+   "report": "docs/verification/lenalidomide_body_map_time_course_check_v1.json"
+  },
+  {
+   "model": "lenalidomide_body_map_time_course",
+   "dataset": "cc5013_pk001",
+   "role": "checked_not_blind",
+   "step": "1.1d v1 and v2 primary",
+   "plan": "intelligence_store/data/lenalidomide_body_map_time_course_plan_v2.json",
+   "report": "docs/verification/lenalidomide_body_map_time_course_check_v2.json"
+  },
+  {
+   "model": "lenalidomide_body_map_time_course",
+   "dataset": "bridoux_2016",
+   "role": "checked_not_blind",
+   "step": "1.1d v1 and v2 secondary",
+   "plan": "intelligence_store/data/lenalidomide_body_map_time_course_plan_v2.json",
+   "report": "docs/verification/lenalidomide_body_map_time_course_check_v2.json"
+  },
+  {
+   "model": "lenalidomide_exposure_safety_2016",
+   "dataset": "tga_exposure_safety",
+   "role": "built_from",
+   "step": "4.0a relative odds",
+   "plan": null,
+   "report": null
+  },
+  {
+   "model": "bortezomib_pk_lignet_2022",
+   "dataset": "ogawa_2008",
+   "role": "checked_not_blind",
+   "step": "3.0f",
+   "plan": "intelligence_store/data/bortezomib_pk_ogawa_check_plan_v1.json",
+   "report": "docs/verification/bortezomib_pk_ogawa_check_v1.json"
+  },
+  {
+   "model": "bortezomib_pk_lignet_2022",
+   "dataset": "can_1004",
+   "role": "checked_not_blind",
+   "step": "3.0h",
+   "plan": "intelligence_store/data/bortezomib_pk_can1004_check_plan_v1.json",
+   "report": "docs/verification/bortezomib_pk_can1004_check_v1.json"
+  },
+  {
+   "model": "bortezomib_pk_lignet_2022",
+   "dataset": "mmy_3021",
+   "role": "checked_not_blind",
+   "step": "3.0m",
+   "plan": "intelligence_store/data/bortezomib_pk_mmy3021_check_plan_v1.json",
+   "report": "docs/verification/bortezomib_pk_mmy3021_check_v1.json"
+  },
+  {
+   "model": "bortezomib_pk_lignet_2022",
+   "dataset": "reece_2011",
+   "role": "reproduction",
+   "step": "3.0n: the study the model's source compared it with",
+   "plan": "intelligence_store/data/bortezomib_pk_reece_reproduction_plan_v1.json",
+   "report": "docs/verification/bortezomib_pk_reece_reproduction_v1.json"
+  },
+  {
+   "model": "bortezomib_pk_kuan_2012_candidate",
+   "dataset": "ogawa_2008",
+   "role": "checked_not_blind",
+   "step": "3.0g (failed)",
+   "plan": "intelligence_store/data/bortezomib_pk_kuan_check_plan_v1.json",
+   "report": "docs/verification/bortezomib_pk_kuan_check_v1.json"
+  },
+  {
+   "model": "bortezomib_pk_falling_clearance_candidate",
+   "dataset": "can_1004",
+   "role": "tuned_on",
+   "step": "3.0i calibration (failed; not checked on Ogawa)",
+   "plan": "intelligence_store/data/bortezomib_pk_falling_clearance_plan_v1.json",
+   "report": "docs/verification/bortezomib_pk_falling_clearance_v1.json"
+  },
+  {
+   "model": "bortezomib_pbpk_iwasaki_2020_candidate",
+   "dataset": "ogawa_2008",
+   "role": "checked_not_blind",
+   "step": "3.0k (failed)",
+   "plan": "intelligence_store/data/bortezomib_pbpk_iwasaki_check_plan_v1.json",
+   "report": "docs/verification/bortezomib_pbpk_iwasaki_check_v1.json"
+  },
+  {
+   "model": "bortezomib_pbpk_iwasaki_2020_candidate",
+   "dataset": "can_1004",
+   "role": "checked_not_blind",
+   "step": "3.0k (failed)",
+   "plan": "intelligence_store/data/bortezomib_pbpk_iwasaki_check_plan_v1.json",
+   "report": "docs/verification/bortezomib_pbpk_iwasaki_check_v1.json"
+  },
+  {
+   "model": "bortezomib_platelets_lignet_2022",
+   "dataset": "lignet_2022_platelet_data",
+   "role": "reproduction",
+   "step": "Platelet check against the model's own fitting data",
+   "plan": "intelligence_store/data/bortezomib_platelet_check_plan_v1.json",
+   "report": "docs/verification/bortezomib_platelet_check_v1.json"
+  },
+  {
+   "model": "ixazomib_pk_gupta_2017",
+   "dataset": "gupta_2017_fitting_data",
+   "role": "built_from",
+   "step": null,
+   "plan": null,
+   "report": null
+  },
+  {
+   "model": "ixazomib_pk_gupta_2017",
+   "dataset": "ixazomib_impairment_studies",
+   "role": "checked_not_blind",
+   "step": "3.2a",
+   "plan": "intelligence_store/data/ixazomib_pk_gupta_check_plan_v1_1.json",
+   "report": "docs/verification/ixazomib_pk_gupta_check_v1.json"
+  },
+  {
+   "model": "daratumumab_pk_luo_2021",
+   "dataset": "luo_2021_fitting_data",
+   "role": "built_from",
+   "step": null,
+   "plan": null,
+   "report": null
+  },
+  {
+   "model": "daratumumab_pk_luo_2021",
+   "dataset": "clemens_2017_gen501_sirius",
+   "role": "checked_not_blind",
+   "step": "3.2b (partly independent: the model structure comes from these studies)",
+   "plan": "intelligence_store/data/daratumumab_pk_luo_check_plan_v1.json",
+   "report": "docs/verification/daratumumab_pk_luo_check_v1.json"
+  },
+  {
+   "model": "daratumumab_pk_luo_2021",
+   "dataset": "clemens_2017_gen501_sirius",
+   "role": "checked_not_blind",
+   "step": "3.2c with study demographics",
+   "plan": "intelligence_store/data/daratumumab_pk_luo_check_plan_v2.json",
+   "report": "docs/verification/daratumumab_pk_luo_check_v2.json"
+  },
+  {
+   "model": "label_exposure_pomalidomide",
+   "dataset": "pomalyst_label",
+   "role": "built_from",
+   "step": "3.1c label consistency",
+   "plan": "intelligence_store/data/label_exposure_consistency_plan_v1.json",
+   "report": "docs/verification/label_exposure_pomalidomide_consistency_v1.json"
+  },
+  {
+   "model": "label_exposure_pomalidomide",
+   "dataset": "li_2017_model",
+   "role": "compared_model_to_model",
+   "step": "3.1d",
+   "plan": "intelligence_store/data/label_exposure_pomalidomide_li_check_plan_v1.json",
+   "report": "docs/verification/label_exposure_pomalidomide_li_check_v1.json"
+  },
+  {
+   "model": "label_exposure_dexamethasone",
+   "dataset": "hemady_label",
+   "role": "built_from",
+   "step": "3.1f label consistency",
+   "plan": "intelligence_store/data/label_exposure_consistency_plan_dexamethasone_v1.json",
+   "report": "docs/verification/label_exposure_dexamethasone_consistency_v1.json"
+  },
+  {
+   "model": "label_exposure_dexamethasone",
+   "dataset": "neofordex_epar_studies",
+   "role": "checked_blind",
+   "step": "3.1g: plan locked before the results tables were read",
+   "plan": "intelligence_store/data/label_exposure_dexamethasone_outside_check_plan_v1.json",
+   "report": "docs/verification/label_exposure_dexamethasone_outside_check_v1.json"
+  },
+  {
+   "model": "label_exposure_melphalan",
+   "dataset": "evomela_label",
+   "role": "built_from",
+   "step": "3.1f (not eligible)",
+   "plan": "intelligence_store/data/label_exposure_consistency_plan_melphalan_v1.json",
+   "report": "docs/verification/label_exposure_melphalan_consistency_v1.json"
+  },
+  {
+   "model": "eligibility_extractor_v1",
+   "dataset": "eligibility_v1_sample",
+   "role": "checked_blind",
+   "step": "4.1e: plan locked before annotation and before any rule was written",
+   "plan": "intelligence_store/data/eligibility_validation_plan_v1.json",
+   "report": "docs/verification/eligibility_validation_v1.json"
+  },
+  {
+   "model": "eligibility_extractor_v1_1",
+   "dataset": "eligibility_v1_sample",
+   "role": "tuned_on",
+   "step": "Developed on the v1 sample after the v1 check",
+   "plan": "intelligence_store/data/eligibility_validation_plan_v2.json",
+   "report": null
+  },
+  {
+   "model": "eligibility_extractor_v1_1",
+   "dataset": "eligibility_v2_sample",
+   "role": "checked_blind",
+   "step": "4.2c: plan v2 locked and extractor v1.1 frozen before annotation; reference annotation pinned (self-reviewed, 200 of 200) before the extractor ran on the sample",
+   "plan": "intelligence_store/data/eligibility_validation_plan_v2.json",
+   "report": "docs/verification/eligibility_validation_v2.json"
+  },
+  {
+   "model": "lenalidomide_body_map_time_course",
+   "dataset": "kim_2026_patients",
+   "role": "built_from",
+   "step": "1.1d v2: central and peripheral volumes, intercompartmental clearance and absorption from the Kim 2026 model",
+   "plan": "intelligence_store/data/lenalidomide_body_map_time_course_plan_v2.json",
+   "report": "docs/verification/lenalidomide_body_map_time_course_check_v2.json"
+  },
+  {
+   "model": "lenalidomide_body_map_time_course",
+   "dataset": "cc5013_pk001",
+   "role": "checked_not_blind",
+   "step": "1.1d v1 primary",
+   "plan": "intelligence_store/data/lenalidomide_body_map_time_course_plan_v1.json",
+   "report": "docs/verification/lenalidomide_body_map_time_course_check_v1.json"
+  },
+  {
+   "model": "lenalidomide_body_map_time_course",
+   "dataset": "bridoux_2016",
+   "role": "checked_not_blind",
+   "step": "1.1d v1 secondary",
+   "plan": "intelligence_store/data/lenalidomide_body_map_time_course_plan_v1.json",
+   "report": "docs/verification/lenalidomide_body_map_time_course_check_v1.json"
+  },
+  {
+   "model": "lenalidomide_renal_pathways_2026",
+   "dataset": "chen_2012_mass_balance",
+   "role": "built_from",
+   "step": "2.0e: bounds on bioavailability (absorption at least about 0.90)",
+   "plan": "intelligence_store/data/lenalidomide_renal_pathways_plan_v3.json",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v3.json"
+  },
+  {
+   "model": "lenalidomide_renal_pathways_2026",
+   "dataset": "cc5013_pk001",
+   "role": "checked_not_blind",
+   "step": "2.0e: 2.0a comparison across bioavailability",
+   "plan": "intelligence_store/data/lenalidomide_renal_pathways_plan_v3.json",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v3.json"
+  },
+  {
+   "model": "lenalidomide_renal_pathways_2026",
+   "dataset": "bridoux_2016",
+   "role": "checked_not_blind",
+   "step": "2.0e",
+   "plan": "intelligence_store/data/lenalidomide_renal_pathways_plan_v3.json",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v3.json"
+  },
+  {
+   "model": "lenalidomide_renal_pathways_2026",
+   "dataset": "kim_2026_patients",
+   "role": "checked_not_blind",
+   "step": "2.0e",
+   "plan": "intelligence_store/data/lenalidomide_renal_pathways_plan_v3.json",
+   "report": "docs/verification/lenalidomide_renal_pathways_check_v3.json"
+  },
+  {
+   "model": "lenalidomide_exposure_safety_2016",
+   "dataset": "cc5013_pk001",
+   "role": "built_from",
+   "step": "4.0a reference exposure (normal-function mean AUC of CC-5013-PK-001, lenalidomide_reference_exposure_v1.json)",
+   "plan": null,
+   "report": null,
+   "note": "The exposure ratio also takes the Hughes 2019 or Kim 2026 typical AUC as numerator; model-to-model dependence is recorded in the credibility context, not here (AI review of 10 November, F23)."
+  },
+  {
+   "model": "eligibility_extractor_llm_c1",
+   "dataset": "eligibility_v1_sample",
+   "role": "tuned_on",
+   "step": "Track C: prompt developed on the v1 sample in two revisions (development record docs/development/eligibility_llm_c1_development.json; not a check)",
+   "plan": "intelligence_store/data/eligibility_validation_plan_v3.json",
+   "report": null
+  },
+  {
+   "model": "eligibility_extractor_llm_c1",
+   "dataset": "eligibility_v2_sample",
+   "role": "checked_blind",
+   "step": "Track C: plan v3 and prompt frozen on 11 November, before the sample was seen; two runs of five sessions (attempts recorded in docs/development/eligibility_llm_c1_run_attempts.json)",
+   "plan": "intelligence_store/data/eligibility_validation_plan_v3.json",
+   "report": "docs/verification/eligibility_validation_llm_c1.json"
+  },
+  {
+   "model": "lenalidomide_hughes_2019",
+   "dataset": "cc5013_pk001",
+   "role": "checked_not_blind",
+   "step": "Acceptance rule v2 (AI review F03): the four published-model checks re-judged with parameter uncertainty and an indeterminate class",
+   "plan": "intelligence_store/data/acceptance_rule_v2_plan_v1.json",
+   "report": "docs/verification/acceptance_rule_v2_lenalidomide_v1.json"
+  },
+  {
+   "model": "lenalidomide_hughes_2019",
+   "dataset": "bridoux_2016",
+   "role": "checked_not_blind",
+   "step": "Acceptance rule v2 (AI review F03): the four published-model checks re-judged with parameter uncertainty and an indeterminate class",
+   "plan": "intelligence_store/data/acceptance_rule_v2_plan_v1.json",
+   "report": "docs/verification/acceptance_rule_v2_lenalidomide_v1.json"
+  },
+  {
+   "model": "lenalidomide_kim_2026",
+   "dataset": "cc5013_pk001",
+   "role": "checked_not_blind",
+   "step": "Acceptance rule v2 (AI review F03): the four published-model checks re-judged with parameter uncertainty and an indeterminate class",
+   "plan": "intelligence_store/data/acceptance_rule_v2_plan_v1.json",
+   "report": "docs/verification/acceptance_rule_v2_lenalidomide_v1.json"
+  },
+  {
+   "model": "lenalidomide_kim_2026",
+   "dataset": "bridoux_2016",
+   "role": "checked_not_blind",
+   "step": "Acceptance rule v2 (AI review F03): the four published-model checks re-judged with parameter uncertainty and an indeterminate class",
+   "plan": "intelligence_store/data/acceptance_rule_v2_plan_v1.json",
+   "report": "docs/verification/acceptance_rule_v2_lenalidomide_v1.json"
+  },
+  {
+   "model": "eligibility_extractor_v1_1",
+   "dataset": "eligibility_v2_sample",
+   "role": "checked_not_blind",
+   "step": "Reference re-reading (plan locked 13 November 2026): the shared-error pairs and a seeded control sample re-read blind under annotation guide v2, then revealed and decided; a post hoc corrected-reference sensitivity analysis, not a new blind test. The original blind result for this model is unchanged. The owner's downloaded record (SHA-256 bbbdd127289625892066bc2e904b40f392424239f4bb4e7f3e60ebdfa5d2e212) is held in supplemental-information/eligibility/ on the owner's iMac and is not committed.",
+   "plan": "intelligence_store/data/eligibility_reference_review_plan_v1.json",
+   "report": "docs/verification/eligibility_reference_review_v1.json"
+  },
+  {
+   "model": "eligibility_extractor_llm_c1",
+   "dataset": "eligibility_v2_sample",
+   "role": "checked_not_blind",
+   "step": "Reference re-reading (plan locked 13 November 2026): the shared-error pairs and a seeded control sample re-read blind under annotation guide v2, then revealed and decided; a post hoc corrected-reference sensitivity analysis, not a new blind test. The original blind result for this model is unchanged. The owner's downloaded record (SHA-256 bbbdd127289625892066bc2e904b40f392424239f4bb4e7f3e60ebdfa5d2e212) is held in supplemental-information/eligibility/ on the owner's iMac and is not committed.",
+   "plan": "intelligence_store/data/eligibility_reference_review_plan_v1.json",
+   "report": "docs/verification/eligibility_reference_review_v1.json"
+  },
+  {
+   "model": "eligibility_extractor_v1_1",
+   "dataset": "eligibility_v2_sample",
+   "role": "checked_not_blind",
+   "step": "Independent second annotation (plan locked 13 November 2026, before annotator B saw any trial): B read a seeded random 50 of the 200 trials under annotation guide v2, from a standalone page holding only the guide, the criteria texts and the form, and locked their record on 17 November before any analysis. B saw no annotation, no extractor output and no error selection. Recorded as checked_not_blind, not checked_blind: the sample's values were first seen on 12 November, before this plan was locked on 13 November, so the ledger's blind gate does not apply even though B read blind as a reader. The extractor figures in the report are descriptive only, on 50 trials, and are not a new pass or fail. Record pinned at 8a491e1a37158dfc25034687cba7b31665ad3b6acf47d4d7d9c49a19b0a8ddd0.",
+   "plan": "intelligence_store/data/eligibility_second_annotation_plan_v1.json",
+   "report": "docs/verification/eligibility_second_annotation_v1.json"
+  },
+  {
+   "model": "eligibility_extractor_llm_c1",
+   "dataset": "eligibility_v2_sample",
+   "role": "checked_not_blind",
+   "step": "Independent second annotation (plan locked 13 November 2026, before annotator B saw any trial): B read a seeded random 50 of the 200 trials under annotation guide v2, from a standalone page holding only the guide, the criteria texts and the form, and locked their record on 17 November before any analysis. B saw no annotation, no extractor output and no error selection. Recorded as checked_not_blind, not checked_blind: the sample's values were first seen on 12 November, before this plan was locked on 13 November, so the ledger's blind gate does not apply even though B read blind as a reader. The extractor figures in the report are descriptive only, on 50 trials, and are not a new pass or fail. Record pinned at 8a491e1a37158dfc25034687cba7b31665ad3b6acf47d4d7d9c49a19b0a8ddd0.",
+   "plan": "intelligence_store/data/eligibility_second_annotation_plan_v1.json",
+   "report": "docs/verification/eligibility_second_annotation_v1.json"
+  },
+  {
+   "model": "eligibility_annotations_v2",
+   "dataset": "eligibility_v2_sample",
+   "role": "checked_not_blind",
+   "step": "Adjudication of the 43 second-annotation disagreements (plan eligibility_second_annotation_plan_v1.json, adjudication clause), done by the owner and annotator B together on 17 November after B’s record was pinned and the agreement analysis committed, under annotation guide v2 — the guide both readers used. Not blind by design: both readings are shown, labelled, because the readers sit together. Record pinned at 0f63e47e80d676d795b46c1a7ab5cc2ceeba22933c1ee380545b19339d1fb8f5.",
+   "plan": "intelligence_store/data/eligibility_second_annotation_plan_v1.json",
+   "report": "docs/verification/eligibility_adjudication_v1.json"
+  },
+  {
+   "model": "ixazomib_pk_gupta_2017",
+   "dataset": "ixazomib_impairment_studies",
+   "role": "checked_not_blind",
+   "step": "Acceptance rule v2, plan v2.1 (AI review F03, decision 0004): the Gupta ixazomib and second Luo daratumumab checks re-judged with parameter uncertainty converted from %RSE, five uncertainty scenarios and an indeterminate class",
+   "plan": "intelligence_store/data/acceptance_rule_v2_plan_v2_1.json",
+   "report": "docs/verification/acceptance_rule_v2_gupta_luo_v1.json"
+  },
+  {
+   "model": "daratumumab_pk_luo_2021",
+   "dataset": "clemens_2017_gen501_sirius",
+   "role": "checked_not_blind",
+   "step": "Acceptance rule v2, plan v2.1 (AI review F03, decision 0004): the Gupta ixazomib and second Luo daratumumab checks re-judged with parameter uncertainty converted from %RSE, five uncertainty scenarios and an indeterminate class",
+   "plan": "intelligence_store/data/acceptance_rule_v2_plan_v2_1.json",
+   "report": "docs/verification/acceptance_rule_v2_gupta_luo_v1.json"
+  },
+  {
+   "model": "eligibility_extractor_v1_1",
+   "dataset": "eligibility_v2_sample",
+   "role": "checked_not_blind",
+   "step": "Second annotation, round two (plan v2.1, locked 17 November 2026, before either reader saw a trial of this sample): the owner and annotator B each read the same fresh 50 of the 200 trials under annotation guide v3, alone, from their own standalone page holding only the guide, the criteria texts and the form, and locked their records on 18 and 19 November; both were pinned before any analysis (owner 0d94147c5b635b3e14af687c27f8b653938dc4b279e298d05d391d3a15cb05c9, annotator B e4d6f34907a0b9942dc54c91800cfb55182d9565fa29f936d0d23e2032c57369). Recorded as checked_not_blind, as round one: the sample's values were first seen on 12 November, before the plan, and the owner annotated all 200 trials in the original pass. The extractor figures in the report are descriptive only, on 50 trials, and are not a new pass or fail.",
+   "plan": "intelligence_store/data/eligibility_second_annotation_plan_v2_1.json",
+   "report": "docs/verification/eligibility_second_annotation_v2.json"
+  },
+  {
+   "model": "eligibility_extractor_llm_c1",
+   "dataset": "eligibility_v2_sample",
+   "role": "checked_not_blind",
+   "step": "Second annotation, round two (plan v2.1, locked 17 November 2026, before either reader saw a trial of this sample): the owner and annotator B each read the same fresh 50 of the 200 trials under annotation guide v3, alone, from their own standalone page holding only the guide, the criteria texts and the form, and locked their records on 18 and 19 November; both were pinned before any analysis (owner 0d94147c5b635b3e14af687c27f8b653938dc4b279e298d05d391d3a15cb05c9, annotator B e4d6f34907a0b9942dc54c91800cfb55182d9565fa29f936d0d23e2032c57369). Recorded as checked_not_blind, as round one: the sample's values were first seen on 12 November, before the plan, and the owner annotated all 200 trials in the original pass. The extractor figures in the report are descriptive only, on 50 trials, and are not a new pass or fail.",
+   "plan": "intelligence_store/data/eligibility_second_annotation_plan_v2_1.json",
+   "report": "docs/verification/eligibility_second_annotation_v2.json"
+  },
+  {
+   "model": "label_exposure_carfilzomib",
+   "dataset": "kyprolis_label",
+   "role": "built_from",
+   "step": "Label-consistency check (not eligible), plan locked 19 November 2026 before any curve was computed",
+   "plan": "intelligence_store/data/label_exposure_consistency_plan_carfilzomib_v1.json",
+   "report": "docs/verification/label_exposure_carfilzomib_consistency_v1.json"
+  }
+ ],
+ "supersedes": {
+  "file": "intelligence_store/data/dataset_ledger_v16.json",
+  "sha256": "f39423173d71869cd27ebdef476eeac7d2f614868433459887ff0ed665b2adf5",
+  "ledger_version": "dataset-ledger-v16.0",
+  "change": "Adds the carfilzomib label-consistency use (built_from the KYPROLIS label). Badros 2013 and Quach 2017 stay unread."
+ }
+}

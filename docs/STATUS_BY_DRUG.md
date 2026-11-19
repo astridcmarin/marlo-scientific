@@ -77,13 +77,13 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
 - **Checked:** the label curve was not eligible *(finding: melphalan_label)*. A one-compartment curve cannot reproduce its distribution phase.
 - **Missing:** a published two-compartment model; the oral (ALKERAN) label, which is not on DailyMed.
 
-## Carfilzomib (KYPROLIS) — knowledge only; label extracted
+## Carfilzomib (KYPROLIS) — knowledge only; no label curve
 
 - **On the platform:**
   - curated safety and reference information;
-  - the label extract (21 values, 4 November; not yet reviewed by the owner).
-- **Checked:** nothing yet.
-- **Next:** a label-consistency plan for the IV engine. It will not be blind, because a rough hand comparison was made while reading.
+  - the label extract (21 values; 20 reviewed by the owner and matching, 1 agreed by two extractions, sampled).
+- **Checked:** the label curve was **not eligible** (plan locked 19 November before any curve was computed). The label's exposure and its stated clearance disagree about two-fold: the clearance implied by Table 21 is about 90 L/h at 1.8 m2, outside the stated 151-263 L/h, and that curve over-predicts the twice-weekly peak 1.54-fold; a curve at the stated clearance under-predicts every Table 21 AUC about 0.45-fold. Both regimens imply the same clearance, so the disagreement is in the label, not in how its table was read *(finding: carfilzomib_label)*.
+- **Next:** no label curve, so the planned blind check of that curve against Badros 2013 and Quach 2017 has nothing to test. They stay unread. A published population model is the route, as for melphalan.
 
 ## Selinexor (XPOVIO) — label extracted
 

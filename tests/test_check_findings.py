@@ -21,7 +21,7 @@ class Findings(unittest.TestCase):
     def test_failures_are_listed(self):
         failed = {r['id'] for r in self.rows if r['outcome'] == 'failed'}
         self.assertEqual(failed, {'kuan', 'falling_clearance', 'iwasaki', 'melphalan_label', 'eligibility_v1', 'eligibility_v2',
-                                  'eligibility_llm_c1', 'eligibility_second_annotation_v1'})
+                                  'eligibility_llm_c1', 'eligibility_second_annotation_v1', 'carfilzomib_label'})
         self.assertGreaterEqual(self.view['counts']['gap'], 9)
 
     def test_v7_only_rewords_the_track_c_headline(self):
@@ -78,9 +78,26 @@ class Findings(unittest.TestCase):
         self.assertIn('lower bounds', added['acceptance_rule'])
         self.assertIn('measures the readers', added['headline'])
 
+    def test_v13_adds_the_carfilzomib_label_check_only(self):
+        old = json.loads(cf.FINDINGS_PATH.with_name('check_findings_v12.json').read_bytes())
+        new = json.loads(cf.FINDINGS_PATH.read_bytes())
+        self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V12_SHA256)
+        self.assertEqual(new['findings'][:-1], old['findings'])
+        added = new['findings'][-1]
+        self.assertEqual((added['id'], added['outcome']), ('carfilzomib_label', 'failed'))
+        rep = json.loads((cf.ROOT / added['report']).read_text())
+        self.assertEqual(hashlib.sha256((cf.ROOT / added['report']).read_bytes()).hexdigest(), added['report_file_sha256'])
+        self.assertEqual((rep['outcome'], rep['selected_set']), ('not_eligible', None))
+        a = rep['sets_by_bsa']['1.8']['A_exposure_derived']
+        self.assertEqual(round(a['cl_l_h'], 1), 90.0)
+        self.assertEqual([c for c, r in a['checks'].items() if r['result'] == 'fail'], ['C1_clearance_in_stated_range', 'C6_cmax_secondary'])
+        b = rep['sets_by_bsa']['1.8']['B_stated_clearance']
+        self.assertEqual([c for c, r in b['checks'].items() if r['result'] == 'fail'],
+                         ['C4_auc_ss_primary', 'C5_auc_c1_primary', 'C7_auc_ss_secondary'])
+
     def test_v12_adds_the_round_two_second_annotation_only(self):
         old_raw = cf.FINDINGS_PATH.with_name('check_findings_v11.json').read_bytes()
-        old, new = json.loads(old_raw), json.loads(cf.FINDINGS_PATH.read_bytes())
+        old, new = json.loads(old_raw), json.loads(cf.FINDINGS_PATH.with_name('check_findings_v12.json').read_bytes())
         self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V11_SHA256)
         self.assertEqual(new['findings'][:-1], old['findings'])
         added = new['findings'][-1]
