@@ -1,0 +1,284 @@
+{
+ "schema_version": "extraction-review-queue-v1",
+ "queue_version": "extraction-review-queue-round4-v1.0",
+ "recorded_on": "2026-11-19",
+ "round": 4,
+ "purpose": "The ixazomib entries added in drug catalogue v2 (18 November 2026): names, mechanism, label warnings and interactions, written from the NINLARO label by the AI assistant. None feeds a calculation. Each item is one entry: check it against the label at the stated sections.",
+ "excluded": "These entries are summaries, not quotes, so nothing was matched by script against the label text. “Matches” means the summary is faithful to the label at those sections.",
+ "decisions": {
+  "matches": "The value matches the source at the stated location.",
+  "wrong": "The value does not match the source (note what the source says).",
+  "cannot_check": "The source or location could not be checked."
+ },
+ "groups": [
+  {
+   "id": "catalogue_names",
+   "priority": 1,
+   "file": "intelligence_store/data/drug_aliases_v2.json",
+   "sha256": "e8e3bf07cc57b0fa365afebc024b38fd6b86762ce2c31504e261ed7eb7373ac8",
+   "where_to_look": "NINLARO (ixazomib) prescribing information, DailyMed SPL set 038f2461-834b-4488-9ebd-863c83eef5a7, version 18, effective 11 August 2026 (supplemental-information/drug-labels, the NINLARO PDF and ZIP)",
+   "used_by": "Names counted on the ixazomib drug page and the drug list",
+   "items": [
+    {
+     "id": "catalogue_names:/entries/9/aliases",
+     "label": "names matched in trials",
+     "pointer": "/entries/9/aliases",
+     "value": [
+      "Ixazomib",
+      "Ninlaro"
+     ],
+     "location": "highlights and section 11 (generic name); product title (brand name)",
+     "where_to_look": "highlights and section 11 (generic name); product title (brand name)",
+     "how_stored": "the generic name and the brand name as the label prints them; trial names are matched to these exactly (case and spacing ignored). Ixazomib Citrate and MLN9708 join through the earlier reviewed name mappings, not this entry"
+    },
+    {
+     "id": "catalogue_names:/entries/9/source",
+     "label": "label version cited",
+     "pointer": "/entries/9/source",
+     "value": {
+      "publisher": "DailyMed, U.S. National Library of Medicine",
+      "title": "Ninlaro / ixazomib product label",
+      "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=038f2461-834b-4488-9ebd-863c83eef5a7&version=18",
+      "set_id": "038f2461-834b-4488-9ebd-863c83eef5a7",
+      "label_version": 18,
+      "label_effective_date": "20260811",
+      "verified_on": "2026-11-18",
+      "retrieved_xml_sha256": "2292dfec663f940ba661c067346ed3ad88142029dbe6f2a3bbfde18619cb40e8",
+      "note": "The product label identifies Ninlaro as an ixazomib product. The capsule contains ixazomib citrate, a prodrug that hydrolyzes to ixazomib; name mapping does not equate doses or salt forms."
+     },
+     "location": "the SPL set id, version and effective date on the DailyMed page",
+     "where_to_look": "the SPL set id, version and effective date on the DailyMed page",
+     "how_stored": "set id, version number and effective date from the SPL file; the XML checksum was computed from the downloaded ZIP"
+    }
+   ]
+  },
+  {
+   "id": "catalogue_mechanism",
+   "priority": 1,
+   "file": "intelligence_store/data/drug_annotations_v2.json",
+   "sha256": "086e5b9cb161c29464799ca5e2a8f40136d320df675aa478979a73ecba60b4d9",
+   "where_to_look": "NINLARO (ixazomib) prescribing information, DailyMed SPL set 038f2461-834b-4488-9ebd-863c83eef5a7, version 18, effective 11 August 2026 (supplemental-information/drug-labels, the NINLARO PDF and ZIP)",
+   "used_by": "Mechanism, target and modality on the ixazomib drug page",
+   "items": [
+    {
+     "id": "catalogue_mechanism:/entries/9/fields/mechanism",
+     "label": "mechanism",
+     "pointer": "/entries/9/fields/mechanism",
+     "value": {
+      "label": "Proteasome inhibitor",
+      "basis": "The label describes reversible inhibition of the chymotrypsin-like activity of the beta 5 subunit of the 20S proteasome.",
+      "sections": [
+       "12.1 Mechanism of Action"
+      ],
+      "interpretation": "curated_summary"
+     },
+     "location": "section 12.1 Mechanism of Action",
+     "where_to_look": "section 12.1 Mechanism of Action",
+     "how_stored": "AI-written summary of the label at these sections, not a quote: check that it says what the label says"
+    },
+    {
+     "id": "catalogue_mechanism:/entries/9/fields/target",
+     "label": "target",
+     "pointer": "/entries/9/fields/target",
+     "value": {
+      "label": "Proteasome",
+      "basis": "The label describes reversible inhibition of the chymotrypsin-like activity of the beta 5 subunit of the 20S proteasome. Proteasome is a broad target-family category; subunits and reversibility remain in the source note.",
+      "sections": [
+       "12.1 Mechanism of Action"
+      ],
+      "interpretation": "curated_summary"
+     },
+     "location": "section 12.1 Mechanism of Action",
+     "where_to_look": "section 12.1 Mechanism of Action",
+     "how_stored": "AI-written summary of the label at these sections, not a quote: check that it says what the label says"
+    },
+    {
+     "id": "catalogue_mechanism:/entries/9/fields/modality",
+     "label": "modality",
+     "pointer": "/entries/9/fields/modality",
+     "value": {
+      "label": "Small molecule",
+      "basis": "Curated as a small molecule from the label’s chemical structure and molecular weight; supplied as the citrate prodrug, which hydrolyzes to ixazomib.",
+      "sections": [
+       "11 Description"
+      ],
+      "interpretation": "curated_classification"
+     },
+     "location": "section 11 Description",
+     "where_to_look": "section 11 Description",
+     "how_stored": "AI-written summary of the label at these sections, not a quote: check that it says what the label says (a classification by the curator, from the label)"
+    }
+   ]
+  },
+  {
+   "id": "catalogue_safety",
+   "priority": 1,
+   "file": "intelligence_store/data/drug_safety_v2.json",
+   "sha256": "06f25200d0281e735f88d90415430a146cd5dc4221df9a071496fa64405c1de8",
+   "where_to_look": "NINLARO (ixazomib) prescribing information, DailyMed SPL set 038f2461-834b-4488-9ebd-863c83eef5a7, version 18, effective 11 August 2026 (supplemental-information/drug-labels, the NINLARO PDF and ZIP)",
+   "used_by": "Label warnings on the ixazomib drug page and in Patient Lab scenarios",
+   "items": [
+    {
+     "id": "catalogue_safety:/entries/9/boxed_warning",
+     "label": "boxed warning",
+     "pointer": "/entries/9/boxed_warning",
+     "value": {
+      "present": false,
+      "basis": "No boxed-warning section is present in the verified SPL version.",
+      "sections": []
+     },
+     "location": "the start of the full prescribing information and the highlights",
+     "where_to_look": "the start of the full prescribing information and the highlights",
+     "how_stored": "recorded as absent: no boxed-warning section was found in the SPL file"
+    },
+    {
+     "id": "catalogue_safety:/entries/9/selected_warnings/0",
+     "label": "warning: Low platelet counts",
+     "pointer": "/entries/9/selected_warnings/0",
+     "value": {
+      "topic": "Low platelet counts",
+      "basis": "The label describes thrombocytopenia with nadirs during each cycle and recovery by the next, and advises monthly platelet monitoring.",
+      "sections": [
+       "5.1"
+      ],
+      "interpretation": "curated_summary"
+     },
+     "location": "section 5.1",
+     "where_to_look": "section 5.1",
+     "how_stored": "AI-written summary of the label at these sections, not a quote: check that it says what the label says; the topic name is the platform’s wording"
+    },
+    {
+     "id": "catalogue_safety:/entries/9/selected_warnings/1",
+     "label": "warning: Gastrointestinal toxicity",
+     "pointer": "/entries/9/selected_warnings/1",
+     "value": {
+      "topic": "Gastrointestinal toxicity",
+      "basis": "The label describes diarrhea, constipation, nausea and vomiting, sometimes needing supportive medication.",
+      "sections": [
+       "5.2"
+      ],
+      "interpretation": "curated_summary"
+     },
+     "location": "section 5.2",
+     "where_to_look": "section 5.2",
+     "how_stored": "AI-written summary of the label at these sections, not a quote: check that it says what the label says; the topic name is the platform’s wording"
+    },
+    {
+     "id": "catalogue_safety:/entries/9/selected_warnings/2",
+     "label": "warning: Peripheral neuropathy",
+     "pointer": "/entries/9/selected_warnings/2",
+     "value": {
+      "topic": "Peripheral neuropathy",
+      "basis": "The label describes mostly sensory neuropathy, largely Grade 1 or 2.",
+      "sections": [
+       "5.3"
+      ],
+      "interpretation": "curated_summary"
+     },
+     "location": "section 5.3",
+     "where_to_look": "section 5.3",
+     "how_stored": "AI-written summary of the label at these sections, not a quote: check that it says what the label says; the topic name is the platform’s wording"
+    },
+    {
+     "id": "catalogue_safety:/entries/9/selected_warnings/3",
+     "label": "warning: Thrombotic microangiopathy",
+     "pointer": "/entries/9/selected_warnings/3",
+     "value": {
+      "topic": "Thrombotic microangiopathy",
+      "basis": "The label describes cases, sometimes fatal, including TTP/HUS.",
+      "sections": [
+       "5.6"
+      ],
+      "interpretation": "curated_summary"
+     },
+     "location": "section 5.6",
+     "where_to_look": "section 5.6",
+     "how_stored": "AI-written summary of the label at these sections, not a quote: check that it says what the label says; the topic name is the platform’s wording"
+    },
+    {
+     "id": "catalogue_safety:/entries/9/selected_warnings/4",
+     "label": "warning: Hepatotoxicity",
+     "pointer": "/entries/9/selected_warnings/4",
+     "value": {
+      "topic": "Hepatotoxicity",
+      "basis": "The label describes drug-induced liver injury and advises regular monitoring of liver enzymes.",
+      "sections": [
+       "5.7"
+      ],
+      "interpretation": "curated_summary"
+     },
+     "location": "section 5.7",
+     "where_to_look": "section 5.7",
+     "how_stored": "AI-written summary of the label at these sections, not a quote: check that it says what the label says; the topic name is the platform’s wording"
+    },
+    {
+     "id": "catalogue_safety:/entries/9/selected_warnings/5",
+     "label": "warning: Increased mortality in maintenance use",
+     "pointer": "/entries/9/selected_warnings/5",
+     "value": {
+      "topic": "Increased mortality in maintenance use",
+      "basis": "The label reports more deaths with ixazomib in two randomized maintenance-setting trials and does not recommend that use outside controlled trials.",
+      "sections": [
+       "5.9"
+      ],
+      "interpretation": "curated_summary"
+     },
+     "location": "section 5.9",
+     "where_to_look": "section 5.9",
+     "how_stored": "AI-written summary of the label at these sections, not a quote: check that it says what the label says; the topic name is the platform’s wording"
+    }
+   ]
+  },
+  {
+   "id": "catalogue_interactions",
+   "priority": 1,
+   "file": "intelligence_store/data/drug_interactions_v2.json",
+   "sha256": "d92afa8146f3f80aaa89f5a05a1f676c6b7fb3e0b95b436297b99bb8a003bfde",
+   "where_to_look": "NINLARO (ixazomib) prescribing information, DailyMed SPL set 038f2461-834b-4488-9ebd-863c83eef5a7, version 18, effective 11 August 2026 (supplemental-information/drug-labels, the NINLARO PDF and ZIP)",
+   "used_by": "Interactions on the ixazomib drug page and in Patient Lab scenarios",
+   "items": [
+    {
+     "id": "catalogue_interactions:/entries/9/references/0",
+     "label": "interaction: Rifampin",
+     "pointer": "/entries/9/references/0",
+     "value": {
+      "id": "ixazomib-rifampin",
+      "title": "Strong CYP3A inducer example",
+      "basis": "The label describes decreased ixazomib exposure with rifampin and advises avoiding strong CYP3A inducers; rifampin is the studied example. Other class members named in the label are not separate references here.",
+      "sections": [
+       "7.1",
+       "12.3"
+      ],
+      "partner_name": "Rifampin",
+      "kind": "drug_pair",
+      "finding": "exposure_change_reported",
+      "interpretation": "curated_summary"
+     },
+     "location": "sections 7.1, 12.3",
+     "where_to_look": "sections 7.1, 12.3",
+     "how_stored": "AI-written summary of the label at these sections, not a quote: check that it says what the label says; check the partner and the finding category"
+    },
+    {
+     "id": "catalogue_interactions:/entries/9/references/1",
+     "label": "interaction: Clarithromycin",
+     "pointer": "/entries/9/references/1",
+     "value": {
+      "id": "ixazomib-clarithromycin",
+      "title": "Clarithromycin studied context",
+      "basis": "The label reports no clinically meaningful change in ixazomib exposure with clarithromycin, a strong CYP3A inhibitor. This finding does not establish general regimen compatibility or safety.",
+      "sections": [
+       "12.3"
+      ],
+      "partner_name": "Clarithromycin",
+      "kind": "drug_pair",
+      "finding": "no_significant_effect_reported",
+      "interpretation": "curated_summary"
+     },
+     "location": "sections 12.3",
+     "where_to_look": "sections 12.3",
+     "how_stored": "AI-written summary of the label at these sections, not a quote: check that it says what the label says; check the partner and the finding category"
+    }
+   ]
+  }
+ ]
+}

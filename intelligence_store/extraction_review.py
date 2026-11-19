@@ -30,7 +30,11 @@ ROUND_3_QUEUE_V2_SHA256 = '3cd9f931f243efcd96633b8e03bc5d7a40d4629b5b0b2ee44e823
 # Superseded before any record was made against it, kept unchanged: extraction_review_queue_round3_v1.json (99 entries,
 # without the FDA 2026 draft hepatic guidance)
 ROUND_3_QUEUE_V1_SHA256 = 'f955d8dddfb7fc5ee47d17df79b9010858428e5c5760dfa73d66c6a12f932575'
-QUEUES = {'main': (QUEUE_PATH, QUEUE_SHA256), 'round_3': (ROUND_3_QUEUE_PATH, ROUND_3_QUEUE_SHA256)}
+# Round 4: the ixazomib entries of drug catalogue v2 (19 November 2026), a separate queue so round 3 records are unaffected.
+ROUND_4_QUEUE_PATH = DATA / 'extraction_review_queue_round4_v1.json'
+ROUND_4_QUEUE_SHA256 = '8578eb8cf640c1a3c3750c73a2c06ec9e9bfda6c200276244192b6109d2ea62e'
+QUEUES = {'main': (QUEUE_PATH, QUEUE_SHA256), 'round_3': (ROUND_3_QUEUE_PATH, ROUND_3_QUEUE_SHA256),
+          'round_4': (ROUND_4_QUEUE_PATH, ROUND_4_QUEUE_SHA256)}
 RECORD_SCHEMA = 'extraction-review-record-v1'
 DECISIONS = ('matches', 'wrong', 'cannot_check')
 # Pinned review records, oldest first: (file name in intelligence_store/data, sha256).
@@ -87,7 +91,7 @@ def queue_key(record):
 
 def validate_record(record, queue=None):
     """Check a downloaded review record before it is pinned. Returns the record unchanged or raises ReviewError.
-    The record is checked against the queue whose checksum it carries (the first queue or round 3's)."""
+    The record is checked against the queue whose checksum it carries (the first queue, round 3's or round 4's)."""
     if not isinstance(record, dict) or record.get('schema_version') != RECORD_SCHEMA:
         raise ReviewError('Not an extraction review record.')
     key = queue_key(record)
@@ -195,14 +199,21 @@ def round_2_view(records=None):
     return view
 
 
-def round_3_view(records=None):
-    """The round 3 queue (values shown on pages, no calculation), in the round layout of the review page."""
-    view = queue_view(records, 'round_3')
-    queue = load_queue(*QUEUES['round_3'])
-    view = dict(view, round=3, round_purpose=queue['purpose'], round_caution=queue['excluded'], round_total=view['total'])
+def round_3_view(records=None, queue_name='round_3'):
+    """The round 3 queue (values shown on pages, no calculation), in the round layout of the review page.
+    Round 4 (queue_name='round_4') uses the same layout."""
+    view = queue_view(records, queue_name)
+    queue = load_queue(*QUEUES[queue_name])
+    view = dict(view, round=queue['round'], round_purpose=queue['purpose'], round_caution=queue['excluded'],
+                round_total=view['total'])
     view.pop('view_sha256', None)
     view['view_sha256'] = digest(view)
     return view
+
+
+def round_4_view(records=None):
+    """The ixazomib entries of drug catalogue v2: AI-written summaries of the NINLARO label, checked by the owner."""
+    return round_3_view(records, 'round_4')
 
 
 FDA_SUPPLEMENT_PATH = Path(__file__).resolve().parent.parent / 'docs' / 'development' / 'trackb_fda_second_reading_comparison_v1.json'
