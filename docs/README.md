@@ -18,6 +18,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [AI extraction: parameter precision of Gupta 2017, Luo 2021, Li 2017](reviews/2026-11_precision_extraction_gupta_luo_li.md) (12 November 2026): no 95% bootstrap intervals published; what the rule needs before it covers those models.
 - [Handoff, 12 November 2026](HANDOFF.md): open work in order, where things are kept, and the rules that are easy to break.
 - [Evidence first](EVIDENCE_FIRST_PLAN.md): what the evidence pages need, from a page-by-page read on 18 November 2026, in priority order.
+- [Decision 0007, 19 November 2026](decisions/0007-first-release-covers-every-us-labelled-drug.md): the first release covers every drug with a US label, built from the label by script with its review state shown; open choices for the owner.
 - [Regroup, 18 November 2026](REGROUP_2026-11-18.md): where the platform stands and the five decisions the owner made that day (evidence first; carfilzomib next; decisions 0005 and 0006).
 - [AI methods review of the blind eligibility results (ChatGPT)](reviews/2026-11_chatgpt_eligibility_results_review.md) (13 November 2026): wording corrected; the shared-error review paused until a reporting plan is fixed; a second annotator recommended next. Not an independent review.
 - [AI audit of user-facing wording](reviews/2026-11_overclaiming_audit.md) (10 November 2026): 33 places where wording outran the evidence, and how each was fixed. Not an independent review.

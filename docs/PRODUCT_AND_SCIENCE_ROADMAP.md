@@ -139,6 +139,8 @@ Multi-organ physiology, disease progression, combination therapies, the body →
 
 Decided with the owner on 18 November ([REGROUP_2026-11-18.md](REGROUP_2026-11-18.md)); the previous version of this section, with batches 1–4, is in [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-18.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-18.md). The 4 November rule still holds: consolidate and check before adding.
 
+**Scope, 19 November:** the first release covers every drug with a US label, built automatically from the label with its review state shown, not only myeloma ([decision 0007](decisions/0007-first-release-covers-every-us-labelled-drug.md); five open choices for the owner). Hand-built drug pages stop at the ten catalogue drugs until the pipeline exists.
+
 **Direction.** The first release leads with sourced evidence: the trial landscape, special-population evidence, regulatory references and the check findings. The models stay research tools behind their credibility records, because two months of checks show most of them carry a recorded disagreement or an indeterminate result (34 locked checks, 5 blind, on 18 November). No outside user conversations yet; the owner works with one engineer, and will include an independent reviewer.
 
 **Queue, in order:**
