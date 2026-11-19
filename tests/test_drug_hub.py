@@ -45,7 +45,8 @@ class DrugHubTests(unittest.TestCase):
         self.assertNotIn('models', hub)
 
     def test_drug_without_platform_tools_gets_no_hub(self):
-        self.assertEqual(self.hub('melphalan', 'Melphalan'), {})
+        # Melphalan used to have no hub; since 19 November 2026 its label is listed as a holding (see HubHoldings).
+        self.assertEqual(self.hub('not_a_catalogue_drug', 'Not a catalogue drug'), {})
 
     def test_groups_keep_their_order(self):
         hub = self.hub('lenalidomide', 'Lenalidomide')
@@ -89,8 +90,45 @@ class HubFindings(unittest.TestCase):
 
     def test_a_drug_whose_only_record_is_a_failed_check_now_shows_it(self):
         hub = self.hub('melphalan', 'Melphalan')
-        self.assertEqual(list(hub), ['findings'])
+        self.assertEqual(list(hub), ['findings', 'holdings', 'regulatory'])
         self.assertEqual([link['url'] for link in hub['findings']['links']], ['/models/findings#melphalan_label'])
+
+
+class HubHoldings(unittest.TestCase):
+    """Evidence-first plan items 6 and 7 (19 November 2026): sources held, their review state, regulatory documents."""
+
+    def setUp(self):
+        self.app = Flask(__name__)
+        self.app.add_url_rule('/', 'home', lambda: 'Home')
+        self.app.add_url_rule('/models/evidence/<path:file>', 'evidence_index_file', lambda file: '')
+        register_landscape(self.app)
+
+    def hub(self, entity_id, label):
+        with self.app.test_request_context():
+            return {g['id']: g for g in hub_links(entity_id, label)}
+
+    def test_carfilzomib_shows_its_label_and_two_unread_studies_by_title_only(self):
+        held = self.hub('carfilzomib', 'Carfilzomib')['holdings']['links']
+        unread = [link for link in held if link['url'] is None]
+        self.assertEqual(len(unread), 2)
+        self.assertTrue(all(link['title'].startswith(('Badros 2013', 'Quach 2017')) for link in unread))
+        self.assertTrue(all('values have not been read' in link['note'] for link in unread))
+        label = next(link for link in held if 'KYPROLIS' in link['title'])
+        self.assertTrue(label['url'].startswith('/models/evidence/'))
+        self.assertIn('agreed by two extractions, sampled', label['note'].lower())
+
+    def test_regulatory_documents_include_the_catalogue_label_and_assessment_reports(self):
+        reg = self.hub('lenalidomide', 'Lenalidomide')['regulatory']['links']
+        self.assertTrue(any('DailyMed, version' in link['title'] and link['url'].startswith('https://dailymed') for link in reg))
+        self.assertTrue(any(link['note'].startswith('EMA assessment report') for link in reg))
+        self.assertTrue(any(link['note'].startswith('TGA AusPAR') for link in reg))
+
+    def test_an_unread_regulatory_document_is_listed_without_a_link(self):
+        reg = self.hub('isatuximab', 'Isatuximab')['regulatory']['links']
+        epar = [link for link in reg if 'EPAR' in link['title']]
+        self.assertEqual(len(epar), 1)
+        self.assertIsNone(epar[0]['url'])
+        self.assertIn('held unread', epar[0]['note'])
 
 if __name__ == '__main__':
     unittest.main()

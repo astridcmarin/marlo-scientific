@@ -31,6 +31,8 @@ GROUPS = [
     ('label', 'Label and special populations'),
     ('models', 'Models and their checks'),
     ('findings', 'What the checks found'),
+    ('holdings', 'Sources the platform holds'),
+    ('regulatory', 'Regulatory documents'),
     ('tools', 'Exposure and effect tools'),
     ('evidence', 'Evidence'),
     ('patients', 'On synthetic patients'),
@@ -52,8 +54,8 @@ def hub_links(entity_id, label, cohort_id=None):
 
     items = {key: [] for key, _ in GROUPS}
 
-    def add(group, title, url, note):
-        if url:
+    def add(group, title, url, note, plain=False):
+        if url or plain:
             items[group].append({'title': title, 'url': url, 'note': note})
 
     for group, title, endpoint, kwargs, note in NAMED_PAGES.get(entity_id, []):
@@ -77,6 +79,28 @@ def hub_links(entity_id, label, cohort_id=None):
     findings_url = _url('check_findings')
     for r in rows:
         add('findings', r['question'], findings_url and f"{findings_url}#{r['id']}", f"{r['outcome_label']}.")
+    # What the platform holds and the regulatory documents among it (evidence-first plan, items 6 and 7, 19 November 2026).
+    # Computed from the dataset ledger and the special-population summaries; unread sources by title only.
+    from intelligence_store.drug_holdings import holdings, state_summary
+    try:
+        held = holdings(entity_id)
+    except (ValueError, OSError, KeyError):
+        held = None
+    if held:
+        def evidence_url(row):
+            return row['files'] and _url('evidence_index_file', file=row['files'][0]['file'])
+        for row in held['read']:
+            add('holdings', row['title'], evidence_url(row), state_summary(row), plain=True)
+        for row in held['held_unread']:
+            add('holdings', row['title'], None, 'Held unread for a planned blind check: its values have not been read.', plain=True)
+        cat = held['catalogue_label']
+        if cat and cat.get('url'):
+            add('regulatory', f"{cat['title'] or 'Product label'} (DailyMed, version {cat['label_version']})", cat['url'],
+                f"The drug catalogue's names, mechanism, warnings and interactions; checked on {cat['verified_on']}.")
+        for row in held['regulatory']:
+            add('regulatory', row['title'], evidence_url(row), f"{row['regulatory_kind']}. {state_summary(row)}", plain=True)
+        for row in held['regulatory_held_unread']:
+            add('regulatory', row['title'], None, f"{row['regulatory_kind']}, held unread for a planned blind check.", plain=True)
     if entity_id in label_exposure_view.available():
         add('tools', 'Label-based exposure', _url('landscape.label_exposure', drug=entity_id),
             'Typical curve from the label\'s own PK values, after its locked checks.')
