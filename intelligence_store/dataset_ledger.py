@@ -10,8 +10,10 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v17.json'
-LEDGER_SHA256 = '268a1fd31c390f94476fe0824e86ad84fef6371edbf27ae95016c053b7ba076e'
+LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v18.json'
+LEDGER_SHA256 = 'ff26850dfb1cda8b77583959186c62c38b78855b9addd362eea50b7d7ddc663a'
+# Superseded, kept unchanged: dataset_ledger_v17.json (v18 records a search snippet of Quach 2017's abstract)
+LEDGER_V17_SHA256 = '268a1fd31c390f94476fe0824e86ad84fef6371edbf27ae95016c053b7ba076e'
 # Superseded, kept unchanged: dataset_ledger_v16.json (v17 adds the carfilzomib label-consistency use)
 LEDGER_V16_SHA256 = 'f39423173d71869cd27ebdef476eeac7d2f614868433459887ff0ed665b2adf5'
 # Superseded, kept unchanged: dataset_ledger_v15.json (v16 adds the eligibility second-annotation round two uses)

@@ -213,13 +213,24 @@ class Gate(unittest.TestCase):
 
     def test_v17_adds_the_carfilzomib_label_use_and_leaves_badros_and_quach_unread(self):
         v16 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v16.json'), dl.LEDGER_V16_SHA256)
-        v17 = dl.load_ledger()
+        v17 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v17.json'), dl.LEDGER_V17_SHA256)
         self.assertEqual(v17['datasets'], v16['datasets'])
         self.assertEqual(v17['uses'][:-1], v16['uses'])
         u = v17['uses'][-1]
         self.assertEqual((u['model'], u['dataset'], u['role']), ('label_exposure_carfilzomib', 'kyprolis_label', 'built_from'))
         for d in ('badros_2013_carfilzomib_renal', 'quach_2017_carfilzomib_esrd'):
             self.assertFalse(any(x['dataset'] == d for x in v17['uses']), d)
+
+    def test_v18_records_the_quach_snippet_and_keeps_its_values_unread(self):
+        v17 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v17.json'), dl.LEDGER_V17_SHA256)
+        v18 = dl.load_ledger()
+        self.assertEqual(v18['uses'], v17['uses'])
+        changed = {k for k in v18['datasets'] if v18['datasets'][k] != v17['datasets'][k]}
+        self.assertEqual(changed, {'quach_2017_carfilzomib_esrd'})
+        q = v18['datasets']['quach_2017_carfilzomib_esrd']
+        self.assertIsNone(q['values_first_seen'])
+        self.assertTrue(q['seen_note'].startswith(v17['datasets']['quach_2017_carfilzomib_esrd']['seen_note']))
+        self.assertIn('may not use the direction', q['seen_note'])
 
     def test_sources_whose_conclusion_was_read_say_what_a_blind_check_may_not_use(self):
         datasets = dl.load_ledger()['datasets']
