@@ -102,7 +102,7 @@ class Display(unittest.TestCase):
         for text in ('Peak at 0.5-6 h', 'AUC about 20%', 'Cmax about 50%', '3-5 h', 'about 90%', '82% as unchanged',
                      'about 30% removed in a 4-hour', 'up 14%'):
             self.assertIn(text, step['found'])
-        self.assertIn('have not been reviewed yet', step['checked'])
+        self.assertIn('3 agreed by two independent extractions, sampled', step['checked'])
         self.assertIn('No interaction is modelled', step['missing'])
 
     def test_pages(self):
@@ -115,7 +115,7 @@ class Display(unittest.TestCase):
         client = app.test_client()
         html = client.get('/landscape/drugs/lenalidomide/special-populations').get_data(as_text=True)
         for text in ('Label pharmacokinetics and drug interactions (quoted)', 'Digoxin (section 7.1)',
-                     'Transporters (in vitro)', 'Not stated by the label', 'have not been reviewed yet'):
+                     'Transporters (in vitro)', 'Not stated by the label', '15 of 18 values'):
             self.assertIn(text, html)
         self.assertNotIn('sp-label-pk', client.get('/landscape/drugs/ixazomib/special-populations').get_data(as_text=True))
 

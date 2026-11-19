@@ -65,8 +65,15 @@ class Records(unittest.TestCase):
         with self.assertRaises(er.ReviewError):
             er.validate_record(rec)
 
-    def test_nothing_is_pinned_yet(self):
-        self.assertEqual(er.round_4_view()['counts']['unreviewed'], 14)
+    def test_round_4_record_pinned_all_fourteen_match(self):
+        view = er.round_4_view()
+        self.assertEqual(view['counts'], {'unreviewed': 0, 'matches': 14, 'wrong': 0, 'cannot_check': 0})
+        self.assertEqual([r['file'] for r in view['records']], ['extraction_review_record_2026-11-19_round4_v1.json'])
+
+    def test_other_queues_are_not_affected_by_the_round_4_record(self):
+        self.assertEqual(er.queue_view()['counts']['matches'], 166)
+        self.assertEqual([r['file'] for r in er.round_3_view()['records']],
+                         ['extraction_review_record_2026-11-19_round3_track_b_v1.json'])
 
 
 class Page(unittest.TestCase):

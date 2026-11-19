@@ -49,10 +49,12 @@ class SourceNotes(unittest.TestCase):
 
 
 class GuidanceSourceMarker(unittest.TestCase):
-    def test_fda_extracts_without_a_local_file_are_marked_not_pinned(self):
+    def test_fda_extracts_are_marked_pinned_once_they_name_a_local_file(self):
+        # Until 19 November 2026 neither extract named a local PDF and both pages said so; v3 (kidney) and v2 (liver)
+        # name the PDFs in the owner's folder with their checksums.
         from intelligence_store import hepatic_classifications, kidney_function_classifications
-        self.assertFalse(kidney_function_classifications.build()['guidance_source_pinned'])
-        self.assertFalse(hepatic_classifications.build()['guidance']['source_pinned'])
+        self.assertTrue(kidney_function_classifications.build()['guidance_source_pinned'])
+        self.assertTrue(hepatic_classifications.build()['guidance']['source_pinned'])
 
 
 class QuoteScript(unittest.TestCase):

@@ -30,8 +30,9 @@ class GuidanceExtract(unittest.TestCase):
         for x in (0.5, 29.99, 30, 59.99, 60, 89.99, 90, 150):
             self.assertEqual(sum(kfc.contains(r['interval'], x) for r in rows), 1, x)
 
-    def test_marked_unreviewed(self):
-        self.assertIn('Not yet reviewed by the platform owner', self.doc['source']['extraction'])
+    def test_marked_reviewed(self):
+        # v3 (19 November 2026) records the owner's Track B review; before it, the extract said it was unreviewed.
+        self.assertIn('Reviewed by the platform owner', self.doc['source']['extraction'])
 
 
 class Comparison(unittest.TestCase):
@@ -123,7 +124,7 @@ class Pages(unittest.TestCase):
         html = self.client.get('/landscape/drugs/lenalidomide/special-populations').get_data(as_text=True)
         for text in ('Kidney-function classifications and measures, compared', 'FDA 2024 guidance, Table 1',
                      '60 to &lt; 90 mL/min', 'shares only the value 60 mL/min', 'mL/min/1.73m2', 'Platform note',
-                     'have not been reviewed yet', 'eGFR expressed as mL/minute'):
+                     '5 of 7 values', 'eGFR expressed as mL/minute'):
             self.assertIn(text, html)
 
     def test_other_drugs_do_not_get_it(self):

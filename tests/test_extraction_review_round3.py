@@ -65,7 +65,7 @@ class Records(unittest.TestCase):
             er.validate_record(record({first: {'decision': 'matches', 'note': ''}}, queue='main'))
 
     def test_round_1_and_2_records_still_validate(self):
-        self.assertEqual(len(er.load_records()), 2)
+        self.assertEqual(len([r for r in er.load_records() if r['queue_sha256'] == er.QUEUE_SHA256]), 2)
         self.assertEqual(er.queue_view()['counts']['matches'], 166)
 
     def test_round_3_status_feeds_owner_review(self):

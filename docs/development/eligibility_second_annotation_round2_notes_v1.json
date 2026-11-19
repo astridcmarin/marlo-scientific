@@ -1,0 +1,25 @@
+{
+ "schema_version": "eligibility-second-annotation-round-notes-v1",
+ "recorded_on": "2026-11-19",
+ "plan": {
+  "file": "intelligence_store/data/eligibility_second_annotation_plan_v2_1.json",
+  "sha256": "848a81b9750326a74128f8e0b979a0b5e2be15ff20a8cb496f014a0c1849a770"
+ },
+ "report": {
+  "file": "docs/verification/eligibility_second_annotation_v2.json",
+  "sha256": "42d5d35253fdc6a739f3762247417e31622306c6fad0a79a074845abc411e483"
+ },
+ "practice_questions": {
+  "asked": [],
+  "statement": "Neither reader asked a question about annotation guide v3 after the practice trials (the owner, 19 November 2026). No answer was given, so no convention was added and nothing differed between the readers.",
+  "plan_clause": "After the practice each reader may ask about the guide. Answers ... are recorded in writing with the result."
+ },
+ "practice_order_deviation": {
+  "what_happened": "The plan has the five unscored practice trials come before the 50 study trials. When the records were locked, annotator B had completed 2 of the 5 practice trials and the owner 3. The remaining practice trials were completed afterwards: B's in a copy of the same record saved at 2026-11-19T18:52:25Z, after its lock at 17:21:03Z; the owner's in an unlocked copy saved at 19:03:40Z.",
+  "checked": "B's later copy was compared with the pinned record by script, without reading the study annotations: its 50 study annotations, page checksum, plan checksum and lock time are identical to the pinned record; only the save time and the three added practice trials differ. The owner's copy holds practice trials only.",
+  "effect": "None on the result. Practice trials are not scored, and practice completed after a record was locked cannot have informed that record. The pinned records and the report are unchanged.",
+  "files_not_pinned": [
+   "supplemental-information/eligibility (B's copy saved 18:52 UTC and the owner's practice copy, owner's folder)"
+  ]
+ }
+}

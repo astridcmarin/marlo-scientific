@@ -16,8 +16,10 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = 'intelligence_store/data/'
 VIEW_VERSION = 'hepatic-classifications-v1.0'
 SOURCES = {
-    'fda_2026': (DATA + 'fda_hepatic_impairment_guidance_2026_draft_v1.json',
-                 '6f2ff8b9cbb1806a7d7445d6dcd424e9b997ddc29d00be04850d8317dab3c000',
+    # v2 corrects locations to printed pages after the owner's review (19 November 2026); superseded v1 kept unchanged at
+    # 6f2ff8b9cbb1806a7d7445d6dcd424e9b997ddc29d00be04850d8317dab3c000
+    'fda_2026': (DATA + 'fda_hepatic_impairment_guidance_2026_draft_v2.json',
+                 'c351cac23dcacc6b2c6756925a6eabb89d9cca3cbcc4a1d3200e1807bb7d31b6',
                  'FDA, Pharmacokinetics in Patients with Impaired Hepatic Function, draft guidance, September 2026'),
     'label_2023': (DATA + 'lenalidomide_label_2023_v1.json',
                    'd4b02134613dc45d6b039999b37d9c94ccbc047cc0b7e811b77278c868e47a9a',
