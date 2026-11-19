@@ -1,0 +1,65 @@
+{
+ "schema_version": "extraction-review-record-v1",
+ "queue_version": "extraction-review-queue-round4-v1.0",
+ "queue_sha256": "8578eb8cf640c1a3c3750c73a2c06ec9e9bfda6c200276244192b6109d2ea62e",
+ "reviewer": "Platform owner",
+ "reviewed_on": "2026-11-19",
+ "decisions": {
+  "catalogue_mechanism:/entries/9/fields/target": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_mechanism:/entries/9/fields/mechanism": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_mechanism:/entries/9/fields/modality": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_safety:/entries/9/boxed_warning": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_safety:/entries/9/selected_warnings/0": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_safety:/entries/9/selected_warnings/1": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_safety:/entries/9/selected_warnings/2": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_safety:/entries/9/selected_warnings/3": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_safety:/entries/9/selected_warnings/4": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_safety:/entries/9/selected_warnings/5": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_interactions:/entries/9/references/0": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_interactions:/entries/9/references/1": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_names:/entries/9/source": {
+   "decision": "matches",
+   "note": ""
+  },
+  "catalogue_names:/entries/9/aliases": {
+   "decision": "matches",
+   "note": ""
+  }
+ }
+}

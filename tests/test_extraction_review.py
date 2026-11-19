@@ -79,8 +79,8 @@ class Records(unittest.TestCase):
         self.assertEqual((st['decision'], st['note']), ('wrong', 'Source shows 12.1'))
 
     def test_rounds_1_and_2_pinned(self):
-        self.assertEqual([n for n, _ in er.REVIEW_RECORDS], ['extraction_review_record_2026-11-03_v1.json',
-                                                            'extraction_review_record_2026-11-04_round2_v1.json'])
+        self.assertEqual([n for n, _ in er.REVIEW_RECORDS][:2], ['extraction_review_record_2026-11-03_v1.json',
+                                                                'extraction_review_record_2026-11-04_round2_v1.json'])
         round_1 = er.queue_view(er.REVIEW_RECORDS[:1])
         self.assertEqual(round_1['counts'], {'unreviewed': 1, 'matches': 143, 'wrong': 12, 'cannot_check': 10})
         view = er.queue_view()

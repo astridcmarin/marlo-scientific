@@ -125,3 +125,7 @@ Page `/models/extraction-review/round-4` (linked from the full queue). It lists 
 - Its own queue, so round 3 records and drafts are unaffected.
 - The entries are AI-written summaries of the NINLARO label (DailyMed SPL version 18), not quotes, so nothing was matched by script. "Matches" means the summary is faithful to the label at the stated sections.
 - The record is an ordinary record against this queue (download named `extraction_review_round4_DATE.json`); validate it with `flask --app app/app.py extraction-review-check FILE` and pin it in `REVIEW_RECORDS`. A wrong entry is corrected by a new catalogue version.
+
+### Round 4 result (reviewed and pinned 19 November 2026)
+
+Record `intelligence_store/data/extraction_review_record_2026-11-19_round4_v1.json`, reviewer "Platform owner", pinned in `REVIEW_RECORDS`. All 14 ixazomib catalogue entries marked **matches**: the names, mechanism, label warnings and interactions of drug catalogue v2 are owner-reviewed against the NINLARO label. No catalogue changes.

@@ -41,6 +41,7 @@ DECISIONS = ('matches', 'wrong', 'cannot_check')
 REVIEW_RECORDS = (
     ('extraction_review_record_2026-11-03_v1.json', '8bf417fb74bce88361db9a1c7f171dc8e12f96d2be1f8b100b250635b9ffb478'),  # round 1, Astrid, 3 November 2026
     ('extraction_review_record_2026-11-04_round2_v1.json', 'e7e6da378e62fa9884cb55a1edc4359dc8a0fdf3a2bce76521187969b28128e7'),  # round 2, Astrid, 4 November 2026
+    ('extraction_review_record_2026-11-19_round4_v1.json', '4251b8ab823baaddef28f28733e60e9d2a6de14f0062514cbea54927e890c777'),  # round 4, platform owner, 19 November 2026
 )
 
 
