@@ -1,0 +1,133 @@
+{
+ "schema_version": "label-consistency-plan-v1",
+ "plan_version": "label-exposure-consistency-plan-carfilzomib-v1.0",
+ "recorded_on": "2026-11-19",
+ "status": "locked_before_computation",
+ "prespecification_note": "Written and checksum-pinned before any carfilzomib curve, Cmax or AUC was computed. The executable (intelligence_store/label_exposure_carfilzomib.py) is committed with this plan and was run only on a synthetic extract before the lock. Not blinded: the KYPROLIS label was read in full on 4 November 2026, and while reading, a rough hand comparison of the stated clearance range with Table 21 was made (recorded then in docs/LABEL_EXPOSURE_ENGINE.md); no number from it is used here. The rules follow the melphalan plan (label-exposure-consistency-plan-melphalan-v1.0) with the changes carfilzomib's label needs. The tabulated values of Badros 2013 and Quach 2017 are not read for this plan (dataset ledger v13 holds them unread for a later blind check).",
+ "classification": "internal_label_consistency_check",
+ "not_this": [
+  "Not validation: a label agreeing with itself says nothing about whether the curve describes patients.",
+  "Not an outside-data check; the blind check against Badros 2013 and Quach 2017 is a later step with its own locked plan.",
+  "Not a dosing recommendation or an exposure prediction for any patient."
+ ],
+ "question": "Can a one-compartment, typical-value intravenous curve built from the KYPROLIS label by fixed rules reproduce the label's own exposure statements for its two 30-minute regimens, and which parameter set should the engine use?",
+ "inputs": {
+  "label_extract": {
+   "path": "intelligence_store/data/label_extract_carfilzomib_v1.json",
+   "sha256": "199572222b557c6cd6e4b95b5941408ed3568d942c3b15e612fcc73d0e63491f",
+   "review_state": "agreed by two extractions, sampled (round 3, Track B, 19 November 2026): 20 of 21 entries owner-reviewed and matching; table_21 values among them"
+  },
+  "target_population": "Relapsed or refractory multiple myeloma (the label's Table 21 regimens)",
+  "regimens": {
+   "primary": "20/70 mg/m2 once weekly: 20 mg/m2 on Cycle 1 Day 1, then 70 mg/m2 on Days 8 and 15 of Cycle 1 and Days 1, 8 and 15 of later 28-day cycles; 30-minute infusion (section 2.2).",
+   "secondary": "20/56 mg/m2 twice weekly: 20 mg/m2 on Cycle 1 Days 1 and 2, then 56 mg/m2 on Days 8, 9, 15 and 16 of Cycle 1 and Days 1, 2, 8, 9, 15 and 16 of later 28-day cycles; 30-minute infusion (section 2.2).",
+   "descriptive_only": "20/27 mg/m2 twice weekly as a 2- to 10-minute infusion (Table 21 only; not a current section 2.2 regimen)."
+  },
+  "body_surface_area_m2": {
+   "value": 1.8,
+   "sensitivity": [1.6, 2.0],
+   "why": "Doses are per m2 while the label's clearance range and volume are absolute (L/h, L), so a body surface area is needed to compare them. The label does not state the population's. 1.8 m2 is an assumption, named on every output; 1.6 and 2.0 m2 are reported beside it and not used for selection."
+  },
+  "table_21_reading": {
+   "average_daily_auc": "The label defines AUCC1,avg and AUCss as average daily AUCs (extract entry table_21_definition). They are read as total AUC over a 28-day cycle divided by 28. So the AUC per dose = average daily AUC x 28 / doses per cycle, and Dose / AUC is computed over the whole cycle.",
+   "first_cycle_doses": "20/70 once weekly: 20 + 70 + 70 = 160 mg/m2 in Cycle 1. 20/56 twice weekly: 20 + 20 + 56 + 56 + 56 + 56 = 264 mg/m2 in Cycle 1.",
+   "steady_state_doses": "20/70: 3 x 70 = 210 mg/m2 per cycle. 20/56: 6 x 56 = 336 mg/m2 per cycle.",
+   "cmax_c1": "Cmax at the highest dose in the first cycle: 70 mg/m2 (20/70) and 56 mg/m2 (20/56), each a 30-minute infusion.",
+   "check_of_this_reading": "C6 tests it: if the reading is right, the clearance implied by each regimen's steady-state AUC should agree across regimens."
+  }
+ },
+ "model": {
+  "structure": "One compartment, linear, constant-rate infusion, typical values; the intravenous engine's infusion functions (intelligence_store/label_exposure_iv.py, method label-exposure-iv-v1.0), with dose in mg (mg/m2 x body surface area), CL in L/h and V in L.",
+  "concentration": "During the infusion (0 <= t <= T): C(t) = R / CL (1 - e^(-k t)), R = dose / T. After it: C(t) = C(T) e^(-k (t - T)). k = CL / V.",
+  "cmax": "C(T), the concentration at the end of the infusion.",
+  "auc": "Dose / CL per infusion; with no accumulation (C8), the AUC over a cycle is the sum over its doses.",
+  "why_one_compartment": "The label gives one clearance range, one volume (Vss, 28 L, at 20 mg/m2) and a half-life bound (<= 1 h). It gives no central volume or distribution phase, so it cannot support two compartments. Using Vss as the single volume is the label's only volume; C3 tests the consequence for the peak."
+ },
+ "parameter_sets": {
+  "order_of_preference": [
+   "A_exposure_derived",
+   "B_stated_clearance"
+  ],
+  "why_this_order": "Set A uses the exposure the label reports for patients on the primary regimen; the clearance range does not state its population or dose.",
+  "A_exposure_derived": {
+   "cl": "Steady-state cycle dose / (AUCss x 28) for the primary 20/70 regimen: 210 mg/m2 x body surface area / (Table 21 AUCss x 28 days).",
+   "v": "Vss, 28 L.",
+   "infusion": "30 minutes"
+  },
+  "B_stated_clearance": {
+   "cl": "Geometric midpoint of 151-263 L/h.",
+   "v": "Vss, 28 L.",
+   "infusion": "30 minutes"
+  }
+ },
+ "checks": {
+  "C1_clearance_in_stated_range": {
+   "compare": "Set CL against 151-263 L/h",
+   "pass_or_fail": true,
+   "rule": "passes if inside the stated range, inclusive"
+  },
+  "C2_half_life": {
+   "compare": "ln 2 x V / CL against the label's bound of <= 1 h",
+   "pass_or_fail": true,
+   "rule": "passes if <= 1 h"
+  },
+  "C3_cmax_primary": {
+   "compare": "Model end-of-infusion concentration for 70 mg/m2 over 30 minutes against Table 21 Cmax,C1 for 20/70 (1595 ng/mL)",
+   "pass_or_fail": true
+  },
+  "C4_auc_ss_primary": {
+   "compare": "Model average daily AUC at steady state for 20/70 against Table 21 AUCss (150 ng.h/mL)",
+   "pass_or_fail": true
+  },
+  "C5_auc_c1_primary": {
+   "compare": "Model average daily AUC over Cycle 1 for 20/70 against Table 21 AUCC1,avg (114 ng.h/mL)",
+   "pass_or_fail": true
+  },
+  "C6_cmax_secondary": {
+   "compare": "Model end-of-infusion concentration for 56 mg/m2 over 30 minutes against Table 21 Cmax,C1 for 20/56 (1166 ng/mL)",
+   "pass_or_fail": true
+  },
+  "C7_auc_ss_secondary": {
+   "compare": "Model average daily AUC at steady state for 20/56 against Table 21 AUCss (228 ng.h/mL)",
+   "pass_or_fail": true
+  },
+  "C8_no_accumulation": {
+   "compare": "Fraction of a dose remaining after 24 h (the shortest dosing interval)",
+   "pass_or_fail": true,
+   "rule": "passes if below 0.001, consistent with the label's statement of no accumulation"
+  },
+  "D1_auc_c1_secondary": {
+   "compare": "Model average daily AUC over Cycle 1 for 20/56 against Table 21 AUCC1,avg (170 ng.h/mL)",
+   "pass_or_fail": false,
+   "role": "descriptive"
+  },
+  "D2_short_infusion": {
+   "compare": "Model Cmax for 27 mg/m2 over 2, 6 and 10 minutes against Table 21 Cmax,C1 for 20/27 (1282 ng/mL); and the ratio of 2- to 10-minute Cmax to 30-minute Cmax at the same dose against the label's 2- to 3-fold",
+   "pass_or_fail": false,
+   "role": "descriptive; not a current regimen, and the infusion time is a range"
+  },
+  "D3_implied_clearance_by_regimen": {
+   "compare": "CL implied by each 30-minute regimen's AUCss under the table_21_reading, and their ratio",
+   "pass_or_fail": false,
+   "role": "descriptive test of the reading of average daily AUC"
+  },
+  "which_checks_are_informative": "For set A, C4 holds by construction (its CL comes from that AUC), so C1, C2, C3, C5, C6, C7 and C8 are its informative checks. For set B, all are informative."
+ },
+ "tolerance": {
+  "rule": "A ratio check (C3 to C7) passes if model / label is within 0.67 to 1.5 inclusive.",
+  "why": "Same as the pomalidomide, melphalan and dexamethasone plans, so drugs are held to one standard."
+ },
+ "decision_rule": {
+  "selection": "The engine uses the first set in order_of_preference that passes C1 to C8 at 1.8 m2.",
+  "if_none_passes": "Carfilzomib is recorded as not eligible for a label-based curve, with the failing checks, and stays at Knowledge only.",
+  "reporting": "Every check for both sets, at 1.8 m2 and at the two sensitivity values, is reported, including for the set not selected.",
+  "never": "No value, reading or tolerance is adjusted after seeing results."
+ },
+ "scenarios": {
+  "rule": "Each label covariate statement is applied to the selected set only, one at a time, with its quote: mild or moderate hepatic impairment, AUC about 1.5-fold (CL / 1.5); end-stage renal disease on haemodialysis, AUC 1.33-fold (CL / 1.33); mild to severe renal impairment (CLcr 15-89 mL/min), age, sex and race, no clinically meaningful effect (no change). Severe hepatic impairment: not evaluated, so no scenario.",
+  "not_checked_here": "Scenarios are carried into the engine, not tested."
+ },
+ "after_this": "If a set is selected, the next step is the blind check of the curve against the tabulated values of Badros 2013 (renal impairment) and Quach 2017, under its own plan locked before those values are read.",
+ "executable": "intelligence_store/label_exposure_carfilzomib.py: run_check(plan, label) with the pinned plan and extract; dry-run on a synthetic extract before the lock (tests/test_label_exposure_carfilzomib.py).",
+ "clinical_prediction_validated": false
+}
