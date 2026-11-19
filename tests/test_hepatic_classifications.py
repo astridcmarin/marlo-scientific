@@ -18,13 +18,13 @@ class Extract(unittest.TestCase):
     def test_draft_status_and_docket(self):
         self.assertIn('draft', self.doc['source']['status'])
         self.assertEqual(self.doc['source']['docket'], 'FDA-2026-D-8693')
-        self.assertIn('Not yet reviewed by the platform owner', self.doc['source']['extraction'])
+        self.assertIn('Reviewed by the platform owner', self.doc['source']['extraction'])
 
     def test_groups(self):
         self.assertEqual([g['score'] for g in self.doc['child_pugh_table_1']['groups']], [[5, 6], [7, 9], [10, 15]])
         self.assertEqual([g['id'] for g in self.doc['nci_odwg_table_2']['groups']], ['A', 'B1', 'B2', 'C', 'D'])
         self.assertIn('5-6 (CP group A)', self.doc['recommendations']['cp_groups']['quote'])
-        self.assertIn('assumed', self.doc['child_pugh_table_1']['reading'])
+        self.assertIn('the headers are printed in the PDF', self.doc['child_pugh_table_1']['reading'])
 
 
 class View(unittest.TestCase):

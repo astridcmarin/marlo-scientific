@@ -30,8 +30,9 @@ class GuidanceExtract(unittest.TestCase):
         for x in (0.5, 29.99, 30, 59.99, 60, 89.99, 90, 150):
             self.assertEqual(sum(kfc.contains(r['interval'], x) for r in rows), 1, x)
 
-    def test_marked_unreviewed(self):
-        self.assertIn('Not yet reviewed by the platform owner', self.doc['source']['extraction'])
+    def test_marked_reviewed(self):
+        # v3 (19 November 2026) records the owner's Track B review; before it, the extract said it was unreviewed.
+        self.assertIn('Reviewed by the platform owner', self.doc['source']['extraction'])
 
 
 class Comparison(unittest.TestCase):
