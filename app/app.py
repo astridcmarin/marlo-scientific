@@ -678,7 +678,13 @@ def landing():
     if request.args:
         return redirect(url_for("home", **request.args.to_dict(flat=False)), code=301)
     from landscape_ui.landing_examples import curve_example, kidney_example
-    return render_template("landing.html", github_url=GITHUB_URL, curve=curve_example(), kidney=kidney_example())
+    from intelligence_store.check_findings import FindingsError, findings_view
+    try:
+        findings = findings_view()
+    except (FindingsError, ValueError, OSError):
+        findings = None            # the hero card is left out rather than showing unverified counts
+    return render_template("landing.html", github_url=GITHUB_URL, curve=curve_example(), kidney=kidney_example(),
+                           findings=findings)
 
 
 @app.route("/models")
@@ -740,6 +746,16 @@ def extraction_review_round_3():
     from intelligence_store.extraction_review import DECISIONS, ReviewError, round_3_view
     try:
         view = round_3_view()
+    except ReviewError as exc:
+        return Response(str(exc), status=503, mimetype="text/plain", headers={"Cache-Control": "no-store"})
+    return Response(render_template("extraction_review.html", v=view, decisions=DECISIONS), headers={"Cache-Control": "no-store"})
+
+
+@app.route("/models/extraction-review/round-4")
+def extraction_review_round_4():
+    from intelligence_store.extraction_review import DECISIONS, ReviewError, round_4_view
+    try:
+        view = round_4_view()
     except ReviewError as exc:
         return Response(str(exc), status=503, mimetype="text/plain", headers={"Cache-Control": "no-store"})
     return Response(render_template("extraction_review.html", v=view, decisions=DECISIONS), headers={"Cache-Control": "no-store"})

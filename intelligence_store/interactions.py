@@ -13,8 +13,10 @@ from .intervention_names import group_intervention_names, name_key
 from .summaries import CohortSummaryError, summarize_cohort
 
 METHOD_VERSION = "cohort-interaction-references-v1.0"
-CATALOG_PATH = Path(__file__).parent / "data" / "drug_interactions_v1.json"
-CATALOG_SHA256 = '0f830fa2ac6b071452959ac0d36e74be66b36a2c6042460efe214f9c0339ec53'
+CATALOG_PATH = Path(__file__).parent / "data" / "drug_interactions_v2.json"
+CATALOG_SHA256 = 'd92afa8146f3f80aaa89f5a05a1f676c6b7fb3e0b95b436297b99bb8a003bfde'
+# Superseded, kept unchanged for traceability: drug_interactions_v1.json (v2 adds ixazomib)
+CATALOG_V1_SHA256 = '0f830fa2ac6b071452959ac0d36e74be66b36a2c6042460efe214f9c0339ec53'
 KINDS = {
     "drug_pair": "Selected drug-name pair",
     "class_reference": "Class-level reference; not expanded to individual drugs",
@@ -42,7 +44,7 @@ def load_interaction_catalog(aliases, path=CATALOG_PATH):
     try:
         content = Path(path).read_bytes()
         if hashlib.sha256(content).hexdigest() != CATALOG_SHA256:
-            raise ValueError('File differs from its pinned checksum (drug_interactions_v1.json)')
+            raise ValueError('File differs from its pinned checksum (drug_interactions_v2.json)')
         catalog = json.loads(content)
         if not isinstance(catalog, dict) or catalog.get("schema_version") != "drug-interaction-references-v1":
             raise ValueError("Unsupported schema")

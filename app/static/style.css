@@ -1380,3 +1380,5 @@ body {
 a {
     color: var(--ms-teal, #176b71);
 }
+/* Live versus frozen (evidence-first plan, item 3, 18 November 2026). */
+.live-note { margin-top: 8px; font-size: 14px; color: #5b6472; max-width: 760px; }

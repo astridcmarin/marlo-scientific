@@ -42,7 +42,7 @@
     <h2>{{ a.area }}</h2>
     <ol class="fd-list">
     {% for r in a.rows %}
-        <li>
+        <li id="{{ r.id }}">
             <div class="fd-head"><span class="fd-q">{{ r.question }}</span><span class="status status-{{ cls[r.tone] }}" title="{{ r.outcome_label }}">{{ r.outcome|replace('_', ' ')|capitalize }}</span></div>
             <p style="margin:0">{{ r.headline }}</p>
             {% if r.acceptance_rule %}<p class="fd-meta">Judged by: {{ r.acceptance_rule }}</p>{% endif %}

@@ -13,8 +13,10 @@ from .drug_aliases import AliasCatalogError, reconcile_drug_aliases
 from .summaries import CohortSummaryError, summarize_cohort
 
 METHOD_VERSION = "cohort-safety-references-v1.0"
-CATALOG_PATH = Path(__file__).parent / "data" / "drug_safety_v1.json"
-CATALOG_SHA256 = '2d55da7170d538703625ab18b63481b98b78d5c1568884ad7bc8934d2b82b87d'
+CATALOG_PATH = Path(__file__).parent / "data" / "drug_safety_v2.json"
+CATALOG_SHA256 = '06f25200d0281e735f88d90415430a146cd5dc4221df9a071496fa64405c1de8'
+# Superseded, kept unchanged for traceability: drug_safety_v1.json (v2 adds ixazomib)
+CATALOG_V1_SHA256 = '2d55da7170d538703625ab18b63481b98b78d5c1568884ad7bc8934d2b82b87d'
 LIMITATION = (
     "Selected warning references from pinned product labels. Trial counts mean reported intervention names, "
     "not patient exposure, observed adverse events, adverse-event rates or trial risk scores. "
@@ -31,7 +33,7 @@ def load_safety_catalog(aliases, path=CATALOG_PATH):
     try:
         content = Path(path).read_bytes()
         if hashlib.sha256(content).hexdigest() != CATALOG_SHA256:
-            raise ValueError('File differs from its pinned checksum (drug_safety_v1.json)')
+            raise ValueError('File differs from its pinned checksum (drug_safety_v2.json)')
         catalog = json.loads(content)
         if (
             not isinstance(catalog, dict)

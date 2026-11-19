@@ -2,6 +2,7 @@
 import json
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 from intelligence_store import eligibility_second_annotation as sa
@@ -288,6 +289,35 @@ class RoundTwoPlan(unittest.TestCase):
         with self.assertRaises(ValueError):
             sa.agreement(self._blank(pb), pb, record_a=self._blank(pa), comparison='v2', plan=self.plan)
 
+
+
+class RoundTwoRecords(unittest.TestCase):
+    """Both round-two records, pinned unchanged before any analysis (19 November 2026)."""
+
+    def test_each_record_is_valid_for_its_own_reader_page_and_plan(self):
+        plan = sa.load_plan(sa.PLANS['eligibility-second-annotation-plan-v2.1'][0])
+        for reader in ('owner', 'annotator_b'):
+            record = sa.load_round_2_record(reader)
+            p = sa.page_payload(plan, reader)
+            problems, parsed = sa.validate_record(record, p, reader=reader, plan=plan)
+            self.assertEqual(problems, [], reader)
+            self.assertEqual(len(parsed), 50, reader)
+            self.assertEqual(record['plan_sha256'], sa.PLANS['eligibility-second-annotation-plan-v2.1'][1], reader)
+
+    def test_the_two_records_are_not_interchangeable(self):
+        plan = sa.load_plan(sa.PLANS['eligibility-second-annotation-plan-v2.1'][0])
+        problems, _ = sa.validate_record(sa.load_round_2_record('owner'), sa.page_payload(plan, 'annotator_b'),
+                                         reader='annotator_b', plan=plan)
+        self.assertTrue(problems)
+
+    def test_a_changed_record_is_refused(self):
+        path, sha = sa.ROUND_2_RECORDS['owner']
+        with tempfile.TemporaryDirectory() as d:
+            changed = Path(d) / path.name
+            changed.write_bytes(path.read_bytes() + b' ')
+            with mock.patch.dict(sa.ROUND_2_RECORDS, {'owner': (changed, sha)}):
+                with self.assertRaises(ValueError):
+                    sa.load_round_2_record('owner')
 
 class PinnedPlans(unittest.TestCase):
     """Every plan the module may run is pinned by its loader, and carries the analysis keys the executable reads."""

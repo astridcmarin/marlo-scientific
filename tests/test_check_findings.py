@@ -1,4 +1,5 @@
 """What the checks found: one line per locked check, joined with the dataset ledger."""
+import hashlib
 import json
 import unittest
 
@@ -77,9 +78,24 @@ class Findings(unittest.TestCase):
         self.assertIn('lower bounds', added['acceptance_rule'])
         self.assertIn('measures the readers', added['headline'])
 
+    def test_v12_adds_the_round_two_second_annotation_only(self):
+        old_raw = cf.FINDINGS_PATH.with_name('check_findings_v11.json').read_bytes()
+        old, new = json.loads(old_raw), json.loads(cf.FINDINGS_PATH.read_bytes())
+        self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V11_SHA256)
+        self.assertEqual(new['findings'][:-1], old['findings'])
+        added = new['findings'][-1]
+        self.assertEqual((added['id'], added['outcome']), ('eligibility_second_annotation_v2', 'passed'))
+        self.assertIn('Observed lower bound 0.9125', added['acceptance_rule'])
+        report = cf.ROOT / added['report']
+        self.assertEqual(hashlib.sha256(report.read_bytes()).hexdigest(), added['report_file_sha256'])
+        rep = json.loads(report.read_text())
+        self.assertEqual(rep['primary']['reliability_reading']['value'], 0.9125)
+        self.assertEqual(rep['primary']['reliability_reading']['reading'], 'adequate')
+        self.assertEqual(rep['primary']['overall']['exact_agreement'], 378)
+
     def test_v11_adds_acceptance_rule_v2_for_gupta_and_luo(self):
         old = json.loads(cf.FINDINGS_PATH.with_name('check_findings_v10.json').read_bytes())
-        new = json.loads(cf.FINDINGS_PATH.read_bytes())
+        new = json.loads(cf.FINDINGS_PATH.with_name('check_findings_v11.json').read_bytes())
         self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V10_SHA256)
         before, after = {f['id']: f for f in old['findings']}, {f['id']: f for f in new['findings']}
         self.assertEqual(set(after) - set(before), {'acceptance_rule_v2_gupta_luo'})

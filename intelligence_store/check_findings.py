@@ -13,8 +13,10 @@ from .dataset_ledger import BLIND_ROLES, LEDGER_SHA256, load_ledger
 from .patient_state import digest
 
 ROOT = Path(__file__).resolve().parent.parent
-FINDINGS_PATH = Path(__file__).parent / 'data' / 'check_findings_v11.json'
-FINDINGS_SHA256 = '1329a0d242379ae1e851cfd74942173790c324c1963b4f379b85593f9a92328b'
+FINDINGS_PATH = Path(__file__).parent / 'data' / 'check_findings_v12.json'
+FINDINGS_SHA256 = '9cb588dff823fbe10ef0206d287b9479e4ba0d386c86f4bfa0db9a46f012fca9'
+# Superseded, kept unchanged: check_findings_v11.json (v12 adds the eligibility second-annotation round two result)
+FINDINGS_V11_SHA256 = '1329a0d242379ae1e851cfd74942173790c324c1963b4f379b85593f9a92328b'
 # Superseded, kept unchanged: check_findings_v10.json (v11 adds acceptance rule v2 for Gupta and Luo)
 FINDINGS_V10_SHA256 = 'b104c8680c8d851ffc593600da528cbbe3c0dcd4d6b245248970b727d52b4d23'
 # Superseded, kept unchanged: check_findings_v9.json (v10 adds the adjudication result)
@@ -62,6 +64,19 @@ def _blindness(report, ledger):
     if role is None:
         raise FindingsError(f'{report} is not in the dataset ledger.')
     return role
+
+
+def subject_drug_matches(subject, drug_id):
+    """Whether a findings subject (a model or tool id) belongs to a drug: its id starts with the drug's, or it is
+    that drug's label-based curve."""
+    return subject.startswith(drug_id + '_') or subject == 'label_exposure_' + drug_id
+
+
+def findings_for_drug(drug_id, view=None):
+    """The findings rows whose subjects belong to one drug, in the order the findings page shows them."""
+    view = view or findings_view()
+    return [r for area in view['areas'] for r in area['rows']
+            if any(subject_drug_matches(s, drug_id) for s in r['subjects'])]
 
 
 def findings_view():

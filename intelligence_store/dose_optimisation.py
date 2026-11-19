@@ -31,7 +31,7 @@ SCHEMA_VERSION = 'lenalidomide-dose-view-v1'
 METHOD_VERSION = 'lenalidomide-dose-view-v1.2'
 EXPOSURE_RESPONSE_PATH = Path(__file__).parent / 'data' / 'lenalidomide_exposure_response_guglieri_2017_v1.json'
 EXPOSURE_RESPONSE_SHA256 = '676a2b8ff2f0d0d668e62105918ea28b6358cce0f745b72c2fafb4fd0efb6eb5'
-ALIASES = ('Lenalidomide', 'Revlimid')       # drug_aliases_v1.json entry 'lenalidomide' (checked in a test)
+ALIASES = ('Lenalidomide', 'Revlimid')       # drug_aliases_v2.json entry 'lenalidomide' (checked in a test)
 MODELS = {'lenalidomide_hughes_2019': 'Hughes 2019', 'lenalidomide_kim_2026': 'Kim 2026'}
 DOSE_STATUS = {
     'study_dose': "One of the model's study doses",

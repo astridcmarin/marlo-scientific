@@ -30,6 +30,7 @@ GROUPS = [
     ('guide', 'Guides and dosing'),
     ('label', 'Label and special populations'),
     ('models', 'Models and their checks'),
+    ('findings', 'What the checks found'),
     ('tools', 'Exposure and effect tools'),
     ('evidence', 'Evidence'),
     ('patients', 'On synthetic patients'),
@@ -66,6 +67,16 @@ def hub_links(entity_id, label, cohort_id=None):
             add('models', card['name'], _url('model_scorecard', model_id=card['model_id']),
                 f"{card['kind']}. " + (f"{checks} recorded disagreement{'s' if checks != 1 else ''} with outside data."
                                        if checks else 'No recorded disagreement with outside data.'))
+    # Every locked check on this drug's models, failures included (evidence-first plan, item 4, 18 November 2026).
+    # A findings file that fails its checksum leaves the group out rather than breaking the drug page.
+    from intelligence_store.check_findings import FindingsError, findings_for_drug
+    try:
+        rows = findings_for_drug(entity_id)
+    except (FindingsError, ValueError, OSError):
+        rows = []
+    findings_url = _url('check_findings')
+    for r in rows:
+        add('findings', r['question'], findings_url and f"{findings_url}#{r['id']}", f"{r['outcome_label']}.")
     if entity_id in label_exposure_view.available():
         add('tools', 'Label-based exposure', _url('landscape.label_exposure', drug=entity_id),
             'Typical curve from the label\'s own PK values, after its locked checks.')

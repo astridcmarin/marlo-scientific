@@ -15,8 +15,10 @@ from .intervention_names import group_intervention_names, name_key
 from .summaries import CohortSummaryError, summarize_cohort
 
 ALIAS_METHOD_VERSION = "drug-aliases-v1.2"
-CATALOG_PATH = Path(__file__).parent / "data" / "drug_aliases_v1.json"
-CATALOG_SHA256 = '896a58a2a89e8a992ba85a23ea726ba5d65f8ac9f3bcd88e10444589450c2845'
+CATALOG_PATH = Path(__file__).parent / "data" / "drug_aliases_v2.json"
+CATALOG_SHA256 = 'e8e3bf07cc57b0fa365afebc024b38fd6b86762ce2c31504e261ed7eb7373ac8'
+# Superseded, kept unchanged for traceability: drug_aliases_v1.json (v2 adds ixazomib)
+CATALOG_V1_SHA256 = '896a58a2a89e8a992ba85a23ea726ba5d65f8ac9f3bcd88e10444589450c2845'
 FORMATTING_MAP_PATH = Path(__file__).parent / "data" / "formatting_group_mappings_v1.json"
 FORMATTING_MAP_SHA256 = '0e251f32f4ecf7e8675fa4d14c2032bb542b5f1288b3195c400f53d58ce4f337'
 
@@ -102,7 +104,7 @@ def load_alias_catalog(path=CATALOG_PATH):
     try:
         content = Path(path).read_bytes()
         if hashlib.sha256(content).hexdigest() != CATALOG_SHA256:
-            raise ValueError('File differs from its pinned checksum (drug_aliases_v1.json)')
+            raise ValueError('File differs from its pinned checksum (drug_aliases_v2.json)')
         catalog = json.loads(content)
         if (
             not isinstance(catalog, dict)

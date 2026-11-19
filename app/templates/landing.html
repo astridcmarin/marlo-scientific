@@ -26,29 +26,32 @@
             <h1>Connecting trial evidence, regulatory knowledge and pharmacology models for research</h1>
             <p class="lede">Marlo Scientific connects clinical-trial evidence, drug and regulatory knowledge, and transparent pharmacology models in one research workspace, with results traced to their sources.</p>
             <div class="button-row">
-                <a class="button button-aqua" href="{{ url_for('home') }}">Open the trial explorer</a>
-                <a class="button button-ghost" href="#platform">See what's inside</a>
+                <a class="button button-aqua" href="{{ url_for('landscape.index') }}">Explore the myeloma trial landscape</a>
+                <a class="button button-ghost" href="{{ url_for('check_findings') }}">What the checks found</a>
             </div>
         </div>
 
+        {# Evidence first (owner's decision of 18 November 2026): the hero shows the check record, not a model result. #}
+        {% if findings %}
         <figure class="record-card">
             <figcaption>
-                <span class="title">Patient Lab results show what's been checked, and what hasn't.</span>
-                <span class="sub">Example: lenalidomide elimination pathways for a synthetic patient</span>
+                <span class="title">Every check is on the record, including the ones that failed.</span>
+                <span class="sub">{{ findings.total }} locked checks, each planned before it ran</span>
             </figcaption>
             <div class="pills">
-                <span class="pill">Simulated</span>
-                <span class="pill">Synthetic patient</span>
-                <span class="pill pill-flag">Not a clinical prediction</span>
+                <span class="pill">Planned in advance</span>
+                <span class="pill">{{ findings.blind }} blind</span>
+                <span class="pill pill-flag">Failures kept</span>
             </div>
             <ul class="checks">
-                <li><span class="mark mark-done" aria-hidden="true">✓</span>Code computes the intended equations</li>
-                <li><span class="mark mark-part" aria-hidden="true">◐</span>Values checked against the source <span class="check-note">partly</span></li>
-                <li><span class="mark mark-done" aria-hidden="true">✓</span>Reproduces the data it was built on</li>
-                <li><span class="mark mark-part" aria-hidden="true">◐</span>Compared with outside data <span class="check-note">exploratory</span></li>
+                <li><span class="mark mark-done" aria-hidden="true">✓</span>Consistent or passed <span class="check-note">{{ findings.counts.ok }}</span></li>
+                <li><span class="mark mark-part" aria-hidden="true">◐</span>Mixed or not adopted <span class="check-note">{{ findings.counts.warn }}</span></li>
+                <li><span class="mark mark-gap" aria-hidden="true">✕</span>Disagree with the data, or failed <span class="check-note">{{ findings.counts.gap }}</span></li>
+                <li><span class="mark mark-neutral" aria-hidden="true">?</span>Inconclusive <span class="check-note">{{ findings.counts.neutral }}</span></li>
             </ul>
-            <p class="finding">Recorded limitation: in moderate kidney impairment this model under-predicts exposure.</p>
+            <p class="finding">A consistent result means agreement with that data under a rule fixed beforehand; it is not clinical validation. <a href="{{ url_for('check_findings') }}">Read every check</a>.</p>
         </figure>
+        {% endif %}
     </div>
 </section>
 
@@ -89,7 +92,7 @@
                 <p class="links"><a href="{{ url_for('home') }}">Open the trial explorer →</a> <a href="{{ url_for('landscape.index') }}">Trial landscape →</a></p>
             </div>
             <figure class="feature-visual dataset">
-                <figcaption>Multiple myeloma research dataset</figcaption>
+                <figcaption>Multiple myeloma registry snapshot</figcaption>
                 <p><span class="big">4,037</span> unique trials</p>
                 <dl class="bars">
                     <dt>Interventional</dt><dd class="bar"><span style="width: 85.5%"></span></dd><dd class="count">3,450</dd>
@@ -97,7 +100,7 @@
                     <dt>Completed</dt><dd class="bar bar-navy"><span style="width: 45.2%"></span></dd><dd class="count">1,825</dd>
                     <dt>Recruiting</dt><dd class="bar bar-navy"><span style="width: 14.5%"></span></dd><dd class="count">584</dd>
                 </dl>
-                <p class="small-note">Share of all 4,037 trials. Reporting indicators describe registry status, not legal compliance.</p>
+                <p class="small-note">Share of all 4,037 trials: every multiple myeloma study registered on ClinicalTrials.gov, frozen on 5 October 2026 (cohort #4). Drug pages count drug names in the 3,085 interventional studies of a drug or biologic retrieved the same day (cohort #1). Reporting indicators describe registry status, not legal compliance.</p>
             </figure>
         </article>
 
@@ -122,6 +125,7 @@
             <div class="feature-text stack">
                 <span class="tag tag-experimental">Experimental</span>
                 <h3>Computational pharmacology lab</h3>
+                <div class="pills"><span class="pill">Simulated</span><span class="pill">Synthetic patient</span><span class="pill pill-flag">Not a clinical prediction</span></div>
                 <p>Build a synthetic patient, then run published models on that record. Results are typical values from a published model, never a prediction for a real person.</p>
                 <ul class="points">
                     <li>Lenalidomide concentration curves from two population PK models (Hughes 2019, Kim 2026), each used only inside its <a href="{{ url_for('model_scope', model_id='lenalidomide_hughes_2019') }}">declared scope</a>. <a href="{{ url_for('landscape.lenalidomide_guide') }}">Follow lenalidomide through the platform, from trials to exposure at each dose level</a>.</li>
@@ -131,6 +135,7 @@
                     <li>Relative odds (not probabilities) of severe low blood counts, from a published analysis that could not be reproduced, and the bortezomib platelet course (Lignet 2022). Its exposure model disagrees with two outside studies; <a href="{{ url_for('model_scorecard', model_id='bortezomib_pk_lignet_2022') }}">see the scorecard</a>.</li>
                     <li>Label-based exposure curves for approved drugs, each checked against its own label and outside data before it is shown. So far: <a href="{{ url_for('landscape.label_exposure', drug='pomalidomide') }}">pomalidomide</a> and <a href="{{ url_for('landscape.label_exposure', drug='dexamethasone') }}">dexamethasone</a>.</li>
                     <li>Building blocks for target binding, protein turnover, delays and dosing schedules.</li>
+                    <li>Every result shows what has and has not been checked, and its recorded limitations: for example, the elimination model under-predicts exposure in moderate kidney impairment.</li>
                 </ul>
                 <p class="links"><a href="{{ url_for('landscape.patient_directory') }}">Open the Patient Lab →</a> <a href="{{ url_for('landscape.simulation_lab') }}">Simulation Lab →</a></p>
             </div>

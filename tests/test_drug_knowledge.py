@@ -37,7 +37,7 @@ class DrugKnowledgeTests(unittest.TestCase):
     def test_zero_match_entities_keep_reference_context_and_newer_snapshot_is_not_used(self):
         self.extra('NCT00000001',['Bortezomib'],member=False);db.session.commit()
         r=build_drug_knowledge(summarize_cohort(1));e=next(e for e in r['entries'] if e['entity_id']=='bortezomib')
-        self.assertEqual(len(r['entries']),9)
+        self.assertEqual(len(r['entries']),10)
         self.assertEqual(e['count'],0);self.assertEqual(e['nct_ids'],[])
         self.assertIsNotNone(e['safety']);self.assertIsNotNone(e['annotation'])
         matched=next(e for e in r['entries'] if e['entity_id']=='lenalidomide')

@@ -31,7 +31,7 @@ class ResearchToolTests(unittest.TestCase):
         for kind in ['target_activity','research_timecourse','assumption_experiment']:
             data=self.client.get(self.path,query_string={'q':'bortezomib','capability':kind,'format':'json'}).json
             self.assertEqual(data['selection']['entity_ids'],['bortezomib'])
-            self.assertEqual(len(data['inventory']['entries']),9)
+            self.assertEqual(len(data['inventory']['entries']),10)
             self.assertEqual(self.client.get(self.path,query_string={'q':'lenalidomide','capability':kind,'format':'json'}).json['selection']['entity_ids'],[])
     def test_pk_failure_withholds_only_dependent_tools(self):
         with patch.object(registry,'load_pk',side_effect=ValueError('changed')):
@@ -47,7 +47,7 @@ class ResearchToolTests(unittest.TestCase):
             # The platelet tool does not use the proteasome equation, so it stays available.
             self.assertEqual({k:n for k,n in r['research_tool_counts'].items() if n},{'drug_effect_timecourse':1})
             self.assertEqual(r['counts']['educational_exposure_models'],2)
-            self.assertEqual(len(r['entries']),9)
+            self.assertEqual(len(r['entries']),10)
     def test_evidence_failure_not_reported_as_missing_model(self):
         with patch.object(registry,'_pinned',return_value=False):
             tools=registry.research_tool_registry()['bortezomib']

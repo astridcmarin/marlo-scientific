@@ -63,6 +63,24 @@ RECORD_PATH = DATA / 'eligibility_annotator_b_record_v1.json'
 RECORD_SHA256 = '8a491e1a37158dfc25034687cba7b31665ad3b6acf47d4d7d9c49a19b0a8ddd0'
 
 
+# Round two (plan v2.1): each reader's locked record, pinned unchanged before any analysis, as the plan requires.
+ROUND_2_RECORDS = {
+    'owner': (DATA / 'eligibility_round2_owner_record_v1.json',
+              '0d94147c5b635b3e14af687c27f8b653938dc4b279e298d05d391d3a15cb05c9'),         # locked 18 November 2026
+    'annotator_b': (DATA / 'eligibility_round2_annotator_b_record_v1.json',
+                    'e4d6f34907a0b9942dc54c91800cfb55182d9565fa29f936d0d23e2032c57369'),   # locked 19 November 2026
+}
+
+
+def load_round_2_record(reader):
+    """A round-two reader's pinned record. Refuses a changed file."""
+    path, pinned = ROUND_2_RECORDS[reader]
+    raw = Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != pinned:
+        raise ValueError(f"The round-two record of {reader_identity(reader)['label']} is missing or changed.")
+    return json.loads(raw)
+
+
 def load_record(path=RECORD_PATH):
     raw = Path(path).read_bytes()
     if RECORD_SHA256 is not None and hashlib.sha256(raw).hexdigest() != RECORD_SHA256:

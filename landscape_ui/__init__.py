@@ -129,7 +129,7 @@ def _summary(cohort_id):
             summary["groups"][field] = summary["annotations"]["groups"][field]
             summary["metric_source_paths"][field] = [
                 *summary["metric_source_paths"]["drug_intervention"],
-                "drug_annotations_v1.json.entries[].fields." + field + ".label",
+                "drug_annotations_v2.json.entries[].fields." + field + ".label",
             ]
         return summary
     except CohortSummaryError as exc:
