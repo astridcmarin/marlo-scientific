@@ -1,6 +1,6 @@
 # 0007 — The first release covers every drug with a US label, built automatically from the label, with its review state shown
 
-**Date:** 19 November 2026 · **Status:** scope accepted by the owner, 19 November 2026 ("All drugs with a US label"); the open choices below are the owner's and are not yet made
+**Date:** 19 November 2026 · **Status:** accepted by the owner for the scope, 19 November 2026 ("All drugs with a US label"); the open choices below are the owner's and are not yet made
 
 ## Problem
 
