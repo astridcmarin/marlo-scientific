@@ -47,7 +47,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 ## Bortezomib
 
 - [Platelet time course and exposure model](SIMULATION_3_BORTEZOMIB_PLATELETS.md): the Lignet 2022 models, the outside checks (Ogawa, CAN-1004, MMY-3021, Reece) and the three failed candidates (Kuan, falling clearance, Iwasaki).
-- Research tools: [proteasome target activity](BORTEZOMIB_PROTEASOME_STEP104.md), [peak-evidence review](BORTEZOMIB_EVIDENCE_STEP105.md), [figure review](BORTEZOMIB_FIGURES_STEP106.md), [study-regimen time course](BORTEZOMIB_TIMECOURSE_STEP107.md), [elimination assumptions](BORTEZOMIB_ASSUMPTIONS_STEP108.md), [observation intake](BORTEZOMIB_OBSERVATION_INTAKE_STEPS106_108.md), [discoverable research tools](DRUG_RESEARCH_TOOLS_STEP109.md).
+- Research tools (step-numbered documents of October, in [bortezomib/](bortezomib/)): [proteasome target activity](bortezomib/BORTEZOMIB_PROTEASOME_STEP104.md), [peak-evidence review](bortezomib/BORTEZOMIB_EVIDENCE_STEP105.md), [figure review](bortezomib/BORTEZOMIB_FIGURES_STEP106.md), [study-regimen time course](bortezomib/BORTEZOMIB_TIMECOURSE_STEP107.md), [elimination assumptions](bortezomib/BORTEZOMIB_ASSUMPTIONS_STEP108.md), [observation intake](bortezomib/BORTEZOMIB_OBSERVATION_INTAKE_STEPS106_108.md), [discoverable research tools](bortezomib/DRUG_RESEARCH_TOOLS_STEP109.md).
 
 ## Other drugs
 
