@@ -4,7 +4,7 @@ Research and educational platform: clinical-trial intelligence, drug/regulatory 
 
 ## Start here
 
-- `docs/HANDOFF.md` — state of open work at the last account switch (12 November 2026): what is next, the blind-data rules, how to run tests without the database.
+- `docs/HANDOFF.md` — state of open work (20 November 2026): what is next, the blind-data rules, the two-session rule, how to run tests without the database.
 - `docs/README.md` — index of all documentation.
 - `docs/PRODUCT_AND_SCIENCE_ROADMAP.md` — product direction and phases.
 - `docs/STATUS_BY_DRUG.md` — plain-language status per drug; `/models/findings` lists every locked check.
@@ -25,6 +25,7 @@ Research and educational platform: clinical-trial intelligence, drug/regulatory 
 - Keep the commit count low (the owner's GitHub account was flagged on 3 November 2026 for too many commits; no limit was stated):
   - One commit per update: fold fix-ups (tests, regenerated indexes, wording) into the update's commit before pushing, never as separate commits.
   - Exception: a locked check keeps two commits, plan then result, because the order is the evidence that the plan came first. Never squash them together.
-  - Work on a local batch branch and push once per batch, not after each update.
+  - Work on a batch branch and push it when its first commit exists (batch 14 was lost when a branch lived only in a cloud workspace).
+  - Two sessions may work on this repository at once. Before every commit, `git fetch origin` and check that the branch's remote head is still the commit you started from; if a commit you did not make has appeared, stop and read it first. One batch branch per session; never commit to a branch another session is using.
   - One pull request per batch of about five updates. The owner merges with "Create a merge commit"; do not squash a batch that contains a locked plan.
 - Run the app and CLI tools from the repo root with `PYTHONPATH=.` and `flask --app app/app.py …`; schema changes need a new Alembic migration whose `down_revision` is the current head (`tests/test_migrations.py` checks the chain).

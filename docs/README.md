@@ -16,7 +16,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [AI methods review of Track C (ChatGPT)](reviews/2026-11_chatgpt_track_c_review.md) (12 November 2026): ten findings on the locked language-model extractor test; none invalidates it; a run procedure was added. Not an independent review.
 - [AI methods review of acceptance rule v2 (ChatGPT)](reviews/2026-11_chatgpt_f03_review.md) (12 November 2026): eight findings; none invalidates the calculation; the "lower bound" wording is withdrawn. Not an independent review.
 - [AI extraction: parameter precision of Gupta 2017, Luo 2021, Li 2017](reviews/2026-11_precision_extraction_gupta_luo_li.md) (12 November 2026): no 95% bootstrap intervals published; what the rule needs before it covers those models.
-- [Handoff, 12 November 2026](HANDOFF.md): open work in order, where things are kept, and the rules that are easy to break.
+- [Handoff, 20 November 2026](HANDOFF.md): open work in order, where things are kept, and the rules that are easy to break (the 16 November version is in [history](history/HANDOFF_2026-11-16.md)).
 - [Evidence first](EVIDENCE_FIRST_PLAN.md): what the evidence pages need, from a page-by-page read on 18 November 2026, in priority order.
 - [Decision 0008, 20 November 2026](decisions/0008-patient-profiles-not-patient-records.md): a real patient enters only as a banded profile many people share, computed in the browser and never sent or stored; first form and amendments.
 - [Decision 0007, 19 November 2026](decisions/0007-first-release-covers-every-us-labelled-drug.md): the first release covers every drug with a US label, built from the label by script with its review state shown; open choices for the owner.
