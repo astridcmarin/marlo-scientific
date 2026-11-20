@@ -141,6 +141,8 @@ Decided with the owner on 18 November ([REGROUP_2026-11-18.md](REGROUP_2026-11-1
 
 **Scope, 19 November:** the first release covers every drug with a US label, built automatically from the label with its review state shown, not only myeloma ([decision 0007](decisions/0007-first-release-covers-every-us-labelled-drug.md); five open choices for the owner). Hand-built drug pages stop at the ten catalogue drugs until the pipeline exists.
 
+**Patients, 20 November:** the owner's aim is to compare what trials found with a real person's situation and to show how a drug behaves in bodies like theirs, for women and men. A real patient enters only as a banded profile that many people share, computed in the browser and never sent or stored ([decision 0008](decisions/0008-patient-profiles-not-patient-records.md)). Outputs describe patients matching the profile, never what one patient will gain; a privacy lawyer reviews the design before real patients' profiles are invited.
+
 **Direction.** The first release leads with sourced evidence: the trial landscape, special-population evidence, regulatory references and the check findings. The models stay research tools behind their credibility records, because two months of checks show most of them carry a recorded disagreement or an indeterminate result (34 locked checks, 5 blind, on 18 November). No outside user conversations yet; the owner works with one engineer, and will include an independent reviewer.
 
 **Queue, in order:**
