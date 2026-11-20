@@ -1,6 +1,6 @@
 # 0009 — Label content is stored in database tables, rebuilt from DailyMed files listed in a pinned manifest
 
-**Date:** 20 November 2026 · **Status:** proposed, for the owner's approval (choice 4 of decision 0007)
+**Date:** 20 November 2026 · **Status:** accepted by the owner, 20 November 2026 (choice 4 of decision 0007), with one change: "if the repository is too large, then we will look for a different way to store them"
 
 ## Problem
 
@@ -20,7 +20,7 @@ Whatever is chosen must keep three properties the platform already has: every va
 Option 2:
 
 - **Raw files.** The DailyMed zip files are kept on the ingestion machine (the owner's iMac, decision 0007 choice 3), under `supplemental-information/dailymed/`, never committed. Each label's XML is identified by its SHA-256.
-- **Manifest.** Each ingestion run writes a release manifest to `intelligence_store/data/`, pinned like any other data file. Per label it lists the set ID, version, effective date, marketing category and application number, the ingredients (UNII and name), the zip file it came from, the XML's SHA-256 and the extraction method version. The pilot's manifest is a plain JSON file. If the full set's manifest is too large for the repository, it is stored gzip-compressed, pinned on its compressed bytes; that change gets a line in this record, not a new decision.
+- **Manifest.** Each ingestion run writes a release manifest to `intelligence_store/data/`, pinned like any other data file. Per label it lists the set ID, version, effective date, marketing category and application number, the ingredients (UNII and name), the zip file it came from, the XML's SHA-256 and the extraction method version. The pilot's manifest is a plain JSON file. If the full set's manifest is too large for the repository, another way to store it is chosen then, by the owner (20 November); the repository is not made to carry it.
 - **Tables.** One Alembic migration adds three tables: a document table (one row per label version: set ID, version, manifest, marketing category, application number, effective date, title, XML checksum); a section table (document, LOINC section code, heading as printed, order, verbatim text, text checksum, extraction method version); and an ingredient table (document, UNII, name). Rows are insert-only, like the platform's immutable run tables: a new label version or a new extraction method adds rows and never updates old ones.
 - **Rebuildable.** A deterministic script rebuilds the tables from the manifest and the raw files. Tests run it on small synthetic SPL files in the repository (made up, not taken from DailyMed). Anyone with the same DailyMed files can rebuild the same tables, so the public repository carries the method and the manifest, not the content.
 - **Review state.** Every section row shows as "taken from the label by script, not reviewed" (decision 0007), until a sampled review under a locked plan says otherwise. Review records are pinned JSON files, as now.
