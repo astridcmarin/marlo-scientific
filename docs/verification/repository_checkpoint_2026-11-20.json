@@ -1,0 +1,77 @@
+{
+  "schema_version": "repository-checkpoint-v1",
+  "checkpoint": "2026-11-20",
+  "classification": "software_and_repository_verification",
+  "tree": {
+    "branch": "main",
+    "base": "merge of PR #135 (batch 24)",
+    "covers_batches": "21 to 24"
+  },
+  "machine": "cloud session without the database packages; CI on the pull requests is the authoritative run",
+  "unit_tests": {
+    "where": "CI on PRs #132-#135",
+    "ci_result": "pass",
+    "cloud_session": "1,610 run, 301 database-backed errors by design"
+  },
+  "compileall": "pass",
+  "migrations": {
+    "revisions": 9,
+    "changed_since_previous": false
+  },
+  "pinned_data": {
+    "json_files": 257,
+    "families": 154,
+    "earlier_versions_kept": 103,
+    "note": "Counted by stripping _vN suffixes; the 18 November count (86) grouped differently."
+  },
+  "validation_flags_true": [],
+  "locked_checks": 37,
+  "findings_version": "check-findings-v14.0",
+  "ledger_version": "dataset-ledger-v22.0",
+  "ledger_uses": {
+    "total": 68,
+    "checked_blind": 6,
+    "checked_blind_with_deviation": 2,
+    "checked_not_blind": 39,
+    "built_from": 13,
+    "tuned_on": 5,
+    "reproduction": 2,
+    "compared_model_to_model": 1
+  },
+  "outcomes": {
+    "passed": 3,
+    "consistent": 2,
+    "mixed": 11,
+    "disagrees": 7,
+    "failed": 9,
+    "inconclusive": 3,
+    "not_adopted": 2
+  },
+  "unseen_datasets": {
+    "of": 40,
+    "still_unseen": 13,
+    "note": "Includes the Hughes, Gupta and Luo fitting datasets, which cannot be obtained."
+  },
+  "nct01801436_owner_review": {
+    "pinned_record": "\"go\" at 11:03 America/New_York, 20 November 2026",
+    "owner_wording_12_07": "I have reviewed the results on the ClinicalTrials.gov page and it stands.",
+    "owner_12_10": "confirmed the 11:03 reply was theirs and the record correct"
+  },
+  "repository_hygiene": "pass; one PDF tracked on purpose (EMA 2008 public assessment report, checksummed)",
+  "findings": [
+    "Two sessions wrote to one branch; the record is correct, a working-tree overwrite was restored; a fetch-and-check rule is added to CLAUDE.md in this batch.",
+    "A roadmap line (Iwasaki never contacted) was trusted over the repository; overwritten working-tree files restored before commit; roadmap corrected.",
+    "A decision record was committed without the full suite and failed the status-line test; fixed before merge.",
+    "The falling-clearance candidate was proposed as calibrated; its locked report shows it was not; caught before the plan changed.",
+    "Track B: 102 match, 7 wrong (FDA guidance page locations), corrected; round 4: 14 of 14 match."
+  ],
+  "remaining_gates": [
+    "decision 0007's five owner choices",
+    "owner review of the ixazomib catalogue summaries",
+    "independent reviewer",
+    "adjudicated two-reader eligibility reference plan, then extractor revision on post-freeze trials",
+    "evidence-first item 8 (catalogue growth)",
+    "selinexor and thalidomide label-consistency plans",
+    "carfilzomib FDA/PMDA reading plan and model choice for Badros and Quach"
+  ]
+}
