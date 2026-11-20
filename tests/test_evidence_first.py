@@ -27,11 +27,12 @@ class FindingsForDrug(unittest.TestCase):
         self.assertEqual(self.ids('daratumumab'), {'daratumumab_v1', 'daratumumab_v2', 'acceptance_rule_v2_gupta_luo'})
         self.assertEqual(self.ids('pomalidomide'), {'pomalidomide_label', 'pomalidomide_li'})
         self.assertEqual(self.ids('melphalan'), {'melphalan_label'})
-        self.assertEqual(self.ids('carfilzomib'), set())
+        self.assertEqual(self.ids('carfilzomib'), {'carfilzomib_label'})     # its label check, 19 November 2026
 
     def test_every_drug_check_is_claimed_and_eligibility_is_not(self):
         claimed = set()
-        for drug in ('lenalidomide', 'bortezomib', 'ixazomib', 'daratumumab', 'pomalidomide', 'dexamethasone', 'melphalan'):
+        for drug in ('lenalidomide', 'bortezomib', 'ixazomib', 'daratumumab', 'pomalidomide', 'dexamethasone', 'melphalan',
+                     'carfilzomib'):
             claimed |= self.ids(drug)
         every = {r['id'] for a in self.view['areas'] for r in a['rows']}
         unclaimed = every - claimed
