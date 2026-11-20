@@ -352,6 +352,8 @@ On 30 October 2026, an author of the article answered two of the open questions.
 
 Body size remains an assumption in 3.0k, but the result was robust to ±10% dose per kg.
 
+**Update, 20 November 2026 (independence, partly answered).** The publisher's page for the article was read for its reference list and supplementary figure legend only, not its methods or results. The human studies named there are CAN-1001 (supplementary figure), Reece 2011, Quinn 2009, LoRusso 2012, Hellmann 2011 and Venkatakrishnan 2009. Neither Ogawa 2008 nor the CAN-1004 publication (Moreau 2011) appears, which supports 3.0k's assumption that both are independent of the model. It is not proof: the Methods are still unread. Reece 2011 is in the list, so the model cannot have an outside check against Reece. The posted results of NCT02268890, a bortezomib PK study in Taiwanese patients, are not cited and have not been read; they remain available for a blind check of any bortezomib model.
+
 ## 3.0m — The constant-clearance PK component against MMY-3021 day 11 (`bortezomib_pk_mmy3021_check.py`)
 
 **Source.** Moreau et al., *Clin Pharmacokinet* 2012;51:823–829: the PK substudy of the phase 3 MMY-3021 trial. IV arm: 14 of 14 patients assessable, 1.3 mg/m², day 11 of cycle 1, sampled to 72 h. It is independent of the model: Lignet's PK comes from scaled paediatric parameters and was compared only with Reece 2011, and MMY-3021 is not among Kuan's phase 1 studies. Pinned as `bortezomib_pk_mmy3021_observed_v1.json`. The paper's CAN-1004 data are already on the platform and are not reused.
