@@ -46,6 +46,10 @@ class Holdings(unittest.TestCase):
         v2 = next(f for f in cc['files'] if f['file'].endswith('renal_pk_group_evidence_v2.json'))
         self.assertEqual(v2['state'], 'earlier_reviewed')
 
+    def test_a_dataset_seen_only_in_a_search_result_is_not_a_holding(self):
+        keys = {r['dataset'] for r in dh.holdings('bortezomib')['read']}
+        self.assertNotIn('nct01801436_bortezomib_pk', keys)
+
     def test_state_summary(self):
         row = {'files': [{'state': 'reviewed_by_owner'}, {'state': None}], 'checks': ['a', 'b']}
         self.assertEqual(dh.state_summary(row),

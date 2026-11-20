@@ -223,7 +223,7 @@ class Gate(unittest.TestCase):
 
     def test_v18_records_the_quach_snippet_and_keeps_its_values_unread(self):
         v17 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v17.json'), dl.LEDGER_V17_SHA256)
-        v18 = dl.load_ledger()
+        v18 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v18.json'), dl.LEDGER_V18_SHA256)
         self.assertEqual(v18['uses'], v17['uses'])
         changed = {k for k in v18['datasets'] if v18['datasets'][k] != v17['datasets'][k]}
         self.assertEqual(changed, {'quach_2017_carfilzomib_esrd'})
@@ -231,6 +231,14 @@ class Gate(unittest.TestCase):
         self.assertIsNone(q['values_first_seen'])
         self.assertTrue(q['seen_note'].startswith(v17['datasets']['quach_2017_carfilzomib_esrd']['seen_note']))
         self.assertIn('may not use the direction', q['seen_note'])
+
+    def test_v19_registers_nct01801436_as_partly_seen(self):
+        v18 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v18.json'), dl.LEDGER_V18_SHA256)
+        v19 = dl.load_ledger()
+        self.assertEqual(v19['uses'], v18['uses'])
+        self.assertEqual({k: v for k, v in v19['datasets'].items() if k in v18['datasets']}, v18['datasets'])
+        self.assertEqual(set(v19['datasets']) - set(v18['datasets']), {'nct01801436_bortezomib_pk'})
+        self.assertTrue(dl.is_seen('nct01801436_bortezomib_pk'))
 
     def test_sources_whose_conclusion_was_read_say_what_a_blind_check_may_not_use(self):
         datasets = dl.load_ledger()['datasets']

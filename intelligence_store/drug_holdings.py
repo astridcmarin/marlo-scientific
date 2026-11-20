@@ -129,6 +129,8 @@ def holdings(drug_id, ledger=None):
         unread = not ds.get('values_first_seen')
         if unread and not ds.get('source_files'):
             continue                 # never seen and not held (a model's fitting data): not a holding
+        if not unread and not ds.get('files') and not ds.get('source_files') and not ds_uses:
+            continue                 # seen only in passing (a search result), not held and not used: not a holding
         rows.append({
             'dataset': key, 'title': ds['title'], 'sources': list(ds.get('sources', [])),
             'values_first_seen': ds.get('values_first_seen'), 'unread': unread,
