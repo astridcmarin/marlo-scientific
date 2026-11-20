@@ -110,8 +110,9 @@ class HubHoldings(unittest.TestCase):
     def test_carfilzomib_shows_its_label_and_two_unread_studies_by_title_only(self):
         held = self.hub('carfilzomib', 'Carfilzomib')['holdings']['links']
         unread = [link for link in held if link['url'] is None]
-        self.assertEqual(len(unread), 2)
-        self.assertTrue(all(link['title'].startswith(('Badros 2013', 'Quach 2017')) for link in unread))
+        self.assertEqual(len(unread), 5)        # Badros, Quach, and since 20 November the FDA and PMDA reviews
+        self.assertTrue(all(link['title'].startswith(('Badros 2013', 'Quach 2017', 'FDA 2012', 'FDA 2025', 'PMDA 2016'))
+                            for link in unread))
         self.assertTrue(all('values have not been read' in link['note'] for link in unread))
         label = next(link for link in held if 'KYPROLIS' in link['title'])
         self.assertTrue(label['url'].startswith('/models/evidence/'))

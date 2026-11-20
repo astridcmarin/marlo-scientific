@@ -8,7 +8,11 @@ class Holdings(unittest.TestCase):
     def test_unread_sources_carry_no_values_and_no_files(self):
         h = dh.holdings('carfilzomib')
         self.assertEqual({r['dataset'] for r in h['held_unread']},
-                         {'badros_2013_carfilzomib_renal', 'quach_2017_carfilzomib_esrd'})
+                         {'badros_2013_carfilzomib_renal', 'quach_2017_carfilzomib_esrd', 'fda_2012_kyprolis_clinpharm_review',
+                          'fda_2025_kyprolis_s036_review', 'pmda_2016_kyprolis_review'})
+        kinds = {r['dataset']: r['regulatory_kind'] for r in h['held_unread']}
+        self.assertEqual(kinds['pmda_2016_kyprolis_review'], 'PMDA review report')
+        self.assertEqual(kinds['fda_2012_kyprolis_clinpharm_review'], 'FDA review')
         for r in h['held_unread']:
             self.assertEqual(r['files'], [])
             self.assertIsNone(r['values_first_seen'])

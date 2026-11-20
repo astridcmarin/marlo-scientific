@@ -16,6 +16,7 @@ from . import dataset_ledger as dl
 REGULATORY_KINDS = (   # (kind, pattern over the dataset's title and source citations), first match wins
     ('EMA assessment report', re.compile(r'\bEPAR\b|assessment report|EMEA/|EMA/', re.I)),
     ('TGA AusPAR', re.compile(r'AusPAR', re.I)),
+    ('PMDA review report', re.compile(r'\bPMDA\b|Pharmaceuticals and Medical Devices Agency', re.I)),
     ('Product label', re.compile(r'(?<![-\w])label\b|prescribing information', re.I)),     # not "open-label"
     ('FDA review', re.compile(r'FDA review|clinical pharmacology .*review|NDA \d', re.I)),
 )

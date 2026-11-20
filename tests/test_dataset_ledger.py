@@ -234,11 +234,24 @@ class Gate(unittest.TestCase):
 
     def test_v19_registers_nct01801436_as_partly_seen(self):
         v18 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v18.json'), dl.LEDGER_V18_SHA256)
-        v19 = dl.load_ledger()
+        v19 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v19.json'), dl.LEDGER_V19_SHA256)
         self.assertEqual(v19['uses'], v18['uses'])
         self.assertEqual({k: v for k, v in v19['datasets'].items() if k in v18['datasets']}, v18['datasets'])
         self.assertEqual(set(v19['datasets']) - set(v18['datasets']), {'nct01801436_bortezomib_pk'})
         self.assertTrue(dl.is_seen('nct01801436_bortezomib_pk'))
+
+    def test_v20_registers_four_documents_held_unread(self):
+        v19 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v19.json'), dl.LEDGER_V19_SHA256)
+        v20 = dl.load_ledger()
+        self.assertEqual(v20['uses'], v19['uses'])
+        added = set(v20['datasets']) - set(v19['datasets'])
+        self.assertEqual(added, {'fda_2012_kyprolis_clinpharm_review', 'fda_2025_kyprolis_s036_review',
+                                 'pmda_2016_kyprolis_review', 'zhang_mager_2015_bortezomib_mouse_pbpk'})
+        for k in added:
+            d = v20['datasets'][k]
+            self.assertIsNone(d['values_first_seen'], k)
+            self.assertFalse(dl.is_seen(k), k)
+            self.assertEqual(len(d['source_files']), 1, k)
 
     def test_sources_whose_conclusion_was_read_say_what_a_blind_check_may_not_use(self):
         datasets = dl.load_ledger()['datasets']
