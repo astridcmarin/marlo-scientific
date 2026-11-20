@@ -26,7 +26,7 @@ DATA = Path(__file__).parent / 'data'
 PLAN_PATH = DATA / 'bortezomib_pk_nct01801436_check_plan_v1.json'
 PLAN_SHA256 = 'a2face39c78f84a044db24b3381d5d12e72431b0b3cc751f985a22e1ffa85d61'
 OBSERVED_PATH = DATA / 'bortezomib_pk_nct01801436_observed_v1.json'
-OBSERVED_SHA256 = None  # set when the observed file is written and checked, after the lock
+OBSERVED_SHA256 = 'ac0a819e6e1e777c88124a770eee8c87cb3ae478341949b04888e40ee5a7a910'
 REPORT_PATH = Path(__file__).resolve().parent.parent / 'docs' / 'verification' / 'bortezomib_pk_nct01801436_check_v1.json'
 SCHEMA_VERSION = 'bortezomib-pk-external-check-report-v1'
 METHOD_VERSION = 'bortezomib-pk-nct01801436-check-v1.0'
@@ -213,7 +213,14 @@ def model_scenarios(iwasaki_step_h=IWASAKI_STEP_H, extract_lignet=None, extract_
 
 
 def check_blind_allowed(ledger=None):
+    """Before the result: the ledger gate. After it: the ledger must hold this plan's checked_blind use for each model
+    (the dataset is then marked seen, so the gate alone would refuse a rerun of the recorded check)."""
+    ledger = ledger or dataset_ledger.load_ledger()
+    plan_path = 'intelligence_store/data/' + PLAN_PATH.name
     for m in MODELS:
+        if any(u['model'] == m and u['dataset'] == DATASET and u['role'] == 'checked_blind' and u.get('plan') == plan_path
+               for u in ledger['uses']):
+            continue
         dataset_ledger.assert_blind_allowed(m, DATASET, ledger)
 
 

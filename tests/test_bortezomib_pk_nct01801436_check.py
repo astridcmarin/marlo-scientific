@@ -84,3 +84,24 @@ class ObservedBuilderTests(unittest.TestCase):
             b.extract(_synthetic_record(b))
         with self.assertRaises(ValueError):
             b.extract(_synthetic_record(b, n='9'), expected_sha256=None)
+
+
+class RecordedResultTests(unittest.TestCase):
+    def test_observed_file_is_pinned_and_owner_checked(self):
+        obs = check.load_observed()
+        self.assertTrue(obs['reviewed_by_owner'])
+        check._validate_observed(obs)
+
+    def test_ledger_records_both_blind_uses_and_rerun_is_allowed(self):
+        from intelligence_store import dataset_ledger as dl
+        ledger = dl.load_ledger()
+        self.assertEqual(ledger['datasets'][check.DATASET]['values_first_seen'], '2026-11-20')
+        uses = {u['model'] for u in ledger['uses'] if u['dataset'] == check.DATASET and u['role'] == 'checked_blind'}
+        self.assertEqual(uses, set(check.MODELS))
+        check.check_blind_allowed(ledger)
+
+    def test_recorded_report_matches_a_rerun_of_the_primary_endpoint(self):
+        report = json.loads(check.REPORT_PATH.read_text())
+        self.assertEqual(report['results'][check.MODELS[0]]['primary_class'], 'model_under_predicts')
+        lig = check.model_endpoints(check.lignet_profiles(check.SAMPLING_H), check.SAMPLING_H, check.PRIMARY_READING, check.BODY)
+        self.assertAlmostEqual(lig['auc_last_day11'], report['model_values'][check.MODELS[0]]['primary']['auc_last_day11'], places=9)

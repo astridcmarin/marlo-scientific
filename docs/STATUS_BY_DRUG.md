@@ -36,6 +36,7 @@ Written 4 November 2026. One section per drug the platform holds anything for: w
 - **Checked:**
   - Exposure against three outside studies *(finding: ogawa)* *(finding: can1004)* *(finding: mmy3021)* and the study its source compared it with *(finding: reece)*.
   - Three candidate replacements *(finding: kuan)* *(finding: falling_clearance)* *(finding: iwasaki)*.
+  - First blind check, NCT01801436 (20 November 2026): the model and the Iwasaki candidate both under-predict day 11 exposure (the model robustly, Iwasaki not robust to the assumed body size) *(finding: nct01801436)*.
   - The platelet model against its fitting data *(finding: platelets)*.
 - **Known to be wrong:** the exposure model's single clearance cannot reproduce the rise in exposure from day 1 to day 11 seen in every study. All three candidate fixes failed. The platelet course inherits this.
 - **Missing:** individual concentration data, or a mechanism that changes clearance between doses.

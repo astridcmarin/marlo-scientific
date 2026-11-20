@@ -56,9 +56,12 @@ class Holdings(unittest.TestCase):
         # values are listed apart from the seen part.
         v20 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v20.json'), dl.LEDGER_V20_SHA256)
         self.assertNotIn('nct01801436_bortezomib_pk', {r['dataset'] for r in dh.holdings('bortezomib', v20)['read']})
-        h = dh.holdings('bortezomib')
+        v21 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v21.json'), dl.LEDGER_V21_SHA256)
+        h = dh.holdings('bortezomib', v21)
         self.assertIn('nct01801436_bortezomib_pk', {r['dataset'] for r in h['read']})
         self.assertIn('nct01801436_bortezomib_pk_unread', {r['dataset'] for r in h['held_unread']})
+        # v22: read after the blind check plan was locked.
+        self.assertIn('nct01801436_bortezomib_pk_unread', {r['dataset'] for r in dh.holdings('bortezomib')['read']})
 
     def test_state_summary(self):
         row = {'files': [{'state': 'reviewed_by_owner'}, {'state': None}], 'checks': ['a', 'b']}

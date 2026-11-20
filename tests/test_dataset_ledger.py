@@ -44,7 +44,9 @@ class Ledger(unittest.TestCase):
                                  ('label_exposure_dexamethasone', 'neofordex_epar_studies', 'checked_blind'),
                                  ('eligibility_extractor_v1', 'eligibility_v1_sample', 'checked_blind'),
                                  ('eligibility_extractor_v1_1', 'eligibility_v2_sample', 'checked_blind'),
-                                 ('eligibility_extractor_llm_c1', 'eligibility_v2_sample', 'checked_blind')})
+                                 ('eligibility_extractor_llm_c1', 'eligibility_v2_sample', 'checked_blind'),
+                                 ('bortezomib_pk_lignet_2022', 'nct01801436_bortezomib_pk_unread', 'checked_blind'),
+                                 ('bortezomib_pbpk_iwasaki_2020_candidate', 'nct01801436_bortezomib_pk_unread', 'checked_blind')})
 
     def test_reports_that_say_not_blind_are_not_listed_as_blind(self):
         for u in self.ledger['uses']:
@@ -253,13 +255,25 @@ class Gate(unittest.TestCase):
             self.assertFalse(dl.is_seen(k), k)
             self.assertEqual(len(d['source_files']), 1, k)
 
+    def test_v22_records_the_blind_nct01801436_check_only(self):
+        v21 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v21.json'), dl.LEDGER_V21_SHA256)
+        v22 = dl.load_ledger()
+        self.assertEqual(v22['supersedes']['sha256'], dl.LEDGER_V21_SHA256)
+        self.assertEqual(v22['uses'][:-2], v21['uses'])
+        self.assertEqual({(u['model'], u['role']) for u in v22['uses'][-2:]},
+                         {('bortezomib_pk_lignet_2022', 'checked_blind'), ('bortezomib_pbpk_iwasaki_2020_candidate', 'checked_blind')})
+        self.assertEqual(set(v22['datasets']), set(v21['datasets']))
+        changed = {k for k in v22['datasets'] if v22['datasets'][k] != v21['datasets'][k]}
+        self.assertEqual(changed, {'nct01801436_bortezomib_pk_unread'})
+        self.assertEqual(v22['datasets']['nct01801436_bortezomib_pk_unread']['values_first_seen'], '2026-11-20')
+
     def test_v21_holds_nct01801436_and_keeps_its_unread_values_separate(self):
         v20 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v20.json'), dl.LEDGER_V20_SHA256)
-        v21 = dl.load_ledger()
+        v21 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v21.json'), dl.LEDGER_V21_SHA256)
         self.assertEqual(v21['uses'], v20['uses'])
         self.assertEqual(set(v21['datasets']) - set(v20['datasets']), {'nct01801436_bortezomib_pk_unread'})
-        self.assertTrue(dl.is_seen('nct01801436_bortezomib_pk'))
-        self.assertFalse(dl.is_seen('nct01801436_bortezomib_pk_unread'))
+        self.assertTrue(dl.is_seen('nct01801436_bortezomib_pk', v21))
+        self.assertFalse(dl.is_seen('nct01801436_bortezomib_pk_unread', v21))
         unread = v21['datasets']['nct01801436_bortezomib_pk_unread']
         self.assertIn('Day 1 systemic clearance', unread['seen_note'])
         self.assertIn('Day 1 AUC to infinity', unread['seen_note'])

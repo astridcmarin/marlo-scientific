@@ -13,8 +13,10 @@ from .dataset_ledger import BLIND_ROLES, LEDGER_SHA256, load_ledger
 from .patient_state import digest
 
 ROOT = Path(__file__).resolve().parent.parent
-FINDINGS_PATH = Path(__file__).parent / 'data' / 'check_findings_v13.json'
-FINDINGS_SHA256 = 'aa67fd3147abf2957f1f856662a3aa57603af855e6fb2b66d321bd9d7a9c27b9'
+FINDINGS_PATH = Path(__file__).parent / 'data' / 'check_findings_v14.json'
+FINDINGS_SHA256 = '20447d34f9494d3a3e4b39b702a3bbcea76dbc9846a4a648b2ad71f6000795b1'
+# Superseded, kept unchanged: check_findings_v13.json (v14 adds the blind NCT01801436 bortezomib result)
+FINDINGS_V13_SHA256 = 'aa67fd3147abf2957f1f856662a3aa57603af855e6fb2b66d321bd9d7a9c27b9'
 # Superseded, kept unchanged: check_findings_v12.json (v13 adds the carfilzomib label-consistency result)
 FINDINGS_V12_SHA256 = '9cb588dff823fbe10ef0206d287b9479e4ba0d386c86f4bfa0db9a46f012fca9'
 # Superseded, kept unchanged: check_findings_v11.json (v12 adds the eligibility second-annotation round two result)

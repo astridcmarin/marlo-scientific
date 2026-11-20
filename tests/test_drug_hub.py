@@ -77,9 +77,9 @@ class HubFindings(unittest.TestCase):
         with self.app.test_request_context():
             return {g['id']: g for g in hub_links(entity_id, label)}
 
-    def test_bortezomib_lists_all_eight_checks_with_anchors_and_outcomes(self):
+    def test_bortezomib_lists_all_nine_checks_with_anchors_and_outcomes(self):
         links = self.hub('bortezomib', 'Bortezomib')['findings']['links']
-        self.assertEqual(len(links), 8)
+        self.assertEqual(len(links), 9)
         self.assertTrue(all(link['url'].startswith('/models/findings#') for link in links))
         self.assertIn('/models/findings#kuan', [link['url'] for link in links])
         self.assertTrue(all(link['note'].endswith('.') for link in links))

@@ -10,8 +10,10 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v21.json'
-LEDGER_SHA256 = 'bd80f34a252a51b84369c33a37125750bdfc9862b04ea515bab07887107be35f'
+LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v22.json'
+LEDGER_SHA256 = 'a9616b510e51c4af85142ba962b5a9839bf93f924a751c942498fc24192bc5d2'
+# Superseded, kept unchanged: dataset_ledger_v21.json (v22 records the blind NCT01801436 check, 3.0n)
+LEDGER_V21_SHA256 = 'bd80f34a252a51b84369c33a37125750bdfc9862b04ea515bab07887107be35f'
 # Superseded, kept unchanged: dataset_ledger_v20.json (v21 registers NCT01801436's posted results, unread part separate)
 LEDGER_V20_SHA256 = '206cd9e445693a53e9e807052f306b35b71fffedd5d53b72f196bcb8a259533b'
 # Superseded, kept unchanged: dataset_ledger_v19.json (v20 registers four documents held unread, 20 November 2026)
