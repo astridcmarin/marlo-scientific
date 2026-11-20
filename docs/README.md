@@ -21,6 +21,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [Decision 0008, 20 November 2026](decisions/0008-patient-profiles-not-patient-records.md): a real patient enters only as a banded profile many people share, computed in the browser and never sent or stored; first form and amendments.
 - [Decision 0007, 19 November 2026](decisions/0007-first-release-covers-every-us-labelled-drug.md): the first release covers every drug with a US label, built from the label by script with its review state shown; open choices for the owner.
 - [Regroup, 18 November 2026](REGROUP_2026-11-18.md): where the platform stands and the five decisions the owner made that day (evidence first; carfilzomib next; decisions 0005 and 0006).
+- [Regroup, 20 November 2026](REGROUP_2026-11-20.md): where the platform stands after batch 24, what was tidied in batch 25, and the proposed order of next steps (the release pipeline first).
 - [AI methods review of the blind eligibility results (ChatGPT)](reviews/2026-11_chatgpt_eligibility_results_review.md) (13 November 2026): wording corrected; the shared-error review paused until a reporting plan is fixed; a second annotator recommended next. Not an independent review.
 - [AI audit of user-facing wording](reviews/2026-11_overclaiming_audit.md) (10 November 2026): 33 places where wording outran the evidence, and how each was fixed. Not an independent review.
 - Conventions for working in the repository: `CLAUDE.md` at the root.

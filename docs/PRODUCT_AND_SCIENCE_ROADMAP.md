@@ -1,6 +1,6 @@
 # Product and science roadmap
 
-Direction recorded 19 October 2026; shortened and verified against the repository on 5 November 2026; the "Now" section rewritten after the regroup of 18 November 2026. Owner: Astrid Marin. Each phase gives its goal, where it stands, what comes next and where the detail lives. The dated log of every step is in the drug and topic documents (index: [README.md](README.md)) and in the archived full roadmap, [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-05.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-05.md); the 10 October version is also in [history/](history/). Per-drug status in plain language: [STATUS_BY_DRUG.md](STATUS_BY_DRUG.md). Latest software verification: [REPOSITORY_CHECKPOINT.md](REPOSITORY_CHECKPOINT.md).
+Direction recorded 19 October 2026; shortened and verified against the repository on 5 November 2026; the "Now" section rewritten after the regroup of 18 November 2026, and brought to 20 November after the regroup of that day ([REGROUP_2026-11-20.md](REGROUP_2026-11-20.md)). Owner: Astrid Marin. Each phase gives its goal, where it stands, what comes next and where the detail lives. The dated log of every step is in the drug and topic documents (index: [README.md](README.md)) and in the archived full roadmap, [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-05.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-05.md); the 10 October version is also in [history/](history/). Per-drug status in plain language: [STATUS_BY_DRUG.md](STATUS_BY_DRUG.md). Latest software verification: [REPOSITORY_CHECKPOINT.md](REPOSITORY_CHECKPOINT.md).
 
 ## Positioning
 
@@ -28,24 +28,24 @@ Primary users first: trial designers, clinical pharmacologists and regulatory pr
 | Differentiator | Status |
 |---|---|
 | **Shows its work.** Every value carries its source; every model shows what has and has not been checked, including failures. | In place: run records, scorecards at `/models`, a capability level on every drug. |
-| **Checks planned before they run.** | 34 checks on 18 November, each locked by commit before computation, all at `/models/findings`. Only 5 were blind (dataset ledger). |
+| **Checks planned before they run.** | 37 checks on 20 November, each locked by commit before computation, all at `/models/findings`. The dataset ledger records 8 blind uses, 2 with a deviation. |
 | **A regulatory reviewer's structure.** | Partly: for lenalidomide, 19 of 29 reviewer questions answered, 8 partly, 2 gaps, self-scored and corrected after the AI review of 10 November ([REVIEWER_CHECKLIST.md](REVIEWER_CHECKLIST.md)). |
 | **The whole chain in one place.** Trial → drug → evidence → exposure → regulatory context. | Partly: a guided path exists for lenalidomide only. |
 | **Reproducible snapshots.** Frozen cohorts; checksum-pinned, versioned data. | In place. |
-| **AI that cites and is checked.** | In place for the 166 values that feed calculations (owner-reviewed, not independent). The 74 values of the 4 November labels are not reviewed. |
+| **AI that cites and is checked.** | In place: the 166 values that feed calculations are owner-reviewed (not independent); review round 3 settled the rest by double extraction and the owner's review of every disagreement (19 November). |
 | **Built for the individual expert.** | Product decision; pricing not set. |
 
 Not differentiating on their own, so not the lead message: trial search, dashboards, "AI-powered" claims, and the digital human while it is still distant.
 
-## Phases at a glance (5 November 2026)
+## Phases at a glance (20 November 2026)
 
 | Phase | Goal | Status |
 |---|---|---|
 | 1. Provenance visible | Any visitor sees what each model checked and failed | **Done** |
-| 2. Fix what is known wrong | Bortezomib exposure model | **Closed with the gap shown;** reopens with new data |
-| 3. Any drug, at an honest level | Label-based curves for most small molecules | **Early:** 2 drugs shown |
-| 4. Trial-design support | Benchmark eligibility; dose evidence | **Partly:** benchmarking waits for the annotation |
-| 5. AI that cites and is checked | Every extracted value reviewed against its source | **Partly:** 166 reviewed, 74 not |
+| 2. Fix what is known wrong | Bortezomib exposure model | **Closed with the gap shown,** now also blind (NCT01801436); reopens with new data |
+| 3. Any drug, at an honest level | Label-based curves for most small molecules | **Early:** 2 drugs shown; carfilzomib not eligible |
+| 4. Trial-design support | Benchmark eligibility; dose evidence | **Partly:** the two-reader reference meets its bar; the extractor revision is next |
+| 5. AI that cites and is checked | Every extracted value reviewed against its source | **Partly:** rounds 1–4 closed; no independent reviewer yet |
 | 6. Credibility records (ICH M15) | An exportable record per model | **Done** (8 records); analysis reports to add |
 | 7. Going online | Invited users with private workspaces | **Not started** |
 | Digital human | Body map built on checked models | 1.0–1.1e done |
@@ -62,7 +62,7 @@ The phases overlap. Every step keeps the rules at the end of this page.
 
 **Goal:** the bortezomib platelet course rests on an exposure model not contradicted by outside data, *or* the gap is documented and shown.
 
-**Where it stands:** the second outcome. The constant-clearance model cannot reproduce the rise in exposure from day 1 to day 11 in any study tested (Ogawa 2008, CAN-1004, MMY-3021, and its own reproduction study, Reece 2011). Three candidate fixes failed under locked plans (Kuan 2012, an empirical falling clearance, Iwasaki 2020). The scorecards and the platelet page show this.
+**Where it stands:** the second outcome. The constant-clearance model cannot reproduce the rise in exposure from day 1 to day 11 in any study tested (Ogawa 2008, CAN-1004, MMY-3021, and its own reproduction study, Reece 2011). Three candidate fixes failed under locked plans (Kuan 2012, an empirical falling clearance, Iwasaki 2020). The first blind check (3.0n, 20 November, NCT01801436) agrees: the constant-clearance and Iwasaki models both under-predict day 11 AUC0-t, and the observed day 11/day 1 rise is 3.7-fold against about 1.5 in the models. The scorecards and the platelet page show this.
 
 **Reopens when:** individual concentration data, or a published mechanism that changes clearance between doses, becomes available.
 
@@ -77,7 +77,8 @@ The phases overlap. Every step keeps the rules at the end of this page.
 **Where it stands:**
 - Label-based exposure engine built. Pomalidomide and dexamethasone are shown, each after a locked label check and an outside check; melphalan is not eligible (one compartment cannot reproduce its distribution phase).
 - Published population models checked against outside data: lenalidomide (Hughes 2019, Kim 2026), ixazomib (Gupta 2017) and daratumumab (Luo 2021), each used only within its scope.
-- Five labels extracted by hand (3.2d, 4 November; 74 values, nothing computed).
+- Five labels extracted by hand (3.2d, 4 November; 74 values), settled in review round 3 (19 November).
+- Carfilzomib's label curve is not eligible (19 November): the label's exposure and stated clearance disagree about two-fold *(finding: carfilzomib_label)*.
 
 **Next:** label-consistency plans for selinexor, carfilzomib and thalidomide, after extraction review round 3. Then catalog growth from public sources (openFDA, RxNorm, ChEMBL), and published models beyond myeloma where outside data exist.
 
@@ -88,11 +89,12 @@ The phases overlap. Every step keeps the rules at the end of this page.
 **Goal:** a trial designer can benchmark a draft protocol's eligibility criteria and see the exposure evidence for a dose choice in one session.
 
 **Where it stands:**
-- **Protocol benchmarking:** extractor v1 failed its locked check (all eight criterion types). v2 is locked with 200 new trials and a pass rule sized to the sample. **The owner's annotation is the platform's only unseen dataset**, so the extractor must not be run on it before the check.
-- **18 November:** both extractors then failed every type blind (13 November), and the reference itself is not yet shown adequate (two readers agreed on 0.8925 of pairs against a 0.90 bar; adjudication found the reference wrong in at least 31 of 400). Round two under guide v3 is locked and waiting; if it misses, benchmarking is recorded as not validated ([decision 0006](decisions/0006-eligibility-round-two-miss-rule.md)).
+- **Protocol benchmarking:** extractor v1 failed its locked check (all eight criterion types); v2 was locked with 200 new trials and a pass rule sized to the sample.
+- **18 November:** both extractors then failed every type blind (13 November), and the reference itself is not yet shown adequate (two readers agreed on 0.8925 of pairs against a 0.90 bar; adjudication found the reference wrong in at least 31 of 400). Round two under guide v3 was locked, with a miss meaning benchmarking is recorded as not validated ([decision 0006](decisions/0006-eligibility-round-two-miss-rule.md)).
+- **19 November:** round two met the bar, lower bound 0.9125 against 0.90 *(finding: eligibility_second_annotation_v2)*.
 - **Special populations** for six drugs, and the **dose view** and **guided path** for lenalidomide: built.
 
-**Next:** the annotation, the locked v2 check, then the benchmarking page with passing criterion types only.
+**Next:** an adjudicated two-reader reference under its own plan (round two's 22 disagreements), then an extractor revision tested only on trials posted after the cohort freeze, then the benchmarking page with passing criterion types only.
 
 **Detail:** [PROTOCOL_BENCHMARKING.md](PROTOCOL_BENCHMARKING.md), [SPECIAL_POPULATIONS.md](SPECIAL_POPULATIONS.md), [DOSE_OPTIMISATION.md](DOSE_OPTIMISATION.md).
 
@@ -100,9 +102,9 @@ The phases overlap. Every step keeps the rules at the end of this page.
 
 **Goal:** extraction speeds up curation measurably, and no unsourced statement reaches a user.
 
-**Where it stands:** every extracted value links to its source page; unreviewed values never feed a model. Owner review rounds 1–2 cover all 166 values that feed calculations (all match).
+**Where it stands:** every extracted value links to its source page; unreviewed values never feed a model. Owner review rounds 1–2 cover all 166 values that feed calculations (all match). Round 3 closed on 19 November by double extraction: 102 match, 7 FDA guidance entries wrong and corrected, 12 agreements accepted under the plan's sampling rule (labelled as such, not as owner-reviewed). Round 4: the 14 ixazomib catalogue entries, all match.
 
-**Next:** review round 3 (the 74 label values and the rest of the REVLIMID section 12.3); an independent reviewer. Later: plain-language questions answered only from platform data, and cited summaries.
+**Next:** the owner's review of the AI-written ixazomib catalogue summaries; an independent reviewer. Later: plain-language questions answered only from platform data, and cited summaries.
 
 **Detail:** [EXTRACTION_REVIEW.md](EXTRACTION_REVIEW.md).
 
@@ -135,26 +137,30 @@ The visual layer of the long-term vision, built only on models that have passed 
 
 Multi-organ physiology, disease progression, combination therapies, the body → organ → tissue → cell → target interface, and mechanistic + machine-learning hybrid models. Each builds only on models that have passed the earlier phases' checks.
 
-## Now (18 November 2026): evidence first, carfilzomib next
+## Now (20 November 2026): evidence first, the release pipeline next
 
-Decided with the owner on 18 November ([REGROUP_2026-11-18.md](REGROUP_2026-11-18.md)); the previous version of this section, with batches 1–4, is in [history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-18.md](history/PRODUCT_AND_SCIENCE_ROADMAP_2026-11-18.md). The 4 November rule still holds: consolidate and check before adding.
+Decided with the owner on 18 November ([REGROUP_2026-11-18.md](REGROUP_2026-11-18.md)) and brought to 20 November ([REGROUP_2026-11-20.md](REGROUP_2026-11-20.md), whose order of next steps is proposed, not yet decided). Earlier versions of this section are in [history/](history/) (18 and 20 November). The 4 November rule still holds: consolidate and check before adding.
 
 **Scope, 19 November:** the first release covers every drug with a US label, built automatically from the label with its review state shown, not only myeloma ([decision 0007](decisions/0007-first-release-covers-every-us-labelled-drug.md); five open choices for the owner). Hand-built drug pages stop at the ten catalogue drugs until the pipeline exists.
 
 **Patients, 20 November:** the owner's aim is to compare what trials found with a real person's situation and to show how a drug behaves in bodies like theirs, for women and men. A real patient enters only as a banded profile that many people share, computed in the browser and never sent or stored ([decision 0008](decisions/0008-patient-profiles-not-patient-records.md)). Outputs describe patients matching the profile, never what one patient will gain; a privacy lawyer reviews the design before real patients' profiles are invited.
 
-**Direction.** The first release leads with sourced evidence: the trial landscape, special-population evidence, regulatory references and the check findings. The models stay research tools behind their credibility records, because two months of checks show most of them carry a recorded disagreement or an indeterminate result (34 locked checks, 5 blind, on 18 November). No outside user conversations yet; the owner works with one engineer, and will include an independent reviewer.
+**Direction.** The first release leads with sourced evidence: the trial landscape, special-population evidence, regulatory references and the check findings. The models stay research tools behind their credibility records, because two months of checks show most of them carry a recorded disagreement or an indeterminate result (37 locked checks on 20 November; 8 blind uses in the ledger). No outside user conversations yet; the owner works with one engineer, and will include an independent reviewer.
 
-**Queue, in order:**
-1. **Done 19 November:** Track B closed review round 3 (102 match, 7 FDA guidance entries wrong, 12 agreed and sampled under the plan's rule); review round 4 (14 of 14 match). Eligibility round two is done (19 November): the bar was met, lower bound 0.9125 against 0.90 *(finding: eligibility_second_annotation_v2)*, so decision 0006's miss rule does not apply.
-2. **Carfilzomib's label curve was not eligible (19 November):** the label's exposure and stated clearance disagree about two-fold *(finding: carfilzomib_label)*, so there is no curve for the planned blind check. Badros 2013 and Quach 2017 stay unread (ledger v13; [decision 0003](decisions/0003-what-makes-a-dataset-seen.md)) until a published population model of carfilzomib is chosen to test against them; that choice is the owner's. Selinexor and thalidomide label-consistency plans are next among the label drugs.
-3. **Eligibility, after round two met the bar:** an adjudicated two-reader annotation version under its own plan (the 22 round-two disagreements), then an extractor revision tested only on trials posted after the cohort freeze, never on these 200 (as the regroup set out).
-4. **Evidence first:** make the evidence pages complete and easy to use before adding model pages, page by page as [EVIDENCE_FIRST_PLAN.md](EVIDENCE_FIRST_PLAN.md) sets out: small fixes first (the home page leads with evidence; one cohort per count; live versus frozen trials; each drug's findings on its page), then ixazomib's missing drug page, then what the platform holds per drug and its regulatory documents, then catalogue growth after review round 3.
-5. **Organ-level model:** lumped compartments first ([decision 0005](decisions/0005-organ-level-model-lumped-first.md)). Phased-plan steps 2 and 4, the tissue-distribution evidence and evidence classes on the map, are evidence work and come first; the model and its check follow.
+**Done 19–20 November:** review rounds 3 and 4 closed; eligibility round two met its bar; carfilzomib's label curve not eligible (Badros 2013 and Quach 2017 stay unread until a published carfilzomib model is chosen to test against them, the owner's choice); evidence-first items 1–7; decisions 0007 and 0008; bortezomib's first blind check (3.0n, both models under-predict day 11).
+
+**Queue, in the order proposed on 20 November:**
+1. **The release pipeline:** the owner's five choices in decision 0007, a storage and ingestion decision record, then a pilot of about 50 labels with sampled review.
+2. **Eligibility:** an adjudicated two-reader reference under its own plan (round two's 22 disagreements), then an extractor revision tested only on trials posted after the cohort freeze, never on the 200.
+3. **Catalogue growth** (evidence-first item 8): selinexor, thalidomide, isatuximab and elotuzumab first, then further agents by study count in the cohort.
+4. **An independent reviewer** for the lenalidomide model and its credibility record.
+5. **Models, lower priority:** selinexor and thalidomide label-consistency plans; a reading plan for the FDA and PMDA carfilzomib reviews (population-model sections only), then a carfilzomib model to test blind against Badros and Quach.
+6. **Organ-level model:** lumped compartments first ([decision 0005](decisions/0005-organ-level-model-lumped-first.md)). Phased-plan steps 2 and 4, the tissue-distribution evidence and evidence classes on the map, are evidence work and come first; the model and its check follow.
+7. **Later:** decision 0008's blood-count bands; Phase 7, once the release scope is concrete.
 
 **Blocked or waiting:**
 - **Lenalidomide kidney model:** every renal-impairment dataset available has been seen.
-- **Bortezomib exposure:** individual concentrations or a mechanism (Phase 2). The Zhang and Mager supplement is held unread; the article is requested.
+- **Bortezomib exposure:** individual concentrations or a mechanism (Phase 2); the first blind check (3.0n) did not change this. Zhang and Mager 2015 and the 2020 supplement are held unread.
 - **Exposure–efficacy for lenalidomide (O7):** recorded as a gap in the published evidence, and searching stopped (reviewer's checklist O7, 18 November). Reopens only if an analysis is published or released.
 - **Author answers, none blocking:** Zhang and Mager (reprint requested 17 November), Hughes (LinkedIn, pending), Kim (email bounced 18 November). Iwasaki answered on 24 and 30 October (equations, dose input, attribution; SIMULATION_3_BORTEZOMIB_PLATELETS.md 3.0j–3.0l); the line here saying he was never contacted, written 18 November, was wrong and was corrected on 20 November.
 
