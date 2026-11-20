@@ -1,6 +1,6 @@
 # Bortezomib observation intake v1 (historically labeled Steps 106–108)
 
-Checkpoint naming: this batch reused step numbers already assigned to figure review, time-course modeling and assumption sensitivity. Its stable name is **observation intake v1**. Existing filenames and schema identifiers are retained for compatibility; see [checkpoint mapping](REPOSITORY_CHECKPOINT.md).
+Checkpoint naming: this batch reused step numbers already assigned to figure review, time-course modeling and assumption sensitivity. Its stable name is **observation intake v1**. Existing filenames and schema identifiers are retained for compatibility; see [checkpoint mapping](../REPOSITORY_CHECKPOINT.md).
 
 This new development batch follows Step105. Step106 defines a paired-observation extraction contract; Step107 checks source archives and record compatibility; Step108 produces a deterministic readiness report through one CLI. These are new implementation checkpoints, not previously recovered packages. The batch prepares evidence collection and does not resolve the scientific discrepancy.
 

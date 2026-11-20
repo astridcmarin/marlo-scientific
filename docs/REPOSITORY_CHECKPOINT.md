@@ -1,8 +1,8 @@
-# Repository checkpoint — 18 November 2026, batches 17 to 20
+# Repository checkpoint — 20 November 2026, batches 21 to 24
 
-**Verified tree:** `main` at the merge of PR #130 (batch 19), plus batch 20 (`batch-20`, open). This checkpoint covers batches 17 to 20.
-**Machine-readable record:** [`verification/repository_checkpoint_2026-11-18.json`](verification/repository_checkpoint_2026-11-18.json).
-**Previous checkpoint:** 16 November, end of batch 16, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-11-16.md).
+**Verified tree:** `main` at the merge of PR #135 (batch 24). This checkpoint covers batches 21 to 24.
+**Machine-readable record:** [`verification/repository_checkpoint_2026-11-20.json`](verification/repository_checkpoint_2026-11-20.json).
+**Previous checkpoint:** 18 November, batches 17 to 20, in [`history/`](history/REPOSITORY_CHECKPOINT_2026-11-18.md).
 
 This is a software and repository verification. It does not validate any model scientifically, and it is not a clinical-readiness review.
 
@@ -10,46 +10,51 @@ This is a software and repository verification. It does not validate any model s
 
 | Batch | PR | What |
 |---|---|---|
-| 17 | #128 | Checkpoint of 16 November; handoff corrections; the adjudication of the 43 second-annotation disagreements |
-| 18 | #129 | Agreement comparison v2 (decision 0002); round two's plan locked (v2.0, then v2.1); round-two pages, whose reader identities and plan checksum were then found wrong and fixed |
-| 19 | #130 | Tests for those page defects; dataset ledger v13 (six sources obtained unread); decisions 0003 and 0004; acceptance rule v2 for the Gupta and Luo checks: plan, amendment 1 (Luo model v1.1) and result |
-| 20 | open | Body map v1.2 (node names and terms, arrowheads); the regroup and the owner's decisions (0005, 0006; roadmap "Now" rewritten); the evidence-first plan; O7 settled; this checkpoint |
+| 21 | #132 | Evidence-first small fixes (items 1–4, 9); drug catalogue v2 with ixazomib's drug page; review round 4 opened (14 ixazomib catalogue entries); eligibility round two's records pinned, then its analysis: the two-reader reference meets the 0.90 bar |
+| 22 | #133 | Round two's practice record; round 4 pinned (14 of 14 match); Track B pinned (102 match, 7 wrong) and the double-extraction rule passes; FDA guidance extracts corrected (liver v2, kidney v3) |
+| 23 | #134 | Carfilzomib label-consistency plan, then its result (not eligible); sources held and regulatory documents on drug pages (items 6–7); carfilzomib model scan; decisions 0007 and 0008; ledger v19 (NCT01801436 partly seen); decision 0007's status line fixed. Eight commits, more than the batch size of about five. |
+| 24 | #135 | Iwasaki 2020 independence recorded and the roadmap corrected; ledgers v20 and v21; the NCT01801436 bortezomib blind check, plan then result (3.0n; ledger v22, findings v14) |
 
 ## Checks
 
 | Check | Result |
 |---|---|
-| Unit tests | **Pass.** CI passed on PR #130. In a cloud session without the database packages, 1,526 collected and 300 database-backed errors by design, the same set as on `main`. |
+| Unit tests | **Pass.** CI passed on PRs #132 to #135. In a cloud session without the database packages, 1,610 run on `main` and 301 database-backed errors by design (one more than on 18 November: the round-4 page test needs the app). |
 | Compile all modules | **Pass.** |
 | Migration chain | **Unchanged.** 9 revisions. |
-| Pinned data | **Pass.** 232 JSON data files; 86 are earlier versions kept unchanged because locked plans and reports cite them by checksum (counted by stripping version suffixes; the 16 November count of families used a slightly different grouping). |
-| Locked checks | **34**, in findings v11; **5 blind**. Of 63 ledger uses, 4 are blind and 2 blind with a recorded deviation. |
+| Pinned data | **Pass.** 257 JSON data files in 154 families; 103 are earlier versions kept unchanged because locked plans and reports cite them by checksum. Counted by stripping `_vN` suffixes, which groups more files into families than the 18 November count (86). |
+| Locked checks | **37**, in findings v14. Ledger v22 has 68 uses: 6 blind and 2 blind with a recorded deviation. |
 | Validation flags | **Pass.** No `clinical_prediction_validated` is true anywhere. |
 | Repository hygiene | **Pass.** The one tracked PDF is the EMA 2008 public assessment report, kept on purpose with its checksum. No journal articles, correspondence or `instance/` files are tracked. |
 
+## The NCT01801436 review, as the owner gave it
+
+The observed file pins the owner's reply when the eight values were put to them on 20 November: "go", at 11:03 (America/New_York). The result was then computed and committed (79b1294, 11:21). Separately, at 12:07, the owner wrote:
+
+> I have reviewed the results on the ClinicalTrials.gov page and it stands.
+
+and at 12:10 confirmed that the 11:03 "go" was theirs and the record correct. The pinned file is unchanged; this quotation is its fuller wording, recorded here at the owner's request.
+
 ## Findings
 
-1. **A locked plan's first run failed, and the plan was amended before any result was seen.** The acceptance-rule run for daratumumab stopped on a numerical fault: the Luo model's fixed-step solver is unstable for patients with a high Vmax and a small V1. In those patients model v1.0 had also returned silently wrong values, for example an AUC 14 times too high. It was fixed as Luo model v1.1 under amendment 1 (plan v2.1), approved by the owner. Output is bit-identical wherever the old step was stable, and both committed Luo check reports reproduce exactly under v1.1.
-2. **Round two's pages were generated wrong, and caught before anyone read.** Both pages carried annotator B's identity, and both declared plan v2.1 while carrying plan v1's checksum. The sample and the reading orders were right throughout. The fix, and tests that fail if either defect returns, are in batches 18 and 19.
-3. **A dry run at reduced counts misses rare failures.** The plan-v2 dry run passed and the full run still failed (finding 1). Dry runs stay required, but they do not show that a plan can run at full size.
-4. **None of the six unread sources can give a blind check yet.** Each needs a platform model of its drug first. Carfilzomib is next, so that Badros and Quach can test it.
-5. **Decisions 0002 to 0006 were recorded in four days.** Three of them (0003, 0005, 0006) fix how results will be read before the results exist.
+1. **Two sessions wrote to one branch.** The NCT01801436 result was computed and pushed by one session while another, on the same branch, waited for the owner's review. The record turned out correct, but the second session briefly overwrote the committed observed file in its working tree before noticing, and restored it. The handoff update in this batch adds a rule to `CLAUDE.md`: fetch and check the branch head before each commit, and one branch per session.
+2. **A documentation line was trusted over the repository.** The roadmap said Iwasaki had never been contacted; acting on it, a session overwrote the existing Iwasaki extract and module in its working tree. Both were restored from git before any commit (checksums unchanged) and the roadmap corrected (batch 24).
+3. **A decision record was committed without the full suite** and failed the status-line test; fixed in batch 23 before merge.
+4. **A model was proposed for a blind check on an unverified premise.** The falling-clearance candidate was recommended as already calibrated; its locked report shows neither form could be. Caught before the plan changed; the plan records why it is left out.
+5. **The owner's reviews keep finding errors in AI extraction.** Track B: 102 entries match and 7 are wrong (FDA guidance page locations), corrected in the liver v2 and kidney v3 extracts. Round 4: 14 of 14 match.
 
 ## Scientific state
 
-- **34 locked checks:** 2 passed, 2 consistent, 11 mixed, 6 disagree, 8 failed, 3 inconclusive, 2 not adopted. No model is validated for clinical prediction.
-- **Acceptance rule v2 now covers lenalidomide, ixazomib and daratumumab.**
-  - Ixazomib: 19 of 20 verdicts hold.
-  - Daratumumab: the three Cmax verdicts hold; two exposure verdicts become undecided across the uncertainty scenarios.
-- **Datasets:** 33 in the ledger, 9 unseen. Six are the sources obtained on 17 November. The other three are the Hughes, Gupta and Luo fitting datasets, which cannot be obtained.
-- **Reviewer's checklist for lenalidomide** (self-assessed): O7 is settled as a gap in the published evidence. M8, independent review, has never been done; the owner will include an independent reviewer.
+- **37 locked checks:** 3 passed, 2 consistent, 11 mixed, 7 disagree, 9 failed, 3 inconclusive, 2 not adopted. No model is validated for clinical prediction.
+- **Eligibility:** a two-reader reference under guide v3 meets the bar (lower bound 0.9125 against 0.90); decision 0006's miss rule does not apply.
+- **Carfilzomib:** the label curve is not eligible (the label's exposure and stated clearance disagree about two-fold); Badros and Quach stay unread.
+- **Bortezomib, first blind check:** both the constant-clearance and the Iwasaki model under-predict day 11 AUC0-t (observed 190.4 ng·h/mL, 95% CI 150.9–229.9; models 126.6 and 145.4; Iwasaki not robust to body size). The observed day 11/day 1 ratio is 3.7 against about 1.5 (not blind).
+- **Datasets:** 40 in the ledger, 13 unseen, of which the Hughes, Gupta and Luo fitting datasets cannot be obtained.
 
 ## Remaining gates
 
-- **Owner work:**
-  - eligibility round two with annotator B, read against decision 0006 if it misses;
-  - Track B, 109 entries of review round 3.
-- **Next model work:** carfilzomib, after Track B — label-consistency plan, curve, then the blind check against Badros and Quach.
-- **Evidence first:** the small fixes of the evidence-first plan, then ixazomib's drug page.
-- **Deferred review findings:** F04 (a)–(d), F17, F19, F20, F24, and F16's second half.
-- **Authors:** Kim's address bounced; Hughes approached on LinkedIn; Mager reprint requested. None blocks anything.
+- **Owner:** decision 0007's five choices; review of the AI-written ixazomib catalogue summaries; an independent reviewer (decided 18 November, not yet started).
+- **Eligibility:** a plan for the adjudicated two-reader reference, then an extractor revision tested only on trials posted after the cohort freeze.
+- **Evidence first:** item 8, catalogue growth.
+- **Models:** selinexor and thalidomide label-consistency plans; a reading plan for the FDA and PMDA carfilzomib reviews; the owner's choice of a carfilzomib model to test against Badros and Quach.
+- **Deferred review findings,** carried from 18 November and not re-checked here: F04 (a)–(d), F17, F19, F20, F24, and F16's second half.
