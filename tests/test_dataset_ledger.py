@@ -242,7 +242,7 @@ class Gate(unittest.TestCase):
 
     def test_v20_registers_four_documents_held_unread(self):
         v19 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v19.json'), dl.LEDGER_V19_SHA256)
-        v20 = dl.load_ledger()
+        v20 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v20.json'), dl.LEDGER_V20_SHA256)
         self.assertEqual(v20['uses'], v19['uses'])
         added = set(v20['datasets']) - set(v19['datasets'])
         self.assertEqual(added, {'fda_2012_kyprolis_clinpharm_review', 'fda_2025_kyprolis_s036_review',
@@ -252,6 +252,18 @@ class Gate(unittest.TestCase):
             self.assertIsNone(d['values_first_seen'], k)
             self.assertFalse(dl.is_seen(k), k)
             self.assertEqual(len(d['source_files']), 1, k)
+
+    def test_v21_holds_nct01801436_and_keeps_its_unread_values_separate(self):
+        v20 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v20.json'), dl.LEDGER_V20_SHA256)
+        v21 = dl.load_ledger()
+        self.assertEqual(v21['uses'], v20['uses'])
+        self.assertEqual(set(v21['datasets']) - set(v20['datasets']), {'nct01801436_bortezomib_pk_unread'})
+        self.assertTrue(dl.is_seen('nct01801436_bortezomib_pk'))
+        self.assertFalse(dl.is_seen('nct01801436_bortezomib_pk_unread'))
+        unread = v21['datasets']['nct01801436_bortezomib_pk_unread']
+        self.assertIn('Day 1 systemic clearance', unread['seen_note'])
+        self.assertIn('Day 1 AUC to infinity', unread['seen_note'])
+        self.assertEqual(unread['source_files'], v21['datasets']['nct01801436_bortezomib_pk']['source_files'])
 
     def test_sources_whose_conclusion_was_read_say_what_a_blind_check_may_not_use(self):
         datasets = dl.load_ledger()['datasets']
