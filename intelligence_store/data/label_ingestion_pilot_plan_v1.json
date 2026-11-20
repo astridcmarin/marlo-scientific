@@ -1,0 +1,62 @@
+{
+  "schema_version": "label-ingestion-pilot-plan-v1",
+  "plan_version": "label-ingestion-pilot-plan-v1.0",
+  "recorded_on": "2026-11-20",
+  "status": "draft_for_owner_approval",
+  "decisions": ["0007 (every US prescription label, verbatim, review state shown; the owner's choices of 20 November)", "0009 (label content in insert-only tables, rebuilt from DailyMed files listed in a pinned manifest)"],
+  "owner_approved_choices": "Pilot of about 50 labels on the owner's computer; sampled review of 80 sections, pass with at most 2 errors (95% lower bound at least 0.90). Approved 20 November 2026.",
+  "questions": [
+    "Does the extraction (method spl-text-v1) reproduce label sections verbatim, within the stated conventions, at an accuracy whose 95% lower bound is at least 0.90?",
+    "Does a rebuild from the manifest and the same files give identical tables?",
+    "How large are the tables and the manifest per label, and so is the full prescription set likely to fit decision 0009's storage or trigger the owner's rule for the manifest?"
+  ],
+  "not_this": [
+    "Not a check of any model; nothing here feeds a calculation.",
+    "Not a review of every section; the sample measures the extraction, it does not make the rest reviewed.",
+    "No page shows label text from these tables until the review passes."
+  ],
+  "labels": {
+    "total": 50,
+    "fixed_10": "The current DailyMed label of each of the ten catalogue drugs in drug_aliases_v2 (lenalidomide, bortezomib, daratumumab, pomalidomide, carfilzomib, dexamethasone, cyclophosphamide, melphalan, fludarabine, ixazomib), one label per drug: the NDA or BLA holder's, or, where DailyMed lists none, the most recently revised label, recorded as such. Chosen, not drawn: their sections are known from hand review, so section problems are easy to see.",
+    "drawn_40": "20 brand (any marketing category NDA or BLA) and 20 generic (all marketing categories ANDA or NDA AUTHORIZED GENERIC), drawn by label_pilot.sample_labels with seed 20261120 (30 per stratum in draw order: the first 20 used, the next 10 as replacements) from the pinned candidate list, excluding the ten fixed set IDs. Labels of any other category (for example unapproved drugs) are not drawn.",
+    "candidate_list": "OPEN BEFORE LOCK: the file listing every human prescription label with its marketing category, its source and format, and the adapter that reads it. It is pinned by SHA-256 before the draw. The adapter is committed with this plan.",
+    "replacement": "A drawn label whose zip cannot be read or is not a human prescription label (document type 34391-3) is recorded under 'refused' in the manifest and replaced by the next label in the same stratum's draw order; replacements are fixed in advance by the draw order."
+  },
+  "files": "The owner downloads one zip per label from DailyMed (the 'Download' link on each label's page) into supplemental-information/dailymed/pilot/ on the iMac, never committed. Expected size: about 0.5 MB per label (the held NINLARO label is 0.46 MB).",
+  "extraction": {
+    "module": "intelligence_store/spl_labels.py, method spl-text-v1",
+    "conventions": [
+      "Inline whitespace is collapsed to single spaces and lines trimmed; a paragraph, list item, caption or table row ends a line.",
+      "Tables are written between [Table] and [End table], one row per line, cells joined by ' | '.",
+      "Superscript is written ^(text) and subscript _(text).",
+      "An image is written [Image]; a footnote's text is written where anchored as [Footnote: text]; a reference to an earlier footnote is written [See footnote].",
+      "A subsection's text is its own row, not part of its parent's.",
+      "Highlights (<excerpt>) are not extracted in v1; each row records how many it skipped."
+    ],
+    "conventions_note": "These markers and the whitespace rule are not errors; anything else that differs from the label as DailyMed shows it is."
+  },
+  "build": {
+    "manifest": "label_store.build_manifest over the 50 zips, written to intelligence_store/data/dailymed_label_manifest_pilot_v1.json and pinned.",
+    "tables": "label_store.build into a standalone SQLite file, twice, from the pinned manifest; the content digests must be equal. The standalone file has the columns decision 0009 names; the app migration follows only if the pilot passes.",
+    "measures": "label_store.measures: labels, sections, sections without text, highlights skipped, text bytes, database and manifest bytes, per label. Reported, not judged."
+  },
+  "review": {
+    "draw": "label_pilot.sample_sections with seed 20261121: 100 sections with text, in draw order, from the built tables.",
+    "counted": "The first 80 reviewable sections in draw order. A section the owner cannot compare because DailyMed now shows a different version of that label is marked not_reviewable and the next spare takes its place; 20 spares are drawn.",
+    "what_the_owner_checks": "For each section, against the label of the same set ID and version on DailyMed: the text is complete, in order and has nothing added (allowing only the conventions above), the heading is the printed heading, and the section code matches the section. Verdict match or error; an error carries one kind: text_missing, text_added, text_changed, order_wrong, heading_wrong, code_wrong, table_unreadable or other.",
+    "rule": "Pass if the 80 counted sections hold at most 2 errors (accuracy 78/80; Clopper-Pearson 95% lower bound 0.9126, at least 0.90; with 3 errors it is 0.8943). Fail with 3 or more. Incomplete if fewer than 80 sections are reviewable among the 100 drawn.",
+    "on_pass": "Script-extracted label text may be shown on drug pages, labelled 'taken from the label by script, not reviewed', and the full prescription ingest is planned.",
+    "on_fail": "No script-extracted label text is shown on any page. The error kinds guide a new method version, which needs its own locked check on newly drawn sections.",
+    "record": "The completed review sheet is pinned as a data file; the check gets a dataset ledger use and a findings line."
+  },
+  "known_limits": [
+    "Highlights are not extracted (v1).",
+    "Tables lose their layout: merged cells and column spans are written as plain cells.",
+    "Images are markers only; text inside images is not extracted.",
+    "The 40 drawn labels represent brand and generic prescription labels equally, not in proportion to DailyMed's mix."
+  ],
+  "before_lock": [
+    "Settle the candidate list (source, format, adapter) and add the adapter and its test.",
+    "Run every step on synthetic SPL files (done for reading, building, the section draw and the rule), and the reader on one real held label (NINLARO, set 038f2461 version 18: 97 sections, identical rebuild)."
+  ]
+}
