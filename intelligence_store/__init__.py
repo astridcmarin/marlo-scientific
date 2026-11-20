@@ -55,6 +55,7 @@ from .daratumumab_pk_luo_check import register_daratumumab_pk_luo_check_commands
 from .daratumumab_pk_luo_check_v2 import register_daratumumab_pk_luo_check_v2_commands
 from .bortezomib_pk_can1004_check import register_bortezomib_pk_can1004_commands
 from .bortezomib_pk_mmy3021_check import register_bortezomib_pk_mmy3021_commands
+from .bortezomib_pk_nct01801436_check import register_bortezomib_pk_nct01801436_commands
 from .bortezomib_pk_reece_reproduction import register_bortezomib_pk_reece_commands
 from .renal_group_recheck import register_renal_recheck_commands
 from .bortezomib_pk_falling_clearance import register_bortezomib_pk_falling_clearance_commands
@@ -157,6 +158,7 @@ def init_storage(app):
     register_daratumumab_pk_luo_check_v2_commands(app)
     register_bortezomib_pk_can1004_commands(app)
     register_bortezomib_pk_mmy3021_commands(app)
+    register_bortezomib_pk_nct01801436_commands(app)
     register_bortezomib_pk_reece_commands(app)
     register_renal_recheck_commands(app)
     register_bortezomib_pk_falling_clearance_commands(app)

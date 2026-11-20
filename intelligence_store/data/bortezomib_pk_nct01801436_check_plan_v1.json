@@ -1,0 +1,103 @@
+{
+  "schema_version": "external-consistency-plan-v1",
+  "plan_version": "bortezomib-pk-nct01801436-check-plan-v1.0",
+  "recorded_on": "2026-11-20",
+  "status": "locked_before_computation",
+  "prespecification_note": "Written before any model value was computed on the NCT01801436 schedule and before any observed value in nct01801436_bortezomib_pk_unread was read. Read before writing: the record's protocol section (design, arm, dosing, sampling times), the outcome titles, units, parameter and dispersion types, outcome definitions and population descriptions, and the denominators (n = 10 for every PK outcome). Seen before writing, from this study: Day 1 systemic clearance, mean 25.99 L/h, SD 18.54, n = 10 (search snippet, ledger v19). Known before writing, from other studies: the constant-clearance model was consistent with Ogawa 2008 on day 11 and under-predicted CAN-1004 day 11 (3.0f, 3.0h), and the Iwasaki 2020 model was not consistent with Ogawa or CAN-1004 (3.0k, 3.0l); published studies report exposure rising from day 1 to day 11. With the seen Day 1 clearance this gives a rough prior expectation for Day 11 exposure; it is not a value from this dataset. The executable (intelligence_store/bortezomib_pk_nct01801436_check.py) is committed with this plan and has been run only on synthetic observed values. That dry run, done after this text was written, computed both models' values on this schedule (they do not depend on observed data); the only change after it was in code (refusing a non-finite profile after a coarse integration step gave NaN), not in this plan.",
+  "classification": "exploratory_aggregate_external_consistency_check_blind",
+  "models": [
+    {"id": "bortezomib_pk_lignet_2022", "code": "intelligence_store/bortezomib_pk.py (exact three-compartment solution; Lignet 2022 Table 1 per-m2 parameters), unchanged from 3.0f-3.0m"},
+    {"id": "bortezomib_pbpk_iwasaki_2020_candidate", "code": "intelligence_store/bortezomib_pbpk_iwasaki.py (extract sha256 9bfb9ac2...), integrated by bortezomib_pbpk_iwasaki_check.simulate (RK4, step 0.00025 h), unchanged from 3.0k-3.0l"}
+  ],
+  "models_considered_not_included": [
+    {"id": "bortezomib_pk_falling_clearance_candidate", "why": "Neither form was calibrated: the CAN-1004 day 11 target lay outside what either form could reach (3.0i report, k null for both). There is no fitted model to test; its large-k limit would be a new model, not this one."},
+    {"id": "bortezomib_pk_kuan_2012_candidate", "why": "Its transcription reading is unresolved (two readings, several parameter sets; not robust under reading A in its check). To be given its own plan once the reading is settled."}
+  ],
+  "approval": "Owner approved the two-model scope on 20 November 2026.",
+  "datasets": [
+    {"id": "nct01801436_bortezomib_pk_unread", "role": "checked_blind", "gate": "dataset_ledger.assert_blind_allowed for each model before observed values are loaded"},
+    {"id": "nct01801436_bortezomib_pk", "role": "none", "note": "the seen part (Day 1 clearance) is not compared"}
+  ],
+  "not_this": [
+    "Not validation or qualification of either model; no acceptance limits are introduced.",
+    "Not a comparison of individual concentrations; only posted means and SDs are available.",
+    "Not a re-fit: no parameter is estimated or tuned, and no model is changed after the observed values are read.",
+    "Not a dosing or exposure prediction for any patient."
+  ],
+  "question": "Are the constant-clearance model's and the Iwasaki 2020 model's day 11 exposures consistent with a study neither model has been compared with, whose day 11 values have not been read (NCT01801436, Taiwan, n = 10)?",
+  "study_design_as_read": {
+    "regimen": "Bortezomib 1.3 mg/m2 on days 1, 4, 8 and 11 of a 21-day cycle; PK in cycle 1.",
+    "route": "Not stated in the arm or intervention text. The clearance definition says 'after intravenous dose'; IV bolus is assumed. Recorded as a known difference.",
+    "sampling": "Pre-dose and 0.08, 0.25, 0.5, 1, 2, 4, 6, 8, 12, 24, 48 and 72 h after the dose on day 1 and day 11 of cycle 1 (day 8 also sampled; no day 8 results posted).",
+    "population": "Per-protocol: participants dosed as scheduled with blood samples at all scheduled times; n = 10 of 14 enrolled. Taiwanese adults with myeloma after at least 2 prior lines, refractory or relapsed. Baseline posts age and sex only (not read); no weight, height or body surface area."
+  },
+  "simulation": {
+    "constant_clearance": "IV bolus 1.3 mg/m2 at t = 0, 72, 168, 240 h. Per m2, so day 1 and day 11 concentrations need no body size.",
+    "iwasaki": "Dose in ug/kg = 1.3 mg/m2 x BSA / weight, BSA by Du Bois. Assumed body 60 kg, 160 cm (BSA 1.63 m2), because the record gives no body size.",
+    "pre_dose_convention": "A sample at a dose time is taken before that dose: the day 1 72 h sample is the day 4 pre-dose concentration; day 11 samples include drug remaining from days 1, 4 and 8.",
+    "absolute_units": "Clearance (L/h) and Vss (L) need the administered dose in ug = 1300 x BSA; BSA 1.63 m2 is assumed for both models."
+  },
+  "nca_emulation": {
+    "source": "The posted outcome definitions: Cmax and tmax taken from the profile; AUC0-t to the last quantifiable sample by the trapezoidal rule; lambda z by log-linear regression on at least 3 terminal points; AUCinf = AUClast + Clast / lambda z; AUMCinf by the posted formula; MRT = AUMCinf / AUCinf; CL = dose / AUCinf; Vss = (dose / AUCinf) x MRT. The day 11 formulas are applied exactly as defined, with t = 0 at the day 11 dose, although they are single-dose formulas.",
+    "method": "bortezomib_pk_nct01801436_check.nca: C0 by log-linear back-extrapolation from the first two samples; AUC from (0, C0); model concentrations at all 12 post-dose times (every model sample is quantifiable).",
+    "readings": {
+      "primary": {"auc_rule": "linear", "terminal_points": 3, "first_sample_h": 0.08},
+      "sensitivity": [
+        {"auc_rule": "linear", "terminal_points": 4},
+        {"auc_rule": "linear_up_log_down", "terminal_points": 3},
+        {"auc_rule": "linear_up_log_down", "terminal_points": 4},
+        {"auc_rule": "linear", "terminal_points": 3, "first_sample_h": 0.0833, "note": "0.08 h read as 5 min"},
+        {"body": "50 kg, 155 cm (BSA 1.46 m2)"},
+        {"body": "72 kg, 168 cm (BSA 1.82 m2)"}
+      ],
+      "body_note": "Body size changes the constant-clearance model only through CL and Vss (absolute units); it changes every Iwasaki value."
+    }
+  },
+  "endpoints": {
+    "primary": [
+      {"name": "auc_last_day11", "observed": "AUC(0-t), Day 11 of Cycle 1, mean (SD), n = 10"}
+    ],
+    "secondary_blind": [
+      {"name": "cmax_day11", "observed": "Cmax, Day 11, mean (SD), n = 10"},
+      {"name": "cl_day11", "observed": "Systemic CL, Day 11, mean (SD), n = 10"},
+      {"name": "vss_day11", "observed": "Vss, Day 11, mean (SD), n = 10"},
+      {"name": "half_life_day11", "observed": "T1/2, Day 11, mean (SD), n = 10"},
+      {"name": "cmax_day1", "observed": "Cmax, Day 1, mean (SD), n = 10", "why_blind": "Set by the first sample and the initial volume; not implied by Day 1 clearance."}
+    ],
+    "descriptive_not_blind": [
+      {"name": "auc_last_day1", "why_not_blind": "Partly implied by the seen Day 1 clearance: each participant's AUCinf is dose / CL, so the mean AUCinf is at least about 1300 x BSA / 25.99 ng.h/mL, and AUClast is AUCinf less the extrapolated part. Reported with the model value, without classification."},
+      {"name": "vss_day1", "why_not_blind": "Vss = CL x MRT per participant; one factor is seen. Reported without classification."},
+      {"name": "auc_last_ratio_day11_over_day1", "why_not_blind": "Its denominator, Day 1 AUClast, is partly implied. Ratio of the two observed means against the model ratio, without classification."}
+    ],
+    "excluded": [
+      {"name": "cl_day1", "why": "Seen (ledger v19)."},
+      {"name": "auc_inf_day1", "why": "Equal to dose / CL per participant; implied by the seen clearance."}
+    ],
+    "not_used": "Tmax (the model's is the first sample by construction), lambda z (duplicates T1/2), AUMC and MRT (enter through Vss), Day 11 AUCinf (duplicates CL with a fixed dose), Day 1 T1/2 and MRT (not chosen; listed so their omission is visible), response and performance-status outcomes."
+  },
+  "observed_values": {
+    "file": "intelligence_store/data/bortezomib_pk_nct01801436_observed_v1.json, written after this plan is locked",
+    "extraction": "scripts/build_nct01801436_observed.py, committed with this plan: checks the record's sha256 (aebff81c...), selects outcomes by exact title, unit, mean/SD type and n = 10, and writes only the endpoints named above; Day 1 clearance and Day 1 AUC to infinity are never selected. Before the lock it was run on the real record with every posted value replaced by 1, to check titles, units and structure without reading values. The owner checks the written file against the record before the result is run.",
+    "n_rule": "Each endpoint must have n = 10; a different n stops the check and needs a plan amendment."
+  },
+  "comparison": {
+    "interval": "95% confidence interval of the observed mean: mean +/- t(0.975, 9) x SD / sqrt(10), t = 2.2622.",
+    "classification": {"consistent": "inside the interval", "model_over_predicts": "above", "model_under_predicts": "below"},
+    "robustness": "Each blind endpoint under every sensitivity reading; robust if all agree.",
+    "multiplicity": "Two models and six blind endpoints; no correction. Only the primary endpoint carries the per-model conclusion; secondary results are reported as they fall."
+  },
+  "decision_rule": {
+    "per_model": "A model is recorded as consistent with NCT01801436 day 11 exposure if auc_last_day11 is consistent under the primary reading; otherwise as over- or under-predicting. If the class differs under any sensitivity reading, the result is recorded as not robust, with the readings that differ.",
+    "constant_clearance": "The result is added to the day 11 evidence with 3.0f (Ogawa), 3.0h (CAN-1004) and 3.0m (MMY-3021), as the first blind one. Its day 1 findings are unchanged, and its status is not upgraded by a consistent result.",
+    "iwasaki": "The result is added to 3.0k-3.0l. A consistent result does not reverse the earlier inconsistencies; it is recorded beside them.",
+    "what_changes": "Dataset ledger: a checked_blind use of nct01801436_bortezomib_pk_unread for each model, and the dataset marked seen on the day the observed file is written. Check findings: one line per model. No model, page or platelet result changes."
+  },
+  "known_differences": [
+    "Route assumed IV from the clearance definition; if the study used subcutaneous dosing, Cmax and early AUC are not comparable.",
+    "Body size is assumed; the record has none. Covered by the body sensitivity readings.",
+    "Observed AUClast ends at the last quantifiable sample, which may be before 72 h for some participants (assay limit not stated); the model's runs to 72 h. This biases the observed mean low relative to the model's.",
+    "Day 11 CL, Vss and T1/2 are single-dose formulas applied to a profile that carries drug from three earlier doses; the emulation applies the same formulas to the model, so the comparison is like for like, but neither value is a true clearance or volume.",
+    "Per-protocol population (10 of 14): participants missing any scheduled sample are excluded.",
+    "Population: Taiwanese patients after at least 2 prior lines; neither model's parameters were derived from this population."
+  ]
+}
