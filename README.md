@@ -24,6 +24,8 @@ The platform combines three principal areas:
 
 The long-term objective is to establish an integrated scientific platform for evidence-based research in drug development, with every model's checks and limits shown.
 
+The first release leads with sourced evidence: the trial landscape, drug and special-population evidence, regulatory documents and the record of every model check. The models are research tools shown behind their check records; most of them carry a recorded disagreement or an indeterminate result (every check is listed at `/models/findings`; direction in [the roadmap](docs/PRODUCT_AND_SCIENCE_ROADMAP.md)).
+
 ---
 
 ## Core Capabilities
@@ -128,7 +130,7 @@ Implemented research components include:
 - Assumption sensitivity analysis.
 - Computational verification.
 
-These components form the foundation for future integrated physiological simulations.
+These components form the foundation for future integrated physiological simulations. Each model's checks, failures included, are listed at `/models/findings`; no model is validated for clinical prediction.
 
 ---
 
@@ -369,61 +371,20 @@ Models must undergo appropriate scientific verification and validation before th
 
 ## Development Roadmap
 
-Marlo Scientific is being developed incrementally.
+The phases, their status and the next steps are kept in one place, [the product and science roadmap](docs/PRODUCT_AND_SCIENCE_ROADMAP.md); this summary follows it (20 November 2026).
 
-### Phase 1 — Clinical and Pharmaceutical Intelligence
+| Phase | Goal | Status |
+|---|---|---|
+| 1. Provenance visible | Any visitor sees what each model checked and failed | Done |
+| 2. Fix what is known wrong | The bortezomib exposure model | Closed with the gap shown; reopens with new data |
+| 3. Any drug, at an honest level | Label-based exposure curves for most small molecules | Early: two drugs shown |
+| 4. Trial-design support | Eligibility benchmarking; dose evidence | Partly |
+| 5. AI that cites and is checked | Every extracted value reviewed against its source | Partly; no independent reviewer yet |
+| 6. Credibility records (ICH M15) | An exportable record per model | Done; analysis reports to add |
+| 7. Going online | Invited users with private workspaces | Not started |
+| Digital human | A body map built on checked models | Lenalidomide elimination map done |
 
-Develop structured research capabilities for clinical trials, medications, disease information, and scientific evidence.
-
-**Status:** Substantial implementation; ongoing development.
-
-### Phase 2 — Computational Pharmacology
-
-Develop pharmacokinetic and pharmacodynamic modeling components.
-
-**Status:** Experimental components implemented; verification and validation ongoing.
-
-### Phase 3 — Integrated Physiological Modeling
-
-Expand computational models to represent interactions among physiological compartments and organ systems.
-
-**Status:** Planned development.
-
-### Phase 4 — Disease Progression Modeling
-
-Introduce computational models capable of representing selected disease processes and their evolution over time.
-
-**Status:** Planned development.
-
-### Phase 5 — Combination Therapy Modeling
-
-Develop research capabilities for investigating multiple medications within shared computational scenarios.
-
-**Status:** Planned development.
-
-### Phase 6 — Digital Human Interface
-
-Develop an interactive scientific visualization environment connecting:
-
-Human Body → Organ → Tissue → Cell → Molecular Target
-
-The objective is to support navigation between anatomical structures, pharmacological mechanisms, and available computational models.
-
-**Status:** Long-term development objective.
-
-### Phase 7 — Research Platform Expansion
-
-Explore additional capabilities such as:
-
-- Broader disease coverage.
-- Expanded drug knowledge.
-- Additional scientific models, each with its checks.
-- Advanced research workspaces.
-- User account management.
-- Subscription-based platform access.
-- Production infrastructure.
-
-**Status:** Future development.
+**Long-term directions,** beyond these phases: integrated physiological modelling across organ systems, disease progression, combination therapy, and a digital human interface connecting Human Body → Organ → Tissue → Cell → Molecular Target, each model with its checks.
 
 ---
 
