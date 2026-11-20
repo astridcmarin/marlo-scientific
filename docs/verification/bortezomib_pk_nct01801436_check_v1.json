@@ -1,0 +1,569 @@
+{
+  "schema_version": "bortezomib-pk-external-check-report-v1",
+  "method_version": "bortezomib-pk-nct01801436-check-v1.0",
+  "plan": {
+    "path": "bortezomib_pk_nct01801436_check_plan_v1.json",
+    "sha256": "a2face39c78f84a044db24b3381d5d12e72431b0b3cc751f985a22e1ffa85d61",
+    "version": "bortezomib-pk-nct01801436-check-plan-v1.0"
+  },
+  "synthetic_dry_run": false,
+  "dataset": "nct01801436_bortezomib_pk_unread",
+  "excluded_endpoints": [
+    "cl_day1",
+    "auc_inf_day1"
+  ],
+  "numerics": {
+    "iwasaki_max_mass_balance_error": 4.825002728032318e-14,
+    "iwasaki_step_h": 0.00025
+  },
+  "results": {
+    "bortezomib_pk_lignet_2022": {
+      "blind_endpoints": {
+        "auc_last_day11": {
+          "observed_mean": 190.39,
+          "observed_sd": 55.27,
+          "n": 10,
+          "interval_95": [
+            150.85147510230252,
+            229.92852489769746
+          ],
+          "model_primary": 126.55516586775875,
+          "class_primary": "model_under_predicts",
+          "classes_all_readings": {
+            "primary": "model_under_predicts",
+            "body_50kg_155cm": "model_under_predicts",
+            "body_72kg_168cm": "model_under_predicts",
+            "linear_4pt": "model_under_predicts",
+            "linear_up_log_down_3pt": "model_under_predicts",
+            "linear_up_log_down_4pt": "model_under_predicts",
+            "linear_3pt_first_sample_5min": "model_under_predicts"
+          },
+          "robust": true
+        },
+        "cmax_day11": {
+          "observed_mean": 127.02,
+          "observed_sd": 59.8,
+          "n": 10,
+          "interval_95": [
+            84.24084695345921,
+            169.79915304654077
+          ],
+          "model_primary": 84.00652039709801,
+          "class_primary": "model_under_predicts",
+          "classes_all_readings": {
+            "primary": "model_under_predicts",
+            "body_50kg_155cm": "model_under_predicts",
+            "body_72kg_168cm": "model_under_predicts",
+            "linear_4pt": "model_under_predicts",
+            "linear_up_log_down_3pt": "model_under_predicts",
+            "linear_up_log_down_4pt": "model_under_predicts",
+            "linear_3pt_first_sample_5min": "model_under_predicts"
+          },
+          "robust": true
+        },
+        "cl_day11": {
+          "observed_mean": 4.68,
+          "observed_sd": 2.46,
+          "n": 10,
+          "interval_95": [
+            2.9201886873831047,
+            6.439811312616895
+          ],
+          "model_primary": 8.136406501212122,
+          "class_primary": "model_over_predicts",
+          "classes_all_readings": {
+            "primary": "model_over_predicts",
+            "body_50kg_155cm": "model_over_predicts",
+            "body_72kg_168cm": "model_over_predicts",
+            "linear_4pt": "model_over_predicts",
+            "linear_up_log_down_3pt": "model_over_predicts",
+            "linear_up_log_down_4pt": "model_over_predicts",
+            "linear_3pt_first_sample_5min": "model_over_predicts"
+          },
+          "robust": true
+        },
+        "vss_day11": {
+          "observed_mean": 331.68,
+          "observed_sd": 85.81,
+          "n": 10,
+          "interval_95": [
+            270.2940614895708,
+            393.0659385104292
+          ],
+          "model_primary": 980.1138349980453,
+          "class_primary": "model_over_predicts",
+          "classes_all_readings": {
+            "primary": "model_over_predicts",
+            "body_50kg_155cm": "model_over_predicts",
+            "body_72kg_168cm": "model_over_predicts",
+            "linear_4pt": "model_over_predicts",
+            "linear_up_log_down_3pt": "model_over_predicts",
+            "linear_up_log_down_4pt": "model_over_predicts",
+            "linear_3pt_first_sample_5min": "model_over_predicts"
+          },
+          "robust": true
+        },
+        "half_life_day11": {
+          "observed_mean": 51.55,
+          "observed_sd": 87.2,
+          "n": 10,
+          "interval_95": [
+            -10.830303439102963,
+            113.93030343910296
+          ],
+          "model_primary": 98.07795724592336,
+          "class_primary": "consistent",
+          "classes_all_readings": {
+            "primary": "consistent",
+            "body_50kg_155cm": "consistent",
+            "body_72kg_168cm": "consistent",
+            "linear_4pt": "consistent",
+            "linear_up_log_down_3pt": "consistent",
+            "linear_up_log_down_4pt": "consistent",
+            "linear_3pt_first_sample_5min": "consistent"
+          },
+          "robust": true
+        },
+        "cmax_day1": {
+          "observed_mean": 76.43,
+          "observed_sd": 38.47,
+          "n": 10,
+          "interval_95": [
+            48.909698700661814,
+            103.95030129933821
+          ],
+          "model_primary": 83.19411583572918,
+          "class_primary": "consistent",
+          "classes_all_readings": {
+            "primary": "consistent",
+            "body_50kg_155cm": "consistent",
+            "body_72kg_168cm": "consistent",
+            "linear_4pt": "consistent",
+            "linear_up_log_down_3pt": "consistent",
+            "linear_up_log_down_4pt": "consistent",
+            "linear_3pt_first_sample_5min": "consistent"
+          },
+          "robust": true
+        }
+      },
+      "descriptive_not_blind": {
+        "auc_last_day1": {
+          "observed_mean": 51.86,
+          "model_primary": 80.62818403122054,
+          "not_blind": true
+        },
+        "vss_day1": {
+          "observed_mean": 483.71,
+          "model_primary": 1519.1667724371127,
+          "not_blind": true
+        },
+        "auc_last_ratio_day11_over_day1": {
+          "observed_mean": null,
+          "model_primary": 1.5696144888833727,
+          "not_blind": true,
+          "observed_ratio_of_means": 3.6712302352487463
+        }
+      },
+      "primary_class": "model_under_predicts",
+      "primary_robust": true,
+      "recorded_as": "model_under_predicts"
+    },
+    "bortezomib_pbpk_iwasaki_2020_candidate": {
+      "blind_endpoints": {
+        "auc_last_day11": {
+          "observed_mean": 190.39,
+          "observed_sd": 55.27,
+          "n": 10,
+          "interval_95": [
+            150.85147510230252,
+            229.92852489769746
+          ],
+          "model_primary": 145.3920873346274,
+          "class_primary": "model_under_predicts",
+          "classes_all_readings": {
+            "primary": "model_under_predicts",
+            "body_50kg_155cm": "consistent",
+            "body_72kg_168cm": "model_under_predicts",
+            "linear_4pt": "model_under_predicts",
+            "linear_up_log_down_3pt": "model_under_predicts",
+            "linear_up_log_down_4pt": "model_under_predicts",
+            "linear_3pt_first_sample_5min": "model_under_predicts"
+          },
+          "robust": false
+        },
+        "cmax_day11": {
+          "observed_mean": 127.02,
+          "observed_sd": 59.8,
+          "n": 10,
+          "interval_95": [
+            84.24084695345921,
+            169.79915304654077
+          ],
+          "model_primary": 59.62997849323248,
+          "class_primary": "model_under_predicts",
+          "classes_all_readings": {
+            "primary": "model_under_predicts",
+            "body_50kg_155cm": "model_under_predicts",
+            "body_72kg_168cm": "model_under_predicts",
+            "linear_4pt": "model_under_predicts",
+            "linear_up_log_down_3pt": "model_under_predicts",
+            "linear_up_log_down_4pt": "model_under_predicts",
+            "linear_3pt_first_sample_5min": "model_under_predicts"
+          },
+          "robust": true
+        },
+        "cl_day11": {
+          "observed_mean": 4.68,
+          "observed_sd": 2.46,
+          "n": 10,
+          "interval_95": [
+            2.9201886873831047,
+            6.439811312616895
+          ],
+          "model_primary": 7.181874554914447,
+          "class_primary": "model_over_predicts",
+          "classes_all_readings": {
+            "primary": "model_over_predicts",
+            "body_50kg_155cm": "consistent",
+            "body_72kg_168cm": "model_over_predicts",
+            "linear_4pt": "model_over_predicts",
+            "linear_up_log_down_3pt": "model_over_predicts",
+            "linear_up_log_down_4pt": "model_over_predicts",
+            "linear_3pt_first_sample_5min": "model_over_predicts"
+          },
+          "robust": false
+        },
+        "vss_day11": {
+          "observed_mean": 331.68,
+          "observed_sd": 85.81,
+          "n": 10,
+          "interval_95": [
+            270.2940614895708,
+            393.0659385104292
+          ],
+          "model_primary": 927.0459730268768,
+          "class_primary": "model_over_predicts",
+          "classes_all_readings": {
+            "primary": "model_over_predicts",
+            "body_50kg_155cm": "model_over_predicts",
+            "body_72kg_168cm": "model_over_predicts",
+            "linear_4pt": "model_over_predicts",
+            "linear_up_log_down_3pt": "model_over_predicts",
+            "linear_up_log_down_4pt": "model_over_predicts",
+            "linear_3pt_first_sample_5min": "model_over_predicts"
+          },
+          "robust": true
+        },
+        "half_life_day11": {
+          "observed_mean": 51.55,
+          "observed_sd": 87.2,
+          "n": 10,
+          "interval_95": [
+            -10.830303439102963,
+            113.93030343910296
+          ],
+          "model_primary": 114.27503104465303,
+          "class_primary": "model_over_predicts",
+          "classes_all_readings": {
+            "primary": "model_over_predicts",
+            "body_50kg_155cm": "model_over_predicts",
+            "body_72kg_168cm": "consistent",
+            "linear_4pt": "consistent",
+            "linear_up_log_down_3pt": "model_over_predicts",
+            "linear_up_log_down_4pt": "consistent",
+            "linear_3pt_first_sample_5min": "model_over_predicts"
+          },
+          "robust": false
+        },
+        "cmax_day1": {
+          "observed_mean": 76.43,
+          "observed_sd": 38.47,
+          "n": 10,
+          "interval_95": [
+            48.909698700661814,
+            103.95030129933821
+          ],
+          "model_primary": 52.225234091270075,
+          "class_primary": "consistent",
+          "classes_all_readings": {
+            "primary": "consistent",
+            "body_50kg_155cm": "consistent",
+            "body_72kg_168cm": "model_under_predicts",
+            "linear_4pt": "consistent",
+            "linear_up_log_down_3pt": "consistent",
+            "linear_up_log_down_4pt": "consistent",
+            "linear_3pt_first_sample_5min": "consistent"
+          },
+          "robust": false
+        }
+      },
+      "descriptive_not_blind": {
+        "auc_last_day1": {
+          "observed_mean": 51.86,
+          "model_primary": 94.61546152476197,
+          "not_blind": true
+        },
+        "vss_day1": {
+          "observed_mean": 483.71,
+          "model_primary": 965.2201629133167,
+          "not_blind": true
+        },
+        "auc_last_ratio_day11_over_day1": {
+          "observed_mean": null,
+          "model_primary": 1.5366630885859665,
+          "not_blind": true,
+          "observed_ratio_of_means": 3.6712302352487463
+        }
+      },
+      "primary_class": "model_under_predicts",
+      "primary_robust": false,
+      "recorded_as": "model_under_predicts"
+    }
+  },
+  "model_values": {
+    "bortezomib_pk_lignet_2022": {
+      "primary": {
+        "auc_last_day11": 126.55516586775875,
+        "cmax_day11": 84.00652039709801,
+        "cl_day11": 8.136406501212122,
+        "vss_day11": 980.1138349980453,
+        "half_life_day11": 98.07795724592336,
+        "cmax_day1": 83.19411583572918,
+        "auc_last_day1": 80.62818403122054,
+        "vss_day1": 1519.1667724371127,
+        "auc_last_ratio_day11_over_day1": 1.5696144888833727,
+        "context_not_compared": {
+          "cl_day1": 14.638050638274857,
+          "auc_inf_day1": 144.05478864465766,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "body_50kg_155cm": {
+        "auc_last_day11": 126.55516586775875,
+        "cmax_day11": 84.00652039709801,
+        "cl_day11": 7.358412031398097,
+        "vss_day11": 886.3964004889535,
+        "half_life_day11": 98.07795724592336,
+        "cmax_day1": 83.19411583572918,
+        "auc_last_day1": 80.62818403122054,
+        "vss_day1": 1373.9056737561139,
+        "auc_last_ratio_day11_over_day1": 1.5696144888833727,
+        "context_not_compared": {
+          "cl_day1": 13.238375923922899,
+          "auc_inf_day1": 144.05478864465766,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "body_72kg_168cm": {
+        "auc_last_day11": 126.55516586775875,
+        "cmax_day11": 84.00652039709801,
+        "cl_day11": 9.1085009832215,
+        "vss_day11": 1097.21261203195,
+        "half_life_day11": 98.07795724592336,
+        "cmax_day1": 83.19411583572918,
+        "auc_last_day1": 80.62818403122054,
+        "vss_day1": 1700.6687213033736,
+        "auc_last_ratio_day11_over_day1": 1.5696144888833727,
+        "context_not_compared": {
+          "cl_day1": 16.386926908249936,
+          "auc_inf_day1": 144.05478864465766,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "linear_4pt": {
+        "auc_last_day11": 126.55516586775875,
+        "cmax_day11": 84.00652039709801,
+        "cl_day11": 8.307922596879013,
+        "vss_day11": 960.7003976842386,
+        "half_life_day11": 94.12080642395904,
+        "cmax_day1": 83.19411583572918,
+        "auc_last_day1": 80.62818403122054,
+        "vss_day1": 1441.991635460589,
+        "auc_last_ratio_day11_over_day1": 1.5696144888833727,
+        "context_not_compared": {
+          "cl_day1": 15.171158193075977,
+          "auc_inf_day1": 138.99276930807233,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "linear_up_log_down_3pt": {
+        "auc_last_day11": 124.767587488013,
+        "cmax_day11": 84.00652039709801,
+        "cl_day11": 8.192916502277347,
+        "vss_day11": 993.7755348148063,
+        "half_life_day11": 98.07795724592336,
+        "cmax_day1": 83.19411583572918,
+        "auc_last_day1": 78.78451263768514,
+        "vss_day1": 1558.8120534156196,
+        "auc_last_ratio_day11_over_day1": 1.5836562708941948,
+        "context_not_compared": {
+          "cl_day1": 14.827823109939317,
+          "auc_inf_day1": 142.21111725112226,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "linear_up_log_down_4pt": {
+        "auc_last_day11": 124.767587488013,
+        "cmax_day11": 84.00652039709801,
+        "cl_day11": 8.366848807177066,
+        "vss_day11": 974.3767880181035,
+        "half_life_day11": 94.12080642395904,
+        "cmax_day1": 83.19411583572918,
+        "auc_last_day1": 78.78451263768514,
+        "vss_day1": 1481.0211010461655,
+        "auc_last_ratio_day11_over_day1": 1.5836562708941948,
+        "context_not_compared": {
+          "cl_day1": 15.37510142560678,
+          "auc_inf_day1": 137.14909791453692,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "linear_3pt_first_sample_5min": {
+        "auc_last_day11": 126.50278863165337,
+        "cmax_day11": 82.3667500948342,
+        "cl_day11": 8.138051193622289,
+        "vss_day11": 980.5102484923219,
+        "half_life_day11": 98.07795724592336,
+        "cmax_day1": 81.55436466479452,
+        "auc_last_day1": 80.57750270146659,
+        "vss_day1": 1520.2367140690674,
+        "auc_last_ratio_day11_over_day1": 1.5699517159316345,
+        "context_not_compared": {
+          "cl_day1": 14.643202407104138,
+          "auc_inf_day1": 144.0041073149037,
+          "tmax_day1": 0.08333333333333333,
+          "tmax_day11": 0.08333333333333333
+        }
+      }
+    },
+    "bortezomib_pbpk_iwasaki_2020_candidate": {
+      "primary": {
+        "auc_last_day11": 145.3920873346274,
+        "cmax_day11": 59.62997849323248,
+        "cl_day11": 7.181874554914447,
+        "vss_day11": 927.0459730268768,
+        "half_life_day11": 114.27503104465303,
+        "cmax_day1": 52.225234091270075,
+        "auc_last_day1": 94.61546152476197,
+        "vss_day1": 965.2201629133167,
+        "auc_last_ratio_day11_over_day1": 1.5366630885859665,
+        "context_not_compared": {
+          "cl_day1": 15.774638619980573,
+          "auc_inf_day1": 133.67541036379555,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "body_50kg_155cm": {
+        "auc_last_day11": 158.06155412663273,
+        "cmax_day11": 65.68647846501612,
+        "cl_day11": 5.919896353357821,
+        "vss_day11": 780.2905626420537,
+        "half_life_day11": 116.7163797944139,
+        "cmax_day1": 57.587093944942026,
+        "auc_last_day1": 103.02694581086064,
+        "vss_day1": 826.3020401438012,
+        "auc_last_ratio_day11_over_day1": 1.5341768396862503,
+        "context_not_compared": {
+          "cl_day1": 12.950223967551132,
+          "auc_inf_day1": 147.26011306813393,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "body_72kg_168cm": {
+        "auc_last_day11": 135.43108277499047,
+        "cmax_day11": 54.908262289747725,
+        "cl_day11": 8.706599770313032,
+        "vss_day11": 1101.873172183922,
+        "half_life_day11": 112.01170317263383,
+        "cmax_day1": 48.07094826587677,
+        "auc_last_day1": 88.01113821652072,
+        "vss_day1": 1132.8140803404226,
+        "auc_last_ratio_day11_over_day1": 1.5387948107409941,
+        "context_not_compared": {
+          "cl_day1": 19.166839403481355,
+          "auc_inf_day1": 123.16142701517234,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "linear_4pt": {
+        "auc_last_day11": 145.3920873346274,
+        "cmax_day11": 59.62997849323248,
+        "cl_day11": 8.520423263304284,
+        "vss_day11": 748.3326450466468,
+        "half_life_day11": 78.712532585484,
+        "cmax_day1": 52.225234091270075,
+        "auc_last_day1": 94.61546152476197,
+        "vss_day1": 698.2655809255201,
+        "auc_last_ratio_day11_over_day1": 1.5366630885859665,
+        "context_not_compared": {
+          "cl_day1": 17.665999776,
+          "auc_inf_day1": 119.36382415962737,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "linear_up_log_down_3pt": {
+        "auc_last_day11": 143.60813146120879,
+        "cmax_day11": 59.62997849323248,
+        "cl_day11": 7.225777694063014,
+        "vss_day11": 938.4147679703427,
+        "half_life_day11": 114.27503104465303,
+        "cmax_day1": 52.225234091270075,
+        "auc_last_day1": 92.86117408266965,
+        "vss_day1": 991.0618499969672,
+        "auc_last_ratio_day11_over_day1": 1.546481970315836,
+        "context_not_compared": {
+          "cl_day1": 15.984409806138537,
+          "auc_inf_day1": 131.92112292170324,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "linear_up_log_down_4pt": {
+        "auc_last_day11": 143.60813146120879,
+        "cmax_day11": 59.62997849323248,
+        "cl_day11": 8.582287174671166,
+        "vss_day11": 759.2388754945403,
+        "half_life_day11": 78.712532585484,
+        "cmax_day1": 52.225234091270075,
+        "auc_last_day1": 92.86117408266965,
+        "vss_day1": 719.251879111189,
+        "auc_last_ratio_day11_over_day1": 1.546481970315836,
+        "context_not_compared": {
+          "cl_day1": 17.929509372449438,
+          "auc_inf_day1": 117.60953671753504,
+          "tmax_day1": 0.08,
+          "tmax_day11": 0.08
+        }
+      },
+      "linear_3pt_first_sample_5min": {
+        "auc_last_day11": 145.35916260501418,
+        "cmax_day11": 59.04205926265287,
+        "cl_day11": 7.182679999390691,
+        "vss_day11": 927.2539639715901,
+        "half_life_day11": 114.27503104462589,
+        "cmax_day1": 51.57944053551756,
+        "auc_last_day1": 94.57054376005249,
+        "vss_day1": 965.869279777098,
+        "auc_last_ratio_day11_over_day1": 1.5370448009035906,
+        "context_not_compared": {
+          "cl_day1": 15.77994101387259,
+          "auc_inf_day1": 133.63049259896977,
+          "tmax_day1": 0.08333333333333333,
+          "tmax_day11": 0.08333333333333333
+        }
+      }
+    }
+  },
+  "not_validation": "Exploratory external consistency check; no model is validated or qualified.",
+  "report_sha256": "e9464ca7e40b33c02fb89836c551a83f0090babfabe1179801669c72b18171fa"
+}

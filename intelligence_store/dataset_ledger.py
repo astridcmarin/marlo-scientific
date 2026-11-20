@@ -10,8 +10,14 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v19.json'
-LEDGER_SHA256 = '419a0854d2774b6e06a43d67305e651f767749c17c1715d0abec75307031edb8'
+LEDGER_PATH = Path(__file__).parent / 'data' / 'dataset_ledger_v22.json'
+LEDGER_SHA256 = 'a9616b510e51c4af85142ba962b5a9839bf93f924a751c942498fc24192bc5d2'
+# Superseded, kept unchanged: dataset_ledger_v21.json (v22 records the blind NCT01801436 check, 3.0n)
+LEDGER_V21_SHA256 = 'bd80f34a252a51b84369c33a37125750bdfc9862b04ea515bab07887107be35f'
+# Superseded, kept unchanged: dataset_ledger_v20.json (v21 registers NCT01801436's posted results, unread part separate)
+LEDGER_V20_SHA256 = '206cd9e445693a53e9e807052f306b35b71fffedd5d53b72f196bcb8a259533b'
+# Superseded, kept unchanged: dataset_ledger_v19.json (v20 registers four documents held unread, 20 November 2026)
+LEDGER_V19_SHA256 = '419a0854d2774b6e06a43d67305e651f767749c17c1715d0abec75307031edb8'
 # Superseded, kept unchanged: dataset_ledger_v18.json (v19 registers NCT01801436 as partly seen)
 LEDGER_V18_SHA256 = 'ff26850dfb1cda8b77583959186c62c38b78855b9addd362eea50b7d7ddc663a'
 # Superseded, kept unchanged: dataset_ledger_v17.json (v18 records a search snippet of Quach 2017's abstract)

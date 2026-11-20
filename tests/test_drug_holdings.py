@@ -1,6 +1,7 @@
 """What the platform holds per drug (evidence-first plan items 6 and 7, 19 November 2026)."""
 import unittest
 
+from intelligence_store import dataset_ledger as dl
 from intelligence_store import drug_holdings as dh
 
 
@@ -8,7 +9,11 @@ class Holdings(unittest.TestCase):
     def test_unread_sources_carry_no_values_and_no_files(self):
         h = dh.holdings('carfilzomib')
         self.assertEqual({r['dataset'] for r in h['held_unread']},
-                         {'badros_2013_carfilzomib_renal', 'quach_2017_carfilzomib_esrd'})
+                         {'badros_2013_carfilzomib_renal', 'quach_2017_carfilzomib_esrd', 'fda_2012_kyprolis_clinpharm_review',
+                          'fda_2025_kyprolis_s036_review', 'pmda_2016_kyprolis_review'})
+        kinds = {r['dataset']: r['regulatory_kind'] for r in h['held_unread']}
+        self.assertEqual(kinds['pmda_2016_kyprolis_review'], 'PMDA review report')
+        self.assertEqual(kinds['fda_2012_kyprolis_clinpharm_review'], 'FDA review')
         for r in h['held_unread']:
             self.assertEqual(r['files'], [])
             self.assertIsNone(r['values_first_seen'])
@@ -46,9 +51,17 @@ class Holdings(unittest.TestCase):
         v2 = next(f for f in cc['files'] if f['file'].endswith('renal_pk_group_evidence_v2.json'))
         self.assertEqual(v2['state'], 'earlier_reviewed')
 
-    def test_a_dataset_seen_only_in_a_search_result_is_not_a_holding(self):
-        keys = {r['dataset'] for r in dh.holdings('bortezomib')['read']}
-        self.assertNotIn('nct01801436_bortezomib_pk', keys)
+    def test_a_dataset_seen_only_in_passing_is_not_a_holding_until_it_is_held(self):
+        # NCT01801436 was seen in a search result (v19, not a holding); its record was supplied in v21, and its unread
+        # values are listed apart from the seen part.
+        v20 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v20.json'), dl.LEDGER_V20_SHA256)
+        self.assertNotIn('nct01801436_bortezomib_pk', {r['dataset'] for r in dh.holdings('bortezomib', v20)['read']})
+        v21 = dl.load_ledger(dl.LEDGER_PATH.with_name('dataset_ledger_v21.json'), dl.LEDGER_V21_SHA256)
+        h = dh.holdings('bortezomib', v21)
+        self.assertIn('nct01801436_bortezomib_pk', {r['dataset'] for r in h['read']})
+        self.assertIn('nct01801436_bortezomib_pk_unread', {r['dataset'] for r in h['held_unread']})
+        # v22: read after the blind check plan was locked.
+        self.assertIn('nct01801436_bortezomib_pk_unread', {r['dataset'] for r in dh.holdings('bortezomib')['read']})
 
     def test_state_summary(self):
         row = {'files': [{'state': 'reviewed_by_owner'}, {'state': None}], 'checks': ['a', 'b']}

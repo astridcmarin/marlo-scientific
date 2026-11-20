@@ -1,0 +1,82 @@
+{
+  "schema_version": "external-observed-values-v1",
+  "dataset": "nct01801436_bortezomib_pk_unread",
+  "source": {
+    "name": "NCT01801436 - Post-approval bortezomib pharmacokinetic study in multiple myeloma, ClinicalTrials.gov record with posted results [NCT01801436].json",
+    "sha256": "aebff81cbec28cca698cf3c117560d2cf96fb1f3758740810fa4d126bbb5177e",
+    "registry": "ClinicalTrials.gov",
+    "section": "resultsSection.outcomeMeasuresModule",
+    "population": "per-protocol, n = 10"
+  },
+  "extracted_on": "2026-11-20",
+  "method": "scripts/build_nct01801436_observed.py: exact outcome titles; posted mean and SD as written.",
+  "excluded_never_extracted": [
+    "Systemic Clearance (CL) of Bortezomib on Day 1 of Cycle 1",
+    "Area Under the Plasma Concentration-Time Curve From Time Zero to Infinite Time (AUC[0-infinity]) of Bortezomib on Day 1 of Cycle 1"
+  ],
+  "reviewed_by_owner": true,
+  "endpoints": {
+    "auc_last_day11": {
+      "mean": 190.39,
+      "sd": 55.27,
+      "n": 10,
+      "unit_as_posted": "Hour*ng per mL",
+      "title": "Area Under the Plasma Concentration-Time Curve From Time Zero to Time at Last Observed Quantifiable Concentration (AUC[0-t]) of Bortezomib on Day 11 of Cycle 1"
+    },
+    "cmax_day11": {
+      "mean": 127.02,
+      "sd": 59.8,
+      "n": 10,
+      "unit_as_posted": "ng per ml",
+      "title": "Maximum Observed Plasma Concentration (Cmax) of Bortezomib on Day 11 of Cycle 1"
+    },
+    "cl_day11": {
+      "mean": 4.68,
+      "sd": 2.46,
+      "n": 10,
+      "unit_as_posted": "Liter per Hour",
+      "title": "Systemic Clearance (CL) of Bortezomib on Day 11 of Cycle 1"
+    },
+    "vss_day11": {
+      "mean": 331.68,
+      "sd": 85.81,
+      "n": 10,
+      "unit_as_posted": "Liter",
+      "title": "Volume of Distribution at Steady-State (Vss) of Bortezomib on Day 11 of Cycle 1"
+    },
+    "half_life_day11": {
+      "mean": 51.55,
+      "sd": 87.2,
+      "n": 10,
+      "unit_as_posted": "Hours",
+      "title": "Elimination Half-Life Period (T1/2) of Bortezomib on Day 11 of Cycle 1"
+    },
+    "cmax_day1": {
+      "mean": 76.43,
+      "sd": 38.47,
+      "n": 10,
+      "unit_as_posted": "Nanogram per millileter (ng per ml)",
+      "title": "Maximum Observed Plasma Concentration (Cmax) of Bortezomib on Day 1 of Cycle 1"
+    },
+    "auc_last_day1": {
+      "mean": 51.86,
+      "sd": 30.56,
+      "n": 10,
+      "unit_as_posted": "Hour*ng per ml",
+      "title": "Area Under the Plasma Concentration-Time Curve From Time Zero to Time at Last Observed Quantifiable Concentration (AUC[0-t]) of Bortezomib on Day 1 of Cycle 1"
+    },
+    "vss_day1": {
+      "mean": 483.71,
+      "sd": 403.04,
+      "n": 10,
+      "unit_as_posted": "Liter",
+      "title": "Volume of Distribution at Steady-State (Vss) of Bortezomib on Day 1 of Cycle 1"
+    }
+  },
+  "owner_review": {
+    "on": "2026-11-20",
+    "what": "Asked to compare the eight means and SDs with the posted results on ClinicalTrials.gov; replied \"go\" at 11:03 (America/New_York).",
+    "script_output_sha256": "be5c2ca5b1268401a70ab288246bf19d97eabb610f37e778325a6cd74f123b36",
+    "changed_after_script": "reviewed_by_owner set to true and this owner_review entry added; endpoint values unchanged."
+  }
+}

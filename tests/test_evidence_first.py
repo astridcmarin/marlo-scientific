@@ -22,7 +22,7 @@ class FindingsForDrug(unittest.TestCase):
 
     def test_each_drug_gets_its_own_checks_and_only_those(self):
         self.assertEqual(self.ids('bortezomib'), {'ogawa', 'kuan', 'can1004', 'falling_clearance', 'iwasaki', 'mmy3021',
-                                                  'reece', 'platelets'})
+                                                  'reece', 'platelets', 'nct01801436'})
         self.assertEqual(self.ids('ixazomib'), {'ixazomib', 'acceptance_rule_v2_gupta_luo'})
         self.assertEqual(self.ids('daratumumab'), {'daratumumab_v1', 'daratumumab_v2', 'acceptance_rule_v2_gupta_luo'})
         self.assertEqual(self.ids('pomalidomide'), {'pomalidomide_label', 'pomalidomide_li'})

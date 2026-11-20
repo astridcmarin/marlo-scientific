@@ -80,7 +80,9 @@ class Findings(unittest.TestCase):
 
     def test_v13_adds_the_carfilzomib_label_check_only(self):
         old = json.loads(cf.FINDINGS_PATH.with_name('check_findings_v12.json').read_bytes())
-        new = json.loads(cf.FINDINGS_PATH.read_bytes())
+        raw = cf.FINDINGS_PATH.with_name('check_findings_v13.json').read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), cf.FINDINGS_V13_SHA256)
+        new = json.loads(raw)
         self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V12_SHA256)
         self.assertEqual(new['findings'][:-1], old['findings'])
         added = new['findings'][-1]
@@ -124,11 +126,24 @@ class Findings(unittest.TestCase):
             else:
                 self.assertEqual(after[k], before[k], k)
 
+    def test_v14_adds_the_blind_nct01801436_check_only(self):
+        old = json.loads(cf.FINDINGS_PATH.with_name('check_findings_v13.json').read_bytes())
+        new = json.loads(cf.FINDINGS_PATH.read_bytes())
+        self.assertEqual(new['supersedes']['sha256'], cf.FINDINGS_V13_SHA256)
+        self.assertEqual(new['findings'][:-1], old['findings'])
+        added = new['findings'][-1]
+        self.assertEqual((added['id'], added['outcome']), ('nct01801436', 'disagrees'))
+        rep = json.loads((cf.ROOT / added['report']).read_text())
+        self.assertEqual(hashlib.sha256((cf.ROOT / added['report']).read_bytes()).hexdigest(), added['report_file_sha256'])
+        self.assertEqual({m: r['primary_class'] for m, r in rep['results'].items()},
+                         {'bortezomib_pk_lignet_2022': 'model_under_predicts', 'bortezomib_pbpk_iwasaki_2020_candidate': 'model_under_predicts'})
+
     def test_blindness_comes_from_the_ledger(self):
         blind = {r['id']: r['blindness'] for r in self.rows if r['blind']}
         self.assertEqual(blind, {'bridoux_hughes_kim': 'checked_blind_with_deviation', 'dexamethasone_outside': 'checked_blind',
-                                 'eligibility_v1': 'checked_blind', 'eligibility_v2': 'checked_blind', 'eligibility_llm_c1': 'checked_blind'})
-        self.assertEqual(self.view['blind'], 5)
+                                 'eligibility_v1': 'checked_blind', 'eligibility_v2': 'checked_blind', 'eligibility_llm_c1': 'checked_blind',
+                                 'nct01801436': 'checked_blind'})
+        self.assertEqual(self.view['blind'], 6)
 
     def test_outcomes_match_recorded_decisions(self):
         """Spot checks against the reports' own decision fields."""
