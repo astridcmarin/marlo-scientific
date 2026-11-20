@@ -150,7 +150,7 @@ Decided with the owner on 18 November ([REGROUP_2026-11-18.md](REGROUP_2026-11-1
 **Done 19–20 November:** review rounds 3 and 4 closed; eligibility round two met its bar; carfilzomib's label curve not eligible (Badros 2013 and Quach 2017 stay unread until a published carfilzomib model is chosen to test against them, the owner's choice); evidence-first items 1–7; decisions 0007 and 0008; bortezomib's first blind check (3.0n, both models under-predict day 11).
 
 **Queue, in the order proposed on 20 November:**
-1. **The release pipeline:** the owner's five choices in decision 0007, a storage and ingestion decision record, then a pilot of about 50 labels with sampled review.
+1. **The release pipeline:** the owner answered decision 0007's choices on 20 November; storage is proposed as decision 0009; then a pilot of about 50 labels on the owner's computer, with sampled review.
 2. **Eligibility:** an adjudicated two-reader reference under its own plan (round two's 22 disagreements), then an extractor revision tested only on trials posted after the cohort freeze, never on the 200.
 3. **Catalogue growth** (evidence-first item 8): selinexor, thalidomide, isatuximab and elotuzumab first, then further agents by study count in the cohort.
 4. **An independent reviewer** for the lenalidomide model and its credibility record.
