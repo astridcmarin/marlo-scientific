@@ -36,14 +36,14 @@ It is for pharmaceutical and regulatory scientists, clinical researchers, pharma
 
 | | |
 |---|---|
-| Files tracked | 1,113 (after the clean-up of 23 November) |
+| Files tracked | 1,115 (23 November) |
 | Commits on `main` | 491 (5 October to 20 November 2026) |
 | Python modules in `intelligence_store/` | 174 |
-| Pinned data files (`intelligence_store/data/`) | 258 JSON, plus one compressed file and one note |
+| Pinned data files (`intelligence_store/data/`) | 259 JSON, plus one compressed file and one note |
 | Page modules (`landscape_ui/`, `app/`) and templates | 54 page modules, 112 workspace templates; at least 112 route definitions |
 | Tests | 197 files, 1,641 test functions (about 300 need the database and run in CI) |
 | Database migrations | 9 |
-| Documentation | 167 files, including 9 decision records and 9 AI review records |
+| Documentation | 168 files, including 10 decision records and 9 AI review records |
 | Locked model checks | 37 (3 passed, 2 consistent, 11 mixed, 7 disagree, 9 failed, 3 inconclusive, 2 not adopted) |
 | Drugs with a drug page and catalogue entry | 10 |
 | Validation flags set to true | none |
@@ -61,7 +61,7 @@ It is for pharmaceutical and regulatory scientists, clinical researchers, pharma
 | `scripts/` | Command-line builders and checks (data index, extraction builders, review pages, smoke tests) | 48 |
 | `tests/` | `unittest` tests, run in CI on every pull request | 197 |
 | `examples/` | A synthetic numerical case plan | 1 |
-| `docs/` | Roadmap, handoff, checkpoints, design plans, decision records, verification reports, AI reviews, history | 167 |
+| `docs/` | Roadmap, handoff, checkpoints, design plans, decision records, verification reports, AI reviews, history | 168 |
 
 Outside the repository, on the owner's iMac (git-ignored, never committed): source PDFs, labels, registry records, correspondence and the 3D Atlas files in `supplemental-information/`, and the owner's annotation files in `instance/`.
 
@@ -161,7 +161,7 @@ The order proposed on 20 November ([roadmap "Now"](PRODUCT_AND_SCIENCE_ROADMAP.m
 
 1. **Release pipeline:** the pilot plan is locked (23 November); draw and download 50 labels; build, measure, review 80 sections; then plan the full prescription ingest and the drug pages.
 2. **Eligibility:** the adjudicated two-reader reference, then the extractor revision on post-freeze trials.
-3. ~~Catalogue growth~~: dropped on 23 November; these drugs come in through the label pipeline.
+3. ~~Catalogue growth~~: dropped on 23 November; these drugs come in through the label pipeline. **Trial-to-drug matching:** split combination names and match each part exactly, under a locked plan with a sampled review (decision 0010); investigational drugs after the first release.
 4. **An independent reviewer** for the lenalidomide model.
 5. **Models (lower priority):** selinexor and thalidomide label-consistency plans; carfilzomib reading plan for the FDA and PMDA reviews, then a model to test blind against Badros and Quach.
 6. **Organ-level model:** evidence steps first (decision 0005).
@@ -192,3 +192,4 @@ Long-term directions (README): integrated physiology across organ systems, disea
 - **23 November 2026:** pilot labels drawn; branch clean-up completed by the owner.
 - **23 November 2026:** decision 0007 amended: AI-written catalogue summaries to be replaced by verbatim label sections; the ixazomib summary review dropped.
 - **23 November 2026:** hand-built catalogue growth dropped (decision 0007, amendment).
+- **23 November 2026:** decision 0010 (split combination names in trial-to-drug matching; investigational drugs deferred), from a read-only breakdown of cohort 1's unmatched studies.
