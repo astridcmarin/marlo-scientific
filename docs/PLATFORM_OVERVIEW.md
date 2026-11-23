@@ -79,7 +79,7 @@ Each area: what it does, where it is, its state, and whose work it started as. "
 ### 3.2 Drug, label and regulatory knowledge — *owner (Oct 5–12) foundation, mostly built since*
 - **What:** drug identity and aliases from frozen evidence; mechanisms; safety and interaction label references; regulatory fields from registry records; a catalogue of 10 drugs (lenalidomide, bortezomib, daratumumab, pomalidomide, carfilzomib, dexamethasone, cyclophosphamide, melphalan, fludarabine, ixazomib); pinned label extracts (REVLIMID, NINLARO, VELCADE special populations; carfilzomib, selinexor, thalidomide, isatuximab, elotuzumab); special-population evidence for 6 drugs; drug pages with sources held, their review state and regulatory documents.
 - **Where:** `drug_aliases.py`, `drug_knowledge.py`, `mechanisms.py`, `safety.py`, `interactions.py`, `regulatory.py` (owner); `drug_holdings.py`, `special_populations.py`, `*_label.py`, `drug_label_extracts.py`, `landscape_ui/drug_hub.py` (since).
-- **State:** the evidence layer for the first release. Catalogue item 8 (growth) is next; the ixazomib catalogue summaries await owner review.
+- **State:** the evidence layer for the first release. The AI-written catalogue summaries are to be replaced by the labels' own sections once the label pilot passes (decision 0007, amendment of 23 November); values that feed calculations stay owner-reviewed.
 
 ### 3.3 Evidence and review machinery — *built since 13 October*
 - **What:** every locked check in one list with failures shown (`/models/findings`); the dataset ledger of what each model was built from, tuned on or checked against, and whether a check was blind; evidence states for pinned values (owner-reviewed, agreed by two extractions, extracted); owner review rounds of AI extractions; model scorecards, capability levels, enforceable model scopes; ICH M15-structured credibility records and analysis reports; an evidence index; source notes.
@@ -169,7 +169,7 @@ The order proposed on 20 November ([roadmap "Now"](PRODUCT_AND_SCIENCE_ROADMAP.m
 
 Long-term directions (README): integrated physiology across organ systems, disease progression, combination therapy, and the digital human from body to molecular target.
 
-**Waiting on the owner:** downloading the 50 drawn labels; review of the ixazomib catalogue summaries; deleting the temporary files noted on 18–20 November; an independent reviewer.
+**Waiting on the owner:** downloading the 70 drawn labels (50 and 20 spares); deleting the temporary files noted on 18–20 November; an independent reviewer.
 
 ---
 
@@ -190,3 +190,4 @@ Long-term directions (README): integrated physiology across organ systems, disea
 - **23 November 2026:** added "What Marlo Scientific is", at the owner's request.
 - **23 November 2026:** clean-up at the owner's request: removed `scripts/check_bortezomib_observation_intake.py` (it always failed: it expected 12 tests, 11 exist) and three unused example files; moved the step 65 and 66 records into `docs/patient_lab/`; corrected out-of-date status lines in five documents; replaced the README's October file tree with a pointer here. The four other unreferenced October scripts run and stay. The owner deleted the fourteen merged GitHub branches, `remove-github-button` and `landing-reorg` (an unmerged "About the developer" section of 19 October); GitHub keeps only `main` and the open batch branches.
 - **23 November 2026:** pilot labels drawn; branch clean-up completed by the owner.
+- **23 November 2026:** decision 0007 amended: AI-written catalogue summaries to be replaced by verbatim label sections; the ixazomib summary review dropped.

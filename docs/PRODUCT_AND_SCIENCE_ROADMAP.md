@@ -104,7 +104,7 @@ The phases overlap. Every step keeps the rules at the end of this page.
 
 **Where it stands:** every extracted value links to its source page; unreviewed values never feed a model. Owner review rounds 1–2 cover all 166 values that feed calculations (all match). Round 3 closed on 19 November by double extraction: 102 match, 7 FDA guidance entries wrong and corrected, 12 agreements accepted under the plan's sampling rule (labelled as such, not as owner-reviewed). Round 4: the 14 ixazomib catalogue entries, all match.
 
-**Next:** the owner's review of the AI-written ixazomib catalogue summaries; an independent reviewer. Later: plain-language questions answered only from platform data, and cited summaries.
+**Next:** an independent reviewer. The AI-written catalogue summaries are to be replaced by verbatim label sections once the label pilot passes, so the review of the ixazomib summaries is dropped (decision 0007, amendment of 23 November). Later: plain-language questions answered only from platform data, and cited summaries.
 
 **Detail:** [EXTRACTION_REVIEW.md](EXTRACTION_REVIEW.md).
 

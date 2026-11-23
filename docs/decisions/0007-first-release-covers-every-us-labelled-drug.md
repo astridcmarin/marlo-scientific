@@ -34,6 +34,14 @@ Asked on 20 November with a recommended option for each; the owner chose the rec
 4. **Storage.** The extracted content is too large for versioned JSON files in the repository. **Decision 0009** (proposed on 20 November).
 5. **Trials beyond myeloma.** The frozen cohorts are myeloma only. **Live registry search, limits shown:** a drug outside myeloma links to a live ClinicalTrials.gov search, labelled as unfrozen, unclassified and liable to change. The frozen myeloma cohorts are unchanged.
 
+## Amendment, 23 November 2026: AI-written summaries give way to the label's own text
+
+Asked by the owner: once every label is on the platform verbatim, why review the myeloma drugs' catalogue entries? The owner agreed (23 November):
+
+- **Values that feed a calculation** (doses, clearances, kidney-function cut-offs used by models and checks) are still reviewed by the owner against their source before use. Rounds 1–4 have done this for every such value so far.
+- **AI-written catalogue summaries** (the safety and interaction summaries of the ten catalogue drugs) are replaced by the label's own sections, shown verbatim with their review state, once the label pilot passes. Until then they stay as they are, marked as AI-written.
+- **The pending owner review of the ixazomib catalogue summaries is dropped,** since those summaries are to be replaced.
+
 ## Revisit when
 
 The first sampled check of script-extracted text fails its rule, or the owner narrows or widens the scope.
