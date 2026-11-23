@@ -36,14 +36,14 @@ It is for pharmaceutical and regulatory scientists, clinical researchers, pharma
 
 | | |
 |---|---|
-| Files tracked | 1,115 (23 November) |
+| Files tracked | 1,119 (23 November) |
 | Commits on `main` | 491 (5 October to 20 November 2026) |
 | Python modules in `intelligence_store/` | 174 |
-| Pinned data files (`intelligence_store/data/`) | 259 JSON, plus one compressed file and one note |
+| Pinned data files (`intelligence_store/data/`) | 261 JSON, plus one compressed file and one note |
 | Page modules (`landscape_ui/`, `app/`) and templates | 54 page modules, 112 workspace templates; at least 112 route definitions |
 | Tests | 197 files, 1,641 test functions (about 300 need the database and run in CI) |
 | Database migrations | 9 |
-| Documentation | 168 files, including 10 decision records and 9 AI review records |
+| Documentation | 169 files, including 10 decision records and 9 AI review records |
 | Locked model checks | 37 (3 passed, 2 consistent, 11 mixed, 7 disagree, 9 failed, 3 inconclusive, 2 not adopted) |
 | Drugs with a drug page and catalogue entry | 10 |
 | Validation flags set to true | none |
@@ -56,12 +56,12 @@ It is for pharmaceutical and regulatory scientists, clinical researchers, pharma
 |---|---|---|
 | `app/` | The Flask entry point (`app.py`), the landing page and the public model pages (`/models/...`: findings, credibility records, scopes, extraction review, eligibility, evidence index) | 23 |
 | `landscape_ui/` | The research workspace under `/landscape/`: page modules, templates, CSS and JavaScript for trials, drugs, Patient Lab, Simulation Lab, benchmarking and the body map | 207 |
-| `intelligence_store/` | All scientific and knowledge code (models, checks, extractors, evidence logic) and `data/`, the SHA-256-pinned reference data, plans, reports and review records | 450 |
+| `intelligence_store/` | All scientific and knowledge code (models, checks, extractors, evidence logic) and `data/`, the SHA-256-pinned reference data, plans, reports and review records | 453 |
 | `intelligence_migrations/` | Alembic migrations for the database tables (trial evidence, cohorts, workspaces, watchlists, patient states, educational PK runs) | 13 |
-| `scripts/` | Command-line builders and checks (data index, extraction builders, review pages, smoke tests) | 48 |
+| `scripts/` | Command-line builders and checks (data index, extraction builders, review pages, smoke tests) | 49 |
 | `tests/` | `unittest` tests, run in CI on every pull request | 197 |
 | `examples/` | A synthetic numerical case plan | 1 |
-| `docs/` | Roadmap, handoff, checkpoints, design plans, decision records, verification reports, AI reviews, history | 168 |
+| `docs/` | Roadmap, handoff, checkpoints, design plans, decision records, verification reports, AI reviews, history | 169 |
 
 Outside the repository, on the owner's iMac (git-ignored, never committed): source PDFs, labels, registry records, correspondence and the 3D Atlas files in `supplemental-information/`, and the owner's annotation files in `instance/`.
 
@@ -114,7 +114,7 @@ Each area: what it does, where it is, its state, and whose work it started as. "
 ### 3.8 First-release label pipeline — *in progress (20–23 November)*
 - **What:** every US prescription label, verbatim, one page per active ingredient, with its review state (decision 0007, the owner's choices of 20 November); storage in insert-only tables rebuilt from DailyMed files listed in a pinned manifest (decision 0009).
 - **Where:** `spl_labels.py`, `label_store.py`, `label_pilot.py`, `data/label_ingestion_pilot_plan_v1.json` (draft).
-- **State:** reader and tables built and tested (one real label: 97 sections, identical rebuild). The pilot plan was locked on 23 November, with the candidate list from openFDA's Human NDC Directory (56,809 prescription product records with a set ID; 37,608 labels, 4,322 brand and 31,677 generic). The labels were drawn on 23 November (`data/label_pilot_draw_v1.json`). Next: the downloads, the build and the review.
+- **State:** reader and tables built and tested (one real label: 97 sections, identical rebuild). The pilot plan was locked on 23 November, with the candidate list from openFDA's Human NDC Directory (56,809 prescription product records with a set ID; 37,608 labels, 4,322 brand and 31,677 generic). The labels were drawn on 23 November (`data/label_pilot_draw_v1.json`), downloaded by the owner (all 50 accepted, no spare needed) and built: 2,576 sections, identical rebuild, about 0.95 KB of manifest and 73 KB of tables per label (`docs/development/label_pilot_build_v1.json`). Next: the owner's review of the 100 drawn sections (`data/label_pilot_review_sheet_v1.json`).
 
 ---
 
@@ -169,7 +169,7 @@ The order proposed on 20 November ([roadmap "Now"](PRODUCT_AND_SCIENCE_ROADMAP.m
 
 Long-term directions (README): integrated physiology across organ systems, disease progression, combination therapy, and the digital human from body to molecular target.
 
-**Waiting on the owner:** downloading the 70 drawn labels (50 and 20 spares); deleting the temporary files noted on 18–20 November; an independent reviewer.
+**Waiting on the owner:** reviewing the 100 drawn label sections (80 counted); deleting the temporary files noted on 18–20 November; an independent reviewer.
 
 ---
 
@@ -193,3 +193,4 @@ Long-term directions (README): integrated physiology across organ systems, disea
 - **23 November 2026:** decision 0007 amended: AI-written catalogue summaries to be replaced by verbatim label sections; the ixazomib summary review dropped.
 - **23 November 2026:** hand-built catalogue growth dropped (decision 0007, amendment).
 - **23 November 2026:** decision 0010 (split combination names in trial-to-drug matching; investigational drugs deferred), from a read-only breakdown of cohort 1's unmatched studies.
+- **23 November 2026:** label pilot built from the 50 labels; review sheet and page ready for the owner.

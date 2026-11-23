@@ -1,0 +1,1218 @@
+{
+  "schema_version": "dailymed-label-manifest-v1",
+  "created_on": "2026-11-23",
+  "purpose": "Label ingestion pilot (plan label-ingestion-pilot-plan-v1.0): the 10 fixed and 40 drawn labels",
+  "source": "DailyMed structured product labels, per-label zip files",
+  "labels": [
+    {
+      "set_id": "038f2461-834b-4488-9ebd-863c83eef5a7",
+      "version": 18,
+      "effective_time": "20260811",
+      "title": "These highlights do not include all the information needed to use NINLARO^(®) safely and effectively. See full prescribing information for NINLARO.\nNINLARO (ixazomib) capsules, for oral use\nInitial U.S. Approval: 2015",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA208462"
+      ],
+      "ingredients": [
+        {
+          "unii": "46CWK97Z3K",
+          "name": "ixazomib citrate"
+        }
+      ],
+      "zip_name": "038f2461-834b-4488-9ebd-863c83eef5a7.zip",
+      "zip_sha256": "301db8ec86b56368bf1fb77dc55e8463f9774faf7686bfbf5fe8ecac81538a14",
+      "xml_member": "184bc16b-40f1-4fd3-a70b-17bbb44eac21.xml",
+      "xml_sha256": "2292dfec663f940ba661c067346ed3ad88142029dbe6f2a3bbfde18619cb40e8",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "0c5823ce-ed5c-356c-e063-6394a90aa15d",
+      "version": 3,
+      "effective_time": "20251226",
+      "title": "These highlights do not include all the information needed to use ATORVASTATIN CALCIUM TABLETS safely and effectively. See full prescribing information for ATORVASTATIN CALCIUM TABLETS.\nATORVASTATIN CALCIUM tablets, for oral use\nInitial U.S. Approval: 1996",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA090548"
+      ],
+      "ingredients": [
+        {
+          "unii": "YRZ789OWMI",
+          "name": "ATORVASTATIN CALCIUM PROPYLENE GLYCOL SOLVATE"
+        }
+      ],
+      "zip_name": "0c5823ce-ed5c-356c-e063-6394a90aa15d.zip",
+      "zip_sha256": "81467136ae2a81c01aa2322193fd5ab47f37d3844cc792177295cfcce02db6b7",
+      "xml_member": "46dca66b-0910-165c-e063-6294a90a1d9a.xml",
+      "xml_sha256": "120e8ac3994ad98fd1f043adbb9280b8cea7660510ee7c81406b11475048e7d3",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "0f7a608d-748b-49a9-a4b3-b3fdcab53ce0",
+      "version": 1,
+      "effective_time": "20171221",
+      "title": "Hydrochlorothiazide Capsule",
+      "marketing_categories": [
+        "NDA AUTHORIZED GENERIC"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "NDA020504"
+      ],
+      "ingredients": [
+        {
+          "unii": "0J48LPH2TH",
+          "name": "HYDROCHLOROTHIAZIDE"
+        }
+      ],
+      "zip_name": "0f7a608d-748b-49a9-a4b3-b3fdcab53ce0.zip",
+      "zip_sha256": "998a48ba0039db2849d5d5634eac3bf540fb00097150b630bd297dbc646bd8fc",
+      "xml_member": "81155b23-9294-4758-80c8-5e33c4024868.xml",
+      "xml_sha256": "3eee6b7ce9dc8406af7ebf29e967ac5d302cf868ca7f3eabdc7a161b7c3a5616",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "1521d321-e724-4ffc-adad-34bf4f44fac7",
+      "version": 36,
+      "effective_time": "20250828",
+      "title": "These highlights do not include all the information needed to use VELCADE safely and effectively. See full prescribing information for VELCADE.\nVELCADE^(®)(bortezomib) for injection, for subcutaneous or intravenous use\nInitial U.S. Approval: 2003",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA021602"
+      ],
+      "ingredients": [
+        {
+          "unii": "69G8BD63PP",
+          "name": "bortezomib"
+        }
+      ],
+      "zip_name": "1521d321-e724-4ffc-adad-34bf4f44fac7.zip",
+      "zip_sha256": "7b7141049cf02b65d200ee7213863618fffa5ed2838de8606e7dff757d425f82",
+      "xml_member": "3ec85e73-696a-4a2e-aa24-656c6341b23b.xml",
+      "xml_sha256": "ddbefd99992c3db6f4af196d90eeac8231119ef06ae79a4459067cc222cdf656",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "291f6ee2-f5d2-ae6c-e063-6294a90a5951",
+      "version": 7,
+      "effective_time": "20260920",
+      "title": "These highlights do not include all the information needed to use FLUDARABINE PHOSPHATE INJECTION safely and effectively. See full prescribing information for FLUDARABINE PHOSPHATE INJECTION.\nFLUDARABINE PHOSPHATE injection, for intravenous use Initial U.S. Approval: 1991",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA220196"
+      ],
+      "ingredients": [
+        {
+          "unii": "1X9VK9O1SC",
+          "name": "FLUDARABINE PHOSPHATE"
+        }
+      ],
+      "zip_name": "291f6ee2-f5d2-ae6c-e063-6294a90a5951.zip",
+      "zip_sha256": "956eee5c1414bdc0d7d2fb225c1295d998231e25e4b8e18a54d9e1e7c045dac2",
+      "xml_member": "5b82547e-11ca-a21a-e063-6294a90a025b.xml",
+      "xml_sha256": "8e629988197768e2769fc7f823219500c3e1b90f25c0a3f0427be6682a91d5eb",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "2b25ef01-5c9e-11e1-b86c-0800200c9a66",
+      "version": 26,
+      "effective_time": "20250226",
+      "title": "These highlights do not include all the information needed to use POMALYST safely and effectively. See full prescribing information for POMALYST.\nPOMALYST^(®) (pomalidomide) capsules, for oral use\nInitial U.S. Approval: 2013",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA204026"
+      ],
+      "ingredients": [
+        {
+          "unii": "D2UX06XLB5",
+          "name": "POMALIDOMIDE"
+        }
+      ],
+      "zip_name": "2b25ef01-5c9e-11e1-b86c-0800200c9a66.zip",
+      "zip_sha256": "6afae81957defc5e44724283e78b975d471004fc4629d3859393ad53f6374bcd",
+      "xml_member": "4410582a-a5f3-429f-a7ca-5c17fb5560bf.xml",
+      "xml_sha256": "29756c96d346b79171a8f431544d6cf481663f14ed6730fc0fc43b353276fc08",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "2b9ea23a-f9e9-48a8-25b7-519e3bbd6828",
+      "version": 10,
+      "effective_time": "20260318",
+      "title": "Sterile Water Rx only\nfor Injection, USP",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA018801"
+      ],
+      "ingredients": [
+        {
+          "unii": "059QF0KO0R",
+          "name": "WATER"
+        }
+      ],
+      "zip_name": "2b9ea23a-f9e9-48a8-25b7-519e3bbd6828.zip",
+      "zip_sha256": "d411ab73c10a302b00ca5763cd80c4cf43da21f587a5dde0abfe6c55c771dc06",
+      "xml_member": "055437a7-5be5-414a-a97a-946e2730fe12.xml",
+      "xml_sha256": "216d8d3a6513ddd6d306b1e458561ac30990e870e0f18a06494f6dceb34f8573",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "3318e357-0660-44f4-8170-91a51bd762fb",
+      "version": 1,
+      "effective_time": "20170123",
+      "title": "Verapamil\nHydrochloride Injection, USP\nFor Intravenous Injection\nProtect from light",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA018925"
+      ],
+      "ingredients": [
+        {
+          "unii": "V3888OEY5R",
+          "name": "VERAPAMIL HYDROCHLORIDE"
+        }
+      ],
+      "zip_name": "3318e357-0660-44f4-8170-91a51bd762fb.zip",
+      "zip_sha256": "0d61614f9f1c76199a481fd878b3836b030f7faa0a2d11a77786026477c5e09a",
+      "xml_member": "f1a97533-a1b0-4b0e-b4c2-76d5bee9b4e2.xml",
+      "xml_sha256": "4d65dea872a0d235cfdffe695be3f2b5e59dc7b73bc89b28b86224a3f9287aaa",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "3b80f726-9e1e-4d44-ad4f-afd10e26292f",
+      "version": 3,
+      "effective_time": "20230127",
+      "title": "These highlights do not include all the information needed to use valsartan and\nhydrochlorothiazide tablets safely and effectively. See full prescribing information for\nvalsartan and hydrochlorothiazide tablets.\nVALSARTAN and HYDROCHLOROTHIAZIDE Tablets, USP for oral use.\nInitial U.S. Approval: 1998",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA201662"
+      ],
+      "ingredients": [
+        {
+          "unii": "0J48LPH2TH",
+          "name": "HYDROCHLOROTHIAZIDE"
+        },
+        {
+          "unii": "80M03YXJ7I",
+          "name": "VALSARTAN"
+        }
+      ],
+      "zip_name": "3b80f726-9e1e-4d44-ad4f-afd10e26292f.zip",
+      "zip_sha256": "57f68f7f6b898d6000ab33813016f74cbdb7f7d8b5d0a1dfd546feb1294a9c0b",
+      "xml_member": "7fb28413-d2ab-4534-8f12-48ce33bbc6a9.xml",
+      "xml_sha256": "a81b7714a88922f806fa21c24a948ba5d6ad65f13649958b6dfd3642953a9078",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "3c1eb470-0bba-457d-94e3-b9508f0d398a",
+      "version": 5,
+      "effective_time": "20250421",
+      "title": "These highlights do not include all the information needed to use CYCLOPHOSPHAMIDE INJECTION safely and effectively. See full prescribing information for CYCLOPHOSPHAMIDE INJECTION.\nCYCLOPHOSPHAMIDE injection, for intravenous use\nInitial U.S. Approval: 1959",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA210735"
+      ],
+      "ingredients": [
+        {
+          "unii": "8N3DW7272P",
+          "name": "CYCLOPHOSPHAMIDE"
+        }
+      ],
+      "zip_name": "3c1eb470-0bba-457d-94e3-b9508f0d398a.zip",
+      "zip_sha256": "8242be478d8a62de745a07b3391030edac049694cdc6e0054fc49bcc89c5b42e",
+      "xml_member": "f90b3bb0-87cd-4951-9789-34202e2b13df.xml",
+      "xml_sha256": "12b64be6a34da9a305f803f0541edc2469359f7b4795567b64366f21cc7465b6",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "3c5101a0-0c7e-4078-8dc3-a57beb9a0e92",
+      "version": 28,
+      "effective_time": "20260728",
+      "title": "These highlights do not include all the information needed to use GADAVIST safely and effectively. See full prescribing information for GADAVIST.\nGADAVIST (gadobutrol) injection, for intravenous use\nInitial U.S. Approval: 2011",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA201277"
+      ],
+      "ingredients": [
+        {
+          "unii": "1BJ477IO2L",
+          "name": "GADOBUTROL"
+        }
+      ],
+      "zip_name": "3c5101a0-0c7e-4078-8dc3-a57beb9a0e92.zip",
+      "zip_sha256": "5f442111695c5ec1fad27838b7ff12e8d76f8ebffdabaa4a8cfd1105dbe2795c",
+      "xml_member": "ca35e789-adaa-45b2-8ec1-b52f2ff13ce2.xml",
+      "xml_sha256": "e8d82e64f29d7cd58cb86e2af4d15de9ef55abdc4c9c0e793ce568a6ac0c4b7a",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "3dfe5407-96a6-d2f4-e063-6294a90aa810",
+      "version": 1,
+      "effective_time": "20250904",
+      "title": "These highlights do not include all the information needed to use VALSARTAN TABLETS safely and effectively. See full prescribing information for VALSARTAN TABLETS.\nVALSARTAN tablets, for oral use\nInitial U.S. Approval: 1996",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA203311"
+      ],
+      "ingredients": [
+        {
+          "unii": "80M03YXJ7I",
+          "name": "VALSARTAN"
+        }
+      ],
+      "zip_name": "3dfe5407-96a6-d2f4-e063-6294a90aa810.zip",
+      "zip_sha256": "1fbe73aa97851ed3a27684e56ee2572a14c8e4f735ba0c4abf55a0ae30825ba7",
+      "xml_member": "3dfe5365-55f0-0faa-e063-6394a90adda5.xml",
+      "xml_sha256": "9c5614442622aa154f8e255dea637bd5f4522945bdb532a917fb1af33b91da65",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "3fc1c40e-cfac-47a1-9e1a-61ead3570600",
+      "version": 24,
+      "effective_time": "20260324",
+      "title": "These highlights do not include all the information needed to use ORKAMBI safely and effectively. See full prescribing information for ORKAMBI.\nORKAMBI^(®) (lumacaftor and ivacaftor) tablets, for oral use\nORKAMBI^(®) (lumacaftor and ivacaftor) oral granules\nInitial U.S. Approval: 2015",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA206038",
+        "NDA211358"
+      ],
+      "ingredients": [
+        {
+          "unii": "1Y740ILL1Z",
+          "name": "ivacaftor"
+        },
+        {
+          "unii": "EGP8L81APK",
+          "name": "lumacaftor"
+        }
+      ],
+      "zip_name": "3fc1c40e-cfac-47a1-9e1a-61ead3570600.zip",
+      "zip_sha256": "ef5cf4339e080f5638e951acd2a170ed947fd7cf86abaecbeeded12cb4b0c211",
+      "xml_member": "e746b83a-cec1-40ab-8dba-7d8c1781e8b1.xml",
+      "xml_sha256": "96d6aa0ed95857f30bb3baea8df83586a4b12abfc3d6c9facd541bc42e968052",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "42b4f96e-1f70-2126-e063-6294a90a93e3",
+      "version": 7,
+      "effective_time": "20260127",
+      "title": "These highlights do not include all the information needed to use\nALYMSYS\nsafely and effectively. See full prescribing information for\nALYMSYS\n.\nALYMSYS\n®\n(bevacizumab-maly) injection, for intravenous use\nInitial U.S. Approval: 2022 ALYMSYS (bevacizumab-maly) is biosimilar* to AVASTIN (bevacizumab)",
+      "marketing_categories": [
+        "BLA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "BLA761231"
+      ],
+      "ingredients": [
+        {
+          "unii": "2S9ZZM9Q9V",
+          "name": "BEVACIZUMAB-MALY"
+        }
+      ],
+      "zip_name": "42b4f96e-1f70-2126-e063-6294a90a93e3.zip",
+      "zip_sha256": "f119882dc2c13ebc591bc2fdd5afa8024144b952c0716384fadccbbc19a29a0a",
+      "xml_member": "25c471d4-a4c1-4f99-8848-c49ce5b0000a.xml",
+      "xml_sha256": "ce58b91263f122726c29a522fd7c14e57fda3eb10ce68f6f8fe0514ea4c6af1c",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "4af52118-c12b-4ad5-30bb-959848357e8a",
+      "version": 21,
+      "effective_time": "20260527",
+      "title": "THAM SOLUTION\nTromethamine Injection",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA013025"
+      ],
+      "ingredients": [
+        {
+          "unii": "023C2WHX2V",
+          "name": "TROMETHAMINE"
+        }
+      ],
+      "zip_name": "4af52118-c12b-4ad5-30bb-959848357e8a.zip",
+      "zip_sha256": "d025fbcbe155bcadc6945f5f25b42c4098ea53b5be876635b86871f1bc136564",
+      "xml_member": "66406bf4-d7c7-4e73-9675-defa737c3b75.xml",
+      "xml_sha256": "d9aaa0146e5f8047df0148ed2556c1facac6280503b94db1bc9f524a4ac6d1cf",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "4ecd3b43-b5f1-4cf4-af36-eb214c1a3c60",
+      "version": 6,
+      "effective_time": "20260618",
+      "title": "These highlights do not include all the information needed to use DOXEPIN HYDROCHLORIDE CAPSULES safely and effectively. See full prescribing information for DOXEPIN HYDROCHLORIDE CAPSULES.\nDOXEPIN HYDROCHLORIDE capsules, for oral use\nInitial U.S. Approval: 1969",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA212624"
+      ],
+      "ingredients": [
+        {
+          "unii": "3U9A0FE9N5",
+          "name": "DOXEPIN HYDROCHLORIDE"
+        }
+      ],
+      "zip_name": "4ecd3b43-b5f1-4cf4-af36-eb214c1a3c60.zip",
+      "zip_sha256": "e06a6c09fb22504206917ce0f7a7f924d1341b1ba9456adedf75314e9602c44a",
+      "xml_member": "5486a0f4-4bf8-1f29-e063-6294a90a56ce.xml",
+      "xml_sha256": "5ac366fb95e0bb0e9bc7eaaef52ed7271f7df7daa8c5930985aa3f6ee7563175",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "55cebc88-0514-4940-b974-ec7f0467d10e",
+      "version": 6,
+      "effective_time": "20260406",
+      "title": "These highlights do not include all the information needed to use LEVOTHYROXINE SODIUM TABLETS safely and effectively. See full prescribing information for LEVOTHYROXINE SODIUM TABLETS.\nLEVOTHYROXINE SODIUM tablets, for oral use\nInitial U.S. Approval: 2002",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA212399"
+      ],
+      "ingredients": [
+        {
+          "unii": "9J765S329G",
+          "name": "LEVOTHYROXINE SODIUM"
+        }
+      ],
+      "zip_name": "55cebc88-0514-4940-b974-ec7f0467d10e.zip",
+      "zip_sha256": "1212036a28e6626f53f6978b15b7d76afe6d176245dfd155328ed6cd90eae6a0",
+      "xml_member": "4ec9e48b-5255-f5d4-e063-6394a90aa50b.xml",
+      "xml_sha256": "5a4145c4baccc0041407a6d7abaf788dbd91a0ae4ecbf71eb4fce7ddbeaa8b3a",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "587e6bb5-a665-4396-814e-ce893a20290b",
+      "version": 2,
+      "effective_time": "20260220",
+      "title": "These highlights do not include all the information needed to use SUMATRIPTAN INJECTION safely and effectively. See full prescribing information for SUMATRIPTAN INJECTION.\nSUMATRIPTAN injection, for subcutaneous use\nInitial U.S. Approval: 1992",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA090314"
+      ],
+      "ingredients": [
+        {
+          "unii": "J8BDZ68989",
+          "name": "SUMATRIPTAN SUCCINATE"
+        }
+      ],
+      "zip_name": "587e6bb5-a665-4396-814e-ce893a20290b.zip",
+      "zip_sha256": "8e7addad52a66fa0b634eab4a7645daf86decba80c59a1406aca3f9ccc298bd2",
+      "xml_member": "4b3f1ed8-151c-79f2-e063-6394a90ada00.xml",
+      "xml_sha256": "36759b0554c5692452c317985d59216a5040d24f839139c48a886f538dd28fb8",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "5fa97bf5-28a2-48f1-8955-f56012d296be",
+      "version": 41,
+      "effective_time": "20230324",
+      "title": "These highlights do not include all the information needed to use REVLIMID^(®) safely and effectively. See full prescribing information for REVLIMID.\nREVLIMID (lenalidomide) capsules, for oral use\nInitial U.S. Approval: 2005",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA021880"
+      ],
+      "ingredients": [
+        {
+          "unii": "F0P408N6V4",
+          "name": "LENALIDOMIDE"
+        }
+      ],
+      "zip_name": "5fa97bf5-28a2-48f1-8955-f56012d296be.zip",
+      "zip_sha256": "c3c20d97d5460ed19c6a1990f6ac93088ded755b2e1a171e41daafb06e2bb513",
+      "xml_member": "9329fd28-b848-4013-92e0-a68270328336.xml",
+      "xml_sha256": "c381f58f43297a98e66405c7430cea5577b52f9085fa49c6acfba6c862b9faa8",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "6658728a-99d7-48c3-83d6-4e40c59c9b47",
+      "version": 102,
+      "effective_time": "20260407",
+      "title": "",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA088042"
+      ],
+      "ingredients": [
+        {
+          "unii": "F446C597KA",
+          "name": "TRIAMCINOLONE ACETONIDE"
+        }
+      ],
+      "zip_name": "6658728a-99d7-48c3-83d6-4e40c59c9b47.zip",
+      "zip_sha256": "67abf6fd5eae6d2ac49890f1dbe368f9ab2574a9eea028b0419b0e4282e29e25",
+      "xml_member": "2967278d-e6d8-4e46-acb0-12c94f75ea88.xml",
+      "xml_sha256": "a1b538adcbd75eeec4e2248edd9eda3ef7590395e3a8b4a32a9931b482551c1a",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "66d3fecb-32a4-7781-e053-2a91aa0a83ca",
+      "version": 3,
+      "effective_time": "20200430",
+      "title": "These highlights do not include all the information needed to use RUCONEST\n^(®) safely and effectively. See full prescribing information for RUCONEST.\nRUCONEST (C1 esterase inhibitor [recombinant])\nFor Intravenous Use, Lyophilized Powder For Reconstitution\nInitial U.S. Approval: 2014",
+      "marketing_categories": [
+        "BLA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "BLA125495"
+      ],
+      "ingredients": [
+        {
+          "unii": "5QS67N4551",
+          "name": "CONESTAT ALFA"
+        }
+      ],
+      "zip_name": "66d3fecb-32a4-7781-e053-2a91aa0a83ca.zip",
+      "zip_sha256": "d4cb2632036d980a726e44bb563b6437f720425143a7064ae1c8974488030dc3",
+      "xml_member": "a742815a-7705-9153-e053-2995a90a562d.xml",
+      "xml_sha256": "a4cbc5043b295a9dc4c02fb89a0176d85d368de21aa49a6255c3885e2adf2b42",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "696f9e80-9cae-403b-de9e-078343ce4713",
+      "version": 43,
+      "effective_time": "20240705",
+      "title": "These highlights do not include all the information needed to use EMEND CAPSULES and EMEND FOR ORAL SUSPENSION safely and effectively. See full prescribing information for EMEND CAPSULES and EMEND FOR ORAL SUSPENSION.\nEMEND (aprepitant) capsules, for oral use\nEMEND (aprepitant) for oral suspension\nInitial U.S. Approval: 2003",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA021549",
+        "NDA207865"
+      ],
+      "ingredients": [
+        {
+          "unii": "1NF15YR6UY",
+          "name": "aprepitant"
+        }
+      ],
+      "zip_name": "696f9e80-9cae-403b-de9e-078343ce4713.zip",
+      "zip_sha256": "efae96ebaac4aeaadd705cb3980b5fae57e3dc5b25f793d8672c739584bac809",
+      "xml_member": "43036bb2-64fa-4838-be33-174867635516.xml",
+      "xml_sha256": "e41916bddfd0369cabe29e6c6814feeebab30b7114b2c5df43a0e0a71ca73366",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "698a46a6-29b5-4763-9442-ec9ad5eea86b",
+      "version": 1,
+      "effective_time": "20260929",
+      "title": "These highlights do not include all the information needed to use\nNITROGLYCERIN LINGUAL SPRAY safely and effectively. See full prescribing information for Nitroglycerin Lingual Spray.\nNITROGLYCERIN LINGUAL SPRAY\n(nitroglycerin) lingual\nspray\nInitial U.S. Approval: 1997",
+      "marketing_categories": [
+        "NDA AUTHORIZED GENERIC"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "NDA018705"
+      ],
+      "ingredients": [
+        {
+          "unii": "G59M7S0WS3",
+          "name": "NITROGLYCERIN"
+        }
+      ],
+      "zip_name": "698a46a6-29b5-4763-9442-ec9ad5eea86b.zip",
+      "zip_sha256": "a5b76f750f922e3b1f4ee2d2188429bfd874215ebf7a5d2469af6b82c8ffa4d1",
+      "xml_member": "5c9cfb7f-d01d-460d-e063-6394a90a3d12.xml",
+      "xml_sha256": "e346578b2e14d4e4d8602b24cff085fbf8062d2d55049b0cf6bf7b3f5dbd5180",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "69f55869-dc11-408e-8fc7-47634269a52c",
+      "version": 8,
+      "effective_time": "20260915",
+      "title": "These highlights do not include all the information needed to use EVOMELA^(®) safely and effectively. See full prescribing information for EVOMELA.\nEVOMELA (melphalan) for injection, for intravenous use.\nInitial U.S. Approval: 1964",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA207155"
+      ],
+      "ingredients": [
+        {
+          "unii": "1VXP4V453T",
+          "name": "MELPHALAN HYDROCHLORIDE"
+        }
+      ],
+      "zip_name": "69f55869-dc11-408e-8fc7-47634269a52c.zip",
+      "zip_sha256": "f19f33e9cc48eba9fd423aa79950beeacdb8b3759433562e535b997540733209",
+      "xml_member": "cbc2c428-cff7-4ea6-abee-f3ea7ff5a65f.xml",
+      "xml_sha256": "49f6c181e1d1db2bb5f3a212dc89b8a5342eb5164190e5b4607fede02fc52641",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "782503c6-a82f-4933-aa04-399123e9f5a9",
+      "version": 1,
+      "effective_time": "20260401",
+      "title": "These highlights do not include all the information needed to use RAMELTEON TABLETS safely and effectively. See full prescribing information for RAMELTEON TABLETS.\nRAMELTEON tablets, for oral use\nInitial U.S. Approval: 2005",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA215435"
+      ],
+      "ingredients": [
+        {
+          "unii": "901AS54I69",
+          "name": "RAMELTEON"
+        }
+      ],
+      "zip_name": "782503c6-a82f-4933-aa04-399123e9f5a9.zip",
+      "zip_sha256": "7164acaaa373969cf82fabb8fb61a8e18476ed899329c4ab0e8648a53205e673",
+      "xml_member": "cb93cc24-9441-4f57-ad46-92f2f09ccc02.xml",
+      "xml_sha256": "3f3e33c3011431e8d29d84e3c6ac06e9052e9ac084718a07e439dbe8161988fc",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "7d2a75a5-233f-46dd-9cb0-3918ea53e554",
+      "version": 4,
+      "effective_time": "20251218",
+      "title": "Acyclovir Oral Suspension, USP\nRx only",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA212718"
+      ],
+      "ingredients": [
+        {
+          "unii": "X4HES1O11F",
+          "name": "ACYCLOVIR"
+        }
+      ],
+      "zip_name": "7d2a75a5-233f-46dd-9cb0-3918ea53e554.zip",
+      "zip_sha256": "e70cdc186ccf451debd5dff481008ebb305b8dfc3fe044b1a672a7c89ba06c21",
+      "xml_member": "463b5fcf-cfc0-be52-e063-6394a90aa459.xml",
+      "xml_sha256": "12c4703b0f1fa5b700648060a8690795145cdf554fcb803d65f710d6e644e2ad",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "84647b52-3c4c-31bb-e053-2991aa0a8a7e",
+      "version": 2,
+      "effective_time": "20250319",
+      "title": "VITAMIN D",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA080704"
+      ],
+      "ingredients": [
+        {
+          "unii": "VS041H42XC",
+          "name": "ERGOCALCIFEROL"
+        }
+      ],
+      "zip_name": "84647b52-3c4c-31bb-e053-2991aa0a8a7e.zip",
+      "zip_sha256": "7b6017b2b60074d1196fdd5d4236643bd60a1e823c5f0b8fb1137d21cdffb57b",
+      "xml_member": "30b47c4b-3c4d-d6fd-e063-6294a90a5664.xml",
+      "xml_sha256": "befb52261deb328c4bf7d4e00355c7982f717f0a09adc091e5372c8d5ee4a57f",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "85954380-a520-46d7-89ac-e4b19d6e00a1",
+      "version": 4,
+      "effective_time": "20250319",
+      "title": "",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA078671"
+      ],
+      "ingredients": [
+        {
+          "unii": "LW0TIW155Z",
+          "name": "NABUMETONE"
+        }
+      ],
+      "zip_name": "85954380-a520-46d7-89ac-e4b19d6e00a1.zip",
+      "zip_sha256": "a8b1d1d1518bfe13937e211f5afb88f466d8c19e58767312d9836b95ab474d7b",
+      "xml_member": "46daea72-1c6d-41ce-b8d0-c412ca0d908e.xml",
+      "xml_sha256": "a9fd7266dc2e8be06b02ac8261b4b1097405ce8e9e311ccd88e8304ef9be480f",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "8c54e404-2dbd-49cd-8235-b2a708bae563",
+      "version": 1,
+      "effective_time": "20250117",
+      "title": "These highlights do not include all the information needed to use DICLOFENAC POTASSIUM CAPSULES safely and effectively. See full prescribing information for DICLOFENAC POTASSIUM CAPSULES.\nDICLOFENAC potassium capsules, for oral use\nInitial U.S. Approval: 1988",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA204648"
+      ],
+      "ingredients": [
+        {
+          "unii": "L4D5UA6CB4",
+          "name": "DICLOFENAC POTASSIUM"
+        }
+      ],
+      "zip_name": "8c54e404-2dbd-49cd-8235-b2a708bae563.zip",
+      "zip_sha256": "2104d2bb4d8782408fbff2bc827172df24c9cd86007398a7c828008babaccea6",
+      "xml_member": "3fab7fe9-7231-43f6-a275-5eca58ca7150.xml",
+      "xml_sha256": "81401c46dcc917a5653a47b94544e3340df3efd599aac35bd2d94bfa8dac8928",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "8f479bfe-2bfa-4cc5-9aee-1357364480b0",
+      "version": 13,
+      "effective_time": "20241112",
+      "title": "These highlights do not include all the information needed to use ZINPLAVA safely and effectively. See full prescribing information for ZINPLAVA.\nZINPLAVA™ (bezlotoxumab) injection, for intravenous use\nInitial U.S. Approval: 2016",
+      "marketing_categories": [
+        "BLA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "BLA761046"
+      ],
+      "ingredients": [
+        {
+          "unii": "4H5YMK1H2E",
+          "name": "bezlotoxumab"
+        }
+      ],
+      "zip_name": "8f479bfe-2bfa-4cc5-9aee-1357364480b0.zip",
+      "zip_sha256": "eac58a5a41106af8f291cc823f11477c11f43a0071425dc0293aabec30ffbd03",
+      "xml_member": "1302e606-55e6-42a4-aab1-4d16f1823397.xml",
+      "xml_sha256": "3977463ad7bb757738871ce6d142a2ed4209e4656c251fa7d339c16eebb769a8",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "92385737-dbad-98c5-e053-2995a90a2805",
+      "version": 23,
+      "effective_time": "20260930",
+      "title": "These highlights do not include all the information needed to use GVOKE and GVOKE VialDx safely and effectively. See full prescribing information for GVOKE and GVOKE VialDx.\nGVOKE (glucagon) injection, for subcutaneous use\nGVOKE VialDx (glucagon) injection, for intravenous use\nInitial U.S. Approval: 1960",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA212097"
+      ],
+      "ingredients": [
+        {
+          "unii": "76LA80IG2G",
+          "name": "GLUCAGON"
+        }
+      ],
+      "zip_name": "92385737-dbad-98c5-e053-2995a90a2805.zip",
+      "zip_sha256": "4ab4af244507cc306852d659487472715a09c12548ed75dd536ddbc2fc23e6f9",
+      "xml_member": "f4678559-e864-4a4e-bc9c-6c9ee7e2edbc.xml",
+      "xml_sha256": "b505e06c1240cc661231ba20cbc7f440fc4040f850f1d8b69505e7e7ac1cc994",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "924d0ba9-8105-4434-aff9-e798b9541ee2",
+      "version": 13,
+      "effective_time": "20241104",
+      "title": "OXYGEN - 001",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA205849"
+      ],
+      "ingredients": [
+        {
+          "unii": "S88TT14065",
+          "name": "Oxygen"
+        }
+      ],
+      "zip_name": "924d0ba9-8105-4434-aff9-e798b9541ee2.zip",
+      "zip_sha256": "4b5f444f6820fd782f4777450ace9685dbbc2da82dd8ecfd6fce8ff77a212b1d",
+      "xml_member": "3bf75825-5c9a-408f-9309-2705c22fe957.xml",
+      "xml_sha256": "55ca8217d3dcafa9cc1b5c59ec8fecec638a9f83159fd5840de4db6174d136a0",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "97cc950c-ea97-c25b-e053-2995a90a16c6",
+      "version": 8,
+      "effective_time": "20251229",
+      "title": "Oxygen",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA205767"
+      ],
+      "ingredients": [
+        {
+          "unii": "S88TT14065",
+          "name": "OXYGEN"
+        }
+      ],
+      "zip_name": "97cc950c-ea97-c25b-e053-2995a90a16c6.zip",
+      "zip_sha256": "7c4121590cf4332c392c97b5f1b7de4ac3b5f2eb512743ebc613414d5801ead8",
+      "xml_member": "471cb269-fcd4-a064-e063-6294a90a783c.xml",
+      "xml_sha256": "1c972188956738516e88bfabe967eee103d7527aa2926f7705434f2a280e3bb7",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "985524c3-9fb3-4874-9eb6-80b17af3d8ed",
+      "version": 1,
+      "effective_time": "20231217",
+      "title": "These highlights do not include all the information needed to use SPIRONOLACTONE TABLETS safely and effectively. See full prescribing information for SPIRONOLACTONE TABLETS.\nSPIRONOLACTONE tablets for oral use\nInitial U.S. Approval: 1960",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA202187"
+      ],
+      "ingredients": [
+        {
+          "unii": "27O7W4T232",
+          "name": "SPIRONOLACTONE"
+        }
+      ],
+      "zip_name": "985524c3-9fb3-4874-9eb6-80b17af3d8ed.zip",
+      "zip_sha256": "6e77ef2f73731cdc2eae8bd9c30325907b0cfe57eb53f12fb489a69b628fd03b",
+      "xml_member": "4c77ea5b-6330-4599-9076-450300b66ab2.xml",
+      "xml_sha256": "b450e8884b5547404c30f731ee048b1b0712ebc644160e0e94c49653dc300301",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "9f56cc00-6383-48c8-95ee-e6a404a0237b",
+      "version": 7,
+      "effective_time": "20240305",
+      "title": "These highlights do not include all the information needed to use METRONIDAZOLE GEL safely and effectively. See full prescribing information for METRONIDAZOLE GEL.\nMETRONIDAZOLE gel, for topical use\nInitial U.S. Approval: 1963",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA212646"
+      ],
+      "ingredients": [
+        {
+          "unii": "140QMO216E",
+          "name": "METRONIDAZOLE"
+        }
+      ],
+      "zip_name": "9f56cc00-6383-48c8-95ee-e6a404a0237b.zip",
+      "zip_sha256": "bf68c445da83684b417c37e95bf82d91766f2409c0200e659f4d3aced77ffd4c",
+      "xml_member": "c833efe6-b764-45f1-b1e9-5a250bce29c3.xml",
+      "xml_sha256": "fba174a40f39f59855b7e70f2f40d9892e244d7e3aa7e7d86fd582a823cc14ba",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "a0aad470-3f38-af97-e053-2995a90a383a",
+      "version": 17,
+      "effective_time": "20240716",
+      "title": "These highlights do not include all the information needed to use SIGNIFOR LAR safely and effectively. See full prescribing information for SIGNIFOR LAR.\nSIGNIFOR^(®) LAR (pasireotide) for injectable suspension, for intramuscular use\nInitial U.S. Approval: 2012",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA203255"
+      ],
+      "ingredients": [],
+      "zip_name": "a0aad470-3f38-af97-e053-2995a90a383a.zip",
+      "zip_sha256": "195ee144a14844913f276dcd829c9c806ef9ea9efe06f650a88df29314d3a33b",
+      "xml_member": "fb5687ef-6bbc-4ac4-899e-46c941f214c5.xml",
+      "xml_sha256": "820140da96fffc7a58fff54d56c1624f0dc89e39105840532f1f9edc10b2b975",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "a4d0efe9-5e54-467e-9eb4-56fa7d53b60b",
+      "version": 47,
+      "effective_time": "20261110",
+      "title": "These highlights do not include all the information needed to use DARZALEX safely and effectively. See full prescribing information for DARZALEX.\nDARZALEX^(®) (daratumumab) injection, for intravenous use\nInitial U.S. Approval: 2015",
+      "marketing_categories": [
+        "BLA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "BLA761036"
+      ],
+      "ingredients": [
+        {
+          "unii": "4Z63YK6E0E",
+          "name": "DARATUMUMAB"
+        }
+      ],
+      "zip_name": "a4d0efe9-5e54-467e-9eb4-56fa7d53b60b.zip",
+      "zip_sha256": "5429974b471d654890195f288b3dfe3646207e4d880633786be8de58a501b6be",
+      "xml_member": "fe82b5b1-523f-4973-88b2-881840691fff.xml",
+      "xml_sha256": "e1da24341443a960f10e7a6d777e4cfaf574d408742975e8dcbcce7a8c6395c8",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "aec60743-f925-4d91-a865-064696a9f9e6",
+      "version": 6,
+      "effective_time": "20240823",
+      "title": "These highlights do not include all the information needed to use HEMADYTM safely and effectively. See full prescribing information for HEMADY.\nHEMADY (dexamethasone tablets), for oral use\nInitial U.S. Approval: 1958",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA211379"
+      ],
+      "ingredients": [
+        {
+          "unii": "7S5I7G3JQL",
+          "name": "DEXAMETHASONE"
+        }
+      ],
+      "zip_name": "aec60743-f925-4d91-a865-064696a9f9e6.zip",
+      "zip_sha256": "7e895fa3e792082a2c54027ce66590cc3af72945509527748c54155c3b7cc159",
+      "xml_member": "05911ad3-b94f-407c-a78f-dd9017933a08.xml",
+      "xml_sha256": "46f06c72fba8040cffebbe7c52bcd1865b9d5cefb705eb2b7b46aeffe9d905b4",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "b0f5ee96-369f-4cb9-a783-3bfa70fe8f90",
+      "version": 4,
+      "effective_time": "20260807",
+      "title": "These highlights do not include all the information needed to use DANYELZA safely and effectively. See full prescribing information for DANYELZA.\nDANYELZA\n^(®)(naxitamab-gqgk) injection, for intravenous use\nInitial U.S. Approval: 2020",
+      "marketing_categories": [
+        "BLA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "BLA761171"
+      ],
+      "ingredients": [
+        {
+          "unii": "9K8GNJ2874",
+          "name": "NAXITAMAB"
+        }
+      ],
+      "zip_name": "b0f5ee96-369f-4cb9-a783-3bfa70fe8f90.zip",
+      "zip_sha256": "5ec1f798d5fda949e3f41083c13ab6e760e61b595a0ff248ef1e1c3211afb19f",
+      "xml_member": "5878035d-081a-1653-e063-6394a90af965.xml",
+      "xml_sha256": "bcf51dfc7e4cdaa1e8f3a800a927f23946e173e2fa8797306156d40888272d87",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "ba082c2f-64f4-419d-9c88-74f203316e17",
+      "version": 13,
+      "effective_time": "20210825",
+      "title": "Xylocaine®\n(lidocaine HCl Injection, USP)\nXylocaine®\n(lidocaine HCl and epinephrine Injection, USP)",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA006488"
+      ],
+      "ingredients": [
+        {
+          "unii": "30Q7KI53AK",
+          "name": "EPINEPHRINE BITARTRATE"
+        },
+        {
+          "unii": "EC2CNF7XFP",
+          "name": "LIDOCAINE HYDROCHLORIDE ANHYDROUS"
+        }
+      ],
+      "zip_name": "ba082c2f-64f4-419d-9c88-74f203316e17.zip",
+      "zip_sha256": "462f01d588519d70ee28245e9676457f56a24a6741e36035fe0121aae4423b9f",
+      "xml_member": "ea480a68-5927-4278-9deb-2956961da428.xml",
+      "xml_sha256": "433cf9ffa5c055df1c100330e9f4685249245c0e8fe7b4501958913826df7169",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "bfaa71cb-e517-8d94-f64b-8cdbf7b8fbf2",
+      "version": 7,
+      "effective_time": "20261111",
+      "title": "Dexamethasone Tablets USP\nR_(x) Only",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA217695"
+      ],
+      "ingredients": [
+        {
+          "unii": "7S5I7G3JQL",
+          "name": "Dexamethasone"
+        }
+      ],
+      "zip_name": "bfaa71cb-e517-8d94-f64b-8cdbf7b8fbf2.zip",
+      "zip_sha256": "ce5b76dd2ee9b0c90c836df13d1624d0cfebd54e3ee82c0784bbe863ab6ee5c7",
+      "xml_member": "250553b3-39df-ca1b-066f-8e7ec72bb613.xml",
+      "xml_sha256": "a5278d255838b24e07ad1d04e4f0356cf0db8ad8b834648faadcd52fb2d894a4",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "c982eca0-fc41-11e1-a9c8-0002a5d5c51b",
+      "version": 15,
+      "effective_time": "20250903",
+      "title": "These highlights do not include all the information needed to use ZIPSOR^(®) safely and effectively. See full prescribing information for ZIPSOR.\nZIPSOR^(®) (diclofenac potassium) 25 mg capsule, for oral use\nInitial U.S. Approval: 1988",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA022202"
+      ],
+      "ingredients": [
+        {
+          "unii": "L4D5UA6CB4",
+          "name": "DICLOFENAC POTASSIUM"
+        }
+      ],
+      "zip_name": "c982eca0-fc41-11e1-a9c8-0002a5d5c51b.zip",
+      "zip_sha256": "531ec0743b60c6f208e8ea58c5ca4cb4b0b205a0b6894a806f0c3b1acf3fb54a",
+      "xml_member": "73f6a60d-3089-4936-84df-8c28c49cb441.xml",
+      "xml_sha256": "2fe7cec73b101d870b10c6992ca9debaa3e21decd6b4857645257003749ee4d6",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "ccca8660-124e-4220-8d87-4b9aeecbda7d",
+      "version": 11,
+      "effective_time": "20260713",
+      "title": "",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA088042"
+      ],
+      "ingredients": [
+        {
+          "unii": "F446C597KA",
+          "name": "TRIAMCINOLONE ACETONIDE"
+        }
+      ],
+      "zip_name": "ccca8660-124e-4220-8d87-4b9aeecbda7d.zip",
+      "zip_sha256": "49a9d0cd18eac713170a345e8724e73e8b515aa458966957686d0a97526a58bf",
+      "xml_member": "883d0e1d-0e6f-4f4d-b959-539ed99de7e5.xml",
+      "xml_sha256": "97858aef66110933a0223e77312fe8f152e921e75cc3c21c685055e01ce5df69",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "cce1a220-3178-49ec-b046-f0cb134cf051",
+      "version": 2,
+      "effective_time": "20250301",
+      "title": "These highlights do not include all the information needed to use VASOPRESSIN INJECTION safely and effectively. See full prescribing information for VASOPRESSIN INJECTION.\nVASOPRESSIN injection, for intravenous use\nInitial U.S. Approval: 2014",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA212593"
+      ],
+      "ingredients": [
+        {
+          "unii": "Y4907O6MFD",
+          "name": "VASOPRESSIN"
+        }
+      ],
+      "zip_name": "cce1a220-3178-49ec-b046-f0cb134cf051.zip",
+      "zip_sha256": "6bae9d0ccf48545587c4cd6f17dbb1fe01546ad22f2cda531656cf145c3f93c6",
+      "xml_member": "5549bf12-c4f9-481d-a8bd-c8c75e439edb.xml",
+      "xml_sha256": "0ea45f9dcd2ccc5d6eaea3e4e64754394f32933021f1bbea0cf5a0d1af8de43b",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "d74f4360-3b51-496c-96fb-84c3976958d2",
+      "version": 13,
+      "effective_time": "20260929",
+      "title": "These highlights do not include all the information needed to use ASCENIV\n^(™) safely and effectively.\nSee full prescribing information for ASCENIV.\nASCENIV (immune globulin intravenous, human – slra)\n10% Liquid\nInitial U.S. Approval: 2019",
+      "marketing_categories": [
+        "BLA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "BLA125590"
+      ],
+      "ingredients": [
+        {
+          "unii": "66Y330CJHS",
+          "name": "HUMAN IMMUNOGLOBULIN G"
+        }
+      ],
+      "zip_name": "d74f4360-3b51-496c-96fb-84c3976958d2.zip",
+      "zip_sha256": "51c04bfbb4b5ccef22097741ae9c658ee5c814d315b219184c2de1a0147ed763",
+      "xml_member": "5c8ebd6e-cfe3-d32e-e063-6294a90a7107.xml",
+      "xml_sha256": "54ce18c54e06afa285408ecefada0cec18c82c34a82006468ab3ff562bc3cb28",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "dbdb7903-0991-413d-b1ad-ab0f1ae2d8f4",
+      "version": 103,
+      "effective_time": "20260604",
+      "title": "Acyclovir Tablets, USP\nRx only",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA203834"
+      ],
+      "ingredients": [
+        {
+          "unii": "X4HES1O11F",
+          "name": "ACYCLOVIR"
+        }
+      ],
+      "zip_name": "dbdb7903-0991-413d-b1ad-ab0f1ae2d8f4.zip",
+      "zip_sha256": "42a38766bc416df07fdc0c931f3a38a33841e89cfa6c90c476de4c758a526ec3",
+      "xml_member": "b4baef46-4b41-48c0-98c3-27068950a018.xml",
+      "xml_sha256": "a7671dd8c33a28ec83a326f34e3dbb84e063122aa3488d33936572e6a96bd461",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "e22127b4-c9d9-458e-b196-4b000b89d781",
+      "version": 8,
+      "effective_time": "20241028",
+      "title": "Oxygen",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA205840"
+      ],
+      "ingredients": [
+        {
+          "unii": "S88TT14065",
+          "name": "OXYGEN"
+        }
+      ],
+      "zip_name": "e22127b4-c9d9-458e-b196-4b000b89d781.zip",
+      "zip_sha256": "2f071771c076f1aa228bc01b71e4f0892381cc8730e9fa388b0e5ee9946fbc74",
+      "xml_member": "c17d6d32-fa30-4b73-9fae-bd019efa2c27.xml",
+      "xml_sha256": "94944dca37871fd3a1ff112d4d571126c2a692db7f378d61d13032371d17d2cf",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "e67dee40-b243-4d6b-bc6b-e52c6cb798b8",
+      "version": 4,
+      "effective_time": "20251101",
+      "title": "Lidocaine Hydrochloride Oral Topical Solution USP, 2% (Viscous)",
+      "marketing_categories": [
+        "ANDA"
+      ],
+      "category_class": "generic",
+      "application_numbers": [
+        "ANDA216780"
+      ],
+      "ingredients": [
+        {
+          "unii": "V13007Z41A",
+          "name": "LIDOCAINE HYDROCHLORIDE"
+        }
+      ],
+      "zip_name": "e67dee40-b243-4d6b-bc6b-e52c6cb798b8.zip",
+      "zip_sha256": "1698f93f7352b9431efd841f7e8f4cf4e159c92986af5244bd4fddf78ba6a992",
+      "xml_member": "f7162aa6-c335-4c18-b960-b911a2b82946.xml",
+      "xml_sha256": "8c777c69449ea0a9f8f990940a9ebc3d66313b727fdfc839f20d292d75e49196",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "ea66eb30-e665-4693-99a1-a9d3b4bbe2d6",
+      "version": 59,
+      "effective_time": "20250618",
+      "title": "These highlights do not include all the information needed to use KYPROLIS safely and effectively. See full prescribing information for KYPROLIS.\nKYPROLIS^(®) (carfilzomib) for injection, for intravenous use\nInitial U.S. Approval: 2012",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA202714"
+      ],
+      "ingredients": [
+        {
+          "unii": "72X6E3J5AR",
+          "name": "CARFILZOMIB"
+        }
+      ],
+      "zip_name": "ea66eb30-e665-4693-99a1-a9d3b4bbe2d6.zip",
+      "zip_sha256": "20c8b622e45e6c529c9e704d48af61a5b7706a65b0f7b1347ae4bbb00d7e55ab",
+      "xml_member": "600cd22c-3a74-442e-a65d-c06d47bb892a.xml",
+      "xml_sha256": "6b30f0caabad0684b34f643d933d828bc95bfe3395ff2ea271e0342057c9cd01",
+      "method_version": "spl-text-v1"
+    },
+    {
+      "set_id": "fa90ccc8-2df0-49f7-8878-2b33e34cd272",
+      "version": 10,
+      "effective_time": "20210428",
+      "title": "These highlights do not include all the information needed to use NATROBA Topical Suspension safely and effectively. See full prescribing information for NATROBA Topical Suspension.\nNATROBA^(TM) (spinosad) topical suspension\nInitial U.S. Approval: 2011",
+      "marketing_categories": [
+        "NDA"
+      ],
+      "category_class": "brand",
+      "application_numbers": [
+        "NDA022408"
+      ],
+      "ingredients": [
+        {
+          "unii": "XPA88EAP6V",
+          "name": "SPINOSAD"
+        }
+      ],
+      "zip_name": "fa90ccc8-2df0-49f7-8878-2b33e34cd272.zip",
+      "zip_sha256": "ad926f1a39b31240ceae6611e085715f367eff689d40866ab957af437e2e7ca6",
+      "xml_member": "e37c79d5-e9c4-4ee5-870a-b44000f03748.xml",
+      "xml_sha256": "2107e33c2e92170076c8263f49e23f172d7cbf92a1768b4d8273c6458b0484ce",
+      "method_version": "spl-text-v1"
+    }
+  ],
+  "refused": []
+}
