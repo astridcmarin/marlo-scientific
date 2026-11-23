@@ -156,6 +156,14 @@ class StoreTests(unittest.TestCase):
 
 
 class PilotRuleTests(unittest.TestCase):
+    def test_plan_is_locked_and_matches_the_code(self):
+        plan = label_pilot.load_plan()
+        self.assertEqual(plan['status'], 'locked_before_computation')
+        self.assertIn('seed 20261120', plan['labels']['drawn_40'])
+        self.assertIn('seed 20261121', plan['review']['draw'])
+        self.assertEqual((label_pilot.LABEL_SEED, label_pilot.SECTION_SEED), (20261120, 20261121))
+        self.assertEqual((label_pilot.N_REVIEW, label_pilot.N_SPARE, label_pilot.MAX_ERRORS), (80, 20, 2))
+
     def test_label_draw_is_deterministic_and_stratified(self):
         cands = [{'set_id': f'id{i:04d}', 'marketing_categories': ['NDA' if i % 3 == 0 else 'ANDA']} for i in range(300)]
         a = label_pilot.sample_labels(cands, exclude_set_ids=['id0000'])
@@ -164,6 +172,19 @@ class PilotRuleTests(unittest.TestCase):
         self.assertNotIn('id0000', a['brand'])
         with self.assertRaises(ValueError):
             label_pilot.sample_labels(cands + cands[:1])
+
+    def test_candidates_from_openfda_ndc(self):
+        recs = [{'product_type': 'HUMAN PRESCRIPTION DRUG', 'marketing_category': 'NDA', 'openfda': {'spl_set_id': ['AAA']}},
+                {'product_type': 'HUMAN PRESCRIPTION DRUG', 'marketing_category': 'NDA AUTHORIZED GENERIC', 'openfda': {'spl_set_id': ['aaa']}},
+                {'product_type': 'HUMAN OTC DRUG', 'marketing_category': 'OTC MONOGRAPH DRUG', 'openfda': {'spl_set_id': ['bbb']}},
+                {'product_type': 'HUMAN PRESCRIPTION DRUG', 'marketing_category': 'ANDA', 'openfda': {}},
+                {'product_type': 'HUMAN PRESCRIPTION DRUG', 'marketing_category': 'ANDA', 'openfda': {'spl_set_id': ['c', 'd']}},
+                {'product_type': 'HUMAN PRESCRIPTION DRUG', 'marketing_category': '', 'openfda': {'spl_set_id': ['e']}},
+                {'product_type': 'HUMAN PRESCRIPTION DRUG', 'marketing_category': 'ANDA', 'openfda': {'spl_set_id': ['f']}}]
+        cands, left = label_pilot.candidates_from_openfda_ndc(recs)
+        self.assertEqual(cands, [{'set_id': 'aaa', 'marketing_categories': ['NDA', 'NDA AUTHORIZED GENERIC']},
+                                 {'set_id': 'f', 'marketing_categories': ['ANDA']}])
+        self.assertEqual(left, {'not_prescription': 1, 'no_set_id': 1, 'several_set_ids': 1, 'no_category': 1})
 
     def test_rule_matches_bar(self):
         for errors in range(6):

@@ -96,7 +96,7 @@ Each area: what it does, where it is, its state, and whose work it started as. "
 ### 3.8 First-release label pipeline — *in progress (20–23 November)*
 - **What:** every US prescription label, verbatim, one page per active ingredient, with its review state (decision 0007, the owner's choices of 20 November); storage in insert-only tables rebuilt from DailyMed files listed in a pinned manifest (decision 0009).
 - **Where:** `spl_labels.py`, `label_store.py`, `label_pilot.py`, `data/label_ingestion_pilot_plan_v1.json` (draft).
-- **State:** reader and tables built and tested (one real label: 97 sections, identical rebuild); the pilot plan awaits its lock, after the candidate list file (openFDA Human NDC Directory) is downloaded and checked.
+- **State:** reader and tables built and tested (one real label: 97 sections, identical rebuild). The pilot plan was locked on 23 November, with the candidate list from openFDA's Human NDC Directory (56,809 prescription product records with a set ID). Next: the draw, the downloads, the build and the review.
 
 ---
 
@@ -141,7 +141,7 @@ Process records: [REPOSITORY_CHECKPOINT.md](REPOSITORY_CHECKPOINT.md) (latest ve
 
 The order proposed on 20 November ([roadmap "Now"](PRODUCT_AND_SCIENCE_ROADMAP.md), [REGROUP_2026-11-20.md](REGROUP_2026-11-20.md)); the owner has decided item 1's choices and storage.
 
-1. **Release pipeline:** lock the pilot plan; draw and download 50 labels; build, measure, review 80 sections; then plan the full prescription ingest and the drug pages.
+1. **Release pipeline:** the pilot plan is locked (23 November); draw and download 50 labels; build, measure, review 80 sections; then plan the full prescription ingest and the drug pages.
 2. **Eligibility:** the adjudicated two-reader reference, then the extractor revision on post-freeze trials.
 3. **Catalogue growth:** selinexor, thalidomide, isatuximab, elotuzumab first.
 4. **An independent reviewer** for the lenalidomide model.
@@ -151,7 +151,7 @@ The order proposed on 20 November ([roadmap "Now"](PRODUCT_AND_SCIENCE_ROADMAP.m
 
 Long-term directions (README): integrated physiology across organ systems, disease progression, combination therapy, and the digital human from body to molecular target.
 
-**Waiting on the owner:** the openFDA NDC file for the pilot lock; review of the ixazomib catalogue summaries; deleting the temporary files noted on 18–20 November; an independent reviewer.
+**Waiting on the owner:** downloading the 50 drawn labels; review of the ixazomib catalogue summaries; deleting the temporary files noted on 18–20 November; an independent reviewer.
 
 ---
 
@@ -168,3 +168,4 @@ Long-term directions (README): integrated physiology across organ systems, disea
 ## Updates
 
 - **23 November 2026:** created from a review of all 1,113 tracked files and the full history (491 commits). Adds `docs/PLATFORM_FILES.md` (every file, generated) and its test.
+- **23 November 2026:** the label ingestion pilot plan locked (section 3.8, section 5).

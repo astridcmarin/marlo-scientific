@@ -2,7 +2,8 @@
   "schema_version": "label-ingestion-pilot-plan-v1",
   "plan_version": "label-ingestion-pilot-plan-v1.0",
   "recorded_on": "2026-11-20",
-  "status": "draft_for_owner_approval",
+  "status": "locked_before_computation",
+  "locked_on": "2026-11-23",
   "decisions": ["0007 (every US prescription label, verbatim, review state shown; the owner's choices of 20 November)", "0009 (label content in insert-only tables, rebuilt from DailyMed files listed in a pinned manifest)"],
   "owner_approved_choices": "Pilot of about 50 labels on the owner's computer; sampled review of 80 sections, pass with at most 2 errors (95% lower bound at least 0.90). Approved 20 November 2026.",
   "questions": [
@@ -19,10 +20,11 @@
     "total": 50,
     "fixed_10": "The current DailyMed label of each of the ten catalogue drugs in drug_aliases_v2 (lenalidomide, bortezomib, daratumumab, pomalidomide, carfilzomib, dexamethasone, cyclophosphamide, melphalan, fludarabine, ixazomib), one label per drug: the NDA or BLA holder's, or, where DailyMed lists none, the most recently revised label, recorded as such. Chosen, not drawn: their sections are known from hand review, so section problems are easy to see.",
     "drawn_40": "20 brand (any marketing category NDA or BLA) and 20 generic (all marketing categories ANDA or NDA AUTHORIZED GENERIC), drawn by label_pilot.sample_labels with seed 20261120 (30 per stratum in draw order: the first 20 used, the next 10 as replacements) from the pinned candidate list, excluding the ten fixed set IDs. Labels of any other category (for example unapproved drugs) are not drawn.",
-    "candidate_list": "OPEN BEFORE LOCK: the file listing every human prescription label with its marketing category, its source and format, and the adapter that reads it. It is pinned by SHA-256 before the draw. The adapter is committed with this plan.",
+    "candidate_list": "openFDA's Human NDC Directory download (drug-ndc JSON, from open.fda.gov/data/downloads), read by label_pilot.candidates_from_openfda_ndc: product records with product_type HUMAN PRESCRIPTION DRUG and exactly one openfda.spl_set_id, grouped by set ID with the union of their marketing categories; records left out are counted by reason. DailyMed's own mapping files list set IDs without marketing categories, and the FDA NSDE file lists marketing categories without set IDs, so neither can stratify the draw. Limits: only labels with a current NDC listing, and only where openFDA links the product to a set ID. The file is pinned by SHA-256 before the draw, and its structure is checked against the adapter before this plan is locked.",
+    "candidate_file": {"name": "drug-ndc-0001-of-0001.json", "sha256": "4e0e49529feac9464ef20d59a925859402641cee53fcc7d7ff464622ab337b3e", "bytes": 247365930, "openfda_last_updated": "2026-11-20", "downloaded_by": "the owner, into supplemental-information/dailymed/ (not committed)", "structure_check_23_november": "Top-level meta and results; 138,569 product records; every record has product_type, marketing_category and openfda; openfda.spl_set_id is a list. HUMAN PRESCRIPTION DRUG: 57,196 records, 56,809 with a set ID, none with more than one. No label was drawn and no set ID was read for the draw."},
     "replacement": "A drawn label whose zip cannot be read or is not a human prescription label (document type 34391-3) is recorded under 'refused' in the manifest and replaced by the next label in the same stratum's draw order; replacements are fixed in advance by the draw order."
   },
-  "files": "The owner downloads one zip per label from DailyMed (the 'Download' link on each label's page) into supplemental-information/dailymed/pilot/ on the iMac, never committed. Expected size: about 0.5 MB per label (the held NINLARO label is 0.46 MB).",
+  "files": "The owner downloads one zip per label from DailyMed (https://dailymed.nlm.nih.gov/dailymed/downloadzipfile.cfm?setId=<set ID>, or the 'Download' link on each label's page) into supplemental-information/dailymed/pilot/ on the iMac, never committed. Expected size: about 0.5 MB per label (the held NINLARO label is 0.46 MB).",
   "extraction": {
     "module": "intelligence_store/spl_labels.py, method spl-text-v1",
     "conventions": [
@@ -56,7 +58,7 @@
     "The 40 drawn labels represent brand and generic prescription labels equally, not in proportion to DailyMed's mix."
   ],
   "before_lock": [
-    "Settle the candidate list (source, format, adapter) and add the adapter and its test.",
+    "Candidate list settled on 23 November (openFDA Human NDC Directory; adapter and test added) and its structure checked against the downloaded file (candidate_file above).",
     "Run every step on synthetic SPL files (done for reading, building, the section draw and the rule), and the reader on one real held label (NINLARO, set 038f2461 version 18: 97 sections, identical rebuild)."
   ]
 }

@@ -3,12 +3,17 @@
 The plan (intelligence_store/data/label_ingestion_pilot_plan_v1.json) fixes the seeds, the sample sizes and the
 pass rule. Draws are deterministic: the same inputs and seed give the same sample.
 """
+import hashlib
+import json
 import math
 import random
+from pathlib import Path
 
 from .spl_labels import category_class
 
 PLAN_FILE = 'label_ingestion_pilot_plan_v1.json'
+PLAN_PATH = Path(__file__).parent / 'data' / PLAN_FILE
+PLAN_SHA256 = '67a6acdc863608eae94720cba0e659be0e33da2601e886240970b1380a1ec78a'  # locked 23 November 2026
 LABEL_SEED = 20261120
 SECTION_SEED = 20261121
 N_BRAND = 20
@@ -21,6 +26,44 @@ BAR = 0.90
 VERDICTS = ('match', 'error', 'not_reviewable')
 ERROR_KINDS = ('text_missing', 'text_added', 'text_changed', 'order_wrong', 'heading_wrong', 'code_wrong',
                'table_unreadable', 'other')
+
+
+def load_plan(path=PLAN_PATH):
+    raw = Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != PLAN_SHA256:
+        raise ValueError('The label ingestion pilot plan is missing or changed.')
+    return json.loads(raw)
+
+
+RX_PRODUCT_TYPE = 'HUMAN PRESCRIPTION DRUG'
+
+
+def candidates_from_openfda_ndc(records):
+    """The candidate list from openFDA's Human NDC Directory download (the 'results' list of its JSON file).
+
+    Keeps product records whose product_type is HUMAN PRESCRIPTION DRUG and that carry exactly one
+    openfda.spl_set_id, and groups them by set ID with the union of their marketing categories. Returns the
+    candidates and a count of what was left out and why, so nothing is dropped silently.
+    """
+    by_set, left_out = {}, {'not_prescription': 0, 'no_set_id': 0, 'several_set_ids': 0, 'no_category': 0}
+    for r in records:
+        if (r.get('product_type') or '').strip().upper() != RX_PRODUCT_TYPE:
+            left_out['not_prescription'] += 1
+            continue
+        set_ids = (r.get('openfda') or {}).get('spl_set_id') or []
+        if not set_ids:
+            left_out['no_set_id'] += 1
+            continue
+        if len(set(s.lower() for s in set_ids)) > 1:
+            left_out['several_set_ids'] += 1
+            continue
+        category = (r.get('marketing_category') or '').strip().upper()
+        if not category:
+            left_out['no_category'] += 1
+            continue
+        by_set.setdefault(set_ids[0].lower(), set()).add(category)
+    candidates = [{'set_id': k, 'marketing_categories': sorted(v)} for k, v in sorted(by_set.items())]
+    return candidates, left_out
 
 
 def sample_labels(candidates, exclude_set_ids=(), seed=LABEL_SEED, n_brand=N_BRAND, n_generic=N_GENERIC,
