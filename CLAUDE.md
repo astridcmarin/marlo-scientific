@@ -4,6 +4,7 @@ Research and educational platform: clinical-trial intelligence, drug/regulatory 
 
 ## Start here
 
+- `docs/PLATFORM_OVERVIEW.md` — the living map of the platform (structure, what it has, what was done, what is planned); update it in any batch that changes these, and regenerate `docs/PLATFORM_FILES.md` with `python3 scripts/platform_files_index.py` after adding or removing files.
 - `docs/HANDOFF.md` — state of open work (20 November 2026): what is next, the blind-data rules, the two-session rule, how to run tests without the database.
 - `docs/README.md` — index of all documentation.
 - `docs/PRODUCT_AND_SCIENCE_ROADMAP.md` — product direction and phases.
