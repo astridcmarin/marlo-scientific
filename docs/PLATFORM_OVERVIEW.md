@@ -114,7 +114,7 @@ Each area: what it does, where it is, its state, and whose work it started as. "
 ### 3.8 First-release label pipeline — *in progress (20–23 November)*
 - **What:** every US prescription label, verbatim, one page per active ingredient, with its review state (decision 0007, the owner's choices of 20 November); storage in insert-only tables rebuilt from DailyMed files listed in a pinned manifest (decision 0009).
 - **Where:** `spl_labels.py`, `label_store.py`, `label_pilot.py`, `data/label_ingestion_pilot_plan_v1.json` (draft).
-- **State:** reader and tables built and tested (one real label: 97 sections, identical rebuild). The pilot plan was locked on 23 November, with the candidate list from openFDA's Human NDC Directory (56,809 prescription product records with a set ID). Next: the draw, the downloads, the build and the review.
+- **State:** reader and tables built and tested (one real label: 97 sections, identical rebuild). The pilot plan was locked on 23 November, with the candidate list from openFDA's Human NDC Directory (56,809 prescription product records with a set ID; 37,608 labels, 4,322 brand and 31,677 generic). The labels were drawn on 23 November (`data/label_pilot_draw_v1.json`). Next: the downloads, the build and the review.
 
 ---
 
@@ -188,4 +188,5 @@ Long-term directions (README): integrated physiology across organ systems, disea
 - **23 November 2026:** created from a review of all 1,113 tracked files and the full history (491 commits). Adds `docs/PLATFORM_FILES.md` (every file, generated) and its test.
 - **23 November 2026:** the label ingestion pilot plan locked (section 3.8, section 5).
 - **23 November 2026:** added "What Marlo Scientific is", at the owner's request.
-- **23 November 2026:** clean-up at the owner's request: removed `scripts/check_bortezomib_observation_intake.py` (it always failed: it expected 12 tests, 11 exist) and three unused example files; moved the step 65 and 66 records into `docs/patient_lab/`; corrected out-of-date status lines in five documents; replaced the README's October file tree with a pointer here. The four other unreferenced October scripts run and stay. Fourteen merged GitHub branches and `remove-github-button` are to be deleted by the owner (this session cannot delete branches); `landing-reorg` (an unmerged "About the developer" section, 19 October) is kept.
+- **23 November 2026:** clean-up at the owner's request: removed `scripts/check_bortezomib_observation_intake.py` (it always failed: it expected 12 tests, 11 exist) and three unused example files; moved the step 65 and 66 records into `docs/patient_lab/`; corrected out-of-date status lines in five documents; replaced the README's October file tree with a pointer here. The four other unreferenced October scripts run and stay. The owner deleted the fourteen merged GitHub branches, `remove-github-button` and `landing-reorg` (an unmerged "About the developer" section of 19 October); GitHub keeps only `main` and the open batch branches.
+- **23 November 2026:** pilot labels drawn; branch clean-up completed by the owner.
