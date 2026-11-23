@@ -36,14 +36,14 @@ It is for pharmaceutical and regulatory scientists, clinical researchers, pharma
 
 | | |
 |---|---|
-| Files tracked | 1,117 |
+| Files tracked | 1,113 (after the clean-up of 23 November) |
 | Commits on `main` | 491 (5 October to 20 November 2026) |
 | Python modules in `intelligence_store/` | 174 |
 | Pinned data files (`intelligence_store/data/`) | 258 JSON, plus one compressed file and one note |
 | Page modules (`landscape_ui/`, `app/`) and templates | 54 page modules, 112 workspace templates; at least 112 route definitions |
 | Tests | 197 files, 1,641 test functions (about 300 need the database and run in CI) |
 | Database migrations | 9 |
-| Documentation | 165 files, including 9 decision records and 9 AI review records |
+| Documentation | 167 files, including 9 decision records and 9 AI review records |
 | Locked model checks | 37 (3 passed, 2 consistent, 11 mixed, 7 disagree, 9 failed, 3 inconclusive, 2 not adopted) |
 | Drugs with a drug page and catalogue entry | 10 |
 | Validation flags set to true | none |
@@ -58,10 +58,10 @@ It is for pharmaceutical and regulatory scientists, clinical researchers, pharma
 | `landscape_ui/` | The research workspace under `/landscape/`: page modules, templates, CSS and JavaScript for trials, drugs, Patient Lab, Simulation Lab, benchmarking and the body map | 207 |
 | `intelligence_store/` | All scientific and knowledge code (models, checks, extractors, evidence logic) and `data/`, the SHA-256-pinned reference data, plans, reports and review records | 450 |
 | `intelligence_migrations/` | Alembic migrations for the database tables (trial evidence, cohorts, workspaces, watchlists, patient states, educational PK runs) | 13 |
-| `scripts/` | Command-line builders and checks (data index, extraction builders, review pages, smoke tests) | 49 |
+| `scripts/` | Command-line builders and checks (data index, extraction builders, review pages, smoke tests) | 48 |
 | `tests/` | `unittest` tests, run in CI on every pull request | 197 |
-| `examples/` | Synthetic example inputs | 4 |
-| `docs/` | Roadmap, handoff, checkpoints, design plans, decision records, verification reports, AI reviews, history | 165 |
+| `examples/` | A synthetic numerical case plan | 1 |
+| `docs/` | Roadmap, handoff, checkpoints, design plans, decision records, verification reports, AI reviews, history | 167 |
 
 Outside the repository, on the owner's iMac (git-ignored, never committed): source PDFs, labels, registry records, correspondence and the 3D Atlas files in `supplemental-information/`, and the owner's annotation files in `instance/`.
 
@@ -125,7 +125,7 @@ Eight commits by the owner built the platform's foundation: 417 files at 12 Octo
 - **5 October:** the evidence storage foundation (v2 database), application assets, and complete trial-cohort retrieval with evidence provenance.
 - **9 October:** the integrated educational Patient Lab milestone (309 files): synthetic patient states, scenarios, educational PK with audits, the Simulation Lab's generic tools, the bortezomib research components, the trial intelligence pages, and their tests.
 - **12 October:** a platform checkpoint (101 files), clean-up of files that should not be tracked, and documentation (validation protocol drafts, data-access assessment, source-equation and numerical verification records, the first roadmap).
-- Of those 417 files, 388 are still at their original paths. The other 29 were moved (the step-numbered bortezomib documents and the patient-state schema into `docs/`), folded into page modules (the install scripts) or removed (loose root files such as `tests.zip`).
+- Of those 417 files, 379 are still at their original paths (23 November). The others were moved (the step-numbered bortezomib documents into `docs/bortezomib/`, the step 65 and 66 validation records into `docs/patient_lab/`, the patient-state schema into `docs/`), folded into page modules (the install scripts) or removed (loose root files such as `tests.zip`; on 23 November a check script that always failed and three example files nothing used).
 
 ### 4.2 The owner's work since (13 October onward)
 - Continuous integration (13 October), the research-tool registry consolidation, and the first repository checkpoint.
@@ -188,3 +188,4 @@ Long-term directions (README): integrated physiology across organ systems, disea
 - **23 November 2026:** created from a review of all 1,113 tracked files and the full history (491 commits). Adds `docs/PLATFORM_FILES.md` (every file, generated) and its test.
 - **23 November 2026:** the label ingestion pilot plan locked (section 3.8, section 5).
 - **23 November 2026:** added "What Marlo Scientific is", at the owner's request.
+- **23 November 2026:** clean-up at the owner's request: removed `scripts/check_bortezomib_observation_intake.py` (it always failed: it expected 12 tests, 11 exist) and three unused example files; moved the step 65 and 66 records into `docs/patient_lab/`; corrected out-of-date status lines in five documents; replaced the README's October file tree with a pointer here. The four other unreferenced October scripts run and stay. Fourteen merged GitHub branches and `remove-github-button` are to be deleted by the owner (this session cannot delete branches); `landing-reorg` (an unmerged "About the developer" section, 19 October) is kept.

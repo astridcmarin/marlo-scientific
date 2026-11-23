@@ -1,6 +1,6 @@
 # Protocol benchmarking — design plan (Phase 4.1a)
 
-Status: **design and data export, 21 October 2026.** Roadmap Phase 4.1: let a trial designer compare a draft protocol's eligibility criteria with those of similar registered trials, with counts and a link to every trial behind each number. First disease: multiple myeloma.
+Status (23 November 2026): **no extractor has passed; the reference is now shown adequate.** Rule-based extractor v1 failed its locked check (28 October), v1.1 failed against the v2 reference (12 November) and the language-model extractor llm-c1 failed (13 November). The owner's v2 reference was re-read blind (inconclusive) and adjudicated against a second annotation (16 November); a second, independent annotation under guide v3 met the 0.90 bar (19 November). Next: an adjudicated two-reader reference, then an extractor revision tested only on trials posted after the cohort freeze. The design below dates from 21 October. Roadmap Phase 4.1: let a trial designer compare a draft protocol's eligibility criteria with those of similar registered trials, with counts and a link to every trial behind each number. First disease: multiple myeloma.
 
 ## The question it answers
 

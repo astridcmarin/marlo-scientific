@@ -1,6 +1,6 @@
 # Simulation 3.0 — bortezomib platelet time course (first drug-effect module)
 
-Status: **3.0a–3.0i done.** Evidence, PK engine, locked reading check, page (`/landscape/simulation-lab/bortezomib-platelets`) a search for outside platelet data (none usable) and outside checks of the PK component (Ogawa 2008, 3.0f; CAN-1004, 3.0h).
+Status (23 November 2026): **3.0a–3.0n done; the exposure model is closed with its gap shown.** Evidence, PK engine, locked reading check, page (`/landscape/simulation-lab/bortezomib-platelets`), a search for outside platelet data (none usable), outside checks of the PK component (Ogawa 2008, 3.0f; CAN-1004, 3.0h; MMY-3021, 3.0m; the Reece 2011 reproduction), three candidate fixes that failed (Kuan 2012, 3.0g; falling clearance, 3.0i; Iwasaki 2020, 3.0j–3.0l), and the first blind check (NCT01801436, 20 November), in which both the PK component and the Iwasaki model under-predict day 11 exposure. Step numbers are not unique: the Reece reproduction and the NCT01801436 check are both labelled 3.0n in their modules.
 
 ## Why this model
 

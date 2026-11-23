@@ -70,7 +70,7 @@ Organised by the question you bring. Step numbers (2.0a, 3.1f, …) are historic
 - [Synthetic patient-state schema v1](PATIENT_STATE_SCHEMA.md).
 - [Numerical verification summary](NUMERICAL_VERIFICATION.json) and the [RK4–analytic cross-check (Step 70)](verification/synthetic_numerical_crosscheck_step70.json).
 - Check reports: `docs/verification/`. Each one is listed, with its plan and data, in the dataset ledger and on the findings page.
-- Early Patient Lab records: [source-equation check (Step 65)](patient-lab-step65/SOURCE_EQUATION_CHECK.md), [data access assessment (Step 66)](patient-lab-step66/DATA_ACCESS_ASSESSMENT.md) and [original-materials checklist](patient-lab-step66/ORIGINAL_MATERIALS_CHECKLIST.md), [verification and validation protocol, draft (Step 67)](patient_lab/step67/VERIFICATION_VALIDATION_PROTOCOL.md).
+- Early Patient Lab records: [source-equation check (Step 65)](patient_lab/step65/SOURCE_EQUATION_CHECK.md), [data access assessment (Step 66)](patient_lab/step66/DATA_ACCESS_ASSESSMENT.md) and [original-materials checklist](patient_lab/step66/ORIGINAL_MATERIALS_CHECKLIST.md), [verification and validation protocol, draft (Step 67)](patient_lab/step67/VERIFICATION_VALIDATION_PROTOCOL.md).
 - Scientific decision records kept as data, in `intelligence_store/data/`:
   - the Kim CL/F equation-form assessment;
   - the Hughes weight-basis assessment;

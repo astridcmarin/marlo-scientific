@@ -198,82 +198,9 @@ The architecture separates scientific computation, application interfaces, resea
 
 ## Project Architecture
 
-The repository is organized into the following primary components:
+The repository is organised in eight areas: `app/` (the Flask entry point and public model pages), `landscape_ui/` (the research workspace), `intelligence_store/` (scientific code, knowledge modules and SHA-256-pinned data in `data/`), `intelligence_migrations/` (database migrations), `scripts/`, `tests/`, `examples/` and `docs/`.
 
-```text
-marlo-scientific/
-│
-├── app/
-│   ├── app.py
-│   ├── static/
-│   └── templates/
-│
-├── intelligence_store/
-│   ├── data/
-│   ├── pharmacokinetics.py
-│   ├── protein_turnover.py
-│   ├── target_occupancy.py
-│   ├── target_binding_kinetics.py
-│   ├── patient_state.py
-│   ├── drug_knowledge.py
-│   ├── regulatory.py
-│   └── ...
-│
-├── landscape_ui/
-│   ├── templates/
-│   ├── static/
-│   ├── simulation_lab_pages.py
-│   ├── patient_lab_overview_pages.py
-│   ├── drug_knowledge_pages.py
-│   └── ...
-│
-├── intelligence_migrations/
-│
-├── docs/
-│
-├── examples/
-│
-├── scripts/
-│
-├── tests/
-│
-├── requirements.txt
-└── README.md
-```
-
-### Component Responsibilities
-
-**app/**
-
-Contains the main Flask application and application entry-point components.
-
-**intelligence_store/**
-
-Contains scientific computation, pharmaceutical knowledge, patient modeling, clinical trial processing, and associated data structures.
-
-**landscape_ui/**
-
-Contains the primary research interface, including Flask page modules, HTML templates, CSS, and JavaScript.
-
-**intelligence_migrations/**
-
-Contains database migration definitions.
-
-**docs/**
-
-Contains development documentation, scientific evidence reviews, verification protocols, and research planning materials.
-
-**examples/**
-
-Contains synthetic research examples and numerical test inputs.
-
-**scripts/**
-
-Contains scientific verification utilities, research workflows, and development scripts.
-
-**tests/**
-
-Contains automated tests for application functionality and scientific calculations.
+What each area holds, what the platform has and what is planned are kept current in [the platform overview](docs/PLATFORM_OVERVIEW.md); every file is listed, with a description read from the file itself, in [docs/PLATFORM_FILES.md](docs/PLATFORM_FILES.md).
 
 ---
 

@@ -1,6 +1,6 @@
 # Label-based exposure engine — evidence and design plan (Phase 3.1a)
 
-Status: **3.1a–3.1h done, 21 October 2026.** Pomalidomide and dexamethasone are at *Label-based exposure*; melphalan was not eligible. Pomalidomide is shown at `/landscape/patient-lab/label-exposure/pomalidomide`. Engine `intelligence_store/label_exposure.py`; pomalidomide consistency check passed with the myeloma-only parameter set (below). Roadmap Phase 3.1: give any approved small-molecule drug a sourced, typical-value exposure curve built from its label, at the capability level *Label-based exposure*.
+Status: **3.1a–3.1h done, 21 October 2026**; carfilzomib checked on 19 November and not eligible (its label's exposure and stated clearance disagree about two-fold). Pomalidomide and dexamethasone are at *Label-based exposure*; melphalan was not eligible. Pomalidomide is shown at `/landscape/patient-lab/label-exposure/pomalidomide`. Engine `intelligence_store/label_exposure.py`; pomalidomide consistency check passed with the myeloma-only parameter set (below). Roadmap Phase 3.1: give any approved small-molecule drug a sourced, typical-value exposure curve built from its label, at the capability level *Label-based exposure*.
 
 ## What it is for
 
