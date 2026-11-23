@@ -14,6 +14,24 @@ Nothing on the platform is validated for clinical prediction, prescribing or tre
 
 ---
 
+## What Marlo Scientific is
+
+Marlo Scientific is a research and educational software platform for pharmaceutical and clinical-research work. It brings together, in one place, the evidence a drug-development question draws on and the models that try to explain it:
+
+- **Clinical trial intelligence:** complete, frozen cohorts of ClinicalTrials.gov records, classified and summarised (recruitment, phases, sponsors, sites, stopping reasons, eligibility).
+- **Drug, label and regulatory evidence:** drug identities, mechanisms, label text, special populations (kidney and liver impairment, sex), interactions and regulatory documents, each linked to its source.
+- **Computational pharmacology:** published pharmacokinetic and pharmacodynamic models and the platform's own, run on synthetic patients in the Patient Lab and the Simulation Lab, with a 3D body map for lenalidomide.
+
+It is for pharmaceutical and regulatory scientists, clinical researchers, pharmacologists and drug-development teams.
+
+**What sets it apart is how it treats its own claims.** Every value carries its source and method. Every model check is locked by commit before it is computed, and its result is published whether it passes or fails; a dataset ledger records what each model has already seen, so a blind check can be told from one that is not. AI-assisted extraction is reviewed against the source by the owner, and each value shows its review state. Software tests and scientific validation are kept apart: passing tests does not make a model predictive.
+
+**What it is not.** It is not a medical device or a clinical decision tool. Nothing on it is validated for clinical prediction, prescribing, dosing or treatment selection; patients are synthetic, and a real patient could enter only as a banded profile computed in the browser and never stored (decision 0008).
+
+**Where it is now.** Pre-release, built by its owner from 5 October 2026, with AI coding sessions working under the owner's direction since 13 October; the owner is the only human reviewer. The science so far centres on multiple myeloma drugs. The first release will lead with sourced evidence, covering the label of every US prescription drug (decision 0007), with the models shown behind their check records.
+
+---
+
 ## 1. At a glance
 
 | | |
@@ -169,3 +187,4 @@ Long-term directions (README): integrated physiology across organ systems, disea
 
 - **23 November 2026:** created from a review of all 1,113 tracked files and the full history (491 commits). Adds `docs/PLATFORM_FILES.md` (every file, generated) and its test.
 - **23 November 2026:** the label ingestion pilot plan locked (section 3.8, section 5).
+- **23 November 2026:** added "What Marlo Scientific is", at the owner's request.
