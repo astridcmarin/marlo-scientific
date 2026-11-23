@@ -161,7 +161,7 @@ The order proposed on 20 November ([roadmap "Now"](PRODUCT_AND_SCIENCE_ROADMAP.m
 
 1. **Release pipeline:** the pilot plan is locked (23 November); draw and download 50 labels; build, measure, review 80 sections; then plan the full prescription ingest and the drug pages.
 2. **Eligibility:** the adjudicated two-reader reference, then the extractor revision on post-freeze trials.
-3. **Catalogue growth:** selinexor, thalidomide, isatuximab, elotuzumab first.
+3. ~~Catalogue growth~~: dropped on 23 November; these drugs come in through the label pipeline.
 4. **An independent reviewer** for the lenalidomide model.
 5. **Models (lower priority):** selinexor and thalidomide label-consistency plans; carfilzomib reading plan for the FDA and PMDA reviews, then a model to test blind against Badros and Quach.
 6. **Organ-level model:** evidence steps first (decision 0005).
@@ -191,3 +191,4 @@ Long-term directions (README): integrated physiology across organ systems, disea
 - **23 November 2026:** clean-up at the owner's request: removed `scripts/check_bortezomib_observation_intake.py` (it always failed: it expected 12 tests, 11 exist) and three unused example files; moved the step 65 and 66 records into `docs/patient_lab/`; corrected out-of-date status lines in five documents; replaced the README's October file tree with a pointer here. The four other unreferenced October scripts run and stay. The owner deleted the fourteen merged GitHub branches, `remove-github-button` and `landing-reorg` (an unmerged "About the developer" section of 19 October); GitHub keeps only `main` and the open batch branches.
 - **23 November 2026:** pilot labels drawn; branch clean-up completed by the owner.
 - **23 November 2026:** decision 0007 amended: AI-written catalogue summaries to be replaced by verbatim label sections; the ixazomib summary review dropped.
+- **23 November 2026:** hand-built catalogue growth dropped (decision 0007, amendment).

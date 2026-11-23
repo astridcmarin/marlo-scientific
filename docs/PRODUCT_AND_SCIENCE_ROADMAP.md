@@ -152,7 +152,7 @@ Decided with the owner on 18 November ([REGROUP_2026-11-18.md](REGROUP_2026-11-1
 **Queue, in the order proposed on 20 November:**
 1. **The release pipeline:** the owner answered decision 0007's choices on 20 November; storage is decision 0009 (accepted); then a pilot of about 50 labels on the owner's computer, with sampled review.
 2. **Eligibility:** an adjudicated two-reader reference under its own plan (round two's 22 disagreements), then an extractor revision tested only on trials posted after the cohort freeze, never on the 200.
-3. **Catalogue growth** (evidence-first item 8): selinexor, thalidomide, isatuximab and elotuzumab first, then further agents by study count in the cohort.
+3. ~~Catalogue growth~~ (evidence-first item 8): dropped on 23 November; these drugs come in through the label pipeline (decision 0007, amendment).
 4. **An independent reviewer** for the lenalidomide model and its credibility record.
 5. **Models, lower priority:** selinexor and thalidomide label-consistency plans; a reading plan for the FDA and PMDA carfilzomib reviews (population-model sections only), then a carfilzomib model to test blind against Badros and Quach.
 6. **Organ-level model:** lumped compartments first ([decision 0005](decisions/0005-organ-level-model-lumped-first.md)). Phased-plan steps 2 and 4, the tissue-distribution evidence and evidence classes on the map, are evidence work and come first; the model and its check follow.

@@ -41,6 +41,7 @@ Asked by the owner: once every label is on the platform verbatim, why review the
 - **Values that feed a calculation** (doses, clearances, kidney-function cut-offs used by models and checks) are still reviewed by the owner against their source before use. Rounds 1–4 have done this for every such value so far.
 - **AI-written catalogue summaries** (the safety and interaction summaries of the ten catalogue drugs) are replaced by the label's own sections, shown verbatim with their review state, once the label pilot passes. Until then they stay as they are, marked as AI-written.
 - **The pending owner review of the ixazomib catalogue summaries is dropped,** since those summaries are to be replaced.
+- **Hand-built catalogue growth is dropped** (evidence-first item 8; owner, 23 November): selinexor, thalidomide, isatuximab, elotuzumab and further drugs come in through the label pipeline like every other drug. Their label values extracted by hand on 4 November stay available for model checks. Item 8's underlying gap, that over half of the myeloma cohort's studies match no catalogue alias, is to be closed from the pipeline's ingredient names rather than hand-written entries.
 
 ## Revisit when
 
