@@ -1,0 +1,459 @@
+{
+  "schema_version": "label-pilot-draw-v1",
+  "plan_sha256": "67a6acdc863608eae94720cba0e659be0e33da2601e886240970b1380a1ec78a",
+  "drawn_on": "2026-11-23",
+  "candidate_file_sha256": "4e0e49529feac9464ef20d59a925859402641cee53fcc7d7ff464622ab337b3e",
+  "candidates": {
+    "by_stratum": {
+      "brand": 4322,
+      "generic": 31677
+    },
+    "set_ids_total": 37608,
+    "left_out": {
+      "not_prescription": 81373,
+      "no_set_id": 387,
+      "several_set_ids": 0,
+      "no_category": 0
+    }
+  },
+  "fixed_10": [
+    {
+      "drug": "lenalidomide",
+      "set_id": "5fa97bf5-28a2-48f1-8955-f56012d296be",
+      "product": "Revlimid",
+      "marketing_category_in_ndc_directory": "NDA",
+      "basis": "the reference label of the drug catalogue (drug_safety_v2)"
+    },
+    {
+      "drug": "bortezomib",
+      "set_id": "1521d321-e724-4ffc-adad-34bf4f44fac7",
+      "product": "Velcade",
+      "marketing_category_in_ndc_directory": "NDA",
+      "basis": "the reference label of the drug catalogue (drug_safety_v2)"
+    },
+    {
+      "drug": "daratumumab",
+      "set_id": "a4d0efe9-5e54-467e-9eb4-56fa7d53b60b",
+      "product": "Darzalex",
+      "marketing_category_in_ndc_directory": "BLA",
+      "basis": "the reference label of the drug catalogue (drug_safety_v2)"
+    },
+    {
+      "drug": "pomalidomide",
+      "set_id": "2b25ef01-5c9e-11e1-b86c-0800200c9a66",
+      "product": "Pomalyst",
+      "marketing_category_in_ndc_directory": "NDA",
+      "basis": "the reference label of the drug catalogue (drug_safety_v2)"
+    },
+    {
+      "drug": "carfilzomib",
+      "set_id": "ea66eb30-e665-4693-99a1-a9d3b4bbe2d6",
+      "product": "Kyprolis",
+      "marketing_category_in_ndc_directory": "NDA",
+      "basis": "the reference label of the drug catalogue (drug_safety_v2)"
+    },
+    {
+      "drug": "dexamethasone",
+      "set_id": "aec60743-f925-4d91-a865-064696a9f9e6",
+      "product": "HEMADY",
+      "marketing_category_in_ndc_directory": "not in the openFDA NDC list",
+      "basis": "the reference label of the drug catalogue (drug_safety_v2)"
+    },
+    {
+      "drug": "cyclophosphamide",
+      "set_id": "3c1eb470-0bba-457d-94e3-b9508f0d398a",
+      "product": "Cyclophosphamide injection",
+      "marketing_category_in_ndc_directory": "NDA",
+      "basis": "the reference label of the drug catalogue (drug_safety_v2)"
+    },
+    {
+      "drug": "melphalan",
+      "set_id": "69f55869-dc11-408e-8fc7-47634269a52c",
+      "product": "Evomela",
+      "marketing_category_in_ndc_directory": "NDA",
+      "basis": "the reference label of the drug catalogue (drug_safety_v2)"
+    },
+    {
+      "drug": "fludarabine",
+      "set_id": "291f6ee2-f5d2-ae6c-e063-6294a90a5951",
+      "product": "Fludarabine phosphate injection",
+      "marketing_category_in_ndc_directory": "ANDA (no NDA or BLA label listed for fludarabine)",
+      "basis": "the reference label of the drug catalogue (drug_safety_v2)"
+    },
+    {
+      "drug": "ixazomib",
+      "set_id": "038f2461-834b-4488-9ebd-863c83eef5a7",
+      "product": "Ninlaro",
+      "marketing_category_in_ndc_directory": "NDA",
+      "basis": "the reference label of the drug catalogue (drug_safety_v2)"
+    }
+  ],
+  "drawn": {
+    "brand": [
+      {
+        "order": 1,
+        "set_id": "d74f4360-3b51-496c-96fb-84c3976958d2",
+        "use": "drawn",
+        "name_in_ndc_directory": "ASCENIV / HUMAN IMMUNOGLOBULIN G / ADMA Biologics, Inc."
+      },
+      {
+        "order": 2,
+        "set_id": "fa90ccc8-2df0-49f7-8878-2b33e34cd272",
+        "use": "drawn",
+        "name_in_ndc_directory": "Natroba / spinosad / ParaPRO LLC"
+      },
+      {
+        "order": 3,
+        "set_id": "ba082c2f-64f4-419d-9c88-74f203316e17",
+        "use": "drawn",
+        "name_in_ndc_directory": "Xylocaine / LIDOCAINE HYDROCHLORIDE,EPINEPHRINE BITARTRATE / Fresenius Kabi USA, LLC"
+      },
+      {
+        "order": 4,
+        "set_id": "8f479bfe-2bfa-4cc5-9aee-1357364480b0",
+        "use": "drawn",
+        "name_in_ndc_directory": "ZINPLAVA / bezlotoxumab / Merck Sharp & Dohme LLC"
+      },
+      {
+        "order": 5,
+        "set_id": "66d3fecb-32a4-7781-e053-2a91aa0a83ca",
+        "use": "drawn",
+        "name_in_ndc_directory": "Ruconest / c1 esterase inhibitor recombinant / Pharming Healthcare Inc."
+      },
+      {
+        "order": 6,
+        "set_id": "42b4f96e-1f70-2126-e063-6294a90a93e3",
+        "use": "drawn",
+        "name_in_ndc_directory": "ALYMSYS / bevacizumab-maly / Valorum Biologics, LLC"
+      },
+      {
+        "order": 7,
+        "set_id": "c982eca0-fc41-11e1-a9c8-0002a5d5c51b",
+        "use": "drawn",
+        "name_in_ndc_directory": "ZIPSOR / diclofenac potassium / Assertio Therapeutics, Inc."
+      },
+      {
+        "order": 8,
+        "set_id": "3318e357-0660-44f4-8170-91a51bd762fb",
+        "use": "drawn",
+        "name_in_ndc_directory": "Verapamil Hydrochloride / Verapamil Hydrochloride / EXELA PHARMA SCIENCES, LLC"
+      },
+      {
+        "order": 9,
+        "set_id": "cce1a220-3178-49ec-b046-f0cb134cf051",
+        "use": "drawn",
+        "name_in_ndc_directory": "Vasopressin / Vasopressin / Civica, Inc."
+      },
+      {
+        "order": 10,
+        "set_id": "3fc1c40e-cfac-47a1-9e1a-61ead3570600",
+        "use": "drawn",
+        "name_in_ndc_directory": "ORKAMBI / lumacaftor and ivacaftor / Vertex Pharmaceuticals Incorporated"
+      },
+      {
+        "order": 11,
+        "set_id": "3c5101a0-0c7e-4078-8dc3-a57beb9a0e92",
+        "use": "drawn",
+        "name_in_ndc_directory": "Gadavist / gadobutrol / Bayer HealthCare Pharmaceuticals Inc."
+      },
+      {
+        "order": 12,
+        "set_id": "97cc950c-ea97-c25b-e053-2995a90a16c6",
+        "use": "drawn",
+        "name_in_ndc_directory": "Oxygen / Oxygen / Haun Specialty Gases, Inc."
+      },
+      {
+        "order": 13,
+        "set_id": "696f9e80-9cae-403b-de9e-078343ce4713",
+        "use": "drawn",
+        "name_in_ndc_directory": "EMEND / aprepitant / Merck Sharp & Dohme LLC"
+      },
+      {
+        "order": 14,
+        "set_id": "e22127b4-c9d9-458e-b196-4b000b89d781",
+        "use": "drawn",
+        "name_in_ndc_directory": "OXYGEN / OXYGEN / Thumb Welding Supplies Inc"
+      },
+      {
+        "order": 15,
+        "set_id": "b0f5ee96-369f-4cb9-a783-3bfa70fe8f90",
+        "use": "drawn",
+        "name_in_ndc_directory": "DANYELZA / Naxitamab / BTG International Inc."
+      },
+      {
+        "order": 16,
+        "set_id": "a0aad470-3f38-af97-e053-2995a90a383a",
+        "use": "drawn",
+        "name_in_ndc_directory": "Signifor LAR / pasireotide / Recordati Rare Diseases, Inc."
+      },
+      {
+        "order": 17,
+        "set_id": "4af52118-c12b-4ad5-30bb-959848357e8a",
+        "use": "drawn",
+        "name_in_ndc_directory": "THAM / TROMETHAMINE / Hospira, Inc."
+      },
+      {
+        "order": 18,
+        "set_id": "92385737-dbad-98c5-e053-2995a90a2805",
+        "use": "drawn",
+        "name_in_ndc_directory": "Gvoke Kit / glucagon injection, solution / Xeris Pharmaceuticals, Inc."
+      },
+      {
+        "order": 19,
+        "set_id": "2b9ea23a-f9e9-48a8-25b7-519e3bbd6828",
+        "use": "drawn",
+        "name_in_ndc_directory": "Sterile Water / WATER / Hospira, Inc."
+      },
+      {
+        "order": 20,
+        "set_id": "924d0ba9-8105-4434-aff9-e798b9541ee2",
+        "use": "drawn",
+        "name_in_ndc_directory": "OXYGEN / OXYGEN / Central-McGowan, Inc."
+      },
+      {
+        "order": 21,
+        "set_id": "19918ea5-8568-44d6-b8ee-7b2197cee85c",
+        "use": "spare",
+        "name_in_ndc_directory": "Flarex / fluorometholone acetate / Eyevance Pharmaceuticals"
+      },
+      {
+        "order": 22,
+        "set_id": "38413366-b558-7dd0-e063-6394a90acb7e",
+        "use": "spare",
+        "name_in_ndc_directory": "Calcium Gluconate / Calcium Gluconate / ProPharma Distribution"
+      },
+      {
+        "order": 23,
+        "set_id": "a7174843-5965-49fc-b842-f7eff7b48bbc",
+        "use": "spare",
+        "name_in_ndc_directory": "Desferal / deferoxamine mesylate / Novartis Pharmaceuticals Corporation"
+      },
+      {
+        "order": 24,
+        "set_id": "c2eb5522-8572-45f4-869d-42f9fd251bb6",
+        "use": "spare",
+        "name_in_ndc_directory": "Perikabiven / Dextrose, Soybean oil, Electrolytes, Lysine, Phenylalanine, Leucine, Valine, Threonine, Methionine, Isoleucine, Tryptophan, Alanine, Arginine, Glycine, Proline, Histidine, Glutamic Acid, Serine, Aspartic Acid and Tyrosine / Fresenius Kabi USA, LLC"
+      },
+      {
+        "order": 25,
+        "set_id": "b18fdfd9-31cd-4a2f-9f1c-ebc70d7a9403",
+        "use": "spare",
+        "name_in_ndc_directory": "ARISTADA INITIO / aripiprazole lauroxil / Alkermes, Inc."
+      },
+      {
+        "order": 26,
+        "set_id": "9a4cd424-865d-fdd1-e053-2995a90a00ff",
+        "use": "spare",
+        "name_in_ndc_directory": "IRON DEXTRAN / IRON DEXTRAN / HF Acquisition Co LLC, DBA HealthFirst"
+      },
+      {
+        "order": 27,
+        "set_id": "b61fffd0-7bc8-09e2-e053-2995a90ae0e4",
+        "use": "spare",
+        "name_in_ndc_directory": "DOPamine Hydrochloride / Dopamine Hydrochloride / Medical Purchasing Solutions, LLC"
+      },
+      {
+        "order": 28,
+        "set_id": "b0c23a2c-b250-4c0d-9b2a-c1483faa2ca0",
+        "use": "spare",
+        "name_in_ndc_directory": "Propylthiouracil / Propylthiouracil / Par Health USA, LLC"
+      },
+      {
+        "order": 29,
+        "set_id": "b192ed5e-f641-7b31-e053-2a95a90a0dde",
+        "use": "spare",
+        "name_in_ndc_directory": "Oxygen / Oxygen / Young Welding Supply, Inc"
+      },
+      {
+        "order": 30,
+        "set_id": "085614c7-ada4-4e2c-87c0-c9bc2f18365a",
+        "use": "spare",
+        "name_in_ndc_directory": "DEXTROSE / DEXTROSE / B. Braun Medical Inc."
+      }
+    ],
+    "generic": [
+      {
+        "order": 1,
+        "set_id": "ccca8660-124e-4220-8d87-4b9aeecbda7d",
+        "use": "drawn",
+        "name_in_ndc_directory": "TRIAMCINOLONE ACETONIDE / TRIAMCINOLONE ACETONIDE / Ascend Laboratories, LLC"
+      },
+      {
+        "order": 2,
+        "set_id": "8c54e404-2dbd-49cd-8235-b2a708bae563",
+        "use": "drawn",
+        "name_in_ndc_directory": "Diclofenac potassium / diclofenac potassium / Bryant Ranch Prepack"
+      },
+      {
+        "order": 3,
+        "set_id": "985524c3-9fb3-4874-9eb6-80b17af3d8ed",
+        "use": "drawn",
+        "name_in_ndc_directory": "SPIRONOLACTONE / SPIRONOLACTONE / A-S Medication Solutions"
+      },
+      {
+        "order": 4,
+        "set_id": "3dfe5407-96a6-d2f4-e063-6294a90aa810",
+        "use": "drawn",
+        "name_in_ndc_directory": "Valsartan / Valsartan / Coupler LLC"
+      },
+      {
+        "order": 5,
+        "set_id": "55cebc88-0514-4940-b974-ec7f0467d10e",
+        "use": "drawn",
+        "name_in_ndc_directory": "Levothyroxine sodium / Levothyroxine Sodium / REMEDYREPACK INC."
+      },
+      {
+        "order": 6,
+        "set_id": "3b80f726-9e1e-4d44-ad4f-afd10e26292f",
+        "use": "drawn",
+        "name_in_ndc_directory": "Valsartan and Hydrochlorothiazide / Valsartan and Hydrochlorothiazide / Alembic Pharmaceuticals Limited"
+      },
+      {
+        "order": 7,
+        "set_id": "698a46a6-29b5-4763-9442-ec9ad5eea86b",
+        "use": "drawn",
+        "name_in_ndc_directory": "Nitroglycerin / Nitroglycerin / Sportpharm LLC"
+      },
+      {
+        "order": 8,
+        "set_id": "7d2a75a5-233f-46dd-9cb0-3918ea53e554",
+        "use": "drawn",
+        "name_in_ndc_directory": "Acyclovir / Acyclovir / Chartwell RX, LLC"
+      },
+      {
+        "order": 9,
+        "set_id": "0f7a608d-748b-49a9-a4b3-b3fdcab53ce0",
+        "use": "drawn",
+        "name_in_ndc_directory": "Hydrochlorothiazide / Hydrochlorothiazide / Aphena Pharma Solutions - Tennessee, LLC"
+      },
+      {
+        "order": 10,
+        "set_id": "bfaa71cb-e517-8d94-f64b-8cdbf7b8fbf2",
+        "use": "drawn",
+        "name_in_ndc_directory": "Dexamethasone / Dexamethasone / Apotex Corp."
+      },
+      {
+        "order": 11,
+        "set_id": "6658728a-99d7-48c3-83d6-4e40c59c9b47",
+        "use": "drawn",
+        "name_in_ndc_directory": "Triamcinolone acetonide / Triamcinolone acetonide / Bryant Ranch Prepack"
+      },
+      {
+        "order": 12,
+        "set_id": "587e6bb5-a665-4396-814e-ce893a20290b",
+        "use": "drawn",
+        "name_in_ndc_directory": "sumatriptan / sumatriptan / ONESOURCE SPECIALTY PHARMA LIMITED"
+      },
+      {
+        "order": 13,
+        "set_id": "0c5823ce-ed5c-356c-e063-6394a90aa15d",
+        "use": "drawn",
+        "name_in_ndc_directory": "ATORVASTATIN CALCIUM / ATORVASTATIN CALCIUM / Northwind Health Company, LLC"
+      },
+      {
+        "order": 14,
+        "set_id": "9f56cc00-6383-48c8-95ee-e6a404a0237b",
+        "use": "drawn",
+        "name_in_ndc_directory": "Metronidazole / Metronidazole / Alembic Pharmaceuticals Inc."
+      },
+      {
+        "order": 15,
+        "set_id": "e67dee40-b243-4d6b-bc6b-e52c6cb798b8",
+        "use": "drawn",
+        "name_in_ndc_directory": "Lidocaine hydrochloride / Lidocaine hydrochloride / A-S Medication Solutions"
+      },
+      {
+        "order": 16,
+        "set_id": "84647b52-3c4c-31bb-e053-2991aa0a8a7e",
+        "use": "drawn",
+        "name_in_ndc_directory": "Vitamin D / Vitamin D / DirectRX"
+      },
+      {
+        "order": 17,
+        "set_id": "85954380-a520-46d7-89ac-e4b19d6e00a1",
+        "use": "drawn",
+        "name_in_ndc_directory": "Nabumetone / Nabumetone / Cipla USA Inc."
+      },
+      {
+        "order": 18,
+        "set_id": "4ecd3b43-b5f1-4cf4-af36-eb214c1a3c60",
+        "use": "drawn",
+        "name_in_ndc_directory": "Doxepin hydrochloride / Doxepin hydrochloride / REMEDYREPACK INC."
+      },
+      {
+        "order": 19,
+        "set_id": "dbdb7903-0991-413d-b1ad-ab0f1ae2d8f4",
+        "use": "drawn",
+        "name_in_ndc_directory": "Acyclovir / Acyclovir / Bryant Ranch Prepack"
+      },
+      {
+        "order": 20,
+        "set_id": "782503c6-a82f-4933-aa04-399123e9f5a9",
+        "use": "drawn",
+        "name_in_ndc_directory": "Ramelteon / Ramelteon / Kanchan Healthcare Inc"
+      },
+      {
+        "order": 21,
+        "set_id": "71f053c2-8d0d-41a1-8630-2d797eced799",
+        "use": "spare",
+        "name_in_ndc_directory": "Anastrozole / Anastrozole / Aurobindo Pharma Limited"
+      },
+      {
+        "order": 22,
+        "set_id": "77e71a2e-8370-4f7a-a5e4-93d86bd37dad",
+        "use": "spare",
+        "name_in_ndc_directory": "Olmesartan Medoxomil and Hydrochlorothiazide / Olmesartan Medoxomil and Hydrochlorothiazide / Bryant Ranch Prepack"
+      },
+      {
+        "order": 23,
+        "set_id": "5c008efb-d5ac-5b07-e063-6294a90ab084",
+        "use": "spare",
+        "name_in_ndc_directory": "Propranolol Hydrochloride / propranolol hydrochloride / Aphena Pharma Solutions - Tennessee, LLC"
+      },
+      {
+        "order": 24,
+        "set_id": "44f2f06d-7bc4-5239-e063-6394a90aac5e",
+        "use": "spare",
+        "name_in_ndc_directory": "Torsemide / Torsemide / Redpharm Drug"
+      },
+      {
+        "order": 25,
+        "set_id": "60c9ab35-4b6e-383d-e053-2a91aa0a26ad",
+        "use": "spare",
+        "name_in_ndc_directory": "meloxicam / meloxicam / St. Mary's Medical Park Pharmacy"
+      },
+      {
+        "order": 26,
+        "set_id": "a6ceb47b-d0b0-d377-e053-2995a90a463e",
+        "use": "spare",
+        "name_in_ndc_directory": "metronidazole / metronidazole / Golden State Medical Supply, Inc."
+      },
+      {
+        "order": 27,
+        "set_id": "593d9870-0213-75e6-e053-2991aa0a0eff",
+        "use": "spare",
+        "name_in_ndc_directory": "IBU / Ibuprofen / NuCare Pharmaceuticals,Inc."
+      },
+      {
+        "order": 28,
+        "set_id": "00de1f16-f979-4dbf-aa60-246ffac8d410",
+        "use": "spare",
+        "name_in_ndc_directory": "Metoprolol Tartrate / Metoprolol Tartrate / PD-Rx Pharmaceuticals, Inc."
+      },
+      {
+        "order": 29,
+        "set_id": "c204c720-88d3-a6d6-e053-2a95a90a3de5",
+        "use": "spare",
+        "name_in_ndc_directory": "VITAMIN K1 - PHYTONADIONE / VITAMIN K1 - PHYTONADIONE / HF Acquisition Co LLC, DBA HealthFirst"
+      },
+      {
+        "order": 30,
+        "set_id": "94642db1-5c75-44c4-92b4-8385b486df82",
+        "use": "spare",
+        "name_in_ndc_directory": "Montelukast / Montelukast / Preferred Pharmaceuticals, Inc."
+      }
+    ]
+  },
+  "plan_interpretation": "The plan names 'the current DailyMed label of each of the ten catalogue drugs ... the NDA or BLA holder's'. Several drugs have more than one NDA label (bortezomib 5, cyclophosphamide 9, dexamethasone 10, melphalan 3, daratumumab 2 in the candidate file), so the fixed label for each is the catalogue's own reference label (drug_safety_v2), chosen before the draw. Nine are NDA or BLA labels; fludarabine has no NDA or BLA label in the candidate file and its catalogue label is an ANDA label; the HEMADY label is not in the candidate file (no current NDC listing there). The ten fixed set IDs are excluded from the draw, as the plan says.",
+  "downloads": "Each label as a zip from https://dailymed.nlm.nih.gov/dailymed/downloadzipfile.cfm?setId=<set ID>, into supplemental-information/dailymed/pilot/ on the owner's iMac; spares are downloaded too, and used only to replace refused labels, in order."
+}

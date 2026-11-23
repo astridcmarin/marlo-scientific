@@ -1,6 +1,6 @@
 # Simulation 2.0 — lenalidomide elimination pathways (kidney-focused)
 
-Status: **2.0a–2.0d done**: pathway model, locked check, patient organ view, end-stage kidney disease and dialysis, and the steeper-secretion test (not adopted). An AI review on 4 November 2026 found that the 2.0a moderate-band result depends on the assumed bioavailability; see the review section at the end.
+Status: **2.0a–2.0e done**: pathway model, locked check, patient organ view, end-stage kidney disease and dialysis, the steeper-secretion test (not adopted), and the re-run across bioavailability (2.0e, plan locked 4 November). An AI review on 4 November 2026 found that the 2.0a moderate-band result depends on the assumed bioavailability; see the review section at the end.
 
 ## Why this, and not a full PBPK model
 

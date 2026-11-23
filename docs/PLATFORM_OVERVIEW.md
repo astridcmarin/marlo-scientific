@@ -36,14 +36,14 @@ It is for pharmaceutical and regulatory scientists, clinical researchers, pharma
 
 | | |
 |---|---|
-| Files tracked | 1,117 |
+| Files tracked | 1,113 (after the clean-up of 23 November) |
 | Commits on `main` | 491 (5 October to 20 November 2026) |
 | Python modules in `intelligence_store/` | 174 |
 | Pinned data files (`intelligence_store/data/`) | 258 JSON, plus one compressed file and one note |
 | Page modules (`landscape_ui/`, `app/`) and templates | 54 page modules, 112 workspace templates; at least 112 route definitions |
 | Tests | 197 files, 1,641 test functions (about 300 need the database and run in CI) |
 | Database migrations | 9 |
-| Documentation | 165 files, including 9 decision records and 9 AI review records |
+| Documentation | 167 files, including 9 decision records and 9 AI review records |
 | Locked model checks | 37 (3 passed, 2 consistent, 11 mixed, 7 disagree, 9 failed, 3 inconclusive, 2 not adopted) |
 | Drugs with a drug page and catalogue entry | 10 |
 | Validation flags set to true | none |
@@ -58,10 +58,10 @@ It is for pharmaceutical and regulatory scientists, clinical researchers, pharma
 | `landscape_ui/` | The research workspace under `/landscape/`: page modules, templates, CSS and JavaScript for trials, drugs, Patient Lab, Simulation Lab, benchmarking and the body map | 207 |
 | `intelligence_store/` | All scientific and knowledge code (models, checks, extractors, evidence logic) and `data/`, the SHA-256-pinned reference data, plans, reports and review records | 450 |
 | `intelligence_migrations/` | Alembic migrations for the database tables (trial evidence, cohorts, workspaces, watchlists, patient states, educational PK runs) | 13 |
-| `scripts/` | Command-line builders and checks (data index, extraction builders, review pages, smoke tests) | 49 |
+| `scripts/` | Command-line builders and checks (data index, extraction builders, review pages, smoke tests) | 48 |
 | `tests/` | `unittest` tests, run in CI on every pull request | 197 |
-| `examples/` | Synthetic example inputs | 4 |
-| `docs/` | Roadmap, handoff, checkpoints, design plans, decision records, verification reports, AI reviews, history | 165 |
+| `examples/` | A synthetic numerical case plan | 1 |
+| `docs/` | Roadmap, handoff, checkpoints, design plans, decision records, verification reports, AI reviews, history | 167 |
 
 Outside the repository, on the owner's iMac (git-ignored, never committed): source PDFs, labels, registry records, correspondence and the 3D Atlas files in `supplemental-information/`, and the owner's annotation files in `instance/`.
 
@@ -79,7 +79,7 @@ Each area: what it does, where it is, its state, and whose work it started as. "
 ### 3.2 Drug, label and regulatory knowledge — *owner (Oct 5–12) foundation, mostly built since*
 - **What:** drug identity and aliases from frozen evidence; mechanisms; safety and interaction label references; regulatory fields from registry records; a catalogue of 10 drugs (lenalidomide, bortezomib, daratumumab, pomalidomide, carfilzomib, dexamethasone, cyclophosphamide, melphalan, fludarabine, ixazomib); pinned label extracts (REVLIMID, NINLARO, VELCADE special populations; carfilzomib, selinexor, thalidomide, isatuximab, elotuzumab); special-population evidence for 6 drugs; drug pages with sources held, their review state and regulatory documents.
 - **Where:** `drug_aliases.py`, `drug_knowledge.py`, `mechanisms.py`, `safety.py`, `interactions.py`, `regulatory.py` (owner); `drug_holdings.py`, `special_populations.py`, `*_label.py`, `drug_label_extracts.py`, `landscape_ui/drug_hub.py` (since).
-- **State:** the evidence layer for the first release. Catalogue item 8 (growth) is next; the ixazomib catalogue summaries await owner review.
+- **State:** the evidence layer for the first release. The AI-written catalogue summaries are to be replaced by the labels' own sections once the label pilot passes (decision 0007, amendment of 23 November); values that feed calculations stay owner-reviewed.
 
 ### 3.3 Evidence and review machinery — *built since 13 October*
 - **What:** every locked check in one list with failures shown (`/models/findings`); the dataset ledger of what each model was built from, tuned on or checked against, and whether a check was blind; evidence states for pinned values (owner-reviewed, agreed by two extractions, extracted); owner review rounds of AI extractions; model scorecards, capability levels, enforceable model scopes; ICH M15-structured credibility records and analysis reports; an evidence index; source notes.
@@ -114,7 +114,7 @@ Each area: what it does, where it is, its state, and whose work it started as. "
 ### 3.8 First-release label pipeline — *in progress (20–23 November)*
 - **What:** every US prescription label, verbatim, one page per active ingredient, with its review state (decision 0007, the owner's choices of 20 November); storage in insert-only tables rebuilt from DailyMed files listed in a pinned manifest (decision 0009).
 - **Where:** `spl_labels.py`, `label_store.py`, `label_pilot.py`, `data/label_ingestion_pilot_plan_v1.json` (draft).
-- **State:** reader and tables built and tested (one real label: 97 sections, identical rebuild). The pilot plan was locked on 23 November, with the candidate list from openFDA's Human NDC Directory (56,809 prescription product records with a set ID). Next: the draw, the downloads, the build and the review.
+- **State:** reader and tables built and tested (one real label: 97 sections, identical rebuild). The pilot plan was locked on 23 November, with the candidate list from openFDA's Human NDC Directory (56,809 prescription product records with a set ID; 37,608 labels, 4,322 brand and 31,677 generic). The labels were drawn on 23 November (`data/label_pilot_draw_v1.json`). Next: the downloads, the build and the review.
 
 ---
 
@@ -125,7 +125,7 @@ Eight commits by the owner built the platform's foundation: 417 files at 12 Octo
 - **5 October:** the evidence storage foundation (v2 database), application assets, and complete trial-cohort retrieval with evidence provenance.
 - **9 October:** the integrated educational Patient Lab milestone (309 files): synthetic patient states, scenarios, educational PK with audits, the Simulation Lab's generic tools, the bortezomib research components, the trial intelligence pages, and their tests.
 - **12 October:** a platform checkpoint (101 files), clean-up of files that should not be tracked, and documentation (validation protocol drafts, data-access assessment, source-equation and numerical verification records, the first roadmap).
-- Of those 417 files, 388 are still at their original paths. The other 29 were moved (the step-numbered bortezomib documents and the patient-state schema into `docs/`), folded into page modules (the install scripts) or removed (loose root files such as `tests.zip`).
+- Of those 417 files, 379 are still at their original paths (23 November). The others were moved (the step-numbered bortezomib documents into `docs/bortezomib/`, the step 65 and 66 validation records into `docs/patient_lab/`, the patient-state schema into `docs/`), folded into page modules (the install scripts) or removed (loose root files such as `tests.zip`; on 23 November a check script that always failed and three example files nothing used).
 
 ### 4.2 The owner's work since (13 October onward)
 - Continuous integration (13 October), the research-tool registry consolidation, and the first repository checkpoint.
@@ -161,7 +161,7 @@ The order proposed on 20 November ([roadmap "Now"](PRODUCT_AND_SCIENCE_ROADMAP.m
 
 1. **Release pipeline:** the pilot plan is locked (23 November); draw and download 50 labels; build, measure, review 80 sections; then plan the full prescription ingest and the drug pages.
 2. **Eligibility:** the adjudicated two-reader reference, then the extractor revision on post-freeze trials.
-3. **Catalogue growth:** selinexor, thalidomide, isatuximab, elotuzumab first.
+3. ~~Catalogue growth~~: dropped on 23 November; these drugs come in through the label pipeline.
 4. **An independent reviewer** for the lenalidomide model.
 5. **Models (lower priority):** selinexor and thalidomide label-consistency plans; carfilzomib reading plan for the FDA and PMDA reviews, then a model to test blind against Badros and Quach.
 6. **Organ-level model:** evidence steps first (decision 0005).
@@ -169,7 +169,7 @@ The order proposed on 20 November ([roadmap "Now"](PRODUCT_AND_SCIENCE_ROADMAP.m
 
 Long-term directions (README): integrated physiology across organ systems, disease progression, combination therapy, and the digital human from body to molecular target.
 
-**Waiting on the owner:** downloading the 50 drawn labels; review of the ixazomib catalogue summaries; deleting the temporary files noted on 18–20 November; an independent reviewer.
+**Waiting on the owner:** downloading the 70 drawn labels (50 and 20 spares); deleting the temporary files noted on 18–20 November; an independent reviewer.
 
 ---
 
@@ -188,3 +188,7 @@ Long-term directions (README): integrated physiology across organ systems, disea
 - **23 November 2026:** created from a review of all 1,113 tracked files and the full history (491 commits). Adds `docs/PLATFORM_FILES.md` (every file, generated) and its test.
 - **23 November 2026:** the label ingestion pilot plan locked (section 3.8, section 5).
 - **23 November 2026:** added "What Marlo Scientific is", at the owner's request.
+- **23 November 2026:** clean-up at the owner's request: removed `scripts/check_bortezomib_observation_intake.py` (it always failed: it expected 12 tests, 11 exist) and three unused example files; moved the step 65 and 66 records into `docs/patient_lab/`; corrected out-of-date status lines in five documents; replaced the README's October file tree with a pointer here. The four other unreferenced October scripts run and stay. The owner deleted the fourteen merged GitHub branches, `remove-github-button` and `landing-reorg` (an unmerged "About the developer" section of 19 October); GitHub keeps only `main` and the open batch branches.
+- **23 November 2026:** pilot labels drawn; branch clean-up completed by the owner.
+- **23 November 2026:** decision 0007 amended: AI-written catalogue summaries to be replaced by verbatim label sections; the ixazomib summary review dropped.
+- **23 November 2026:** hand-built catalogue growth dropped (decision 0007, amendment).

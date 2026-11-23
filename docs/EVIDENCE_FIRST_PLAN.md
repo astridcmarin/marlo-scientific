@@ -44,7 +44,7 @@ The reader in mind is a trial designer, clinical pharmacologist or regulatory pr
 1. **Small fixes first, as one batch:** items 1, 2, 3, 4 and 9. They change what a first-time reader sees and need no new data.
 2. **Ixazomib's drug page** (item 5). It closes the most visible inconsistency, and its inputs exist.
 3. **"What the platform holds" and regulatory documents** (items 6 and 7). Check the evidence index first; it may already have the data.
-4. **Catalogue growth** (item 8), after review round 3, which Track B closes.
+4. ~~**Catalogue growth** (item 8), after review round 3, which Track B closes.~~ **Dropped on 23 November** (decision 0007, amendment): these drugs come in through the label pipeline; the alias-coverage gap is to be closed from its ingredient names.
 
 Each batch ends with a rendered review of the changed pages, not only the text.
 

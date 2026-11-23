@@ -1,6 +1,6 @@
 # Track C: a language-model eligibility extractor (plan v3)
 
-**Status (12 November 2026):** plan locked, prompt frozen at revision 2; run procedure added after an outside methods review; the blind check on the v2 sample waits for the owner's 200-trial annotation (plan v2). Research only; no page uses this extractor.
+**Status (23 November 2026):** the locked check ran on 13 November and **failed**: no criterion type passes (finding `eligibility_llm_c1`). The plan was locked on 12 November with the prompt frozen at revision 2. Research only; no page uses this extractor.
 
 **What it is.** Extractor `llm-c1` gives Claude Fable (`claude-fable-5-2`) the pinned prompt (`intelligence_store/data/eligibility_extractor_llm_c1_prompt.md`, a condensed form of annotation guide v2) and one trial's registered criteria text, and takes back one JSON object per trial in the format of extractor v1.1. `intelligence_store/eligibility_extractor_llm.py` writes the input files and parses and checks the answers; an invalid answer is "no answer" and scores as not stated. The model runs in separate workspace sessions that see only the prompt and the input file.
 
